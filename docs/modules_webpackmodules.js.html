@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: modules/webpackmodules.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: modules/webpackmodules.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import DiscordModules from "./discordmodules";
+
+export class Filters {
+    static byProperties(props, selector = m => m) {
+        return module => {
+            const component = selector(module);
+            if (!component) return false;
+            return props.every(property => component[property] !== undefined);
+        };
+    }
+
+    static byPrototypeFields(fields, selector = m => m) {
+        return module => {
+            const component = selector(module);
+            if (!component) return false;
+            if (!component.prototype) return false;
+            return fields.every(field => component.prototype[field] !== undefined);
+        };
+    }
+
+    static byCode(search, selector = m => m) {
+        return module => {
+            const method = selector(module);
+            if (!method) return false;
+            return method.toString().search(search) !== -1;
+        };
+    }
+
+    static byDisplayName(name) {
+        return module => {
+            return module &amp;&amp; module.displayName === name;
+        };
+    }
+
+    static combine(...filters) {
+        return module => {
+            return filters.every(filter => filter(module));
+        };
+    }
+}
+
+export class WebpackModules {
+
+    static find(filter, first = true) {return this.getModule(filter, first);}
+    static findByUniqueProperties(props, first = true) {return first ? this.getByProps(...props) : this.getAllByProps(...props);}
+    static findByDisplayName(name) {return this.getByDisplayName(name);}
+
+    /**
+     * Finds a module using a filter function.
+     * @param {Function} filter A function to use to filter modules
+     * @param {Boolean} first Whether to return only the first matching module
+     * @return {Any}
+     */
+    static getModule(filter, first = true) {
+        const modules = this.getAllModules();
+        const rm = [];
+        for (let index in modules) {
+            if (!modules.hasOwnProperty(index)) continue;
+            const module = modules[index];
+            const { exports } = module;
+            let foundModule = null;
+
+            if (!exports) continue;
+            if (exports.__esModule &amp;&amp; exports.default &amp;&amp; filter(exports.default)) foundModule = exports.default;
+            if (filter(exports)) foundModule = exports;
+            if (!foundModule) continue;
+            if (first) return foundModule;
+            rm.push(foundModule);
+        }
+        return first || rm.length == 0 ? undefined : rm;
+    }
+
+    /**
+     * Finds a module by its name.
+     * @param {String} name The name of the module
+     * @param {Function} fallback A function to use to filter modules if not finding a known module
+     * @return {Any}
+     */
+    static getModuleByName(name, fallback) {
+        if (DiscordModules.hasOwnProperty(name)) return DiscordModules[name];
+        if (!fallback) return undefined;
+        const module = this.getModule(fallback, true);
+        return module ? DiscordModules[name] = module : undefined;
+    }
+
+    /**
+     * Finds a module by its display name.
+     * @param {String} name The display name of the module
+     * @return {Any}
+     */
+    static getByDisplayName(name) {
+        return this.getModule(Filters.byDisplayName(name), true);
+    }
+
+    /**
+     * Finds a module using its code.
+     * @param {RegEx} regex A regular expression to use to filter modules
+     * @param {Boolean} first Whether to return the only the first matching module
+     * @return {Any}
+     */
+    static getByRegex(regex, first = true) {
+        return this.getModule(Filters.byCode(regex), first);
+    }
+
+    /**
+     * Finds a single module using properties on its prototype.
+     * @param {...string} prototypes Properties to use to filter modules
+     * @return {Any}
+     */
+    static getByPrototypes(...prototypes) {
+        return this.getModule(Filters.byPrototypeFields(prototypes), true);
+    }
+
+    /**
+     * Finds all modules with a set of properties of its prototype.
+     * @param {...string} prototypes Properties to use to filter modules
+     * @return {Any}
+     */
+    static getAllByPrototypes(...prototypes) {
+        return this.getModule(Filters.byPrototypeFields(prototypes), false);
+    }
+
+    /**
+     * Finds a single module using its own properties.
+     * @param {...string} props Properties to use to filter modules
+     * @return {Any}
+     */
+    static getByProps(...props) {
+        return this.getModule(Filters.byProperties(props), true);
+    }
+
+    /**
+     * Finds all modules with a set of properties.
+     * @param {...string} props Properties to use to filter modules
+     * @return {Any}
+     */
+    static getAllByProps(...props) {
+        return this.getModule(Filters.byProperties(props), false);
+    }
+
+    /**
+     * Discord's __webpack_require__ function.
+     */
+    static get require() {
+        if (this._require) return this._require;
+        const id = "zl-webpackmodules";
+        const __webpack_require__ = window["webpackJsonp"]([], {
+            [id]: (module, exports, __webpack_require__) => exports.default = __webpack_require__
+        }, [id]).default;
+        delete __webpack_require__.m[id];
+        delete __webpack_require__.c[id];
+        return this._require = __webpack_require__;
+    }
+
+    /**
+     * Returns all loaded modules.
+     * @return {Array}
+     */
+    static getAllModules() {
+        return this.require.c;
+    }
+
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-ColorConverter.html">ColorConverter</a></li><li><a href="module-DiscordAPI.html">DiscordAPI</a></li><li><a href="module-DiscordClassModules.html">DiscordClassModules</a></li><li><a href="module-DiscordModules.html">DiscordModules</a></li><li><a href="module-DOMTools.html">DOMTools</a></li><li><a href="module-Logger.html">Logger</a></li><li><a href="module-Patcher.html">Patcher</a></li><li><a href="module-PluginContextMenu.html">PluginContextMenu</a></li><li><a href="module-PluginSettings.html">PluginSettings</a></li><li><a href="module-PluginTooltip.html">PluginTooltip</a></li><li><a href="module-PluginUpdateUtilities.html">PluginUpdateUtilities</a></li><li><a href="module-PluginUtilities.html">PluginUtilities</a></li><li><a href="module-ReactTools.html">ReactTools</a></li><li><a href="module-Utilities.html">Utilities</a></li></ul><h3>Classes</h3><ul><li><a href="DiscordPermissions.html">DiscordPermissions</a></li><li><a href="module-DOMTools.ClassName.html">ClassName</a></li><li><a href="module-DOMTools.Selector.html">Selector</a></li><li><a href="module-PluginContextMenu.ImageItem.html">ImageItem</a></li><li><a href="module-PluginContextMenu.ItemGroup.html">ItemGroup</a></li><li><a href="module-PluginContextMenu.Menu.html">Menu</a></li><li><a href="module-PluginContextMenu.MenuItem.html">MenuItem</a></li><li><a href="module-PluginContextMenu.SubMenuItem.html">SubMenuItem</a></li><li><a href="module-PluginContextMenu.TextItem.html">TextItem</a></li><li><a href="module-PluginContextMenu.ToggleItem.html">ToggleItem</a></li><li><a href="module-PluginSettings.ColorPicker.html">ColorPicker</a></li><li><a href="module-PluginSettings.Pill.html">Pill</a></li><li><a href="module-PluginSettings.SettingField.html">SettingField</a></li><li><a href="module-PluginSettings.SettingGroup.html">SettingGroup</a></li><li><a href="module-PluginSettings.Slider.html">Slider</a></li><li><a href="module-PluginSettings.Switch.html">Switch</a></li><li><a href="module-PluginSettings.Textbox.html">Textbox</a></li><li><a href="module-PluginTooltip.NativeTooltip.html">NativeTooltip</a></li><li><a href="module-PluginTooltip.PluginTooltip.html">PluginTooltip</a></li><li><a href="Screen.html">Screen</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getAccentColor">getAccentColor</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri May 18 2018 01:32:22 GMT-0400 (Eastern Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

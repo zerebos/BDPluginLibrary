@@ -1,0 +1,18 @@
+#pluginNotice {
+    -webkit-app-region: drag;
+    border-radius: 0;
+}
+
+#outdatedPlugins {
+    font-weight: 700;
+}
+
+#outdatedPlugins>span {
+    -webkit-app-region: no-drag;
+    color: #fff;
+    cursor: pointer;
+}
+
+#outdatedPlugins>span:hover {
+    text-decoration: underline;
+}

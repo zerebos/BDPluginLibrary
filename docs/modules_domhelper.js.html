@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: modules/domhelper.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: modules/domhelper.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Helpful utilities for dealing with DOM operations.
+ * @module DOMHelper
+ * @version 0.0.1
+ */
+
+import DiscordClassModules from "./discordclassmodules";
+import Selector from "../structs/selector";
+import ClassName from "../structs/classname";
+ 
+export default class DOMHelper {
+	/**
+	 * Find which index in children a certain node is. Similar to jQuery's `$.index()`
+	 * @param {HTMLElement} node - the node to find its index in parent
+	 * @returns {number} index of the node
+	 */
+	static indexInParent(node) {
+		var children = node.parentNode.childNodes;
+		var num = 0;
+		for (var i = 0; i &lt; children.length; i++) {
+			if (children[i] == node) return num;
+			if (children[i].nodeType == 1) num++;
+		}
+		return -1;
+	}
+
+	/**
+	 * Insert after a specific element, similar to jQuery's `element.after(newElement)`
+	 * @param {HTMLElement} newNode - the node to insert
+	 * @param {HTMLElement} referenceNode - node to insert after in the tree
+	 */
+	static insertAfter(newNode, referenceNode) {
+		referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+	}
+}
+
+/**
+ * Proxy for all the class packages, allows us to safely attempt
+ * to retrieve nested things without error. Also wraps the class in
+ * {@link module:DOMHelpers.ClassName} which adds features but can still
+ * be used in native function.
+ * 
+ * @version 0.0.1
+ */
+export const DiscordClasses = new Proxy(DiscordClassModules, {
+	get: function(list, item) {
+		if (list[item] === undefined) return new Proxy({}, {get: function() {return "";}});
+		return new Proxy(list[item], {
+			get: function(obj, prop) {
+				if (!obj.hasOwnProperty(prop)) return "";
+				return new ClassName(obj[prop]);
+			}
+		});
+	}
+});
+
+/**
+ * Gives us a way to retrieve the internal classes as selectors without
+ * needing to concatenate strings or use string templates. Wraps the
+ * selector in {@link module:DOMHelpers.Selector} which adds features but can 
+ * still be used in native function.
+ * 
+ * @version 0.0.1
+ */
+export const DiscordSelectors = new Proxy(DiscordClassModules, {
+	get: function(list, item) {
+		if (list[item] === undefined) return new Proxy({}, {get: function() {return "";}});
+		return new Proxy(list[item], {
+			get: function(obj, prop) {
+				if (!obj.hasOwnProperty(prop)) return "";
+				return new Selector(obj[prop]);
+			}
+		});
+	}
+});
+
+export {default as Selector} from "../structs/selector";
+export {default as ClassName} from "../structs/classname";</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-ColorConverter.html">ColorConverter</a></li><li><a href="module-DiscordAPI.html">DiscordAPI</a></li><li><a href="module-DiscordClassModules.html">DiscordClassModules</a></li><li><a href="module-DiscordModules.html">DiscordModules</a></li><li><a href="module-DOMHelper.html">DOMHelper</a></li><li><a href="module-Logger.html">Logger</a></li><li><a href="module-Patcher.html">Patcher</a></li><li><a href="module-PluginContextMenu.html">PluginContextMenu</a></li><li><a href="module-PluginSettings.html">PluginSettings</a></li><li><a href="module-PluginTooltip.html">PluginTooltip</a></li><li><a href="module-PluginUpdateUtilities.html">PluginUpdateUtilities</a></li><li><a href="module-PluginUtilities.html">PluginUtilities</a></li><li><a href="module-ReactTools.html">ReactTools</a></li><li><a href="module-Utilities.html">Utilities</a></li></ul><h3>Classes</h3><ul><li><a href="module.exports.html">exports</a></li><li><a href="module-DOMHelper.ClassName.html">ClassName</a></li><li><a href="module-DOMHelper.Selector.html">Selector</a></li><li><a href="module-PluginContextMenu.ImageItem.html">ImageItem</a></li><li><a href="module-PluginContextMenu.ItemGroup.html">ItemGroup</a></li><li><a href="module-PluginContextMenu.Menu.html">Menu</a></li><li><a href="module-PluginContextMenu.MenuItem.html">MenuItem</a></li><li><a href="module-PluginContextMenu.SubMenuItem.html">SubMenuItem</a></li><li><a href="module-PluginContextMenu.TextItem.html">TextItem</a></li><li><a href="module-PluginContextMenu.ToggleItem.html">ToggleItem</a></li><li><a href="module-PluginSettings.ColorPicker.html">ColorPicker</a></li><li><a href="module-PluginSettings.Pill.html">Pill</a></li><li><a href="module-PluginSettings.SettingField.html">SettingField</a></li><li><a href="module-PluginSettings.SettingGroup.html">SettingGroup</a></li><li><a href="module-PluginSettings.Slider.html">Slider</a></li><li><a href="module-PluginSettings.Switch.html">Switch</a></li><li><a href="module-PluginSettings.Textbox.html">Textbox</a></li><li><a href="module-PluginTooltip.NativeTooltip.html">NativeTooltip</a></li><li><a href="module-PluginTooltip.PluginTooltip.html">PluginTooltip</a></li><li><a href="Screen.html">Screen</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getAccentColor">getAccentColor</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri May 18 2018 00:22:33 GMT-0400 (Eastern Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

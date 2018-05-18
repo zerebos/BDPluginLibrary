@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: modules/utilities.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: modules/utilities.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Random set of utilities that didn't fit elsewhere.
+ * @module Utilities
+ * @version 0.0.1
+ */
+
+ import Logger from "./logger";
+
+export default class Utilities {
+
+    /**
+     * Stably sorts arrays since `.sort()` has issues.
+     * @param {Array} list - array to sort
+     * @param {function} comparator - comparator to sort by
+     */
+    static stableSort(list, comparator) {
+        var length = list.length;
+        var entries = Array(length);
+        var index;
+
+        // wrap values with initial indices
+        for (index = 0; index &lt; length; index++) {
+            entries[index] = [index, list[index]];
+        }
+
+        // sort with fallback based on initial indices
+        entries.sort(function (a, b) {
+            var comparison = Number(this(a[1], b[1]));
+            return comparison || a[0] - b[0];
+        }.bind(comparator));
+
+        // re-map original array to stable sorted values
+        for (index = 0; index &lt; length; index++) {
+            list[index] = entries[index][1];
+        }
+    }
+
+    /**
+     * Generates an automatically memoizing version of an object.
+     * @param {Object} object - object to memoize
+     * @returns {Proxy} the proxy to the object that memoizes properties
+     */
+    static memoizeObject(object) {
+        const proxy = new Proxy(object, {
+            get: function(obj, mod) {
+                if (!obj.hasOwnProperty(mod)) return undefined;
+                if (Object.getOwnPropertyDescriptor(obj, mod).get) {
+                    let value = obj[mod];
+                    delete obj[mod];
+                    obj[mod] = value;
+                }
+                return obj[mod];
+            },
+            set: function(obj, mod, value) {
+                if (obj.hasOwnProperty(mod)) return Logger.err("MemoizedObject", "Trying to overwrite existing property");
+                obj[mod] = value;
+                return obj[mod];
+            }
+        });
+
+        Object.defineProperty(proxy, "hasOwnProperty", {value: function(prop) {
+            return this[prop] !== undefined;
+        }});
+
+        return proxy;
+    }
+
+    /**
+     * Wraps the method in a `try..catch` block.
+     * @param {callable} method - method to wrap
+     * @param {string} description - description of method
+     * @returns {callable} wrapped version of method
+     */
+    static suppressErrors(method, description) {
+        return (...params) => {
+            try { return method(...params);	}
+            catch (e) { Logger.err("Suppression", "Error occurred in " + description, e); }
+        };
+    }
+
+    /**
+     * This only exists because Samo relied on lodash being there... fuck lodash.
+     * @param {*} anything - whatever you want
+     */
+    static isNil(anything) {
+        return anything == null;
+    }
+
+    /**
+     * Format strings with placeholders (`${placeholder}`) into full strings.
+     * Quick example: `PluginUtilities.formatString("Hello, ${user}", {user: "Zerebos"})`
+     * would return "Hello, Zerebos".
+     * @param {string} string - string to format
+     * @param {object} values - object literal of placeholders to replacements
+     * @returns {string} the properly formatted string
+     */
+    formatString(string, values) {
+        for (let val in values) {
+            string = string.replace(new RegExp(`\\$\\{${val}\\}`, 'g'), values[val]);
+        }
+        return string;
+    }
+
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-ColorConverter.html">ColorConverter</a></li><li><a href="module-DiscordAPI.html">DiscordAPI</a></li><li><a href="module-DiscordClassModules.html">DiscordClassModules</a></li><li><a href="module-DiscordModules.html">DiscordModules</a></li><li><a href="module-DOMTools.html">DOMTools</a></li><li><a href="module-Logger.html">Logger</a></li><li><a href="module-Patcher.html">Patcher</a></li><li><a href="module-PluginContextMenu.html">PluginContextMenu</a></li><li><a href="module-PluginSettings.html">PluginSettings</a></li><li><a href="module-PluginTooltip.html">PluginTooltip</a></li><li><a href="module-PluginUpdateUtilities.html">PluginUpdateUtilities</a></li><li><a href="module-PluginUtilities.html">PluginUtilities</a></li><li><a href="module-ReactTools.html">ReactTools</a></li><li><a href="module-Utilities.html">Utilities</a></li></ul><h3>Classes</h3><ul><li><a href="DiscordPermissions.html">DiscordPermissions</a></li><li><a href="module-DOMTools.ClassName.html">ClassName</a></li><li><a href="module-DOMTools.Selector.html">Selector</a></li><li><a href="module-PluginContextMenu.ImageItem.html">ImageItem</a></li><li><a href="module-PluginContextMenu.ItemGroup.html">ItemGroup</a></li><li><a href="module-PluginContextMenu.Menu.html">Menu</a></li><li><a href="module-PluginContextMenu.MenuItem.html">MenuItem</a></li><li><a href="module-PluginContextMenu.SubMenuItem.html">SubMenuItem</a></li><li><a href="module-PluginContextMenu.TextItem.html">TextItem</a></li><li><a href="module-PluginContextMenu.ToggleItem.html">ToggleItem</a></li><li><a href="module-PluginSettings.ColorPicker.html">ColorPicker</a></li><li><a href="module-PluginSettings.Pill.html">Pill</a></li><li><a href="module-PluginSettings.SettingField.html">SettingField</a></li><li><a href="module-PluginSettings.SettingGroup.html">SettingGroup</a></li><li><a href="module-PluginSettings.Slider.html">Slider</a></li><li><a href="module-PluginSettings.Switch.html">Switch</a></li><li><a href="module-PluginSettings.Textbox.html">Textbox</a></li><li><a href="module-PluginTooltip.NativeTooltip.html">NativeTooltip</a></li><li><a href="module-PluginTooltip.PluginTooltip.html">PluginTooltip</a></li><li><a href="Screen.html">Screen</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getAccentColor">getAccentColor</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri May 18 2018 01:32:22 GMT-0400 (Eastern Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

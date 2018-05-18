@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">src/modules/PluginUpdateUtilities.js | pluginlibrary</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Zere&apos;s library for BetterDiscord plugins."><meta property="twitter:card" content="summary"><meta property="twitter:title" content="pluginlibrary"><meta property="twitter:description" content="Zere&apos;s library for BetterDiscord plugins."></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#modules">modules</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/colorconverter.js~ColorConverter.html">ColorConverter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/contextmenu.js~ImageItem.html">ImageItem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/contextmenu.js~ItemGroup.html">ItemGroup</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/contextmenu.js~Menu.html">Menu</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/contextmenu.js~MenuItem.html">MenuItem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/contextmenu.js~SubMenuItem.html">SubMenuItem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/contextmenu.js~TextItem.html">TextItem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/contextmenu.js~ToggleItem.html">ToggleItem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/discordapi.js~DiscordAPI.html">DiscordAPI</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/domhelpers.js~ClassName.html">ClassName</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/domhelpers.js~DOMHelpers.html">DOMHelpers</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/domhelpers.js~Selector.html">Selector</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/logger.js~Logger.html">Logger</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/patcher.js~Patcher.html">Patcher</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/permissions.js~DiscordPermissions.html">DiscordPermissions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/pluginsettings.js~ColorPicker.html">ColorPicker</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/pluginsettings.js~ControlGroup.html">ControlGroup</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/pluginsettings.js~PillButton.html">PillButton</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/pluginsettings.js~Slider.html">Slider</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/pluginsettings.js~Switch.html">Switch</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/pluginsettings.js~Textbox.html">Textbox</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/reacttools.js~ReactTools.html">ReactTools</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/tooltips.js~NativeTooltip.html">NativeTooltip</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/tooltips.js~PluginTooltip.html">PluginTooltip</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/utilities.js~Utilities.html">Utilities</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/webpackmodules.js~Filters.html">Filters</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/webpackmodules.js~WebpackModules.html">WebpackModules</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DiscordClasses">DiscordClasses</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DiscordSelectors">DiscordSelectors</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PluginUpdateUtilities">PluginUpdateUtilities</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PluginUtilities">PluginUtilities</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-LogTypes">LogTypes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-css">css</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#structs-settings">structs/settings</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/structs/settings/setting.js~SettingField.html">SettingField</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#vendor">vendor</a><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-$">$</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-jQuery">jQuery</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/modules/PluginUpdateUtilities.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import PluginUtilities from &quot;./PluginUtilities&quot;;
+import DiscordModules from &quot;./DiscordModules&quot;;
+import Logger from &quot;./logger&quot;;
+import {$} from &quot;../vendor&quot;;
+
+/**
+ * Functions that check for and update existing plugins.
+ * @module PluginUpdateUtilities
+ * @version 0.0.3
+ */
+var PluginUpdateUtilities = {};
+
+/**
+ * Creates the update button found in the plugins page of BetterDiscord
+ * settings. Returned button will already have listeners to create the tooltip.
+ * @returns {HTMLElement} check for update button
+ */
+PluginUpdateUtilities.createUpdateButton = function() {
+	var updateButton = document.createElement(&quot;button&quot;);
+	updateButton.className = &quot;bd-pfbtn bd-updatebtn&quot;;
+	updateButton.innerText = &quot;Check for Updates&quot;;
+	updateButton.style.left = &quot;220px&quot;;
+	updateButton.onclick = function () {
+		window.PluginUpdates.checkAll();
+	};
+	let tooltip = new PluginTooltip.Tooltip($(updateButton), &quot;Checks for updates of plugins that support this feature. Right-click for a list.&quot;);
+	updateButton.oncontextmenu = function () {
+		if (window.PluginUpdates &amp;&amp; window.PluginUpdates.plugins) {
+			var list = [];
+			for (var plugin in window.PluginUpdates.plugins) {
+				list.push(window.PluginUpdates.plugins[plugin].name);
+			}
+			tooltip.tooltip.detach();
+			tooltip.tooltip.text(list.join(&quot;, &quot;));
+			tooltip.show();
+			updateButton.onmouseout = function() { tooltip.tooltip.text(tooltip.tip); };
+		}
+	};
+	return updateButton;
+};
+
+PluginUpdateUtilities.getCSS = function () {
+	return require(&quot;../styles/updates.css&quot;);
+};
+
+/**
+ * Will check for updates and automatically show or remove the update notice
+ * bar based on the internal result. Better not to call this directly and to
+ * instead use {@link PluginUtilities.checkForUpdate}.
+ * @param {string} pluginName - name of the plugin to check
+ * @param {string} updateLink - link to the raw text version of the plugin
+ */
+PluginUpdateUtilities.checkUpdate = function(pluginName, updateLink) {
+	let request = require(&quot;request&quot;);
+	request(updateLink, (error, response, result) =&gt; {
+		if (error) return;
+		var remoteVersion = result.match(/[&apos;&quot;][0-9]+\.[0-9]+\.[0-9]+[&apos;&quot;]/i);
+		if (!remoteVersion) return;
+		remoteVersion = remoteVersion.toString().replace(/[&apos;&quot;]/g, &quot;&quot;);
+		var ver = remoteVersion.split(&quot;.&quot;).map((e) =&gt; {return parseInt(e);});
+		var lver = window.PluginUpdates.plugins[updateLink].version.split(&quot;.&quot;).map((e) =&gt; {return parseInt(e);});
+		var hasUpdate = false;
+		if (ver[0] &gt; lver[0]) hasUpdate = true;
+		else if (ver[0] == lver[0] &amp;&amp; ver[1] &gt; lver[1]) hasUpdate = true;
+		else if (ver[0] == lver[0] &amp;&amp; ver[1] == lver[1] &amp;&amp; ver[2] &gt; lver[2]) hasUpdate = true;
+		else hasUpdate = false;
+		if (hasUpdate) PluginUpdateUtilities.showUpdateNotice(pluginName, updateLink);
+		else PluginUpdateUtilities.removeUpdateNotice(pluginName);
+	});
+};
+
+/**
+ * Will show the update notice top bar seen in Discord. Better not to call
+ * this directly and to instead use {@link PluginUtilities.checkForUpdate}.
+ * @param {string} pluginName - name of the plugin
+ * @param {string} updateLink - link to the raw text version of the plugin
+ */
+PluginUpdateUtilities.showUpdateNotice = function(pluginName, updateLink) {
+	if (!$(&apos;#pluginNotice&apos;).length)  {
+		let noticeElement = `&lt;div class=&quot;${DiscordModules.NoticeBarClasses.notice} ${DiscordModules.NoticeBarClasses.noticeInfo}&quot; id=&quot;pluginNotice&quot;&gt;&lt;div class=&quot;${DiscordModules.NoticeBarClasses.dismiss}&quot; id=&quot;pluginNoticeDismiss&quot;&gt;&lt;/div&gt;&lt;span class=&quot;notice-message&quot;&gt;The following plugins have updates:&lt;/span&gt;&amp;nbsp;&amp;nbsp;&lt;strong id=&quot;outdatedPlugins&quot;&gt;&lt;/strong&gt;&lt;/div&gt;`;
+		// $(&apos;.app .guilds-wrapper + div &gt; div:first &gt; div:first&apos;).append(noticeElement);
+		$(&apos;.app.flex-vertical&apos;).children().first().before(noticeElement);
+        $(&apos;.win-buttons&apos;).addClass(&quot;win-buttons-notice&quot;);
+		$(&apos;#pluginNoticeDismiss&apos;).on(&apos;click&apos;, () =&gt; {
+			$(&apos;.win-buttons&apos;).animate({top: 0}, 400, &quot;swing&quot;, () =&gt; { $(&apos;.win-buttons&apos;).css(&quot;top&quot;,&quot;&quot;).removeClass(&quot;win-buttons-notice&quot;); });
+			$(&apos;#pluginNotice&apos;).slideUp({complete: () =&gt; { $(&apos;#pluginNotice&apos;).remove(); }});
+		});
+	}
+	let pluginNoticeID = pluginName + &apos;-notice&apos;;
+	if (!$(&apos;#&apos; + pluginNoticeID).length) {
+		let pluginNoticeElement = $(&apos;&lt;span id=&quot;&apos; + pluginNoticeID + &apos;&quot;&gt;&apos;);
+        pluginNoticeElement.text(pluginName);
+        pluginNoticeElement.on(&apos;click&apos;, () =&gt; {
+            PluginUpdateUtilities.downloadPlugin(pluginName, updateLink);
+        });
+		if ($(&apos;#outdatedPlugins&apos;).children(&apos;span&apos;).length) $(&apos;#outdatedPlugins&apos;).append(&quot;&lt;span class=&apos;separator&apos;&gt;, &lt;/span&gt;&quot;);
+		$(&apos;#outdatedPlugins&apos;).append(pluginNoticeElement);
+	}
+};
+
+/**
+ * Will download the latest version and replace the the old plugin version.
+ * Will also update the button in the update bar depending on if the user
+ * is using RestartNoMore plugin by square {@link https://github.com/Inve1951/BetterDiscordStuff/blob/master/plugins/restartNoMore.plugin.js}
+ * @param {string} pluginName - name of the plugin to download
+ * @param {string} updateLink - link to the raw text version of the plugin
+ */
+PluginUpdateUtilities.downloadPlugin = function(pluginName, updateLink) {
+    let request = require(&quot;request&quot;);
+    let fileSystem = require(&quot;fs&quot;);
+    let path = require(&quot;path&quot;);
+    request(updateLink, (error, response, body) =&gt; {
+        if (error) return Logger.warn(&quot;PluginUpdates&quot;, &quot;Unable to get update for &quot; + pluginName);
+        let remoteVersion = body.match(/[&apos;&quot;][0-9]+\.[0-9]+\.[0-9]+[&apos;&quot;]/i);
+        remoteVersion = remoteVersion.toString().replace(/[&apos;&quot;]/g, &quot;&quot;);
+        let filename = updateLink.split(&apos;/&apos;);
+        filename = filename[filename.length - 1];
+        var file = path.join(PluginUtilities.getPluginsFolder(), filename);
+        fileSystem.writeFileSync(file, body);
+		PluginUtilities.showToast(`${pluginName} ${window.PluginUpdates.plugins[updateLink].version} has been replaced by ${pluginName} ${remoteVersion}`);
+		let oldRNM = window.bdplugins[&quot;Restart-No-More&quot;] &amp;&amp; window.pluginCookie[&quot;Restart-No-More&quot;];
+		let newRNM = window.bdplugins[&quot;Restart No More&quot;] &amp;&amp; window.pluginCookie[&quot;Restart No More&quot;];
+        if (!(oldRNM || newRNM)) {
+            if (!window.PluginUpdates.downloaded) {
+                window.PluginUpdates.downloaded = [];
+                let button = $(`&lt;button class=&quot;btn btn-reload ${DiscordModules.NoticeBarClasses.btn} ${DiscordModules.NoticeBarClasses.button}&quot;&gt;Reload&lt;/button&gt;`);
+                button.on(&apos;click&apos;, (e) =&gt; {
+                    e.preventDefault();
+                    window.location.reload(false);
+                });
+                var tooltip = document.createElement(&quot;div&quot;);
+                tooltip.className = &quot;tooltip tooltip-bottom tooltip-black&quot;;
+                tooltip.style.maxWidth = &quot;400px&quot;;
+                button.on(&apos;mouseenter&apos;, () =&gt; {
+                    document.querySelector(&quot;.tooltips&quot;).appendChild(tooltip);
+                    tooltip.innerText = window.PluginUpdates.downloaded.join(&quot;, &quot;);
+                    tooltip.style.left = button.offset().left + (button.outerWidth() / 2) - ($(tooltip).outerWidth() / 2) + &quot;px&quot;;
+                    tooltip.style.top = button.offset().top + button.outerHeight() + &quot;px&quot;;
+                });
+    
+                button.on(&apos;mouseleave&apos;, () =&gt; {
+                    tooltip.remove();
+                });
+    
+                button.appendTo($(&apos;#pluginNotice&apos;));
+            }
+            window.PluginUpdates.plugins[updateLink].version = remoteVersion;
+            window.PluginUpdates.downloaded.push(pluginName);
+            PluginUpdateUtilities.removeUpdateNotice(pluginName);
+        }
+    });
+};
+
+/**
+ * Will remove the plugin from the update notice top bar seen in Discord.
+ * Better not to call this directly and to instead use {@link PluginUtilities.checkForUpdate}.
+ * @param {string} pluginName - name of the plugin
+ */
+PluginUpdateUtilities.removeUpdateNotice = function(pluginName) {
+	let notice = $(&apos;#&apos; + pluginName + &apos;-notice&apos;);
+	if (notice.length) {
+		if (notice.next(&apos;.separator&apos;).length) notice.next().remove();
+		else if (notice.prev(&apos;.separator&apos;).length) notice.prev().remove();
+		notice.remove();
+    }
+
+	if (!$(&apos;#outdatedPlugins&apos;).children(&apos;span&apos;).length &amp;&amp; !$(&apos;#pluginNotice .btn-reload&apos;).length) {
+        $(&apos;#pluginNoticeDismiss&apos;).click();
+    } 
+    else if (!$(&apos;#outdatedPlugins&apos;).children(&apos;span&apos;).length &amp;&amp; $(&apos;#pluginNotice .btn-reload&apos;).length) {
+        $(&apos;#pluginNotice .notice-message&apos;).text(&quot;To finish updating you need to reload.&quot;);
+    }
+};
+
+export default PluginUpdateUtilities;</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

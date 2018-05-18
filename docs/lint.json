@@ -1,0 +1,20 @@
+[
+  {
+    "name": "loadSettings",
+    "filePath": "src/modules/PluginUtilities.js",
+    "lines": [
+      {
+        "lineNumber": 88,
+        "line": "PluginUtilities.loadSettings = function(name, defaultSettings) {\r"
+      }
+    ],
+    "codeParams": [
+      "name",
+      "defaultSettings"
+    ],
+    "docParams": [
+      "name",
+      "defaultData"
+    ]
+  }
+]

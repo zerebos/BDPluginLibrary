@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">src/modules/PluginUtilities.js | pluginlibrary</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Zere&apos;s library for BetterDiscord plugins."><meta property="twitter:card" content="summary"><meta property="twitter:title" content="pluginlibrary"><meta property="twitter:description" content="Zere&apos;s library for BetterDiscord plugins."></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#modules">modules</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/colorconverter.js~ColorConverter.html">ColorConverter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/contextmenu.js~ImageItem.html">ImageItem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/contextmenu.js~ItemGroup.html">ItemGroup</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/contextmenu.js~Menu.html">Menu</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/contextmenu.js~MenuItem.html">MenuItem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/contextmenu.js~SubMenuItem.html">SubMenuItem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/contextmenu.js~TextItem.html">TextItem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/contextmenu.js~ToggleItem.html">ToggleItem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/discordapi.js~DiscordAPI.html">DiscordAPI</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/domhelpers.js~ClassName.html">ClassName</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/domhelpers.js~DOMHelpers.html">DOMHelpers</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/domhelpers.js~Selector.html">Selector</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/logger.js~Logger.html">Logger</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/patcher.js~Patcher.html">Patcher</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/permissions.js~DiscordPermissions.html">DiscordPermissions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/pluginsettings.js~ColorPicker.html">ColorPicker</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/pluginsettings.js~ControlGroup.html">ControlGroup</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/pluginsettings.js~PillButton.html">PillButton</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/pluginsettings.js~Slider.html">Slider</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/pluginsettings.js~Switch.html">Switch</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/pluginsettings.js~Textbox.html">Textbox</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/reacttools.js~ReactTools.html">ReactTools</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/tooltips.js~NativeTooltip.html">NativeTooltip</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/tooltips.js~PluginTooltip.html">PluginTooltip</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/utilities.js~Utilities.html">Utilities</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/webpackmodules.js~Filters.html">Filters</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/webpackmodules.js~WebpackModules.html">WebpackModules</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DiscordClasses">DiscordClasses</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DiscordSelectors">DiscordSelectors</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PluginUpdateUtilities">PluginUpdateUtilities</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PluginUtilities">PluginUtilities</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-LogTypes">LogTypes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-css">css</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#structs-settings">structs/settings</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/structs/settings/setting.js~SettingField.html">SettingField</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#vendor">vendor</a><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-$">$</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-jQuery">jQuery</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/modules/PluginUtilities.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import Logger from &quot;./Logger&quot;;
+import PluginUpdateUtilities from &quot;./PluginUpdateUtilities&quot;;
+import DiscordModules from &quot;./DiscordModules&quot;;
+import {$} from &quot;../vendor&quot;;
+
+/**
+ * A series of useful functions for BetterDiscord plugins.
+ * @module PluginUtilities
+ * @version 0.2.3
+ */
+var PluginUtilities = {};
+
+/**
+ * Wraps the method in a `try..catch` block.
+ * @param {callable} method - method to wrap
+ * @param {string} description - description of method
+ * @returns {callable} wrapped version of method
+ * @deprecated This has been moved to {@link module:GeneralUtilities}.
+ */
+PluginUtilities.suppressErrors = (method, description) =&gt; (...params) =&gt; {
+	try { return method(...params);	}
+	catch (e) { Logger.err(&quot;Suppression&quot;, &quot;Error occurred in &quot; + description, e); }
+};
+
+PluginUtilities.parseOnSwitchURL = function(url) {
+	let urlSplit = url.split(&quot;/&quot;);
+	let type = urlSplit[3];
+	let server = urlSplit[4];
+	let channel = urlSplit[5];
+	return {type, server, channel};
+};
+
+/** 
+ * Gets the server the user is currently in.
+ * @returns {object} returns Discord&apos;s internal object representing the server
+*/
+PluginUtilities.getCurrentServer = function() {
+	return DiscordModules.GuildStore.getGuild(DiscordModules.SelectedGuildStore.getGuildId());
+};
+
+/** @returns if the user is in a server */
+PluginUtilities.isServer = function() { return PluginUtilities.getCurrentServer() !== null; };
+
+/** 
+ * Gets the current user.
+ * @returns {object} returns Discord&apos;s internal object representing the user
+*/
+PluginUtilities.getCurrentUser = function() {
+	return DiscordModules.UserStore.getCurrentUser();
+};
+
+/** 
+ * Gets the list of members in the current server.
+ * @returns {array} returns an array of Discord&apos;s internal object representing the members.
+*/
+PluginUtilities.getAllUsers = function() {
+	return DiscordModules.GuildMemberStore.getMembers(this.getCurrentServer().id);
+};
+
+/** 
+ * Loads data through BetterDiscord&apos;s API.
+ * @param {string} name - name for the file (usually plugin name)
+ * @param {string} key - which key the data is saved under
+ * @param {object} defaultData - default data to populate the object with
+ * @returns {object} the combined saved and default data
+*/
+PluginUtilities.loadData = function(name, key, defaultData) {
+	try { return $.extend(true, defaultData ? defaultData : {}, bdPluginStorage.get(name, key)); }
+	catch (err) { Logger.err(name, &quot;Unable to load data: &quot;, err); }
+};
+
+/** 
+ * Saves data through BetterDiscord&apos;s API.
+ * @param {string} name - name for the file (usually plugin name)
+ * @param {string} key - which key the data should be saved under
+ * @param {object} data - data to save
+*/
+PluginUtilities.saveData = function(name, key, data) {
+	try { bdPluginStorage.set(name, key, data); }
+	catch (err) { Logger.err(name, &quot;Unable to save data: &quot;, err); }
+};
+
+/** 
+ * Loads settings through BetterDiscord&apos;s API.
+ * @param {string} name - name for the file (usually plugin name)
+ * @param {object} defaultData - default data to populate the object with
+ * @returns {object} the combined saved and default settings
+*/
+PluginUtilities.loadSettings = function(name, defaultSettings) {
+	return PluginUtilities.loadData(name, &quot;settings&quot;, defaultSettings);
+};
+
+/** 
+ * Saves settings through BetterDiscord&apos;s API.
+ * @param {string} name - name for the file (usually plugin name)
+ * @param {object} data - settings to save
+*/
+PluginUtilities.saveSettings = function(name, data) {
+	PluginUtilities.saveData(name, &quot;settings&quot;, data);
+};
+
+/**
+ * Checks for updates for the specified plugin at the specified link. The final
+ * parameter should link to the raw text of the plugin and will compare semantic
+ * versions.
+ * @param {string} pluginName - name of the plugin
+ * @param {string} currentVersion - current version (semantic versioning only)
+ * @param {string} updateURL - url to check for update
+ */
+PluginUtilities.checkForUpdate = function(pluginName, currentVersion, updateURL) {
+	let updateLink = &quot;https://raw.githubusercontent.com/rauenzi/BetterDiscordAddons/master/Plugins/&quot; + pluginName + &quot;/&quot; + pluginName + &quot;.plugin.js&quot;;
+	if (updateURL) updateLink = updateURL;
+	
+	if (typeof window.PluginUpdates === &quot;undefined&quot;) window.PluginUpdates = {plugins:{}};
+	window.PluginUpdates.plugins[updateLink] = {name: pluginName, raw: updateLink, version: currentVersion};
+
+	PluginUpdateUtilities.checkUpdate(pluginName, updateLink);
+	
+	if (typeof window.PluginUpdates.interval === &quot;undefined&quot;) {
+		window.PluginUpdates.interval = setInterval(() =&gt; {
+			window.PluginUpdates.checkAll();
+		}, 7200000);
+	}
+
+	if (typeof window.PluginUpdates.checkAll === &quot;undefined&quot;) {
+		window.PluginUpdates.checkAll = function() {
+			for (let key in this.plugins) {
+				let plugin = this.plugins[key];
+				PluginUpdateUtilities.checkUpdate(plugin.name, plugin.raw);
+			}
+		};
+	}
+
+	if (typeof window.PluginUpdates.observer === &quot;undefined&quot;) {		
+		window.PluginUpdates.observer = new MutationObserver((changes) =&gt; {
+			changes.forEach(
+				(change) =&gt; {
+					if (change.addedNodes) {
+						change.addedNodes.forEach((node) =&gt; {
+							if (node &amp;&amp; node.tagName &amp;&amp; node.getAttribute(&quot;layer-id&quot;) == &quot;user-settings&quot;) {
+								var settingsObserver = new MutationObserver((changes2) =&gt; {
+									changes2.forEach(
+										(change2) =&gt; {
+											if (change2.addedNodes) {
+												change2.addedNodes.forEach((node2) =&gt; {
+													if (!document.querySelector(&quot;.bd-updatebtn&quot;)) {
+														if (node2 &amp;&amp; node2.tagName &amp;&amp; node2.querySelector(&quot;.bd-pfbtn&quot;) &amp;&amp; node2.querySelector(&quot;h2&quot;) &amp;&amp; node2.querySelector(&quot;h2&quot;).innerText.toLowerCase() === &quot;plugins&quot;) {
+
+															node2.querySelector(&quot;.bd-pfbtn&quot;).parentElement.insertBefore(PluginUpdateUtilities.createUpdateButton(), node2.querySelector(&quot;.bd-pfbtn&quot;).nextSibling);
+														}
+													}
+												});
+											}
+										}
+									);
+								});
+								settingsObserver.observe(node, {childList:true, subtree:true});
+							}
+						});
+					}
+				}
+			);
+		});
+		window.PluginUpdates.observer.observe(document.querySelector(&quot;.layers-3iHuyZ, .layers-20RVFW&quot;), {childList:true});
+	}
+	
+	var bdbutton = document.querySelector(&quot;.bd-pfbtn&quot;);
+	if (bdbutton &amp;&amp; bdbutton.parentElement.querySelector(&quot;h2&quot;) &amp;&amp; bdbutton.parentElement.querySelector(&quot;h2&quot;).innerText.toLowerCase() === &quot;plugins&quot; &amp;&amp; !bdbutton.parentElement.querySelector(&quot;.bd-pfbtn.bd-updatebtn&quot;)) {
+		bdbutton.parentElement.insertBefore(PluginUpdateUtilities.createUpdateButton(), bdbutton.nextSibling);
+	}
+};
+
+PluginUtilities.getToastCSS = function() {
+	return require(&quot;../styles/toasts.css&quot;);
+};
+
+/**
+ * This shows a toast similar to android towards the bottom of the screen.
+ * 
+ * @param {string} content The string to show in the toast.
+ * @param {object} options Options object. Optional parameter.
+ * @param {string} options.type Changes the type of the toast stylistically and semantically. Choices: &quot;&quot;, &quot;info&quot;, &quot;success&quot;, &quot;danger&quot;/&quot;error&quot;, &quot;warning&quot;/&quot;warn&quot;. Default: &quot;&quot;
+ * @param {boolean} options.icon Determines whether the icon should show corresponding to the type. A toast without type will always have no icon. Default: true
+ * @param {number} options.timeout Adjusts the time (in ms) the toast should be shown for before disappearing automatically. Default: 3000
+ */
+
+/**
+ * Shows a simple toast, similar to Android, centered over 
+ * the textarea if it exists, and center screen otherwise.
+ * Vertically it shows towards the bottom like in Android.
+ * @param {string} content - The string to show in the toast.
+ * @param {object} options - additional options for the toast
+ * @param {string} [options.type=&quot;&quot;] - Changes the type of the toast stylistically and semantically. Choices: &quot;&quot;, &quot;info&quot;, &quot;success&quot;, &quot;danger&quot;/&quot;error&quot;, &quot;warning&quot;/&quot;warn&quot;.
+ * @param {boolean} [options.icon=true] - Determines whether the icon should show corresponding to the type. A toast without type will always have no icon.
+ * @param {number} [options.timeout=3000] - Adjusts the time (in ms) the toast should be shown for before disappearing automatically.
+ */
+PluginUtilities.showToast = function(content, options = {}) {
+    if (!document.querySelector(&apos;.toasts&apos;)) {
+		let container = document.querySelector(&apos;.channels-3g2vYe + div, .channels-Ie2l6A + div&apos;);
+		let memberlist = container.querySelector(&apos;.membersWrap-2h-GB4&apos;);
+		let form = container ? container.querySelector(&apos;form&apos;) : null;
+		let left = container ? container.getBoundingClientRect().left : 310;
+		let right = memberlist ? memberlist.getBoundingClientRect().left : 0;
+		let width = right ? right - container.getBoundingClientRect().left : container.offsetWidth;
+		let bottom = form ? form.offsetHeight : 80;
+        let toastWrapper = document.createElement(&quot;div&quot;);
+        toastWrapper.classList.add(&quot;toasts&quot;);
+        toastWrapper.style.setProperty(&quot;left&quot;, left + &quot;px&quot;);
+        toastWrapper.style.setProperty(&quot;width&quot;, width + &quot;px&quot;);
+        toastWrapper.style.setProperty(&quot;bottom&quot;, bottom + &quot;px&quot;);
+        document.querySelector(&apos;.app&apos;).appendChild(toastWrapper);
+    }
+    const {type = &quot;&quot;, icon = true, timeout = 3000} = options;
+    let toastElem = document.createElement(&quot;div&quot;);
+    toastElem.classList.add(&quot;toast&quot;);
+	if (type) toastElem.classList.add(&quot;toast-&quot; + type);
+	if (type &amp;&amp; icon) toastElem.classList.add(&quot;icon&quot;);
+    toastElem.innerText = content;
+    document.querySelector(&apos;.toasts&apos;).appendChild(toastElem);
+    setTimeout(() =&gt; {
+        toastElem.classList.add(&apos;closing&apos;);
+        setTimeout(() =&gt; {
+            toastElem.remove();
+            if (!document.querySelectorAll(&apos;.toasts .toast&apos;).length) document.querySelector(&apos;.toasts&apos;).remove();
+        }, 300);
+    }, timeout);
+};
+
+
+/**
+ * Get the full path to the plugins folder.
+ * @returns {string} full path to the plugins folder
+ */
+PluginUtilities.getPluginsFolder = function() {
+    let process = require(&quot;process&quot;);
+    let path = require(&quot;path&quot;);
+    switch (process.platform) {
+        case &quot;win32&quot;:
+        return path.resolve(process.env.appdata, &quot;BetterDiscord/plugins/&quot;);
+        case &quot;darwin&quot;:
+        return path.resolve(process.env.HOME, &quot;Library/Preferences/&quot;, &quot;BetterDiscord/plugins/&quot;);
+        default:
+        return path.resolve(process.env.HOME, &quot;.config/&quot;, &quot;BetterDiscord/plugins/&quot;);
+    }
+};
+
+/**
+ * Get the full path to the themes folder.
+ * @returns {string} full path to the themes folder
+ */
+PluginUtilities.getThemesFolder = function() {
+    let process = require(&quot;process&quot;);
+    let path = require(&quot;path&quot;);
+    switch (process.platform) {
+        case &quot;win32&quot;:
+        return path.resolve(process.env.appdata, &quot;BetterDiscord/themes/&quot;);
+        case &quot;darwin&quot;:
+        return path.resolve(process.env.HOME, &quot;Library/Preferences/&quot;, &quot;BetterDiscord/themes/&quot;);
+        default:
+        return path.resolve(process.env.HOME, &quot;.config/&quot;, &quot;BetterDiscord/themes/&quot;);
+    }
+};
+
+/**
+ * Format strings with placeholders (`${placeholder}`) into full strings.
+ * Quick example: `PluginUtilities.formatString(&quot;Hello, ${user}&quot;, {user: &quot;Zerebos&quot;})`
+ * would return &quot;Hello, Zerebos&quot;.
+ * @param {string} string - string to format
+ * @param {object} values - object literal of placeholders to replacements
+ * @returns {string} the properly formatted string
+ */
+PluginUtilities.formatString = function(string, values) {
+	for (let val in values) {
+		string = string.replace(new RegExp(`\\$\\{${val}\\}`, &apos;g&apos;), values[val]);
+	}
+	return string;
+};
+
+/**
+ * Creates a MutationObserver observing for the Discord channel switch.
+ * @param {object} plugin - the plugin with a `onChannelSwitch()` function
+ * @returns {MutationObserver} the observer observing for channel switch
+ */
+PluginUtilities.createSwitchObserver = function(plugin) {
+	let switchObserver = new MutationObserver((changes) =&gt; {
+		changes.forEach((change) =&gt; {
+			if (change.addedNodes.length &amp;&amp; change.addedNodes[0] instanceof Element &amp;&amp; (change.addedNodes[0].classList.contains(&quot;messages-wrapper&quot;) || change.addedNodes[0].classList.contains(&quot;activityFeed-HeiGwL&quot;) || change.addedNodes[0].id === &quot;friends&quot;)) plugin.onChannelSwitch();
+			if (change.removedNodes.length &amp;&amp; change.removedNodes[0] instanceof Element &amp;&amp; (change.removedNodes[0].classList.contains(&quot;activityFeed-HeiGwL&quot;) || change.removedNodes[0].id === &quot;friends&quot;)) plugin.onChannelSwitch();
+		});
+	});
+	switchObserver.observe(document.querySelector(&apos;.app&apos;), {childList: true, subtree:true});
+	return switchObserver;
+};
+
+/**
+ * Creates a MutationObserver observing for the Discord channel switch.
+ * @param {callable} onSwitch - function to call on channel switch
+ * @returns {MutationObserver} the observer observing for channel switch
+ */
+PluginUtilities.onSwitchObserver = function(onSwitch) {
+	if (typeof onSwitch === &quot;undefined&quot;) return null;
+	let switchObserver = new MutationObserver((changes) =&gt; {
+		changes.forEach((change) =&gt; {
+			if (change.addedNodes.length &amp;&amp; change.addedNodes[0] instanceof Element &amp;&amp; (change.addedNodes[0].classList.contains(&quot;messages-wrapper&quot;) || change.addedNodes[0].classList.contains(&quot;activityFeed-HeiGwL&quot;) || change.addedNodes[0].id === &quot;friends&quot;)) onSwitch();
+			if (change.removedNodes.length &amp;&amp; change.removedNodes[0] instanceof Element &amp;&amp; (change.removedNodes[0].classList.contains(&quot;activityFeed-HeiGwL&quot;) || change.removedNodes[0].id === &quot;friends&quot;)) onSwitch();
+		});
+	});
+	switchObserver.observe(document.querySelector(&apos;.app&apos;), {childList: true, subtree:true});
+	return switchObserver;
+};
+
+export default PluginUtilities;</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

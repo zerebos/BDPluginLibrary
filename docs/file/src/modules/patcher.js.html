@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">src/modules/patcher.js | pluginlibrary</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Zere&apos;s library for BetterDiscord plugins."><meta property="twitter:card" content="summary"><meta property="twitter:title" content="pluginlibrary"><meta property="twitter:description" content="Zere&apos;s library for BetterDiscord plugins."></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#modules">modules</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/colorconverter.js~ColorConverter.html">ColorConverter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/contextmenu.js~ImageItem.html">ImageItem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/contextmenu.js~ItemGroup.html">ItemGroup</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/contextmenu.js~Menu.html">Menu</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/contextmenu.js~MenuItem.html">MenuItem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/contextmenu.js~SubMenuItem.html">SubMenuItem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/contextmenu.js~TextItem.html">TextItem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/contextmenu.js~ToggleItem.html">ToggleItem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/discordapi.js~DiscordAPI.html">DiscordAPI</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/domhelpers.js~ClassName.html">ClassName</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/domhelpers.js~DOMHelpers.html">DOMHelpers</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/domhelpers.js~Selector.html">Selector</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/logger.js~Logger.html">Logger</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/patcher.js~Patcher.html">Patcher</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/permissions.js~DiscordPermissions.html">DiscordPermissions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/pluginsettings.js~ColorPicker.html">ColorPicker</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/pluginsettings.js~ControlGroup.html">ControlGroup</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/pluginsettings.js~PillButton.html">PillButton</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/pluginsettings.js~Slider.html">Slider</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/pluginsettings.js~Switch.html">Switch</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/pluginsettings.js~Textbox.html">Textbox</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/reacttools.js~ReactTools.html">ReactTools</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/tooltips.js~NativeTooltip.html">NativeTooltip</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/tooltips.js~PluginTooltip.html">PluginTooltip</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/utilities.js~Utilities.html">Utilities</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/webpackmodules.js~Filters.html">Filters</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/modules/webpackmodules.js~WebpackModules.html">WebpackModules</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DiscordClasses">DiscordClasses</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DiscordSelectors">DiscordSelectors</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PluginUpdateUtilities">PluginUpdateUtilities</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PluginUtilities">PluginUtilities</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-LogTypes">LogTypes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-css">css</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#structs-settings">structs/settings</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/structs/settings/setting.js~SettingField.html">SettingField</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#vendor">vendor</a><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-$">$</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-jQuery">jQuery</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/modules/patcher.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/** 
+ * Patcher that can patch other functions allowing you to run code before, after or
+ * instead of the original function. Can also alter arguments and return values.
+ * 
+ * This is a modified version of what we have been working on in BDv2. {@link https://github.com/JsSucks/BetterDiscordApp/blob/master/client/src/modules/patcher.js}
+ * 
+ * @module Patcher
+ * @version 0.0.2
+ */
+export default class Patcher {
+
+    static get patches() { return global._patches || (global._patches = []); }
+
+    /**
+     * Returns all the patches done by a specific caller
+     * @param {string} name - Name of the patch caller
+     * @method
+     */
+    static getPatchesByCaller(name) {
+		if (!name) return [];
+        const patches = [];
+        for (const patch of this.patches) {
+			for (const childPatch of patch.children) {
+				if (childPatch.caller === name) patches.push(childPatch);
+			}
+        }
+        return patches;
+    }
+
+    /**
+     * Unpatches all patches passed, or when a string is passed unpatches all
+     * patches done by that specific caller.
+     * @param {Array|string} patches - Either an array of patches to unpatch or a caller name
+     */
+    static unpatchAll(patches) {
+        if (typeof patches === &apos;string&apos;) patches = this.getPatchesByCaller(patches);
+
+        for (const patch of patches) {
+			patch.unpatch();
+        }
+	}
+	
+	static resolveModule(module) {
+        if (module instanceof Function || (module instanceof Object &amp;&amp; !(module instanceof Array))) return module;
+        if (typeof module === &apos;string&apos;) return DiscordModules[module];
+        if (module instanceof Array) return InternalUtilities.WebpackModules.findByUniqueProperties(module);
+        return null;
+	}
+
+    static makeOverride(patch) {
+        return function () {
+            let returnValue = undefined;
+            if (!patch.children) return patch.originalFunction.apply(this, arguments);
+            for (const superPatch of patch.children.filter(c =&gt; c.type === &apos;before&apos;)) {
+                try {
+                    superPatch.callback(this, arguments);
+                }
+                catch (err) {
+                    Logger.err(&quot;Patcher&quot;, `Could not fire before callback of ${patch.functionName} for ${superPatch.caller}`, err);
+                }
+            }
+
+            const insteads = patch.children.filter(c =&gt; c.type === &apos;instead&apos;);
+            if (!insteads.length) returnValue = patch.originalFunction.apply(this, arguments, patch.originalFunction);
+            else {
+                for (const insteadPatch of insteads) {
+                    try {
+						const tempReturn = insteadPatch.callback(this, arguments);
+                        if (typeof(tempReturn) !== &quot;undefined&quot;) returnValue = tempReturn;
+                    }
+                    catch (err) {
+                        Logger.err(&quot;Patcher&quot;, `Could not fire instead callback of ${patch.functionName} for ${insteadPatch.caller}`, err);
+                    }
+                }
+            }
+
+            for (const slavePatch of patch.children.filter(c =&gt; c.type === &apos;after&apos;)) {
+                try {
+					const tempReturn = slavePatch.callback(this, arguments, returnValue);
+                    if (typeof(tempReturn) !== &quot;undefined&quot;) returnValue = tempReturn;
+                }
+                catch (err) {
+                    Logger.err(&quot;Patcher&quot;, `Could not fire after callback of ${patch.functionName} for ${slavePatch.caller}`, err);
+                }
+            }
+            return returnValue;
+        };
+    }
+
+    static rePatch(patch) {
+        patch.proxyFunction = patch.module[patch.functionName] = this.makeOverride(patch);
+    }
+
+    static makePatch(module, functionName, name) {
+        const patch = {
+			name,
+            module,
+            functionName,
+            originalFunction: module[functionName],
+            proxyFunction: null,
+            revert: () =&gt; { // Calling revert will destroy any patches added to the same module after this
+                patch.module[patch.functionName] = patch.originalFunction;
+                patch.proxyFunction = null;
+                patch.children = [];
+            },
+            counter: 0,
+            children: []
+        };
+        patch.proxyFunction = module[functionName] = this.makeOverride(patch);
+        return this.patches.push(patch), patch;
+    }
+
+    /**
+     * Function with no arguments and no return value that may be called to revert changes made by {@link Patcher}, restoring (unpatching) original method.
+     * @callback Patcher~unpatch
+     */
+
+    /**
+     * A callback that modifies method logic. This callback is called on each call of the original method and is provided all data about original call. Any of the data can be modified if necessary, but do so wisely.
+     * 
+     * The third argument for the callback will be `undefined` for `before` patches. `originalFunction` for `instead` patches and `returnValue` for `after` patches.
+     * 
+     * @callback Patcher~patchCallback
+     * @param {object} thisObject - `this` in the context of the original function.
+     * @param {arguments} arguments - The original arguments of the original function.
+     * @param {function} originalFunction - The original function from the module. This the third argument for `instead` patches.
+     * @param {*} returnValue - The return value of the original function. This the third argument for `after` patches.
+     * @return {*} Makes sense only when using an `instead` or `after` patch. If something other than `undefined` is returned, the returned value replaces the value of `returnValue`. If used for `before` the return value is ignored.
+     */
+
+    /**
+     * This method patches onto another function, allowing your code to run beforehand.
+     * Using this, you are also able to modify the incoming arguments before the original method is run.
+     * 
+     * @param {string} caller - Name of the caller of the patch function. Using this you can undo all patches with the same name using {@link Patcher#unpatchAll}. Use `&quot;&quot;` if you don&apos;t care.
+     * @param {object} moduleToPatch - Object with the function to be patched. Can also patch an object&apos;s prototype.
+     * @param {string} functionName - Name of the method to be patched
+     * @param {Patcher~patchCallback} callback - Function to run before the original method
+     * @param {object} options - Object used to pass additional options.
+     * @param {string} [options.displayName] You can provide meaningful name for class/object provided in `what` param for logging purposes. By default, this function will try to determine name automatically.
+     * @param {boolean} [options.forcePatch=true] Set to `true` to patch even if the function doesnt exist. (Adds noop function in place).
+     * @return {Patcher~unpatch} Function with no arguments and no return value that should be called to cancel (unpatch) this patch. You should save and run it when your plugin is stopped.
+     */
+    static before(caller, moduleToPatch, functionName, callback, options = {}) { return this.pushChildPatch(caller, moduleToPatch, functionName, callback, Object.assign(options, {type: &quot;before&quot;})); }
+    
+    /**
+     * This method patches onto another function, allowing your code to run instead.
+     * Using this, you are also able to modify the return value, using the return of your code instead.
+     * 
+     * @param {string} caller - Name of the caller of the patch function. Using this you can undo all patches with the same name using {@link Patcher#unpatchAll}. Use `&quot;&quot;` if you don&apos;t care.
+     * @param {object} moduleToPatch - Object with the function to be patched. Can also patch an object&apos;s prototype.
+     * @param {string} functionName - Name of the method to be patched
+     * @param {Patcher~patchCallback} callback - Function to run instead of the original method
+     * @param {object} options - Object used to pass additional options.
+     * @param {string} [options.displayName] You can provide meaningful name for class/object provided in `what` param for logging purposes. By default, this function will try to determine name automatically.
+     * @param {boolean} [options.forcePatch=true] Set to `true` to patch even if the function doesnt exist. (Adds noop function in place).
+     * @return {Patcher~unpatch} Function with no arguments and no return value that should be called to cancel (unpatch) this patch. You should save and run it when your plugin is stopped.
+     */
+    static after(caller, moduleToPatch, functionName, callback, options = {}) { return this.pushChildPatch(caller, moduleToPatch, functionName, callback, Object.assign(options, {type: &quot;after&quot;})); }
+    
+    /**
+     * This method patches onto another function, allowing your code to run afterwards.
+     * Using this, you are also able to modify the return value, using the return of your code instead.
+     * 
+     * @param {string} caller - Name of the caller of the patch function. Using this you can undo all patches with the same name using {@link Patcher#unpatchAll}. Use `&quot;&quot;` if you don&apos;t care.
+     * @param {object} moduleToPatch - Object with the function to be patched. Can also patch an object&apos;s prototype.
+     * @param {string} functionName - Name of the method to be patched
+     * @param {Patcher~patchCallback} callback - Function to run after the original method
+     * @param {object} options - Object used to pass additional options.
+     * @param {string} [options.displayName] You can provide meaningful name for class/object provided in `what` param for logging purposes. By default, this function will try to determine name automatically.
+     * @param {boolean} [options.forcePatch=true] Set to `true` to patch even if the function doesnt exist. (Adds noop function in place).
+     * @return {Patcher~unpatch} Function with no arguments and no return value that should be called to cancel (unpatch) this patch. You should save and run it when your plugin is stopped.
+     */
+    static instead(caller, moduleToPatch, functionName, callback, options = {}) { return this.pushChildPatch(caller, moduleToPatch, functionName, callback, Object.assign(options, {type: &quot;instead&quot;})); }
+
+    /**
+     * This method patches onto another function, allowing your code to run before, instead or after the original function.
+     * Using this you are able to modify the incoming arguments before the original function is run as well as the return
+     * value before the original function actually returns.
+     * 
+     * @param {string} caller - Name of the caller of the patch function. Using this you can undo all patches with the same name using {@link Patcher#unpatchAll}. Use `&quot;&quot;` if you don&apos;t care.
+     * @param {object} moduleToPatch - Object with the function to be patched. Can also patch an object&apos;s prototype.
+     * @param {string} functionName - Name of the method to be patched
+     * @param {Patcher~patchCallback} callback - Function to run after the original method
+     * @param {object} options - Object used to pass additional options.
+     * @param {string} [options.type=after] - Determines whether to run the function `before`, `instead`, or `after` the original.
+     * @param {string} [options.displayName] You can provide meaningful name for class/object provided in `what` param for logging purposes. By default, this function will try to determine name automatically.
+     * @param {boolean} [options.forcePatch=true] Set to `true` to patch even if the function doesnt exist. (Adds noop function in place).
+     * @return {Patcher~unpatch} Function with no arguments and no return value that should be called to cancel (unpatch) this patch. You should save and run it when your plugin is stopped.
+     */
+    static pushChildPatch(caller, moduleToPatch, functionName, callback, options = {}) {
+		const {type = &quot;after&quot;, forcePatch = true} = options;
+		const module = this.resolveModule(moduleToPatch);
+		if (!module) return null;
+		if (!module[functionName] &amp;&amp; forcePatch) module[functionName] = function() {};
+		if (!(module[functionName] instanceof Function)) return null;
+		
+		if (typeof moduleToPatch === &apos;string&apos;) options.displayName = moduleToPatch;
+        const displayName = options.displayName || module.displayName || module.name || module.constructor.displayName || module.constructor.name;
+
+		const patchId = `${displayName}.${functionName}`;
+        const patch = this.patches.find(p =&gt; p.module == module &amp;&amp; p.functionName == functionName) || this.makePatch(module, functionName, patchId);
+        if (!patch.proxyFunction) this.rePatch(patch);
+        const child = {
+            caller,
+            type,
+            id: patch.counter,
+            callback,
+            unpatch: () =&gt; {
+                patch.children.splice(patch.children.findIndex(cpatch =&gt; cpatch.id === child.id &amp;&amp; cpatch.type === type), 1);
+                if (patch.children.length &lt;= 0) {
+					let patchNum = this.patches.findIndex(p =&gt; p.module == module &amp;&amp; p.functionName == functionName);
+					this.patches[patchNum].revert();
+					this.patches.splice(patchNum, 1);
+				}
+            }
+        };
+        patch.children.push(child);
+        patch.counter++;
+        return child.unpatch;
+    }
+
+}</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: modules/patcher.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: modules/patcher.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/** 
+ * Patcher that can patch other functions allowing you to run code before, after or
+ * instead of the original function. Can also alter arguments and return values.
+ * 
+ * This is a modified version of what we have been working on in BDv2. {@link https://github.com/JsSucks/BetterDiscordApp/blob/master/client/src/modules/patcher.js}
+ * 
+ * @module Patcher
+ * @version 0.0.2
+ */
+
+ import Logger from "./logger";
+ 
+export default class Patcher {
+
+    static get patches() { return global._patches || (global._patches = []); }
+
+    /**
+     * Returns all the patches done by a specific caller
+     * @param {string} name - Name of the patch caller
+     * @method
+     */
+    static getPatchesByCaller(name) {
+		if (!name) return [];
+        const patches = [];
+        for (const patch of this.patches) {
+			for (const childPatch of patch.children) {
+				if (childPatch.caller === name) patches.push(childPatch);
+			}
+        }
+        return patches;
+    }
+
+    /**
+     * Unpatches all patches passed, or when a string is passed unpatches all
+     * patches done by that specific caller.
+     * @param {Array|string} patches - Either an array of patches to unpatch or a caller name
+     */
+    static unpatchAll(patches) {
+        if (typeof patches === 'string') patches = this.getPatchesByCaller(patches);
+
+        for (const patch of patches) {
+			patch.unpatch();
+        }
+	}
+	
+	static resolveModule(module) {
+        if (module instanceof Function || (module instanceof Object &amp;&amp; !(module instanceof Array))) return module;
+        if (typeof module === 'string') return DiscordModules[module];
+        if (module instanceof Array) return InternalUtilities.WebpackModules.findByUniqueProperties(module);
+        return null;
+	}
+
+    static makeOverride(patch) {
+        return function () {
+            let returnValue = undefined;
+            if (!patch.children) return patch.originalFunction.apply(this, arguments);
+            for (const superPatch of patch.children.filter(c => c.type === 'before')) {
+                try {
+                    superPatch.callback(this, arguments);
+                }
+                catch (err) {
+                    Logger.err("Patcher", `Could not fire before callback of ${patch.functionName} for ${superPatch.caller}`, err);
+                }
+            }
+
+            const insteads = patch.children.filter(c => c.type === 'instead');
+            if (!insteads.length) returnValue = patch.originalFunction.apply(this, arguments, patch.originalFunction);
+            else {
+                for (const insteadPatch of insteads) {
+                    try {
+						const tempReturn = insteadPatch.callback(this, arguments);
+                        if (typeof(tempReturn) !== "undefined") returnValue = tempReturn;
+                    }
+                    catch (err) {
+                        Logger.err("Patcher", `Could not fire instead callback of ${patch.functionName} for ${insteadPatch.caller}`, err);
+                    }
+                }
+            }
+
+            for (const slavePatch of patch.children.filter(c => c.type === 'after')) {
+                try {
+					const tempReturn = slavePatch.callback(this, arguments, returnValue);
+                    if (typeof(tempReturn) !== "undefined") returnValue = tempReturn;
+                }
+                catch (err) {
+                    Logger.err("Patcher", `Could not fire after callback of ${patch.functionName} for ${slavePatch.caller}`, err);
+                }
+            }
+            return returnValue;
+        };
+    }
+
+    static rePatch(patch) {
+        patch.proxyFunction = patch.module[patch.functionName] = this.makeOverride(patch);
+    }
+
+    static makePatch(module, functionName, name) {
+        const patch = {
+			name,
+            module,
+            functionName,
+            originalFunction: module[functionName],
+            proxyFunction: null,
+            revert: () => { // Calling revert will destroy any patches added to the same module after this
+                patch.module[patch.functionName] = patch.originalFunction;
+                patch.proxyFunction = null;
+                patch.children = [];
+            },
+            counter: 0,
+            children: []
+        };
+        patch.proxyFunction = module[functionName] = this.makeOverride(patch);
+        return this.patches.push(patch), patch;
+    }
+
+    /**
+     * Function with no arguments and no return value that may be called to revert changes made by {@link Patcher}, restoring (unpatching) original method.
+     * @callback Patcher~unpatch
+     */
+
+    /**
+     * A callback that modifies method logic. This callback is called on each call of the original method and is provided all data about original call. Any of the data can be modified if necessary, but do so wisely.
+     * 
+     * The third argument for the callback will be `undefined` for `before` patches. `originalFunction` for `instead` patches and `returnValue` for `after` patches.
+     * 
+     * @callback Patcher~patchCallback
+     * @param {object} thisObject - `this` in the context of the original function.
+     * @param {arguments} arguments - The original arguments of the original function.
+     * @param {function} originalFunction - The original function from the module. This the third argument for `instead` patches.
+     * @param {*} returnValue - The return value of the original function. This the third argument for `after` patches.
+     * @return {*} Makes sense only when using an `instead` or `after` patch. If something other than `undefined` is returned, the returned value replaces the value of `returnValue`. If used for `before` the return value is ignored.
+     */
+
+    /**
+     * This method patches onto another function, allowing your code to run beforehand.
+     * Using this, you are also able to modify the incoming arguments before the original method is run.
+     * 
+     * @param {string} caller - Name of the caller of the patch function. Using this you can undo all patches with the same name using {@link Patcher#unpatchAll}. Use `""` if you don't care.
+     * @param {object} moduleToPatch - Object with the function to be patched. Can also patch an object's prototype.
+     * @param {string} functionName - Name of the method to be patched
+     * @param {Patcher~patchCallback} callback - Function to run before the original method
+     * @param {object} options - Object used to pass additional options.
+     * @param {string} [options.displayName] You can provide meaningful name for class/object provided in `what` param for logging purposes. By default, this function will try to determine name automatically.
+     * @param {boolean} [options.forcePatch=true] Set to `true` to patch even if the function doesnt exist. (Adds noop function in place).
+     * @return {Patcher~unpatch} Function with no arguments and no return value that should be called to cancel (unpatch) this patch. You should save and run it when your plugin is stopped.
+     */
+    static before(caller, moduleToPatch, functionName, callback, options = {}) { return this.pushChildPatch(caller, moduleToPatch, functionName, callback, Object.assign(options, {type: "before"})); }
+    
+    /**
+     * This method patches onto another function, allowing your code to run instead.
+     * Using this, you are also able to modify the return value, using the return of your code instead.
+     * 
+     * @param {string} caller - Name of the caller of the patch function. Using this you can undo all patches with the same name using {@link Patcher#unpatchAll}. Use `""` if you don't care.
+     * @param {object} moduleToPatch - Object with the function to be patched. Can also patch an object's prototype.
+     * @param {string} functionName - Name of the method to be patched
+     * @param {Patcher~patchCallback} callback - Function to run instead of the original method
+     * @param {object} options - Object used to pass additional options.
+     * @param {string} [options.displayName] You can provide meaningful name for class/object provided in `what` param for logging purposes. By default, this function will try to determine name automatically.
+     * @param {boolean} [options.forcePatch=true] Set to `true` to patch even if the function doesnt exist. (Adds noop function in place).
+     * @return {Patcher~unpatch} Function with no arguments and no return value that should be called to cancel (unpatch) this patch. You should save and run it when your plugin is stopped.
+     */
+    static after(caller, moduleToPatch, functionName, callback, options = {}) { return this.pushChildPatch(caller, moduleToPatch, functionName, callback, Object.assign(options, {type: "after"})); }
+    
+    /**
+     * This method patches onto another function, allowing your code to run afterwards.
+     * Using this, you are also able to modify the return value, using the return of your code instead.
+     * 
+     * @param {string} caller - Name of the caller of the patch function. Using this you can undo all patches with the same name using {@link Patcher#unpatchAll}. Use `""` if you don't care.
+     * @param {object} moduleToPatch - Object with the function to be patched. Can also patch an object's prototype.
+     * @param {string} functionName - Name of the method to be patched
+     * @param {Patcher~patchCallback} callback - Function to run after the original method
+     * @param {object} options - Object used to pass additional options.
+     * @param {string} [options.displayName] You can provide meaningful name for class/object provided in `what` param for logging purposes. By default, this function will try to determine name automatically.
+     * @param {boolean} [options.forcePatch=true] Set to `true` to patch even if the function doesnt exist. (Adds noop function in place).
+     * @return {Patcher~unpatch} Function with no arguments and no return value that should be called to cancel (unpatch) this patch. You should save and run it when your plugin is stopped.
+     */
+    static instead(caller, moduleToPatch, functionName, callback, options = {}) { return this.pushChildPatch(caller, moduleToPatch, functionName, callback, Object.assign(options, {type: "instead"})); }
+
+    /**
+     * This method patches onto another function, allowing your code to run before, instead or after the original function.
+     * Using this you are able to modify the incoming arguments before the original function is run as well as the return
+     * value before the original function actually returns.
+     * 
+     * @param {string} caller - Name of the caller of the patch function. Using this you can undo all patches with the same name using {@link Patcher#unpatchAll}. Use `""` if you don't care.
+     * @param {object} moduleToPatch - Object with the function to be patched. Can also patch an object's prototype.
+     * @param {string} functionName - Name of the method to be patched
+     * @param {Patcher~patchCallback} callback - Function to run after the original method
+     * @param {object} options - Object used to pass additional options.
+     * @param {string} [options.type=after] - Determines whether to run the function `before`, `instead`, or `after` the original.
+     * @param {string} [options.displayName] You can provide meaningful name for class/object provided in `what` param for logging purposes. By default, this function will try to determine name automatically.
+     * @param {boolean} [options.forcePatch=true] Set to `true` to patch even if the function doesnt exist. (Adds noop function in place).
+     * @return {Patcher~unpatch} Function with no arguments and no return value that should be called to cancel (unpatch) this patch. You should save and run it when your plugin is stopped.
+     */
+    static pushChildPatch(caller, moduleToPatch, functionName, callback, options = {}) {
+		const {type = "after", forcePatch = true} = options;
+		const module = this.resolveModule(moduleToPatch);
+		if (!module) return null;
+		if (!module[functionName] &amp;&amp; forcePatch) module[functionName] = function() {};
+		if (!(module[functionName] instanceof Function)) return null;
+		
+		if (typeof moduleToPatch === 'string') options.displayName = moduleToPatch;
+        const displayName = options.displayName || module.displayName || module.name || module.constructor.displayName || module.constructor.name;
+
+		const patchId = `${displayName}.${functionName}`;
+        const patch = this.patches.find(p => p.module == module &amp;&amp; p.functionName == functionName) || this.makePatch(module, functionName, patchId);
+        if (!patch.proxyFunction) this.rePatch(patch);
+        const child = {
+            caller,
+            type,
+            id: patch.counter,
+            callback,
+            unpatch: () => {
+                patch.children.splice(patch.children.findIndex(cpatch => cpatch.id === child.id &amp;&amp; cpatch.type === type), 1);
+                if (patch.children.length &lt;= 0) {
+					let patchNum = this.patches.findIndex(p => p.module == module &amp;&amp; p.functionName == functionName);
+					this.patches[patchNum].revert();
+					this.patches.splice(patchNum, 1);
+				}
+            }
+        };
+        patch.children.push(child);
+        patch.counter++;
+        return child.unpatch;
+    }
+
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-ColorConverter.html">ColorConverter</a></li><li><a href="module-DiscordAPI.html">DiscordAPI</a></li><li><a href="module-DiscordClassModules.html">DiscordClassModules</a></li><li><a href="module-DiscordModules.html">DiscordModules</a></li><li><a href="module-DOMTools.html">DOMTools</a></li><li><a href="module-Logger.html">Logger</a></li><li><a href="module-Patcher.html">Patcher</a></li><li><a href="module-PluginContextMenu.html">PluginContextMenu</a></li><li><a href="module-PluginSettings.html">PluginSettings</a></li><li><a href="module-PluginTooltip.html">PluginTooltip</a></li><li><a href="module-PluginUpdateUtilities.html">PluginUpdateUtilities</a></li><li><a href="module-PluginUtilities.html">PluginUtilities</a></li><li><a href="module-ReactTools.html">ReactTools</a></li><li><a href="module-Utilities.html">Utilities</a></li></ul><h3>Classes</h3><ul><li><a href="DiscordPermissions.html">DiscordPermissions</a></li><li><a href="module-DOMTools.ClassName.html">ClassName</a></li><li><a href="module-DOMTools.Selector.html">Selector</a></li><li><a href="module-PluginContextMenu.ImageItem.html">ImageItem</a></li><li><a href="module-PluginContextMenu.ItemGroup.html">ItemGroup</a></li><li><a href="module-PluginContextMenu.Menu.html">Menu</a></li><li><a href="module-PluginContextMenu.MenuItem.html">MenuItem</a></li><li><a href="module-PluginContextMenu.SubMenuItem.html">SubMenuItem</a></li><li><a href="module-PluginContextMenu.TextItem.html">TextItem</a></li><li><a href="module-PluginContextMenu.ToggleItem.html">ToggleItem</a></li><li><a href="module-PluginSettings.ColorPicker.html">ColorPicker</a></li><li><a href="module-PluginSettings.Pill.html">Pill</a></li><li><a href="module-PluginSettings.SettingField.html">SettingField</a></li><li><a href="module-PluginSettings.SettingGroup.html">SettingGroup</a></li><li><a href="module-PluginSettings.Slider.html">Slider</a></li><li><a href="module-PluginSettings.Switch.html">Switch</a></li><li><a href="module-PluginSettings.Textbox.html">Textbox</a></li><li><a href="module-PluginTooltip.NativeTooltip.html">NativeTooltip</a></li><li><a href="module-PluginTooltip.PluginTooltip.html">PluginTooltip</a></li><li><a href="Screen.html">Screen</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getAccentColor">getAccentColor</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri May 18 2018 01:32:22 GMT-0400 (Eastern Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

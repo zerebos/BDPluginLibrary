@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: ui/contextmenu.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: ui/contextmenu.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Self-made context menus that emulate Discord's own context menus.
+ * @module PluginContextMenu
+ * @version 0.0.7
+ */
+
+import {DiscordClasses, DiscordSelectors} from "modules";
+import {$} from "../vendor";
+
+
+/** Main menu class for creating custom context menus. */
+export class Menu {
+    /**
+     * 
+     * @param {boolean} [scroll=false] - should this menu be a scrolling menu (usually only used for submenus)
+     */
+	constructor(scroll = false) {
+		this.theme = $('.theme-dark').length ? "theme-dark" : "theme-light";
+		this.element = $("&lt;div>").addClass(DiscordClasses.ContextMenuClasses.contextMenu).addClass("plugin-context-menu").addClass(this.theme);
+		this.scroll = scroll;
+		if (scroll) {
+			this.scroller = $("&lt;div>").addClass(DiscordClasses.ScrollerClasses.scroller).addClass(DiscordClasses.ContextMenuClasses.scroller);
+			this.element.append($("&lt;div>")
+				.addClass(DiscordClasses.ScrollerClasses.scrollerWrap)
+				.addClass(DiscordClasses.ScrollerClasses.scrollerThemed)
+				.addClass(DiscordClasses.ScrollerClasses.themeGhostHairline).append(
+					this.scroller
+			));
+		}
+	}
+    
+    /**
+     * Adds an item group to the menu. The group should already be populated.
+     * @param {PluginContextMenu.ItemGroup} contextGroup - group to add to the menu
+     * @returns {PluginContextMenu.Menu} returns self for chaining
+     */
+	addGroup(contextGroup) {
+		if (this.scroll) this.scroller.append(contextGroup.getElement());
+		else this.element.append(contextGroup.getElement());
+		return this;
+	}
+    
+    /**
+     * Adds items to the context menu directly. It is recommended to add to a group and use 
+     * {@link PluginContextMenu.Menu#addGroup} instead to behave as natively as possible.
+     * @param {PluginContextMenu.MenuItem} contextItems - list of items to add to the context menu
+     * @returns {PluginContextMenu.Menu} returns self for chaining
+     */
+	addItems(...contextItems) {
+		for (var i = 0; i &lt; contextItems.length; i++) {
+			if (this.scroll) this.scroller.append(contextItems[i].getElement());
+			else this.element.append(contextItems[i].getElement());
+		}
+		return this;
+	}
+    
+    /**
+     * Shows the menu at a specific x and y position. This generally comes from the
+     * pointer position on a right click event.
+     * @param {number} x - x coordinate for the menu to show at
+     * @param {number} y - y coordinate for the menu to show at
+     */
+	show(x, y) {
+		const maxWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+		const maxHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+		const mouseX = x;
+		const mouseY = y;
+		
+		let type = this.element.parents(".plugin-context-menu").length > this.element.parents(DiscordSelectors.ContextMenuClasses.contextMenu).length ? ".plugin-context-menu" : DiscordSelectors.ContextMenuClasses.contextMenu;
+		var depth = this.element.parents(type).length;
+		if (depth == 0) this.element.appendTo('#app-mount');
+		this.element.css("top", mouseY).css("left", mouseX);
+		
+		if (depth > 0) {
+			var top = this.element.parents(type).last();
+			var closest = this.element.parents(type).first();
+			var negate = closest.hasClass(DiscordClasses.ContextMenuClasses.invertChildX) ? -1 : 1;
+			this.element.css("margin-left", negate * closest.find(`.${DiscordClasses.ContextMenuClasses.item}`).outerWidth() + closest.offset().left - top.offset().left);
+		}
+		
+		if (mouseY + this.element.outerHeight() >= maxHeight) {
+			this.element.addClass("invertY").addClass(DiscordClasses.ContextMenuClasses.invertY);
+			this.element.css("top", mouseY - this.element.outerHeight());
+			if (depth > 0) this.element.css("top", (mouseY + this.element.parent().outerHeight()) - this.element.outerHeight());
+		}
+		if (this.element.offset().left + this.element.outerWidth() >= maxWidth) {
+			this.element.addClass("invertX");
+			this.element.css("left", mouseX - this.element.outerWidth());
+		}
+		if (this.element.offset().left + 2 * this.element.outerWidth() >= maxWidth) {
+			this.element.addClass(DiscordClasses.ContextMenuClasses.invertChildX);
+		}
+
+		if (depth == 0) {
+			$(document).on("mousedown.zctx", (e) => {
+				if (!this.element.has(e.target).length &amp;&amp; !this.element.is(e.target)) {
+					this.removeMenu();
+				}
+			});
+			$(document).on("click.zctx", (e) => {
+				if (this.element.has(e.target).length) {
+					if ($._data($(e.target).closest(DiscordSelectors.ContextMenuClasses.item)[0], 'events').click) {
+						this.removeMenu();
+					}
+				}
+			});
+			$(document).on("keyup.zctx", (e) => {
+				if (e.keyCode === 27) {
+					this.removeMenu();
+				}
+			});
+		}
+	}
+    
+    /** Allows you to remove the menu. */
+	removeMenu() {
+		let type = this.element.parents(".plugin-context-menu").length > this.element.parents(DiscordSelectors.ContextMenuClasses.contextMenu).length ? ".plugin-context-menu" : DiscordSelectors.ContextMenuClasses.contextMenu;
+		this.element.detach();
+		this.element.find(type).detach();
+		$(document).off(".zctx");
+	}
+    
+    /**
+     * Used to attach a menu to a menu item. This is how to create a submenu.
+     * If using {@link PluginContextMenu.SubMenuItem} then you do not need
+     * to call this function as it is done automatically. If you want to attach
+     * a submenu to an existing Discord context menu, then you should use this
+     * method.
+     * @param {(HTMLElement|jQuery)} menuItem - item to attach to
+     */
+	attachTo(menuItem) {
+		this.menuItem = $(menuItem);
+		menuItem.on("mouseenter", () => {
+			this.element.appendTo(menuItem);
+			let type = this.element.parents(".plugin-context-menu").length > this.element.parents(DiscordSelectors.ContextMenuClasses.contextMenu).length ? ".plugin-context-menu" : DiscordSelectors.ContextMenuClasses.contextMenu;
+			this.show(this.element.parents(type).css("left"), menuItem.offset().top);
+		});
+		menuItem.on("mouseleave", () => { this.element.detach(); });
+	}
+}
+
+/** Class that represents a group of menu items. */
+export class ItemGroup {
+    /** Creates an item group. */
+	constructor() {
+		this.element = $("&lt;div>").addClass(DiscordClasses.ContextMenuClasses.itemGroup);
+	}
+    
+    /**
+     * This is the method of adding menu items to a menu group.
+     * @param {PluginContextMenu.MenuItem} contextItems - list of context menu items to add to this group
+     * @returns {PluginContextMenu.ItemGroup} returns self for chaining
+     */
+	addItems(...contextItems) {
+		for (var i = 0; i &lt; contextItems.length; i++) {
+			this.element.append(contextItems[i].getElement());
+		}
+		return this;
+	}
+    
+    /** @returns {HTMLElement} returns the DOM node for the group */
+	getElement() { return this.element; }
+}
+
+/**
+ * Fires when the attached menu item it clicked.
+ * @param {MouseEvent} event - the mouse event from clicking the item
+ * @callback PluginContextMenu~clickEvent
+ */
+
+ /**
+ * Fires when the checkbox item changes state.
+ * @param {boolean} isChecked - if the checkbox is now checked
+ * @callback PluginContextMenu~onChange
+ */
+
+/** Base class for all other menu items. */
+export class MenuItem {
+    /**
+     * @param {string} label - label to show on the menu item
+     * @param {object} options - additional options for the item
+     * @param {boolean} [options.danger=false] - should the item show as danger
+     * @param {PluginContextMenu~clickEvent} [options.callback] - callback for when it is clicked
+     */
+	constructor(label, options = {}) {
+		var {danger = false, callback} = options;
+		this.element = $("&lt;div>").addClass(DiscordClasses.ContextMenuClasses.item);
+		this.label = label;
+		if (danger) this.element.addClass(DiscordClasses.ContextMenuClasses.danger);
+		if (typeof(callback) == 'function') {
+			this.element.on("click", (event) => {
+				event.stopPropagation();
+				callback(event);
+			});
+		}
+	}
+	getElement() { return this.element;}
+}
+
+/** 
+ * Creates a text menu item that can have a hint.
+ * @extends MenuItem
+ */
+export class TextItem extends MenuItem {
+    /**
+     * @param {string} label - label to show on the menu item
+     * @param {object} options - additional options for the item
+     * @param {string} [options.hint=""] - hint to show on the item (usually used for key combos)
+     * @param {boolean} [options.danger=false] - should the item show as danger
+     * @param {PluginContextMenu~clickEvent} [options.callback] - callback for when it is clicked
+     */
+	constructor(label, options = {}) {
+		super(label, options);
+		var {hint = ""} = options;
+		this.element.append($("&lt;span>").text(label));
+		this.element.append($("&lt;div>").addClass(DiscordClasses.ContextMenuClasses.hint).text(hint));
+	}
+}
+
+/** 
+ * Creates an image menu item that can have an image.
+ * @extends MenuItem
+ */
+export class ImageItem extends MenuItem {
+    /**
+     * @param {string} label - label to show on the menu item
+     * @param {string} imageSrc - link to the image to embed
+     * @param {object} options - additional options for the item
+     * @param {string} [options.hint=""] - hint to show on the item (usually used for key combos)
+     * @param {boolean} [options.danger=false] - should the item show as danger
+     * @param {PluginContextMenu~clickEvent} [options.callback] - callback for when it is clicked
+     */
+	constructor(label, imageSrc, options = {}) {
+		super(label, options);
+		this.element.addClass(DiscordClasses.ContextMenuClasses.itemImage);
+		this.element.append($("&lt;div>").addClass(DiscordClasses.ContextMenuClasses.label).text(label));
+		this.element.append($("&lt;img>", {src: imageSrc}));
+	}
+}
+
+/** 
+ * Creates a menu item with an attached submenu.
+ * @extends .MenuItem
+ */
+export class SubMenuItem extends MenuItem {
+    /**
+     * @param {string} label - label to show on the menu item
+     * @param {PluginContextMenu.Menu} subMenu - context menu that should be attached to this item
+     * @param {object} options - additional options for the item
+     * @param {string} [options.hint=""] - hint to show on the item (usually used for key combos)
+     * @param {boolean} [options.danger=false] - should the item show as danger
+     * @param {PluginContextMenu~clickEvent} [options.callback] - callback for when it is clicked
+     */
+	constructor(label, subMenu, options = {}) {
+		// if (!(subMenu instanceof ContextSubMenu)) throw "subMenu must be of ContextSubMenu type.";
+		super(label, options);
+		this.element.addClass(DiscordClasses.ContextMenuClasses.itemSubMenu).text(label);
+		this.subMenu = subMenu;
+		this.subMenu.attachTo(this.getElement());
+	}
+}
+
+/** 
+ * Creates a menu item with a checkbox.
+ * @extends MenuItem
+ */
+export class ToggleItem extends MenuItem {
+    /**
+     * @param {string} label - label to show on the menu item
+     * @param {boolean} checked - should the item start out checked
+     * @param {object} options - additional options for the item
+     * @param {string} [options.hint=""] - hint to show on the item (usually used for key combos)
+     * @param {boolean} [options.danger=false] - should the item show as danger
+     * @param {PluginContextMenu~clickEvent} [options.callback] - callback for when it is clicked
+     * @param {PluginContextMenu~onChange} [options.onChange] - callback for when the checkbox changes
+     */
+	constructor(label, checked, options = {}) {
+        var {onChange} = options;
+		super(label, options);
+		this.element.addClass(DiscordClasses.ContextMenuClasses.itemToggle);
+        this.element.append($("&lt;div>").addClass(DiscordClasses.ContextMenuClasses.label).text(label));
+        this.checkbox = $("&lt;div>", {class: "checkbox"});
+        this.checkbox.append($("&lt;div>", {class: "checkbox-inner"}));
+        this.checkbox.append("&lt;span>");
+        this.input = $("&lt;input>", {type: "checkbox", checked: checked, value: "on"});
+        this.checkbox.find('.checkbox-inner').append(this.input).append("&lt;span>");
+        this.element.append(this.checkbox);
+        this.element.on('click', (e) => {
+            e.stopPropagation();
+            this.input.prop("checked", !this.input.prop("checked"));
+            if (typeof(onChange) == 'function') onChange(this.input.prop("checked"));
+        });
+	}
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-ColorConverter.html">ColorConverter</a></li><li><a href="module-DiscordAPI.html">DiscordAPI</a></li><li><a href="module-DiscordClassModules.html">DiscordClassModules</a></li><li><a href="module-DiscordModules.html">DiscordModules</a></li><li><a href="module-DOMTools.html">DOMTools</a></li><li><a href="module-Logger.html">Logger</a></li><li><a href="module-Patcher.html">Patcher</a></li><li><a href="module-PluginContextMenu.html">PluginContextMenu</a></li><li><a href="module-PluginSettings.html">PluginSettings</a></li><li><a href="module-PluginTooltip.html">PluginTooltip</a></li><li><a href="module-PluginUpdateUtilities.html">PluginUpdateUtilities</a></li><li><a href="module-PluginUtilities.html">PluginUtilities</a></li><li><a href="module-ReactTools.html">ReactTools</a></li><li><a href="module-Utilities.html">Utilities</a></li></ul><h3>Classes</h3><ul><li><a href="DiscordPermissions.html">DiscordPermissions</a></li><li><a href="module-DOMTools.ClassName.html">ClassName</a></li><li><a href="module-DOMTools.Selector.html">Selector</a></li><li><a href="module-PluginContextMenu.ImageItem.html">ImageItem</a></li><li><a href="module-PluginContextMenu.ItemGroup.html">ItemGroup</a></li><li><a href="module-PluginContextMenu.Menu.html">Menu</a></li><li><a href="module-PluginContextMenu.MenuItem.html">MenuItem</a></li><li><a href="module-PluginContextMenu.SubMenuItem.html">SubMenuItem</a></li><li><a href="module-PluginContextMenu.TextItem.html">TextItem</a></li><li><a href="module-PluginContextMenu.ToggleItem.html">ToggleItem</a></li><li><a href="module-PluginSettings.ColorPicker.html">ColorPicker</a></li><li><a href="module-PluginSettings.Pill.html">Pill</a></li><li><a href="module-PluginSettings.SettingField.html">SettingField</a></li><li><a href="module-PluginSettings.SettingGroup.html">SettingGroup</a></li><li><a href="module-PluginSettings.Slider.html">Slider</a></li><li><a href="module-PluginSettings.Switch.html">Switch</a></li><li><a href="module-PluginSettings.Textbox.html">Textbox</a></li><li><a href="module-PluginTooltip.NativeTooltip.html">NativeTooltip</a></li><li><a href="module-PluginTooltip.PluginTooltip.html">PluginTooltip</a></li><li><a href="Screen.html">Screen</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getAccentColor">getAccentColor</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri May 18 2018 01:32:22 GMT-0400 (Eastern Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
