@@ -1,10 +1,11 @@
 const fs = require("fs");
 const path = require("path");
 const webpack = require("webpack");
-const defaults = require("./webpack.config.js");
+const defaults = require("../webpack.config.js");
 const args = require("yargs").argv;
+const pluginsPath = path.join(__dirname, "../plugins");
 
-const list = args.plugin ? [args.plugin] : fs.readdirSync(path.join(__dirname, "plugins")).filter(f => fs.lstatSync(path.join(__dirname, "plugins", f)).isDirectory());
+const list = args.plugin ? [args.plugin] : fs.readdirSync(pluginsPath).filter(f => fs.lstatSync(path.join(pluginsPath, f)).isDirectory());
 (async (list) => {
     console.log("");
     console.log("Building: " + list.join(", "));

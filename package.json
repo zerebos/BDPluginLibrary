@@ -13,9 +13,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build_plugin": "node build.js",
-    "pack_plugin": "node pack.js",
-    "build_lib": "node pack.js --plugin 0PluginLibrary",
+    "build_plugin": "node ./scripts/build.js",
+    "pack_plugin": "node ./scripts/pack.js",
+    "build_lib": "node ./scripts/pack.js --plugin 0PluginLibrary",
     "build_docs": "jsdoc -r src -c jsdoc.config.json",
     "webpack": "webpack"
   },
