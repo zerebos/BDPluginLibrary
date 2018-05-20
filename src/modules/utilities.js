@@ -4,7 +4,9 @@
  * @version 0.0.1
  */
 
- import Logger from "./logger";
+import Logger from "./logger";
+
+const fs = require("fs");
 
 export default class Utilities {
 
@@ -94,11 +96,117 @@ export default class Utilities {
      * @param {object} values - object literal of placeholders to replacements
      * @returns {string} the properly formatted string
      */
-    formatString(string, values) {
+    static formatString(string, values) {
         for (let val in values) {
-            string = string.replace(new RegExp(`\\$\\{${val}\\}`, 'g'), values[val]);
+            string = string.replace(new RegExp(`\\$\\{${val}\\}`, "g"), values[val]);
         }
         return string;
+    }
+
+    /* Code below comes from our work on BDv2:
+     * https://github.com/JsSucks/BetterDiscordApp/blob/master/common/modules/utils.js
+     */
+
+    /**
+     * Clones an object and all it's properties.
+     * @param {Any} value The value to clone
+     * @return {Any} The cloned value
+     */
+    static deepclone(value) {
+        if (typeof value === "object") {
+            if (value instanceof Array) return value.map(i => this.deepclone(i));
+
+            const clone = Object.assign({}, value);
+
+            for (let key in clone) {
+                clone[key] = this.deepclone(clone[key]);
+            }
+
+            return clone;
+        }
+
+        return value;
+    }
+
+    /**
+     * Freezes an object and all it's properties.
+     * @param {Any} object The object to freeze
+     * @param {Function} exclude A function to filter object that shouldn't be frozen
+     */
+    static deepfreeze(object, exclude) {
+        if (exclude && exclude(object)) return;
+
+        if (typeof object === "object" && object !== null) {
+            const properties = Object.getOwnPropertyNames(object);
+
+            for (let property of properties) {
+                this.deepfreeze(object[property], exclude);
+            }
+
+            Object.freeze(object);
+        }
+
+        return object;
+    }
+
+    /**
+     * Removes an item from an array. This differs from Array.prototype.filter as it mutates the original array instead of creating a new one.
+     * @param {Array} array The array to filter
+     * @param {Any} item The item to remove from the array
+     * @return {Array}
+     */
+    static removeFromArray(array, item) {
+        let index;
+        while ((index = array.indexOf(item)) > -1)
+            array.splice(index, 1);
+        return array;
+    }
+
+    /**
+     * Checks if a file exists and is a file.
+     * @param {String} path The file's path
+     * @return {Promise}
+     */
+    static async fileExists(path) {
+        return new Promise((resolve, reject) => {
+            fs.stat(path, (err, stats) => {
+                if (err) return reject({
+                    message: `No such file or directory: ${err.path}`,
+                    err
+                });
+
+                if (!stats.isFile()) return reject({
+                    message: `Not a file: ${path}`,
+                    stats
+                });
+
+                resolve();
+            });
+        });
+    }
+
+    /**
+     * Returns the contents of a file.
+     * @param {String} path The file's path
+     * @return {Promise}
+     */
+    static async readFile(path) {
+        try {
+            await this.fileExists(path);
+        } catch (err) {
+            throw err;
+        }
+
+        return new Promise((resolve, reject) => {
+            fs.readFile(path, "utf-8", (err, data) => {
+                if (err) return reject({
+                    message: `Could not read file: ${path}`,
+                    err
+                });
+
+                resolve(data);
+            });
+        });
     }
 
 }

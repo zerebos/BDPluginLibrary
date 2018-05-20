@@ -5,7 +5,6 @@
  */
 
 import Utilities from "./utilities";
-import {jQuery} from "../vendor";
 
 export default class ReactTools {
 

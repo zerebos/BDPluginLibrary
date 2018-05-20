@@ -7,7 +7,6 @@
 import PluginUtilities from "./pluginutilities";
 import DiscordModules from "./discordmodules";
 import Logger from "./logger";
-import {$} from "../vendor";
 
 
 export default class PluginUpdates {
@@ -40,7 +39,7 @@ export default class PluginUpdates {
 		return updateButton;
 	}
 
-	static getCSS() {
+	static get CSS() {
 		return require("../styles/updates.css");
 	}
 
@@ -77,25 +76,25 @@ export default class PluginUpdates {
 	 * @param {string} updateLink - link to the raw text version of the plugin
 	 */
 	static showUpdateNotice(pluginName, updateLink) {
-		if (!$('#pluginNotice').length)  {
+		if (!$("#pluginNotice").length)  {
 			let noticeElement = `<div class="${DiscordModules.NoticeBarClasses.notice} ${DiscordModules.NoticeBarClasses.noticeInfo}" id="pluginNotice"><div class="${DiscordModules.NoticeBarClasses.dismiss}" id="pluginNoticeDismiss"></div><span class="notice-message">The following plugins have updates:</span>&nbsp;&nbsp;<strong id="outdatedPlugins"></strong></div>`;
 			// $('.app .guilds-wrapper + div > div:first > div:first').append(noticeElement);
-			$('.app.flex-vertical').children().first().before(noticeElement);
-			$('.win-buttons').addClass("win-buttons-notice");
-			$('#pluginNoticeDismiss').on('click', () => {
-				$('.win-buttons').animate({top: 0}, 400, "swing", () => { $('.win-buttons').css("top","").removeClass("win-buttons-notice"); });
-				$('#pluginNotice').slideUp({complete: () => { $('#pluginNotice').remove(); }});
+			$(".app.flex-vertical").children().first().before(noticeElement);
+			$(".win-buttons").addClass("win-buttons-notice");
+			$("#pluginNoticeDismiss").on("click", () => {
+				$(".win-buttons").animate({top: 0}, 400, "swing", () => { $(".win-buttons").css("top","").removeClass("win-buttons-notice"); });
+				$("#pluginNotice").slideUp({complete: () => { $("#pluginNotice").remove(); }});
 			});
 		}
-		let pluginNoticeID = pluginName + '-notice';
-		if (!$('#' + pluginNoticeID).length) {
-			let pluginNoticeElement = $('<span id="' + pluginNoticeID + '">');
+		let pluginNoticeID = pluginName + "-notice";
+		if (!$("#" + pluginNoticeID).length) {
+			let pluginNoticeElement = $("<span id=\"" + pluginNoticeID + "\">");
 			pluginNoticeElement.text(pluginName);
-			pluginNoticeElement.on('click', () => {
+			pluginNoticeElement.on("click", () => {
 				this.downloadPlugin(pluginName, updateLink);
 			});
-			if ($('#outdatedPlugins').children('span').length) $('#outdatedPlugins').append("<span class='separator'>, </span>");
-			$('#outdatedPlugins').append(pluginNoticeElement);
+			if ($("#outdatedPlugins").children("span").length) $("#outdatedPlugins").append("<span class='separator'>, </span>");
+			$("#outdatedPlugins").append(pluginNoticeElement);
 		}
 	}
 
@@ -114,7 +113,7 @@ export default class PluginUpdates {
 			if (error) return Logger.warn("PluginUpdates", "Unable to get update for " + pluginName);
 			let remoteVersion = body.match(/['"][0-9]+\.[0-9]+\.[0-9]+['"]/i);
 			remoteVersion = remoteVersion.toString().replace(/['"]/g, "");
-			let filename = updateLink.split('/');
+			let filename = updateLink.split("/");
 			filename = filename[filename.length - 1];
 			var file = path.join(PluginUtilities.getPluginsFolder(), filename);
 			fileSystem.writeFileSync(file, body);
@@ -125,25 +124,25 @@ export default class PluginUpdates {
 				if (!window.PluginUpdates.downloaded) {
 					window.PluginUpdates.downloaded = [];
 					let button = $(`<button class="btn btn-reload ${DiscordModules.NoticeBarClasses.btn} ${DiscordModules.NoticeBarClasses.button}">Reload</button>`);
-					button.on('click', (e) => {
+					button.on("click", (e) => {
 						e.preventDefault();
 						window.location.reload(false);
 					});
 					var tooltip = document.createElement("div");
 					tooltip.className = "tooltip tooltip-bottom tooltip-black";
 					tooltip.style.maxWidth = "400px";
-					button.on('mouseenter', () => {
+					button.on("mouseenter", () => {
 						document.querySelector(".tooltips").appendChild(tooltip);
 						tooltip.innerText = window.PluginUpdates.downloaded.join(", ");
 						tooltip.style.left = button.offset().left + (button.outerWidth() / 2) - ($(tooltip).outerWidth() / 2) + "px";
 						tooltip.style.top = button.offset().top + button.outerHeight() + "px";
 					});
 		
-					button.on('mouseleave', () => {
+					button.on("mouseleave", () => {
 						tooltip.remove();
 					});
 		
-					button.appendTo($('#pluginNotice'));
+					button.appendTo($("#pluginNotice"));
 				}
 				window.PluginUpdates.plugins[updateLink].version = remoteVersion;
 				window.PluginUpdates.downloaded.push(pluginName);
@@ -158,18 +157,18 @@ export default class PluginUpdates {
 	 * @param {string} pluginName - name of the plugin
 	 */
 	static removeUpdateNotice(pluginName) {
-		let notice = $('#' + pluginName + '-notice');
+		let notice = $("#" + pluginName + "-notice");
 		if (notice.length) {
-			if (notice.next('.separator').length) notice.next().remove();
-			else if (notice.prev('.separator').length) notice.prev().remove();
+			if (notice.next(".separator").length) notice.next().remove();
+			else if (notice.prev(".separator").length) notice.prev().remove();
 			notice.remove();
 		}
 
-		if (!$('#outdatedPlugins').children('span').length && !$('#pluginNotice .btn-reload').length) {
-			$('#pluginNoticeDismiss').click();
+		if (!$("#outdatedPlugins").children("span").length && !$("#pluginNotice .btn-reload").length) {
+			$("#pluginNoticeDismiss").click();
 		} 
-		else if (!$('#outdatedPlugins').children('span').length && $('#pluginNotice .btn-reload').length) {
-			$('#pluginNotice .notice-message').text("To finish updating you need to reload.");
+		else if (!$("#outdatedPlugins").children("span").length && $("#pluginNotice .btn-reload").length) {
+			$("#pluginNotice .notice-message").text("To finish updating you need to reload.");
 		}
 	}
 }

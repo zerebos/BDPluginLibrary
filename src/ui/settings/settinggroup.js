@@ -1,5 +1,4 @@
 import {DiscordClasses} from "modules";
-import {$, jQuery} from "../../vendor";
 import SettingField from "./settingfield";
 
 /** 
@@ -20,27 +19,27 @@ class SettingGroup {
 	constructor(groupName, callback, options = {}) {
 		const {collapsible = true, shown = false} = options;
 		this.group = $("<div>").addClass("plugin-control-group").css("margin-top", "15px");
-		var collapsed = shown || !collapsible ? '' : ' collapsed';
-		var label = $('<h2>').html('<span class="button-collapse' + collapsed + '" style=""></span> ' + groupName);
+		var collapsed = shown || !collapsible ? "" : " collapsed";
+		var label = $("<h2>").html(`<span class="button-collapse${collapsed}" style=""></span> ${groupName}`);
 		label.attr("class", `${DiscordClasses.SettingsMetaClasses.h5} ${DiscordClasses.SettingsMetaClasses.defaultMarginh5}`);
 		this.group.append(label);
-		this.controls = $('<div class="plugin-controls collapsible' + collapsed + '">');
+		this.controls = $(`<div class="plugin-controls collapsible${collapsed}">`);
 		this.group.append(this.controls);
 		if (collapsible) {
-			label.on('click', (e) => {
-				let button = $(e.target).find('.button-collapse');
-				let wasCollapsed = button.hasClass('collapsed');
-				this.group.parent().find('.collapsible:not(.collapsed)').slideUp({duration: 300, easing: "easeInSine", complete: function() { $(this).addClass('collapsed'); }}); // .slideUp({duration: 300, easing: "easeInSine"})
-				this.group.parent().find('.button-collapse').addClass('collapsed');
+			label.on("click", (e) => {
+				let button = $(e.target).find(".button-collapse");
+				let wasCollapsed = button.hasClass("collapsed");
+				this.group.parent().find(".collapsible:not(.collapsed)").slideUp({duration: 300, easing: "easeInSine", complete: function() { $(this).addClass("collapsed"); }}); // .slideUp({duration: 300, easing: "easeInSine"})
+				this.group.parent().find(".button-collapse").addClass("collapsed");
 				if (wasCollapsed) {
 					this.controls.slideDown({duration: 300, easing: "easeInSine"});
-					this.controls.removeClass('collapsed');
-					button.removeClass('collapsed');
+					this.controls.removeClass("collapsed");
+					button.removeClass("collapsed");
 				}
 			});
 		}
 		
-		if (typeof callback != 'undefined') {
+		if (typeof callback != "undefined") {
 			this.controls.on("change", "input", callback);
 		}
 	}

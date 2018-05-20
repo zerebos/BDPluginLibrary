@@ -5,8 +5,7 @@
  */
 
 import DiscordClassModules from "./discordclassmodules";
-import Selector from "../structs/selector";
-import ClassName from "../structs/classname";
+import {Selector, ClassName} from "structs";
  
 export default class DOMTools {
 	/**
@@ -73,6 +72,3 @@ export const DiscordSelectors = new Proxy(DiscordClassModules, {
 		});
 	}
 });
-
-export {default as Selector} from "../structs/selector";
-export {default as ClassName} from "../structs/classname";

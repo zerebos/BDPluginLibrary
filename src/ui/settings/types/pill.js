@@ -1,5 +1,4 @@
 import {createInputContainer, getAccentColor} from "../settingfield";
-import {$} from "../../../vendor";
 import Switch from "./switch";
 
 /** 
@@ -27,11 +26,11 @@ class Pill extends Switch {
 		super(label, help, isRightSelected, callback, options);
 		
 		this.checkboxWrap.css("margin","0 9px");
-		this.input.addClass('plugin-input-pill');
+		this.input.addClass("plugin-input-pill");
 		
-		var labelLeft = $('<span class="plugin-setting-label left">');
+		var labelLeft = $(`<span class="plugin-setting-label left">`);
 		labelLeft.text(leftLabel);
-		var labelRight = $('<span class="plugin-setting-label right">');
+		var labelRight = $(`<span class="plugin-setting-label right">`);
 		labelRight.text(rightLabel);
 		
 		var accent = getAccentColor();
@@ -39,7 +38,7 @@ class Pill extends Switch {
 		if (isRightSelected) labelRight.css("color", accent);
 		else labelLeft.css("color", accent);
 		
-		this.checkboxWrap.find('input').on("click", function() {
+		this.checkboxWrap.find("input").on("click", function() {
 			var checked = $(this).prop("checked");
 			if (checked) {
 				labelRight.css("color", accent);

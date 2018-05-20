@@ -5,7 +5,7 @@
  * @version 0.0.1
  */
 import Utilities from "./utilities";
-import {WebpackModules} from "./webpackmodules";
+import WebpackModules from "./webpackmodules";
 
 export default Utilities.memoizeObject({
     get React() {return WebpackModules.getByProps("createElement", "cloneElement");},
@@ -49,6 +49,8 @@ export default Utilities.memoizeObject({
     get UserTypingStore() {return WebpackModules.getByProps("isTyping");},
     get UserActivityStore() {return WebpackModules.getByProps("getActivity");},
     get UserNameResolver() {return WebpackModules.getByProps("getName");},
+    get UserNoteStore() {return WebpackModules.getByProps(["getNote"]);},
+    get UserNoteActions() {return WebpackModules.getByProps(["updateNote"]);},
 
     /* Emoji Store and Utils */
     get EmojiInfo() {return WebpackModules.getByProps("isEmojiDisabled");},
@@ -121,7 +123,6 @@ export default Utilities.memoizeObject({
     get WindowInfo() {return WebpackModules.getByProps("isFocused", "windowSize");},
     get TagInfo() {return WebpackModules.getByProps("VALID_TAG_NAMES");},
     get DOMInfo() {return WebpackModules.getByProps("canUseDOM");},
-    get HTMLUtils() {return WebpackModules.getByProps("htmlFor", "sanitizeUrl");},
 
     /* Locale/Location and Time */
     get LocaleManager() {return WebpackModules.getByProps("setLocale");},
@@ -138,16 +139,29 @@ export default Utilities.memoizeObject({
     get URLParser() {return WebpackModules.getByProps("Url", "parse");},
     get ExtraURLs() {return WebpackModules.getByProps("getArticleURL");},
 
+    /* Text Processing */
+    get hljs() {return WebpackModules.getByProps(["highlight", "highlightBlock"]);},
+    get SimpleMarkdown() {return WebpackModules.getByProps(["parseBlock", "parseInline", "defaultOutput"]);},
+
     /* DOM/React Components */
     /* ==================== */
-    get UserSettingsWindow() {return WebpackModules.getByProps("open", "updateAccount");},
     get LayerManager() {return WebpackModules.getByProps("popLayer", "pushLayer");},
     get Tooltips() {return WebpackModules.find(m => m.hide && m.show && !m.search && !m.submit && !m.search && !m.activateRagingDemon && !m.dismiss);},
+    get UserSettingsWindow() {return WebpackModules.getByProps(["open", "updateAccount"]);},
+    get ChannelSettingsWindow() {return WebpackModules.getByProps(["open", "updateChannel"]);},
+    get GuildSettingsWindow() {return WebpackModules.getByProps(["open", "updateGuild"]);},
 
     /* Modals */
     get ModalStack() {return WebpackModules.getByProps("push", "update", "pop", "popWithKey");},
     get UserProfileModals() {return WebpackModules.getByProps("fetchMutualFriends", "setSection");},
     get ConfirmModal() {return WebpackModules.getByPrototypes("handleCancel", "handleSubmit", "handleMinorConfirm");},
+    get UserProfileModal() {return WebpackModules.getByProps(["fetchMutualFriends", "setSection"]);},
+    get ChangeNicknameModal() {return WebpackModules.getByProps(["open", "changeNickname"]);},
+    get CreateChannelModal() {return WebpackModules.getByProps(["open", "createChannel"]);},
+    get PruneMembersModal() {return WebpackModules.getByProps(["open", "prune"]);},
+    get NotificationSettingsModal() {return WebpackModules.getByProps(["open", "updateNotificationSettings"]);},
+    get PrivacySettingsModal() {return WebpackModules.getByRegex(/PRIVACY_SETTINGS_MODAL_OPEN/, m => m.open);},
+    get CreateInviteModal() {return WebpackModules.getByProps(["open", "createInvite"]);},
 
     /* Popouts */
     get PopoutStack() {return WebpackModules.getByProps("open", "close", "closeAll");},

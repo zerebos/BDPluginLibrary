@@ -8,7 +8,9 @@
  * @version 0.0.2
  */
 
- import Logger from "./logger";
+import Logger from "./logger";
+import DiscordModules from "./discordmodules";
+import WebpackModules from "./webpackmodules";
  
 export default class Patcher {
 
@@ -36,7 +38,7 @@ export default class Patcher {
      * @param {Array|string} patches - Either an array of patches to unpatch or a caller name
      */
     static unpatchAll(patches) {
-        if (typeof patches === 'string') patches = this.getPatchesByCaller(patches);
+        if (typeof patches === "string") patches = this.getPatchesByCaller(patches);
 
         for (const patch of patches) {
 			patch.unpatch();
@@ -45,8 +47,8 @@ export default class Patcher {
 	
 	static resolveModule(module) {
         if (module instanceof Function || (module instanceof Object && !(module instanceof Array))) return module;
-        if (typeof module === 'string') return DiscordModules[module];
-        if (module instanceof Array) return InternalUtilities.WebpackModules.findByUniqueProperties(module);
+        if (typeof module === "string") return DiscordModules[module];
+        if (module instanceof Array) return WebpackModules.findByUniqueProperties(module);
         return null;
 	}
 
@@ -54,7 +56,7 @@ export default class Patcher {
         return function () {
             let returnValue = undefined;
             if (!patch.children) return patch.originalFunction.apply(this, arguments);
-            for (const superPatch of patch.children.filter(c => c.type === 'before')) {
+            for (const superPatch of patch.children.filter(c => c.type === "before")) {
                 try {
                     superPatch.callback(this, arguments);
                 }
@@ -63,7 +65,7 @@ export default class Patcher {
                 }
             }
 
-            const insteads = patch.children.filter(c => c.type === 'instead');
+            const insteads = patch.children.filter(c => c.type === "instead");
             if (!insteads.length) returnValue = patch.originalFunction.apply(this, arguments, patch.originalFunction);
             else {
                 for (const insteadPatch of insteads) {
@@ -77,7 +79,7 @@ export default class Patcher {
                 }
             }
 
-            for (const slavePatch of patch.children.filter(c => c.type === 'after')) {
+            for (const slavePatch of patch.children.filter(c => c.type === "after")) {
                 try {
 					const tempReturn = slavePatch.callback(this, arguments, returnValue);
                     if (typeof(tempReturn) !== "undefined") returnValue = tempReturn;
@@ -198,7 +200,7 @@ export default class Patcher {
 		if (!module[functionName] && forcePatch) module[functionName] = function() {};
 		if (!(module[functionName] instanceof Function)) return null;
 		
-		if (typeof moduleToPatch === 'string') options.displayName = moduleToPatch;
+		if (typeof moduleToPatch === "string") options.displayName = moduleToPatch;
         const displayName = options.displayName || module.displayName || module.name || module.constructor.displayName || module.constructor.name;
 
 		const patchId = `${displayName}.${functionName}`;

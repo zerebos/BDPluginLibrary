@@ -1,5 +1,4 @@
 import SettingField from "../settingfield";
-import {$} from "../../../vendor";
 
 /** 
  * Creates a checkbox in the style of a standard Discord switch.
@@ -22,16 +21,16 @@ class Switch extends SettingField {
 		super(label, help, options, callback);
 		this.getValue = () => { return this.input.prop("checked"); };
 		this.input.addClass("ui-switch-checkbox");
-		this.input.addClass('plugin-input-checkbox');
+		this.input.addClass("plugin-input-checkbox");
 
 		this.input.on("change", function() {
 			if ($(this).prop("checked")) switchDiv.addClass("checked");
 			else switchDiv.removeClass("checked");
 		});
 		
-		this.checkboxWrap = $('<label class="ui-switch-wrapper ui-flex-child" style="flex:0 0 auto;">');
+		this.checkboxWrap = $(`<label class="ui-switch-wrapper ui-flex-child" style="flex:0 0 auto;">`);
 		this.checkboxWrap.append(this.input);
-		var switchDiv = $('<div class="ui-switch">');
+		var switchDiv = $(`<div class="ui-switch">`);
 		if (isChecked) switchDiv.addClass("checked");
 		this.checkboxWrap.append(switchDiv);
 		this.checkboxWrap.css("right", "0px");

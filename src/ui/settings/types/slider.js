@@ -1,5 +1,4 @@
 import SettingField, {createInputContainer, getAccentColor} from "../settingfield";
-import {$} from "../../../vendor";
 
 /** 
  * Creates a slider where the user can select a single number from a predefined range.
@@ -33,10 +32,10 @@ class Slider extends SettingField {
 		this.accentColor = getAccentColor();
 		this.setBackground();
 		this.input.css("margin-left", "10px").css("float", "right");
-		this.input.addClass('plugin-input-range');
+		this.input.addClass("plugin-input-range");
 		
 		this.labelUnit = "";
-		this.label = $('<span class="plugin-setting-label">').text(this.value + this.labelUnit);
+		this.label = $(`<span class="plugin-setting-label">`).text(this.value + this.labelUnit);
 		
 		this.input.on("input", () => {
 			this.value = parseFloat(this.input.val());
@@ -51,7 +50,7 @@ class Slider extends SettingField {
 
 	setBackground() {
 		var percent = this.getPercent();
-		this.input.css('background', 'linear-gradient(to right, ' + this.accentColor + ', ' + this.accentColor + ' ' + percent + '%, #72767d ' + percent + '%)');
+		this.input.css("background", "linear-gradient(to right, " + this.accentColor + ", " + this.accentColor + " " + percent + "%, #72767d " + percent + "%)");
 	}
 
     /**

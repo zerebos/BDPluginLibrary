@@ -1,7 +1,6 @@
 import Logger from "./logger";
 import PluginUpdates from "./pluginupdates";
 import DiscordModules from "./discordmodules";
-import {$} from "../vendor";
 
 /**
  * A series of useful functions for BetterDiscord plugins.
@@ -176,10 +175,10 @@ import {$} from "../vendor";
 	 * @param {number} [options.timeout=3000] - Adjusts the time (in ms) the toast should be shown for before disappearing automatically.
 	 */
 	static showToast(content, options = {}) {
-		if (!document.querySelector('.toasts')) {
-			let container = document.querySelector('.channels-3g2vYe + div, .channels-Ie2l6A + div');
-			let memberlist = container.querySelector('.membersWrap-2h-GB4');
-			let form = container ? container.querySelector('form') : null;
+		if (!document.querySelector(".toasts")) {
+			let container = document.querySelector(".channels-3g2vYe + div, .channels-Ie2l6A + div");
+			let memberlist = container.querySelector(".membersWrap-2h-GB4");
+			let form = container ? container.querySelector("form") : null;
 			let left = container ? container.getBoundingClientRect().left : 310;
 			let right = memberlist ? memberlist.getBoundingClientRect().left : 0;
 			let width = right ? right - container.getBoundingClientRect().left : container.offsetWidth;
@@ -189,7 +188,7 @@ import {$} from "../vendor";
 			toastWrapper.style.setProperty("left", left + "px");
 			toastWrapper.style.setProperty("width", width + "px");
 			toastWrapper.style.setProperty("bottom", bottom + "px");
-			document.querySelector('.app').appendChild(toastWrapper);
+			document.querySelector(".app").appendChild(toastWrapper);
 		}
 		const {type = "", icon = true, timeout = 3000} = options;
 		let toastElem = document.createElement("div");
@@ -197,12 +196,12 @@ import {$} from "../vendor";
 		if (type) toastElem.classList.add("toast-" + type);
 		if (type && icon) toastElem.classList.add("icon");
 		toastElem.innerText = content;
-		document.querySelector('.toasts').appendChild(toastElem);
+		document.querySelector(".toasts").appendChild(toastElem);
 		setTimeout(() => {
-			toastElem.classList.add('closing');
+			toastElem.classList.add("closing");
 			setTimeout(() => {
 				toastElem.remove();
-				if (!document.querySelectorAll('.toasts .toast').length) document.querySelector('.toasts').remove();
+				if (!document.querySelectorAll(".toasts .toast").length) document.querySelector(".toasts").remove();
 			}, 300);
 		}, timeout);
 	}
@@ -249,7 +248,7 @@ import {$} from "../vendor";
 	 * @param {callable} callback - basic callback to happen on channel switch
 	 */
 	static addOnSwitchListener(callback) {
-		require('electron').remote.getCurrentWebContents().on("did-navigate-in-page", callback);
+		require("electron").remote.getCurrentWebContents().on("did-navigate-in-page", callback);
 	}
 
 	/**
@@ -257,7 +256,7 @@ import {$} from "../vendor";
 	 * @param {callable} callback - callback to remove from the listener list
 	 */
 	static removeOnSwitchListener(callback) {
-		require('electron').remote.getCurrentWebContents().removeListener("did-navigate-in-page", callback);
+		require("electron").remote.getCurrentWebContents().removeListener("did-navigate-in-page", callback);
 	}
 }
 

@@ -1,5 +1,3 @@
-import {$} from "../../vendor";
-
 /** 
  * Generic representation of a setting field. Very extensible, but best to use a child class when available.
  * @memberof module:PluginSettings
@@ -28,11 +26,11 @@ class SettingField {
 		this.row.append(this.top, this.help);
 		
 		this.input = $("<input>", inputData);
-		this.input.addClass('plugin-input');
+		this.input.addClass("plugin-input");
 		this.getValue = () => {return this.input.val();};
 		this.processValue = (value) => {return value;};
 		this.input.on("keyup change", () => {
-			if (typeof callback != 'undefined') {
+			if (typeof callback != "undefined") {
 				var returnVal = this.getValue();
 				callback(returnVal);
 			}
@@ -61,15 +59,15 @@ export default SettingField;
 
 /** Attempts to retreive the accent color of native settings items in rgba format. */
 export function getAccentColor() {
-	var bg = $('<div class="ui-switch-item"><div class="ui-switch-wrapper"><input type="checkbox" checked="checked" class="ui-switch-checkbox"><div class="ui-switch checked">');
+	var bg = $("<div class=\"ui-switch-item\"><div class=\"ui-switch-wrapper\"><input type=\"checkbox\" checked=\"checked\" class=\"ui-switch-checkbox\"><div class=\"ui-switch checked\">");
 	bg.appendTo($("#bd-settingspane-container"));
 	var bgColor = $(".ui-switch.checked").first().css("background-color");
-	var afterColor = window.getComputedStyle(bg.find(".ui-switch.checked")[0], ':after').getPropertyValue('background-color'); // For beardy's theme
+	var afterColor = window.getComputedStyle(bg.find(".ui-switch.checked")[0], ":after").getPropertyValue("background-color"); // For beardy's theme
 	bgColor = afterColor == "rgba(0, 0, 0, 0)" ? bgColor : afterColor;
 	bg.remove();
 	return bgColor;
 }
 
 export function createInputContainer(...children) {
-	return $('<div class="plugin-setting-input-container">').append(...children);
+	return $("<div class=\"plugin-setting-input-container\">").append(...children);
 }

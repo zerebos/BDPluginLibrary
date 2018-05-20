@@ -29,7 +29,7 @@ export default class Logger {
 	 * @param {Error} error - Optional error to log with the message.
      */
     static err(module, message, error) {
-		if (error) return console.error(`%c[${module}]%c ${message}\n\n%c`, 'color: #3a71c1; font-weight: 700;', 'color: red; font-weight: 700;', 'color: red;', error);
+		if (error) return console.error(`%c[${module}]%c ${message}\n\n%c`, "color: #3a71c1; font-weight: 700;", "color: red; font-weight: 700;", "color: red;", error);
 		else Logger.log(module, message, "error");
     }
 
@@ -66,7 +66,7 @@ export default class Logger {
      */
     static log(module, message, type = "log") {
         type = Logger.parseType(type);
-        console[type](`%c[${module}]%c`, 'color: #3a71c1; font-weight: 700;', '', message);
+        console[type](`%c[${module}]%c`, "color: #3a71c1; font-weight: 700;", "", message);
     }
 
     static parseType(type) {

@@ -5,7 +5,6 @@
  */
 
 import {DiscordClasses, DiscordSelectors} from "modules";
-import {$} from "../vendor";
 
 
 /** Main menu class for creating custom context menus. */
@@ -15,7 +14,7 @@ export class Menu {
      * @param {boolean} [scroll=false] - should this menu be a scrolling menu (usually only used for submenus)
      */
 	constructor(scroll = false) {
-		this.theme = $('.theme-dark').length ? "theme-dark" : "theme-light";
+		this.theme = $(".theme-dark").length ? "theme-dark" : "theme-light";
 		this.element = $("<div>").addClass(DiscordClasses.ContextMenuClasses.contextMenu).addClass("plugin-context-menu").addClass(this.theme);
 		this.scroll = scroll;
 		if (scroll) {
@@ -68,7 +67,7 @@ export class Menu {
 		
 		let type = this.element.parents(".plugin-context-menu").length > this.element.parents(DiscordSelectors.ContextMenuClasses.contextMenu).length ? ".plugin-context-menu" : DiscordSelectors.ContextMenuClasses.contextMenu;
 		var depth = this.element.parents(type).length;
-		if (depth == 0) this.element.appendTo('#app-mount');
+		if (depth == 0) this.element.appendTo("#app-mount");
 		this.element.css("top", mouseY).css("left", mouseX);
 		
 		if (depth > 0) {
@@ -99,7 +98,7 @@ export class Menu {
 			});
 			$(document).on("click.zctx", (e) => {
 				if (this.element.has(e.target).length) {
-					if ($._data($(e.target).closest(DiscordSelectors.ContextMenuClasses.item)[0], 'events').click) {
+					if ($._data($(e.target).closest(DiscordSelectors.ContextMenuClasses.item)[0], "events").click) {
 						this.removeMenu();
 					}
 				}
@@ -187,7 +186,7 @@ export class MenuItem {
 		this.element = $("<div>").addClass(DiscordClasses.ContextMenuClasses.item);
 		this.label = label;
 		if (danger) this.element.addClass(DiscordClasses.ContextMenuClasses.danger);
-		if (typeof(callback) == 'function') {
+		if (typeof(callback) == "function") {
 			this.element.on("click", (event) => {
 				event.stopPropagation();
 				callback(event);
@@ -283,12 +282,12 @@ export class ToggleItem extends MenuItem {
         this.checkbox.append($("<div>", {class: "checkbox-inner"}));
         this.checkbox.append("<span>");
         this.input = $("<input>", {type: "checkbox", checked: checked, value: "on"});
-        this.checkbox.find('.checkbox-inner').append(this.input).append("<span>");
+        this.checkbox.find(".checkbox-inner").append(this.input).append("<span>");
         this.element.append(this.checkbox);
-        this.element.on('click', (e) => {
+        this.element.on("click", (e) => {
             e.stopPropagation();
             this.input.prop("checked", !this.input.prop("checked"));
-            if (typeof(onChange) == 'function') onChange(this.input.prop("checked"));
+            if (typeof(onChange) == "function") onChange(this.input.prop("checked"));
         });
 	}
 }

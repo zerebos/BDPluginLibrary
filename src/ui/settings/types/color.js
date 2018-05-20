@@ -1,5 +1,4 @@
 import SettingField, {createInputContainer} from "../settingfield";
-import {$} from "../../../vendor";
 
 /** 
  * Creates a color picker using chromium's built in color picker
@@ -22,9 +21,9 @@ class ColorPicker extends SettingField {
 		options.value = value;
 		super(label, help, options, callback);
 		this.input.css("margin-left", "10px");
-		this.input.addClass('plugin-input-color');
+		this.input.addClass("plugin-input-color");
 		
-		var settingLabel = $('<span class="plugin-setting-label">').text(value);
+		var settingLabel = $("<span class=\"plugin-setting-label\">").text(value);
 		
 		this.input.on("input", function() {
 			settingLabel.text($(this).val());

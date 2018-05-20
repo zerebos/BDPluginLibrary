@@ -1,5 +1,4 @@
 import {DiscordModules} from "modules";
-import {$, jQuery} from "../vendor";
 
 /** 
  * Tooltips that automatically show and hide themselves on mouseenter and mouseleave events.
@@ -39,7 +38,7 @@ export class PluginTooltip {
 		this.tooltip = $(`<div class="tooltip tooltip-${style}">`);
 		this.tooltip.text(tip);
 
-		node.on('mouseenter.tooltip', () => {
+		node.on("mouseenter.tooltip", () => {
             this.show();
 			
 			var observer = new MutationObserver((mutations) => {
@@ -57,7 +56,7 @@ export class PluginTooltip {
 			observer.observe(document.body, {subtree: true, childList: true});
 		});
 
-		node.on('mouseleave.tooltip', () => {
+		node.on("mouseleave.tooltip", () => {
 			this.tooltip.detach();
 		});
 	}
@@ -83,7 +82,7 @@ export class PluginTooltip {
 		this.tooltip.removeClass("tooltip-top");
 		this.tooltip.removeClass("tooltip-left");
 		this.tooltip.removeClass("tooltip-right");
-		this.tooltip.appendTo('.tooltips');
+		this.tooltip.appendTo(".tooltips");
 
 		if (this.side == "top") {
 			if (this.canShowAbove || (!this.canShowAbove && this.preventFlip)) this.showAbove();
@@ -170,7 +169,7 @@ export class NativeTooltip {
 		this.side = side;
 		this.id = DiscordModules.KeyGenerator();
 
-		this.node.addEventListener('mouseenter', () => {
+		this.node.addEventListener("mouseenter", () => {
 			this.show();
 
 			const observer = new MutationObserver((mutations) => {
@@ -188,7 +187,7 @@ export class NativeTooltip {
 			observer.observe(document.body, {subtree: true, childList: true});
 		});
 
-		this.node.addEventListener('mouseleave', () => {
+		this.node.addEventListener("mouseleave", () => {
 			this.hide();
 		});
 	}

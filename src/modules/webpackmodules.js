@@ -39,7 +39,7 @@ export class Filters {
     }
 }
 
-export class WebpackModules {
+export default class WebpackModules {
 
     static find(filter, first = true) {return this.getModule(filter, first);}
     static findByUniqueProperties(props, first = true) {return first ? this.getByProps(...props) : this.getAllByProps(...props);}

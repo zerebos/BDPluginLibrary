@@ -3,7 +3,7 @@
 	"env": {
         "browser": true,
         "node": true,
-        "jquery": false
+        "jquery": true
     },
     "parserOptions": {
         "ecmaVersion": 8,
@@ -11,12 +11,15 @@
     },
     "rules": {
         "semi": 2,
-		"space-infix-ops": ["error", {"int32Hint": false}]
+        "space-infix-ops": ["error", {"int32Hint": false}],
+        "quotes": ["error", "double", {"allowTemplateLiterals": true}]
     },
     "globals": {
         "webpackJsonp": false,
         "Proxy": false,
         "Set": false,
+        "WeakMap": false,
+        "Promise": false,
         "BdApi": false,
         "bdPluginStorage": false
     }
