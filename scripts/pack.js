@@ -13,13 +13,14 @@ const list = args.plugin ? [args.plugin] : fs.readdirSync(pluginsPath).filter(f 
     for (let f = 0; f < list.length; f++) {
         const output = list[f];
         const pluginName = output == "0PluginLibrary" ? "ZeresPluginLibrary" : output;
+        const pluginConfig = require(path.join(pluginsPath, output, "config.json"));
         
         const config = defaults({PLUGIN_NAME: output});
         config.entry = "./src/index.js";
         config.output.library = pluginName;
         config.output.filename = output + ".plugin.js";
         config.plugins[0] = new webpack.BannerPlugin({
-            banner: `//META{"name":"${pluginName}","website":"https://github.com/rauenzi/BetterDiscordAddons/tree/master/Plugins/${pluginName}","source":"https://github.com/rauenzi/BetterDiscordAddons/blob/master/Plugins/${pluginName}/${pluginName}.plugin.js"}*//`,
+            banner: `//META{"name":"${pluginName}","website":"${pluginConfig.info.github}","source":"${pluginConfig.info.github_raw}"}*//`,
             raw: true
         });
         await new Promise((resolve) => {

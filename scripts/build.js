@@ -23,7 +23,9 @@ for (let f = 0; f < list.length; f++) {
     fs.writeFileSync(path.join(releasePath, pluginName + ".plugin.js"), formatString(template, {
         PLUGIN_NAME: pluginName,
         CONFIG: JSON.stringify(config),
-        INNER: content.toString()
+        INNER: content.toString(),
+        WEBSITE: config.info.github,
+        SOURCE: config.info.github_raw
     }));
 }
 console.timeEnd("Build took");

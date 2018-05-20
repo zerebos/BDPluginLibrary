@@ -10,7 +10,7 @@
         "version": "1.0.0",
         "description": "Gives other plugins utility functions and the ability to emulate v2.",
         "github": "https://github.com/rauenzi/BetterDiscordAddons/tree/master/Plugins/ZeresPluginLibrary",
-        "github_raw": "https://github.com/rauenzi/BetterDiscordAddons/blob/master/Plugins/ZeresPluginLibrary/ZeresPluginLibrary.plugin.js"
+        "github_raw": "https://raw.githubusercontent.com/rauenzi/BetterDiscordAddons/master/Plugins/ZeresPluginLibrary/0PluginLibrary.plugin.js"
     },
     "main": "index.js"
 }
