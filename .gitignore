@@ -1,4 +1,7 @@
 # Generated files
 node_modules
-plugins
 release
+plugins/*
+!plugins/0PluginLibrary
+!plugins/ExamplePlugin
+!plugins/HideDisabledEmojis

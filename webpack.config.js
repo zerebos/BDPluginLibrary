@@ -6,7 +6,7 @@ module.exports = env => {
   return {
     mode: "development",
     target: "node",
-    devtool: "inline-source-map",
+    devtool: "none",
     entry: "./src/index.js",
     output: {
       filename: "PluginLibrary.js",
@@ -25,7 +25,8 @@ module.exports = env => {
       extensions: [".js"],
       modules: [
         path.resolve("src", "modules"),
-        path.resolve("src", "structs")
+        path.resolve("src", "structs"),
+        path.resolve("src", "ui")
       ]
     },
     module: {

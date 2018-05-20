@@ -1,73 +1,28 @@
-import {ColorConverter, DOMTools, ReactTools, PluginUtilities, PluginUpdates, Logger, Structs,
-	DiscordModules, DiscordClasses, DiscordSelectors, Utilities, Patcher, DiscordAPI, WebpackModules, Filters} from "modules";
-
-import * as PluginSettings from "./ui/settings";
-import * as ContextMenu from "./ui/contextmenu";
-import * as Tooltip from "./ui/tooltips";
-import Plugin from "./structs/plugin";
 import * as Library from "modules";
+const {Plugin} = Library.Structs;
 
-/**	
- * Testing for possible the next organizational style of the library.
- */
-window.Library = Library;
-	
-/** 
- * The main object housing the modules making up this library.
- * @version 0.5.6
- */
-window.ZeresLibraryBeta = {
-	ColorConverter,
-	DOMTools,
-	ReactTools,
-	PluginUtilities,
-	PluginUpdates,
-	PluginSettings,
-	ContextMenu,
-	Tooltip,
-	DiscordModules,
-	DiscordClasses,
-	DiscordSelectors,
-	DiscordAPI,
-	Utilities,
-	Patcher,
-	WebpackModules,
-	Filters,
-	Logger,
-	Structs,
-	creationTime: Date.now(),
-	get isOutdated() { return Date.now() - this.creationTime > 600000; },
-	version: "0.5.6"
+const config = require("../plugins/" + process.env.PLUGIN_NAME + "/" + "config.json");
+const pluginModule = require("../plugins/" + process.env.PLUGIN_NAME + "/" + config.main).default;
+
+const name = config.info.name;
+const BoundAPI = {
+	Logger: {
+		log: (message) => Logger.log(name, message),
+		error: (message, error) => Logger.err(name, message, error),
+		err: (message, error) => Logger.err(name, message, error),
+		warn: (message) => Logger.warn(name, message),
+		info: (message) => Logger.info(name, message),
+		debug: (message) => Logger.debug(name, message)
+	},
+	Patcher: {
+		getPatchesByCaller: () => {return Patcher.getPatchesByCaller(name);},
+		unpatchAll: () => {return Patcher.unpatchAll(name);},
+		before: (moduleToPatch, functionName, callback, options = {}) => {return Patcher.before(name, moduleToPatch, functionName, callback, options);},
+		instead: (moduleToPatch, functionName, callback, options = {}) => {return Patcher.instead(name, moduleToPatch, functionName, callback, options);},
+		after: (moduleToPatch, functionName, callback, options = {}) => {return Patcher.after(name, moduleToPatch, functionName, callback, options);}
+	}
 };
 
-export default class PluginLibrary {
-    getName() { return "Zere's Plugin Library"; }
-    getDescription() { return "Library for plugins"; }
-    getVersion() { return "0.0.0"; }
-    getAuthor() { return "Zerebos"; }
-    start() {}
-    stop() {}
-    load() {
-		BdApi.clearCSS("PluginLibraryCSS");
-		BdApi.injectCSS("PluginLibraryCSS", PluginSettings.CSS + PluginUtilities.getToastCSS() + PluginUpdates.CSS);
+for (const mod in Library) BoundAPI[mod] = Library[mod];
 
-		jQuery.extend(jQuery.easing, { easeInSine: function (x, t, b, c, d) { return -c * Math.cos(t / d * (Math.PI / 2)) + c + b; }});
-
-
-		const SelectorConverter = (thisObject, args) => {
-			if (args.length && args[0] instanceof Structs.Selector) args[0] = args[0].toString();
-		};
-
-		Patcher.unpatchAll("ZeresLibrary");
-		Patcher.before("ZeresLibrary", jQuery.fn, "find", SelectorConverter);
-		Patcher.before("ZeresLibrary", jQuery.fn, "parents", SelectorConverter);
-		Patcher.before("ZeresLibrary", jQuery.fn, "closest", SelectorConverter);
-
-		Patcher.before("ZeresLibrary", global, "$", SelectorConverter);
-		jQuery.extend(true, global.$, jQuery);
-	}
-
-	static buildPlugin(config) {
-		return [Plugin(config), Library];		
-	}
-}
+export default pluginModule(Plugin(config), BoundAPI);

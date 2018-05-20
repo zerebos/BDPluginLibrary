@@ -6,19 +6,20 @@
   "devDependencies": {
     "jsdoc": "^3.5.5",
     "raw-loader": "^0.5.1",
+    "yargs": "^11.0.0",
     "webpack": "^4.8.3",
     "webpack-bundle-analyzer": "^2.12.0",
     "webpack-cli": "^2.1.3"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --config webpack.config.js --progress --colors",
-    "build_lib": "webpack ZeresPluginLibrary=./src/index.js -o release/0PluginLibrary.plugin.js --config webpack.config.js --progress --colors",
-    "build_prod": "webpack ZeresPluginLibrary=./src/index.js -o release/0PluginLibrary.plugin.js --config webpack.config.js --progress --colors --mode production",
+    "build_plugin": "node build.js",
+    "pack_plugin": "node pack.js",
+    "build_lib": "node pack.js --plugin 0PluginLibrary",
     "build_docs": "jsdoc -r src -c jsdoc.config.json",
-    "webpack": "webpack",
-    "build_plugin": "build_plugin.bat"
+    "webpack": "webpack"
   },
   "author": "Zerebos",
-  "license": "MIT"
+  "license": "MIT",
+  "eslintIgnore": ["pack.js", "build.js"]
 }

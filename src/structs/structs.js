@@ -12,3 +12,5 @@ export * from "./discord/guild";
 export * from "./discord/channel";
 export * from "./discord/message";
 export * from "./discord/usersettings";
+
+export {default as Plugin} from "./plugin";

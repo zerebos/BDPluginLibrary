@@ -1,1 +1,0 @@
-npm run webpack -- %1=./src/pluginbuilder.js --env.PLUGIN_NAME %1 --output-library %1 -o release/[name].plugin.js --output-chunk-filename %1 --devtool none --config webpack.config.js --progress --colors --mode production
