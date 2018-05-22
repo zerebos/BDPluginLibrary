@@ -3,9 +3,9 @@ import SettingField, {createInputContainer} from "../settingfield";
 /** 
  * Creates a color picker using chromium's built in color picker
  * as a base. Input and output using hex strings.
- * @memberof module:PluginSettings
+ * @memberof module:Settings
  * @version 1.0.0
- * @extends SettingField
+ * @extends module:Settings.SettingField
  */
 class ColorPicker extends SettingField {
     /**
@@ -13,7 +13,7 @@ class ColorPicker extends SettingField {
      * @param {string} label - title for the setting
      * @param {string} help - description of the setting
      * @param {string} value - default value of the setting in hex format
-     * @param {PluginSettings~settingsChanged} callback - callback fired on color change
+     * @param {module:Settings~settingsChanged} callback - callback fired on color change
      * @param {object} options - additional options for the input field itself
      */
 	constructor(label, help, value, callback, options = {}) {

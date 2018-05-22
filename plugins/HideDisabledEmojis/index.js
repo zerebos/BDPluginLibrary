@@ -1,6 +1,6 @@
 
 module.exports = (Plugin, Api) => {
-    const {Logger, Patcher, PluginUtilities, WebpackModules} = Api;
+    const {Logger, Patcher, Toasts, WebpackModules} = Api;
     return class HideDisabledEmojis extends Plugin {
         onStart() {
             //super.start();
@@ -32,7 +32,7 @@ module.exports = (Plugin, Api) => {
                 cats.sort((a,b) => a.offsetTop - b.offsetTop);
             });
 
-            PluginUtilities.showToast(this.getName() + " " + this.getVersion() + " has started.");
+            Toasts.default(this.getName() + " " + this.getVersion() + " has started.");
         }
         
         onStop() {

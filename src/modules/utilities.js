@@ -96,11 +96,93 @@ export default class Utilities {
      * @param {object} values - object literal of placeholders to replacements
      * @returns {string} the properly formatted string
      */
-    static formatString(string, values) {
+    static formatTString(string, values) {
         for (let val in values) {
             string = string.replace(new RegExp(`\\$\\{${val}\\}`, "g"), values[val]);
         }
         return string;
+    }
+
+    /**
+     * Format strings with placeholders (`{{placeholder}}`) into full strings.
+     * Quick example: `PluginUtilities.formatString("Hello, {{user}}", {user: "Zerebos"})`
+     * would return "Hello, Zerebos".
+     * @param {string} string - string to format
+     * @param {object} values - object literal of placeholders to replacements
+     * @returns {string} the properly formatted string
+     */
+    static formatString(string, values) {
+        for (let val in values) {
+            string = string.replace(new RegExp(`\\{\\{${val}\\}\\}`, "g"), values[val]);
+        }
+        return string;
+    }
+
+    /**
+     * https://github.com/JedWatson/classnames
+     */
+    static className() {
+        var classes = [];
+        var hasOwn = {}.hasOwnProperty;
+
+		for (var i = 0; i < arguments.length; i++) {
+			var arg = arguments[i];
+			if (!arg) continue;
+
+			var argType = typeof arg;
+
+			if (argType === "string" || argType === "number") {
+				classes.push(arg);
+			} else if (Array.isArray(arg) && arg.length) {
+				var inner = this.classNames.apply(null, arg);
+				if (inner) {
+					classes.push(inner);
+				}
+			} else if (argType === "object") {
+				for (var key in arg) {
+					if (hasOwn.call(arg, key) && arg[key]) {
+						classes.push(key);
+					}
+				}
+			}
+		}
+
+		return classes.join(" ");
+    }
+
+    /**
+     * Safely adds to the prototype of an existing object by checking if the
+     * property exists on the prototype.
+     * @param {object} object - Object whose prototype to extend
+     * @param {string} prop - Name of the prototype property to add
+     * @param {callable} func - Function to run
+     */
+    static addToPrototype(object, prop, func) {
+        if (!object.prototype) return;
+        if (object.prototype[prop]) return;
+        return object.prototype[prop] = func;
+    }
+
+    /**
+     * Deep extends an object with a set of other objects. Objects later in the list
+     * of `extenders` have priority, that is to say if one sets a key to be a primitive,
+     * it will be overwritten with the next one with the same key. If it is an object, 
+     * and the keys match, the object is extended. This happens recursively.
+     * @param {object} extendee - Object to be extended
+     * @param {...object} extenders - Objects to extend with
+     * @returns {object} - A reference to `extendee`
+     */
+    static extend(extendee, ...extenders) {
+        for (let i = 0; i < extenders.length; i++) {
+            for (let key in extenders[i]) {
+                if (extenders[i].hasOwnProperty(key)) {
+                    if (typeof extendee[key] === "object" && typeof extenders[i][key] === "object") this.extend(extendee[key], extenders[i][key]);
+                    else if (typeof extenders[i][key] === "object") extendee[key] = {}, this.extend(extendee[key], extenders[i][key]);
+                    else extendee[key] = extenders[i][key];
+                }
+            }
+        }
+        return extendee;
     }
 
     /* Code below comes from our work on BDv2:

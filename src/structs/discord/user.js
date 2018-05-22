@@ -14,7 +14,10 @@ import { Channel } from "./channel";
 
 const users = new WeakMap();
 
-export class User {
+/**
+ * @memberof module:DiscordAPI
+ */
+class User {
 
     constructor(data) {
         if (users.has(data)) return users.get(data);
@@ -132,8 +135,9 @@ export class User {
         Modules.UserProfileModal.open(this.id);
         Modules.UserProfileModal.setSection(section);
     }
-
 }
+
+export {User};
 
 const guild_members = new WeakMap();
 

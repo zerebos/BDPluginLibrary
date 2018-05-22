@@ -32,7 +32,9 @@
  * @version 0.0.1
  */
 
- import Logger from "./logger";
+import Logger from "./logger";
+
+const fs = require("fs");
 
 export default class Utilities {
 
@@ -122,11 +124,199 @@ export default class Utilities {
      * @param {object} values - object literal of placeholders to replacements
      * @returns {string} the properly formatted string
      */
-    formatString(string, values) {
+    static formatTString(string, values) {
         for (let val in values) {
-            string = string.replace(new RegExp(`\\$\\{${val}\\}`, 'g'), values[val]);
+            string = string.replace(new RegExp(`\\$\\{${val}\\}`, "g"), values[val]);
         }
         return string;
+    }
+
+    /**
+     * Format strings with placeholders (`{{placeholder}}`) into full strings.
+     * Quick example: `PluginUtilities.formatString("Hello, {{user}}", {user: "Zerebos"})`
+     * would return "Hello, Zerebos".
+     * @param {string} string - string to format
+     * @param {object} values - object literal of placeholders to replacements
+     * @returns {string} the properly formatted string
+     */
+    static formatString(string, values) {
+        for (let val in values) {
+            string = string.replace(new RegExp(`\\{\\{${val}\\}\\}`, "g"), values[val]);
+        }
+        return string;
+    }
+
+    /**
+     * https://github.com/JedWatson/classnames
+     */
+    static className() {
+        var classes = [];
+        var hasOwn = {}.hasOwnProperty;
+
+		for (var i = 0; i &lt; arguments.length; i++) {
+			var arg = arguments[i];
+			if (!arg) continue;
+
+			var argType = typeof arg;
+
+			if (argType === "string" || argType === "number") {
+				classes.push(arg);
+			} else if (Array.isArray(arg) &amp;&amp; arg.length) {
+				var inner = this.classNames.apply(null, arg);
+				if (inner) {
+					classes.push(inner);
+				}
+			} else if (argType === "object") {
+				for (var key in arg) {
+					if (hasOwn.call(arg, key) &amp;&amp; arg[key]) {
+						classes.push(key);
+					}
+				}
+			}
+		}
+
+		return classes.join(" ");
+    }
+
+    /**
+     * Safely adds to the prototype of an existing object by checking if the
+     * property exists on the prototype.
+     * @param {object} object - Object whose prototype to extend
+     * @param {string} prop - Name of the prototype property to add
+     * @param {callable} func - Function to run
+     */
+    static addToPrototype(object, prop, func) {
+        if (!object.prototype) return;
+        if (object.prototype[prop]) return;
+        return object.prototype[prop] = func;
+    }
+
+    /**
+     * Deep extends an object with a set of other objects. Objects later in the list
+     * of `extenders` have priority, that is to say if one sets a key to be a primitive,
+     * it will be overwritten with the next one with the same key. If it is an object, 
+     * and the keys match, the object is extended. This happens recursively.
+     * @param {object} extendee - Object to be extended
+     * @param {...object} extenders - Objects to extend with
+     * @returns {object} - A reference to `extendee`
+     */
+    static extend(extendee, ...extenders) {
+        for (let i = 0; i &lt; extenders.length; i++) {
+            for (let key in extenders[i]) {
+                if (extenders[i].hasOwnProperty(key)) {
+                    if (typeof extendee[key] === "object" &amp;&amp; typeof extenders[i][key] === "object") this.extend(extendee[key], extenders[i][key]);
+                    else if (typeof extenders[i][key] === "object") extendee[key] = {}, this.extend(extendee[key], extenders[i][key]);
+                    else extendee[key] = extenders[i][key];
+                }
+            }
+        }
+        return extendee;
+    }
+
+    /* Code below comes from our work on BDv2:
+     * https://github.com/JsSucks/BetterDiscordApp/blob/master/common/modules/utils.js
+     */
+
+    /**
+     * Clones an object and all it's properties.
+     * @param {Any} value The value to clone
+     * @return {Any} The cloned value
+     */
+    static deepclone(value) {
+        if (typeof value === "object") {
+            if (value instanceof Array) return value.map(i => this.deepclone(i));
+
+            const clone = Object.assign({}, value);
+
+            for (let key in clone) {
+                clone[key] = this.deepclone(clone[key]);
+            }
+
+            return clone;
+        }
+
+        return value;
+    }
+
+    /**
+     * Freezes an object and all it's properties.
+     * @param {Any} object The object to freeze
+     * @param {Function} exclude A function to filter object that shouldn't be frozen
+     */
+    static deepfreeze(object, exclude) {
+        if (exclude &amp;&amp; exclude(object)) return;
+
+        if (typeof object === "object" &amp;&amp; object !== null) {
+            const properties = Object.getOwnPropertyNames(object);
+
+            for (let property of properties) {
+                this.deepfreeze(object[property], exclude);
+            }
+
+            Object.freeze(object);
+        }
+
+        return object;
+    }
+
+    /**
+     * Removes an item from an array. This differs from Array.prototype.filter as it mutates the original array instead of creating a new one.
+     * @param {Array} array The array to filter
+     * @param {Any} item The item to remove from the array
+     * @return {Array}
+     */
+    static removeFromArray(array, item) {
+        let index;
+        while ((index = array.indexOf(item)) > -1)
+            array.splice(index, 1);
+        return array;
+    }
+
+    /**
+     * Checks if a file exists and is a file.
+     * @param {String} path The file's path
+     * @return {Promise}
+     */
+    static async fileExists(path) {
+        return new Promise((resolve, reject) => {
+            fs.stat(path, (err, stats) => {
+                if (err) return reject({
+                    message: `No such file or directory: ${err.path}`,
+                    err
+                });
+
+                if (!stats.isFile()) return reject({
+                    message: `Not a file: ${path}`,
+                    stats
+                });
+
+                resolve();
+            });
+        });
+    }
+
+    /**
+     * Returns the contents of a file.
+     * @param {String} path The file's path
+     * @return {Promise}
+     */
+    static async readFile(path) {
+        try {
+            await this.fileExists(path);
+        } catch (err) {
+            throw err;
+        }
+
+        return new Promise((resolve, reject) => {
+            fs.readFile(path, "utf-8", (err, data) => {
+                if (err) return reject({
+                    message: `Could not read file: ${path}`,
+                    err
+                });
+
+                resolve(data);
+            });
+        });
     }
 
 }</code></pre>
@@ -139,13 +329,13 @@ export default class Utilities {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-ColorConverter.html">ColorConverter</a></li><li><a href="module-DiscordAPI.html">DiscordAPI</a></li><li><a href="module-DiscordClassModules.html">DiscordClassModules</a></li><li><a href="module-DiscordModules.html">DiscordModules</a></li><li><a href="module-DOMTools.html">DOMTools</a></li><li><a href="module-Logger.html">Logger</a></li><li><a href="module-Patcher.html">Patcher</a></li><li><a href="module-PluginContextMenu.html">PluginContextMenu</a></li><li><a href="module-PluginSettings.html">PluginSettings</a></li><li><a href="module-PluginTooltip.html">PluginTooltip</a></li><li><a href="module-PluginUpdateUtilities.html">PluginUpdateUtilities</a></li><li><a href="module-PluginUtilities.html">PluginUtilities</a></li><li><a href="module-ReactTools.html">ReactTools</a></li><li><a href="module-Utilities.html">Utilities</a></li></ul><h3>Classes</h3><ul><li><a href="DiscordPermissions.html">DiscordPermissions</a></li><li><a href="module-DOMTools.ClassName.html">ClassName</a></li><li><a href="module-DOMTools.Selector.html">Selector</a></li><li><a href="module-PluginContextMenu.ImageItem.html">ImageItem</a></li><li><a href="module-PluginContextMenu.ItemGroup.html">ItemGroup</a></li><li><a href="module-PluginContextMenu.Menu.html">Menu</a></li><li><a href="module-PluginContextMenu.MenuItem.html">MenuItem</a></li><li><a href="module-PluginContextMenu.SubMenuItem.html">SubMenuItem</a></li><li><a href="module-PluginContextMenu.TextItem.html">TextItem</a></li><li><a href="module-PluginContextMenu.ToggleItem.html">ToggleItem</a></li><li><a href="module-PluginSettings.ColorPicker.html">ColorPicker</a></li><li><a href="module-PluginSettings.Pill.html">Pill</a></li><li><a href="module-PluginSettings.SettingField.html">SettingField</a></li><li><a href="module-PluginSettings.SettingGroup.html">SettingGroup</a></li><li><a href="module-PluginSettings.Slider.html">Slider</a></li><li><a href="module-PluginSettings.Switch.html">Switch</a></li><li><a href="module-PluginSettings.Textbox.html">Textbox</a></li><li><a href="module-PluginTooltip.NativeTooltip.html">NativeTooltip</a></li><li><a href="module-PluginTooltip.PluginTooltip.html">PluginTooltip</a></li><li><a href="Screen.html">Screen</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getAccentColor">getAccentColor</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-ColorConverter.html">ColorConverter</a></li><li><a href="module-ContextMenu.html">ContextMenu</a></li><li><a href="module-DiscordAPI.html">DiscordAPI</a></li><li><a href="module-DiscordClassModules.html">DiscordClassModules</a></li><li><a href="module-DiscordModules.html">DiscordModules</a></li><li><a href="module-DOMTools.html">DOMTools</a></li><li><a href="module-Logger.html">Logger</a></li><li><a href="module-Patcher.html">Patcher</a></li><li><a href="module-PluginUpdater.html">PluginUpdater</a></li><li><a href="module-PluginUtilities.html">PluginUtilities</a></li><li><a href="module-ReactTools.html">ReactTools</a></li><li><a href="module-Settings.html">Settings</a></li><li><a href="module-Toasts.html">Toasts</a></li><li><a href="module-Tooltip.html">Tooltip</a></li><li><a href="module-Utilities.html">Utilities</a></li><li><a href="module-WebpackModules.html">WebpackModules</a></li></ul><h3>Classes</h3><ul><li><a href="module-ContextMenu.ImageItem.html">ImageItem</a></li><li><a href="module-ContextMenu.ItemGroup.html">ItemGroup</a></li><li><a href="module-ContextMenu.Menu.html">Menu</a></li><li><a href="module-ContextMenu.MenuItem.html">MenuItem</a></li><li><a href="module-ContextMenu.SubMenuItem.html">SubMenuItem</a></li><li><a href="module-ContextMenu.TextItem.html">TextItem</a></li><li><a href="module-ContextMenu.ToggleItem.html">ToggleItem</a></li><li><a href="module-DiscordAPI.Channel.html">Channel</a></li><li><a href="module-DiscordAPI.Guild.html">Guild</a></li><li><a href="module-DiscordAPI.InsufficientPermissions.html">InsufficientPermissions</a></li><li><a href="module-DiscordAPI.List.html">List</a></li><li><a href="module-DiscordAPI.Message.html">Message</a></li><li><a href="module-DiscordAPI.User.html">User</a></li><li><a href="module-DiscordAPI.UserSettings.html">UserSettings</a></li><li><a href="module-DOMTools.ClassName.html">ClassName</a></li><li><a href="module-DOMTools.Selector.html">Selector</a></li><li><a href="module-Settings.ColorPicker.html">ColorPicker</a></li><li><a href="module-Settings.Pill.html">Pill</a></li><li><a href="module-Settings.SettingField.html">SettingField</a></li><li><a href="module-Settings.SettingGroup.html">SettingGroup</a></li><li><a href="module-Settings.Slider.html">Slider</a></li><li><a href="module-Settings.Switch.html">Switch</a></li><li><a href="module-Settings.Textbox.html">Textbox</a></li><li><a href="module-Tooltip.html">Tooltip</a></li><li><a href="module-WebpackModules.Filters.html">Filters</a></li><li><a href="Screen.html">Screen</a></li></ul><h3>Interfaces</h3><ul><li><a href="module-DOMTools-Offset.html">Offset</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri May 18 2018 01:32:22 GMT-0400 (Eastern Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue May 22 2018 17:02:16 GMT-0400 (Eastern Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>

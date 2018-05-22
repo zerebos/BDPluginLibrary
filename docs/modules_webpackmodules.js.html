@@ -26,40 +26,84 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import DiscordModules from "./discordmodules";
+            <pre class="prettyprint source linenums"><code>/**
+ * Random set of utilities that didn't fit elsewhere.
+ * @module WebpackModules
+ * @version 0.0.1
+ */
+import DiscordModules from "./discordmodules";
 
+ /**
+ * Checks if a given module matches a set of parameters.
+ * @callback module:WebpackModules.Filters~filter
+ * @param {*} module - module to check
+ * @returns {boolean} - True if the module matches the filter, false otherwise
+ */
+
+/**
+ * Filters for use with {@link module:WebpackModules} but may prove useful elsewhere.
+ */
 export class Filters {
-    static byProperties(props, selector = m => m) {
+    /**
+     * Generates a {@link module:WebpackModules.Filters~filter} that filters by a set of properties.
+     * @param {Array&lt;string>} props - Array of property names
+     * @param {module:WebpackModules.Filters~filter} filter - Additional filter
+     * @returns {module:WebpackModules.Filters~filter} - A filter that checks for a set of properties
+     */
+    static byProperties(props, filter = m => m) {
         return module => {
-            const component = selector(module);
+            const component = filter(module);
             if (!component) return false;
             return props.every(property => component[property] !== undefined);
         };
     }
 
-    static byPrototypeFields(fields, selector = m => m) {
+    /**
+     * Generates a {@link module:WebpackModules.Filters~filter} that filters by a set of properties on the object's prototype.
+     * @param {Array&lt;string>} fields - Array of property names
+     * @param {module:WebpackModules.Filters~filter} filter - Additional filter
+     * @returns {module:WebpackModules.Filters~filter} - A filter that checks for a set of properties on the object's prototype
+     */
+    static byPrototypeFields(fields, filter = m => m) {
         return module => {
-            const component = selector(module);
+            const component = filter(module);
             if (!component) return false;
             if (!component.prototype) return false;
             return fields.every(field => component.prototype[field] !== undefined);
         };
     }
 
-    static byCode(search, selector = m => m) {
+    /**
+     * Generates a {@link module:WebpackModules.Filters~filter} that filters by a regex.
+     * @param {RegExp} search - A RegExp to check on the module
+     * @param {module:WebpackModules.Filters~filter} filter - Additional filter
+     * @returns {module:WebpackModules.Filters~filter} - A filter that checks for a set of properties
+     */
+    static byCode(search, filter = m => m) {
         return module => {
-            const method = selector(module);
+            const method = filter(module);
             if (!method) return false;
             return method.toString().search(search) !== -1;
         };
     }
 
+    /**
+     * Generates a {@link module:WebpackModules.Filters~filter} that filters by a set of properties.
+     * @param {string} name - Name the module should have
+     * @param {module:WebpackModules.Filters~filter} filter - Additional filter
+     * @returns {module:WebpackModules.Filters~filter} - A filter that checks for a set of properties
+     */
     static byDisplayName(name) {
         return module => {
             return module &amp;&amp; module.displayName === name;
         };
     }
 
+    /**
+     * Generates a combined {@link module:WebpackModules.Filters~filter} from a list of filters.
+     * @param {...module:WebpackModules.Filters~filter} filters - A list of filters
+     * @returns {module:WebpackModules.Filters~filter} - Combinatory filter of all arguments
+     */
     static combine(...filters) {
         return module => {
             return filters.every(filter => filter(module));
@@ -67,7 +111,7 @@ export class Filters {
     }
 }
 
-export class WebpackModules {
+export default class WebpackModules {
 
     static find(filter, first = true) {return this.getModule(filter, first);}
     static findByUniqueProperties(props, first = true) {return first ? this.getByProps(...props) : this.getAllByProps(...props);}
@@ -198,13 +242,13 @@ export class WebpackModules {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-ColorConverter.html">ColorConverter</a></li><li><a href="module-DiscordAPI.html">DiscordAPI</a></li><li><a href="module-DiscordClassModules.html">DiscordClassModules</a></li><li><a href="module-DiscordModules.html">DiscordModules</a></li><li><a href="module-DOMTools.html">DOMTools</a></li><li><a href="module-Logger.html">Logger</a></li><li><a href="module-Patcher.html">Patcher</a></li><li><a href="module-PluginContextMenu.html">PluginContextMenu</a></li><li><a href="module-PluginSettings.html">PluginSettings</a></li><li><a href="module-PluginTooltip.html">PluginTooltip</a></li><li><a href="module-PluginUpdateUtilities.html">PluginUpdateUtilities</a></li><li><a href="module-PluginUtilities.html">PluginUtilities</a></li><li><a href="module-ReactTools.html">ReactTools</a></li><li><a href="module-Utilities.html">Utilities</a></li></ul><h3>Classes</h3><ul><li><a href="DiscordPermissions.html">DiscordPermissions</a></li><li><a href="module-DOMTools.ClassName.html">ClassName</a></li><li><a href="module-DOMTools.Selector.html">Selector</a></li><li><a href="module-PluginContextMenu.ImageItem.html">ImageItem</a></li><li><a href="module-PluginContextMenu.ItemGroup.html">ItemGroup</a></li><li><a href="module-PluginContextMenu.Menu.html">Menu</a></li><li><a href="module-PluginContextMenu.MenuItem.html">MenuItem</a></li><li><a href="module-PluginContextMenu.SubMenuItem.html">SubMenuItem</a></li><li><a href="module-PluginContextMenu.TextItem.html">TextItem</a></li><li><a href="module-PluginContextMenu.ToggleItem.html">ToggleItem</a></li><li><a href="module-PluginSettings.ColorPicker.html">ColorPicker</a></li><li><a href="module-PluginSettings.Pill.html">Pill</a></li><li><a href="module-PluginSettings.SettingField.html">SettingField</a></li><li><a href="module-PluginSettings.SettingGroup.html">SettingGroup</a></li><li><a href="module-PluginSettings.Slider.html">Slider</a></li><li><a href="module-PluginSettings.Switch.html">Switch</a></li><li><a href="module-PluginSettings.Textbox.html">Textbox</a></li><li><a href="module-PluginTooltip.NativeTooltip.html">NativeTooltip</a></li><li><a href="module-PluginTooltip.PluginTooltip.html">PluginTooltip</a></li><li><a href="Screen.html">Screen</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getAccentColor">getAccentColor</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-ColorConverter.html">ColorConverter</a></li><li><a href="module-ContextMenu.html">ContextMenu</a></li><li><a href="module-DiscordAPI.html">DiscordAPI</a></li><li><a href="module-DiscordClassModules.html">DiscordClassModules</a></li><li><a href="module-DiscordModules.html">DiscordModules</a></li><li><a href="module-DOMTools.html">DOMTools</a></li><li><a href="module-Logger.html">Logger</a></li><li><a href="module-Patcher.html">Patcher</a></li><li><a href="module-PluginUpdater.html">PluginUpdater</a></li><li><a href="module-PluginUtilities.html">PluginUtilities</a></li><li><a href="module-ReactTools.html">ReactTools</a></li><li><a href="module-Settings.html">Settings</a></li><li><a href="module-Toasts.html">Toasts</a></li><li><a href="module-Tooltip.html">Tooltip</a></li><li><a href="module-Utilities.html">Utilities</a></li><li><a href="module-WebpackModules.html">WebpackModules</a></li></ul><h3>Classes</h3><ul><li><a href="module-ContextMenu.ImageItem.html">ImageItem</a></li><li><a href="module-ContextMenu.ItemGroup.html">ItemGroup</a></li><li><a href="module-ContextMenu.Menu.html">Menu</a></li><li><a href="module-ContextMenu.MenuItem.html">MenuItem</a></li><li><a href="module-ContextMenu.SubMenuItem.html">SubMenuItem</a></li><li><a href="module-ContextMenu.TextItem.html">TextItem</a></li><li><a href="module-ContextMenu.ToggleItem.html">ToggleItem</a></li><li><a href="module-DiscordAPI.Channel.html">Channel</a></li><li><a href="module-DiscordAPI.Guild.html">Guild</a></li><li><a href="module-DiscordAPI.InsufficientPermissions.html">InsufficientPermissions</a></li><li><a href="module-DiscordAPI.List.html">List</a></li><li><a href="module-DiscordAPI.Message.html">Message</a></li><li><a href="module-DiscordAPI.User.html">User</a></li><li><a href="module-DiscordAPI.UserSettings.html">UserSettings</a></li><li><a href="module-DOMTools.ClassName.html">ClassName</a></li><li><a href="module-DOMTools.Selector.html">Selector</a></li><li><a href="module-Settings.ColorPicker.html">ColorPicker</a></li><li><a href="module-Settings.Pill.html">Pill</a></li><li><a href="module-Settings.SettingField.html">SettingField</a></li><li><a href="module-Settings.SettingGroup.html">SettingGroup</a></li><li><a href="module-Settings.Slider.html">Slider</a></li><li><a href="module-Settings.Switch.html">Switch</a></li><li><a href="module-Settings.Textbox.html">Textbox</a></li><li><a href="module-Tooltip.html">Tooltip</a></li><li><a href="module-WebpackModules.Filters.html">Filters</a></li><li><a href="Screen.html">Screen</a></li></ul><h3>Interfaces</h3><ul><li><a href="module-DOMTools-Offset.html">Offset</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri May 18 2018 01:32:22 GMT-0400 (Eastern Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue May 22 2018 17:02:16 GMT-0400 (Eastern Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>

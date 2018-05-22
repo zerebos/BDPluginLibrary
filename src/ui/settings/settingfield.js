@@ -1,6 +1,6 @@
 /** 
  * Generic representation of a setting field. Very extensible, but best to use a child class when available.
- * @memberof module:PluginSettings
+ * @memberof module:Settings
  * @version 1.0.5
  */
 class SettingField {
@@ -9,7 +9,7 @@ class SettingField {
      * @param {string} name - title for the setting
      * @param {string} helptext - description/help text to show
      * @param {object} inputData - props to set up the input field
-     * @param {PluginSettings~settingsChanged} callback - callback fired when the input field is changed
+     * @param {module:Settings~settingsChanged} callback - callback fired when the input field is changed
      */
 	constructor(name, helptext, inputData, callback) {
 		this.name = name;
@@ -57,8 +57,11 @@ export default SettingField;
 
 
 
-/** Attempts to retreive the accent color of native settings items in rgba format. */
-export function getAccentColor() {
+/** 
+ * Attempts to retreive the accent color of native settings items in rgba format.
+ * @memberof module:Settings
+ */
+function getAccentColor() {
 	var bg = $("<div class=\"ui-switch-item\"><div class=\"ui-switch-wrapper\"><input type=\"checkbox\" checked=\"checked\" class=\"ui-switch-checkbox\"><div class=\"ui-switch checked\">");
 	bg.appendTo($("#bd-settingspane-container"));
 	var bgColor = $(".ui-switch.checked").first().css("background-color");
@@ -67,6 +70,8 @@ export function getAccentColor() {
 	bg.remove();
 	return bgColor;
 }
+
+export {getAccentColor};
 
 export function createInputContainer(...children) {
 	return $("<div class=\"plugin-setting-input-container\">").append(...children);

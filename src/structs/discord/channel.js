@@ -15,7 +15,10 @@ import {User, GuildMember} from "./user";
 
 const cache = new WeakMap();
 
-export class Channel {
+/**
+ * @memberof module:DiscordAPI
+ */
+class Channel {
 
     constructor(data) {
         if (cache.has(data)) return cache.get(data);
@@ -57,7 +60,7 @@ export class Channel {
      * Send a message in this channel.
      * @param {String} content The new message's content
      * @param {Boolean} parse Whether to parse the message or send it as it is
-     * @return {Promise => Message}
+     * @return {Promise<Message>}
      */
     async sendMessage(content, parse = false) {
         if (this.assertPermissions) this.assertPermissions("SEND_MESSAGES", Modules.DiscordPermissions.VIEW_CHANNEL | Modules.DiscordPermissions.SEND_MESSAGES);
@@ -107,7 +110,7 @@ export class Channel {
     /**
      * Sends an invite in this channel.
      * @param {String} code The invite code
-     * @return {Promise => Messaage}
+     * @return {Promise<Message>}
      */
     async sendInvite(code) {
         if (this.assertPermissions) this.assertPermissions("SEND_MESSAGES", Modules.DiscordPermissions.VIEW_CHANNEL | Modules.DiscordPermissions.SEND_MESSAGES);
@@ -145,6 +148,8 @@ export class Channel {
     }
 
 }
+
+export {Channel};
 
 export class PermissionOverwrite {
     constructor(data, channel_id) {
@@ -377,7 +382,7 @@ export class ChannelCategory extends GuildChannel {
      * @param {Number} type The type of channel to create - either 0 (text) or 2 (voice)
      * @param {String} name A name for the new channel
      * @param {Array} permission_overwrites An array of PermissionOverwrite-like objects - leave to use the permissions of the category
-     * @return {Promise => GuildChannel}
+     * @return {Promise<GuildChannel>}
      */
     createChannel(type, name, permission_overwrites) {
         return this.guild.createChannel(type, name, this, permission_overwrites);
@@ -432,3 +437,7 @@ export class GroupChannel extends PrivateChannel {
         return this.updateChannel({name});
     }
 }
+
+
+// export {Channel, GuildChannel, ChannelCategory, GuildTextChannel, GuildVoiceChannel, PrivateChannel, DirectMessageChannel, GroupChannel};
+// export {PermissionOverwrite, RolePermissionOverwrite, MemberPermissionOverwrite};

@@ -7,9 +7,9 @@ import Switch from "./switch";
  * standard as a normal Discord switch. That is to say if the value is true
  * then right side was selected, if the value is false then the left side 
  * was selected.
- * @memberof module:PluginSettings
+ * @memberof module:Settings
  * @version 1.0.1
- * @extends Switch
+ * @extends module:Settings.Switch
  */
 class Pill extends Switch {
     /**
@@ -19,7 +19,7 @@ class Pill extends Switch {
      * @param {string} leftLabel - label for the option on the left
      * @param {string} rightLabel - label for the option on the right
      * @param {boolean} isRightSelected - determines if the right side is selected. (true = right side, false = left side)
-     * @param {PluginSettings~settingsChanged} callback - callback fired on switch change (true = right side, false = left side)
+     * @param {module:Settings~settingsChanged} callback - callback fired on switch change (true = right side, false = left side)
      * @param {object} options - additional options for the input field itself
      */
 	constructor(label, help, leftLabel, rightLabel, isRightSelected, callback, options = {}) {

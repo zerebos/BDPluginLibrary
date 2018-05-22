@@ -7,6 +7,9 @@
 
 /* eslint-disable no-console */
 
+/**
+ * List of logging types.
+ */
 export const LogTypes = {
     /** Alias for error */
     err: "error",
@@ -62,7 +65,7 @@ export default class Logger {
      * 
      * @param {string} module - Name of the calling module.
      * @param {string} message - Message to have logged.
-     * @param {Logger.LogTypes} type - Type of log to use in console.
+     * @param {module:Logger.LogTypes} type - Type of log to use in console.
      */
     static log(module, message, type = "log") {
         type = Logger.parseType(type);

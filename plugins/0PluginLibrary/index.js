@@ -1,24 +1,23 @@
-// import {ColorConverter, DOMTools, ReactTools, PluginUtilities, PluginUpdates, Logger, Structs,
-// 	DiscordModules, DiscordClasses, DiscordSelectors, Utilities, Patcher, DiscordAPI, WebpackModules, Filters} from "modules";
-
 import * as Modules from "modules";
-import {PluginSettings, ContextMenu, Tooltip} from "ui";
+import {Settings, ContextMenu, Tooltip, Toasts} from "ui";
 
 const Library = {};
 Library.ContextMenu = ContextMenu;
 Library.Tooltip = Tooltip;
-Library.PluginSettings = PluginSettings;
+Library.Toasts = Toasts;
+Library.Settings = Settings;
 for (const mod in Modules) Library[mod] = Modules[mod];
 
 window.Library = Library;
 
-const {PluginUpdates, Patcher, Structs, PluginUtilities, Logger} = Library;
+const {PluginUpdater, Patcher, Structs, Logger} = Library;
 
 export default (BasePlugin) => {
     return class ZeresPluginLibrary extends BasePlugin {
         load() {
+            this.start();
             BdApi.clearCSS("PluginLibraryCSS");
-            BdApi.injectCSS("PluginLibraryCSS", PluginSettings.CSS + PluginUtilities.getToastCSS() + PluginUpdates.CSS);
+            BdApi.injectCSS("PluginLibraryCSS", Settings.CSS + Toasts.CSS + PluginUpdater.CSS);
 
             jQuery.extend(jQuery.easing, { easeInSine: function (x, t, b, c, d) { return -c * Math.cos(t / d * (Math.PI / 2)) + c + b; }});
 

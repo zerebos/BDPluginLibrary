@@ -27,9 +27,7 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>import Logger from "./logger";
-import PluginUpdates from "./pluginupdates";
-import DiscordModules from "./discordmodules";
-import {$} from "../vendor";
+import Utilities from "./utilities";
 
 /**
  * A series of useful functions for BetterDiscord plugins.
@@ -39,32 +37,6 @@ import {$} from "../vendor";
 
 
  export default class PluginUtilities {
-	/** 
-	 * Gets the server the user is currently in.
-	 * @returns {object} returns Discord's internal object representing the server
-	*/
-	static getCurrentServer() {
-		return DiscordModules.GuildStore.getGuild(DiscordModules.SelectedGuildStore.getGuildId());
-	}
-
-	/** @returns if the user is in a server */
-	static isServer() { return this.getCurrentServer() !== null; }
-
-	/** 
-	 * Gets the current user.
-	 * @returns {object} returns Discord's internal object representing the user
-	*/
-	static getCurrentUser() {
-		return DiscordModules.UserStore.getCurrentUser();
-	}
-
-	/** 
-	 * Gets the list of members in the current server.
-	 * @returns {array} returns an array of Discord's internal object representing the members.
-	*/
-	static getAllUsers() {
-		return DiscordModules.GuildMemberStore.getMembers(this.getCurrentServer().id);
-	}
 
 	/** 
 	 * Loads data through BetterDiscord's API.
@@ -74,7 +46,7 @@ import {$} from "../vendor";
 	 * @returns {object} the combined saved and default data
 	*/
 	static loadData(name, key, defaultData) {
-		try { return $.extend(true, defaultData ? defaultData : {}, bdPluginStorage.get(name, key)); }
+		try { return Utilities.extend(defaultData ? defaultData : {}, bdPluginStorage.get(name, key)); }
 		catch (err) { Logger.err(name, "Unable to load data: ", err); }
 	}
 
@@ -109,148 +81,28 @@ import {$} from "../vendor";
 	}
 
 	/**
-	 * Checks for updates for the specified plugin at the specified link. The final
-	 * parameter should link to the raw text of the plugin and will compare semantic
-	 * versions.
-	 * @param {string} pluginName - name of the plugin
-	 * @param {string} currentVersion - current version (semantic versioning only)
-	 * @param {string} updateURL - url to check for update
+	 * Get the full path to the BetterDiscord folder.
+	 * @returns {string} full path to the BetterDiscord folder
 	 */
-	static checkForUpdate(pluginName, currentVersion, updateURL) {
-		let updateLink = "https://raw.githubusercontent.com/rauenzi/BetterDiscordAddons/master/Plugins/" + pluginName + "/" + pluginName + ".plugin.js";
-		if (updateURL) updateLink = updateURL;
-		
-		if (typeof window.PluginUpdates === "undefined") window.PluginUpdates = {plugins:{}};
-		window.PluginUpdates.plugins[updateLink] = {name: pluginName, raw: updateLink, version: currentVersion};
-
-		PluginUpdates.checkUpdate(pluginName, updateLink);
-		
-		if (typeof window.PluginUpdates.interval === "undefined") {
-			window.PluginUpdates.interval = setInterval(() => {
-				window.PluginUpdates.checkAll();
-			}, 7200000);
-		}
-
-		if (typeof window.PluginUpdates.checkAll === "undefined") {
-			window.PluginUpdates.checkAll = function() {
-				for (let key in this.plugins) {
-					let plugin = this.plugins[key];
-					PluginUpdates.checkUpdate(plugin.name, plugin.raw);
-				}
-			};
-		}
-
-		if (typeof window.PluginUpdates.observer === "undefined") {		
-			window.PluginUpdates.observer = new MutationObserver((changes) => {
-				changes.forEach(
-					(change) => {
-						if (change.addedNodes) {
-							change.addedNodes.forEach((node) => {
-								if (node &amp;&amp; node.tagName &amp;&amp; node.getAttribute("layer-id") == "user-settings") {
-									var settingsObserver = new MutationObserver((changes2) => {
-										changes2.forEach(
-											(change2) => {
-												if (change2.addedNodes) {
-													change2.addedNodes.forEach((node2) => {
-														if (!document.querySelector(".bd-updatebtn")) {
-															if (node2 &amp;&amp; node2.tagName &amp;&amp; node2.querySelector(".bd-pfbtn") &amp;&amp; node2.querySelector("h2") &amp;&amp; node2.querySelector("h2").innerText.toLowerCase() === "plugins") {
-
-																node2.querySelector(".bd-pfbtn").parentElement.insertBefore(PluginUpdates.createUpdateButton(), node2.querySelector(".bd-pfbtn").nextSibling);
-															}
-														}
-													});
-												}
-											}
-										);
-									});
-									settingsObserver.observe(node, {childList:true, subtree:true});
-								}
-							});
-						}
-					}
-				);
-			});
-			window.PluginUpdates.observer.observe(document.querySelector(".layers-3iHuyZ, .layers-20RVFW"), {childList:true});
-		}
-		
-		var bdbutton = document.querySelector(".bd-pfbtn");
-		if (bdbutton &amp;&amp; bdbutton.parentElement.querySelector("h2") &amp;&amp; bdbutton.parentElement.querySelector("h2").innerText.toLowerCase() === "plugins" &amp;&amp; !bdbutton.parentElement.querySelector(".bd-pfbtn.bd-updatebtn")) {
-			bdbutton.parentElement.insertBefore(PluginUpdates.createUpdateButton(), bdbutton.nextSibling);
+	static getBDFolder(subtarget = "") {
+		const process = require("process");
+		const path = require("path");
+		switch (process.platform) {
+			case "win32":
+				return path.resolve(process.env.appdata, "BetterDiscord/", subtarget);
+			case "darwin":
+				return path.resolve(process.env.HOME, "Library/Preferences/", "BetterDiscord/", subtarget);
+			default:
+				return path.resolve(process.env.XDG_CONFIG_HOME ? process.env.XDG_CONFIG_HOME : process.env.HOME + "/.config", "BetterDiscord/", subtarget);
 		}
 	}
-
-	static getToastCSS() {
-		return require("../styles/toasts.css");
-	}
-
-	/**
-	 * This shows a toast similar to android towards the bottom of the screen.
-	 * 
-	 * @param {string} content The string to show in the toast.
-	 * @param {object} options Options object. Optional parameter.
-	 * @param {string} options.type Changes the type of the toast stylistically and semantically. Choices: "", "info", "success", "danger"/"error", "warning"/"warn". Default: ""
-	 * @param {boolean} options.icon Determines whether the icon should show corresponding to the type. A toast without type will always have no icon. Default: true
-	 * @param {number} options.timeout Adjusts the time (in ms) the toast should be shown for before disappearing automatically. Default: 3000
-	 */
-
-	/**
-	 * Shows a simple toast, similar to Android, centered over 
-	 * the textarea if it exists, and center screen otherwise.
-	 * Vertically it shows towards the bottom like in Android.
-	 * @param {string} content - The string to show in the toast.
-	 * @param {object} options - additional options for the toast
-	 * @param {string} [options.type=""] - Changes the type of the toast stylistically and semantically. Choices: "", "info", "success", "danger"/"error", "warning"/"warn".
-	 * @param {boolean} [options.icon=true] - Determines whether the icon should show corresponding to the type. A toast without type will always have no icon.
-	 * @param {number} [options.timeout=3000] - Adjusts the time (in ms) the toast should be shown for before disappearing automatically.
-	 */
-	static showToast(content, options = {}) {
-		if (!document.querySelector('.toasts')) {
-			let container = document.querySelector('.channels-3g2vYe + div, .channels-Ie2l6A + div');
-			let memberlist = container.querySelector('.membersWrap-2h-GB4');
-			let form = container ? container.querySelector('form') : null;
-			let left = container ? container.getBoundingClientRect().left : 310;
-			let right = memberlist ? memberlist.getBoundingClientRect().left : 0;
-			let width = right ? right - container.getBoundingClientRect().left : container.offsetWidth;
-			let bottom = form ? form.offsetHeight : 80;
-			let toastWrapper = document.createElement("div");
-			toastWrapper.classList.add("toasts");
-			toastWrapper.style.setProperty("left", left + "px");
-			toastWrapper.style.setProperty("width", width + "px");
-			toastWrapper.style.setProperty("bottom", bottom + "px");
-			document.querySelector('.app').appendChild(toastWrapper);
-		}
-		const {type = "", icon = true, timeout = 3000} = options;
-		let toastElem = document.createElement("div");
-		toastElem.classList.add("toast");
-		if (type) toastElem.classList.add("toast-" + type);
-		if (type &amp;&amp; icon) toastElem.classList.add("icon");
-		toastElem.innerText = content;
-		document.querySelector('.toasts').appendChild(toastElem);
-		setTimeout(() => {
-			toastElem.classList.add('closing');
-			setTimeout(() => {
-				toastElem.remove();
-				if (!document.querySelectorAll('.toasts .toast').length) document.querySelector('.toasts').remove();
-			}, 300);
-		}, timeout);
-	}
-
 
 	/**
 	 * Get the full path to the plugins folder.
 	 * @returns {string} full path to the plugins folder
 	 */
 	static getPluginsFolder() {
-		let process = require("process");
-		let path = require("path");
-		switch (process.platform) {
-			case "win32":
-			return path.resolve(process.env.appdata, "BetterDiscord/plugins/");
-			case "darwin":
-			return path.resolve(process.env.HOME, "Library/Preferences/", "BetterDiscord/plugins/");
-			default:
-			return path.resolve(process.env.HOME, ".config/", "BetterDiscord/plugins/");
-		}
+		return this.getBDFolder("plugins/");
 	}
 
 	/**
@@ -258,26 +110,15 @@ import {$} from "../vendor";
 	 * @returns {string} full path to the themes folder
 	 */
 	static getThemesFolder() {
-		let process = require("process");
-		let path = require("path");
-		switch (process.platform) {
-			case "win32":
-			return path.resolve(process.env.appdata, "BetterDiscord/themes/");
-			case "darwin":
-			return path.resolve(process.env.HOME, "Library/Preferences/", "BetterDiscord/themes/");
-			default:
-			return path.resolve(process.env.HOME, ".config/", "BetterDiscord/themes/");
-		}
+		return this.getBDFolder("themes/");
 	}
 
 	/**
-	 * Similar to {@link PluginUtilities.onSwitchObserver} but this uses electron
-	 * web contents and not observers. This can be more efficient on worse systems
-	 * than the observer based method.
+	 * Adds a callback to a set of listeners for onSwitch.
 	 * @param {callable} callback - basic callback to happen on channel switch
 	 */
 	static addOnSwitchListener(callback) {
-		require('electron').remote.getCurrentWebContents().on("did-navigate-in-page", callback);
+		require("electron").remote.getCurrentWebContents().on("did-navigate-in-page", callback);
 	}
 
 	/**
@@ -285,7 +126,7 @@ import {$} from "../vendor";
 	 * @param {callable} callback - callback to remove from the listener list
 	 */
 	static removeOnSwitchListener(callback) {
-		require('electron').remote.getCurrentWebContents().removeListener("did-navigate-in-page", callback);
+		require("electron").remote.getCurrentWebContents().removeListener("did-navigate-in-page", callback);
 	}
 }
 
@@ -300,13 +141,13 @@ import {$} from "../vendor";
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-ColorConverter.html">ColorConverter</a></li><li><a href="module-DiscordAPI.html">DiscordAPI</a></li><li><a href="module-DiscordClassModules.html">DiscordClassModules</a></li><li><a href="module-DiscordModules.html">DiscordModules</a></li><li><a href="module-DOMTools.html">DOMTools</a></li><li><a href="module-Logger.html">Logger</a></li><li><a href="module-Patcher.html">Patcher</a></li><li><a href="module-PluginContextMenu.html">PluginContextMenu</a></li><li><a href="module-PluginSettings.html">PluginSettings</a></li><li><a href="module-PluginTooltip.html">PluginTooltip</a></li><li><a href="module-PluginUpdateUtilities.html">PluginUpdateUtilities</a></li><li><a href="module-PluginUtilities.html">PluginUtilities</a></li><li><a href="module-ReactTools.html">ReactTools</a></li><li><a href="module-Utilities.html">Utilities</a></li></ul><h3>Classes</h3><ul><li><a href="DiscordPermissions.html">DiscordPermissions</a></li><li><a href="module-DOMTools.ClassName.html">ClassName</a></li><li><a href="module-DOMTools.Selector.html">Selector</a></li><li><a href="module-PluginContextMenu.ImageItem.html">ImageItem</a></li><li><a href="module-PluginContextMenu.ItemGroup.html">ItemGroup</a></li><li><a href="module-PluginContextMenu.Menu.html">Menu</a></li><li><a href="module-PluginContextMenu.MenuItem.html">MenuItem</a></li><li><a href="module-PluginContextMenu.SubMenuItem.html">SubMenuItem</a></li><li><a href="module-PluginContextMenu.TextItem.html">TextItem</a></li><li><a href="module-PluginContextMenu.ToggleItem.html">ToggleItem</a></li><li><a href="module-PluginSettings.ColorPicker.html">ColorPicker</a></li><li><a href="module-PluginSettings.Pill.html">Pill</a></li><li><a href="module-PluginSettings.SettingField.html">SettingField</a></li><li><a href="module-PluginSettings.SettingGroup.html">SettingGroup</a></li><li><a href="module-PluginSettings.Slider.html">Slider</a></li><li><a href="module-PluginSettings.Switch.html">Switch</a></li><li><a href="module-PluginSettings.Textbox.html">Textbox</a></li><li><a href="module-PluginTooltip.NativeTooltip.html">NativeTooltip</a></li><li><a href="module-PluginTooltip.PluginTooltip.html">PluginTooltip</a></li><li><a href="Screen.html">Screen</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getAccentColor">getAccentColor</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-ColorConverter.html">ColorConverter</a></li><li><a href="module-ContextMenu.html">ContextMenu</a></li><li><a href="module-DiscordAPI.html">DiscordAPI</a></li><li><a href="module-DiscordClassModules.html">DiscordClassModules</a></li><li><a href="module-DiscordModules.html">DiscordModules</a></li><li><a href="module-DOMTools.html">DOMTools</a></li><li><a href="module-Logger.html">Logger</a></li><li><a href="module-Patcher.html">Patcher</a></li><li><a href="module-PluginUpdater.html">PluginUpdater</a></li><li><a href="module-PluginUtilities.html">PluginUtilities</a></li><li><a href="module-ReactTools.html">ReactTools</a></li><li><a href="module-Settings.html">Settings</a></li><li><a href="module-Toasts.html">Toasts</a></li><li><a href="module-Tooltip.html">Tooltip</a></li><li><a href="module-Utilities.html">Utilities</a></li><li><a href="module-WebpackModules.html">WebpackModules</a></li></ul><h3>Classes</h3><ul><li><a href="module-ContextMenu.ImageItem.html">ImageItem</a></li><li><a href="module-ContextMenu.ItemGroup.html">ItemGroup</a></li><li><a href="module-ContextMenu.Menu.html">Menu</a></li><li><a href="module-ContextMenu.MenuItem.html">MenuItem</a></li><li><a href="module-ContextMenu.SubMenuItem.html">SubMenuItem</a></li><li><a href="module-ContextMenu.TextItem.html">TextItem</a></li><li><a href="module-ContextMenu.ToggleItem.html">ToggleItem</a></li><li><a href="module-DiscordAPI.Channel.html">Channel</a></li><li><a href="module-DiscordAPI.Guild.html">Guild</a></li><li><a href="module-DiscordAPI.InsufficientPermissions.html">InsufficientPermissions</a></li><li><a href="module-DiscordAPI.List.html">List</a></li><li><a href="module-DiscordAPI.Message.html">Message</a></li><li><a href="module-DiscordAPI.User.html">User</a></li><li><a href="module-DiscordAPI.UserSettings.html">UserSettings</a></li><li><a href="module-DOMTools.ClassName.html">ClassName</a></li><li><a href="module-DOMTools.Selector.html">Selector</a></li><li><a href="module-Settings.ColorPicker.html">ColorPicker</a></li><li><a href="module-Settings.Pill.html">Pill</a></li><li><a href="module-Settings.SettingField.html">SettingField</a></li><li><a href="module-Settings.SettingGroup.html">SettingGroup</a></li><li><a href="module-Settings.Slider.html">Slider</a></li><li><a href="module-Settings.Switch.html">Switch</a></li><li><a href="module-Settings.Textbox.html">Textbox</a></li><li><a href="module-Tooltip.html">Tooltip</a></li><li><a href="module-WebpackModules.Filters.html">Filters</a></li><li><a href="Screen.html">Screen</a></li></ul><h3>Interfaces</h3><ul><li><a href="module-DOMTools-Offset.html">Offset</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri May 18 2018 01:32:22 GMT-0400 (Eastern Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue May 22 2018 17:02:16 GMT-0400 (Eastern Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>

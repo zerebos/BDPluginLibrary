@@ -1,37 +1,81 @@
+/**
+ * Random set of utilities that didn't fit elsewhere.
+ * @module WebpackModules
+ * @version 0.0.1
+ */
 import DiscordModules from "./discordmodules";
 
+ /**
+ * Checks if a given module matches a set of parameters.
+ * @callback module:WebpackModules.Filters~filter
+ * @param {*} module - module to check
+ * @returns {boolean} - True if the module matches the filter, false otherwise
+ */
+
+/**
+ * Filters for use with {@link module:WebpackModules} but may prove useful elsewhere.
+ */
 export class Filters {
-    static byProperties(props, selector = m => m) {
+    /**
+     * Generates a {@link module:WebpackModules.Filters~filter} that filters by a set of properties.
+     * @param {Array<string>} props - Array of property names
+     * @param {module:WebpackModules.Filters~filter} filter - Additional filter
+     * @returns {module:WebpackModules.Filters~filter} - A filter that checks for a set of properties
+     */
+    static byProperties(props, filter = m => m) {
         return module => {
-            const component = selector(module);
+            const component = filter(module);
             if (!component) return false;
             return props.every(property => component[property] !== undefined);
         };
     }
 
-    static byPrototypeFields(fields, selector = m => m) {
+    /**
+     * Generates a {@link module:WebpackModules.Filters~filter} that filters by a set of properties on the object's prototype.
+     * @param {Array<string>} fields - Array of property names
+     * @param {module:WebpackModules.Filters~filter} filter - Additional filter
+     * @returns {module:WebpackModules.Filters~filter} - A filter that checks for a set of properties on the object's prototype
+     */
+    static byPrototypeFields(fields, filter = m => m) {
         return module => {
-            const component = selector(module);
+            const component = filter(module);
             if (!component) return false;
             if (!component.prototype) return false;
             return fields.every(field => component.prototype[field] !== undefined);
         };
     }
 
-    static byCode(search, selector = m => m) {
+    /**
+     * Generates a {@link module:WebpackModules.Filters~filter} that filters by a regex.
+     * @param {RegExp} search - A RegExp to check on the module
+     * @param {module:WebpackModules.Filters~filter} filter - Additional filter
+     * @returns {module:WebpackModules.Filters~filter} - A filter that checks for a set of properties
+     */
+    static byCode(search, filter = m => m) {
         return module => {
-            const method = selector(module);
+            const method = filter(module);
             if (!method) return false;
             return method.toString().search(search) !== -1;
         };
     }
 
+    /**
+     * Generates a {@link module:WebpackModules.Filters~filter} that filters by a set of properties.
+     * @param {string} name - Name the module should have
+     * @param {module:WebpackModules.Filters~filter} filter - Additional filter
+     * @returns {module:WebpackModules.Filters~filter} - A filter that checks for a set of properties
+     */
     static byDisplayName(name) {
         return module => {
             return module && module.displayName === name;
         };
     }
 
+    /**
+     * Generates a combined {@link module:WebpackModules.Filters~filter} from a list of filters.
+     * @param {...module:WebpackModules.Filters~filter} filters - A list of filters
+     * @returns {module:WebpackModules.Filters~filter} - Combinatory filter of all arguments
+     */
     static combine(...filters) {
         return module => {
             return filters.every(filter => filter(module));

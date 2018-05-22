@@ -70,7 +70,10 @@ export class Emoji {
 
 const guilds = new WeakMap();
 
-export class Guild {
+/**
+ * @memberof module:DiscordAPI
+ */
+class Guild {
 
     constructor(data) {
         if (guilds.has(data)) return guilds.get(data);
@@ -286,7 +289,7 @@ export class Guild {
      * @param {String} name A name for the new channel
      * @param {ChannelCategory} category The category to create the channel in
      * @param {Array} permission_overwrites An array of PermissionOverwrite-like objects - leave to use the permissions of the category
-     * @return {Promise => GuildChannel}
+     * @return {Promise<GuildChannel>}
      */
     async createChannel(type, name, category, permission_overwrites) {
         this.assertPermissions("MANAGE_CHANNELS", Modules.DiscordPermissions.MANAGE_CHANNELS);
@@ -465,3 +468,5 @@ export class Guild {
     }
 
 }
+
+export {Guild};

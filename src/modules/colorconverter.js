@@ -38,7 +38,7 @@ export default class ColorConverter {
 			rgb[i] = Math.round(Math.max(0, rgb[i] - rgb[i] * (percent / 100)));
 		}
 		
-		return 'rgb(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ')';
+		return "rgb(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + ")";
 	}
 
 	/**
@@ -54,7 +54,7 @@ export default class ColorConverter {
 			rgb[i] = Math.round(Math.min(255, rgb[i] + rgb[i] * (percent / 100)));
 		}
 		
-		return 'rgb(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ')';
+		return "rgb(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + ")";
 	}
 
 	/**
@@ -65,7 +65,7 @@ export default class ColorConverter {
 	 */
 	static rgbToAlpha(color, alpha) {
 		var rgb = this.getRGB(color);		
-		return 'rgba(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ',' + alpha + ')';
+		return "rgba(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + "," + alpha + ")";
 	}
 
 }

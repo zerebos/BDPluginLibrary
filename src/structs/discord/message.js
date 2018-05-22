@@ -87,7 +87,10 @@ export class Embed {
 
 const messages = new WeakMap();
 
-export class Message {
+/**
+ * @memberof module:DiscordAPI
+ */
+class Message {
 
     constructor(data) {
         if (messages.has(data)) return messages.get(data);
@@ -169,6 +172,8 @@ export class Message {
     }
 
 }
+
+export {Message};
 
 export class DefaultMessage extends Message {
     get webhookId() { return this.discordObject.webhookId; }

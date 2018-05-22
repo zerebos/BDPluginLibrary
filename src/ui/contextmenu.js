@@ -1,6 +1,6 @@
 /**
  * Self-made context menus that emulate Discord's own context menus.
- * @module PluginContextMenu
+ * @module ContextMenu
  * @version 0.0.7
  */
 
@@ -30,8 +30,8 @@ export class Menu {
     
     /**
      * Adds an item group to the menu. The group should already be populated.
-     * @param {PluginContextMenu.ItemGroup} contextGroup - group to add to the menu
-     * @returns {PluginContextMenu.Menu} returns self for chaining
+     * @param {module:ContextMenu.ItemGroup} contextGroup - group to add to the menu
+     * @returns {module:ContextMenu.Menu} returns self for chaining
      */
 	addGroup(contextGroup) {
 		if (this.scroll) this.scroller.append(contextGroup.getElement());
@@ -41,9 +41,9 @@ export class Menu {
     
     /**
      * Adds items to the context menu directly. It is recommended to add to a group and use 
-     * {@link PluginContextMenu.Menu#addGroup} instead to behave as natively as possible.
-     * @param {PluginContextMenu.MenuItem} contextItems - list of items to add to the context menu
-     * @returns {PluginContextMenu.Menu} returns self for chaining
+     * {@link module:ContextMenu.Menu#addGroup} instead to behave as natively as possible.
+     * @param {module:ContextMenu.MenuItem} contextItems - list of items to add to the context menu
+     * @returns {module:ContextMenu.Menu} returns self for chaining
      */
 	addItems(...contextItems) {
 		for (var i = 0; i < contextItems.length; i++) {
@@ -121,7 +121,7 @@ export class Menu {
     
     /**
      * Used to attach a menu to a menu item. This is how to create a submenu.
-     * If using {@link PluginContextMenu.SubMenuItem} then you do not need
+     * If using {@link module:ContextMenu.SubMenuItem} then you do not need
      * to call this function as it is done automatically. If you want to attach
      * a submenu to an existing Discord context menu, then you should use this
      * method.
@@ -147,8 +147,8 @@ export class ItemGroup {
     
     /**
      * This is the method of adding menu items to a menu group.
-     * @param {PluginContextMenu.MenuItem} contextItems - list of context menu items to add to this group
-     * @returns {PluginContextMenu.ItemGroup} returns self for chaining
+     * @param {module:ContextMenu.MenuItem} contextItems - list of context menu items to add to this group
+     * @returns {module:ContextMenu.ItemGroup} returns self for chaining
      */
 	addItems(...contextItems) {
 		for (var i = 0; i < contextItems.length; i++) {
@@ -164,13 +164,13 @@ export class ItemGroup {
 /**
  * Fires when the attached menu item it clicked.
  * @param {MouseEvent} event - the mouse event from clicking the item
- * @callback PluginContextMenu~clickEvent
+ * @callback module:ContextMenu~clickEvent
  */
 
  /**
  * Fires when the checkbox item changes state.
  * @param {boolean} isChecked - if the checkbox is now checked
- * @callback PluginContextMenu~onChange
+ * @callback module:ContextMenu~onChange
  */
 
 /** Base class for all other menu items. */
@@ -179,7 +179,7 @@ export class MenuItem {
      * @param {string} label - label to show on the menu item
      * @param {object} options - additional options for the item
      * @param {boolean} [options.danger=false] - should the item show as danger
-     * @param {PluginContextMenu~clickEvent} [options.callback] - callback for when it is clicked
+     * @param {module:ContextMenu~clickEvent} [options.callback] - callback for when it is clicked
      */
 	constructor(label, options = {}) {
 		var {danger = false, callback} = options;
@@ -198,7 +198,7 @@ export class MenuItem {
 
 /** 
  * Creates a text menu item that can have a hint.
- * @extends MenuItem
+ * @extends module:ContextMenu.MenuItem
  */
 export class TextItem extends MenuItem {
     /**
@@ -206,7 +206,7 @@ export class TextItem extends MenuItem {
      * @param {object} options - additional options for the item
      * @param {string} [options.hint=""] - hint to show on the item (usually used for key combos)
      * @param {boolean} [options.danger=false] - should the item show as danger
-     * @param {PluginContextMenu~clickEvent} [options.callback] - callback for when it is clicked
+     * @param {module:ContextMenu~clickEvent} [options.callback] - callback for when it is clicked
      */
 	constructor(label, options = {}) {
 		super(label, options);
@@ -218,7 +218,7 @@ export class TextItem extends MenuItem {
 
 /** 
  * Creates an image menu item that can have an image.
- * @extends MenuItem
+ * @extends module:ContextMenu.MenuItem
  */
 export class ImageItem extends MenuItem {
     /**
@@ -227,7 +227,7 @@ export class ImageItem extends MenuItem {
      * @param {object} options - additional options for the item
      * @param {string} [options.hint=""] - hint to show on the item (usually used for key combos)
      * @param {boolean} [options.danger=false] - should the item show as danger
-     * @param {PluginContextMenu~clickEvent} [options.callback] - callback for when it is clicked
+     * @param {module:ContextMenu~clickEvent} [options.callback] - callback for when it is clicked
      */
 	constructor(label, imageSrc, options = {}) {
 		super(label, options);
@@ -239,16 +239,16 @@ export class ImageItem extends MenuItem {
 
 /** 
  * Creates a menu item with an attached submenu.
- * @extends .MenuItem
+ * @extends module:ContextMenu.MenuItem
  */
 export class SubMenuItem extends MenuItem {
     /**
      * @param {string} label - label to show on the menu item
-     * @param {PluginContextMenu.Menu} subMenu - context menu that should be attached to this item
+     * @param {module:ContextMenu.Menu} subMenu - context menu that should be attached to this item
      * @param {object} options - additional options for the item
      * @param {string} [options.hint=""] - hint to show on the item (usually used for key combos)
      * @param {boolean} [options.danger=false] - should the item show as danger
-     * @param {PluginContextMenu~clickEvent} [options.callback] - callback for when it is clicked
+     * @param {module:ContextMenu~clickEvent} [options.callback] - callback for when it is clicked
      */
 	constructor(label, subMenu, options = {}) {
 		// if (!(subMenu instanceof ContextSubMenu)) throw "subMenu must be of ContextSubMenu type.";
@@ -261,7 +261,7 @@ export class SubMenuItem extends MenuItem {
 
 /** 
  * Creates a menu item with a checkbox.
- * @extends MenuItem
+ * @extends module:ContextMenu.MenuItem
  */
 export class ToggleItem extends MenuItem {
     /**
@@ -270,8 +270,8 @@ export class ToggleItem extends MenuItem {
      * @param {object} options - additional options for the item
      * @param {string} [options.hint=""] - hint to show on the item (usually used for key combos)
      * @param {boolean} [options.danger=false] - should the item show as danger
-     * @param {PluginContextMenu~clickEvent} [options.callback] - callback for when it is clicked
-     * @param {PluginContextMenu~onChange} [options.onChange] - callback for when the checkbox changes
+     * @param {module:ContextMenu~clickEvent} [options.callback] - callback for when it is clicked
+     * @param {module:ContextMenu~onChange} [options.onChange] - callback for when the checkbox changes
      */
 	constructor(label, checked, options = {}) {
         var {onChange} = options;

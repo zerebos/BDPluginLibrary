@@ -7,15 +7,24 @@
  * https://github.com/JsSucks/BetterDiscordApp/blob/master/LICENSE
 */
 
-import {List, User, Channel, Guild, Message, UserSettings} from "structs";
+/**
+ * A large list of known and useful webpack modules internal to Discord.
+ * Click the filename below to see the whole list.
+ * @module DiscordAPI
+ * @version 0.0.1
+ */
+import {List, User, Channel, Guild, Message, UserSettings, InsufficientPermissions} from "structs";
 import Modules from "./discordmodules";
 
 export default class DiscordAPI {
 
-    static get User() { return User; }
-    static get Channel() { return Channel; }
-    static get Guild() { return Guild; }
-    static get Message() { return Message; }
+    static get InsufficientPermissions() {return InsufficientPermissions;}
+    static get List() {return List;}
+    static get User() {return User;}
+    static get Channel() {return Channel;}
+    static get Guild() {return Guild;}
+    static get Message() {return Message;}
+    static get UserSettings() {return UserSettings;}
 
     /**
      * A list of loaded guilds.
@@ -94,9 +103,4 @@ export default class DiscordAPI {
         const friends = Modules.RelationshipStore.getFriendIDs();
         return List.from(friends, id => User.fromId(id));
     }
-
-    static get UserSettings() {
-        return UserSettings;
-    }
-
 }

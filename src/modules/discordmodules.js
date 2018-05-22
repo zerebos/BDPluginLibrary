@@ -39,7 +39,7 @@ export default Utilities.memoizeObject({
     get UserSettingsUpdater() {return WebpackModules.getByProps("updateRemoteSettings");},
     get OnlineWatcher() {return WebpackModules.getByProps("isOnline");},
     get CurrentUserIdle() {return WebpackModules.getByProps("getIdleTime");},
-    get RelationshipStore() {return WebpackModules.getByProps("isBlocked");},
+    get RelationshipStore() {return WebpackModules.getByProps("isBlocked", "getFriendIDs");},
     get RelationshipManager() {return WebpackModules.getByProps("addRelationship");},
     get MentionStore() {return WebpackModules.getByProps("getMentions");},
 

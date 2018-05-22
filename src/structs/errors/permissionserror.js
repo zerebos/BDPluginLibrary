@@ -5,6 +5,9 @@ class PermissionsError extends Error {
     }
 }
 
+/**
+ * @memberof module:DiscordAPI
+ */
 class InsufficientPermissions extends PermissionsError {
     constructor(message) {
         super(`Missing Permission — ${message}`);

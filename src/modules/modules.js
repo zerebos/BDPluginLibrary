@@ -8,7 +8,7 @@ export { default as WebpackModules, Filters} from "./webpackmodules";
 export { default as Logger } from "./logger";
 export { default as Patcher } from "./patcher";
 
-export { default as PluginUpdates } from "./pluginupdates";
+export { default as PluginUpdater } from "./pluginupdater";
 export { default as PluginUtilities } from "./pluginutilities";
 export { default as DiscordClassModules } from "./discordclassmodules";
 export { default as DiscordModules } from "./discordmodules";

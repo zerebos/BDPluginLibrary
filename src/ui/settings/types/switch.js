@@ -2,9 +2,9 @@ import SettingField from "../settingfield";
 
 /** 
  * Creates a checkbox in the style of a standard Discord switch.
- * @memberof module:PluginSettings
+ * @memberof module:Settings
  * @version 1.0.0
- * @extends SettingField
+ * @extends module:Settings.SettingField
  */
 class Switch extends SettingField {
     /**
@@ -12,7 +12,7 @@ class Switch extends SettingField {
      * @param {string} label - title for the setting
      * @param {string} help - description of the setting
      * @param {boolean} isChecked - determines if the checkbox is checked by default
-     * @param {PluginSettings~settingsChanged} callback - callback fired on change
+     * @param {module:Settings~settingsChanged} callback - callback fired on change
      * @param {object} options - additional options for the input field itself
      */
 	constructor(label, help, isChecked, callback, options = {}) {

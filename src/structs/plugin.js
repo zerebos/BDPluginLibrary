@@ -1,4 +1,4 @@
-import PluginUtilities from "../modules/pluginutilities";
+import PluginUpdater from "../modules/pluginupdater";
 
 export default function(config) {
     return class Plugin {
@@ -12,7 +12,7 @@ export default function(config) {
         getAuthor() { return this._config.info.authors.map(a => a.name).join(", "); }
         load() {}
         start() {
-            PluginUtilities.checkForUpdate(this.getName(), this.getVersion(), this._config.info.github_raw);
+            PluginUpdater.checkForUpdate(this.getName(), this.getVersion(), this._config.info.github_raw);
             this._enabled = true;
             if (typeof(this.onStart) == "function") this.onStart();
         }

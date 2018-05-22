@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: structs/dom/selector.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: structs/dom/selector.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/** 
+ * Representation of a Selector
+ * @memberof module:DOMTools
+ **/
+class Selector {
+	/**
+	 * 
+	 * @param {string} classname - class to create selector for
+	 */
+	constructor(className) {
+		this.value = " ." + className.split(" ").join(".");
+	}
+	
+	/**
+	 * Returns the raw selector, this is how native function get the value.
+	 * @returns {string} raw selector.
+	 */
+	toString() {
+		return this.value;
+	}
+	
+	/**
+	 * Returns the raw selector, this is how native function get the value.
+	 * @returns {string} raw selector.
+	 */
+	valueOf() {
+		return this.value;
+	}
+	
+	selector(symbol, other) {
+		this.value = `${this.toString()} ${symbol} ${other.toString()}`;
+		return this;
+	}
+	
+	/**
+	 * Adds another selector as a direct child `>` to this one.
+	 * @param {string|DOMTools.Selector} other - Selector to add as child
+	 * @returns {DOMTools.Selector} returns self to allow chaining
+	 */
+	child(other) {
+		return this.selector(">", other);
+	}
+	
+	/**
+	 * Adds another selector as a adjacent sibling `+` to this one.
+	 * @param {string|DOMTools.Selector} other - Selector to add as adjacent sibling
+	 * @returns {DOMTools.Selector} returns self to allow chaining
+	 */
+	adjacent(other) {
+		return this.selector("+", other);
+	}
+	
+	/**
+	 * Adds another selector as a general sibling `~` to this one.
+	 * @param {string|DOMTools.Selector} other - Selector to add as sibling
+	 * @returns {DOMTools.Selector} returns self to allow chaining
+	 */
+	sibling(other) {
+		return this.selector("~", other);
+	}
+	
+	/**
+	 * Adds another selector as a descendent `(space)` to this one.
+	 * @param {string|DOMTools.Selector} other - Selector to add as descendent
+	 * @returns {DOMTools.Selector} returns self to allow chaining
+	 */
+	descend(other) {
+		return this.selector(" ", other);
+	}
+
+	/**
+	 * Adds another selector to this one via `,`.
+	 * @param {string|DOMTools.Selector} other - Selector to add
+	 * @returns {DOMTools.Selector} returns self to allow chaining
+	 */
+	and(other) {
+		return this.selector(",", other);
+	}
+}
+
+export default Selector;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-ColorConverter.html">ColorConverter</a></li><li><a href="module-ContextMenu.html">ContextMenu</a></li><li><a href="module-DiscordAPI.html">DiscordAPI</a></li><li><a href="module-DiscordClassModules.html">DiscordClassModules</a></li><li><a href="module-DiscordModules.html">DiscordModules</a></li><li><a href="module-DOMTools.html">DOMTools</a></li><li><a href="module-Logger.html">Logger</a></li><li><a href="module-Patcher.html">Patcher</a></li><li><a href="module-PluginUpdater.html">PluginUpdater</a></li><li><a href="module-PluginUtilities.html">PluginUtilities</a></li><li><a href="module-ReactTools.html">ReactTools</a></li><li><a href="module-Settings.html">Settings</a></li><li><a href="module-Toasts.html">Toasts</a></li><li><a href="module-Tooltip.html">Tooltip</a></li><li><a href="module-Utilities.html">Utilities</a></li><li><a href="module-WebpackModules.html">WebpackModules</a></li></ul><h3>Classes</h3><ul><li><a href="module-ContextMenu.ImageItem.html">ImageItem</a></li><li><a href="module-ContextMenu.ItemGroup.html">ItemGroup</a></li><li><a href="module-ContextMenu.Menu.html">Menu</a></li><li><a href="module-ContextMenu.MenuItem.html">MenuItem</a></li><li><a href="module-ContextMenu.SubMenuItem.html">SubMenuItem</a></li><li><a href="module-ContextMenu.TextItem.html">TextItem</a></li><li><a href="module-ContextMenu.ToggleItem.html">ToggleItem</a></li><li><a href="module-DiscordAPI.Channel.html">Channel</a></li><li><a href="module-DiscordAPI.Guild.html">Guild</a></li><li><a href="module-DiscordAPI.InsufficientPermissions.html">InsufficientPermissions</a></li><li><a href="module-DiscordAPI.List.html">List</a></li><li><a href="module-DiscordAPI.Message.html">Message</a></li><li><a href="module-DiscordAPI.User.html">User</a></li><li><a href="module-DiscordAPI.UserSettings.html">UserSettings</a></li><li><a href="module-DOMTools.ClassName.html">ClassName</a></li><li><a href="module-DOMTools.Selector.html">Selector</a></li><li><a href="module-Settings.ColorPicker.html">ColorPicker</a></li><li><a href="module-Settings.Pill.html">Pill</a></li><li><a href="module-Settings.SettingField.html">SettingField</a></li><li><a href="module-Settings.SettingGroup.html">SettingGroup</a></li><li><a href="module-Settings.Slider.html">Slider</a></li><li><a href="module-Settings.Switch.html">Switch</a></li><li><a href="module-Settings.Textbox.html">Textbox</a></li><li><a href="module-Tooltip.html">Tooltip</a></li><li><a href="module-WebpackModules.Filters.html">Filters</a></li><li><a href="Screen.html">Screen</a></li></ul><h3>Interfaces</h3><ul><li><a href="module-DOMTools-Offset.html">Offset</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue May 22 2018 17:02:16 GMT-0400 (Eastern Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

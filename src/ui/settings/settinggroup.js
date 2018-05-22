@@ -3,7 +3,7 @@ import SettingField from "./settingfield";
 
 /** 
  * Grouping of controls for easier management in settings panels.
- * @memberof module:PluginSettings
+ * @memberof module:Settings
  * @version 1.0.1
  */
 class SettingGroup {

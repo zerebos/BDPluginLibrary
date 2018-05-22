@@ -2,9 +2,9 @@ import SettingField, {createInputContainer, getAccentColor} from "../settingfiel
 
 /** 
  * Creates a slider where the user can select a single number from a predefined range.
- * @memberof module:PluginSettings
+ * @memberof module:Settings
  * @version 1.0.0
- * @extends SettingField
+ * @extends module:Settings.SettingField
  */
 class Slider extends SettingField {
     /**
@@ -15,7 +15,7 @@ class Slider extends SettingField {
      * @param {number} max - maximum value allowed
      * @param {number} step - granularity between values
      * @param {number} value - default value of the setting
-     * @param {PluginSettings~settingsChanged} callback - callback fired on slider release
+     * @param {module:Settings~settingsChanged} callback - callback fired on slider release
      * @param {object} options - additional options for the input field itself
      */
 	constructor(settingLabel, help, min, max, step, value, callback, options = {}) {

@@ -1,12 +1,12 @@
 /**
  * An object that makes generating settings panel 10x easier.
- * @module PluginSettings
+ * @module Settings
  * @version 1.0.5
  */
 
 /**
  * Callback for SettingField for change in input field.
- * @callback PluginSettings~settingsChanged
+ * @callback module:Settings~settingsChanged
  * @param {*} value - new value of the input field
  */
 

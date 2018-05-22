@@ -7,11 +7,16 @@
  * https://github.com/JsSucks/BetterDiscordApp/blob/master/LICENSE
 */
 
+
+
 import {DiscordModules as Modules} from "modules";
 import {List} from "structs";
 import {Guild} from "./guild";
 
-export class UserSettings {
+/**
+ * @memberof module:DiscordAPI
+ */
+class UserSettings {
     /**
      * Opens Discord's settings UI.
      */
@@ -157,3 +162,5 @@ export class UserSettings {
      */
     static get timezoneOffset() { return Modules.UserSettingsStore.timezoneOffset; }
 }
+
+export {UserSettings};
