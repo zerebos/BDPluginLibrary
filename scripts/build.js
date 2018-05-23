@@ -6,7 +6,7 @@ const releasePath = path.join(__dirname, "../release");
 
 const formatString = function(string, values) {
     for (let val in values) {
-        string = string.replace(new RegExp(`\\{\\{${val}\\}\\}`, "g"), values[val]);
+        string = string.replace(new RegExp(`{{${val}}}`, "g"), values[val]);
     }
     return string;
 };

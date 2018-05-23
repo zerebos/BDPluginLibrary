@@ -9,7 +9,7 @@ import DiscordModules from "./discordmodules";
 import Logger from "./logger";
 import {Tooltip} from "ui";
 
-
+// TODO: Rewrite everything in this module
 export default class PluginUpdater {
 
 	/**

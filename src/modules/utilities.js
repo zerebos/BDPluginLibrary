@@ -113,7 +113,7 @@ export default class Utilities {
      */
     static formatString(string, values) {
         for (let val in values) {
-            string = string.replace(new RegExp(`\\{\\{${val}\\}\\}`, "g"), values[val]);
+            string = string.replace(new RegExp(`{{${val}}}`, "g"), values[val]);
         }
         return string;
     }

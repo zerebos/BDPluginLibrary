@@ -1,5 +1,7 @@
 import SettingField, {createInputContainer} from "../settingfield";
 
+import {ColorConverter, WebpackModules, DiscordModules} from "modules";
+
 /** 
  * Creates a color picker using chromium's built in color picker
  * as a base. Input and output using hex strings.
@@ -12,24 +14,52 @@ class ColorPicker extends SettingField {
      * @constructor
      * @param {string} label - title for the setting
      * @param {string} help - description of the setting
-     * @param {string} value - default value of the setting in hex format
+	 * @param {(number|string)} defaultValue - default value of the setting in hex or int format
+     * @param {(number|string)} value - value of the setting in hex or int format
      * @param {module:Settings~settingsChanged} callback - callback fired on color change
      * @param {object} options - additional options for the input field itself
      */
-	constructor(label, help, value, callback, options = {}) {
+	constructor(label, help, defaultValue, value, callback, options = {}) {
 		options.type = "color";
 		options.value = value;
 		super(label, help, options, callback);
 		this.input.css("margin-left", "10px");
 		this.input.addClass("plugin-input-color");
-		
-		var settingLabel = $("<span class=\"plugin-setting-label\">").text(value);
-		
-		this.input.on("input", function() {
-			settingLabel.text($(this).val());
+		this.input.hide();
+
+		let root = $(`<div id="${DiscordModules.KeyGenerator()}">`);
+		let domElem = createInputContainer(this.input, root);
+		this.setInputElement(domElem);
+
+		// const colors = [1752220, 3066993, 3447003, 10181046, 15277667, 15844367, 15105570, 15158332, 9807270, 6323595, 1146986, 2067276, 2123412, 7419530, 11342935, 12745742, 11027200, 10038562, 9936031, 5533306];
+		const defaultColor = typeof(defaultValue) == "number" ? defaultValue : ColorConverter.hex2int(defaultValue);
+		const customColor = typeof(value) == "number" ? value : ColorConverter.hex2int(value);
+		const disabled = options.disabled ? true : false;
+		const onChange = _ => _;
+		const currentValue = 0;
+		const DiscordColorPicker = WebpackModules.getByPrototypes("renderCustomColorPopout");
+		new Promise(async resolve => {
+			while (!document.contains(root[0]))
+				await new Promise(resolve => setTimeout(resolve, 50));
+			resolve();
+		}).then(() => {
+			const pickerElem = DiscordModules.ReactDOM.render(DiscordModules.React.createElement(DiscordColorPicker, {
+				colors: [],
+				defaultColor: defaultColor,
+				disabled: disabled,
+				onChange: onChange,
+				value: currentValue
+			}), root[0]);
+
+			if (customColor || customColor != defaultColor) pickerElem.setState({customColor: customColor});
+
+			pickerElem.props.onChange = (e) => {
+				pickerElem.props.value = e;
+				pickerElem.forceUpdate();
+				this.input.attr("value", ColorConverter.int2hex(e));
+				this.input.trigger("change");
+			};
 		});
-		
-		this.setInputElement(createInputContainer(settingLabel, this.input));
 	}
 }
 

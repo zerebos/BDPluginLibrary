@@ -4,7 +4,25 @@
  * @version 0.0.2
  */
 
+import WebpackModules from "./webpackmodules";
+
+const DiscordColorUtils = WebpackModules.getByProps("getDarkness", "isValidHex");
+
 export default class ColorConverter {
+
+	static getDarkness(color) {
+		return DiscordColorUtils.getDarkness(color);
+	}
+
+	static hex2int(color) {return DiscordColorUtils.hex2int(color);}
+
+	static hex2rgb(color) {return DiscordColorUtils.hex2rgb(color);}
+	
+	static int2hex(color) {return DiscordColorUtils.int2hex(color);}
+
+	static int2rgba(color, alpha) {return DiscordColorUtils.int2rgba(color, alpha);}
+
+	static isValidHex(color) {return DiscordColorUtils.isValidHex(color);}
 
 	/**
 	 * Will get the red green and blue values of any color string.
