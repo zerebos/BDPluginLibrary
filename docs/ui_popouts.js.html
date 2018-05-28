@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: ui/popouts.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,37 +17,62 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: ui/popouts.js</h1>
 
     
 
 
 
     
-
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
     <section>
-        <article><h1>PluginLibrary</h1><p>This is the documentation for Zere's Plugin Library. I recommend going through the namespaces located on the right hand side so you can get an idea of how the library is organized. From the namespaces you can get to the classes, members, and objects of each. All of those will have their own page with all the relevant functions and member functions documented with brief explanations for them.</p>
-<h2>Coming Soon</h2><p>Coming soon I plan to add tutorials/examples to the documentation.</p></article>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Allows an easy way to create and show popouts.
+ * @module Popouts
+ * @version 0.0.1
+ */
+
+import {Screen} from "structs";
+import {DiscordModules} from "modules";
+
+//TODO: document stuff
+
+export default class Popouts {
+    /**
+     * 
+     * @param {*} target 
+     * @param {*} user 
+     * @param {*} guildId 
+     * @param {*} channelId 
+     */
+    static showUserPopout(target, user, guildId, channelId) {
+		let guild = guildId ? guildId : DiscordModules.SelectedGuildStore.getGuildId();
+		let channel = channelId ? channelId : DiscordModules.SelectedChannelStore.getChannelId();
+		let position = "right";
+		if (target.getBoundingClientRect().right + 250 >= Screen.width) position = "left";
+		DiscordModules.PopoutOpener.openPopout(target, {
+			position: position,
+			offsetX: 0,
+			offsetY: 0,
+			animationType: "default",
+			preventInvert: false,
+			zIndexBoost: 0,
+			closeOnScroll: false,
+			shadow: false,
+			backdrop: false,
+			toggleClose: true,
+			render: (props) => {
+				return DiscordModules.React.createElement(DiscordModules.UserPopout, Object.assign({}, props, {
+					user: user,
+					guildId: guild,
+					channelId: channel
+				}));
+			}
+		}, "ZeresLibrary");
+	}
+}</code></pre>
+        </article>
     </section>
-
-
 
 
 
