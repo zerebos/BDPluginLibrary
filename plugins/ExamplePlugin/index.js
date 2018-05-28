@@ -8,6 +8,7 @@ module.exports = (Plugin, Library) => {
             this.settings = {};
             this.settings.color = "#ff0000";
             this.settings.option = 50;
+            this.settings.keybind = [162, 74];
         }
 
         onStart() {
@@ -29,7 +30,8 @@ module.exports = (Plugin, Library) => {
                     {label: "Test 1", value: "weiner"},
                     {label: "Test 2", value: 50},
                     {label: "Test 3", value: JSON.stringify({label: "Test 1", value: "weiner"})},
-                ], (e) => {this.settings.option = e;})
+                ], (e) => {this.settings.option = e;}),
+                new Settings.Keybind("Keybind", "Bind your keys", this.settings.keybind, (e) => {this.settings.keybind = e;})
             ).getElement()[0];
         }
     };

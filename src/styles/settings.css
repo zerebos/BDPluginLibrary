@@ -99,6 +99,7 @@
     display: block;
 }
 
-.plugin-dropdown-root {
+.plugin-dropdown-root,
+.plugin-keybind-root {
     min-width: 250px;
 }
