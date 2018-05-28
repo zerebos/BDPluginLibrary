@@ -11,19 +11,19 @@ export default class Toast {
 
     static get CSS() {return require("../styles/toasts.css");}
 
-    /** Shorthand for `type = "success" for {@link module:Toasts.show} */
+    /** Shorthand for `type = "success"` for {@link module:Toasts.show} */
     static async success(content, options = {}) {return this.show(content, Object.assign(options, {type: "success"}));}
 
-    /** Shorthand for `type = "info" for {@link module:Toasts.show} */
+    /** Shorthand for `type = "info"` for {@link module:Toasts.show} */
     static async info(content, options = {}) {return this.show(content, Object.assign(options, {type: "info"}));}
 
-    /** Shorthand for `type = "warning" for {@link module:Toasts.show} */
+    /** Shorthand for `type = "warning"` for {@link module:Toasts.show} */
     static async warning(content, options = {}) {return this.show(content, Object.assign(options, {type: "warning"}));}
 
-    /** Shorthand for `type = "error" for {@link module:Toasts.show} */
+    /** Shorthand for `type = "error"` for {@link module:Toasts.show} */
     static async error(content, options = {}) {return this.show(content, Object.assign(options, {type: "error"}));}
 
-    /** Shorthand for `type = "default" for {@link module:Toasts.show} */
+    /** Shorthand for `type = "default"` for {@link module:Toasts.show} */
     static async default(content, options = {}) {return this.show(content, Object.assign(options, {type: "default"}));}
 
 
@@ -50,12 +50,11 @@ export default class Toast {
         if (!document.querySelectorAll(".toasts .toast").length) document.querySelector(".toasts").remove();
     }
 
-    //bd-toast, bd-toast-has-icon, bd-toast-type, bd-toast-closing
     static buildToast(message, type, icon) {
         const hasIcon = type || icon;
         const className = `toast ${hasIcon ? "toast-has-icon" : ""} ${type && type != "default" ? `toast-${type}` : ""}`;
         if (!icon && type) icon = type;
-        return Utilities.formatString(`<div class="{{className}}">{{icon}}<div class="bd-toast-text">{{message}}</div></div>`, {
+        return Utilities.formatString(`<div class="{{className}}">{{icon}}<div class="toast-text">{{message}}</div></div>`, {
             className: className,
             icon: hasIcon ? this.getIcon(icon) : "",
             message: message
@@ -70,7 +69,7 @@ export default class Toast {
             case "info": iconInner = Icons.IconInfo(20); break;
             case "error": iconInner = Icons.IconError(20);
         }
-        return Utilities.formatString(`<div class="bd-toast-icon">{{icon}}</div>`, {icon: iconInner});
+        return Utilities.formatString(`<div class="toast-icon">{{icon}}</div>`, {icon: iconInner});
     }
 
     static ensureContainer() {

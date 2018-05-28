@@ -62,7 +62,7 @@
 
     
     <dt class="tag-version">Version:</dt>
-    <dd class="tag-version"><ul class="dummy"><li>0.0.3</li></ul></dd>
+    <dd class="tag-version"><ul class="dummy"><li>0.1.0</li></ul></dd>
     
 
     
@@ -145,7 +145,7 @@
     
 
     
-    <h4 class="name" id=".checkForUpdate"><span class="type-signature">(static) </span>checkForUpdate<span class="signature">(pluginName, currentVersion, updateURL)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".checkForUpdate"><span class="type-signature">(static) </span>checkForUpdate<span class="signature">(pluginName, currentVersion, updateURL, versioner<span class="signature-attributes">opt</span>, comparator<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
     
 
     
@@ -179,6 +179,8 @@ versions.</p>
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -203,6 +205,14 @@ versions.</p>
             
             </td>
 
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -227,6 +237,14 @@ versions.</p>
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -250,6 +268,14 @@ versions.</p>
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -257,163 +283,69 @@ versions.</p>
         </tr>
 
     
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_pluginupdater.js.html">modules/pluginupdater.js</a>, <a href="modules_pluginupdater.js.html#line23">line 23</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".checkUpdate"><span class="type-signature">(static) </span>checkUpdate<span class="signature">(pluginName, updateLink)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>Will check for updates and automatically show or remove the update notice
-bar based on the internal result. Better not to call this directly and to
-instead use PluginUtilities.checkForUpdate.</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
 
         <tr>
             
-                <td class="name"><code>pluginName</code></td>
+                <td class="name"><code>versioner</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type"><a href="module-PluginUpdater.html#~versioner">module:PluginUpdater~versioner</a></span>
 
 
             
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last"><p>name of the plugin to check</p></td>
+            <td class="description last"><p>versioner that finds the remote version. If not provided uses <a href="module-PluginUpdater.html#.defaultVersioner">module:PluginUpdater.defaultVersioner</a>.</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>updateLink</code></td>
+                <td class="name"><code>comparator</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type"><a href="module-PluginUpdater.html#~comparator">module:PluginUpdater~comparator</a></span>
 
 
             
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last"><p>link to the raw text version of the plugin</p></td>
+            <td class="description last"><p>comparator that determines if there is an update. If not provided uses <a href="module-PluginUpdater.html#.defaultComparator">module:PluginUpdater.defaultComparator</a>.</p></td>
         </tr>
 
     
@@ -454,7 +386,7 @@ instead use PluginUtilities.checkForUpdate.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_pluginupdater.js.html">modules/pluginupdater.js</a>, <a href="modules_pluginupdater.js.html#line127">line 127</a>
+        <a href="modules_pluginupdater.js.html">modules/pluginupdater.js</a>, <a href="modules_pluginupdater.js.html#line43">line 43</a>
     </li></ul></dd>
     
 
@@ -541,7 +473,7 @@ settings. Returned button will already have listeners to create the tooltip.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_pluginupdater.js.html">modules/pluginupdater.js</a>, <a href="modules_pluginupdater.js.html#line92">line 92</a>
+        <a href="modules_pluginupdater.js.html">modules/pluginupdater.js</a>, <a href="modules_pluginupdater.js.html#line136">line 136</a>
     </li></ul></dd>
     
 
@@ -586,6 +518,326 @@ settings. Returned button will already have listeners to create the tooltip.</p>
 </dl>
 
     
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".defaultComparator"><span class="type-signature">(static) </span>defaultComparator<span class="signature">(currentVersion, content)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>The default comparator used as <a href="module-PluginUpdater.html#~comparator">module:PluginUpdater~comparator</a> for module:PluginUpdater~checkForUpdate.
+This works on basic semantic versioning e.g. &quot;1.0.0&quot;. You do not need to provide this as a comparator if your plugin adheres
+to this style as this will be used as default.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>currentVersion</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>content</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="modules_pluginupdater.js.html">modules/pluginupdater.js</a>, <a href="modules_pluginupdater.js.html#line107">line 107</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".defaultVersioner"><span class="type-signature">(static) </span>defaultVersioner<span class="signature">(currentVersion, content)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>The default versioner used as <a href="module-PluginUpdater.html#~versioner">module:PluginUpdater~versioner</a> for module:PluginUpdater~checkForUpdate.
+This works on basic semantic versioning e.g. &quot;1.0.0&quot;. You do not need to provide this as a versioner if your plugin adheres
+to this style as this will be used as default.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>currentVersion</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>content</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="modules_pluginupdater.js.html">modules/pluginupdater.js</a>, <a href="modules_pluginupdater.js.html#line94">line 94</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -723,7 +975,167 @@ is using RestartNoMore plugin by square <a href="https://github.com/Inve1951/Bet
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_pluginupdater.js.html">modules/pluginupdater.js</a>, <a href="modules_pluginupdater.js.html#line182">line 182</a>
+        <a href="modules_pluginupdater.js.html">modules/pluginupdater.js</a>, <a href="modules_pluginupdater.js.html#line162">line 162</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".processUpdateCheck"><span class="type-signature">(static) </span>processUpdateCheck<span class="signature">(pluginName, updateLink)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Will check for updates and automatically show or remove the update notice
+bar based on the internal result. Better not to call this directly and to
+instead use PluginUtilities.checkForUpdate.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>pluginName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>name of the plugin to check</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>updateLink</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>link to the raw text version of the plugin</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="modules_pluginupdater.js.html">modules/pluginupdater.js</a>, <a href="modules_pluginupdater.js.html#line76">line 76</a>
     </li></ul></dd>
     
 
@@ -859,7 +1271,7 @@ Better not to call this directly and to instead use PluginUtilities.checkForUpda
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_pluginupdater.js.html">modules/pluginupdater.js</a>, <a href="modules_pluginupdater.js.html#line233">line 233</a>
+        <a href="modules_pluginupdater.js.html">modules/pluginupdater.js</a>, <a href="modules_pluginupdater.js.html#line231">line 231</a>
     </li></ul></dd>
     
 
@@ -1018,7 +1430,7 @@ this directly and to instead use PluginUtilities.checkForUpdate.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_pluginupdater.js.html">modules/pluginupdater.js</a>, <a href="modules_pluginupdater.js.html#line152">line 152</a>
+        <a href="modules_pluginupdater.js.html">modules/pluginupdater.js</a>, <a href="modules_pluginupdater.js.html#line203">line 203</a>
     </li></ul></dd>
     
 
@@ -1050,6 +1462,352 @@ this directly and to instead use PluginUtilities.checkForUpdate.</p>
     
 
     
+        <h3 class="subsection-title">Type Definitions</h3>
+
+        
+                
+
+    
+
+    
+    <h4 class="name" id="~comparator"><span class="type-signature"></span>comparator<span class="signature">(currentVersion, remoteVersion)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Comparator that takes the current version and the remote version,
+then compares them returning <code>true</code> if there is an update and <code>false</code> otherwise.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>currentVersion</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the current version of the plugin</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>remoteVersion</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the remote version of the plugin</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="modules_pluginupdater.js.html">modules/pluginupdater.js</a>, <a href="modules_pluginupdater.js.html#line20">line 20</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <ul>
+<li>whether the plugin has an update or not</li>
+</ul>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+            
+                
+
+    
+
+    
+    <h4 class="name" id="~versioner"><span class="type-signature"></span>versioner<span class="signature">(fileContent)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Function that gets the remote version from the file contents.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>fileContent</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the content of the remote file</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="modules_pluginupdater.js.html">modules/pluginupdater.js</a>, <a href="modules_pluginupdater.js.html#line13">line 13</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <ul>
+<li>remote version</li>
+</ul>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+            
+    
 
     
 </article>
@@ -1068,7 +1826,7 @@ this directly and to instead use PluginUtilities.checkForUpdate.</p>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue May 22 2018 17:02:16 GMT-0400 (Eastern Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun May 27 2018 20:52:35 GMT-0400 (Eastern Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -26,6 +26,12 @@ export default Utilities.memoizeObject({
 	get Notices() {return WebpackModules.getByProps("noticeInfo");},
 	get Backdrop() {return WebpackModules.getByProps("backdrop");},
 	get Modals() {return WebpackModules.getModule(m => m.modal && m.inner && !m.header);},
-	get AuditLog() {return WebpackModules.getByProps("userHook");}
+	get AuditLog() {return WebpackModules.getByProps("userHook");},
+	get ChannelList() {return Object.assign({}, WebpackModules.getByProps("containerDefault"), WebpackModules.getByProps("nameDefaultText"), WebpackModules.getByProps("channels", "container"));},
+	get MemberList() {return Object.assign({}, WebpackModules.getByProps("member", "memberInner"), WebpackModules.getByProps("members", "membersWrap"));},
+	get TitleWrap() {return WebpackModules.getByProps("titleWrapper");},
+	get Titlebar() {return WebpackModules.getByProps("titleBar");},
+	get Embeds() {return WebpackModules.getByProps("embed", "embedAuthor");},
+	get Layers() {return WebpackModules.getByProps("layers", "layer");}
 });
 

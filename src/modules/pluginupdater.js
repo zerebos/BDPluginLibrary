@@ -1,16 +1,34 @@
 /**
  * Functions that check for and update existing plugins.
  * @module PluginUpdater
- * @version 0.0.3
+ * @version 0.1.0
  */
 
 import PluginUtilities from "./pluginutilities";
-import DiscordModules from "./discordmodules";
+import Patcher from "./patcher";
+import {default as DOMTools, DiscordClasses} from "./domtools";
 import Logger from "./logger";
-import {Tooltip} from "ui";
+import {Tooltip, Toasts} from "ui";
 
-// TODO: Rewrite everything in this module
+/**
+ * Function that gets the remote version from the file contents. 
+ * @param {string} fileContent - the content of the remote file 
+ * @returns {string} - remote version
+ * @callback module:PluginUpdater~versioner
+ */
+
+/**
+ * Comparator that takes the current version and the remote version,
+ * then compares them returning `true` if there is an update and `false` otherwise.
+ * @param {string} currentVersion - the current version of the plugin
+ * @param {string} remoteVersion - the remote version of the plugin
+ * @returns {boolean} - whether the plugin has an update or not
+ * @callback module:PluginUpdater~comparator
+ */
+
 export default class PluginUpdater {
+
+	static get CSS() { return require("../styles/updates.css");	}
 
 	/**
 	 * Checks for updates for the specified plugin at the specified link. The final
@@ -19,102 +37,33 @@ export default class PluginUpdater {
 	 * @param {string} pluginName - name of the plugin
 	 * @param {string} currentVersion - current version (semantic versioning only)
 	 * @param {string} updateURL - url to check for update
+	 * @param {module:PluginUpdater~versioner} [versioner] - versioner that finds the remote version. If not provided uses {@link module:PluginUpdater.defaultVersioner}.
+	 * @param {module:PluginUpdater~comparator} [comparator] - comparator that determines if there is an update. If not provided uses {@link module:PluginUpdater.defaultComparator}.
 	 */
-	static checkForUpdate(pluginName, currentVersion, updateURL) {
+	static checkForUpdate(pluginName, currentVersion, updateURL, versioner, comparator) {
 		let updateLink = "https://raw.githubusercontent.com/rauenzi/BetterDiscordAddons/master/Plugins/" + pluginName + "/" + pluginName + ".plugin.js";
 		if (updateURL) updateLink = updateURL;
+		if (typeof(versioner) != "function") versioner = this.defaultVersioner;
+		if (typeof(comparator) != "function") comparator = this.defaultComparator;
 		
-		if (typeof window.PluginUpdates === "undefined") window.PluginUpdates = {plugins:{}};
-		window.PluginUpdates.plugins[updateLink] = {name: pluginName, raw: updateLink, version: currentVersion};
-
-		PluginUpdater.checkUpdate(pluginName, updateLink);
-		
-		if (typeof window.PluginUpdates.interval === "undefined") {
-			window.PluginUpdates.interval = setInterval(() => {
-				window.PluginUpdates.checkAll();
-			}, 7200000);
-		}
-
-		if (typeof window.PluginUpdates.checkAll === "undefined") {
-			window.PluginUpdates.checkAll = function() {
-				for (let key in this.plugins) {
-					let plugin = this.plugins[key];
-					PluginUpdater.checkUpdate(plugin.name, plugin.raw);
-				}
-			};
-		}
-
-		if (typeof window.PluginUpdates.observer === "undefined") {		
-			window.PluginUpdates.observer = new MutationObserver((changes) => {
-				changes.forEach(
-					(change) => {
-						if (change.addedNodes) {
-							change.addedNodes.forEach((node) => {
-								if (node && node.tagName && node.getAttribute("layer-id") == "user-settings") {
-									var settingsObserver = new MutationObserver((changes2) => {
-										changes2.forEach(
-											(change2) => {
-												if (change2.addedNodes) {
-													change2.addedNodes.forEach((node2) => {
-														if (!document.querySelector(".bd-updatebtn")) {
-															if (node2 && node2.tagName && node2.querySelector(".bd-pfbtn") && node2.querySelector("h2") && node2.querySelector("h2").innerText.toLowerCase() === "plugins") {
-
-																node2.querySelector(".bd-pfbtn").parentElement.insertBefore(PluginUpdater.createUpdateButton(), node2.querySelector(".bd-pfbtn").nextSibling);
-															}
-														}
-													});
-												}
-											}
-										);
-									});
-									settingsObserver.observe(node, {childList:true, subtree:true});
-								}
-							});
-						}
+		if (typeof window.PluginUpdates === "undefined") {
+			window.PluginUpdates = {
+				plugins: {},
+				checkAll: function() {
+					for (let key in this.plugins) {
+						let plugin = this.plugins[key];
+						PluginUpdater.processUpdateCheck(plugin.name, plugin.raw, plugin.versioner, plugin.comparator);
 					}
-				);
-			});
-			window.PluginUpdates.observer.observe(document.querySelector(".layers-3iHuyZ, .layers-20RVFW"), {childList:true});
+				},
+				interval: setInterval(() => {
+					window.PluginUpdates.checkAll();
+				}, 7200000)
+			};
+			this.patchPluginList();
 		}
-		
-		var bdbutton = document.querySelector(".bd-pfbtn");
-		if (bdbutton && bdbutton.parentElement.querySelector("h2") && bdbutton.parentElement.querySelector("h2").innerText.toLowerCase() === "plugins" && !bdbutton.parentElement.querySelector(".bd-pfbtn.bd-updatebtn")) {
-			bdbutton.parentElement.insertBefore(PluginUpdater.createUpdateButton(), bdbutton.nextSibling);
-		}
-	}
 
-
-	/**
-	 * Creates the update button found in the plugins page of BetterDiscord
-	 * settings. Returned button will already have listeners to create the tooltip.
-	 * @returns {HTMLElement} check for update button
-	 */
-	static createUpdateButton() {
-		var updateButton = document.createElement("button");
-		updateButton.className = "bd-pfbtn bd-updatebtn";
-		updateButton.innerText = "Check for Updates";
-		updateButton.style.left = "220px";
-		updateButton.onclick = function () {
-			window.PluginUpdates.checkAll();
-		};
-		let tooltip = new Tooltip($(updateButton), "Checks for updates of plugins that support this feature. Right-click for a list.");
-		updateButton.oncontextmenu = function () {
-			if (window.PluginUpdates && window.PluginUpdates.plugins) {
-				var list = [];
-				for (var plugin in window.PluginUpdates.plugins) {
-					list.push(window.PluginUpdates.plugins[plugin].name);
-				}
-				tooltip.tooltip.detach();
-				tooltip.tooltip.text(list.join(", "));
-				tooltip.show();
-				updateButton.onmouseout = function() { tooltip.tooltip.text(tooltip.tip); };
-			}
-		};
-		return updateButton;
-	}
-
-	static get CSS() {
-		return require("../styles/updates.css");
+		window.PluginUpdates.plugins[updateLink] = {name: pluginName, raw: updateLink, version: currentVersion, versioner: versioner, comparator: comparator};
+		PluginUpdater.processUpdateCheck(pluginName, updateLink, versioner, comparator);
 	}
 
 	/**
@@ -124,52 +73,83 @@ export default class PluginUpdater {
 	 * @param {string} pluginName - name of the plugin to check
 	 * @param {string} updateLink - link to the raw text version of the plugin
 	 */
-	static checkUpdate(pluginName, updateLink) {
+	static processUpdateCheck(pluginName, updateLink) {
 		const request = require("request");
 		request(updateLink, (error, response, result) => {
 			if (error) return;
-			var remoteVersion = result.match(/['"][0-9]+\.[0-9]+\.[0-9]+['"]/i);
-			if (!remoteVersion) return;
-			remoteVersion = remoteVersion.toString().replace(/['"]/g, "");
-			var ver = remoteVersion.split(".").map((e) => {return parseInt(e);});
-			var lver = window.PluginUpdates.plugins[updateLink].version.split(".").map((e) => {return parseInt(e);});
-			var hasUpdate = false;
-			if (ver[0] > lver[0]) hasUpdate = true;
-			else if (ver[0] == lver[0] && ver[1] > lver[1]) hasUpdate = true;
-			else if (ver[0] == lver[0] && ver[1] == lver[1] && ver[2] > lver[2]) hasUpdate = true;
-			else hasUpdate = false;
+			const remoteVersion = window.PluginUpdates.plugins[updateLink].versioner(result);
+			const hasUpdate = window.PluginUpdates.plugins[updateLink].comparator(window.PluginUpdates.plugins[updateLink].version, remoteVersion);
 			if (hasUpdate) this.showUpdateNotice(pluginName, updateLink);
 			else this.removeUpdateNotice(pluginName);
 		});
 	}
 
 	/**
-	 * Will show the update notice top bar seen in Discord. Better not to call
-	 * this directly and to instead use {@link PluginUtilities.checkForUpdate}.
-	 * @param {string} pluginName - name of the plugin
-	 * @param {string} updateLink - link to the raw text version of the plugin
+	 * The default versioner used as {@link module:PluginUpdater~versioner} for {@link module:PluginUpdater~checkForUpdate}.
+	 * This works on basic semantic versioning e.g. "1.0.0". You do not need to provide this as a versioner if your plugin adheres
+	 * to this style as this will be used as default.
+	 * @param {string} currentVersion 
+	 * @param {string} content 
 	 */
-	static showUpdateNotice(pluginName, updateLink) {
-		if (!$("#pluginNotice").length)  {
-			let noticeElement = `<div class="${DiscordModules.NoticeBarClasses.notice} ${DiscordModules.NoticeBarClasses.noticeInfo}" id="pluginNotice"><div class="${DiscordModules.NoticeBarClasses.dismiss}" id="pluginNoticeDismiss"></div><span class="notice-message">The following plugins have updates:</span>&nbsp;&nbsp;<strong id="outdatedPlugins"></strong></div>`;
-			// $('.app .guilds-wrapper + div > div:first > div:first').append(noticeElement);
-			$(".app.flex-vertical").children().first().before(noticeElement);
-			$(".win-buttons").addClass("win-buttons-notice");
-			$("#pluginNoticeDismiss").on("click", () => {
-				$(".win-buttons").animate({top: 0}, 400, "swing", () => { $(".win-buttons").css("top","").removeClass("win-buttons-notice"); });
-				$("#pluginNotice").slideUp({complete: () => { $("#pluginNotice").remove(); }});
-			});
-		}
-		let pluginNoticeID = pluginName + "-notice";
-		if (!$("#" + pluginNoticeID).length) {
-			let pluginNoticeElement = $("<span id=\"" + pluginNoticeID + "\">");
-			pluginNoticeElement.text(pluginName);
-			pluginNoticeElement.on("click", () => {
-				this.downloadPlugin(pluginName, updateLink);
-			});
-			if ($("#outdatedPlugins").children("span").length) $("#outdatedPlugins").append("<span class='separator'>, </span>");
-			$("#outdatedPlugins").append(pluginNoticeElement);
-		}
+	static defaultVersioner(content) {
+		var remoteVersion = content.match(/['"][0-9]+\.[0-9]+\.[0-9]+['"]/i);
+		if (!remoteVersion) return "0.0.0";
+		return remoteVersion.toString().replace(/['"]/g, "");
+	}
+
+	/**
+	 * The default comparator used as {@link module:PluginUpdater~comparator} for {@link module:PluginUpdater~checkForUpdate}.
+	 * This works on basic semantic versioning e.g. "1.0.0". You do not need to provide this as a comparator if your plugin adheres
+	 * to this style as this will be used as default.
+	 * @param {string} currentVersion 
+	 * @param {string} content 
+	 */
+	static defaultComparator(currentVersion, remoteVersion) {
+		currentVersion = currentVersion.split(".").map((e) => {return parseInt(e);});
+		remoteVersion = remoteVersion.split(".").map((e) => {return parseInt(e);});
+		
+		if (remoteVersion[0] > currentVersion[0]) return true;
+		else if (remoteVersion[0] == currentVersion[0] && remoteVersion[1] > currentVersion[1]) return true;
+		else if (remoteVersion[0] == currentVersion[0] && remoteVersion[1] == currentVersion[1] && remoteVersion[2] > currentVersion[2]) return true;
+		else return false;
+	}
+
+	static patchPluginList() {
+		Patcher.after("ZeresLibrary", V2C_ContentColumn.prototype, "componentDidMount", (self) => {
+			if (self._reactInternalFiber.key != "pcolumn") return;
+			const column = DiscordModules.ReactDOM.findDOMNode(self);
+			if (!column) return;
+			const button = column.getElementsByClassName("bd-pfbtn")[0];
+			if (!button || button.nextElementSibling.classList.contains("bd-updatebtn")) return;
+			button.after(PluginUpdater.createUpdateButton());
+		});
+		const button = document.getElementsByClassName("bd-pfbtn")[0];		
+		if (!button || !button.textContent.toLowerCase().includes("plugin") || button.nextElementSibling.classList.contains("bd-updatebtn")) return;
+		button.after(PluginUpdater.createUpdateButton());
+	}
+
+	/**
+	 * Creates the update button found in the plugins page of BetterDiscord
+	 * settings. Returned button will already have listeners to create the tooltip.
+	 * @returns {HTMLElement} check for update button
+	 */
+	static createUpdateButton() {
+		const updateButton = DOMTools.parseHTML(`<button class="bd-pfbtn bd-updatebtn" style="left: 220px;">Check for Updates</button>`);
+		updateButton.onclick = function () {
+			window.PluginUpdates.checkAll();
+		};
+		let tooltip = new Tooltip(updateButton, "Checks for updates of plugins that support this feature. Right-click for a list.");
+		updateButton.oncontextmenu = function () {
+			if (!window.PluginUpdates || !window.PluginUpdates.plugins) return;
+			tooltip.label = Object.values(window.PluginUpdates.plugins).map(p => p.name).join(", ");
+			tooltip.side = "bottom";
+			tooltip.show();
+			updateButton.onmouseout = function() {
+				tooltip.label = "Checks for updates of plugins that support this feature. Right-click for a list.";
+				tooltip.side = "top";
+			};
+		};
+		return updateButton;
 	}
 
 	/**
@@ -183,46 +163,64 @@ export default class PluginUpdater {
 		let request = require("request");
 		let fileSystem = require("fs");
 		let path = require("path");
-		request(updateLink, (error, response, body) => {
+		request(updateLink, async (error, response, body) => {
 			if (error) return Logger.warn("PluginUpdates", "Unable to get update for " + pluginName);
-			let remoteVersion = body.match(/['"][0-9]+\.[0-9]+\.[0-9]+['"]/i);
-			remoteVersion = remoteVersion.toString().replace(/['"]/g, "");
+			const remoteVersion = window.PluginUpdates.plugins[updateLink].versioner(body);
 			let filename = updateLink.split("/");
 			filename = filename[filename.length - 1];
-			var file = path.join(PluginUtilities.getPluginsFolder(), filename);
-			fileSystem.writeFileSync(file, body);
-			PluginUtilities.showToast(`${pluginName} ${window.PluginUpdates.plugins[updateLink].version} has been replaced by ${pluginName} ${remoteVersion}`);
+			const file = path.join(PluginUtilities.getPluginsFolder(), filename);
+			await fileSystem.writeFile(file, body);
+			Toasts.success(`${pluginName} ${window.PluginUpdates.plugins[updateLink].version} has been replaced by ${pluginName} ${remoteVersion}`);
+			this.removeUpdateNotice(pluginName);
+
 			let oldRNM = window.bdplugins["Restart-No-More"] && window.pluginCookie["Restart-No-More"];
 			let newRNM = window.bdplugins["Restart No More"] && window.pluginCookie["Restart No More"];
-			if (!(oldRNM || newRNM)) {
-				if (!window.PluginUpdates.downloaded) {
-					window.PluginUpdates.downloaded = [];
-					let button = $(`<button class="btn btn-reload ${DiscordModules.NoticeBarClasses.btn} ${DiscordModules.NoticeBarClasses.button}">Reload</button>`);
-					button.on("click", (e) => {
-						e.preventDefault();
-						window.location.reload(false);
-					});
-					var tooltip = document.createElement("div");
-					tooltip.className = "tooltip tooltip-bottom tooltip-black";
-					tooltip.style.maxWidth = "400px";
-					button.on("mouseenter", () => {
-						document.querySelector(".tooltips").appendChild(tooltip);
-						tooltip.innerText = window.PluginUpdates.downloaded.join(", ");
-						tooltip.style.left = button.offset().left + (button.outerWidth() / 2) - ($(tooltip).outerWidth() / 2) + "px";
-						tooltip.style.top = button.offset().top + button.outerHeight() + "px";
-					});
-		
-					button.on("mouseleave", () => {
-						tooltip.remove();
-					});
-		
-					button.appendTo($("#pluginNotice"));
-				}
-				window.PluginUpdates.plugins[updateLink].version = remoteVersion;
-				window.PluginUpdates.downloaded.push(pluginName);
-				this.removeUpdateNotice(pluginName);
+			if (oldRNM || newRNM) return;
+			if (!window.PluginUpdates.downloaded) {
+				window.PluginUpdates.downloaded = [];
+				const button = DOMTools.parseHTML(`<button class="btn btn-reload ${DiscordClasses.Notices.btn} ${DiscordClasses.Notices.button}">Reload</button>`);
+				const tooltip = new Tooltip(button, window.PluginUpdates.downloaded.join(", "), {side: "top"});
+				button.addEventListener("click", (e) => {
+					e.preventDefault();
+					window.location.reload(false);
+				});
+				button.addEventListener("mouseenter", () => {
+					tooltip.label = window.PluginUpdates.downloaded.join(", ");
+				});
+				document.getElementById("pluginNotice").append(button);
 			}
+			window.PluginUpdates.plugins[updateLink].version = remoteVersion;
+			window.PluginUpdates.downloaded.push(pluginName);
 		});
+	}
+
+	/**
+	 * Will show the update notice top bar seen in Discord. Better not to call
+	 * this directly and to instead use {@link PluginUtilities.checkForUpdate}.
+	 * @param {string} pluginName - name of the plugin
+	 * @param {string} updateLink - link to the raw text version of the plugin
+	 */
+	static showUpdateNotice(pluginName, updateLink) {
+		if (!document.getElementById("pluginNotice"))  {
+			const noticeElement = DOMTools.parseHTML(`<div class="${DiscordClasses.Notices.notice} ${DiscordClasses.Notices.noticeInfo}" id="pluginNotice">
+														<div class="${DiscordClasses.Notices.dismiss}" id="pluginNoticeDismiss"></div>
+														<span class="notice-message">The following plugins have updates:</span>&nbsp;&nbsp;<strong id="outdatedPlugins"></strong>
+													</div>`);
+			DOMTools.query(".app").prepend(noticeElement);
+			noticeElement.querySelector("#pluginNoticeDismiss").addEventListener("click", async () => {
+				noticeElement.classList.add("closing");
+				await new Promise(resolve => setTimeout(resolve, 400));
+				noticeElement.remove();
+			});
+		}
+		const pluginNoticeID = pluginName + "-notice";
+		if (document.getElementById(pluginNoticeID)) return;
+		const pluginNoticeElement = DOMTools.parseHTML(`<span id="${pluginNoticeID}">${pluginName}</span>`);
+		pluginNoticeElement.addEventListener("click", () => {
+			this.downloadPlugin(pluginName, updateLink);
+		});
+		if (document.getElementById("outdatedPlugins").querySelectorAll("span").length) document.getElementById("outdatedPlugins").append("<span class='separator'>, </span>");
+		document.getElementById("outdatedPlugins").append(pluginNoticeElement);
 	}
 
 	/**
@@ -231,18 +229,17 @@ export default class PluginUpdater {
 	 * @param {string} pluginName - name of the plugin
 	 */
 	static removeUpdateNotice(pluginName) {
-		let notice = $("#" + pluginName + "-notice");
-		if (notice.length) {
-			if (notice.next(".separator").length) notice.next().remove();
-			else if (notice.prev(".separator").length) notice.prev().remove();
+		if (!document.getElementById("outdatedPlugins")) return;
+		const notice = document.getElementById(pluginName + "-notice");
+		if (notice) {
+			if (notice.nextElementSibling && notice.nextElementSibling.matches(".separator")) notice.nextElementSibling.remove();
+			else if (notice.previousElementSibling && notice.previousElementSibling.matches(".separator")) notice.previousElementSibling.remove();
 			notice.remove();
 		}
 
-		if (!$("#outdatedPlugins").children("span").length && !$("#pluginNotice .btn-reload").length) {
-			$("#pluginNoticeDismiss").click();
-		} 
-		else if (!$("#outdatedPlugins").children("span").length && $("#pluginNotice .btn-reload").length) {
-			$("#pluginNotice .notice-message").text("To finish updating you need to reload.");
+		if (!document.getElementById("outdatedPlugins").querySelectorAll("span").length) {
+			if (document.querySelector("#pluginNotice .btn-reload")) document.querySelector("#pluginNotice .notice-message").textContent = "To finish updating you need to reload.";
+			else document.getElementById("pluginNoticeDismiss").click();
 		}
 	}
 }

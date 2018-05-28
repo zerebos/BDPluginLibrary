@@ -65,7 +65,7 @@ parameter bound to <code>this</code>.</p></div>
 
     
     <dt class="tag-version">Version:</dt>
-    <dd class="tag-version"><ul class="dummy"><li>0.0.1</li></ul></dd>
+    <dd class="tag-version"><ul class="dummy"><li>0.0.2</li></ul></dd>
     
 
     
@@ -209,7 +209,7 @@ be used in native function.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line484">line 484</a>
+        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line561">line 561</a>
     </li></ul></dd>
     
 
@@ -277,7 +277,7 @@ still be used in native function.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line504">line 504</a>
+        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line581">line 581</a>
     </li></ul></dd>
     
 
@@ -298,6 +298,390 @@ still be used in native function.</p>
 
     
         <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".addClass"><span class="type-signature">(static) </span>addClass<span class="signature">(element, &hellip;classes)</span><span class="type-signature"> &rarr; {Element}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Adds a list of classes from the target element.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>element</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Element</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Element to edit classes of</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>classes</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                    &lt;repeatable><br>
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Names of classes to add</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line104">line 104</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <ul>
+<li><code>element</code> to allow for chaining</li>
+</ul>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Element</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".adter"><span class="type-signature">(static) </span>adter<span class="signature">(thisNode, newNode)</span><span class="type-signature"> &rarr; {Node}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Insert after a specific element, similar to jQuery's <code>thisElement.after(newElement)</code>.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>thisNode</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Node</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The node to insert</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>newNode</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Node</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Node to insert after in the tree</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line187">line 187</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <ul>
+<li><code>thisNode</code> to allow for chaining</li>
+</ul>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Node</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
 
         
             
@@ -429,7 +813,7 @@ still be used in native function.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line104">line 104</a>
+        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line164">line 164</a>
     </li></ul></dd>
     
 
@@ -750,7 +1134,7 @@ otherwise returns the style.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line260">line 260</a>
+        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line331">line 331</a>
     </li></ul></dd>
     
 
@@ -794,6 +1178,188 @@ otherwise returns the style.</p>
 |
 
 <span class="param-type">string</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".hasClass"><span class="type-signature">(static) </span>hasClass<span class="signature">(element, classname)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Checks if an element has a specific class</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>element</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Element</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Element to edit classes of</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>classname</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Name of class to check</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line142">line 142</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <ul>
+<li><code>true</code> if the element has the class, <code>false</code> otherwise.</li>
+</ul>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
 
 
     </dd>
@@ -957,7 +1523,7 @@ otherwise returns the height.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line288">line 288</a>
+        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line359">line 359</a>
     </li></ul></dd>
     
 
@@ -1070,7 +1636,7 @@ otherwise returns the height.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line203">line 203</a>
+        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line274">line 274</a>
     </li></ul></dd>
     
 
@@ -1205,7 +1771,7 @@ otherwise returns the height.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line192">line 192</a>
+        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line263">line 263</a>
     </li></ul></dd>
     
 
@@ -1362,7 +1928,7 @@ otherwise returns the height.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line308">line 308</a>
+        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line379">line 379</a>
     </li></ul></dd>
     
 
@@ -1521,7 +2087,7 @@ otherwise returns the height.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line299">line 299</a>
+        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line370">line 370</a>
     </li></ul></dd>
     
 
@@ -1579,7 +2145,7 @@ otherwise returns the height.</p>
     
 
     
-    <h4 class="name" id=".insertAfter"><span class="type-signature">(static) </span>insertAfter<span class="signature">(newNode, referenceNode)</span><span class="type-signature"> &rarr; {Node}</span></h4>
+    <h4 class="name" id=".insertAfter"><span class="type-signature">(static) </span>insertAfter<span class="signature">(thisNode, targetNode)</span><span class="type-signature"> &rarr; {Node}</span></h4>
     
 
     
@@ -1587,7 +2153,7 @@ otherwise returns the height.</p>
 
 
 <div class="description">
-    <p>Insert after a specific element, similar to jQuery's <code>element.after(newElement)</code>.</p>
+    <p>Insert after a specific element, similar to jQuery's <code>thisElement.insertAfter(otherElement)</code>.</p>
 </div>
 
 
@@ -1623,7 +2189,7 @@ otherwise returns the height.</p>
 
         <tr>
             
-                <td class="name"><code>newNode</code></td>
+                <td class="name"><code>thisNode</code></td>
             
 
             <td class="type">
@@ -1646,7 +2212,7 @@ otherwise returns the height.</p>
 
         <tr>
             
-                <td class="name"><code>referenceNode</code></td>
+                <td class="name"><code>targetNode</code></td>
             
 
             <td class="type">
@@ -1703,7 +2269,7 @@ otherwise returns the height.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line116">line 116</a>
+        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line176">line 176</a>
     </li></ul></dd>
     
 
@@ -1917,7 +2483,7 @@ otherwise returns the height.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line127">line 127</a>
+        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line198">line 198</a>
     </li></ul></dd>
     
 
@@ -2076,7 +2642,7 @@ otherwise returns the height.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line136">line 136</a>
+        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line207">line 207</a>
     </li></ul></dd>
     
 
@@ -2258,7 +2824,7 @@ otherwise returns the height.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line146">line 146</a>
+        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line217">line 217</a>
     </li></ul></dd>
     
 
@@ -2545,7 +3111,7 @@ otherwise returns the height.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line432">line 432</a>
+        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line503">line 503</a>
     </li></ul></dd>
     
 
@@ -2704,7 +3270,7 @@ otherwise returns the height.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line335">line 335</a>
+        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line406">line 406</a>
     </li></ul></dd>
     
 
@@ -2980,7 +3546,7 @@ otherwise returns the height.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line364">line 364</a>
+        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line435">line 435</a>
     </li></ul></dd>
     
 
@@ -3139,7 +3705,7 @@ otherwise returns the height.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line326">line 326</a>
+        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line397">line 397</a>
     </li></ul></dd>
     
 
@@ -3298,7 +3864,7 @@ otherwise returns the height.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line317">line 317</a>
+        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line388">line 388</a>
     </li></ul></dd>
     
 
@@ -3513,7 +4079,7 @@ otherwise returns null.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line212">line 212</a>
+        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line283">line 283</a>
     </li></ul></dd>
     
 
@@ -3730,7 +4296,7 @@ otherwise returns null.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line222">line 222</a>
+        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line293">line 293</a>
     </li></ul></dd>
     
 
@@ -3912,7 +4478,7 @@ otherwise returns null.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line235">line 235</a>
+        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line306">line 306</a>
     </li></ul></dd>
     
 
@@ -4350,7 +4916,7 @@ nodes and there were multiple top level nodes, otherwise the single node is retu
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line158">line 158</a>
+        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line229">line 229</a>
     </li></ul></dd>
     
 
@@ -4509,7 +5075,7 @@ nodes and there were multiple top level nodes, otherwise the single node is retu
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line169">line 169</a>
+        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line240">line 240</a>
     </li></ul></dd>
     
 
@@ -4691,7 +5257,7 @@ nodes and there were multiple top level nodes, otherwise the single node is retu
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line181">line 181</a>
+        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line252">line 252</a>
     </li></ul></dd>
     
 
@@ -5334,6 +5900,413 @@ It also means that you can pass a string of html and it will perform and return 
     
 
     
+    <h4 class="name" id=".removeClass"><span class="type-signature">(static) </span>removeClass<span class="signature">(element, &hellip;classes)</span><span class="type-signature"> &rarr; {Element}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Removes a list of classes from the target element.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>element</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Element</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Element to edit classes of</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>classes</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                    &lt;repeatable><br>
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Names of classes to remove</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line115">line 115</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <ul>
+<li><code>element</code> to allow for chaining</li>
+</ul>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Element</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".replaceClass"><span class="type-signature">(static) </span>replaceClass<span class="signature">(element, oldName, newName)</span><span class="type-signature"> &rarr; {Element}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Replaces one class with another</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>element</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Element</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Element to edit classes of</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>oldName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Name of class to replace</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>newName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>New name for the class</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line153">line 153</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <ul>
+<li><code>element</code> to allow for chaining</li>
+</ul>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Element</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id=".siblings"><span class="type-signature">(static) </span>siblings<span class="signature">(element, selector<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Array.&lt;Element>}</span></h4>
     
 
@@ -5490,7 +6463,7 @@ It also means that you can pass a string of html and it will perform and return 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line247">line 247</a>
+        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line318">line 318</a>
     </li></ul></dd>
     
 
@@ -5531,6 +6504,242 @@ It also means that you can pass a string of html and it will perform and return 
     <dd>
         
 <span class="param-type">Array.&lt;Element></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".toggleClass"><span class="type-signature">(static) </span>toggleClass<span class="signature">(element, classname, indicator<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Element}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>When only one argument is present: Toggle class value;
+i.e., if class exists then remove it and return false, if not, then add it and return true.
+When a second argument is present:
+If the second argument evaluates to true, add specified class value, and if it evaluates to false, remove it.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>element</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Element</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Element to edit classes of</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>classname</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Name of class to toggle</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>indicator</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Optional indicator for if the class should be toggled</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line130">line 130</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <ul>
+<li><code>element</code> to allow for chaining</li>
+</ul>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Element</span>
 
 
     </dd>
@@ -5694,7 +6903,7 @@ otherwise returns the width.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line274">line 274</a>
+        <a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line345">line 345</a>
     </li></ul></dd>
     
 
@@ -5861,7 +7070,7 @@ otherwise returns the width.</p>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue May 22 2018 17:02:16 GMT-0400 (Eastern Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun May 27 2018 20:52:35 GMT-0400 (Eastern Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>

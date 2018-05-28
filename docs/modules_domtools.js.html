@@ -33,7 +33,7 @@
  * the same as the ones available in the module itself, but with the `element`
  * parameter bound to `this`.
  * @module DOMTools
- * @version 0.0.1
+ * @version 0.0.2
  */
 
 import DiscordClassModules from "./discordclassmodules";
@@ -124,6 +124,66 @@ export default class DOMTools {
 	static createElement(html, fragment = false) {return this.parseHTML(html, fragment);}
 
 	/**
+	 * Adds a list of classes from the target element.
+	 * @param {Element} element - Element to edit classes of
+	 * @param {...string} classes - Names of classes to add
+	 * @returns {Element} - `element` to allow for chaining
+	 */
+	static addClass(element, ...classes) {
+		element.classList.add(...classes);
+		return element;
+	}
+
+	/**
+	 * Removes a list of classes from the target element.
+	 * @param {Element} element - Element to edit classes of
+	 * @param {...string} classes - Names of classes to remove
+	 * @returns {Element} - `element` to allow for chaining
+	 */
+	static removeClass(element, ...classes) {
+		element.classList.remove(...classes);
+		return element;
+	}
+
+	/**
+	 * When only one argument is present: Toggle class value;
+	 * i.e., if class exists then remove it and return false, if not, then add it and return true.
+	 * When a second argument is present:
+	 * If the second argument evaluates to true, add specified class value, and if it evaluates to false, remove it.
+	 * @param {Element} element - Element to edit classes of
+	 * @param {string} classname - Name of class to toggle
+	 * @param {boolean} [indicator] - Optional indicator for if the class should be toggled
+	 * @returns {Element} - `element` to allow for chaining
+	 */
+	static toggleClass(element, classname, indicator) {
+		if (typeof(indicator) !== "undefined") element.classList.toggle(classname, indicator);
+		else element.classList.toggle(classname);
+		return element;
+	}
+
+	/**
+	 * Checks if an element has a specific class
+	 * @param {Element} element - Element to edit classes of
+	 * @param {string} classname - Name of class to check
+	 * @returns {boolean} - `true` if the element has the class, `false` otherwise.
+	 */
+	static hasClass(element, classname) {
+		return element.classList.contains(classname);
+	}
+
+	/**
+	 * Replaces one class with another
+	 * @param {Element} element - Element to edit classes of
+	 * @param {string} oldName - Name of class to replace
+	 * @param {string} newName - New name for the class
+	 * @returns {Element} - `element` to allow for chaining
+	 */
+	static replaceClass(element, oldName, newName) {
+		element.classList.replace(oldName, newName);
+		return element;
+	}
+
+	/**
 	 * Appends `thisNode` to `thatNode`
 	 * @param {Node} thisNode - Node to be appended to another node
 	 * @param {Node} thatNode - Node for `thisNode` to be appended to
@@ -136,14 +196,25 @@ export default class DOMTools {
 	}
 
 	/**
-	 * Insert after a specific element, similar to jQuery's `element.after(newElement)`.
-	 * @param {Node} newNode - The node to insert
-	 * @param {Node} referenceNode - Node to insert after in the tree
+	 * Insert after a specific element, similar to jQuery's `thisElement.insertAfter(otherElement)`.
+	 * @param {Node} thisNode - The node to insert
+	 * @param {Node} targetNode - Node to insert after in the tree
 	 * @returns {Node} - `thisNode` to allow for chaining
 	 */
-	static insertAfter(newNode, referenceNode) {
-		referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
-		return newNode;
+	static insertAfter(thisNode, targetNode) {
+		targetNode.parentNode.insertBefore(thisNode, targetNode.nextSibling);
+		return thisNode;
+	}
+
+	/**
+	 * Insert after a specific element, similar to jQuery's `thisElement.after(newElement)`.
+	 * @param {Node} thisNode - The node to insert
+	 * @param {Node} newNode - Node to insert after in the tree
+	 * @returns {Node} - `thisNode` to allow for chaining
+	 */
+	static adter(thisNode, newNode) {
+		thisNode.parentNode.insertBefore(newNode, thisNode.nextSibling);
+		return thisNode;
 	}
 
 	/**
@@ -475,7 +546,13 @@ export default class DOMTools {
 	}
 }
 
+Utilities.addToPrototype(HTMLElement, "addClass", function(...classes) {return DOMTools.addClass(this, ...classes);});
+Utilities.addToPrototype(HTMLElement, "removeClass", function(...classes) {return DOMTools.removeClass(this, ...classes);});
+Utilities.addToPrototype(HTMLElement, "toggleClass", function(className, indicator) {return DOMTools.toggleClass(this, className, indicator);});
+Utilities.addToPrototype(HTMLElement, "replaceClass", function(oldClass, newClass) {return DOMTools.replaceClass(this, oldClass, newClass);});
+Utilities.addToPrototype(HTMLElement, "hasClass", function(className) {return DOMTools.hasClass(this, className);});
 Utilities.addToPrototype(HTMLElement, "insertAfter", function(referenceNode) {return DOMTools.insertAfter(this, referenceNode);});
+Utilities.addToPrototype(HTMLElement, "after", function(newNode) {return DOMTools.after(this, newNode);});
 Utilities.addToPrototype(HTMLElement, "next", function(selector = "") {return DOMTools.next(this, selector);});
 Utilities.addToPrototype(HTMLElement, "nextAll", function() {return DOMTools.nextAll(this);});
 Utilities.addToPrototype(HTMLElement, "nextUntil", function(selector) {return DOMTools.nextUntil(this, selector);});
@@ -622,7 +699,7 @@ export const DiscordSelectors = new Proxy(DiscordClassModules, {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue May 22 2018 17:02:16 GMT-0400 (Eastern Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun May 27 2018 20:52:34 GMT-0400 (Eastern Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>
