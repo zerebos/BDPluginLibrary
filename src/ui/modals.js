@@ -43,6 +43,8 @@ export default class Modals {
 			}, props));
 		});
     }
-    
-    //open profile modal
+
+    static showUserProfile(userId) {
+        return DiscordModules.UserProfileModal.open(userId);
+    }
 }

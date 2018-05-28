@@ -98,3 +98,7 @@
 .plugin-controls {
     display: block;
 }
+
+.plugin-dropdown-root {
+    min-width: 250px;
+}

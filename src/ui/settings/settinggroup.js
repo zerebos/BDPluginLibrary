@@ -11,17 +11,17 @@ class SettingGroup {
      * 
      * @constructor
      * @param {string} groupName - title for the group of settings
-     * @param {callback} callback - callback called on settings changed
      * @param {object} options - additional options for the group
+	 * @param {callback} [options.callback] - callback called on settings changed
      * @param {boolean} [options.collapsible=true] - determines if the group should be collapsible
      * @param {boolean} [options.shown=false] - determines if the group should be expanded by default
      */
-	constructor(groupName, callback, options = {}) {
-		const {collapsible = true, shown = false} = options;
+	constructor(groupName, options = {}) {
+		const {collapsible = true, shown = false, callback = () => {}} = options;
 		this.group = $("<div>").addClass("plugin-control-group").css("margin-top", "15px");
 		var collapsed = shown || !collapsible ? "" : " collapsed";
 		var label = $("<h2>").html(`<span class="button-collapse${collapsed}" style=""></span> ${groupName}`);
-		label.attr("class", `${DiscordClasses.SettingsMetaClasses.h5} ${DiscordClasses.SettingsMetaClasses.defaultMarginh5}`);
+		label.attr("class", `${DiscordClasses.Titles.h5} ${DiscordClasses.Titles.defaultMarginh5}`);
 		this.group.append(label);
 		this.controls = $(`<div class="plugin-controls collapsible${collapsed}">`);
 		this.group.append(this.controls);

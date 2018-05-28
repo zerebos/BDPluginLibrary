@@ -20,3 +20,4 @@ export {default as ColorPicker} from "./types/color";
 export {default as Slider} from "./types/slider";
 export {default as Switch} from "./types/switch";
 export {default as Pill} from "./types/pill";
+export {default as Dropdown} from "./types/dropdown";

@@ -184,7 +184,7 @@ export default class DOMTools {
 	 * @param {Node} newNode - Node to insert after in the tree
 	 * @returns {Node} - `thisNode` to allow for chaining
 	 */
-	static adter(thisNode, newNode) {
+	static after(thisNode, newNode) {
 		thisNode.parentNode.insertBefore(newNode, thisNode.nextSibling);
 		return thisNode;
 	}
