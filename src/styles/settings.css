@@ -1,4 +1,4 @@
-.plugin-controls input {
+.plugin-controls .plugin-input {
     -webkit-box-flex: 1;
     background-color: transparent;
     border: none;
@@ -21,11 +21,11 @@
     position: relative;
 }
 
-.plugin-controls input:focus {
+.plugin-controls .plugin-input:focus {
     outline: 0;
 }
 
-.plugin-controls input[type=range] {
+.plugin-controls .plugin-input[type=range] {
     -webkit-appearance: none;
     border: none!important;
     border-radius: 5px;
@@ -34,22 +34,22 @@
     padding: 0;
 }
 
-.plugin-controls input[type=range]::-webkit-slider-runnable-track {
+.plugin-controls .plugin-input[type=range]::-webkit-slider-runnable-track {
     background: 0 0!important;
 }
 
-.plugin-controls input[type=range]::-webkit-slider-thumb {
+.plugin-controls .plugin-input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none;
     background: #f6f6f7;
     width: 10px;
     height: 20px;
 }
 
-.plugin-controls input[type=range]::-webkit-slider-thumb:hover {
+.plugin-controls .plugin-input[type=range]::-webkit-slider-thumb:hover {
     box-shadow: 0 2px 10px rgba(0,0,0,.5);
 }
 
-.plugin-controls input[type=range]::-webkit-slider-thumb:active {
+.plugin-controls .plugin-input[type=range]::-webkit-slider-thumb:active {
     box-shadow: 0 2px 10px rgba(0,0,0,1);
 }
 
@@ -99,7 +99,14 @@
     display: block;
 }
 
-.plugin-dropdown-root,
 .plugin-keybind-root {
     min-width: 250px;
+}
+
+.plugin-dropdown-root {
+    min-width: 300px;
+}
+
+.plugin-radio-root {
+    min-width: 475px;
 }

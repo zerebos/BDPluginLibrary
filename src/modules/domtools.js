@@ -516,6 +516,23 @@ export default class DOMTools {
 		element.removeEventListener(type, eventFunc);
 		return element;
 	}
+
+	//TODO: Documentation
+	static onRemove(node, callback) {
+		const observer = new MutationObserver((mutations) => {
+			mutations.forEach((mutation) => {
+				const nodes = Array.from(mutation.removedNodes);
+				const directMatch = nodes.indexOf(node) > -1;
+				const parentMatch = nodes.some(parent => parent.contains(node));
+				if (directMatch || parentMatch) {
+					observer.disconnect();
+					callback();
+				}
+			});
+		});
+
+		observer.observe(document.body, {subtree: true, childList: true});
+	}
 }
 
 Utilities.addToPrototype(HTMLElement, "addClass", function(...classes) {return DOMTools.addClass(this, ...classes);});

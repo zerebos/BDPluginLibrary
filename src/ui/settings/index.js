@@ -22,3 +22,4 @@ export {default as Switch} from "./types/switch";
 export {default as Pill} from "./types/pill";
 export {default as Dropdown} from "./types/dropdown";
 export {default as Keybind} from "./types/keybind";
+export {default as Radio} from "./types/radio";

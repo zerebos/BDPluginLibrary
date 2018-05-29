@@ -1,5 +1,5 @@
 import SettingField, {createInputContainer} from "../settingfield";
-import {WebpackModules, DiscordModules} from "modules";
+import {WebpackModules, DiscordModules, DOMTools} from "modules";
 
 //TODO: Documentation
 
@@ -51,6 +51,7 @@ class Dropdown extends SettingField {
                 },
 				value: defaultValue
             }), root[0]);
+            DOMTools.onRemove(root[0], () => {DiscordModules.ReactDOM.unmountComponentAtNode(root[0]);});
 		});
 	}
 }

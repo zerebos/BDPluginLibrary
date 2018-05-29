@@ -1,6 +1,5 @@
 import SettingField, {createInputContainer} from "../settingfield";
-
-import {ColorConverter, WebpackModules, DiscordModules} from "modules";
+import {ColorConverter, WebpackModules, DiscordModules, DOMTools} from "modules";
 
 /** 
  * Creates a color picker using chromium's built in color picker
@@ -50,6 +49,8 @@ class ColorPicker extends SettingField {
 				},
 				value: 0
 			}), root[0]);
+
+			DOMTools.onRemove(root[0], () => {DiscordModules.ReactDOM.unmountComponentAtNode(root[0]);});
 
 			//if (customColor || customColor != defaultColor) pickerElem.setState({customColor: customColor});
 

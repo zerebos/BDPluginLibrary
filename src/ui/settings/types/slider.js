@@ -1,7 +1,11 @@
-import SettingField, {createInputContainer, getAccentColor} from "../settingfield";
+import SettingField, {createInputContainer} from "../settingfield";
+import {WebpackModules, DiscordModules, DOMTools} from "modules";
+
+//TODO: Documentation
 
 /** 
- * Creates a slider where the user can select a single number from a predefined range.
+ * Creates a dropdown using discord's built in dropdown
+ * as a base.
  * @memberof module:Settings
  * @version 1.0.0
  * @extends module:Settings.SettingField
@@ -9,55 +13,50 @@ import SettingField, {createInputContainer, getAccentColor} from "../settingfiel
 class Slider extends SettingField {
     /**
      * @constructor
-     * @param {string} settingLabel - title for the setting
+     * @param {string} label - title for the setting
      * @param {string} help - description of the setting
-     * @param {number} min - minimum value allowed
-     * @param {number} max - maximum value allowed
-     * @param {number} step - granularity between values
-     * @param {number} value - default value of the setting
-     * @param {module:Settings~settingsChanged} callback - callback fired on slider release
+	 * @param {(number|string)} defaultValue - default value of the setting in hex or int format
+     * @param {(number|string)} values - value of the setting in hex or int format
+     * @param {module:Settings~settingsChanged} callback - callback fired on color change
      * @param {object} options - additional options for the input field itself
      */
-	constructor(settingLabel, help, min, max, step, value, callback, options = {}) {
-		options.type = "range";
-		options.min = min;
-		options.max = max;
-		options.step = step;
-		options.value = parseFloat(value);
-		super(settingLabel, help, options, callback);
-		this.value = parseFloat(value); this.min = min; this.max = max;
-		
-		this.getValue = () => { return parseFloat(this.input.val()); };
-		
-		this.accentColor = getAccentColor();
-		this.setBackground();
-		this.input.css("margin-left", "10px").css("float", "right");
-		this.input.addClass("plugin-input-range");
-		
-		this.labelUnit = "";
-		this.label = $(`<span class="plugin-setting-label">`).text(this.value + this.labelUnit);
-		
-		this.input.on("input", () => {
-			this.value = parseFloat(this.input.val());
-			this.label.text(this.value + this.labelUnit);
-			this.setBackground();
+	constructor(label, help, min, max, value, callback, options = {}) {
+		options.type = "number";
+		options.value = value;
+        super(label, help, options, callback);
+		this.input.addClass("plugin-input-slider");
+		this.input.hide();
+
+		let root = $(`<div id="${DiscordModules.KeyGenerator()}" class="plugin-slider-root">`);
+		let domElem = createInputContainer(this.input, root);
+        this.setInputElement(domElem);
+        
+		const DiscordSlider = WebpackModules.getByPrototypes("renderMark");
+		const props = {
+			onValueChange: (value) => {
+				this.input.val(value);
+				this.input.trigger("change");
+			},
+			defaultValue: value,
+			disabled: options.disabled ? true : false,
+			minValue: min,
+			maxValue: max,
+			handleSize: 10,
+			fillStyles: {}
+		};
+		if (options.fillStyles) props.fillStyles = options.fillStyles;
+		if (options.markers) props.markers = options.markers;
+		if (options.stickToMarkers) props.stickToMarkers = options.stickToMarkers;
+		if (typeof(options.equidistant) != "undefined") props.equidistant = options.equidistant;
+		new Promise(async resolve => {
+			while (!document.contains(root[0]))
+				await new Promise(resolve => setTimeout(resolve, 50));
+			resolve();
+		}).then(() => {
+			DiscordModules.ReactDOM.render(DiscordModules.React.createElement(DiscordSlider, props), root[0]);
+            DOMTools.onRemove(root[0], () => {DiscordModules.ReactDOM.unmountComponentAtNode(root[0]);});
 		});
-		
-		this.setInputElement(createInputContainer(this.label, this.input));
 	}
-	
-	getPercent() { return ((this.value - this.min) / this.max) * 100; }
-
-	setBackground() {
-		var percent = this.getPercent();
-		this.input.css("background", "linear-gradient(to right, " + this.accentColor + ", " + this.accentColor + " " + percent + "%, #72767d " + percent + "%)");
-	}
-
-    /**
-     * Adds a unit to the value label
-     * @param {string} unit - unit to add to the label (e.g. "%")
-     */
-	setLabelUnit(unit) {this.labelUnit = unit; this.label.text(this.value + this.labelUnit); return this;}
 }
 
 export default Slider;
