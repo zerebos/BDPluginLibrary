@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: ui/icons/warning.js</title>
+    <title>JSDoc: Source: ui/settings/types/keybind.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: ui/icons/warning.js</h1>
+    <h1 class="page-title">Source: ui/settings/types/keybind.js</h1>
 
     
 
@@ -26,15 +26,61 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
- * Warning Icon
+            <pre class="prettyprint source linenums"><code>import SettingField, {createInputContainer} from "../settingfield";
+import {WebpackModules, DiscordModules, DOMTools} from "modules";
+
+//TODO: Documentation
+
+/** 
+ * Creates a keybind using discord's built in keybind
+ * as a base.
+ * @memberof module:Settings
+ * @version 1.0.0
+ * @extends module:Settings.SettingField
  */
-export default function(size) {
-    return `&lt;svg width="${size || 24}" height="${size || 24}" viewBox="0 0 24 24">
-                &lt;path d="M0 0h24v24H0z" fill="none"/>
-                &lt;path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
-            &lt;/svg>`;
-}</code></pre>
+class Keybind extends SettingField {
+    /**
+     * @constructor
+     * @param {string} label - title for the setting
+     * @param {string} help - description of the setting
+	 * @param {(number|string)} defaultValue - default value of the setting in hex or int format
+     * @param {(number|string)} values - value of the setting in hex or int format
+     * @param {module:Settings~settingsChanged} callback - callback fired on color change
+     * @param {object} options - additional options for the input field itself
+     */
+	constructor(label, help, value, callback, options = {}) {
+		options.type = "text";
+		options.value = value;
+        super(label, help, options, callback);
+        this.getValue = () => {return JSON.parse(this.input.val());};
+		this.input.css("margin-left", "10px");
+		this.input.addClass("plugin-input-keybind");
+		this.input.hide();
+
+		let root = $(`&lt;div id="${DiscordModules.KeyGenerator()}" class="plugin-keybind-root">`);
+		let domElem = createInputContainer(this.input, root);
+        this.setInputElement(domElem);
+        
+        const DiscordKeybind = WebpackModules.getByPrototypes("handleComboChange");
+		new Promise(async resolve => {
+			while (!document.contains(root[0]))
+				await new Promise(resolve => setTimeout(resolve, 50));
+			resolve();
+		}).then(() => {
+			DiscordModules.ReactDOM.render(DiscordModules.React.createElement(DiscordKeybind, {
+                defaultValue: value.map(a => [0, a]),
+				onChange: (value) => {
+                    if (!Array.isArray(value)) return;
+                    this.input.val(JSON.stringify(value.map(a => a[1])));
+                    this.input.trigger("change");
+                }
+            }), root[0]);
+            DOMTools.onRemove(root[0], () => {DiscordModules.ReactDOM.unmountComponentAtNode(root[0]);});
+		});
+	}
+}
+
+export default Keybind;</code></pre>
         </article>
     </section>
 
