@@ -285,6 +285,26 @@ export default class DOMTools {
 	}
 
 	/**
+	 * Gets all children of Element that match the selector if provided.
+	 * @param {Element} element - Element to get all children of
+	 * @param {string} selector - Selector to match the children to
+	 * @returns {Array<Element>} - The list of children
+	 */
+	static findChild(element, selector) {
+		return element.querySelector(":scope > " + selector);
+	}
+
+	/**
+	 * Gets all children of Element that match the selector if provided.
+	 * @param {Element} element - Element to get all children of
+	 * @param {string} selector - Selector to match the children to
+	 * @returns {Array<Element>} - The list of children
+	 */
+	static findChildren(element, selector) {
+		return element.querySelectorAll(":scope > " + selector);
+	}
+
+	/**
 	 * Gets all ancestors of Element that match the selector if provided.
 	 * @param {Element} element - Element to get all parents of
 	 * @param {string} [selector=""] - Selector to match the parents to
@@ -566,6 +586,8 @@ Utilities.addToPrototype(HTMLElement, "previous", function(selector = "") {retur
 Utilities.addToPrototype(HTMLElement, "previousAll", function() {return DOMTools.previousAll(this);});
 Utilities.addToPrototype(HTMLElement, "previousUntil", function(selector) {return DOMTools.previousUntil(this, selector);});
 Utilities.addToPrototype(HTMLElement, "index", function() {return DOMTools.index(this);});
+Utilities.addToPrototype(HTMLElement, "findChild", function(selector) {return DOMTools.findChild(this, selector);});
+Utilities.addToPrototype(HTMLElement, "findChildren", function(selector) {return DOMTools.findChildren(this, selector);});
 Utilities.addToPrototype(HTMLElement, "parent", function(selector) {return DOMTools.parent(this, selector);});
 Utilities.addToPrototype(HTMLElement, "parents", function(selector = "") {return DOMTools.parents(this, selector);});
 Utilities.addToPrototype(HTMLElement, "parentsUntil", function(selector) {return DOMTools.parentsUntil(this, selector);});

@@ -18,8 +18,8 @@ export default (BasePlugin) => {
     return class ZeresPluginLibrary extends BasePlugin {
         load() {
             this.start();
-            BdApi.clearCSS("PluginLibraryCSS");
-            BdApi.injectCSS("PluginLibraryCSS", Settings.CSS + Toasts.CSS + PluginUpdater.CSS);
+            BdApi.clearCSS("ZeresLibraryCSS");
+            BdApi.injectCSS("ZeresLibraryCSS", Settings.CSS + Toasts.CSS + PluginUpdater.CSS);
 
             jQuery.extend(jQuery.easing, { easeInSine: function (x, t, b, c, d) { return -c * Math.cos(t / d * (Math.PI / 2)) + c + b; }});
 

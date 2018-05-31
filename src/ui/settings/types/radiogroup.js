@@ -1,7 +1,5 @@
 import ReactSettingField from "../reactsettingfield";
-import {WebpackModules} from "modules";
-
-const DiscordRadio = WebpackModules.getByPrototypes("renderRadio");
+import {DiscordModules} from "modules";
 
 //TODO: Documentation
 
@@ -23,7 +21,7 @@ class RadioGroup extends ReactSettingField {
      * @param {object} options - additional options for the input field itself
      */
 	constructor(label, help, defaultValue, values, callback, options = {}) {
-		super(label, help, callback, DiscordRadio, {
+		super(label, help, callback, DiscordModules.RadioGroup, {
 			noteOnTop: true,
 			disabled: options.disabled ? true : false,
 			options: values,

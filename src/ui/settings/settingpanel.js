@@ -14,7 +14,11 @@ class SettingPanel {
 		this.onChangeCallback = typeof(onChange) == "function" ? onChange : _ => _;
         this.onChange = this.onChange.bind(this);
         this.append(...nodes);
-	}
+    }
+    
+    static build(onChange, ...nodes) {
+        return (new SettingPanel(onChange, ...nodes)).getElement();
+    }
     
 	getElement() {return this.element;}
 

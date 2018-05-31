@@ -1,9 +1,5 @@
 import SettingField from "./settingfield";
-import {DiscordModules, DOMTools, DiscordClasses, WebpackModules} from "modules";
-
-const Wrapper = WebpackModules.getModule(m => m.prototype && m.prototype.render && m.prototype.render.toString().includes("required:"));
-const Note = WebpackModules.getModule(m => m.Types && m.defaultProps);
-const Divider = WebpackModules.getModule(m => !m.defaultProps && m.prototype && m.prototype.render && m.prototype.render.toString().includes("default.divider"));
+import {DiscordModules, DOMTools, DiscordClasses} from "modules";
 
 class ReactSettingField extends SettingField {
     /**
@@ -34,32 +30,31 @@ class ReactSettingField extends SettingField {
 
 	onRemoved() {
 		DiscordModules.ReactDOM.unmountComponentAtNode(this.getElement());
-	}
+    }
 }
 
 export default ReactSettingField;
 
-
 class ReactSetting extends DiscordModules.React.Component {
-	constructor(props) {
-		super(props);
-	}
+    constructor(props) {
+        super(props);
+    }
 
-	get noteElement() {
-		const className = this.props.noteOnTop ? DiscordClasses.Margins.marginBottom8 : DiscordClasses.Margins.marginTop8;
-		return DiscordModules.React.createElement(Note, {children: this.props.note, type: "description", className: className.toString()});
-	}
+    get noteElement() {
+        const className = this.props.noteOnTop ? DiscordClasses.Margins.marginBottom8 : DiscordClasses.Margins.marginTop8;
+        return DiscordModules.React.createElement(DiscordModules.SettingsNote, {children: this.props.note, type: "description", className: className.toString()});
+    }
 
-	get dividerElement() { return DiscordModules.React.createElement(Divider, {className: DiscordClasses.Dividers.dividerDefault.toString()}); }
+    get dividerElement() { return DiscordModules.React.createElement(DiscordModules.SettingsDivider, {className: DiscordClasses.Dividers.dividerDefault.toString()}); }
 
-	render() {
-		const SettingElement = DiscordModules.React.createElement(this.props.type, this.props);
-		return DiscordModules.React.createElement(Wrapper, {className: DiscordClasses.Margins.marginBottom20.toString(), title: this.props.title, children: [
-			this.props.noteOnTop ? this.noteElement : SettingElement,
-			this.props.noteOnTop ? SettingElement : this.noteElement,
-			this.dividerElement
-		]});
-	}
+    render() {
+        const SettingElement = DiscordModules.React.createElement(this.props.type, this.props);
+        return DiscordModules.React.createElement(DiscordModules.SettingsWrapper, {className: DiscordClasses.Margins.marginBottom20.toString(), title: this.props.title, children: [
+            this.props.noteOnTop ? this.noteElement : SettingElement,
+            this.props.noteOnTop ? SettingElement : this.noteElement,
+            this.dividerElement
+        ]});
+    }
 }
 
 export {ReactSetting};

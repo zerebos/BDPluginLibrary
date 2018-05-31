@@ -1,7 +1,5 @@
 import ReactSettingField from "../reactsettingfield";
-import {WebpackModules} from "modules";
-
-const DiscordSlider = WebpackModules.getByPrototypes("renderMark");
+import {DiscordModules} from "modules";
 
 //TODO: Documentation
 
@@ -36,7 +34,7 @@ class Slider extends ReactSettingField {
 		if (options.markers) props.markers = options.markers;
 		if (options.stickToMarkers) props.stickToMarkers = options.stickToMarkers;
 		if (typeof(options.equidistant) != "undefined") props.equidistant = options.equidistant;
-		super(label, help, callback, DiscordSlider, Object.assign(props, {onValueChange: v => this.onChange(v)}));
+		super(label, help, callback, DiscordModules.Slider, Object.assign(props, {onValueChange: v => this.onChange(v)}));
 	}
 }
 

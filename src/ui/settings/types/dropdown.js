@@ -1,6 +1,5 @@
 import ReactSettingField from "../reactsettingfield";
-import {WebpackModules} from "modules";
-const DiscordDropdown = WebpackModules.getModule(m => m.prototype && !m.prototype.handleClick && m.prototype.render && m.prototype.render.toString().includes("default.select"));
+import {DiscordModules} from "modules";
 
 //TODO: Documentation
 
@@ -23,7 +22,7 @@ class Dropdown extends ReactSettingField {
      */
 	constructor(label, help, defaultValue, values, callback, options = {}) {
 		const {clearable = false, searchable = false} = options;
-		super(label, help, callback, DiscordDropdown, {
+		super(label, help, callback, DiscordModules.Dropdown, {
 			clearable: clearable,
 			searchable: searchable,
 			options: values,

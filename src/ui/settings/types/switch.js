@@ -1,7 +1,5 @@
 import ReactSettingField from "../reactsettingfield";
-import {WebpackModules, DiscordModules} from "modules";
-
-const SwitchRow = WebpackModules.getModule(m => m.defaultProps && m.defaultProps.hideBorder == false);
+import {DiscordModules} from "modules";
 
 //TODO: Documentation
 
@@ -29,7 +27,7 @@ class Switch extends ReactSettingField {
 	}
 
 	onAdded() {
-		const reactElement = DiscordModules.ReactDOM.render(DiscordModules.React.createElement(SwitchRow, {
+		const reactElement = DiscordModules.ReactDOM.render(DiscordModules.React.createElement(DiscordModules.SwitchRow, {
 			children: this.name,
 			note: this.note,
 			disabled: this.disabled,

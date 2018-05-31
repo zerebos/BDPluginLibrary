@@ -1,7 +1,5 @@
 import ReactSettingField from "../reactsettingfield";
-import {WebpackModules} from "modules";
-
-const DiscordKeybind = WebpackModules.getByPrototypes("handleComboChange");
+import {DiscordModules} from "modules";
 
 //TODO: Documentation
 
@@ -23,7 +21,7 @@ class Keybind extends ReactSettingField {
      * @param {object} options - additional options for the input field itself
      */    
     constructor(label, help, value, callback) {
-		super(label, help, callback, DiscordKeybind, {
+		super(label, help, callback, DiscordModules.Keybind, {
             defaultValue: value.map(a => [0, a]),
             onChange: element => value => {
                 if (!Array.isArray(value)) return;

@@ -178,5 +178,18 @@ export default Utilities.memoizeObject({
     /* Misc */
     get ExternalLink() {return WebpackModules.getByRegex(/\.trusted\b/);},
     get TextElement() {return WebpackModules.getByProps("Sizes", "Weights");},
+
+    /* Settings */
+    get SettingsWrapper() {return WebpackModules.getModule(m => m.prototype && m.prototype.render && m.prototype.render.toString().includes("required:"));},
+    get SettingsNote() {return WebpackModules.getModule(m => m.Types && m.defaultProps);},
+    get SettingsDivider() {return WebpackModules.getModule(m => !m.defaultProps && m.prototype && m.prototype.render && m.prototype.render.toString().includes("default.divider"));},
+
+    get ColorPicker() {return WebpackModules.getByPrototypes("renderCustomColorPopout");},
+    get Dropdown() {return WebpackModules.getModule(m => m.prototype && !m.prototype.handleClick && m.prototype.render && m.prototype.render.toString().includes("default.select"));},
+    get Keybind() {return WebpackModules.getByPrototypes("handleComboChange");},
+    get RadioGroup() {return WebpackModules.getByPrototypes("renderRadio");},
+    get Slider() {return WebpackModules.getByPrototypes("renderMark");},
+    get SwitchRow() {return WebpackModules.getModule(m => m.defaultProps && m.defaultProps.hideBorder == false);},
+    get Textbox() {return WebpackModules.getModule(m => m.defaultProps && m.defaultProps.type == "text");},
 });
 

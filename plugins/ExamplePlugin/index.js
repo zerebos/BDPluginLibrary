@@ -32,8 +32,7 @@ module.exports = (Plugin, Library) => {
         }
 
         getSettingsPanel() {
-
-            const panel = new Settings.SettingPanel(() => {Logger.info("should save");}, 
+            return Settings.SettingPanel.build(() => {Logger.info("should save");}, 
                 new Settings.SettingGroup("Example Plugin Settings").append(
                     new Settings.Textbox("Textbox", "This should be a description of what this setting is about or blank", this.settings.textbox, (e) => {this.settings.textbox = e;}),
                     new Settings.Dropdown("Select", "This should be a description of what this setting is about or blank", this.settings.option, [
@@ -41,15 +40,17 @@ module.exports = (Plugin, Library) => {
                         {label: "Test 2", value: 50},
                         {label: "Test 3", value: JSON.stringify({label: "Test 1", value: "weiner"})},
                     ], (e) => {this.settings.option = e;}),
-                    new Settings.RadioGroup("Generic RadioGroup", "This should be a description of what this setting is about or blank", this.settings.radio, [
-                        {name: "Test 1", value: "weiner", desc: "This is the first test", color: "#ff0000"},
-                        {name: "Test 2", value: 50, desc: "This is the second test", color: "#00ff00"},
-                        {name: "Test 3", value: JSON.stringify({label: "Test 1", value: "weiner"}), desc: "This is the third test", color: "#0000ff"},
-                    ], (e) => {this.settings.radio = e;}),
-                    new Settings.Switch("Switch1", "This should be a description of what this setting is about or blank", this.settings.switch1, (e) => {this.settings.switch1 = e;}),
-                    new Settings.Switch("Switch2", "This should be a description of what this setting is about or blank", this.settings.switch2, (e) => {this.settings.switch2 = e;}),
-                    new Settings.Switch("Switch3", "This should be a description of what this setting is about or blank", this.settings.switch3, (e) => {this.settings.switch3 = e;}),
-                    new Settings.Switch("Switch4", "This should be a description of what this setting is about or blank", this.settings.switch4, (e) => {this.settings.switch4 = e;})
+                    new Settings.SettingGroup("Example Plugin SubSettings", {shown: true}).append(
+                        new Settings.RadioGroup("Generic RadioGroup", "This should be a description of what this setting is about or blank", this.settings.radio, [
+                            {name: "Test 1", value: "weiner", desc: "This is the first test", color: "#ff0000"},
+                            {name: "Test 2", value: 50, desc: "This is the second test", color: "#00ff00"},
+                            {name: "Test 3", value: JSON.stringify({label: "Test 1", value: "weiner"}), desc: "This is the third test", color: "#0000ff"},
+                        ], (e) => {this.settings.radio = e;}),
+                        new Settings.Switch("Switch1", "This should be a description of what this setting is about or blank", this.settings.switch1, (e) => {this.settings.switch1 = e;}),
+                        new Settings.Switch("Switch2", "This should be a description of what this setting is about or blank", this.settings.switch2, (e) => {this.settings.switch2 = e;}),
+                        new Settings.Switch("Switch3", "This should be a description of what this setting is about or blank", this.settings.switch3, (e) => {this.settings.switch3 = e;}),
+                        new Settings.Switch("Switch4", "This should be a description of what this setting is about or blank", this.settings.switch4, (e) => {this.settings.switch4 = e;})
+                    )
                 ),
 
                 new Settings.SettingGroup("Example Advanced Settings").append(
@@ -62,8 +63,6 @@ module.exports = (Plugin, Library) => {
                     })
                 )
             );
-
-            return panel.getElement();
         }
     };
 

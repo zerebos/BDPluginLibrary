@@ -1,7 +1,5 @@
 import ReactSettingField from "../reactsettingfield";
-import {WebpackModules} from "modules";
-
-const DiscordTextbox = WebpackModules.getModule(m => m.defaultProps && m.defaultProps.type == "text");
+import {DiscordModules} from "modules";
 
 //TODO: Documentation
 
@@ -23,7 +21,7 @@ class Textbox extends ReactSettingField {
      * @param {object} options - additional options for the input field itself
      */  
     constructor(label, help, value, callback, options = {}) {
-		super(label, help, callback, DiscordTextbox, {
+		super(label, help, callback, DiscordModules.Textbox, {
             onChange: textbox => value => {
                 textbox.props.value = value;
                 textbox.forceUpdate();

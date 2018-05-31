@@ -24,32 +24,36 @@ class SettingGroup extends Listenable {
 		this.onChange = this.onChange.bind(this);
 
 		const collapsed = shown || !collapsible ? "" : "collapsed";
-		const group = DOMTools.parseHTML(`<div class="plugin-control-group">
+		const group = DOMTools.parseHTML(`<div class="plugin-input-group">
 											<h2 class="${DiscordClasses.Titles.h5} ${DiscordClasses.Titles.defaultMarginh5} ${DiscordClasses.Titles.defaultColor}">
 											<span class="button-collapse ${collapsed}"></span> ${groupName}
 											</h2>
-											<div class="plugin-controls collapsible ${collapsed}"></div>
+											<div class="plugin-inputs collapsible ${collapsed}"></div>
 											</div>`);
 		const label = group.querySelector("h2");
-		const controls = group.querySelector(".plugin-controls");
+		const controls = group.querySelector(".plugin-inputs");
 
 		this.group = group;
 		this.label = label;
 		this.controls = controls;
 
 		if (!collapsible) return;
-		label.addEventListener("click", () => {
+		label.addEventListener("click", async () => {
 			const button = label.querySelector(".button-collapse");
 			const wasCollapsed = button.classList.contains("collapsed");
-			group.parentElement.querySelectorAll(".collapsible:not(.collapsed)").forEach((element) => {
-				element.style.setProperty("height", "");
+			//Array.from(group.parentElement.children).filter(e => e.matches(".plugin-control-group"));
+			group.parentElement.querySelectorAll(":scope > .plugin-input-group > .collapsible:not(.collapsed)").forEach((element) => {
+				element.style.setProperty("height", element.scrollHeight + "px");
 				element.classList.add("collapsed");
+				setImmediate(() => {element.style.setProperty("height", "");});
 			});
-			group.parentElement.querySelectorAll(".button-collapse").forEach(e => e.classList.add("collapsed"));
+			group.parentElement.querySelectorAll(":scope > .plugin-input-group > h2 > .button-collapse").forEach(e => e.classList.add("collapsed"));
 			if (!wasCollapsed) return;
 			controls.style.setProperty("height", controls.scrollHeight + "px");
 			controls.classList.remove("collapsed");
 			button.classList.remove("collapsed");
+			await new Promise(resolve => setTimeout(resolve, 300));
+			controls.style.setProperty("height", "");
 		});
 	}
     
@@ -64,7 +68,7 @@ class SettingGroup extends Listenable {
 	append(...nodes) {
 		for (var i = 0; i < nodes.length; i++) {
 			if (nodes[i] instanceof jQuery || nodes[i] instanceof Element) this.controls.append(nodes[i]);
-			else if (nodes[i] instanceof SettingField) this.controls.append(nodes[i].getElement()), nodes[i].addListener(this.onChange);
+			else if (nodes[i] instanceof SettingField || nodes[i] instanceof SettingGroup) this.controls.append(nodes[i].getElement()), nodes[i].addListener(this.onChange);
 		}
 		return this;
 	}
