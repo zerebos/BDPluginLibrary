@@ -25,7 +25,7 @@ export default class Modals {
                 cancelText: cancelText,
                 onConfirm: onConfirm,
                 onCancel: onCancel,
-                children: [DiscordModules.TextElement({color: DiscordModules.TextElement.Colors.PRIMARY, children: [content]})]
+                children: [DiscordModules.TextElement.default({color: DiscordModules.TextElement.Colors.PRIMARY, children: [content]})]
             }, props));
         });
     }
@@ -48,3 +48,4 @@ export default class Modals {
         return DiscordModules.UserProfileModal.open(userId);
     }
 }
+

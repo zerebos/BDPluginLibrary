@@ -32,6 +32,8 @@ export default Utilities.memoizeObject({
 	get TitleWrap() {return WebpackModules.getByProps("titleWrapper");},
 	get Titlebar() {return WebpackModules.getByProps("titleBar");},
 	get Embeds() {return WebpackModules.getByProps("embed", "embedAuthor");},
-	get Layers() {return WebpackModules.getByProps("layers", "layer");}
+	get Layers() {return WebpackModules.getByProps("layers", "layer");},
+	get Margins() {return WebpackModules.getModule(m => !m.title && m.marginBottom40 && m.marginTop40);},
+	get Dividers() {return WebpackModules.getModule(m => m.dividerDefault);}
 });
 

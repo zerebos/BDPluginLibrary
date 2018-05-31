@@ -1,17 +1,18 @@
 import ReactSettingField from "../reactsettingfield";
 import {WebpackModules} from "modules";
-const DiscordDropdown = WebpackModules.getModule(m => m.prototype && !m.prototype.handleClick && m.prototype.render && m.prototype.render.toString().includes("default.select"));
+
+const DiscordRadio = WebpackModules.getByPrototypes("renderRadio");
 
 //TODO: Documentation
 
 /** 
- * Creates a dropdown using discord's built in dropdown
+ * Creates a radio button using discord's built in radio button
  * as a base.
  * @memberof module:Settings
  * @version 1.0.0
  * @extends module:Settings.SettingField
  */
-class Dropdown extends ReactSettingField {
+class RadioGroup extends ReactSettingField {
     /**
      * @constructor
      * @param {string} label - title for the setting
@@ -22,19 +23,19 @@ class Dropdown extends ReactSettingField {
      * @param {object} options - additional options for the input field itself
      */
 	constructor(label, help, defaultValue, values, callback, options = {}) {
-		const {clearable = false, searchable = false} = options;
-		super(label, help, callback, DiscordDropdown, {
-			clearable: clearable,
-			searchable: searchable,
+		super(label, help, callback, DiscordRadio, {
+			noteOnTop: true,
+			disabled: options.disabled ? true : false,
 			options: values,
-			onChange: dropdown => opt => {
-				dropdown.props.value = opt.value;
-				dropdown.forceUpdate();
-				this.onChange(opt.value);
+			onChange: reactElement => option => {
+				reactElement.props.value = option.value;
+				reactElement.forceUpdate();
+				this.onChange(option.value);
 			},
 			value: defaultValue
 		});
 	}
 }
 
-export default Dropdown;
+export default RadioGroup;
+

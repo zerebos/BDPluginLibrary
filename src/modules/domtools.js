@@ -518,7 +518,24 @@ export default class DOMTools {
 	}
 
 	//TODO: Documentation
-	static onRemove(node, callback) {
+	static onAdded(node, callback) {
+		const observer = new MutationObserver((mutations) => {
+			mutations.forEach((mutation) => {
+				const nodes = Array.from(mutation.addedNodes);
+				const directMatch = nodes.indexOf(node) > -1;
+				const parentMatch = nodes.some(parent => parent.contains(node));
+				if (directMatch || parentMatch) {
+					observer.disconnect();
+					callback();
+				}
+			});
+		});
+
+		observer.observe(document.body, {subtree: true, childList: true});
+	}
+
+	//TODO: Documentation
+	static onRemoved(node, callback) {
 		const observer = new MutationObserver((mutations) => {
 			mutations.forEach((mutation) => {
 				const nodes = Array.from(mutation.removedNodes);

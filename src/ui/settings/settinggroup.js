@@ -1,4 +1,5 @@
-import {DiscordClasses} from "modules";
+import Listenable from "../../structs/listenable";
+import {DiscordClasses, DOMTools} from "modules";
 import SettingField from "./settingfield";
 
 /** 
@@ -6,7 +7,7 @@ import SettingField from "./settingfield";
  * @memberof module:Settings
  * @version 1.0.1
  */
-class SettingGroup {
+class SettingGroup extends Listenable {
     /**
      * 
      * @constructor
@@ -17,31 +18,39 @@ class SettingGroup {
      * @param {boolean} [options.shown=false] - determines if the group should be expanded by default
      */
 	constructor(groupName, options = {}) {
+		super();
 		const {collapsible = true, shown = false, callback = () => {}} = options;
-		this.group = $("<div>").addClass("plugin-control-group").css("margin-top", "15px");
-		var collapsed = shown || !collapsible ? "" : " collapsed";
-		var label = $("<h2>").html(`<span class="button-collapse${collapsed}" style=""></span> ${groupName}`);
-		label.attr("class", `${DiscordClasses.Titles.h5} ${DiscordClasses.Titles.defaultMarginh5}`);
-		this.group.append(label);
-		this.controls = $(`<div class="plugin-controls collapsible${collapsed}">`);
-		this.group.append(this.controls);
-		if (collapsible) {
-			label.on("click", (e) => {
-				let button = $(e.target).find(".button-collapse");
-				let wasCollapsed = button.hasClass("collapsed");
-				this.group.parent().find(".collapsible:not(.collapsed)").slideUp({duration: 300, easing: "easeInSine", complete: function() { $(this).addClass("collapsed"); }}); // .slideUp({duration: 300, easing: "easeInSine"})
-				this.group.parent().find(".button-collapse").addClass("collapsed");
-				if (wasCollapsed) {
-					this.controls.slideDown({duration: 300, easing: "easeInSine"});
-					this.controls.removeClass("collapsed");
-					button.removeClass("collapsed");
-				}
+		this.onChangeCallback = callback;
+		this.onChange = this.onChange.bind(this);
+
+		const collapsed = shown || !collapsible ? "" : "collapsed";
+		const group = DOMTools.parseHTML(`<div class="plugin-control-group">
+											<h2 class="${DiscordClasses.Titles.h5} ${DiscordClasses.Titles.defaultMarginh5} ${DiscordClasses.Titles.defaultColor}">
+											<span class="button-collapse ${collapsed}"></span> ${groupName}
+											</h2>
+											<div class="plugin-controls collapsible ${collapsed}"></div>
+											</div>`);
+		const label = group.querySelector("h2");
+		const controls = group.querySelector(".plugin-controls");
+
+		this.group = group;
+		this.label = label;
+		this.controls = controls;
+
+		if (!collapsible) return;
+		label.addEventListener("click", () => {
+			const button = label.querySelector(".button-collapse");
+			const wasCollapsed = button.classList.contains("collapsed");
+			group.parentElement.querySelectorAll(".collapsible:not(.collapsed)").forEach((element) => {
+				element.style.setProperty("height", "");
+				element.classList.add("collapsed");
 			});
-		}
-		
-		if (typeof callback != "undefined") {
-			this.controls.on("change", "input", callback);
-		}
+			group.parentElement.querySelectorAll(".button-collapse").forEach(e => e.classList.add("collapsed"));
+			if (!wasCollapsed) return;
+			controls.style.setProperty("height", controls.scrollHeight + "px");
+			controls.classList.remove("collapsed");
+			button.classList.remove("collapsed");
+		});
 	}
     
     /** @returns {jQuery} jQuery node for the group. */
@@ -55,7 +64,7 @@ class SettingGroup {
 	append(...nodes) {
 		for (var i = 0; i < nodes.length; i++) {
 			if (nodes[i] instanceof jQuery || nodes[i] instanceof Element) this.controls.append(nodes[i]);
-			else if (nodes[i] instanceof SettingField) this.controls.append(nodes[i].getElement());
+			else if (nodes[i] instanceof SettingField) this.controls.append(nodes[i].getElement()), nodes[i].addListener(this.onChange);
 		}
 		return this;
 	}
@@ -68,6 +77,11 @@ class SettingGroup {
 	appendTo(node) {
 		this.group.appendTo(node);
 		return this;
+	}
+
+	onChange() {
+		this.onChangeCallback();
+		this.alertListeners();
 	}
 }
 

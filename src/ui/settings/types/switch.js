@@ -1,5 +1,7 @@
-import SettingField, {createInputContainer} from "../settingfield";
-import {WebpackModules, DiscordModules, DOMTools} from "modules";
+import ReactSettingField from "../reactsettingfield";
+import {WebpackModules, DiscordModules} from "modules";
+
+const SwitchRow = WebpackModules.getModule(m => m.defaultProps && m.defaultProps.hideBorder == false);
 
 //TODO: Documentation
 
@@ -10,7 +12,7 @@ import {WebpackModules, DiscordModules, DOMTools} from "modules";
  * @version 1.0.0
  * @extends module:Settings.SettingField
  */
-class Switch extends SettingField {
+class Switch extends ReactSettingField {
     /**
      * @constructor
      * @param {string} label - title for the setting
@@ -21,37 +23,25 @@ class Switch extends SettingField {
      * @param {object} options - additional options for the input field itself
      */
 	constructor(label, help, isChecked, callback, options = {}) {
-		options.type = "checkbox";
-		options.checked = isChecked;
-        super(label, help, options, callback);
-		this.input.addClass("plugin-input-switch");
-		this.input.hide();
-		this.getValue = () => { return this.input[0].checked; };
+		super(label, help, options, callback);
+		this.disabled = options.disabled ? true : false;
+		this.value = isChecked ? true : false;
+	}
 
-		let root = $(`<div id="${DiscordModules.KeyGenerator()}" class="plugin-switch-root">`);
-		let domElem = createInputContainer(this.input, root);
-        this.setInputElement(domElem);
-        
-		const DiscordSwitch = WebpackModules.getModule(m => m.toString().includes("checkbox"));
-		new Promise(async resolve => {
-			while (!document.contains(root[0]))
-				await new Promise(resolve => setTimeout(resolve, 50));
-			resolve();
-		}).then(() => {
-			const props = {
-				disabled: options.disabled ? true : false,
-				onChange: (e) => {
-					const checked = e.currentTarget.checked;
-					props.value = checked;
-					DiscordModules.ReactDOM.render(DiscordModules.React.createElement(DiscordSwitch, props), root[0]);
-					this.input[0].checked = checked;
-					this.input.trigger("change");
-				},
-				value: isChecked
-			};
-			DiscordModules.ReactDOM.render(DiscordModules.React.createElement(DiscordSwitch, props), root[0]);
-            DOMTools.onRemove(root[0], () => {DiscordModules.ReactDOM.unmountComponentAtNode(root[0]);});
-		});
+	onAdded() {
+		const reactElement = DiscordModules.ReactDOM.render(DiscordModules.React.createElement(SwitchRow, {
+			children: this.name,
+			note: this.note,
+			disabled: this.disabled,
+			hideBorder: false,
+			value: this.value,
+			onChange: (e) => {
+				const checked = e.currentTarget.checked;
+				reactElement.props.value = checked;
+				reactElement.forceUpdate();
+				this.onChange(checked);
+			}
+		}), this.getElement());
 	}
 }
 

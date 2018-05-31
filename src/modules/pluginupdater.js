@@ -77,8 +77,10 @@ export default class PluginUpdater {
 		const request = require("request");
 		request(updateLink, (error, response, result) => {
 			if (error) return;
-			const remoteVersion = window.PluginUpdates.plugins[updateLink].versioner(result);
-			const hasUpdate = window.PluginUpdates.plugins[updateLink].comparator(window.PluginUpdates.plugins[updateLink].version, remoteVersion);
+			const versioner = window.PluginUpdates.plugins[updateLink].versioner || this.defaultVersioner;
+			const comparator = window.PluginUpdates.plugins[updateLink].comparator || this.defaultComparator;
+			const remoteVersion = versioner(result);
+			const hasUpdate = comparator(window.PluginUpdates.plugins[updateLink].version, remoteVersion);
 			if (hasUpdate) this.showUpdateNotice(pluginName, updateLink);
 			else this.removeUpdateNotice(pluginName);
 		});
