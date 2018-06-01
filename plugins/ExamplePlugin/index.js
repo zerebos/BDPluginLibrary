@@ -5,19 +5,19 @@ module.exports = (Plugin, Library) => {
     return class ExamplePlugin extends Plugin {
         constructor() {
             super();
-            this.settings = {};
-            this.settings.color = "#ff0000";
-            this.settings.option = 50;
-            this.settings.keybind = [162, 74];
-            this.settings.radio = "weiner";
-            this.settings.slider1 = 30;
-            this.settings.slider2 = 54;
-            this.settings.textbox = "nothing";
-            this.settings.switch1 = false;
-            this.settings.switch2 = true;
-            this.settings.switch3 = true;
-            this.settings.switch4 = false;
-            this.settings.file = undefined;
+            this.defaultSettings = {};
+            this.defaultSettings.color = "#ff0000";
+            this.defaultSettings.option = 50;
+            this.defaultSettings.keybind = [162, 74];
+            this.defaultSettings.radio = "weiner";
+            this.defaultSettings.slider1 = 30;
+            this.defaultSettings.slider2 = 54;
+            this.defaultSettings.textbox = "nothing";
+            this.defaultSettings.switch1 = false;
+            this.defaultSettings.switch2 = true;
+            this.defaultSettings.switch3 = true;
+            this.defaultSettings.switch4 = false;
+            this.defaultSettings.file = undefined;
         }
 
         onStart() {
@@ -33,7 +33,7 @@ module.exports = (Plugin, Library) => {
         }
 
         getSettingsPanel() {
-            return Settings.SettingPanel.build(() => {Logger.info("should save");}, 
+            return Settings.SettingPanel.build(this.saveSettings.bind(this), 
                 new Settings.SettingGroup("Example Plugin Settings").append(
                     new Settings.Textbox("Textbox", "This should be a description of what this setting is about or blank", this.settings.textbox, (e) => {this.settings.textbox = e;}),
                     new Settings.Dropdown("Select", "This should be a description of what this setting is about or blank", this.settings.option, [

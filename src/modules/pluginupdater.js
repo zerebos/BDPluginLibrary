@@ -52,8 +52,8 @@ export default class PluginUpdater {
 				checkAll: function() {
 					for (let key in this.plugins) {
 						let plugin = this.plugins[key];
-						if (!plugin.versioner) plugin.versioner = this.defaultVersioner;
-						if (!plugin.comparator) plugin.comparator = this.defaultComparator;
+						if (!plugin.versioner) plugin.versioner = PluginUpdater.defaultVersioner;
+						if (!plugin.comparator) plugin.comparator = PluginUpdater.defaultComparator;
 						PluginUpdater.processUpdateCheck(plugin.name, plugin.raw);
 					}
 				},

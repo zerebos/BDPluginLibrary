@@ -4,6 +4,7 @@ release
 plugins/*
 !plugins/0PluginLibrary
 !plugins/ExamplePlugin
+!plugins/ExamplePlugin2
 !plugins/HideDisabledEmojis
 plugins/HideDisabledEmojisRemote
 src/remote.js

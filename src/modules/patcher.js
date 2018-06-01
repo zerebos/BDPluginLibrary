@@ -66,11 +66,11 @@ export default class Patcher {
             }
 
             const insteads = patch.children.filter(c => c.type === "instead");
-            if (!insteads.length) returnValue = patch.originalFunction.apply(this, arguments, patch.originalFunction);
+            if (!insteads.length) returnValue = patch.originalFunction.apply(this, arguments);
             else {
                 for (const insteadPatch of insteads) {
                     try {
-						const tempReturn = insteadPatch.callback(this, arguments);
+						const tempReturn = insteadPatch.callback(this, arguments, patch.originalFunction.bind(this));
                         if (typeof(tempReturn) !== "undefined") returnValue = tempReturn;
                     }
                     catch (err) {

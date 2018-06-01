@@ -19,7 +19,7 @@ class Switch extends SettingField {
 	 * @param {boolean} [options.disabled=false] - should the setting be disabled
 	 */
 	constructor(name, note, isChecked, onChange, options = {}) {
-		super(name, note, options, onChange);
+		super(name, note, onChange);
 		this.disabled = options.disabled ? true : false;
 		this.value = isChecked ? true : false;
 	}

@@ -25,9 +25,9 @@ class Dropdown extends SettingField {
 	 * @param {boolean} [options.clearable=false] - should be able to empty the field value
 	 * @param {boolean} [options.searchable=false] - should user be able to search the dropdown
 	 */
-	constructor(label, help, defaultValue, values, onChange, options = {}) {
+	constructor(name, note, defaultValue, values, onChange, options = {}) {
 		const {clearable = false, searchable = false} = options;
-		super(label, help, onChange, DiscordModules.Dropdown, {
+		super(name, note, onChange, DiscordModules.Dropdown, {
 			clearable: clearable,
 			searchable: searchable,
 			options: values,
