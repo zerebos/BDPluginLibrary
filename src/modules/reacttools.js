@@ -4,6 +4,8 @@
  * @version 0.0.4
  */
 
+import DOMTools from "./domtools";
+import DiscordModules from "./discordmodules";
 import Utilities from "./utilities";
 
 export default class ReactTools {
@@ -65,6 +67,27 @@ export default class ReactTools {
 		}
 		
 		return null;
+	}
+
+	static createWrappedElement(element) {
+		if (Array.isArray(element)) {
+			const domWrapper = DOMTools.parseHTML(`<div class="dom-wrapper"></div>`);
+			for (let e = 0; e < element.length; e++) domWrapper.appendChild(element[e]);
+			element = domWrapper;
+		}
+		return DiscordModules.React.createElement(this.wrapElement(element));
+	}
+
+	static wrapElement(element) {
+		return class ReactWrapper extends DiscordModules.React.Component {
+			constructor(props) {
+				super(props);
+				this.element = element;
+			}
+	
+			componentDidMount() {this.refs.element.appendChild(this.element);}
+			render() {return DiscordModules.React.createElement("div", {className: "react-wrapper", ref: "element"});}
+		};
 	}
 
 }

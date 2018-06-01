@@ -52,7 +52,9 @@ export default class PluginUpdater {
 				checkAll: function() {
 					for (let key in this.plugins) {
 						let plugin = this.plugins[key];
-						PluginUpdater.processUpdateCheck(plugin.name, plugin.raw, plugin.versioner, plugin.comparator);
+						if (!plugin.versioner) plugin.versioner = this.defaultVersioner;
+						if (!plugin.comparator) plugin.comparator = this.defaultComparator;
+						PluginUpdater.processUpdateCheck(plugin.name, plugin.raw);
 					}
 				},
 				interval: setInterval(() => {
@@ -63,7 +65,7 @@ export default class PluginUpdater {
 		}
 
 		window.PluginUpdates.plugins[updateLink] = {name: pluginName, raw: updateLink, version: currentVersion, versioner: versioner, comparator: comparator};
-		PluginUpdater.processUpdateCheck(pluginName, updateLink, versioner, comparator);
+		PluginUpdater.processUpdateCheck(pluginName, updateLink);
 	}
 
 	/**
@@ -77,10 +79,8 @@ export default class PluginUpdater {
 		const request = require("request");
 		request(updateLink, (error, response, result) => {
 			if (error) return;
-			const versioner = window.PluginUpdates.plugins[updateLink].versioner || this.defaultVersioner;
-			const comparator = window.PluginUpdates.plugins[updateLink].comparator || this.defaultComparator;
-			const remoteVersion = versioner(result);
-			const hasUpdate = comparator(window.PluginUpdates.plugins[updateLink].version, remoteVersion);
+			const remoteVersion = window.PluginUpdates.plugins[updateLink].versioner(result);
+			const hasUpdate = window.PluginUpdates.plugins[updateLink].comparator(window.PluginUpdates.plugins[updateLink].version, remoteVersion);
 			if (hasUpdate) this.showUpdateNotice(pluginName, updateLink);
 			else this.removeUpdateNotice(pluginName);
 		});

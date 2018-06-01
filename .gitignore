@@ -5,3 +5,6 @@ plugins/*
 !plugins/0PluginLibrary
 !plugins/ExamplePlugin
 !plugins/HideDisabledEmojis
+plugins/HideDisabledEmojisRemote
+src/remote.js
+scripts/template_remote.js

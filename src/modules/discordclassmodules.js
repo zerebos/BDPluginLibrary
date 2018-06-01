@@ -34,6 +34,7 @@ export default Utilities.memoizeObject({
 	get Embeds() {return WebpackModules.getByProps("embed", "embedAuthor");},
 	get Layers() {return WebpackModules.getByProps("layers", "layer");},
 	get Margins() {return WebpackModules.getModule(m => !m.title && m.marginBottom40 && m.marginTop40);},
-	get Dividers() {return WebpackModules.getModule(m => m.dividerDefault);}
+	get Dividers() {return WebpackModules.getModule(m => m.dividerDefault);},
+	get Changelog() {return Object.assign({}, WebpackModules.getByProps("container", "added"), WebpackModules.getByProps("content", "modal", "size"));}
 });
 

@@ -163,6 +163,7 @@ export default Utilities.memoizeObject({
     get NotificationSettingsModal() {return WebpackModules.getByProps(["open", "updateNotificationSettings"]);},
     get PrivacySettingsModal() {return WebpackModules.getByRegex(/PRIVACY_SETTINGS_MODAL_OPEN/, m => m.open);},
     get CreateInviteModal() {return WebpackModules.getByProps(["open", "createInvite"]);},
+    get Changelog() {return WebpackModules.getModule((m => m.defaultProps && m.defaultProps.selectable == false));},
 
     /* Popouts */
     get PopoutStack() {return WebpackModules.getByProps("open", "close", "closeAll");},
@@ -178,6 +179,8 @@ export default Utilities.memoizeObject({
     /* Misc */
     get ExternalLink() {return WebpackModules.getByRegex(/\.trusted\b/);},
     get TextElement() {return WebpackModules.getByProps("Sizes", "Weights");},
+    get FlexChild() {return WebpackModules.getByProps("Child");},
+    get Titles() {return WebpackModules.getByProps("Tags", "default");},
 
     /* Settings */
     get SettingsWrapper() {return WebpackModules.getModule(m => m.prototype && m.prototype.render && m.prototype.render.toString().includes("required:"));},

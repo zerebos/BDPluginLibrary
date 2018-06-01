@@ -6,7 +6,7 @@ const args = require("yargs").argv;
 const pluginsPath = path.join(__dirname, "../plugins");
 const mode = args.mode || "development";
 
-const list = args.plugin ? [args.plugin] : fs.readdirSync(pluginsPath).filter(f => fs.lstatSync(path.join(pluginsPath, f)).isDirectory());
+const list = args.plugin ? [args.plugin] : fs.readdirSync(pluginsPath).filter(f => fs.lstatSync(path.join(pluginsPath, f)).isDirectory() && f != "0PluginLibrary");
 (async (list) => {
     console.log("");
     console.log("Building: " + list.join(", "));

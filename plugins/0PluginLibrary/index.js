@@ -10,7 +10,7 @@ Library.Popouts = Popouts;
 Library.Modals = Modals;
 for (const mod in Modules) Library[mod] = Modules[mod];
 
-window.Library = Library;
+global.ZLibrary = Library;
 
 const {PluginUpdater, Patcher, Structs, Logger} = Library;
 
