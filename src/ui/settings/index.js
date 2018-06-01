@@ -18,6 +18,7 @@ export {default as SettingGroup} from "./settinggroup";
 export {default as SettingPanel} from "./settingpanel";
 export {default as Textbox} from "./types/textbox";
 export {default as ColorPicker} from "./types/color";
+export {default as FilePicker} from "./types/file";
 export {default as Slider} from "./types/slider";
 export {default as Switch} from "./types/switch";
 export {default as Dropdown} from "./types/dropdown";

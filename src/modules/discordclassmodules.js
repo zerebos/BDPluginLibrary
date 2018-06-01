@@ -35,6 +35,7 @@ export default Utilities.memoizeObject({
 	get Layers() {return WebpackModules.getByProps("layers", "layer");},
 	get Margins() {return WebpackModules.getModule(m => !m.title && m.marginBottom40 && m.marginTop40);},
 	get Dividers() {return WebpackModules.getModule(m => m.dividerDefault);},
-	get Changelog() {return Object.assign({}, WebpackModules.getByProps("container", "added"), WebpackModules.getByProps("content", "modal", "size"));}
+	get Changelog() {return Object.assign({}, WebpackModules.getByProps("container", "added"), WebpackModules.getByProps("content", "modal", "size"));},
+	get BasicInputs() {return WebpackModules.getByProps("inputDefault", "size16");}
 });
 
