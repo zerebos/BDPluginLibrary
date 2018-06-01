@@ -26,7 +26,8 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import {DiscordClasses} from "modules";
+            <pre class="prettyprint source linenums"><code>import Listenable from "../../structs/listenable";
+import {DiscordClasses, DOMTools} from "modules";
 import SettingField from "./settingfield";
 
 /** 
@@ -34,68 +35,82 @@ import SettingField from "./settingfield";
  * @memberof module:Settings
  * @version 1.0.1
  */
-class SettingGroup {
+class SettingGroup extends Listenable {
     /**
-     * 
-     * @constructor
      * @param {string} groupName - title for the group of settings
-     * @param {object} options - additional options for the group
+     * @param {object} [options] - additional options for the group
 	 * @param {callback} [options.callback] - callback called on settings changed
      * @param {boolean} [options.collapsible=true] - determines if the group should be collapsible
      * @param {boolean} [options.shown=false] - determines if the group should be expanded by default
      */
 	constructor(groupName, options = {}) {
+		super();
 		const {collapsible = true, shown = false, callback = () => {}} = options;
-		this.group = $("&lt;div>").addClass("plugin-control-group").css("margin-top", "15px");
-		var collapsed = shown || !collapsible ? "" : " collapsed";
-		var label = $("&lt;h2>").html(`&lt;span class="button-collapse${collapsed}" style="">&lt;/span> ${groupName}`);
-		label.attr("class", `${DiscordClasses.Titles.h5} ${DiscordClasses.Titles.defaultMarginh5}`);
-		this.group.append(label);
-		this.controls = $(`&lt;div class="plugin-controls collapsible${collapsed}">`);
-		this.group.append(this.controls);
-		if (collapsible) {
-			label.on("click", (e) => {
-				let button = $(e.target).find(".button-collapse");
-				let wasCollapsed = button.hasClass("collapsed");
-				this.group.parent().find(".collapsible:not(.collapsed)").slideUp({duration: 300, easing: "easeInSine", complete: function() { $(this).addClass("collapsed"); }}); // .slideUp({duration: 300, easing: "easeInSine"})
-				this.group.parent().find(".button-collapse").addClass("collapsed");
-				if (wasCollapsed) {
-					this.controls.slideDown({duration: 300, easing: "easeInSine"});
-					this.controls.removeClass("collapsed");
-					button.removeClass("collapsed");
-				}
+		this.addListener(callback);
+		this.onChange = this.onChange.bind(this);
+
+		const collapsed = shown || !collapsible ? "" : "collapsed";
+		const group = DOMTools.parseHTML(`&lt;div class="plugin-input-group">
+											&lt;h2 class="${DiscordClasses.Titles.h5} ${DiscordClasses.Titles.defaultMarginh5} ${DiscordClasses.Titles.defaultColor}">
+											&lt;span class="button-collapse ${collapsed}">&lt;/span> ${groupName}
+											&lt;/h2>
+											&lt;div class="plugin-inputs collapsible ${collapsed}">&lt;/div>
+											&lt;/div>`);
+		const label = group.querySelector("h2");
+		const controls = group.querySelector(".plugin-inputs");
+
+		this.group = group;
+		this.label = label;
+		this.controls = controls;
+
+		if (!collapsible) return;
+		label.addEventListener("click", async () => {
+			const button = label.querySelector(".button-collapse");
+			const wasCollapsed = button.classList.contains("collapsed");
+			group.parentElement.querySelectorAll(":scope > .plugin-input-group > .collapsible:not(.collapsed)").forEach((element) => {
+				element.style.setProperty("height", element.scrollHeight + "px");
+				element.classList.add("collapsed");
+				setImmediate(() => {element.style.setProperty("height", "");});
 			});
-		}
-		
-		if (typeof callback != "undefined") {
-			this.controls.on("change", "input", callback);
-		}
+			group.parentElement.querySelectorAll(":scope > .plugin-input-group > h2 > .button-collapse").forEach(e => e.classList.add("collapsed"));
+			if (!wasCollapsed) return;
+			controls.style.setProperty("height", controls.scrollHeight + "px");
+			controls.classList.remove("collapsed");
+			button.classList.remove("collapsed");
+			await new Promise(resolve => setTimeout(resolve, 300));
+			controls.style.setProperty("height", "");
+		});
 	}
     
-    /** @returns {jQuery} jQuery node for the group. */
+    /** @returns {HTMLElement} - root node for the group. */
 	getElement() {return this.group;}
     
     /**
-     * 
-     * @param {(...HTMLElement|...jQuery)} nodes - list of nodes to add to the group container 
-     * @returns {ControlGroup} returns self for chaining
+     * Adds multiple nodes to this group.
+     * @param {(...HTMLElement|...jQuery|...module:Settings.SettingField|...module:Settings.SettingGroup)} nodes - list of nodes to add to the group container 
+     * @returns {module:Settings.SettingGroup} - returns self for chaining
      */
 	append(...nodes) {
 		for (var i = 0; i &lt; nodes.length; i++) {
 			if (nodes[i] instanceof jQuery || nodes[i] instanceof Element) this.controls.append(nodes[i]);
-			else if (nodes[i] instanceof SettingField) this.controls.append(nodes[i].getElement());
+			else if (nodes[i] instanceof SettingField || nodes[i] instanceof SettingGroup) this.controls.append(nodes[i].getElement()), nodes[i].addListener(this.onChange);
 		}
 		return this;
 	}
     
     /**
-     * 
-     * @param {(HTMLElement|jQuery)} node - node to attach the group to.
-     * @returns {ControlGroup} returns self for chaining
+     * Appends this node to another
+     * @param {HTMLElement} node - node to attach the group to.
+     * @returns {module:Settings.SettingGroup} - returns self for chaining
      */
 	appendTo(node) {
-		this.group.appendTo(node);
+		node.append(this.group);
 		return this;
+	}
+
+	/** Fires onchange to listeners */
+	onChange() {
+		this.alertListeners(...arguments);
 	}
 }
 
@@ -109,13 +124,13 @@ export default SettingGroup;</code></pre>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-ColorConverter.html">ColorConverter</a></li><li><a href="module-ContextMenu.html">ContextMenu</a></li><li><a href="module-DiscordAPI.html">DiscordAPI</a></li><li><a href="module-DiscordClassModules.html">DiscordClassModules</a></li><li><a href="module-DiscordModules.html">DiscordModules</a></li><li><a href="module-DOMTools.html">DOMTools</a></li><li><a href="module-Logger.html">Logger</a></li><li><a href="module-Modals.html">Modals</a></li><li><a href="module-Patcher.html">Patcher</a></li><li><a href="module-PluginUpdater.html">PluginUpdater</a></li><li><a href="module-PluginUtilities.html">PluginUtilities</a></li><li><a href="module-Popouts.html">Popouts</a></li><li><a href="module-ReactTools.html">ReactTools</a></li><li><a href="module-Settings.html">Settings</a></li><li><a href="module-Toasts.html">Toasts</a></li><li><a href="module-Tooltip.html">Tooltip</a></li><li><a href="module-Utilities.html">Utilities</a></li><li><a href="module-WebpackModules.html">WebpackModules</a></li></ul><h3>Classes</h3><ul><li><a href="module-ContextMenu.ImageItem.html">ImageItem</a></li><li><a href="module-ContextMenu.ItemGroup.html">ItemGroup</a></li><li><a href="module-ContextMenu.Menu.html">Menu</a></li><li><a href="module-ContextMenu.MenuItem.html">MenuItem</a></li><li><a href="module-ContextMenu.SubMenuItem.html">SubMenuItem</a></li><li><a href="module-ContextMenu.TextItem.html">TextItem</a></li><li><a href="module-ContextMenu.ToggleItem.html">ToggleItem</a></li><li><a href="module-DiscordAPI.Channel.html">Channel</a></li><li><a href="module-DiscordAPI.Guild.html">Guild</a></li><li><a href="module-DiscordAPI.InsufficientPermissions.html">InsufficientPermissions</a></li><li><a href="module-DiscordAPI.List.html">List</a></li><li><a href="module-DiscordAPI.Message.html">Message</a></li><li><a href="module-DiscordAPI.User.html">User</a></li><li><a href="module-DiscordAPI.UserSettings.html">UserSettings</a></li><li><a href="module-DOMTools.ClassName.html">ClassName</a></li><li><a href="module-DOMTools.Selector.html">Selector</a></li><li><a href="module-Settings.ColorPicker.html">ColorPicker</a></li><li><a href="module-Settings.Dropdown.html">Dropdown</a></li><li><a href="module-Settings.Keybind.html">Keybind</a></li><li><a href="module-Settings.Radio.html">Radio</a></li><li><a href="module-Settings.SettingField.html">SettingField</a></li><li><a href="module-Settings.SettingGroup.html">SettingGroup</a></li><li><a href="module-Settings.Slider.html">Slider</a></li><li><a href="module-Settings.Switch.html">Switch</a></li><li><a href="module-Settings.Textbox.html">Textbox</a></li><li><a href="module-Tooltip.html">Tooltip</a></li><li><a href="module-WebpackModules.Filters.html">Filters</a></li><li><a href="Screen.html">Screen</a></li></ul><h3>Interfaces</h3><ul><li><a href="module-DOMTools-Offset.html">Offset</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-ColorConverter.html">ColorConverter</a></li><li><a href="module-ContextMenu.html">ContextMenu</a></li><li><a href="module-DiscordAPI.html">DiscordAPI</a></li><li><a href="module-DiscordClassModules.html">DiscordClassModules</a></li><li><a href="module-DiscordModules.html">DiscordModules</a></li><li><a href="module-DOMTools.html">DOMTools</a></li><li><a href="module-Logger.html">Logger</a></li><li><a href="module-Modals.html">Modals</a></li><li><a href="module-Patcher.html">Patcher</a></li><li><a href="module-PluginUpdater.html">PluginUpdater</a></li><li><a href="module-PluginUtilities.html">PluginUtilities</a></li><li><a href="module-Popouts.html">Popouts</a></li><li><a href="module-ReactTools.html">ReactTools</a></li><li><a href="module-Settings.html">Settings</a></li><li><a href="module-Toasts.html">Toasts</a></li><li><a href="module-Tooltip.html">Tooltip</a></li><li><a href="module-Utilities.html">Utilities</a></li><li><a href="module-WebpackModules.html">WebpackModules</a></li></ul><h3>Classes</h3><ul><li><a href="List.html">List</a></li><li><a href="Listenable.html">Listenable</a></li><li><a href="module-ContextMenu.ImageItem.html">ImageItem</a></li><li><a href="module-ContextMenu.ItemGroup.html">ItemGroup</a></li><li><a href="module-ContextMenu.Menu.html">Menu</a></li><li><a href="module-ContextMenu.MenuItem.html">MenuItem</a></li><li><a href="module-ContextMenu.SubMenuItem.html">SubMenuItem</a></li><li><a href="module-ContextMenu.TextItem.html">TextItem</a></li><li><a href="module-ContextMenu.ToggleItem.html">ToggleItem</a></li><li><a href="module-DiscordAPI.Channel.html">Channel</a></li><li><a href="module-DiscordAPI.Guild.html">Guild</a></li><li><a href="module-DiscordAPI.InsufficientPermissions.html">InsufficientPermissions</a></li><li><a href="module-DiscordAPI.Message.html">Message</a></li><li><a href="module-DiscordAPI.User.html">User</a></li><li><a href="module-DiscordAPI.UserSettings.html">UserSettings</a></li><li><a href="module-DOMTools.ClassName.html">ClassName</a></li><li><a href="module-DOMTools.Selector.html">Selector</a></li><li><a href="module-Settings.ColorPicker.html">ColorPicker</a></li><li><a href="module-Settings.Dropdown.html">Dropdown</a></li><li><a href="module-Settings.FilePicker.html">FilePicker</a></li><li><a href="module-Settings.Keybind.html">Keybind</a></li><li><a href="module-Settings.RadioGroup.html">RadioGroup</a></li><li><a href="module-Settings.SettingField.html">SettingField</a></li><li><a href="module-Settings.SettingGroup.html">SettingGroup</a></li><li><a href="module-Settings.SettingPanel.html">SettingPanel</a></li><li><a href="module-Settings.Slider.html">Slider</a></li><li><a href="module-Settings.Switch.html">Switch</a></li><li><a href="module-Settings.Textbox.html">Textbox</a></li><li><a href="module-Tooltip.html">Tooltip</a></li><li><a href="module-WebpackModules.Filters.html">Filters</a></li><li><a href="Screen.html">Screen</a></li></ul><h3>Interfaces</h3><ul><li><a href="module-DOMTools-Offset.html">Offset</a></li><li><a href="module-Modals-Changelog.html">Changelog</a></li><li><a href="module-Settings-DropdownItem.html">DropdownItem</a></li><li><a href="module-Settings-RadioItem.html">RadioItem</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue May 29 2018 00:21:26 GMT-0400 (Eastern Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Jun 01 2018 15:03:16 GMT-0400 (Eastern Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>

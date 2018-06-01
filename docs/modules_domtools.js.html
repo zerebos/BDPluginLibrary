@@ -313,6 +313,26 @@ export default class DOMTools {
 	}
 
 	/**
+	 * Gets all children of Element that match the selector if provided.
+	 * @param {Element} element - Element to get all children of
+	 * @param {string} selector - Selector to match the children to
+	 * @returns {Array&lt;Element>} - The list of children
+	 */
+	static findChild(element, selector) {
+		return element.querySelector(":scope > " + selector);
+	}
+
+	/**
+	 * Gets all children of Element that match the selector if provided.
+	 * @param {Element} element - Element to get all children of
+	 * @param {string} selector - Selector to match the children to
+	 * @returns {Array&lt;Element>} - The list of children
+	 */
+	static findChildren(element, selector) {
+		return element.querySelectorAll(":scope > " + selector);
+	}
+
+	/**
 	 * Gets all ancestors of Element that match the selector if provided.
 	 * @param {Element} element - Element to get all parents of
 	 * @param {string} [selector=""] - Selector to match the parents to
@@ -545,10 +565,46 @@ export default class DOMTools {
 		return element;
 	}
 
-	//TODO: Documentation
-	static onRemove(node, callback) {
+	/**
+	 * Adds a listener for when the node is added to the document body.
+	 * @param {HTMLElement} node - node to wait for
+	 * @param {callable} callback - function to be performed on event
+	 */
+	static onAdded(node, callback) {
 		const observer = new MutationObserver((mutations) => {
-			mutations.forEach((mutation) => {
+			for (let m = 0; m &lt; mutations.length; m++) {
+				const mutation = mutations[m];
+				const nodes = Array.from(mutation.addedNodes);
+				const directMatch = nodes.indexOf(node) > -1;
+				const parentMatch = nodes.some(parent => parent.contains(node));
+				if (directMatch || parentMatch) {
+					observer.disconnect();
+					callback();
+				}
+			}
+			// mutations.forEach((mutation) => {
+			// 	const nodes = Array.from(mutation.addedNodes);
+			// 	const directMatch = nodes.indexOf(node) > -1;
+			// 	const parentMatch = nodes.some(parent => parent.contains(node));
+			// 	if (directMatch || parentMatch) {
+			// 		observer.disconnect();
+			// 		callback();
+			// 	}
+			// });
+		});
+
+		observer.observe(document.body, {subtree: true, childList: true});
+	}
+
+	/**
+	 * Adds a listener for when the node is removed from the document body.
+	 * @param {HTMLElement} node - node to wait for
+	 * @param {callable} callback - function to be performed on event
+	 */
+	static onRemoved(node, callback) {
+		const observer = new MutationObserver((mutations) => {
+			for (let m = 0; m &lt; mutations.length; m++) {
+				const mutation = mutations[m];
 				const nodes = Array.from(mutation.removedNodes);
 				const directMatch = nodes.indexOf(node) > -1;
 				const parentMatch = nodes.some(parent => parent.contains(node));
@@ -556,10 +612,38 @@ export default class DOMTools {
 					observer.disconnect();
 					callback();
 				}
-			});
+			}
+			// mutations.forEach((mutation) => {
+			// 	const nodes = Array.from(mutation.removedNodes);
+			// 	const directMatch = nodes.indexOf(node) > -1;
+			// 	const parentMatch = nodes.some(parent => parent.contains(node));
+			// 	if (directMatch || parentMatch) {
+			// 		observer.disconnect();
+			// 		callback();
+			// 	}
+			// });
 		});
 
 		observer.observe(document.body, {subtree: true, childList: true});
+	}
+
+	/**
+	 * Helper function which combines multiple elements into one parent element
+	 * @param {Array&lt;HTMLElement>} elements - array of elements to put into a single parent
+	 */
+	static wrap(elements) {
+		const domWrapper = this.parseHTML(`&lt;div class="dom-wrapper">&lt;/div>`);
+		for (let e = 0; e &lt; elements.length; e++) domWrapper.appendChild(elements[e]);
+		return domWrapper;
+	}
+
+	/**
+	 * Resolves the node to an HTMLElement. This is mainly used by library modules.
+	 * @param {(jQuery|Element)} node - node to resolve
+	 */
+	static resolveElement(node) {
+		if (!(node instanceof jQuery) &amp;&amp; !(node instanceof Element)) return undefined;
+		return node instanceof jQuery ? node[0] : node;
 	}
 }
 
@@ -577,6 +661,8 @@ Utilities.addToPrototype(HTMLElement, "previous", function(selector = "") {retur
 Utilities.addToPrototype(HTMLElement, "previousAll", function() {return DOMTools.previousAll(this);});
 Utilities.addToPrototype(HTMLElement, "previousUntil", function(selector) {return DOMTools.previousUntil(this, selector);});
 Utilities.addToPrototype(HTMLElement, "index", function() {return DOMTools.index(this);});
+Utilities.addToPrototype(HTMLElement, "findChild", function(selector) {return DOMTools.findChild(this, selector);});
+Utilities.addToPrototype(HTMLElement, "findChildren", function(selector) {return DOMTools.findChildren(this, selector);});
 Utilities.addToPrototype(HTMLElement, "parent", function(selector) {return DOMTools.parent(this, selector);});
 Utilities.addToPrototype(HTMLElement, "parents", function(selector = "") {return DOMTools.parents(this, selector);});
 Utilities.addToPrototype(HTMLElement, "parentsUntil", function(selector) {return DOMTools.parentsUntil(this, selector);});
@@ -594,6 +680,8 @@ Utilities.addToPrototype(HTMLElement, "off", function(event, delegate, callback)
 Utilities.addToPrototype(HTMLElement, "find", function(selector) {return DOMTools.query(selector, this);});
 Utilities.addToPrototype(HTMLElement, "findAll", function(selector) {return DOMTools.queryAll(selector, this);});
 Utilities.addToPrototype(HTMLElement, "appendTo", function(otherNode) {return DOMTools.appendTo(this, otherNode);});
+Utilities.addToPrototype(HTMLElement, "onAdded", function(callback) {return DOMTools.hasClass(this, callback);});
+Utilities.addToPrototype(HTMLElement, "onRemoved", function(callback) {return DOMTools.hasClass(this, callback);});
 
 /**
  * Proxy for all the class packages, allows us to safely attempt
@@ -633,74 +721,7 @@ export const DiscordSelectors = new Proxy(DiscordClassModules, {
 			}
 		});
 	}
-});
-
-
-
-
-
-// static extendElement(element) {
-// 	if (typeof(element) == "string") element = DOMTools.parseHTML(element);
-// 	if (Array.isArray(element)) return element = element.map(e => this.extendElement(e));
-// 	if (element instanceof NodeList) return element = Array.from(element).map(e => this.extendElement(e));
-// 	if (element.nodeType &amp;&amp; element.nodeType !== 1) return element;
-	
-// 	element.insertAfter = function(referenceNode) { return DOMTools.insertAfter(this, referenceNode); };
-// 	element.next = function(selector = "") {return DOMTools.next(this, selector);};
-// 	element.nextAll = function() {return DOMTools.nextAll(this);};
-// 	element.nextUntil = function(selector) {return DOMTools.nextUntil(this, selector);};
-// 	element.previous = function(selector = "") {return DOMTools.previous(this, selector);};
-// 	element.previousAll = function() {return DOMTools.previousAll(this);};
-// 	element.previousUntil = function(selector) {return DOMTools.previousUntil(this, selector);};
-// 	element.index = function() {return DOMTools.index(this);};
-// 	element.parent = function(selector) {return DOMTools.parent(this, selector);};
-// 	element.parents = function(selector = "") {return DOMTools.parents(this, selector);};
-// 	element.parentsUntil = function(selector) {return DOMTools.parentsUntil(this, selector);};
-// 	element.siblings = function(selector = "*") {return DOMTools.sublings(this, selector);};
-// 	element.css = function(attribute, value) {return DOMTools.css(this, attribute, value);};
-// 	element.width = function(value) {return DOMTools.width(this, value);};
-// 	element.height = function(value) {return DOMTools.height(this, value);};
-// 	element.innerWidth = function() {return DOMTools.innerWidth(this);};
-// 	element.innerHeight = function() {return DOMTools.innerHeight(this);};
-// 	element.outerWidth = function() {return DOMTools.outerWidth(this);};
-// 	element.outerHeight = function() {return DOMTools.outerHeight(this);};
-// 	element.offset = function() {return DOMTools.offset(this);};
-// 	element.on = function(event, delegate, callback) {return DOMTools.on(this, event, delegate, callback);};
-// 	element.off = function(event, delegate, callback) {return DOMTools.off(this, event, delegate, callback);};
-// 	element.find = function(selector) {return DOMTools.query(selector, this);};
-// 	element.findAll = function(selector) {return DOMTools.queryAll(selector, this);};
-// 	element.appendTo = function(otherNode) {return DOMTools.appendTo(this, otherNode);};
-
-// 	return element;
-// }
-
-
-
-// HTMLElement.prototype.insertAfter = function(referenceNode) { return DOMTools.insertAfter(this, referenceNode); };
-// HTMLElement.prototype.next = function(selector = "") {return DOMTools.next(this, selector);};
-// HTMLElement.prototype.nextAll = function() {return DOMTools.nextAll(this);};
-// HTMLElement.prototype.nextUntil = function(selector) {return DOMTools.nextUntil(this, selector);};
-// HTMLElement.prototype.previous = function(selector = "") {return DOMTools.previous(this, selector);};
-// HTMLElement.prototype.previousAll = function() {return DOMTools.previousAll(this);};
-// HTMLElement.prototype.previousUntil = function(selector) {return DOMTools.previousUntil(this, selector);};
-// HTMLElement.prototype.index = function() {return DOMTools.index(this);};
-// HTMLElement.prototype.parent = function(selector) {return DOMTools.parent(this, selector);};
-// HTMLElement.prototype.parents = function(selector = "") {return DOMTools.parents(this, selector);};
-// HTMLElement.prototype.parentsUntil = function(selector) {return DOMTools.parentsUntil(this, selector);};
-// HTMLElement.prototype.siblings = function(selector = "*") {return DOMTools.sublings(this, selector);};
-// HTMLElement.prototype.css = function(attribute, value) {return DOMTools.css(this, attribute, value);};
-// HTMLElement.prototype.width = function(value) {return DOMTools.width(this, value);};
-// HTMLElement.prototype.height = function(value) {return DOMTools.height(this, value);};
-// HTMLElement.prototype.innerWidth = function() {return DOMTools.innerWidth(this);};
-// HTMLElement.prototype.innerHeight = function() {return DOMTools.innerHeight(this);};
-// HTMLElement.prototype.outerWidth = function() {return DOMTools.outerWidth(this);};
-// HTMLElement.prototype.outerHeight = function() {return DOMTools.outerHeight(this);};
-// HTMLElement.prototype.offset = function() {return DOMTools.offset(this);};
-// HTMLElement.prototype.on = function(event, delegate, callback) {return DOMTools.on(this, event, delegate, callback);};
-// HTMLElement.prototype.off = function(event, delegate, callback) {return DOMTools.off(this, event, delegate, callback);};
-// HTMLElement.prototype.find = function(selector) {return DOMTools.query(selector, this);};
-// HTMLElement.prototype.findAll = function(selector) {return DOMTools.queryAll(selector, this);};
-// HTMLElement.prototype.appendTo = function(otherNode) {return DOMTools.appendTo(this, otherNode);};</code></pre>
+});</code></pre>
         </article>
     </section>
 
@@ -710,13 +731,13 @@ export const DiscordSelectors = new Proxy(DiscordClassModules, {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-ColorConverter.html">ColorConverter</a></li><li><a href="module-ContextMenu.html">ContextMenu</a></li><li><a href="module-DiscordAPI.html">DiscordAPI</a></li><li><a href="module-DiscordClassModules.html">DiscordClassModules</a></li><li><a href="module-DiscordModules.html">DiscordModules</a></li><li><a href="module-DOMTools.html">DOMTools</a></li><li><a href="module-Logger.html">Logger</a></li><li><a href="module-Modals.html">Modals</a></li><li><a href="module-Patcher.html">Patcher</a></li><li><a href="module-PluginUpdater.html">PluginUpdater</a></li><li><a href="module-PluginUtilities.html">PluginUtilities</a></li><li><a href="module-Popouts.html">Popouts</a></li><li><a href="module-ReactTools.html">ReactTools</a></li><li><a href="module-Settings.html">Settings</a></li><li><a href="module-Toasts.html">Toasts</a></li><li><a href="module-Tooltip.html">Tooltip</a></li><li><a href="module-Utilities.html">Utilities</a></li><li><a href="module-WebpackModules.html">WebpackModules</a></li></ul><h3>Classes</h3><ul><li><a href="module-ContextMenu.ImageItem.html">ImageItem</a></li><li><a href="module-ContextMenu.ItemGroup.html">ItemGroup</a></li><li><a href="module-ContextMenu.Menu.html">Menu</a></li><li><a href="module-ContextMenu.MenuItem.html">MenuItem</a></li><li><a href="module-ContextMenu.SubMenuItem.html">SubMenuItem</a></li><li><a href="module-ContextMenu.TextItem.html">TextItem</a></li><li><a href="module-ContextMenu.ToggleItem.html">ToggleItem</a></li><li><a href="module-DiscordAPI.Channel.html">Channel</a></li><li><a href="module-DiscordAPI.Guild.html">Guild</a></li><li><a href="module-DiscordAPI.InsufficientPermissions.html">InsufficientPermissions</a></li><li><a href="module-DiscordAPI.List.html">List</a></li><li><a href="module-DiscordAPI.Message.html">Message</a></li><li><a href="module-DiscordAPI.User.html">User</a></li><li><a href="module-DiscordAPI.UserSettings.html">UserSettings</a></li><li><a href="module-DOMTools.ClassName.html">ClassName</a></li><li><a href="module-DOMTools.Selector.html">Selector</a></li><li><a href="module-Settings.ColorPicker.html">ColorPicker</a></li><li><a href="module-Settings.Dropdown.html">Dropdown</a></li><li><a href="module-Settings.Keybind.html">Keybind</a></li><li><a href="module-Settings.Radio.html">Radio</a></li><li><a href="module-Settings.SettingField.html">SettingField</a></li><li><a href="module-Settings.SettingGroup.html">SettingGroup</a></li><li><a href="module-Settings.Slider.html">Slider</a></li><li><a href="module-Settings.Switch.html">Switch</a></li><li><a href="module-Settings.Textbox.html">Textbox</a></li><li><a href="module-Tooltip.html">Tooltip</a></li><li><a href="module-WebpackModules.Filters.html">Filters</a></li><li><a href="Screen.html">Screen</a></li></ul><h3>Interfaces</h3><ul><li><a href="module-DOMTools-Offset.html">Offset</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-ColorConverter.html">ColorConverter</a></li><li><a href="module-ContextMenu.html">ContextMenu</a></li><li><a href="module-DiscordAPI.html">DiscordAPI</a></li><li><a href="module-DiscordClassModules.html">DiscordClassModules</a></li><li><a href="module-DiscordModules.html">DiscordModules</a></li><li><a href="module-DOMTools.html">DOMTools</a></li><li><a href="module-Logger.html">Logger</a></li><li><a href="module-Modals.html">Modals</a></li><li><a href="module-Patcher.html">Patcher</a></li><li><a href="module-PluginUpdater.html">PluginUpdater</a></li><li><a href="module-PluginUtilities.html">PluginUtilities</a></li><li><a href="module-Popouts.html">Popouts</a></li><li><a href="module-ReactTools.html">ReactTools</a></li><li><a href="module-Settings.html">Settings</a></li><li><a href="module-Toasts.html">Toasts</a></li><li><a href="module-Tooltip.html">Tooltip</a></li><li><a href="module-Utilities.html">Utilities</a></li><li><a href="module-WebpackModules.html">WebpackModules</a></li></ul><h3>Classes</h3><ul><li><a href="List.html">List</a></li><li><a href="Listenable.html">Listenable</a></li><li><a href="module-ContextMenu.ImageItem.html">ImageItem</a></li><li><a href="module-ContextMenu.ItemGroup.html">ItemGroup</a></li><li><a href="module-ContextMenu.Menu.html">Menu</a></li><li><a href="module-ContextMenu.MenuItem.html">MenuItem</a></li><li><a href="module-ContextMenu.SubMenuItem.html">SubMenuItem</a></li><li><a href="module-ContextMenu.TextItem.html">TextItem</a></li><li><a href="module-ContextMenu.ToggleItem.html">ToggleItem</a></li><li><a href="module-DiscordAPI.Channel.html">Channel</a></li><li><a href="module-DiscordAPI.Guild.html">Guild</a></li><li><a href="module-DiscordAPI.InsufficientPermissions.html">InsufficientPermissions</a></li><li><a href="module-DiscordAPI.Message.html">Message</a></li><li><a href="module-DiscordAPI.User.html">User</a></li><li><a href="module-DiscordAPI.UserSettings.html">UserSettings</a></li><li><a href="module-DOMTools.ClassName.html">ClassName</a></li><li><a href="module-DOMTools.Selector.html">Selector</a></li><li><a href="module-Settings.ColorPicker.html">ColorPicker</a></li><li><a href="module-Settings.Dropdown.html">Dropdown</a></li><li><a href="module-Settings.FilePicker.html">FilePicker</a></li><li><a href="module-Settings.Keybind.html">Keybind</a></li><li><a href="module-Settings.RadioGroup.html">RadioGroup</a></li><li><a href="module-Settings.SettingField.html">SettingField</a></li><li><a href="module-Settings.SettingGroup.html">SettingGroup</a></li><li><a href="module-Settings.SettingPanel.html">SettingPanel</a></li><li><a href="module-Settings.Slider.html">Slider</a></li><li><a href="module-Settings.Switch.html">Switch</a></li><li><a href="module-Settings.Textbox.html">Textbox</a></li><li><a href="module-Tooltip.html">Tooltip</a></li><li><a href="module-WebpackModules.Filters.html">Filters</a></li><li><a href="Screen.html">Screen</a></li></ul><h3>Interfaces</h3><ul><li><a href="module-DOMTools-Offset.html">Offset</a></li><li><a href="module-Modals-Changelog.html">Changelog</a></li><li><a href="module-Settings-DropdownItem.html">DropdownItem</a></li><li><a href="module-Settings-RadioItem.html">RadioItem</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue May 29 2018 00:21:26 GMT-0400 (Eastern Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Jun 01 2018 15:03:16 GMT-0400 (Eastern Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>

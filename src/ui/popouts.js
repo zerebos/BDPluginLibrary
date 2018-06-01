@@ -5,22 +5,21 @@
  */
 
 import {Screen} from "structs";
-import {DiscordModules} from "modules";
-
-//TODO: document stuff
+import {DiscordModules, DOMTools} from "modules";
 
 export default class Popouts {
     /**
-     * 
-     * @param {*} target 
-     * @param {*} user 
-     * @param {*} guildId 
-     * @param {*} channelId 
+     * Shows the user popout for a user relative to a target element
+     * @param {HTMLElement} target - Element to show the popout in relation to
+     * @param {object} user - Discord User object for the user to show
+	 * @param {object} [options] - Options to modify the request
+     * @param {string} [options.guild="currentGuildId"] - Id of the guild  (uses current if not specified)
+     * @param {string} [options.channel="currentChannelId"] - Id of the channel (uses current if not specified)
+	 * @param {string} [options.position="right"] - Positioning relative to element
      */
-    static showUserPopout(target, user, guildId, channelId) {
-		let guild = guildId ? guildId : DiscordModules.SelectedGuildStore.getGuildId();
-		let channel = channelId ? channelId : DiscordModules.SelectedChannelStore.getChannelId();
-		let position = "right";
+    static showUserPopout(target, user, options = {}) {
+		let {guild = DiscordModules.SelectedGuildStore.getGuildId(), channel = DiscordModules.SelectedChannelStore.getChannelId(), position = "right"} = options;
+		target = DOMTools.resolveElement(target);
 		if (target.getBoundingClientRect().right + 250 >= Screen.width) position = "left";
 		DiscordModules.PopoutOpener.openPopout(target, {
 			position: position,

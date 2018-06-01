@@ -537,10 +537,15 @@ export default class DOMTools {
 		return element;
 	}
 
-	//TODO: Documentation
+	/**
+	 * Adds a listener for when the node is added to the document body.
+	 * @param {HTMLElement} node - node to wait for
+	 * @param {callable} callback - function to be performed on event
+	 */
 	static onAdded(node, callback) {
 		const observer = new MutationObserver((mutations) => {
-			mutations.forEach((mutation) => {
+			for (let m = 0; m < mutations.length; m++) {
+				const mutation = mutations[m];
 				const nodes = Array.from(mutation.addedNodes);
 				const directMatch = nodes.indexOf(node) > -1;
 				const parentMatch = nodes.some(parent => parent.contains(node));
@@ -548,16 +553,30 @@ export default class DOMTools {
 					observer.disconnect();
 					callback();
 				}
-			});
+			}
+			// mutations.forEach((mutation) => {
+			// 	const nodes = Array.from(mutation.addedNodes);
+			// 	const directMatch = nodes.indexOf(node) > -1;
+			// 	const parentMatch = nodes.some(parent => parent.contains(node));
+			// 	if (directMatch || parentMatch) {
+			// 		observer.disconnect();
+			// 		callback();
+			// 	}
+			// });
 		});
 
 		observer.observe(document.body, {subtree: true, childList: true});
 	}
 
-	//TODO: Documentation
+	/**
+	 * Adds a listener for when the node is removed from the document body.
+	 * @param {HTMLElement} node - node to wait for
+	 * @param {callable} callback - function to be performed on event
+	 */
 	static onRemoved(node, callback) {
 		const observer = new MutationObserver((mutations) => {
-			mutations.forEach((mutation) => {
+			for (let m = 0; m < mutations.length; m++) {
+				const mutation = mutations[m];
 				const nodes = Array.from(mutation.removedNodes);
 				const directMatch = nodes.indexOf(node) > -1;
 				const parentMatch = nodes.some(parent => parent.contains(node));
@@ -565,10 +584,38 @@ export default class DOMTools {
 					observer.disconnect();
 					callback();
 				}
-			});
+			}
+			// mutations.forEach((mutation) => {
+			// 	const nodes = Array.from(mutation.removedNodes);
+			// 	const directMatch = nodes.indexOf(node) > -1;
+			// 	const parentMatch = nodes.some(parent => parent.contains(node));
+			// 	if (directMatch || parentMatch) {
+			// 		observer.disconnect();
+			// 		callback();
+			// 	}
+			// });
 		});
 
 		observer.observe(document.body, {subtree: true, childList: true});
+	}
+
+	/**
+	 * Helper function which combines multiple elements into one parent element
+	 * @param {Array<HTMLElement>} elements - array of elements to put into a single parent
+	 */
+	static wrap(elements) {
+		const domWrapper = this.parseHTML(`<div class="dom-wrapper"></div>`);
+		for (let e = 0; e < elements.length; e++) domWrapper.appendChild(elements[e]);
+		return domWrapper;
+	}
+
+	/**
+	 * Resolves the node to an HTMLElement. This is mainly used by library modules.
+	 * @param {(jQuery|Element)} node - node to resolve
+	 */
+	static resolveElement(node) {
+		if (!(node instanceof jQuery) && !(node instanceof Element)) return undefined;
+		return node instanceof jQuery ? node[0] : node;
 	}
 }
 
@@ -605,6 +652,8 @@ Utilities.addToPrototype(HTMLElement, "off", function(event, delegate, callback)
 Utilities.addToPrototype(HTMLElement, "find", function(selector) {return DOMTools.query(selector, this);});
 Utilities.addToPrototype(HTMLElement, "findAll", function(selector) {return DOMTools.queryAll(selector, this);});
 Utilities.addToPrototype(HTMLElement, "appendTo", function(otherNode) {return DOMTools.appendTo(this, otherNode);});
+Utilities.addToPrototype(HTMLElement, "onAdded", function(callback) {return DOMTools.hasClass(this, callback);});
+Utilities.addToPrototype(HTMLElement, "onRemoved", function(callback) {return DOMTools.hasClass(this, callback);});
 
 /**
  * Proxy for all the class packages, allows us to safely attempt
@@ -645,70 +694,3 @@ export const DiscordSelectors = new Proxy(DiscordClassModules, {
 		});
 	}
 });
-
-
-
-
-
-// static extendElement(element) {
-// 	if (typeof(element) == "string") element = DOMTools.parseHTML(element);
-// 	if (Array.isArray(element)) return element = element.map(e => this.extendElement(e));
-// 	if (element instanceof NodeList) return element = Array.from(element).map(e => this.extendElement(e));
-// 	if (element.nodeType && element.nodeType !== 1) return element;
-	
-// 	element.insertAfter = function(referenceNode) { return DOMTools.insertAfter(this, referenceNode); };
-// 	element.next = function(selector = "") {return DOMTools.next(this, selector);};
-// 	element.nextAll = function() {return DOMTools.nextAll(this);};
-// 	element.nextUntil = function(selector) {return DOMTools.nextUntil(this, selector);};
-// 	element.previous = function(selector = "") {return DOMTools.previous(this, selector);};
-// 	element.previousAll = function() {return DOMTools.previousAll(this);};
-// 	element.previousUntil = function(selector) {return DOMTools.previousUntil(this, selector);};
-// 	element.index = function() {return DOMTools.index(this);};
-// 	element.parent = function(selector) {return DOMTools.parent(this, selector);};
-// 	element.parents = function(selector = "") {return DOMTools.parents(this, selector);};
-// 	element.parentsUntil = function(selector) {return DOMTools.parentsUntil(this, selector);};
-// 	element.siblings = function(selector = "*") {return DOMTools.sublings(this, selector);};
-// 	element.css = function(attribute, value) {return DOMTools.css(this, attribute, value);};
-// 	element.width = function(value) {return DOMTools.width(this, value);};
-// 	element.height = function(value) {return DOMTools.height(this, value);};
-// 	element.innerWidth = function() {return DOMTools.innerWidth(this);};
-// 	element.innerHeight = function() {return DOMTools.innerHeight(this);};
-// 	element.outerWidth = function() {return DOMTools.outerWidth(this);};
-// 	element.outerHeight = function() {return DOMTools.outerHeight(this);};
-// 	element.offset = function() {return DOMTools.offset(this);};
-// 	element.on = function(event, delegate, callback) {return DOMTools.on(this, event, delegate, callback);};
-// 	element.off = function(event, delegate, callback) {return DOMTools.off(this, event, delegate, callback);};
-// 	element.find = function(selector) {return DOMTools.query(selector, this);};
-// 	element.findAll = function(selector) {return DOMTools.queryAll(selector, this);};
-// 	element.appendTo = function(otherNode) {return DOMTools.appendTo(this, otherNode);};
-
-// 	return element;
-// }
-
-
-
-// HTMLElement.prototype.insertAfter = function(referenceNode) { return DOMTools.insertAfter(this, referenceNode); };
-// HTMLElement.prototype.next = function(selector = "") {return DOMTools.next(this, selector);};
-// HTMLElement.prototype.nextAll = function() {return DOMTools.nextAll(this);};
-// HTMLElement.prototype.nextUntil = function(selector) {return DOMTools.nextUntil(this, selector);};
-// HTMLElement.prototype.previous = function(selector = "") {return DOMTools.previous(this, selector);};
-// HTMLElement.prototype.previousAll = function() {return DOMTools.previousAll(this);};
-// HTMLElement.prototype.previousUntil = function(selector) {return DOMTools.previousUntil(this, selector);};
-// HTMLElement.prototype.index = function() {return DOMTools.index(this);};
-// HTMLElement.prototype.parent = function(selector) {return DOMTools.parent(this, selector);};
-// HTMLElement.prototype.parents = function(selector = "") {return DOMTools.parents(this, selector);};
-// HTMLElement.prototype.parentsUntil = function(selector) {return DOMTools.parentsUntil(this, selector);};
-// HTMLElement.prototype.siblings = function(selector = "*") {return DOMTools.sublings(this, selector);};
-// HTMLElement.prototype.css = function(attribute, value) {return DOMTools.css(this, attribute, value);};
-// HTMLElement.prototype.width = function(value) {return DOMTools.width(this, value);};
-// HTMLElement.prototype.height = function(value) {return DOMTools.height(this, value);};
-// HTMLElement.prototype.innerWidth = function() {return DOMTools.innerWidth(this);};
-// HTMLElement.prototype.innerHeight = function() {return DOMTools.innerHeight(this);};
-// HTMLElement.prototype.outerWidth = function() {return DOMTools.outerWidth(this);};
-// HTMLElement.prototype.outerHeight = function() {return DOMTools.outerHeight(this);};
-// HTMLElement.prototype.offset = function() {return DOMTools.offset(this);};
-// HTMLElement.prototype.on = function(event, delegate, callback) {return DOMTools.on(this, event, delegate, callback);};
-// HTMLElement.prototype.off = function(event, delegate, callback) {return DOMTools.off(this, event, delegate, callback);};
-// HTMLElement.prototype.find = function(selector) {return DOMTools.query(selector, this);};
-// HTMLElement.prototype.findAll = function(selector) {return DOMTools.queryAll(selector, this);};
-// HTMLElement.prototype.appendTo = function(otherNode) {return DOMTools.appendTo(this, otherNode);};

@@ -9,10 +9,8 @@ import SettingField from "./settingfield";
  */
 class SettingGroup extends Listenable {
     /**
-     * 
-     * @constructor
      * @param {string} groupName - title for the group of settings
-     * @param {object} options - additional options for the group
+     * @param {object} [options] - additional options for the group
 	 * @param {callback} [options.callback] - callback called on settings changed
      * @param {boolean} [options.collapsible=true] - determines if the group should be collapsible
      * @param {boolean} [options.shown=false] - determines if the group should be expanded by default
@@ -20,7 +18,7 @@ class SettingGroup extends Listenable {
 	constructor(groupName, options = {}) {
 		super();
 		const {collapsible = true, shown = false, callback = () => {}} = options;
-		this.onChangeCallback = callback;
+		this.addListener(callback);
 		this.onChange = this.onChange.bind(this);
 
 		const collapsed = shown || !collapsible ? "" : "collapsed";
@@ -41,7 +39,6 @@ class SettingGroup extends Listenable {
 		label.addEventListener("click", async () => {
 			const button = label.querySelector(".button-collapse");
 			const wasCollapsed = button.classList.contains("collapsed");
-			//Array.from(group.parentElement.children).filter(e => e.matches(".plugin-control-group"));
 			group.parentElement.querySelectorAll(":scope > .plugin-input-group > .collapsible:not(.collapsed)").forEach((element) => {
 				element.style.setProperty("height", element.scrollHeight + "px");
 				element.classList.add("collapsed");
@@ -57,13 +54,13 @@ class SettingGroup extends Listenable {
 		});
 	}
     
-    /** @returns {jQuery} jQuery node for the group. */
+    /** @returns {HTMLElement} - root node for the group. */
 	getElement() {return this.group;}
     
     /**
-     * 
-     * @param {(...HTMLElement|...jQuery)} nodes - list of nodes to add to the group container 
-     * @returns {ControlGroup} returns self for chaining
+     * Adds multiple nodes to this group.
+     * @param {(...HTMLElement|...jQuery|...module:Settings.SettingField|...module:Settings.SettingGroup)} nodes - list of nodes to add to the group container 
+     * @returns {module:Settings.SettingGroup} - returns self for chaining
      */
 	append(...nodes) {
 		for (var i = 0; i < nodes.length; i++) {
@@ -74,18 +71,18 @@ class SettingGroup extends Listenable {
 	}
     
     /**
-     * 
-     * @param {(HTMLElement|jQuery)} node - node to attach the group to.
-     * @returns {ControlGroup} returns self for chaining
+     * Appends this node to another
+     * @param {HTMLElement} node - node to attach the group to.
+     * @returns {module:Settings.SettingGroup} - returns self for chaining
      */
 	appendTo(node) {
-		this.group.appendTo(node);
+		node.append(this.group);
 		return this;
 	}
 
+	/** Fires onchange to listeners */
 	onChange() {
-		this.onChangeCallback();
-		this.alertListeners();
+		this.alertListeners(...arguments);
 	}
 }
 

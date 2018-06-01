@@ -6,23 +6,34 @@
 
 import {DiscordModules, DOMTools, DiscordClasses, ReactTools} from "modules";
 
-//TODO: document stuff
-
 export default class Modals {
+
+    /** Sizes of modals. */
+    static get ModalSizes() {return DiscordModules.ConfirmationModal.Sizes;}
+
     /**
-     * 
-     * @param {*} title 
-     * @param {*} content 
-     * @param {*} options 
+     * Shows the user profile modal for a given user.
+     * @param {string} userId - id of the user to show profile for
+     */
+    static showUserProfile(userId) {
+        return DiscordModules.UserProfileModal.open(userId);
+    }
+
+    /**
+     * Acts as a wrapper for {@link module:Modals.showModal} where the `children` is a text element.
+     * @param {string} title - title of the modal
+     * @param {string} content - text to show inside the modal
+     * @param {object} [options] - see {@link module:Modals.showModal}
+     * @see module:Modals.showModal
      */
     static showConfirmationModal(title, content, options = {}) {
         this.showAlertModal(title, DiscordModules.TextElement.default({color: DiscordModules.TextElement.Colors.PRIMARY, children: [content]}), options);
     }
 
     /**
-     * 
-     * @param {*} title 
-     * @param {*} body 
+     * Shows a very simple alert modal that has title, content and an okay button.
+     * @param {string} title - title of the modal
+     * @param {string} body - text to show inside the modal
      */
     static showAlertModal(title, body) {
 		DiscordModules.ModalStack.push(function(props) {
@@ -34,10 +45,16 @@ export default class Modals {
     }
 
     /**
-     * 
-     * @param {*} title 
-     * @param {*} content 
-     * @param {*} options 
+     * Shows a generic but very customizable modal.
+     * @param {string} title - title of the modal
+     * @param {(ReactElement|Array<ReactElement>)} children - a single or array of rendered react elements to act as children
+     * @param {object} [options] - options to modify the modal
+     * @param {boolean} [options.danger=false] - whether the main button should be red or not
+     * @param {string} [options.confirmText=Okay] - text for the confirmation/submit button
+     * @param {string} [options.cancelText=Cancel] - text for the cancel button
+     * @param {callable} [options.onConfirm=NOOP] - callback to occur when clicking the submit button
+     * @param {callable} [options.onCancel=NOOP] - callback to occur when clicking the cancel button
+     * @param {module:Modals.ModalSizes} [options.size=module:Modals.ModalSizes.SMALL] - overall size of the modal
      */
     static showModal(title, children, options = {}) {
         const {danger = false, confirmText = "Okay", cancelText = "Cancel", onConfirm = () => {}, onCancel = () => {}, size = this.ModalSizes.SMALL} = options;
@@ -55,18 +72,20 @@ export default class Modals {
         });
     }
 
-    static showUserProfile(userId) {
-        return DiscordModules.UserProfileModal.open(userId);
-    }
-
-    static get ModalSizes() {return DiscordModules.ConfirmationModal.Sizes;}
+    /**
+     * @interface
+     * @name module:Modals~Changelog
+     * @property {string} title - title of the changelog section
+     * @property {string} [type=added] - type information of the section. Options: added, improved, fixed, progress.
+     * @property {(Array<HTMLElement>|Array<string>)} items - itemized list of items to show in that section. Can be elements, strings, domstrings, or a mix of those.
+     */
 
     /**
-     * fixed, added, progress, improved
-     * {title: "title", type: "added", items: []}
-     * @param {*} title 
-     * @param {*} version 
-     * @param {*} changelog 
+     * Shows a changelog modal based on changelog data.
+     * @param {string} title - title of the modal
+     * @param {string} version - subtitle (usually version or date) of the modal
+     * @param {module:Modals~Changelog} changelog - changelog to show inside the modal
+     * @param {(HTMLElement|string)} footer - either an html element or text to show in the footer of the modal
      */
     static showChangelogModal(title, version, changelog, footer) {
         const changelogItems = [];
@@ -77,7 +96,10 @@ export default class Modals {
             changelogItems.push(DOMTools.parseHTML(`<h1 class="${type} ${margin}">${entry.title}</h1>`));
             const list = DOMTools.parseHTML(`<ul></ul>`);
             for (let i = 0; i < entry.items.length; i++) {
-                list.append(DOMTools.parseHTML(`<li>${entry.items[i]}</li>`));
+                const listElem = DOMTools.parseHTML(`<li></li>`);
+                if (entry.items[i] instanceof Element) listElem.append(entry.items[i]);
+                else listElem.append(DOMTools.parseHTML(entry.items[i]));
+                list.append(listElem);
             }
             changelogItems.push(list);
         }

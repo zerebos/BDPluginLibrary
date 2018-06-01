@@ -1,28 +1,33 @@
-import ReactSettingField from "../reactsettingfield";
+import SettingField from "../settingfield";
 import {DiscordModules} from "modules";
 
-//TODO: Documentation
+/**
+ * @interface
+ * @name module:Settings~DropdownItem
+ * @property {string} label - label to show in the dropdown
+ * @property {*} value - actual value represented by label (this is passed via onChange)
+ */
 
 /** 
- * Creates a dropdown using discord's built in dropdown
- * as a base.
+ * Creates a dropdown using discord's built in dropdown.
  * @memberof module:Settings
- * @version 1.0.0
+ * @version 0.0.1
  * @extends module:Settings.SettingField
  */
-class Dropdown extends ReactSettingField {
+class Dropdown extends SettingField {
     /**
-     * @constructor
-     * @param {string} label - title for the setting
-     * @param {string} help - description of the setting
-	 * @param {(number|string)} defaultValue - default value of the setting in hex or int format
-     * @param {(number|string)} values - value of the setting in hex or int format
-     * @param {module:Settings~settingsChanged} callback - callback fired on color change
-     * @param {object} options - additional options for the input field itself
-     */
-	constructor(label, help, defaultValue, values, callback, options = {}) {
+	 * @param {string} name - name label of the setting 
+	 * @param {string} note - help/note to show underneath or above the setting
+	 * @param {*} defaultValue - currently selected value
+	 * @param {Array<module:Settings~DropdownItem>} values - array of all options available
+	 * @param {callable} onChange - callback to perform on setting change, callback item value
+	 * @param {object} [options] - object of options to give to the setting
+	 * @param {boolean} [options.clearable=false] - should be able to empty the field value
+	 * @param {boolean} [options.searchable=false] - should user be able to search the dropdown
+	 */
+	constructor(label, help, defaultValue, values, onChange, options = {}) {
 		const {clearable = false, searchable = false} = options;
-		super(label, help, callback, DiscordModules.Dropdown, {
+		super(label, help, onChange, DiscordModules.Dropdown, {
 			clearable: clearable,
 			searchable: searchable,
 			options: values,

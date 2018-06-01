@@ -1,27 +1,25 @@
-import ReactSettingField from "../reactsettingfield";
+import SettingField from "../settingfield";
 import {DiscordModules} from "modules";
 
 //TODO: Documentation
 
 /** 
- * Creates a textbox using discord's built in textbox
- * as a base.
+ * Creates a textbox using discord's built in textbox.
  * @memberof module:Settings
- * @version 1.0.0
+ * @version 0.1.0
  * @extends module:Settings.SettingField
  */
-class Textbox extends ReactSettingField {
+class Textbox extends SettingField {
     /**
-     * @constructor
-     * @param {string} label - title for the setting
-     * @param {string} help - description of the setting
-	 * @param {(number|string)} defaultValue - default value of the setting in hex or int format
-     * @param {(number|string)} values - value of the setting in hex or int format
-     * @param {module:Settings~settingsChanged} callback - callback fired on color change
-     * @param {object} options - additional options for the input field itself
-     */  
-    constructor(label, help, value, callback, options = {}) {
-		super(label, help, callback, DiscordModules.Textbox, {
+	 * @param {string} name - name label of the setting 
+	 * @param {string} note - help/note to show underneath or above the setting
+	 * @param {string} value - current text in box
+	 * @param {callable} onChange - callback to perform on setting change, callback receives text
+	 * @param {object} [options] - object of options to give to the setting
+	 * @param {string} [options.placeholder=""] - placeholder for when textbox is empty
+	 */
+    constructor(name, note, value, onChange, options = {}) {
+		super(name, note, onChange, DiscordModules.Textbox, {
             onChange: textbox => value => {
                 textbox.props.value = value;
                 textbox.forceUpdate();

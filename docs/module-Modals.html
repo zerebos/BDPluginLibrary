@@ -129,11 +129,84 @@
     
 
     
+        <h3 class="subsection-title">Interfaces</h3>
+
+        <dl>
+            <dt><a href="module-Modals-Changelog.html">Changelog</a></dt>
+            <dd></dd>
+        </dl>
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id=".ModalSizes"><span class="type-signature">(static) </span>ModalSizes<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>Sizes of modals.</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
 
     
 
     
 
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ui_modals.js.html">ui/modals.js</a>, <a href="ui_modals.js.html#line12">line 12</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
     
 
     
@@ -151,6 +224,10 @@
     
 
 
+
+<div class="description">
+    <p>Shows a very simple alert modal that has title, content and an okay button.</p>
+</div>
 
 
 
@@ -191,7 +268,7 @@
             <td class="type">
             
                 
-<span class="param-type">*</span>
+<span class="param-type">string</span>
 
 
             
@@ -201,7 +278,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>title of the modal</p></td>
         </tr>
 
     
@@ -214,7 +291,7 @@
             <td class="type">
             
                 
-<span class="param-type">*</span>
+<span class="param-type">string</span>
 
 
             
@@ -224,7 +301,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>text to show inside the modal</p></td>
         </tr>
 
     
@@ -299,12 +376,16 @@
     
 
     
-    <h4 class="name" id=".showConfirmationModal"><span class="type-signature">(static) </span>showConfirmationModal<span class="signature">(title, content, options)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".showChangelogModal"><span class="type-signature">(static) </span>showChangelogModal<span class="signature">(title, version, changelog, footer)</span><span class="type-signature"></span></h4>
     
 
     
 
 
+
+<div class="description">
+    <p>Shows a changelog modal based on changelog data.</p>
+</div>
 
 
 
@@ -345,7 +426,7 @@
             <td class="type">
             
                 
-<span class="param-type">*</span>
+<span class="param-type">string</span>
 
 
             
@@ -355,7 +436,224 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>title of the modal</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>version</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>subtitle (usually version or date) of the modal</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>changelog</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-Modals-Changelog.html">module:Modals~Changelog</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>changelog to show inside the modal</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>footer</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">HTMLElement</span>
+|
+
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>either an html element or text to show in the footer of the modal</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ui_modals.js.html">ui/modals.js</a>, <a href="ui_modals.js.html#line90">line 90</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".showConfirmationModal"><span class="type-signature">(static) </span>showConfirmationModal<span class="signature">(title, content, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Acts as a wrapper for <a href="module-Modals.html#.showModal">module:Modals.showModal</a> where the <code>children</code> is a text element.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>title</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>title of the modal</p></td>
         </tr>
 
     
@@ -368,17 +666,25 @@
             <td class="type">
             
                 
-<span class="param-type">*</span>
+<span class="param-type">string</span>
 
 
             
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>text to show inside the modal</p></td>
         </tr>
 
     
@@ -391,7 +697,635 @@
             <td class="type">
             
                 
-<span class="param-type">*</span>
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>see <a href="module-Modals.html#.showModal">module:Modals.showModal</a></p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ui_modals.js.html">ui/modals.js</a>, <a href="ui_modals.js.html#line29">line 29</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="module-Modals.html#.showModal">module:Modals.showModal</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".showModal"><span class="type-signature">(static) </span>showModal<span class="signature">(title, children, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Shows a generic but very customizable modal.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>title</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>title of the modal</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>children</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">ReactElement</span>
+|
+
+<span class="param-type">Array.&lt;ReactElement></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>a single or array of rendered react elements to act as children</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>options to modify the modal</p>
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>danger</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last"><p>whether the main button should be red or not</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>confirmText</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    Okay
+                
+                </td>
+            
+
+            <td class="description last"><p>text for the confirmation/submit button</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>cancelText</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    Cancel
+                
+                </td>
+            
+
+            <td class="description last"><p>text for the cancel button</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>onConfirm</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callable</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    NOOP
+                
+                </td>
+            
+
+            <td class="description last"><p>callback to occur when clicking the submit button</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>onCancel</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callable</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    NOOP
+                
+                </td>
+            
+
+            <td class="description last"><p>callback to occur when clicking the cancel button</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>size</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-Modals.html#.ModalSizes">module:Modals.ModalSizes</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    module:Modals.ModalSizes.SMALL
+                
+                </td>
+            
+
+            <td class="description last"><p>overall size of the modal</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ui_modals.js.html">ui/modals.js</a>, <a href="ui_modals.js.html#line59">line 59</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".showUserProfile"><span class="type-signature">(static) </span>showUserProfile<span class="signature">(userId)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Shows the user profile modal for a given user.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>userId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
 
 
             
@@ -401,7 +1335,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>id of the user to show profile for</p></td>
         </tr>
 
     
@@ -486,13 +1420,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-ColorConverter.html">ColorConverter</a></li><li><a href="module-ContextMenu.html">ContextMenu</a></li><li><a href="module-DiscordAPI.html">DiscordAPI</a></li><li><a href="module-DiscordClassModules.html">DiscordClassModules</a></li><li><a href="module-DiscordModules.html">DiscordModules</a></li><li><a href="module-DOMTools.html">DOMTools</a></li><li><a href="module-Logger.html">Logger</a></li><li><a href="module-Modals.html">Modals</a></li><li><a href="module-Patcher.html">Patcher</a></li><li><a href="module-PluginUpdater.html">PluginUpdater</a></li><li><a href="module-PluginUtilities.html">PluginUtilities</a></li><li><a href="module-Popouts.html">Popouts</a></li><li><a href="module-ReactTools.html">ReactTools</a></li><li><a href="module-Settings.html">Settings</a></li><li><a href="module-Toasts.html">Toasts</a></li><li><a href="module-Tooltip.html">Tooltip</a></li><li><a href="module-Utilities.html">Utilities</a></li><li><a href="module-WebpackModules.html">WebpackModules</a></li></ul><h3>Classes</h3><ul><li><a href="module-ContextMenu.ImageItem.html">ImageItem</a></li><li><a href="module-ContextMenu.ItemGroup.html">ItemGroup</a></li><li><a href="module-ContextMenu.Menu.html">Menu</a></li><li><a href="module-ContextMenu.MenuItem.html">MenuItem</a></li><li><a href="module-ContextMenu.SubMenuItem.html">SubMenuItem</a></li><li><a href="module-ContextMenu.TextItem.html">TextItem</a></li><li><a href="module-ContextMenu.ToggleItem.html">ToggleItem</a></li><li><a href="module-DiscordAPI.Channel.html">Channel</a></li><li><a href="module-DiscordAPI.Guild.html">Guild</a></li><li><a href="module-DiscordAPI.InsufficientPermissions.html">InsufficientPermissions</a></li><li><a href="module-DiscordAPI.List.html">List</a></li><li><a href="module-DiscordAPI.Message.html">Message</a></li><li><a href="module-DiscordAPI.User.html">User</a></li><li><a href="module-DiscordAPI.UserSettings.html">UserSettings</a></li><li><a href="module-DOMTools.ClassName.html">ClassName</a></li><li><a href="module-DOMTools.Selector.html">Selector</a></li><li><a href="module-Settings.ColorPicker.html">ColorPicker</a></li><li><a href="module-Settings.Dropdown.html">Dropdown</a></li><li><a href="module-Settings.Keybind.html">Keybind</a></li><li><a href="module-Settings.Radio.html">Radio</a></li><li><a href="module-Settings.SettingField.html">SettingField</a></li><li><a href="module-Settings.SettingGroup.html">SettingGroup</a></li><li><a href="module-Settings.Slider.html">Slider</a></li><li><a href="module-Settings.Switch.html">Switch</a></li><li><a href="module-Settings.Textbox.html">Textbox</a></li><li><a href="module-Tooltip.html">Tooltip</a></li><li><a href="module-WebpackModules.Filters.html">Filters</a></li><li><a href="Screen.html">Screen</a></li></ul><h3>Interfaces</h3><ul><li><a href="module-DOMTools-Offset.html">Offset</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-ColorConverter.html">ColorConverter</a></li><li><a href="module-ContextMenu.html">ContextMenu</a></li><li><a href="module-DiscordAPI.html">DiscordAPI</a></li><li><a href="module-DiscordClassModules.html">DiscordClassModules</a></li><li><a href="module-DiscordModules.html">DiscordModules</a></li><li><a href="module-DOMTools.html">DOMTools</a></li><li><a href="module-Logger.html">Logger</a></li><li><a href="module-Modals.html">Modals</a></li><li><a href="module-Patcher.html">Patcher</a></li><li><a href="module-PluginUpdater.html">PluginUpdater</a></li><li><a href="module-PluginUtilities.html">PluginUtilities</a></li><li><a href="module-Popouts.html">Popouts</a></li><li><a href="module-ReactTools.html">ReactTools</a></li><li><a href="module-Settings.html">Settings</a></li><li><a href="module-Toasts.html">Toasts</a></li><li><a href="module-Tooltip.html">Tooltip</a></li><li><a href="module-Utilities.html">Utilities</a></li><li><a href="module-WebpackModules.html">WebpackModules</a></li></ul><h3>Classes</h3><ul><li><a href="List.html">List</a></li><li><a href="Listenable.html">Listenable</a></li><li><a href="module-ContextMenu.ImageItem.html">ImageItem</a></li><li><a href="module-ContextMenu.ItemGroup.html">ItemGroup</a></li><li><a href="module-ContextMenu.Menu.html">Menu</a></li><li><a href="module-ContextMenu.MenuItem.html">MenuItem</a></li><li><a href="module-ContextMenu.SubMenuItem.html">SubMenuItem</a></li><li><a href="module-ContextMenu.TextItem.html">TextItem</a></li><li><a href="module-ContextMenu.ToggleItem.html">ToggleItem</a></li><li><a href="module-DiscordAPI.Channel.html">Channel</a></li><li><a href="module-DiscordAPI.Guild.html">Guild</a></li><li><a href="module-DiscordAPI.InsufficientPermissions.html">InsufficientPermissions</a></li><li><a href="module-DiscordAPI.Message.html">Message</a></li><li><a href="module-DiscordAPI.User.html">User</a></li><li><a href="module-DiscordAPI.UserSettings.html">UserSettings</a></li><li><a href="module-DOMTools.ClassName.html">ClassName</a></li><li><a href="module-DOMTools.Selector.html">Selector</a></li><li><a href="module-Settings.ColorPicker.html">ColorPicker</a></li><li><a href="module-Settings.Dropdown.html">Dropdown</a></li><li><a href="module-Settings.FilePicker.html">FilePicker</a></li><li><a href="module-Settings.Keybind.html">Keybind</a></li><li><a href="module-Settings.RadioGroup.html">RadioGroup</a></li><li><a href="module-Settings.SettingField.html">SettingField</a></li><li><a href="module-Settings.SettingGroup.html">SettingGroup</a></li><li><a href="module-Settings.SettingPanel.html">SettingPanel</a></li><li><a href="module-Settings.Slider.html">Slider</a></li><li><a href="module-Settings.Switch.html">Switch</a></li><li><a href="module-Settings.Textbox.html">Textbox</a></li><li><a href="module-Tooltip.html">Tooltip</a></li><li><a href="module-WebpackModules.Filters.html">Filters</a></li><li><a href="Screen.html">Screen</a></li></ul><h3>Interfaces</h3><ul><li><a href="module-DOMTools-Offset.html">Offset</a></li><li><a href="module-Modals-Changelog.html">Changelog</a></li><li><a href="module-Settings-DropdownItem.html">DropdownItem</a></li><li><a href="module-Settings-RadioItem.html">RadioItem</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue May 29 2018 00:21:26 GMT-0400 (Eastern Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Jun 01 2018 15:03:16 GMT-0400 (Eastern Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>

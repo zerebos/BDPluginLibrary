@@ -26,84 +26,86 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/** 
- * Generic representation of a setting field. Very extensible, but best to use a child class when available.
- * @memberof module:Settings
- * @version 1.0.5
- */
-class SettingField {
-    /**
-     * @constructor
-     * @param {string} name - title for the setting
-     * @param {string} helptext - description/help text to show
-     * @param {object} inputData - props to set up the input field
-     * @param {module:Settings~settingsChanged} callback - callback fired when the input field is changed
-     */
-	constructor(name, helptext, inputData, callback) {
-		this.name = name;
-		this.helptext = helptext;
-		this.row = $("&lt;div>").addClass("ui-flex flex-vertical flex-justify-start flex-align-stretch flex-nowrap ui-switch-item").css("margin-top", 0);
-		this.top = $("&lt;div>").addClass("ui-flex flex-horizontal flex-justify-start flex-align-stretch flex-nowrap plugin-setting-input-row");
-		this.settingLabel = $("&lt;h3>").attr("class", "ui-form-title h3 margin-reset margin-reset ui-flex-child").text(name);
-		
-		this.help = $("&lt;div>").addClass("ui-form-text style-description margin-top-4").css("flex", "1 1 auto").text(helptext);
-		
-		this.top.append(this.settingLabel);
-		this.inputWrapper = $("&lt;div>", {class: "input-wrapper"});
-		this.top.append(this.inputWrapper);
-		this.row.append(this.top, this.help);
-		
-		this.input = $("&lt;input>", inputData);
-		this.input.addClass("plugin-input");
-		this.getValue = () => {return this.input.val();};
-		this.processValue = (value) => {return value;};
-		this.input.on("keyup change", () => {
-			if (typeof callback != "undefined") {
-				var returnVal = this.getValue();
-				callback(returnVal);
-			}
-		});
+            <pre class="prettyprint source linenums"><code>import Listenable from "../../structs/listenable";
+import {DiscordModules, DOMTools, DiscordClasses, ReactTools} from "modules";
 
-		this.setInputElement(this.input);
-	}
-    
+/** 
+ * Setting field to extend to create new settings
+ * @memberof module:Settings
+ * @version 1.0.1
+ */
+class SettingField extends Listenable {
     /**
-     * Performing this will prevent the default callbacks from working!
-     * @param {(HTMLElement|jQuery)} node - node to override the default input with.
-     */
-	setInputElement(node) {
-		this.inputWrapper.empty();
-		this.inputWrapper.append(node);
+	 * @param {string} name - name label of the setting 
+	 * @param {string} note - help/note to show underneath or above the setting
+	 * @param {callable} onChange - callback to perform on setting change
+	 * @param {(ReactComponent|HTMLElement)} settingtype - actual setting to render 
+	 * @param {object} [props] - object of props to give to the setting and the settingtype
+	 * @param {boolean} [props.noteOnTop=false] - determines if the note should be shown above the element or not.
+	 */
+	constructor(name, note, onChange, settingtype, props = {}) {
+		super();
+		this.name = name;
+		this.note = note;
+		if (typeof(onChange) == "function") this.addListener(onChange);
+		this.inputWrapper = DOMTools.parseHTML(`&lt;div class="plugin-input-container">&lt;/div>`);
+		this.type = typeof(settingtype) == "function" ? settingtype : ReactTools.wrapElement(settingtype);
+		this.props = props;
+		DOMTools.onAdded(this.getElement(), () => {this.onAdded();});
+		DOMTools.onRemoved(this.getElement(), () => {this.onRemoved();});
 	}
-    
-    /** @returns {jQuery} jQuery node for the group. */
-	getElement() { return this.row; }
+
+	/** @returns {HTMLElement} - root element for setting */
+	getElement() { return this.inputWrapper; }
+
+	/** Fires onchange to listeners */
+	onChange() {
+		this.alertListeners(...arguments);
+	}
+
+	/** Fired when root node added to DOM */
+	onAdded() {
+		const reactElement = DiscordModules.ReactDOM.render(DiscordModules.React.createElement(ReactSetting, Object.assign({
+			title: this.name,
+			type: this.type,
+			note: this.note,
+		}, this.props)), this.getElement());
+
+		if (this.props.onChange) reactElement.props.onChange = this.props.onChange(reactElement);
+		reactElement.forceUpdate();
+	}
+
+	/** Fired when root node removed from DOM */
+	onRemoved() {
+		DiscordModules.ReactDOM.unmountComponentAtNode(this.getElement());
+    }
 }
 
 export default SettingField;
 
+class ReactSetting extends DiscordModules.React.Component {
+    constructor(props) {
+        super(props);
+    }
 
+    get noteElement() {
+        const className = this.props.noteOnTop ? DiscordClasses.Margins.marginBottom8 : DiscordClasses.Margins.marginTop8;
+        return DiscordModules.React.createElement(DiscordModules.SettingsNote, {children: this.props.note, type: "description", className: className.toString()});
+    }
 
+    get dividerElement() { return DiscordModules.React.createElement(DiscordModules.SettingsDivider, {className: DiscordClasses.Dividers.dividerDefault.toString()}); }
 
-/** 
- * Attempts to retreive the accent color of native settings items in rgba format.
- * @memberof module:Settings
- */
-function getAccentColor() {
-	var bg = $("&lt;div class=\"ui-switch-item\">&lt;div class=\"ui-switch-wrapper\">&lt;input type=\"checkbox\" checked=\"checked\" class=\"ui-switch-checkbox\">&lt;div class=\"ui-switch checked\">");
-	bg.appendTo($("#bd-settingspane-container"));
-	var bgColor = $(".ui-switch.checked").first().css("background-color");
-	var afterColor = window.getComputedStyle(bg.find(".ui-switch.checked")[0], ":after").getPropertyValue("background-color"); // For beardy's theme
-	bgColor = afterColor == "rgba(0, 0, 0, 0)" ? bgColor : afterColor;
-	bg.remove();
-	return bgColor;
+    render() {
+        const SettingElement = DiscordModules.React.createElement(this.props.type, this.props);
+        return DiscordModules.React.createElement(DiscordModules.SettingsWrapper, {className: DiscordClasses.Margins.marginBottom20.toString(), title: this.props.title, children: [
+            this.props.noteOnTop ? this.noteElement : SettingElement,
+            this.props.noteOnTop ? SettingElement : this.noteElement,
+            this.dividerElement
+        ]});
+    }
 }
 
-export {getAccentColor};
-
-export function createInputContainer(...children) {
-	return $("&lt;div class=\"plugin-setting-input-container\">").append(...children);
-}</code></pre>
+export {ReactSetting};</code></pre>
         </article>
     </section>
 
@@ -113,13 +115,13 @@ export function createInputContainer(...children) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-ColorConverter.html">ColorConverter</a></li><li><a href="module-ContextMenu.html">ContextMenu</a></li><li><a href="module-DiscordAPI.html">DiscordAPI</a></li><li><a href="module-DiscordClassModules.html">DiscordClassModules</a></li><li><a href="module-DiscordModules.html">DiscordModules</a></li><li><a href="module-DOMTools.html">DOMTools</a></li><li><a href="module-Logger.html">Logger</a></li><li><a href="module-Modals.html">Modals</a></li><li><a href="module-Patcher.html">Patcher</a></li><li><a href="module-PluginUpdater.html">PluginUpdater</a></li><li><a href="module-PluginUtilities.html">PluginUtilities</a></li><li><a href="module-Popouts.html">Popouts</a></li><li><a href="module-ReactTools.html">ReactTools</a></li><li><a href="module-Settings.html">Settings</a></li><li><a href="module-Toasts.html">Toasts</a></li><li><a href="module-Tooltip.html">Tooltip</a></li><li><a href="module-Utilities.html">Utilities</a></li><li><a href="module-WebpackModules.html">WebpackModules</a></li></ul><h3>Classes</h3><ul><li><a href="module-ContextMenu.ImageItem.html">ImageItem</a></li><li><a href="module-ContextMenu.ItemGroup.html">ItemGroup</a></li><li><a href="module-ContextMenu.Menu.html">Menu</a></li><li><a href="module-ContextMenu.MenuItem.html">MenuItem</a></li><li><a href="module-ContextMenu.SubMenuItem.html">SubMenuItem</a></li><li><a href="module-ContextMenu.TextItem.html">TextItem</a></li><li><a href="module-ContextMenu.ToggleItem.html">ToggleItem</a></li><li><a href="module-DiscordAPI.Channel.html">Channel</a></li><li><a href="module-DiscordAPI.Guild.html">Guild</a></li><li><a href="module-DiscordAPI.InsufficientPermissions.html">InsufficientPermissions</a></li><li><a href="module-DiscordAPI.List.html">List</a></li><li><a href="module-DiscordAPI.Message.html">Message</a></li><li><a href="module-DiscordAPI.User.html">User</a></li><li><a href="module-DiscordAPI.UserSettings.html">UserSettings</a></li><li><a href="module-DOMTools.ClassName.html">ClassName</a></li><li><a href="module-DOMTools.Selector.html">Selector</a></li><li><a href="module-Settings.ColorPicker.html">ColorPicker</a></li><li><a href="module-Settings.Dropdown.html">Dropdown</a></li><li><a href="module-Settings.Keybind.html">Keybind</a></li><li><a href="module-Settings.Radio.html">Radio</a></li><li><a href="module-Settings.SettingField.html">SettingField</a></li><li><a href="module-Settings.SettingGroup.html">SettingGroup</a></li><li><a href="module-Settings.Slider.html">Slider</a></li><li><a href="module-Settings.Switch.html">Switch</a></li><li><a href="module-Settings.Textbox.html">Textbox</a></li><li><a href="module-Tooltip.html">Tooltip</a></li><li><a href="module-WebpackModules.Filters.html">Filters</a></li><li><a href="Screen.html">Screen</a></li></ul><h3>Interfaces</h3><ul><li><a href="module-DOMTools-Offset.html">Offset</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-ColorConverter.html">ColorConverter</a></li><li><a href="module-ContextMenu.html">ContextMenu</a></li><li><a href="module-DiscordAPI.html">DiscordAPI</a></li><li><a href="module-DiscordClassModules.html">DiscordClassModules</a></li><li><a href="module-DiscordModules.html">DiscordModules</a></li><li><a href="module-DOMTools.html">DOMTools</a></li><li><a href="module-Logger.html">Logger</a></li><li><a href="module-Modals.html">Modals</a></li><li><a href="module-Patcher.html">Patcher</a></li><li><a href="module-PluginUpdater.html">PluginUpdater</a></li><li><a href="module-PluginUtilities.html">PluginUtilities</a></li><li><a href="module-Popouts.html">Popouts</a></li><li><a href="module-ReactTools.html">ReactTools</a></li><li><a href="module-Settings.html">Settings</a></li><li><a href="module-Toasts.html">Toasts</a></li><li><a href="module-Tooltip.html">Tooltip</a></li><li><a href="module-Utilities.html">Utilities</a></li><li><a href="module-WebpackModules.html">WebpackModules</a></li></ul><h3>Classes</h3><ul><li><a href="List.html">List</a></li><li><a href="Listenable.html">Listenable</a></li><li><a href="module-ContextMenu.ImageItem.html">ImageItem</a></li><li><a href="module-ContextMenu.ItemGroup.html">ItemGroup</a></li><li><a href="module-ContextMenu.Menu.html">Menu</a></li><li><a href="module-ContextMenu.MenuItem.html">MenuItem</a></li><li><a href="module-ContextMenu.SubMenuItem.html">SubMenuItem</a></li><li><a href="module-ContextMenu.TextItem.html">TextItem</a></li><li><a href="module-ContextMenu.ToggleItem.html">ToggleItem</a></li><li><a href="module-DiscordAPI.Channel.html">Channel</a></li><li><a href="module-DiscordAPI.Guild.html">Guild</a></li><li><a href="module-DiscordAPI.InsufficientPermissions.html">InsufficientPermissions</a></li><li><a href="module-DiscordAPI.Message.html">Message</a></li><li><a href="module-DiscordAPI.User.html">User</a></li><li><a href="module-DiscordAPI.UserSettings.html">UserSettings</a></li><li><a href="module-DOMTools.ClassName.html">ClassName</a></li><li><a href="module-DOMTools.Selector.html">Selector</a></li><li><a href="module-Settings.ColorPicker.html">ColorPicker</a></li><li><a href="module-Settings.Dropdown.html">Dropdown</a></li><li><a href="module-Settings.FilePicker.html">FilePicker</a></li><li><a href="module-Settings.Keybind.html">Keybind</a></li><li><a href="module-Settings.RadioGroup.html">RadioGroup</a></li><li><a href="module-Settings.SettingField.html">SettingField</a></li><li><a href="module-Settings.SettingGroup.html">SettingGroup</a></li><li><a href="module-Settings.SettingPanel.html">SettingPanel</a></li><li><a href="module-Settings.Slider.html">Slider</a></li><li><a href="module-Settings.Switch.html">Switch</a></li><li><a href="module-Settings.Textbox.html">Textbox</a></li><li><a href="module-Tooltip.html">Tooltip</a></li><li><a href="module-WebpackModules.Filters.html">Filters</a></li><li><a href="Screen.html">Screen</a></li></ul><h3>Interfaces</h3><ul><li><a href="module-DOMTools-Offset.html">Offset</a></li><li><a href="module-Modals-Changelog.html">Changelog</a></li><li><a href="module-Settings-DropdownItem.html">DropdownItem</a></li><li><a href="module-Settings-RadioItem.html">RadioItem</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue May 29 2018 00:21:26 GMT-0400 (Eastern Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Jun 01 2018 15:03:16 GMT-0400 (Eastern Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -69,16 +69,23 @@ export default class ReactTools {
 		return null;
 	}
 
+	/**
+	 * Creates and renders a react element that wraps dom elements.
+	 * @param {(HTMLElement|Array<HTMLElement>)} element - element or array of elements to wrap into a react element
+	 * @returns {object} - rendered react element
+	 */
 	static createWrappedElement(element) {
-		if (Array.isArray(element)) {
-			const domWrapper = DOMTools.parseHTML(`<div class="dom-wrapper"></div>`);
-			for (let e = 0; e < element.length; e++) domWrapper.appendChild(element[e]);
-			element = domWrapper;
-		}
+		if (Array.isArray(element)) element = DOMTools.wrap(element);
 		return DiscordModules.React.createElement(this.wrapElement(element));
 	}
 
+	/**
+	 * Creates an unrendered react component that wraps dom elements.
+	 * @param {(HTMLElement|Array<HTMLElement>)} element - element or array of elements to wrap into a react component
+	 * @returns {object} - unrendered react component
+	 */
 	static wrapElement(element) {
+		if (Array.isArray(element)) element = DOMTools.wrap(element);
 		return class ReactWrapper extends DiscordModules.React.Component {
 			constructor(props) {
 				super(props);

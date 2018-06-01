@@ -1,27 +1,25 @@
-import ReactSettingField from "../reactsettingfield";
+import SettingField from "../settingfield";
 import {DiscordModules} from "modules";
 
 //TODO: Documentation
 
 /** 
- * Creates a radio button using discord's built in radio button
- * as a base.
+ * Creates a switch using discord's built in switch.
  * @memberof module:Settings
- * @version 1.0.0
+ * @version 0.1.0
  * @extends module:Settings.SettingField
  */
-class Switch extends ReactSettingField {
+class Switch extends SettingField {
     /**
-     * @constructor
-     * @param {string} label - title for the setting
-     * @param {string} help - description of the setting
-	 * @param {(number|string)} defaultValue - default value of the setting in hex or int format
-     * @param {(number|string)} values - value of the setting in hex or int format
-     * @param {module:Settings~settingsChanged} callback - callback fired on color change
-     * @param {object} options - additional options for the input field itself
-     */
-	constructor(label, help, isChecked, callback, options = {}) {
-		super(label, help, options, callback);
+	 * @param {string} name - name label of the setting 
+	 * @param {string} note - help/note to show underneath or above the setting
+	 * @param {boolean} isChecked - should switch be checked
+	 * @param {callable} onChange - callback to perform on setting change, callback receives boolean
+	 * @param {object} [options] - object of options to give to the setting
+	 * @param {boolean} [options.disabled=false] - should the setting be disabled
+	 */
+	constructor(name, note, isChecked, onChange, options = {}) {
+		super(name, note, options, onChange);
 		this.disabled = options.disabled ? true : false;
 		this.value = isChecked ? true : false;
 	}

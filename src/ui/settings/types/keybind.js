@@ -1,27 +1,21 @@
-import ReactSettingField from "../reactsettingfield";
+import SettingField from "../settingfield";
 import {DiscordModules} from "modules";
 
-//TODO: Documentation
-
 /** 
- * Creates a keybind using discord's built in keybind
- * as a base.
+ * Creates a keybind setting using discord's built in keybind recorder.
  * @memberof module:Settings
- * @version 1.0.0
+ * @version 0.0.1
  * @extends module:Settings.SettingField
  */
-class Keybind extends ReactSettingField {
+class Keybind extends SettingField {
     /**
-     * @constructor
-     * @param {string} label - title for the setting
-     * @param {string} help - description of the setting
-	 * @param {(number|string)} defaultValue - default value of the setting in hex or int format
-     * @param {(number|string)} values - value of the setting in hex or int format
-     * @param {module:Settings~settingsChanged} callback - callback fired on color change
-     * @param {object} options - additional options for the input field itself
-     */    
-    constructor(label, help, value, callback) {
-		super(label, help, callback, DiscordModules.Keybind, {
+	 * @param {string} name - name label of the setting 
+	 * @param {string} note - help/note to show underneath or above the setting
+	 * @param {Array<number>} value - array of keycodes
+	 * @param {callable} onChange - callback to perform on setting change, callback receives array of keycodes
+	 */    
+    constructor(label, help, value, onChange) {
+		super(label, help, onChange, DiscordModules.Keybind, {
             defaultValue: value.map(a => [0, a]),
             onChange: element => value => {
                 if (!Array.isArray(value)) return;

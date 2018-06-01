@@ -29,9 +29,9 @@
 <header>
     
         <h2><span class="attribs"><span class="type-signature"></span></span>
-            <span class="ancestors"><a href="module-Settings.html">Settings</a>.</span>SettingField<span class="signature">(name, helptext, inputData, callback)</span><span class="type-signature"></span></h2>
+            <span class="ancestors"><a href="module-Settings.html">Settings</a>.</span>SettingField<span class="signature">(name, note, onChange, settingtype, props<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h2>
         
-            <div class="class-description"><p>Generic representation of a setting field. Very extensible, but best to use a child class when available.</p></div>
+            <div class="class-description"><p>Setting field to extend to create new settings</p></div>
         
     
 </header>
@@ -46,7 +46,7 @@
     
 
     
-    <h4 class="name" id="SettingField"><span class="type-signature"></span>new SettingField<span class="signature">(name, helptext, inputData, callback)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="SettingField"><span class="type-signature"></span>new SettingField<span class="signature">(name, note, onChange, settingtype, props<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
     
 
     
@@ -74,6 +74,8 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -99,17 +101,25 @@
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last"><p>title for the setting</p></td>
+            <td class="description last"><p>name label of the setting</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>helptext</code></td>
+                <td class="name"><code>note</code></td>
             
 
             <td class="type">
@@ -122,17 +132,90 @@
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last"><p>description/help text to show</p></td>
+            <td class="description last"><p>help/note to show underneath or above the setting</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>inputData</code></td>
+                <td class="name"><code>onChange</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callable</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>callback to perform on setting change</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>settingtype</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">ReactComponent</span>
+|
+
+<span class="param-type">HTMLElement</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>actual setting to render</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>props</code></td>
             
 
             <td class="type">
@@ -145,33 +228,89 @@
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last"><p>props to set up the input field</p></td>
-        </tr>
+            <td class="description last"><p>object of props to give to the setting and the settingtype</p>
+                <h6>Properties</h6>
+                
 
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
     
 
         <tr>
             
-                <td class="name"><code>callback</code></td>
+                <td class="name"><code>noteOnTop</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="module-Settings.html#~settingsChanged">module:Settings~settingsChanged</a></span>
+<span class="param-type">boolean</span>
 
 
             
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
 
+                
+
+                
+                </td>
             
 
-            <td class="description last"><p>callback fired when the input field is changed</p></td>
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last"><p>determines if the note should be shown above the element or not.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
         </tr>
 
     
@@ -187,7 +326,7 @@
 
     
     <dt class="tag-version">Version:</dt>
-    <dd class="tag-version"><ul class="dummy"><li>1.0.5</li></ul></dd>
+    <dd class="tag-version"><ul class="dummy"><li>1.0.1</li></ul></dd>
     
 
     
@@ -215,7 +354,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ui_settings_settingfield.js.html">ui/settings/settingfield.js</a>, <a href="ui_settings_settingfield.js.html#line6">line 6</a>
+        <a href="ui_settings_settingfield.js.html">ui/settings/settingfield.js</a>, <a href="ui_settings_settingfield.js.html#line9">line 9</a>
     </li></ul></dd>
     
 
@@ -269,7 +408,7 @@
     
 
     
-    <h4 class="name" id="getElement"><span class="type-signature"></span>getElement<span class="signature">()</span><span class="type-signature"> &rarr; {jQuery}</span></h4>
+    <h4 class="name" id="getElement"><span class="type-signature"></span>getElement<span class="signature">()</span><span class="type-signature"> &rarr; {HTMLElement}</span></h4>
     
 
     
@@ -317,7 +456,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ui_settings_settingfield.js.html">ui/settings/settingfield.js</a>, <a href="ui_settings_settingfield.js.html#line52">line 52</a>
+        <a href="ui_settings_settingfield.js.html">ui/settings/settingfield.js</a>, <a href="ui_settings_settingfield.js.html#line31">line 31</a>
     </li></ul></dd>
     
 
@@ -344,7 +483,9 @@
 
         
 <div class="param-desc">
-    <p>jQuery node for the group.</p>
+    <ul>
+<li>root element for setting</li>
+</ul>
 </div>
 
 
@@ -355,7 +496,7 @@
     </dt>
     <dd>
         
-<span class="param-type">jQuery</span>
+<span class="param-type">HTMLElement</span>
 
 
     </dd>
@@ -373,7 +514,7 @@
     
 
     
-    <h4 class="name" id="setInputElement"><span class="type-signature"></span>setInputElement<span class="signature">(node)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="onAdded"><span class="type-signature"></span>onAdded<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -381,7 +522,7 @@
 
 
 <div class="description">
-    <p>Performing this will prevent the default callbacks from working!</p>
+    <p>Fired when root node added to DOM</p>
 </div>
 
 
@@ -390,58 +531,6 @@
 
 
 
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>node</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">HTMLElement</span>
-|
-
-<span class="param-type">jQuery</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>node to override the default input with.</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
 
 
 
@@ -477,7 +566,179 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ui_settings_settingfield.js.html">ui/settings/settingfield.js</a>, <a href="ui_settings_settingfield.js.html#line46">line 46</a>
+        <a href="ui_settings_settingfield.js.html">ui/settings/settingfield.js</a>, <a href="ui_settings_settingfield.js.html#line39">line 39</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="onChange"><span class="type-signature"></span>onChange<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Fires onchange to listeners</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ui_settings_settingfield.js.html">ui/settings/settingfield.js</a>, <a href="ui_settings_settingfield.js.html#line34">line 34</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="onRemoved"><span class="type-signature"></span>onRemoved<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Fired when root node removed from DOM</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ui_settings_settingfield.js.html">ui/settings/settingfield.js</a>, <a href="ui_settings_settingfield.js.html#line51">line 51</a>
     </li></ul></dd>
     
 
@@ -521,13 +782,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-ColorConverter.html">ColorConverter</a></li><li><a href="module-ContextMenu.html">ContextMenu</a></li><li><a href="module-DiscordAPI.html">DiscordAPI</a></li><li><a href="module-DiscordClassModules.html">DiscordClassModules</a></li><li><a href="module-DiscordModules.html">DiscordModules</a></li><li><a href="module-DOMTools.html">DOMTools</a></li><li><a href="module-Logger.html">Logger</a></li><li><a href="module-Modals.html">Modals</a></li><li><a href="module-Patcher.html">Patcher</a></li><li><a href="module-PluginUpdater.html">PluginUpdater</a></li><li><a href="module-PluginUtilities.html">PluginUtilities</a></li><li><a href="module-Popouts.html">Popouts</a></li><li><a href="module-ReactTools.html">ReactTools</a></li><li><a href="module-Settings.html">Settings</a></li><li><a href="module-Toasts.html">Toasts</a></li><li><a href="module-Tooltip.html">Tooltip</a></li><li><a href="module-Utilities.html">Utilities</a></li><li><a href="module-WebpackModules.html">WebpackModules</a></li></ul><h3>Classes</h3><ul><li><a href="module-ContextMenu.ImageItem.html">ImageItem</a></li><li><a href="module-ContextMenu.ItemGroup.html">ItemGroup</a></li><li><a href="module-ContextMenu.Menu.html">Menu</a></li><li><a href="module-ContextMenu.MenuItem.html">MenuItem</a></li><li><a href="module-ContextMenu.SubMenuItem.html">SubMenuItem</a></li><li><a href="module-ContextMenu.TextItem.html">TextItem</a></li><li><a href="module-ContextMenu.ToggleItem.html">ToggleItem</a></li><li><a href="module-DiscordAPI.Channel.html">Channel</a></li><li><a href="module-DiscordAPI.Guild.html">Guild</a></li><li><a href="module-DiscordAPI.InsufficientPermissions.html">InsufficientPermissions</a></li><li><a href="module-DiscordAPI.List.html">List</a></li><li><a href="module-DiscordAPI.Message.html">Message</a></li><li><a href="module-DiscordAPI.User.html">User</a></li><li><a href="module-DiscordAPI.UserSettings.html">UserSettings</a></li><li><a href="module-DOMTools.ClassName.html">ClassName</a></li><li><a href="module-DOMTools.Selector.html">Selector</a></li><li><a href="module-Settings.ColorPicker.html">ColorPicker</a></li><li><a href="module-Settings.Dropdown.html">Dropdown</a></li><li><a href="module-Settings.Keybind.html">Keybind</a></li><li><a href="module-Settings.Radio.html">Radio</a></li><li><a href="module-Settings.SettingField.html">SettingField</a></li><li><a href="module-Settings.SettingGroup.html">SettingGroup</a></li><li><a href="module-Settings.Slider.html">Slider</a></li><li><a href="module-Settings.Switch.html">Switch</a></li><li><a href="module-Settings.Textbox.html">Textbox</a></li><li><a href="module-Tooltip.html">Tooltip</a></li><li><a href="module-WebpackModules.Filters.html">Filters</a></li><li><a href="Screen.html">Screen</a></li></ul><h3>Interfaces</h3><ul><li><a href="module-DOMTools-Offset.html">Offset</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-ColorConverter.html">ColorConverter</a></li><li><a href="module-ContextMenu.html">ContextMenu</a></li><li><a href="module-DiscordAPI.html">DiscordAPI</a></li><li><a href="module-DiscordClassModules.html">DiscordClassModules</a></li><li><a href="module-DiscordModules.html">DiscordModules</a></li><li><a href="module-DOMTools.html">DOMTools</a></li><li><a href="module-Logger.html">Logger</a></li><li><a href="module-Modals.html">Modals</a></li><li><a href="module-Patcher.html">Patcher</a></li><li><a href="module-PluginUpdater.html">PluginUpdater</a></li><li><a href="module-PluginUtilities.html">PluginUtilities</a></li><li><a href="module-Popouts.html">Popouts</a></li><li><a href="module-ReactTools.html">ReactTools</a></li><li><a href="module-Settings.html">Settings</a></li><li><a href="module-Toasts.html">Toasts</a></li><li><a href="module-Tooltip.html">Tooltip</a></li><li><a href="module-Utilities.html">Utilities</a></li><li><a href="module-WebpackModules.html">WebpackModules</a></li></ul><h3>Classes</h3><ul><li><a href="List.html">List</a></li><li><a href="Listenable.html">Listenable</a></li><li><a href="module-ContextMenu.ImageItem.html">ImageItem</a></li><li><a href="module-ContextMenu.ItemGroup.html">ItemGroup</a></li><li><a href="module-ContextMenu.Menu.html">Menu</a></li><li><a href="module-ContextMenu.MenuItem.html">MenuItem</a></li><li><a href="module-ContextMenu.SubMenuItem.html">SubMenuItem</a></li><li><a href="module-ContextMenu.TextItem.html">TextItem</a></li><li><a href="module-ContextMenu.ToggleItem.html">ToggleItem</a></li><li><a href="module-DiscordAPI.Channel.html">Channel</a></li><li><a href="module-DiscordAPI.Guild.html">Guild</a></li><li><a href="module-DiscordAPI.InsufficientPermissions.html">InsufficientPermissions</a></li><li><a href="module-DiscordAPI.Message.html">Message</a></li><li><a href="module-DiscordAPI.User.html">User</a></li><li><a href="module-DiscordAPI.UserSettings.html">UserSettings</a></li><li><a href="module-DOMTools.ClassName.html">ClassName</a></li><li><a href="module-DOMTools.Selector.html">Selector</a></li><li><a href="module-Settings.ColorPicker.html">ColorPicker</a></li><li><a href="module-Settings.Dropdown.html">Dropdown</a></li><li><a href="module-Settings.FilePicker.html">FilePicker</a></li><li><a href="module-Settings.Keybind.html">Keybind</a></li><li><a href="module-Settings.RadioGroup.html">RadioGroup</a></li><li><a href="module-Settings.SettingField.html">SettingField</a></li><li><a href="module-Settings.SettingGroup.html">SettingGroup</a></li><li><a href="module-Settings.SettingPanel.html">SettingPanel</a></li><li><a href="module-Settings.Slider.html">Slider</a></li><li><a href="module-Settings.Switch.html">Switch</a></li><li><a href="module-Settings.Textbox.html">Textbox</a></li><li><a href="module-Tooltip.html">Tooltip</a></li><li><a href="module-WebpackModules.Filters.html">Filters</a></li><li><a href="Screen.html">Screen</a></li></ul><h3>Interfaces</h3><ul><li><a href="module-DOMTools-Offset.html">Offset</a></li><li><a href="module-Modals-Changelog.html">Changelog</a></li><li><a href="module-Settings-DropdownItem.html">DropdownItem</a></li><li><a href="module-Settings-RadioItem.html">RadioItem</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue May 29 2018 00:21:27 GMT-0400 (Eastern Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Jun 01 2018 15:03:16 GMT-0400 (Eastern Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>

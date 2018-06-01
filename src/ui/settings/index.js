@@ -1,13 +1,7 @@
 /**
  * An object that makes generating settings panel 10x easier.
  * @module Settings
- * @version 1.0.5
- */
-
-/**
- * Callback for SettingField for change in input field.
- * @callback module:Settings~settingsChanged
- * @param {*} value - new value of the input field
+ * @version 1.1.2
  */
 
 export const CSS = require("../../styles/settings.css");
