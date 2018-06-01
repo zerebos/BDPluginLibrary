@@ -5,10 +5,10 @@ import WebpackModules from "./webpackmodules";
  * A large list of known and labelled classes in discord.
  * Click the filename below to see the whole list.
  * 
- * You can use this directly, however the preferred way of doing this is to use {@link module:DOMTools.DiscordClasses} or {@link module:DOMTools.DiscordSelectors}
+ * You can use this directly, however the preferred way of doing this is to use {@link module:DiscordClasses} or {@link module:DiscordSelectors}
  * 
- * @see module:DOMTools.DiscordClasses
- * @see module:DOMTools.DiscordSelectors
+ * @see module:DiscordClasses
+ * @see module:DiscordSelectors
  * @module DiscordClassModules
  * @version 0.0.1
  */

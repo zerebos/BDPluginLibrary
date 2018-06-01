@@ -21,8 +21,9 @@ const list = args.plugin ? [args.plugin] : fs.readdirSync(pluginsPath).filter(f 
         config.entry = "./src/index.js";
         config.output.library = pluginName;
         config.output.filename = output + ".plugin.js";
+        const banner = `//META{"name":"${pluginName}","displayName":"${pluginName}","website":"${pluginConfig.info.github}","source":"${pluginConfig.info.github_raw}"}*//`;
         config.plugins[0] = new webpack.BannerPlugin({
-            banner: `//META{"name":"${pluginName}","displayName":"${pluginName}","website":"${pluginConfig.info.github}","source":"${pluginConfig.info.github_raw}"}*//`,
+            banner: banner,
             raw: true
         });
         await new Promise((resolve) => {
@@ -32,6 +33,9 @@ const list = args.plugin ? [args.plugin] : fs.readdirSync(pluginsPath).filter(f 
                 resolve();
             });
         });
+        if (mode != "production") continue;
+        let current = fs.readFileSync(path.join(config.output.path, config.output.filename)).toString();
+        fs.writeFileSync(path.join(config.output.path, config.output.filename), banner + "\n" + current);
     }
     console.timeEnd("Build took");
 })(list);

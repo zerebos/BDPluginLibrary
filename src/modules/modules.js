@@ -2,7 +2,9 @@ export { default as Utilities } from "./utilities";
 export { default as WebpackModules, Filters} from "./webpackmodules";
 export { default as DiscordModules } from "./discordmodules";
 export { default as ColorConverter } from "./colorconverter";
-export { default as DOMTools, DiscordClasses, DiscordSelectors } from "./domtools";
+export { default as DOMTools } from "./domtools";
+export { default as DiscordClasses } from "./discordclasses";
+export { default as DiscordSelectors } from "./discordselectors";
 export { default as ReactTools } from "./reacttools";
 export { default as DiscordAPI } from "./discordapi";
 

@@ -8,7 +8,6 @@
  * @version 0.0.2
  */
 
-import DiscordClassModules from "./discordclassmodules";
 import Utilities from "./utilities";
 import {Selector, ClassName} from "structs";
 
@@ -554,15 +553,6 @@ export default class DOMTools {
 					callback();
 				}
 			}
-			// mutations.forEach((mutation) => {
-			// 	const nodes = Array.from(mutation.addedNodes);
-			// 	const directMatch = nodes.indexOf(node) > -1;
-			// 	const parentMatch = nodes.some(parent => parent.contains(node));
-			// 	if (directMatch || parentMatch) {
-			// 		observer.disconnect();
-			// 		callback();
-			// 	}
-			// });
 		});
 
 		observer.observe(document.body, {subtree: true, childList: true});
@@ -585,15 +575,6 @@ export default class DOMTools {
 					callback();
 				}
 			}
-			// mutations.forEach((mutation) => {
-			// 	const nodes = Array.from(mutation.removedNodes);
-			// 	const directMatch = nodes.indexOf(node) > -1;
-			// 	const parentMatch = nodes.some(parent => parent.contains(node));
-			// 	if (directMatch || parentMatch) {
-			// 		observer.disconnect();
-			// 		callback();
-			// 	}
-			// });
 		});
 
 		observer.observe(document.body, {subtree: true, childList: true});
@@ -654,43 +635,3 @@ Utilities.addToPrototype(HTMLElement, "findAll", function(selector) {return DOMT
 Utilities.addToPrototype(HTMLElement, "appendTo", function(otherNode) {return DOMTools.appendTo(this, otherNode);});
 Utilities.addToPrototype(HTMLElement, "onAdded", function(callback) {return DOMTools.hasClass(this, callback);});
 Utilities.addToPrototype(HTMLElement, "onRemoved", function(callback) {return DOMTools.hasClass(this, callback);});
-
-/**
- * Proxy for all the class packages, allows us to safely attempt
- * to retrieve nested things without error. Also wraps the class in
- * {@link module:DOMTools.ClassName} which adds features but can still
- * be used in native function.
- * 
- * @version 0.0.1
- */
-export const DiscordClasses = new Proxy(DiscordClassModules, {
-	get: function(list, item) {
-		if (list[item] === undefined) return new Proxy({}, {get: function() {return "";}});
-		return new Proxy(list[item], {
-			get: function(obj, prop) {
-				if (!obj.hasOwnProperty(prop)) return "";
-				return new ClassName(obj[prop]);
-			}
-		});
-	}
-});
-
-/**
- * Gives us a way to retrieve the internal classes as selectors without
- * needing to concatenate strings or use string templates. Wraps the
- * selector in {@link module:DOMTools.Selector} which adds features but can 
- * still be used in native function.
- * 
- * @version 0.0.1
- */
-export const DiscordSelectors = new Proxy(DiscordClassModules, {
-	get: function(list, item) {
-		if (list[item] === undefined) return new Proxy({}, {get: function() {return "";}});
-		return new Proxy(list[item], {
-			get: function(obj, prop) {
-				if (!obj.hasOwnProperty(prop)) return "";
-				return new Selector(obj[prop]);
-			}
-		});
-	}
-});

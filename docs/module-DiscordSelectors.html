@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: ui/settings/types/slider.js</title>
+    <title>JSDoc: Module: DiscordSelectors</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,62 +17,144 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: ui/settings/types/slider.js</h1>
+    <h1 class="page-title">Module: DiscordSelectors</h1>
 
     
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>import SettingField from "../settingfield";
-import {DiscordModules} from "modules";
+        
+            
+        
+    
+</header>
 
-//TODO: Documentation
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>Gives us a way to retrieve the internal classes as selectors without
+needing to concatenate strings or use string templates. Wraps the
+selector in <a href="module-DOMTools.Selector.html">module:DOMTools.Selector</a> which adds features but can 
+still be used in native function.</p>
+<p>For a list of all available class namespaces check out <a href="module-DiscordClassModules.html">module:DiscordClassModules</a>.</p></div>
+        
 
-/** 
- * Creates a slider/range using discord's built in slider.
- * @memberof module:Settings
- * @version 0.1.0
- * @extends module:Settings.SettingField
- */
-class Slider extends SettingField {
-   /**
-	* 
-	* @param {string} name - name label of the setting 
-	* @param {string} note - help/note to show underneath or above the setting
-	* @param {number} min - minimum value allowed
-	* @param {number} max - maximum value allowed
-	* @param {number} value - currently selected value
-	* @param {callable} onChange - callback to fire when setting is changed, callback receives number
-	* @param {object} [options] - object of options to give to the setting
-	* @param {boolean} [options.disabled=false] - should the setting be disabled
-	* @param {object} [options.fillStyles] - object of css styles to add to active slider
-	* @param {Array&lt;number>} [options.markers] - array of vertical markers to show on the slider
-	* @param {boolean} [options.stickToMarkers] - should the slider be forced to use markers
-	* @param {boolean} [options.equidistant] - should the markers be scaled to be equidistant
-	*/
-	constructor(name, note, min, max, value, onChange, options = {}) {
-		const props =  {
-			onChange: _ => _,
-			defaultValue: value,
-			disabled: options.disabled ? true : false,
-			minValue: min,
-			maxValue: max,
-			handleSize: 10
-		};
-		if (options.fillStyles) props.fillStyles = options.fillStyles;
-		if (options.markers) props.markers = options.markers;
-		if (options.stickToMarkers) props.stickToMarkers = options.stickToMarkers;
-		if (typeof(options.equidistant) != "undefined") props.equidistant = options.equidistant;
-		super(name, note, onChange, DiscordModules.Slider, Object.assign(props, {onValueChange: v => this.onChange(v)}));
-	}
-}
+        
+            
 
-export default Slider;</code></pre>
-        </article>
-    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-version">Version:</dt>
+    <dd class="tag-version"><ul class="dummy"><li>0.0.1</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="modules_discordselectors.js.html">modules/discordselectors.js</a>, <a href="modules_discordselectors.js.html#line4">line 4</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="module-DiscordClassModules.html">module:DiscordClassModules</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 

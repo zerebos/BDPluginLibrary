@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: ui/settings/types/slider.js</title>
+    <title>JSDoc: Source: modules/discordselectors.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: ui/settings/types/slider.js</h1>
+    <h1 class="page-title">Source: modules/discordselectors.js</h1>
 
     
 
@@ -26,51 +26,32 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import SettingField from "../settingfield";
-import {DiscordModules} from "modules";
+            <pre class="prettyprint source linenums"><code>import DiscordClassModules from "./discordclassmodules";
+import DOMTools from "./domtools";
 
-//TODO: Documentation
-
-/** 
- * Creates a slider/range using discord's built in slider.
- * @memberof module:Settings
- * @version 0.1.0
- * @extends module:Settings.SettingField
+/**
+ * Gives us a way to retrieve the internal classes as selectors without
+ * needing to concatenate strings or use string templates. Wraps the
+ * selector in {@link module:DOMTools.Selector} which adds features but can 
+ * still be used in native function.
+ * 
+ * For a list of all available class namespaces check out {@link module:DiscordClassModules}.
+ * 
+ * @see module:DiscordClassModules
+ * @module DiscordSelectors
+ * @version 0.0.1
  */
-class Slider extends SettingField {
-   /**
-	* 
-	* @param {string} name - name label of the setting 
-	* @param {string} note - help/note to show underneath or above the setting
-	* @param {number} min - minimum value allowed
-	* @param {number} max - maximum value allowed
-	* @param {number} value - currently selected value
-	* @param {callable} onChange - callback to fire when setting is changed, callback receives number
-	* @param {object} [options] - object of options to give to the setting
-	* @param {boolean} [options.disabled=false] - should the setting be disabled
-	* @param {object} [options.fillStyles] - object of css styles to add to active slider
-	* @param {Array&lt;number>} [options.markers] - array of vertical markers to show on the slider
-	* @param {boolean} [options.stickToMarkers] - should the slider be forced to use markers
-	* @param {boolean} [options.equidistant] - should the markers be scaled to be equidistant
-	*/
-	constructor(name, note, min, max, value, onChange, options = {}) {
-		const props =  {
-			onChange: _ => _,
-			defaultValue: value,
-			disabled: options.disabled ? true : false,
-			minValue: min,
-			maxValue: max,
-			handleSize: 10
-		};
-		if (options.fillStyles) props.fillStyles = options.fillStyles;
-		if (options.markers) props.markers = options.markers;
-		if (options.stickToMarkers) props.stickToMarkers = options.stickToMarkers;
-		if (typeof(options.equidistant) != "undefined") props.equidistant = options.equidistant;
-		super(name, note, onChange, DiscordModules.Slider, Object.assign(props, {onValueChange: v => this.onChange(v)}));
+export default new Proxy(DiscordClassModules, {
+	get: function(list, item) {
+		if (list[item] === undefined) return new Proxy({}, {get: function() {return "";}});
+		return new Proxy(list[item], {
+			get: function(obj, prop) {
+				if (!obj.hasOwnProperty(prop)) return "";
+				return new DOMTools.Selector(obj[prop]);
+			}
+		});
 	}
-}
-
-export default Slider;</code></pre>
+});</code></pre>
         </article>
     </section>
 
