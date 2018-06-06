@@ -188,9 +188,11 @@ export default class WebpackModules {
     static get require() {
         if (this._require) return this._require;
         const id = "zl-webpackmodules";
-        const __webpack_require__ = window["webpackJsonp"]([], {
+        const __webpack_require__ = typeof(window["webpackJsonp"]) == "function" ? window["webpackJsonp"]([], {
             [id]: (module, exports, __webpack_require__) => exports.default = __webpack_require__
-        }, [id]).default;
+        }, [id]).default : window["webpackJsonp"].push([[], {
+            [id]: (module, exports, __webpack_require__) => module.exports = __webpack_require__
+        }, [[id]]]);
         delete __webpack_require__.m[id];
         delete __webpack_require__.c[id];
         return this._require = __webpack_require__;

@@ -1,20 +1,6 @@
-import * as Modules from "modules";
-import {Settings, ContextMenu, Tooltip, Toasts, Popouts, Modals} from "ui";
-
-const Library = {};
-Library.ContextMenu = ContextMenu;
-Library.Tooltip = Tooltip;
-Library.Toasts = Toasts;
-Library.Settings = Settings;
-Library.Popouts = Popouts;
-Library.Modals = Modals;
-for (const mod in Modules) Library[mod] = Modules[mod];
-
-global.ZLibrary = Library;
-
-const {PluginUpdater, Patcher, Structs, Logger} = Library;
-
-export default (BasePlugin) => {
+export default (BasePlugin, Library) => {
+    global.ZLibrary = Library;
+    const {PluginUpdater, Patcher, Structs, Logger, Settings, Toasts} = Library;
     return class ZeresPluginLibrary extends BasePlugin {
         load() {
             this.start();
