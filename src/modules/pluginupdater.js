@@ -6,8 +6,9 @@
 
 import PluginUtilities from "./pluginutilities";
 import Patcher from "./patcher";
-import {default as DOMTools, DiscordClasses} from "./domtools";
+import DOMTools from "./domtools";
 import Logger from "./logger";
+import DiscordClasses from "./discordclasses";
 import {Tooltip, Toasts} from "ui";
 
 /**

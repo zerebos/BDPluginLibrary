@@ -11,7 +11,7 @@ const formatString = function(string, values) {
     return string;
 };
 
-const template = fs.readFileSync(path.join(__dirname, args.loader == "remote" ? "template_remote.js" : "template.js")).toString();
+const template = fs.readFileSync(path.join(__dirname, args.loader == "remote" ? "template.remote.js" : "template.js")).toString();
 const list = args.plugin ? [args.plugin] : fs.readdirSync(pluginsPath).filter(f => fs.lstatSync(path.join(pluginsPath, f)).isDirectory() && f != "0PluginLibrary");
 console.log("");
 console.log("Building: " + list.join(", "));
@@ -25,7 +25,8 @@ for (let f = 0; f < list.length; f++) {
         CONFIG: JSON.stringify(config),
         INNER: content.toString(),
         WEBSITE: config.info.github,
-        SOURCE: config.info.github_raw
+        SOURCE: config.info.github_raw,
+        DISPLAY_NAME: config.info.name
     }));
 }
 console.timeEnd("Build took");
