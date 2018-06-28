@@ -1,7 +1,8 @@
 export default (BasePlugin, Library) => {
-    global.ZLibrary = Library;
     const {PluginUpdater, Patcher, Structs, Logger, Settings, Toasts} = Library;
     return class ZeresPluginLibrary extends BasePlugin {
+        get Library() {return Library;}
+        
         load() {
             this.start();
             BdApi.clearCSS("ZeresLibraryCSS");

@@ -156,7 +156,18 @@ export default Utilities.memoizeObject({
     get UserProfileModals() {return WebpackModules.getByProps("fetchMutualFriends", "setSection");},
     get AlertModal() {return WebpackModules.getByPrototypes("handleCancel", "handleSubmit", "handleMinorConfirm");},
     get ConfirmationModal() {return WebpackModules.getModule(m => m.defaultProps && m.key && m.key() == "confirm-modal");},
-    get UserProfileModal() {return WebpackModules.getByProps(["fetchMutualFriends", "setSection"]);},
+    get UserProfileModal() {return WebpackModules.find(m => {
+            try {
+                return m.modalConfig && m.prototype.render().type.displayName == "FluxContainer(SubscribeGuildMembersContainer(t))";
+            }
+            catch (err) {return false;}
+        }) || WebpackModules.find(m => {
+            try {
+                return m.modalConfig && m.prototype.render().type.displayName == "FluxContainer(Component)";
+            }
+            catch (err) {return false;}
+        });
+    },
     get ChangeNicknameModal() {return WebpackModules.getByProps(["open", "changeNickname"]);},
     get CreateChannelModal() {return WebpackModules.getByProps(["open", "createChannel"]);},
     get PruneMembersModal() {return WebpackModules.getByProps(["open", "prune"]);},
@@ -164,12 +175,25 @@ export default Utilities.memoizeObject({
     get PrivacySettingsModal() {return WebpackModules.getByRegex(/PRIVACY_SETTINGS_MODAL_OPEN/, m => m.open);},
     get CreateInviteModal() {return WebpackModules.getByProps(["open", "createInvite"]);},
     get Changelog() {return WebpackModules.getModule((m => m.defaultProps && m.defaultProps.selectable == false));},
+    get Avatar() {return WebpackModules.find(m => {
+            if (m.displayName != "FluxContainer(t)") return false;
+            try {
+                const temp = new m();
+                return temp && temp.state && temp.state.hasOwnProperty("isFocused");
+            }
+            catch (err) {return false;}
+        });
+    },
 
     /* Popouts */
     get PopoutStack() {return WebpackModules.getByProps("open", "close", "closeAll");},
     get PopoutOpener() {return WebpackModules.getByProps("openPopout");},
     get EmojiPicker() {return WebpackModules.getByPrototypes("onHoverEmoji", "selectEmoji");},
-    get UserPopout() {return WebpackModules.getByDisplayName("FluxContainer(SubscribeGuildMembersContainer(t))");},
+    get UserPopout() {return WebpackModules.getByDisplayName("FluxContainer(SubscribeGuildMembersContainer(t))")  || WebpackModules.find(m => {
+            try { return m.displayName == "FluxContainer(Component)" && !(new m()); }
+            catch (e) { return e.toString().includes("user"); }
+        });
+    },
 
     /* Context Menus */
     get ContextMenuActions() {return WebpackModules.getByRegex(/CONTEXT_MENU_CLOSE/, c => c.close);},

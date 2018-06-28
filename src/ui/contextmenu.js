@@ -4,8 +4,8 @@
  * @version 0.0.7
  */
 
-import {DiscordClasses, DiscordSelectors} from "modules";
-
+import DiscordClasses from "../modules/discordclasses";
+import DiscordSelectors from "../modules/discordselectors";
 
 /** Main menu class for creating custom context menus. */
 export class Menu {
@@ -15,14 +15,14 @@ export class Menu {
      */
 	constructor(scroll = false) {
 		this.theme = $(".theme-dark").length ? "theme-dark" : "theme-light";
-		this.element = $("<div>").addClass(DiscordClasses.ContextMenuClasses.contextMenu).addClass("plugin-context-menu").addClass(this.theme);
+		this.element = $("<div>").addClass(DiscordClasses.ContextMenu.contextMenu.toString()).addClass("plugin-context-menu").addClass(this.theme);
 		this.scroll = scroll;
 		if (scroll) {
-			this.scroller = $("<div>").addClass(DiscordClasses.ScrollerClasses.scroller).addClass(DiscordClasses.ContextMenuClasses.scroller);
+			this.scroller = $("<div>").addClass(DiscordClasses.Scrollers.scroller.toString()).addClass(DiscordClasses.ContextMenu.scroller.toString());
 			this.element.append($("<div>")
-				.addClass(DiscordClasses.ScrollerClasses.scrollerWrap)
-				.addClass(DiscordClasses.ScrollerClasses.scrollerThemed)
-				.addClass(DiscordClasses.ScrollerClasses.themeGhostHairline).append(
+				.addClass(DiscordClasses.Scrollers.scrollerWrap.toString())
+				.addClass(DiscordClasses.Scrollers.scrollerThemed.toString())
+				.addClass(DiscordClasses.Scrollers.themeGhostHairline.toString()).append(
 					this.scroller
 			));
 		}
@@ -65,7 +65,7 @@ export class Menu {
 		const mouseX = x;
 		const mouseY = y;
 		
-		let type = this.element.parents(".plugin-context-menu").length > this.element.parents(DiscordSelectors.ContextMenuClasses.contextMenu).length ? ".plugin-context-menu" : DiscordSelectors.ContextMenuClasses.contextMenu;
+		let type = this.element.parents(".plugin-context-menu").length > this.element.parents(DiscordSelectors.ContextMenu.contextMenu.toString()).length ? ".plugin-context-menu" : DiscordSelectors.ContextMenu.contextMenu.toString();
 		var depth = this.element.parents(type).length;
 		if (depth == 0) this.element.appendTo("#app-mount");
 		this.element.css("top", mouseY).css("left", mouseX);
@@ -73,12 +73,12 @@ export class Menu {
 		if (depth > 0) {
 			var top = this.element.parents(type).last();
 			var closest = this.element.parents(type).first();
-			var negate = closest.hasClass(DiscordClasses.ContextMenuClasses.invertChildX) ? -1 : 1;
-			this.element.css("margin-left", negate * closest.find(`.${DiscordClasses.ContextMenuClasses.item}`).outerWidth() + closest.offset().left - top.offset().left);
+			var negate = closest.hasClass(DiscordClasses.ContextMenu.invertChildX.toString()) ? -1 : 1;
+			this.element.css("margin-left", negate * closest.find(`.${DiscordClasses.ContextMenu.item}`).outerWidth() + closest.offset().left - top.offset().left);
 		}
 		
 		if (mouseY + this.element.outerHeight() >= maxHeight) {
-			this.element.addClass("invertY").addClass(DiscordClasses.ContextMenuClasses.invertY);
+			this.element.addClass("invertY").addClass(DiscordClasses.ContextMenu.invertY.toString());
 			this.element.css("top", mouseY - this.element.outerHeight());
 			if (depth > 0) this.element.css("top", (mouseY + this.element.parent().outerHeight()) - this.element.outerHeight());
 		}
@@ -87,7 +87,7 @@ export class Menu {
 			this.element.css("left", mouseX - this.element.outerWidth());
 		}
 		if (this.element.offset().left + 2 * this.element.outerWidth() >= maxWidth) {
-			this.element.addClass(DiscordClasses.ContextMenuClasses.invertChildX);
+			this.element.addClass(DiscordClasses.ContextMenu.invertChildX.toString());
 		}
 
 		if (depth == 0) {
@@ -98,7 +98,7 @@ export class Menu {
 			});
 			$(document).on("click.zctx", (e) => {
 				if (this.element.has(e.target).length) {
-					if ($._data($(e.target).closest(DiscordSelectors.ContextMenuClasses.item)[0], "events").click) {
+					if ($._data($(e.target).closest(DiscordSelectors.ContextMenu.item.toString())[0], "events").click) {
 						this.removeMenu();
 					}
 				}
@@ -113,7 +113,7 @@ export class Menu {
     
     /** Allows you to remove the menu. */
 	removeMenu() {
-		let type = this.element.parents(".plugin-context-menu").length > this.element.parents(DiscordSelectors.ContextMenuClasses.contextMenu).length ? ".plugin-context-menu" : DiscordSelectors.ContextMenuClasses.contextMenu;
+		let type = this.element.parents(".plugin-context-menu").length > this.element.parents(DiscordSelectors.ContextMenu.contextMenu.toString()).length ? ".plugin-context-menu" : DiscordSelectors.ContextMenu.contextMenu.toString();
 		this.element.detach();
 		this.element.find(type).detach();
 		$(document).off(".zctx");
@@ -131,7 +131,7 @@ export class Menu {
 		this.menuItem = $(menuItem);
 		menuItem.on("mouseenter", () => {
 			this.element.appendTo(menuItem);
-			let type = this.element.parents(".plugin-context-menu").length > this.element.parents(DiscordSelectors.ContextMenuClasses.contextMenu).length ? ".plugin-context-menu" : DiscordSelectors.ContextMenuClasses.contextMenu;
+			let type = this.element.parents(".plugin-context-menu").length > this.element.parents(DiscordSelectors.ContextMenu.contextMenu.toString()).length ? ".plugin-context-menu" : DiscordSelectors.ContextMenu.contextMenu.toString();
 			this.show(this.element.parents(type).css("left"), menuItem.offset().top);
 		});
 		menuItem.on("mouseleave", () => { this.element.detach(); });
@@ -142,7 +142,7 @@ export class Menu {
 export class ItemGroup {
     /** Creates an item group. */
 	constructor() {
-		this.element = $("<div>").addClass(DiscordClasses.ContextMenuClasses.itemGroup);
+		this.element = $("<div>").addClass(DiscordClasses.ContextMenu.itemGroup.toString());
 	}
     
     /**
@@ -183,9 +183,9 @@ export class MenuItem {
      */
 	constructor(label, options = {}) {
 		var {danger = false, callback} = options;
-		this.element = $("<div>").addClass(DiscordClasses.ContextMenuClasses.item);
+		this.element = $("<div>").addClass(DiscordClasses.ContextMenu.item.toString());
 		this.label = label;
-		if (danger) this.element.addClass(DiscordClasses.ContextMenuClasses.danger);
+		if (danger) this.element.addClass(DiscordClasses.ContextMenu.danger.toString());
 		if (typeof(callback) == "function") {
 			this.element.on("click", (event) => {
 				event.stopPropagation();
@@ -212,7 +212,7 @@ export class TextItem extends MenuItem {
 		super(label, options);
 		var {hint = ""} = options;
 		this.element.append($("<span>").text(label));
-		this.element.append($("<div>").addClass(DiscordClasses.ContextMenuClasses.hint).text(hint));
+		this.element.append($("<div>").addClass(DiscordClasses.ContextMenu.hint.toString()).text(hint));
 	}
 }
 
@@ -231,8 +231,8 @@ export class ImageItem extends MenuItem {
      */
 	constructor(label, imageSrc, options = {}) {
 		super(label, options);
-		this.element.addClass(DiscordClasses.ContextMenuClasses.itemImage);
-		this.element.append($("<div>").addClass(DiscordClasses.ContextMenuClasses.label).text(label));
+		this.element.addClass(DiscordClasses.ContextMenu.itemImage.toString());
+		this.element.append($("<div>").addClass(DiscordClasses.ContextMenu.label.toString()).text(label));
 		this.element.append($("<img>", {src: imageSrc}));
 	}
 }
@@ -253,7 +253,7 @@ export class SubMenuItem extends MenuItem {
 	constructor(label, subMenu, options = {}) {
 		// if (!(subMenu instanceof ContextSubMenu)) throw "subMenu must be of ContextSubMenu type.";
 		super(label, options);
-		this.element.addClass(DiscordClasses.ContextMenuClasses.itemSubMenu).text(label);
+		this.element.addClass(DiscordClasses.ContextMenu.itemSubMenu.toString()).text(label);
 		this.subMenu = subMenu;
 		this.subMenu.attachTo(this.getElement());
 	}
@@ -276,8 +276,8 @@ export class ToggleItem extends MenuItem {
 	constructor(label, checked, options = {}) {
         var {onChange} = options;
 		super(label, options);
-		this.element.addClass(DiscordClasses.ContextMenuClasses.itemToggle);
-        this.element.append($("<div>").addClass(DiscordClasses.ContextMenuClasses.label).text(label));
+		this.element.addClass(DiscordClasses.ContextMenu.itemToggle.toString());
+        this.element.append($("<div>").addClass(DiscordClasses.ContextMenu.label.toString()).text(label));
         this.checkbox = $("<div>", {class: "checkbox"});
         this.checkbox.append($("<div>", {class: "checkbox-inner"}));
         this.checkbox.append("<span>");

@@ -1,4 +1,5 @@
 import PluginUpdater from "../modules/pluginupdater";
+import Logger from "../modules/logger";
 import ReactTools from "../modules/reacttools";
 import Modals from "../ui/modals";
 import PluginUtilities from "../modules/pluginutilities";
@@ -11,14 +12,14 @@ export default function(config) {
             this._enabled = false;
             if (typeof(config.defaultConfig) != "undefined") {
                 this.defaultSettings = {};
-                for (let s = 0; s < config.length; s++) {
-                    const current = config[s];
+                for (let s = 0; s < config.defaultConfig.length; s++) {
+                    const current = config.defaultConfig[s];
                     if (current.type != "category") this.defaultSettings[current.id] = current.value;
                     else {
                         this.defaultSettings[current.id] = {};
-                        for (let s = 0; s < config.length; s++) {
-                            const current = config[s];
-                            this.defaultSettings[current.id][current.id] = current.value;
+                        for (let s = 0; s < current.settings.length; s++) {
+                            const subCurrent = current.settings[s];
+                            this.defaultSettings[current.id][subCurrent.id] = subCurrent.value;
                         }
                     }
                 }
@@ -32,6 +33,7 @@ export default function(config) {
         getAuthor() { return this._config.info.authors.map(a => a.name).join(", "); }
         load() {}
         start() {
+            Logger.info(this.getName(), "Started");
             if (this.defaultSettings) this.settings = this.loadSettings();
             const currentVersionInfo = PluginUtilities.loadData(this.getName(), "currentVersionInfo", {version: this.getVersion(), hasShownChangelog: false});
             if (currentVersionInfo.version != this.getVersion() || !currentVersionInfo.hasShownChangelog) {
@@ -43,6 +45,7 @@ export default function(config) {
             if (typeof(this.onStart) == "function") this.onStart();
         }
         stop() {
+            Logger.info(this.getName(), "Stopped");
             this._enabled = false;
             if (typeof(this.onStop) == "function") this.onStop();
         }

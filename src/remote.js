@@ -29,8 +29,12 @@ Library.buildPlugin = function(config) {
             after: (moduleToPatch, functionName, callback, options = {}) => {return Library.Patcher.after(name, moduleToPatch, functionName, callback, options);}
         }
     };
+    
     return [Library.Structs.Plugin(config), Object.assign({}, Library, BoundAPI)];		
 };
+
+if (document.getElementById("ZLibraryCSS")) document.getElementById("ZLibraryCSS").remove();
+document.head.append(Library.DOMTools.createElement(`<style id="ZLibraryCSS">${Settings.CSS + Toasts.CSS + Library.PluginUpdater.CSS}</style>`));
 
 export default Library;
 
