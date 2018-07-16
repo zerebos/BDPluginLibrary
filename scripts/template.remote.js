@@ -2,20 +2,21 @@
 
 var {{PLUGIN_NAME}} = (() => {
 	if (!global.ZLibrary && !global.ZLibraryPromise) global.ZLibraryPromise = new Promise((resolve, reject) => {
-        require("request").get("https://rauenzi.github.io/BetterDiscordAddons/Plugins/ZLibrary.js", (err, res, body) => { //https://zackrauen.com/BetterDiscordApp/ZLibrary.js | https://rauenzi.github.io/BetterDiscordAddons/Plugins/ZLibrary.js
-          if (!err && 200 === res.statusCode) resolve((0,eval)(body));
-          else reject(err || res.statusMessage);
-        });
-    });
-    const config = {{CONFIG}};
+		require("request").get({url: "https://rauenzi.github.io/BetterDiscordAddons/Plugins/ZLibrary.js", timeout: 10000}, (err, res, body) => { //https://zackrauen.com/BetterDiscordApp/ZLibrary.js | https://rauenzi.github.io/BetterDiscordAddons/Plugins/ZLibrary.js
+			if (err || 200 !== res.statusCode) return reject(err || res.statusMessage);
+			try {const vm = require("vm"), script = new vm.Script(body, {displayErrors: true}); resolve(script.runInThisContext());}
+			catch(err) {reject(err);}
+		});
+	});
+	const config = {{CONFIG}};
 	const compilePlugin = ([Plugin, Api]) => {
 		const plugin = {{INNER}};
-        return plugin(Plugin, Api);
-    };
+		return plugin(Plugin, Api);
+	};
 	
-    return !global.ZLibrary ? class {
-        getName() {return config.info.name.replace(" ", "");} getAuthor() {return config.info.authors.map(a => a.name).join(", ");} getDescription() {return config.info.description;} getVersion() {return config.info.version;} stop() {}
-        showAlert() {window.mainCore.alert("Loading Error",`Something went wrong trying to load the library for the plugin. Try reloading?`);}
+	return !global.ZLibrary ? class {
+		getName() {return config.info.name.replace(" ", "");} getAuthor() {return config.info.authors.map(a => a.name).join(", ");} getDescription() {return config.info.description;} getVersion() {return config.info.version;} stop() {}
+		showAlert() {window.mainCore.alert("Loading Error",`Something went wrong trying to load the library for the plugin. Try reloading?`);}
 		async load() {
 			try {await global.ZLibraryPromise;}
 			catch(err) {return this.showAlert();}
@@ -31,5 +32,5 @@ var {{PLUGIN_NAME}} = (() => {
 			catch(err) {return this.showAlert();}
 			bdplugins[this.getName()].plugin.start();
 		}
-    } : compilePlugin(global.ZLibrary.buildPlugin(config));
+	} : compilePlugin(global.ZLibrary.buildPlugin(config));
 })();

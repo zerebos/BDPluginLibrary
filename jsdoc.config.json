@@ -3,7 +3,7 @@
     "allowUnknownTags": true
   },
   "opts": {
-    "template": "node_modules/jsdoc/templates/default",
+    "template": "node_modules/foodoc/template",
     "destination": "./docs",
     "readme": "./DOCS.md"
   },
@@ -20,7 +20,10 @@
     "theme": "cerulean",
     "navType": "vertical",
     "linenums": true,
-    "dateFormat": "MMMM Do YYYY, h:mm:ss a"
+    "dateFormat": "MMMM Do YYYY, h:mm:ss a",
+	"systemName": "Zere's Plugin Library",
+    "systemSummary": "A set of helpful utilities and tools for BD plugins.",
+    "copyright": "Copyright © 2018 Zack Rauen"
   },
   "source": {
     "includePattern": ".+.js(doc)?$",

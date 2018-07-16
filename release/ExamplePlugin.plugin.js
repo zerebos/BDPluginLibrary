@@ -2,12 +2,13 @@
 
 var ExamplePlugin = (() => {
 	if (!global.ZLibrary && !global.ZLibraryPromise) global.ZLibraryPromise = new Promise((resolve, reject) => {
-        require("request").get("https://rauenzi.github.io/BetterDiscordAddons/Plugins/ZLibrary.js", (err, res, body) => { //https://zackrauen.com/BetterDiscordApp/ZLibrary.js | https://rauenzi.github.io/BetterDiscordAddons/Plugins/ZLibrary.js
-          if (!err && 200 === res.statusCode) resolve((0,eval)(body));
-          else reject(err || res.statusMessage);
-        });
-    });
-    const config = {"info":{"name":"Example Plugin","authors":[{"name":"Zerebos","discord_id":"249746236008169473","github_username":"rauenzi","twitter_username":"ZackRauen"}],"version":"0.0.3","description":"Patcher Test Description","github":"","github_raw":""},"changelog":[{"title":"New Stuff","items":["Added more settings","Added changelog"]},{"title":"Bugs Squashed","type":"fixed","items":["React errors on reload"]},{"title":"Improvements","type":"improved","items":["Improvements to the base plugin"]},{"title":"On-going","type":"progress","items":["More modals and popouts being added","More classes and modules being added"]}],"main":"index.js"};
+		require("request").get("https://rauenzi.github.io/BetterDiscordAddons/Plugins/ZLibrary.js", (err, res, body) => { //https://zackrauen.com/BetterDiscordApp/ZLibrary.js | https://rauenzi.github.io/BetterDiscordAddons/Plugins/ZLibrary.js
+			if (err || 200 !== res.statusCode) reject(err || res.statusMessage);
+			try {const vm = require("vm"), script = new vm.Script(body, {displayErrors: true}); resolve(script.runInThisContext());}
+			catch(err) {reject(err);}
+		});
+	});
+	const config = {"info":{"name":"Example Plugin","authors":[{"name":"Zerebos","discord_id":"249746236008169473","github_username":"rauenzi","twitter_username":"ZackRauen"}],"version":"0.0.3","description":"Patcher Test Description","github":"","github_raw":""},"changelog":[{"title":"New Stuff","items":["Added more settings","Added changelog"]},{"title":"Bugs Squashed","type":"fixed","items":["React errors on reload"]},{"title":"Improvements","type":"improved","items":["Improvements to the base plugin"]},{"title":"On-going","type":"progress","items":["More modals and popouts being added","More classes and modules being added"]}],"main":"index.js"};
 	const compilePlugin = ([Plugin, Api]) => {
 		const plugin = (Plugin, Library) => {
 
@@ -80,12 +81,12 @@ var ExamplePlugin = (() => {
     };
 
 };
-        return plugin(Plugin, Api);
-    };
+		return plugin(Plugin, Api);
+	};
 	
-    return !global.ZLibrary ? class {
-        getName() {return config.info.name.replace(" ", "");} getAuthor() {return config.info.authors.map(a => a.name).join(", ");} getDescription() {return config.info.description;} getVersion() {return config.info.version;} stop() {}
-        showAlert() {window.mainCore.alert("Loading Error",`Something went wrong trying to load the library for the plugin. Try reloading?`);}
+	return !global.ZLibrary ? class {
+		getName() {return config.info.name.replace(" ", "");} getAuthor() {return config.info.authors.map(a => a.name).join(", ");} getDescription() {return config.info.description;} getVersion() {return config.info.version;} stop() {}
+		showAlert() {window.mainCore.alert("Loading Error",`Something went wrong trying to load the library for the plugin. Try reloading?`);}
 		async load() {
 			try {await global.ZLibraryPromise;}
 			catch(err) {return this.showAlert();}
@@ -101,5 +102,5 @@ var ExamplePlugin = (() => {
 			catch(err) {return this.showAlert();}
 			bdplugins[this.getName()].plugin.start();
 		}
-    } : compilePlugin(global.ZLibrary.buildPlugin(config));
+	} : compilePlugin(global.ZLibrary.buildPlugin(config));
 })();

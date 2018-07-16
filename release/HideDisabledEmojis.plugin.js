@@ -2,12 +2,13 @@
 
 var HideDisabledEmojis = (() => {
 	if (!global.ZLibrary && !global.ZLibraryPromise) global.ZLibraryPromise = new Promise((resolve, reject) => {
-        require("request").get("https://rauenzi.github.io/BetterDiscordAddons/Plugins/ZLibrary.js", (err, res, body) => { //https://zackrauen.com/BetterDiscordApp/ZLibrary.js | https://rauenzi.github.io/BetterDiscordAddons/Plugins/ZLibrary.js
-          if (!err && 200 === res.statusCode) resolve((0,eval)(body));
-          else reject(err || res.statusMessage);
-        });
-    });
-    const config = {"info":{"name":"HideDisabledEmojis","authors":[{"name":"Zerebos","discord_id":"249746236008169473","github_username":"rauenzi","twitter_username":"ZackRauen"}],"version":"0.0.2","description":"Hides disabled emojis from the emoji picker. Support Server: bit.ly/ZeresServer","github":"https://github.com/rauenzi/BetterDiscordAddons/tree/master/Plugins/HideDisabledEmojis","github_raw":"https://github.com/rauenzi/BetterDiscordAddons/blob/master/Plugins/HideDisabledEmojis/HideDisabledEmojis.plugin.js"},"main":"index.js"};
+		require("request").get("https://rauenzi.github.io/BetterDiscordAddons/Plugins/ZLibrary.js", (err, res, body) => { //https://zackrauen.com/BetterDiscordApp/ZLibrary.js | https://rauenzi.github.io/BetterDiscordAddons/Plugins/ZLibrary.js
+			if (err || 200 !== res.statusCode) reject(err || res.statusMessage);
+			try {const vm = require("vm"), script = new vm.Script(body, {displayErrors: true}); resolve(script.runInThisContext());}
+			catch(err) {reject(err);}
+		});
+	});
+	const config = {"info":{"name":"HideDisabledEmojis","authors":[{"name":"Zerebos","discord_id":"249746236008169473","github_username":"rauenzi","twitter_username":"ZackRauen"}],"version":"0.0.2","description":"Hides disabled emojis from the emoji picker. Support Server: bit.ly/ZeresServer","github":"https://github.com/rauenzi/BetterDiscordAddons/tree/master/Plugins/HideDisabledEmojis","github_raw":"https://github.com/rauenzi/BetterDiscordAddons/blob/master/Plugins/HideDisabledEmojis/HideDisabledEmojis.plugin.js"},"main":"index.js"};
 	const compilePlugin = ([Plugin, Api]) => {
 		const plugin = (Plugin, Api) => {
     const {Logger, Patcher, Toasts, WebpackModules} = Api;
@@ -52,12 +53,12 @@ var HideDisabledEmojis = (() => {
 
     };
 };
-        return plugin(Plugin, Api);
-    };
+		return plugin(Plugin, Api);
+	};
 	
-    return !global.ZLibrary ? class {
-        getName() {return config.info.name.replace(" ", "");} getAuthor() {return config.info.authors.map(a => a.name).join(", ");} getDescription() {return config.info.description;} getVersion() {return config.info.version;} stop() {}
-        showAlert() {window.mainCore.alert("Loading Error",`Something went wrong trying to load the library for the plugin. Try reloading?`);}
+	return !global.ZLibrary ? class {
+		getName() {return config.info.name.replace(" ", "");} getAuthor() {return config.info.authors.map(a => a.name).join(", ");} getDescription() {return config.info.description;} getVersion() {return config.info.version;} stop() {}
+		showAlert() {window.mainCore.alert("Loading Error",`Something went wrong trying to load the library for the plugin. Try reloading?`);}
 		async load() {
 			try {await global.ZLibraryPromise;}
 			catch(err) {return this.showAlert();}
@@ -73,5 +74,5 @@ var HideDisabledEmojis = (() => {
 			catch(err) {return this.showAlert();}
 			bdplugins[this.getName()].plugin.start();
 		}
-    } : compilePlugin(global.ZLibrary.buildPlugin(config));
+	} : compilePlugin(global.ZLibrary.buildPlugin(config));
 })();

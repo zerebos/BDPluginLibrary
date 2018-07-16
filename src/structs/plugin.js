@@ -33,7 +33,7 @@ export default function(config) {
         getAuthor() { return this._config.info.authors.map(a => a.name).join(", "); }
         load() {}
         start() {
-            Logger.info(this.getName(), "Started");
+            Logger.info(this.getName(), `version ${this.getVersion()} has started.`);
             if (this.defaultSettings) this.settings = this.loadSettings();
             const currentVersionInfo = PluginUtilities.loadData(this.getName(), "currentVersionInfo", {version: this.getVersion(), hasShownChangelog: false});
             if (currentVersionInfo.version != this.getVersion() || !currentVersionInfo.hasShownChangelog) {
@@ -45,7 +45,7 @@ export default function(config) {
             if (typeof(this.onStart) == "function") this.onStart();
         }
         stop() {
-            Logger.info(this.getName(), "Stopped");
+            Logger.info(this.getName(), `version ${this.getVersion()} has stopped.`);
             this._enabled = false;
             if (typeof(this.onStop) == "function") this.onStop();
         }

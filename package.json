@@ -2,7 +2,9 @@
   "name": "pluginlibrary",
   "version": "0.5.6",
   "description": "Zere's library for BetterDiscord plugins.",
-  "dependencies": {},
+  "dependencies": {
+    "foodoc": "0.0.9"
+  },
   "devDependencies": {
     "jsdoc": "^3.5.5",
     "raw-loader": "^0.5.1",
@@ -25,5 +27,8 @@
   },
   "author": "Zerebos",
   "license": "MIT",
-  "eslintIgnore": ["pack.js", "build.js"]
+  "eslintIgnore": [
+    "pack.js",
+    "build.js"
+  ]
 }
