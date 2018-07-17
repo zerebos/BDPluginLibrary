@@ -5,6 +5,7 @@ release/*
 !release/ExamplePlugin.plugin.js
 !release/ExamplePlugin2.plugin.js
 !release/HideDisabledEmojis.plugin.js
+!release/ZLibrary.js
 plugins/*
 !plugins/0PluginLibrary
 !plugins/ExamplePlugin

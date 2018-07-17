@@ -214,7 +214,7 @@ export default Utilities.memoizeObject({
     get ColorPicker() {return WebpackModules.getByPrototypes("renderCustomColorPopout");},
     get Dropdown() {return WebpackModules.getModule(m => m.prototype && !m.prototype.handleClick && m.prototype.render && m.prototype.render.toString().includes("default.select"));},
     get Keybind() {return WebpackModules.getByPrototypes("handleComboChange");},
-    get RadioGroup() {return WebpackModules.getByPrototypes("renderRadio");},
+    get RadioGroup() {return WebpackModules.getModule(m => m.defaultProps && m.defaultProps.options);},
     get Slider() {return WebpackModules.getByPrototypes("renderMark");},
     get SwitchRow() {return WebpackModules.getModule(m => m.defaultProps && m.defaultProps.hideBorder == false);},
     get Textbox() {return WebpackModules.getModule(m => m.defaultProps && m.defaultProps.type == "text");},
