@@ -42,27 +42,28 @@ export default class ReactTools {
 	 * @param {object} options - options for the search
 	 * @param {array} [options.include] - list of items to include from the search
 	 * @param {array} [options.exclude=["Popout", "Tooltip", "Scroller", "BackgroundFlash"]] - list of items to exclude from the search
+	 * @param {callable} [options.filter=_=>_] - filter to check the current instance with (should return a boolean)
 	 * @return {(*|null)} the owner instance or undefined if not found.
 	 */
-	static getOwnerInstance(node, {include, exclude = ["Popout", "Tooltip", "Scroller", "BackgroundFlash"]} = {}) {
+	static getOwnerInstance(node, {include, exclude = ["Popout", "Tooltip", "Scroller", "BackgroundFlash"], filter = _ => _} = {}) {
 		if (node === undefined)
 			return undefined;
 		const excluding = include === undefined;
-		const filter = excluding ? exclude : include;
+		const nameFilter = excluding ? exclude : include;
 		function getDisplayName(owner) {
 			const type = owner.type;
 			return type.displayName || type.name || null;
 		}
 		function classFilter(owner) {
 			const name = getDisplayName(owner);
-			return (name !== null && !!(filter.includes(name) ^ excluding));
+			return (name !== null && !!(nameFilter.includes(name) ^ excluding));
 		}
 		
 		for (let curr = this.getReactInstance(node).return; !Utilities.isNil(curr); curr = curr.return) {
 			if (Utilities.isNil(curr))
 				continue;
 			let owner = curr.stateNode;
-			if (!Utilities.isNil(owner) && !(owner instanceof HTMLElement) && classFilter(curr))
+			if (!Utilities.isNil(owner) && !(owner instanceof HTMLElement) && classFilter(curr) && filter(owner))
 				return owner;
 		}
 		
