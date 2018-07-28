@@ -348,7 +348,7 @@ export default class DOMTools {
 	 * @returns {Element|string} - When setting a value, element is returned for chaining, otherwise the value is returned.
 	 */
 	static css(element, attribute, value) {
-		if (typeof(value) == "undefined") return global.getComputedStyle(element).color;
+		if (typeof(value) == "undefined") return global.getComputedStyle(element)[attribute];
 		element.style[attribute] = value;
 		return element;
 	}
