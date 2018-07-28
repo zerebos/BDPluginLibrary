@@ -17,12 +17,12 @@ const getBoundLibrary = () => {
 	const name = config.info.name;
 	const BoundAPI = {
 		Logger: {
-			log: () => Library.Logger.log(name),
-			error: () => Library.Logger.err(name),
-			err: () => Library.Logger.err(name),
-			warn: () => Library.Logger.warn(name),
-			info: () => Library.Logger.info(name),
-			debug: () => Library.Logger.debug(name)
+			log: (...args) => Library.Logger.log(name, ...args),
+			error: (...args) => Library.Logger.err(name, ...args),
+			err: (...args) => Library.Logger.err(name, ...args),
+			warn: (...args) => Library.Logger.warn(name, ...args),
+			info: (...args) => Library.Logger.info(name, ...args),
+			debug: (...args) => Library.Logger.debug(name, ...args)
 		},
 		Patcher: {
 			getPatchesByCaller: () => {return Library.Patcher.getPatchesByCaller(name);},
