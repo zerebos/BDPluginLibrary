@@ -2,78 +2,58 @@
  * Simple logger for the lib and plugins.
  * 
  * @module Logger
- * @version 0.0.2
+ * @version 0.0.3
  */
 
 /* eslint-disable no-console */
 
-/**
- * List of logging types.
- */
-export const LogTypes = {
-    /** Alias for error */
-    err: "error",
-    error: "error",
-    /** Alias for debug */
-    dbg: "debug",
-    debug: "debug",
-    log: "log",
-    warn: "warn",
-    info: "info"
-};
-
 export default class Logger {
+	
+	/**
+	 * Logs errors using collapsed error groups and stacktraces.
+	 *
+	 * @param {string} module - Name of the calling module.
+	 */
+	static error(module) { console.error.apply(this, Logger.parse(module, arguments)); }
 
     /**
-     * Logs an error using a collapsed error group with stacktrace.
+     * Alias for Logger#error.
      * 
      * @param {string} module - Name of the calling module.
-     * @param {string} message - Message or error to have logged.
-	 * @param {Error} error - Optional error to log with the message.
      */
-    static err(module, message, error) {
-		if (error) return console.error(`%c[${module}]%c ${message}\n\n%c`, "color: #3a71c1; font-weight: 700;", "color: red; font-weight: 700;", "color: red;", error);
-		else Logger.log(module, message, "error");
-    }
+    static err(module) { Logger.error(module, arguments); }
 
     /**
-     * Logs a warning message/
+     * Logs a warning message.
      * 
      * @param {string} module - Name of the calling module.
-     * @param {string} message - Message to have logged.
      */
-    static warn(module, message) { Logger.log(module, message, "warn"); }
+    static warn(module) { console.warn.apply(this, Logger.parse(module, arguments)); }
 
     /**
      * Logs an informational message.
      * 
      * @param {string} module - Name of the calling module.
-     * @param {string} message - Message to have logged.
      */
-    static info(module, message) { Logger.log(module, message, "info"); }
+    static info(module) { console.info.apply(this, Logger.parse(module, arguments)); }
 
     /**
      * Logs used for debugging purposes.
      * 
      * @param {string} module - Name of the calling module.
-     * @param {string} message - Message to have logged.
      */
-    static debug(module, message) { Logger.log(module, message, "debug"); }
+    static debug(module) { console.debug.apply(this, Logger.parse(module, arguments)); }
     
     /**
-     * Logs strings using different console levels and a module label.
+     * Logs.
      * 
      * @param {string} module - Name of the calling module.
-     * @param {string} message - Message to have logged.
-     * @param {module:Logger.LogTypes} type - Type of log to use in console.
      */
-    static log(module, message, type = "log") {
-        type = Logger.parseType(type);
-        console[type](`%c[${module}]%c`, "color: #3a71c1; font-weight: 700;", "", message);
-    }
+    static log(module) { console.log.apply(this, Logger.parse(module, arguments)); }
 
-    static parseType(type) {
-        return LogTypes.hasOwnProperty(type) ? LogTypes[type] : "log";
+    static parse(module, originalArguments) {
+        const args = Array.prototype.slice.call(originalArguments, 1);
+		args.unshift(`%c[${module}]`, "color: #3a71c1; font-weight: 700;");
+		return args;
     }
-
 }
