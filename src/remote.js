@@ -36,5 +36,7 @@ Library.buildPlugin = function(config) {
 if (document.getElementById("ZLibraryCSS")) document.getElementById("ZLibraryCSS").remove();
 document.head.append(Library.DOMTools.createElement(`<style id="ZLibraryCSS">${Settings.CSS + Toasts.CSS + Library.PluginUpdater.CSS}</style>`));
 
+if (!window.jQuery) window.$ = window.jQuery = function() {};
+
 export default Library;
 

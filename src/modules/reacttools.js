@@ -16,8 +16,8 @@ export default class ReactTools {
 	 * @return {object} the internal react instance
 	 */
 	static getReactInstance(node) {
-		if (!(node instanceof jQuery) && !(node instanceof Element)) return undefined;
-		var domNode = node instanceof jQuery ? node[0] : node;
+		if (!(node instanceof window.jQuery) && !(node instanceof Element)) return undefined;
+		var domNode = node instanceof window.jQuery ? node[0] : node;
 		return domNode[Object.keys(domNode).find((key) => key.startsWith("__reactInternalInstance"))];
 	}
 

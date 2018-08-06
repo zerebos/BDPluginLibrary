@@ -11,7 +11,7 @@ const formatString = function(string, values) {
     return string;
 };
 
-const template = fs.readFileSync(path.join(__dirname, args.loader == "remote" ? "template.remote.js" : "template.js")).toString();
+const template = fs.readFileSync(path.join(__dirname, args.platform == "ed" ? "template.ed.js" : args.loader == "remote" ? "template.remote.js" : "template.js")).toString();
 const list = args.plugin ? [args.plugin] : fs.readdirSync(pluginsPath).filter(f => fs.lstatSync(path.join(pluginsPath, f)).isDirectory() && f != "0PluginLibrary");
 console.log("");
 console.log("Building: " + list.join(", "));
@@ -20,7 +20,7 @@ for (let f = 0; f < list.length; f++) {
     const pluginName = list[f];
     let config = require(path.join(pluginsPath, pluginName, "config.json"));
     let content = require(path.join(pluginsPath, pluginName, "index.js"));
-    fs.writeFileSync(path.join(releasePath, pluginName + ".plugin.js"), formatString(template, {
+    fs.writeFileSync(path.join(releasePath, args.platform == "ed" ? "ED/" + pluginName + ".js" : pluginName + ".plugin.js"), formatString(template, {
         PLUGIN_NAME: pluginName,
         CONFIG: JSON.stringify(config),
         INNER: content.toString(),

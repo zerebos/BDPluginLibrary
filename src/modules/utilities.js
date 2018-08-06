@@ -6,8 +6,6 @@
 
 import Logger from "./logger";
 
-const fs = require("fs");
-
 export default class Utilities {
 
     /**
@@ -250,6 +248,7 @@ export default class Utilities {
      * @return {Promise}
      */
     static async fileExists(path) {
+        const fs = require("fs");
         return new Promise((resolve, reject) => {
             fs.stat(path, (err, stats) => {
                 if (err) return reject({
@@ -278,7 +277,8 @@ export default class Utilities {
         } catch (err) {
             throw err;
         }
-
+        
+        const fs = require("fs");
         return new Promise((resolve, reject) => {
             fs.readFile(path, "utf-8", (err, data) => {
                 if (err) return reject({

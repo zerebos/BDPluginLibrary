@@ -15,12 +15,7 @@ module.exports = env => {
       libraryTarget: "var",
       libraryExport: "default"
     },
-    externals: {
-      electron: "window.require('electron')",
-      fs: "window.require('fs')",
-      path: "window.require('path')",
-      request: "window.require('request')"
-    },
+    externals: ["electron", "fs", "path", "request"],
     resolve: {
       extensions: [".js"],
       modules: [
