@@ -36,7 +36,14 @@ Library.buildPlugin = function(config) {
 if (document.getElementById("ZLibraryCSS")) document.getElementById("ZLibraryCSS").remove();
 document.head.append(Library.DOMTools.createElement(`<style id="ZLibraryCSS">${Settings.CSS + Toasts.CSS + Library.PluginUpdater.CSS}</style>`));
 
-if (!window.jQuery) window.$ = window.jQuery = function() {};
+if (process.env.PLATFORM == "EnhancedDiscord") {
+    window.$ = window.jQuery = function() {};
+    Library.name = "Zere's Library";
+    Library.author = "Zerebos#7790";
+    Library.description = "Library for other plugins, doesn't need to be enabled to work.";
+    Library.load = function() {};
+    Library.unload = function() {};
+}
 
 export default Library;
 
