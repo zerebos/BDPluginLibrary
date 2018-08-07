@@ -3,6 +3,7 @@ import Logger from "../modules/logger";
 import ReactTools from "../modules/reacttools";
 import Modals from "../ui/modals";
 import PluginUtilities from "../modules/pluginutilities";
+import DiscordModules from "../modules/discordmodules";
 import * as Settings from "../ui/settings";
 
 export default function(config) {
@@ -51,6 +52,17 @@ export default function(config) {
         }
 
         get isEnabled() {return this._enabled;}
+        get strings() {
+            if (!this._config.strings) return {};
+            const locale = DiscordModules.UserSettingsStore.locale.split("-")[0];
+            if (this._config.strings.hasOwnProperty(locale)) return this._config.strings[locale];
+            if (this._config.strings.hasOwnProperty("en")) return this._config.strings[locale];
+            return this._config.strings;
+        }
+        
+        set strings(strings) {
+            this._config.strings = strings;
+        }
 
         showSettingsModal() {
             if (typeof(this.getSettingsPanel) != "function") return;

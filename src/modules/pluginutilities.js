@@ -1,5 +1,6 @@
 import Logger from "./logger";
 import Utilities from "./utilities";
+import DOMTools from "./domtools";
 
 /**
  * A series of useful functions for BetterDiscord plugins.
@@ -99,6 +100,24 @@ import Utilities from "./utilities";
 	 */
 	static removeOnSwitchListener(callback) {
 		require("electron").remote.getCurrentWebContents().removeListener("did-navigate-in-page", callback);
+	}
+
+	static addStyle(id, css) {
+		document.head.append(DOMTools.createElement(`<style id="${id}">${css}</style>`));
+	}
+
+	static removeStyle(id) {
+		const element = document.getElementById(id);
+		if (element) element.remove();
+	}
+
+	static addScript(id, url) {
+		document.head.append(DOMTools.createElement(`<script id="${id}" src="${url}"></script>`));
+	}
+
+	static removeScript(id) {
+		const element = document.getElementById(id);
+		if (element) element.remove();
 	}
 }
 
