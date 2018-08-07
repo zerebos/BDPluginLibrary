@@ -6949,35 +6949,35 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "electron":
-/*!***************************!*\
-  !*** external "electron" ***!
-  \***************************/
+/*!***********************************************!*\
+  !*** external "window.require(\"electron\")" ***!
+  \***********************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = electron;
+module.exports = window.require("electron");
 
 /***/ }),
 
 /***/ "fs":
-/*!*********************!*\
-  !*** external "fs" ***!
-  \*********************/
+/*!*****************************************!*\
+  !*** external "window.require(\"fs\")" ***!
+  \*****************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = fs;
+module.exports = window.require("fs");
 
 /***/ }),
 
 /***/ "path":
-/*!***********************!*\
-  !*** external "path" ***!
-  \***********************/
+/*!*******************************************!*\
+  !*** external "window.require(\"path\")" ***!
+  \*******************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = path;
+module.exports = window.require("path");
 
 /***/ }),
 
@@ -6993,13 +6993,13 @@ module.exports = require("process");
 /***/ }),
 
 /***/ "request":
-/*!**************************!*\
-  !*** external "request" ***!
-  \**************************/
+/*!**********************************************!*\
+  !*** external "window.require(\"request\")" ***!
+  \**********************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = require("request");
+module.exports = window.require("request");
 
 /***/ })
 
