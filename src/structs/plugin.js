@@ -56,7 +56,7 @@ export default function(config) {
             if (!this._config.strings) return {};
             const locale = DiscordModules.UserSettingsStore.locale.split("-")[0];
             if (this._config.strings.hasOwnProperty(locale)) return this._config.strings[locale];
-            if (this._config.strings.hasOwnProperty("en")) return this._config.strings[locale];
+            if (this._config.strings.hasOwnProperty("en")) return this._config.strings["en"];
             return this._config.strings;
         }
         
