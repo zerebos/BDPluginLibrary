@@ -55,7 +55,7 @@ export default class Patcher {
     static makeOverride(patch) {
         return function () {
             let returnValue = undefined;
-            if (!patch.children) return patch.originalFunction.apply(this, arguments);
+            if (!patch.children || !patch.children.length) return patch.originalFunction.apply(this, arguments);
             for (const superPatch of patch.children.filter(c => c.type === "before")) {
                 try {
                     superPatch.callback(this, arguments);
@@ -148,7 +148,7 @@ export default class Patcher {
     static before(caller, moduleToPatch, functionName, callback, options = {}) { return this.pushChildPatch(caller, moduleToPatch, functionName, callback, Object.assign(options, {type: "before"})); }
     
     /**
-     * This method patches onto another function, allowing your code to run instead.
+     * This method patches onto another function, allowing your code to run after.
      * Using this, you are also able to modify the return value, using the return of your code instead.
      * 
      * @param {string} caller - Name of the caller of the patch function. Using this you can undo all patches with the same name using {@link Patcher#unpatchAll}. Use `""` if you don't care.
@@ -163,7 +163,7 @@ export default class Patcher {
     static after(caller, moduleToPatch, functionName, callback, options = {}) { return this.pushChildPatch(caller, moduleToPatch, functionName, callback, Object.assign(options, {type: "after"})); }
     
     /**
-     * This method patches onto another function, allowing your code to run afterwards.
+     * This method patches onto another function, allowing your code to run instead.
      * Using this, you are also able to modify the return value, using the return of your code instead.
      * 
      * @param {string} caller - Name of the caller of the patch function. Using this you can undo all patches with the same name using {@link Patcher#unpatchAll}. Use `""` if you don't care.
