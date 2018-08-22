@@ -14,3 +14,4 @@ export * from "./discord/message";
 export * from "./discord/usersettings";
 
 export {default as Plugin} from "./plugin";
+export {default as Listenable} from "./listenable";

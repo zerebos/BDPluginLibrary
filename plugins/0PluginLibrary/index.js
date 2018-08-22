@@ -1,39 +1,25 @@
 export default (BasePlugin, Library) => {
-    const {PluginUpdater, Patcher, Structs, Logger, Settings, Toasts} = Library;
-    return class ZeresPluginLibrary extends BasePlugin {
+    const {PluginUpdater, Patcher, Logger, Settings, Toasts, PluginUtilities} = Library;
+    const PluginLibrary = class PluginLibrary extends BasePlugin {
         get Library() {return Library;}
         
         load() {
             this.start();
-            BdApi.clearCSS("ZeresLibraryCSS");
-            BdApi.injectCSS("ZeresLibraryCSS", Settings.CSS + Toasts.CSS + PluginUpdater.CSS);
-
-            jQuery.extend(jQuery.easing, { easeInSine: function (x, t, b, c, d) { return -c * Math.cos(t / d * (Math.PI / 2)) + c + b; }});
-
-
-            const SelectorConverter = (thisObject, args) => {
-                if (args.length && args[0] instanceof Structs.Selector) args[0] = args[0].toString();
-            };
-
-            Patcher.unpatchAll("ZeresLibrary");
-            Patcher.before("ZeresLibrary", jQuery.fn, "find", SelectorConverter);
-            Patcher.before("ZeresLibrary", jQuery.fn, "parents", SelectorConverter);
-            Patcher.before("ZeresLibrary", jQuery.fn, "closest", SelectorConverter);
-
-            Patcher.before("ZeresLibrary", global, "$", SelectorConverter);
-            jQuery.extend(true, global.$, jQuery);
+            PluginUtilities.removeStyle("ZLibraryCSS");
+            PluginUtilities.addStyle("ZLibraryCSS", Settings.CSS + Toasts.CSS + PluginUpdater.CSS);
         }
 
         static buildPlugin(config) {
             const name = config.info.name;
             const BoundAPI = {
                 Logger: {
-                    log: (message) => Logger.log(name, message),
-                    error: (message, error) => Logger.err(name, message, error),
-                    err: (message, error) => Logger.err(name, message, error),
-                    warn: (message) => Logger.warn(name, message),
-                    info: (message) => Logger.info(name, message),
-                    debug: (message) => Logger.debug(name, message)
+                    stacktrace: (message, error) => Logger.stacktrace(name, message, error),
+                    log: (...message) => Logger.log(name, ...message),
+                    error: (...message) => Logger.err(name, ...message),
+                    err: (...message) => Logger.err(name, ...message),
+                    warn: (...message) => Logger.warn(name, ...message),
+                    info: (...message) => Logger.info(name, ...message),
+                    debug: (...message) => Logger.debug(name, ...message)
                 },
                 Patcher: {
                     getPatchesByCaller: () => {return Patcher.getPatchesByCaller(name);},
@@ -49,4 +35,10 @@ export default (BasePlugin, Library) => {
             return [Library.Structs.Plugin(config), BoundLib];		
         }
     };
+
+    Object.assign(PluginLibrary, Library);
+    Library.buildPlugin = PluginLibrary.buildPlugin;
+    window.ZLibrary = Library;
+    window.ZLibraryPromise = new Promise(r => setImmediate(r));
+    return PluginLibrary;
 };

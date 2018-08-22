@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+      "target": "es2017",
+      "allowSyntheticDefaultImports": false,
+      "baseUrl": "./",
+      "paths": {
+        "modules": ["./src/modules/modules.js"],
+        "structs": ["./src/structs/structs.js"],
+        "ui": ["./src/ui/ui.js"],
+      }
+    },
+    "exclude": ["node_modules", "dist"]
+  }

@@ -38,9 +38,9 @@ module.exports = env => {
         raw: true
       }),
       new webpack.DefinePlugin({
-        "process.env":{
-          "PLUGIN_NAME": JSON.stringify(env ? env.PLUGIN_NAME : "0PluginLibrary"),
-          "PLATFORM": JSON.stringify(env ? env.PLATFORM : "BetterDiscord")
+        "process.env": {
+          PLUGIN_NAME: JSON.stringify(env ? env.PLUGIN_NAME : "0PluginLibrary"),
+          PLATFORM: JSON.stringify(env ? env.PLATFORM : "BetterDiscord")
         }
       })
     ]

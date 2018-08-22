@@ -2,7 +2,7 @@
  * Simple logger for the lib and plugins.
  * 
  * @module Logger
- * @version 0.0.2
+ * @version 0.1.0
  */
 
 /* eslint-disable no-console */
@@ -29,47 +29,63 @@ export default class Logger {
      * 
      * @param {string} module - Name of the calling module.
      * @param {string} message - Message or error to have logged.
-	 * @param {Error} error - Optional error to log with the message.
+	 * @param {Error} error - Error object to log with the message.
      */
-    static err(module, message, error) {
-		if (error) return console.error(`%c[${module}]%c ${message}\n\n%c`, "color: #3a71c1; font-weight: 700;", "color: red; font-weight: 700;", "color: red;", error);
-		else Logger.log(module, message, "error");
+    static stacktrace(module, message, error) {
+		console.error(`%c[${module}]%c ${message}\n\n%c`, "color: #3a71c1; font-weight: 700;", "color: red; font-weight: 700;", "color: red;", error);
     }
 
     /**
-     * Logs a warning message/
+     * Logs using error formatting. For logging an actual error object consider {@link module:Logger.stacktrace}
      * 
      * @param {string} module - Name of the calling module.
-     * @param {string} message - Message to have logged.
+     * @param {string} message - Messages to have logged.
      */
-    static warn(module, message) { Logger.log(module, message, "warn"); }
+    static err(module, ...message) { Logger._log(module, message, "error"); }
+
+    /**
+     * Logs a warning message.
+     * 
+     * @param {string} module - Name of the calling module.
+     * @param {...any} message - Messages to have logged.
+     */
+    static warn(module, ...message) { Logger._log(module, message, "warn"); }
 
     /**
      * Logs an informational message.
      * 
      * @param {string} module - Name of the calling module.
-     * @param {string} message - Message to have logged.
+     * @param {...any} message - Messages to have logged.
      */
-    static info(module, message) { Logger.log(module, message, "info"); }
+    static info(module, ...message) { Logger._log(module, message, "info"); }
 
     /**
      * Logs used for debugging purposes.
      * 
      * @param {string} module - Name of the calling module.
-     * @param {string} message - Message to have logged.
+     * @param {...any} message - Messages to have logged.
      */
-    static debug(module, message) { Logger.log(module, message, "debug"); }
+    static debug(module, ...message) { Logger._log(module, message, "debug"); }
     
+    /**
+     * Logs used for basic loggin.
+     * 
+     * @param {string} module - Name of the calling module.
+     * @param {...any} message - Messages to have logged.
+     */
+    static log(module, ...message) { Logger._log(module, message); }
+
     /**
      * Logs strings using different console levels and a module label.
      * 
      * @param {string} module - Name of the calling module.
-     * @param {string} message - Message to have logged.
+     * @param {any|Array<any>} message - Messages to have logged.
      * @param {module:Logger.LogTypes} type - Type of log to use in console.
      */
-    static log(module, message, type = "log") {
+    static _log(module, message, type = "log") {
         type = Logger.parseType(type);
-        console[type](`%c[${module}]%c`, "color: #3a71c1; font-weight: 700;", "", message);
+        if (!Array.isArray(message)) message = [message];
+        console[type](`%c[${module}]%c`, "color: #3a71c1; font-weight: 700;", "", ...message);
     }
 
     static parseType(type) {

@@ -63,7 +63,7 @@ export default class Toast {
 
     static getIcon(icon) {
         let iconInner = `<img src="${icon}" width="20" height="20" />`;
-        switch(icon) {
+        switch (icon) {
             case "success": iconInner = Icons.IconSuccess(20); break;
             case "warning": iconInner = Icons.IconWarning(20); break;
             case "info": iconInner = Icons.IconInfo(20); break;
@@ -98,11 +98,11 @@ export default class Toast {
      */
     static get ToastTypes() {
         return {
-            default: "",
-            error: "error",
-            success: "success",
-            warning: "warning",
-            info: "info"
+            "default": "",
+            "error": "error",
+            "success": "success",
+            "warning": "warning",
+            "info": "info"
         };
     }
 }

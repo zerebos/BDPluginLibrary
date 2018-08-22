@@ -41,7 +41,7 @@ export class Menu {
     
     /**
      * Adds items to the context menu directly. It is recommended to add to a group and use 
-     * {@link module:ContextMenu.Menu#addGroup} instead to behave as natively as possible.
+     * {@link module:ContextMenu.Menu.addGroup} instead to behave as natively as possible.
      * @param {module:ContextMenu.MenuItem} contextItems - list of items to add to the context menu
      * @returns {module:ContextMenu.Menu} returns self for chaining
      */
@@ -278,8 +278,8 @@ export class ToggleItem extends MenuItem {
 		super(label, options);
 		this.element.addClass(DiscordClasses.ContextMenu.itemToggle.toString());
         this.element.append($("<div>").addClass(DiscordClasses.ContextMenu.label.toString()).text(label));
-        this.checkbox = $("<div>", {class: "checkbox"});
-        this.checkbox.append($("<div>", {class: "checkbox-inner"}));
+        this.checkbox = $("<div>", {"class": "checkbox"});
+        this.checkbox.append($("<div>", {"class": "checkbox-inner"}));
         this.checkbox.append("<span>");
         this.input = $("<input>", {type: "checkbox", checked: checked, value: "on"});
         this.checkbox.find(".checkbox-inner").append(this.input).append("<span>");

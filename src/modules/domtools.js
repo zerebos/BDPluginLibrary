@@ -5,7 +5,7 @@
  * the same as the ones available in the module itself, but with the `element`
  * parameter bound to `this`.
  * @module DOMTools
- * @version 0.0.2
+ * @version 0.0.3
  */
 
 import Utilities from "./utilities";
@@ -348,7 +348,7 @@ export default class DOMTools {
 	 * @returns {Element|string} - When setting a value, element is returned for chaining, otherwise the value is returned.
 	 */
 	static css(element, attribute, value) {
-		if (typeof(value) == "undefined") return global.getComputedStyle(element).color;
+		if (typeof(value) == "undefined") return global.getComputedStyle(element)[attribute];
 		element.style[attribute] = value;
 		return element;
 	}
@@ -459,6 +459,49 @@ export default class DOMTools {
 			if (event.target.matches(delegate)) {
 				callback(event);
 			}
+		};
+
+		element.addEventListener(type, eventFunc);
+		const cancel = () => {
+			element.removeEventListener(type, eventFunc);
+		};
+		if (namespace) {
+			if (!this.listeners[namespace]) this.listeners[namespace] = [];
+			const newCancel = () => {
+				cancel();
+				this.listeners[namespace].splice(this.listeners[namespace].findIndex(l => l.event == type && l.element == element), 1);
+			};
+			this.listeners[namespace].push({
+				event: type,
+				element: element,
+				cancel: newCancel
+			});
+			return newCancel;
+		}
+		return cancel;
+	}
+
+	/**
+	 * Functionality for this method matches {@link module:DOMTools.on} but automatically cancels itself
+	 * and removes the listener upon the first firing of the desired event.
+	 * 
+	 * @param {Element} element - Element to add listener to
+	 * @param {string} event - Event to listen to with option namespace (e.g. "event.namespace")
+	 * @param {(string|callable)} delegate - Selector to run on element to listen to
+	 * @param {callable} [callback] - Function to fire on event
+	 * @returns {module:DOMTools~CancelListener} - A function that will undo the listener
+	 */
+	static once(element, event, delegate, callback) {
+		const [type, namespace] = event.split(".");
+		const hasDelegate = delegate && callback;
+		if (!callback) callback = delegate;
+		const eventFunc = !hasDelegate ? function(event) {
+			callback(event);
+			element.removeEventListener(type, eventFunc);
+		} : function(event) {
+			if (!event.target.matches(delegate)) return;
+			callback(event);
+			element.removeEventListener(type, eventFunc);
 		};
 
 		element.addEventListener(type, eventFunc);
@@ -629,6 +672,7 @@ Utilities.addToPrototype(HTMLElement, "outerWidth", function() {return DOMTools.
 Utilities.addToPrototype(HTMLElement, "outerHeight", function() {return DOMTools.outerHeight(this);});
 Utilities.addToPrototype(HTMLElement, "offset", function() {return DOMTools.offset(this);});
 Utilities.addToPrototype(HTMLElement, "on", function(event, delegate, callback) {return DOMTools.on(this, event, delegate, callback);});
+Utilities.addToPrototype(HTMLElement, "once", function(event, delegate, callback) {return DOMTools.once(this, event, delegate, callback);});
 Utilities.addToPrototype(HTMLElement, "off", function(event, delegate, callback) {return DOMTools.off(this, event, delegate, callback);});
 Utilities.addToPrototype(HTMLElement, "find", function(selector) {return DOMTools.query(selector, this);});
 Utilities.addToPrototype(HTMLElement, "findAll", function(selector) {return DOMTools.queryAll(selector, this);});

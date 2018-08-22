@@ -1,6 +1,8 @@
 /**
  * A large list of known and useful webpack modules internal to Discord.
- * Click the filename below to see the whole list.
+ * Click the source link down below to view more info. Otherwise, if you
+ * have the library installed or have a plugin using this library,
+ * do `Object.keys(ZLibrary.DiscordModules)` in console for a list of modules.
  * @module DiscordModules
  * @version 0.0.1
  */
@@ -156,7 +158,8 @@ export default Utilities.memoizeObject({
     get UserProfileModals() {return WebpackModules.getByProps("fetchMutualFriends", "setSection");},
     get AlertModal() {return WebpackModules.getByPrototypes("handleCancel", "handleSubmit", "handleMinorConfirm");},
     get ConfirmationModal() {return WebpackModules.getModule(m => m.defaultProps && m.key && m.key() == "confirm-modal");},
-    get UserProfileModal() {return WebpackModules.find(m => {
+    get UserProfileModal() {
+        return WebpackModules.find(m => {
             try {
                 return m.modalConfig && m.prototype.render().type.displayName == "FluxContainer(SubscribeGuildMembersContainer(t))";
             }
@@ -175,7 +178,8 @@ export default Utilities.memoizeObject({
     get PrivacySettingsModal() {return WebpackModules.getByRegex(/PRIVACY_SETTINGS_MODAL_OPEN/, m => m.open);},
     get CreateInviteModal() {return WebpackModules.getByProps(["open", "createInvite"]);},
     get Changelog() {return WebpackModules.getModule((m => m.defaultProps && m.defaultProps.selectable == false));},
-    get Avatar() {return WebpackModules.find(m => {
+    get Avatar() {
+        return WebpackModules.find(m => {
             if (m.displayName != "FluxContainer(t)") return false;
             try {
                 const temp = new m();
@@ -189,7 +193,8 @@ export default Utilities.memoizeObject({
     get PopoutStack() {return WebpackModules.getByProps("open", "close", "closeAll");},
     get PopoutOpener() {return WebpackModules.getByProps("openPopout");},
     get EmojiPicker() {return WebpackModules.getByPrototypes("onHoverEmoji", "selectEmoji");},
-    get UserPopout() {return WebpackModules.getByDisplayName("FluxContainer(SubscribeGuildMembersContainer(t))")  || WebpackModules.find(m => {
+    get UserPopout() {
+        return WebpackModules.getByDisplayName("FluxContainer(SubscribeGuildMembersContainer(t))")  || WebpackModules.find(m => {
             try { return m.displayName == "FluxContainer(Component)" && !(new m()); }
             catch (e) { return e.toString().includes("user"); }
         });

@@ -51,11 +51,7 @@ export default class ColorConverter {
 	 */
 	static darkenColor(color, percent) {
 		var rgb = this.getRGB(color);
-		
-		for(var i = 0; i < rgb.length; i++){
-			rgb[i] = Math.round(Math.max(0, rgb[i] - rgb[i] * (percent / 100)));
-		}
-		
+		for (var i = 0; i < rgb.length; i++) rgb[i] = Math.round(Math.max(0, rgb[i] - rgb[i] * (percent / 100)));
 		return "rgb(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + ")";
 	}
 
@@ -67,11 +63,7 @@ export default class ColorConverter {
 	 */
 	static lightenColor(color, percent) {
 		var rgb = this.getRGB(color);
-		
-		for(var i = 0; i < rgb.length; i++){
-			rgb[i] = Math.round(Math.min(255, rgb[i] + rgb[i] * (percent / 100)));
-		}
-		
+		for (var i = 0; i < rgb.length; i++) rgb[i] = Math.round(Math.min(255, rgb[i] + rgb[i] * (percent / 100)));
 		return "rgb(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + ")";
 	}
 

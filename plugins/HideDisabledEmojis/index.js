@@ -21,7 +21,9 @@ module.exports = (Plugin, Api) => {
 
                 let i = 0;
                 for (let cat of cats) {
-                    if (!newcats[cat.category]) cat.offsetTop = 999999;
+                    if (!newcats[cat.category]) {
+                        cat.offsetTop = 999999;
+                    }
                     else {
                         cat.offsetTop = i * 32;
                         i += newcats[cat.category] + 1;

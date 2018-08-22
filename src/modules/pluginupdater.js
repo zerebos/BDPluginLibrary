@@ -1,7 +1,7 @@
 /**
  * Functions that check for and update existing plugins.
  * @module PluginUpdater
- * @version 0.1.0
+ * @version 0.1.1
  */
 
 import PluginUtilities from "./pluginutilities";
@@ -9,6 +9,7 @@ import Patcher from "./patcher";
 import DOMTools from "./domtools";
 import Logger from "./logger";
 import DiscordClasses from "./discordclasses";
+import DiscordModules from "./discordmodules";
 import {Tooltip, Toasts} from "ui";
 
 /**
@@ -72,7 +73,7 @@ export default class PluginUpdater {
 	/**
 	 * Will check for updates and automatically show or remove the update notice
 	 * bar based on the internal result. Better not to call this directly and to
-	 * instead use {@link PluginUtilities.checkForUpdate}.
+	 * instead use {@link module:PluginUpdater.checkForUpdate}.
 	 * @param {string} pluginName - name of the plugin to check
 	 * @param {string} updateLink - link to the raw text version of the plugin
 	 */
@@ -114,7 +115,7 @@ export default class PluginUpdater {
 		if (remoteVersion[0] > currentVersion[0]) return true;
 		else if (remoteVersion[0] == currentVersion[0] && remoteVersion[1] > currentVersion[1]) return true;
 		else if (remoteVersion[0] == currentVersion[0] && remoteVersion[1] == currentVersion[1] && remoteVersion[2] > currentVersion[2]) return true;
-		else return false;
+		return false;
 	}
 
 	static patchPluginList() {
@@ -199,7 +200,7 @@ export default class PluginUpdater {
 
 	/**
 	 * Will show the update notice top bar seen in Discord. Better not to call
-	 * this directly and to instead use {@link PluginUtilities.checkForUpdate}.
+	 * this directly and to instead use {@link module:PluginUpdater.checkForUpdate}.
 	 * @param {string} pluginName - name of the plugin
 	 * @param {string} updateLink - link to the raw text version of the plugin
 	 */
@@ -228,7 +229,7 @@ export default class PluginUpdater {
 
 	/**
 	 * Will remove the plugin from the update notice top bar seen in Discord.
-	 * Better not to call this directly and to instead use {@link PluginUtilities.checkForUpdate}.
+	 * Better not to call this directly and to instead use {@link module:PluginUpdater.checkForUpdate}.
 	 * @param {string} pluginName - name of the plugin
 	 */
 	static removeUpdateNotice(pluginName) {

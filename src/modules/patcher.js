@@ -66,7 +66,7 @@ export default class Patcher {
             }
 
             const insteads = patch.children.filter(c => c.type === "instead");
-            if (!insteads.length) returnValue = patch.originalFunction.apply(this, arguments);
+            if (!insteads.length) {returnValue = patch.originalFunction.apply(this, arguments);}
             else {
                 for (const insteadPatch of insteads) {
                     try {
@@ -116,7 +116,7 @@ export default class Patcher {
     }
 
     /**
-     * Function with no arguments and no return value that may be called to revert changes made by {@link Patcher}, restoring (unpatching) original method.
+     * Function with no arguments and no return value that may be called to revert changes made by {@link module:Patcher}, restoring (unpatching) original method.
      * @callback module:Patcher~unpatch
      */
 
@@ -136,7 +136,7 @@ export default class Patcher {
      * This method patches onto another function, allowing your code to run beforehand.
      * Using this, you are also able to modify the incoming arguments before the original method is run.
      * 
-     * @param {string} caller - Name of the caller of the patch function. Using this you can undo all patches with the same name using {@link Patcher#unpatchAll}. Use `""` if you don't care.
+     * @param {string} caller - Name of the caller of the patch function. Using this you can undo all patches with the same name using {@link module:Patcher.unpatchAll}. Use `""` if you don't care.
      * @param {object} moduleToPatch - Object with the function to be patched. Can also patch an object's prototype.
      * @param {string} functionName - Name of the method to be patched
      * @param {module:Patcher~patchCallback} callback - Function to run before the original method
@@ -151,7 +151,7 @@ export default class Patcher {
      * This method patches onto another function, allowing your code to run after.
      * Using this, you are also able to modify the return value, using the return of your code instead.
      * 
-     * @param {string} caller - Name of the caller of the patch function. Using this you can undo all patches with the same name using {@link Patcher#unpatchAll}. Use `""` if you don't care.
+     * @param {string} caller - Name of the caller of the patch function. Using this you can undo all patches with the same name using {@link module:Patcher.unpatchAll}. Use `""` if you don't care.
      * @param {object} moduleToPatch - Object with the function to be patched. Can also patch an object's prototype.
      * @param {string} functionName - Name of the method to be patched
      * @param {module:Patcher~patchCallback} callback - Function to run instead of the original method
@@ -166,7 +166,7 @@ export default class Patcher {
      * This method patches onto another function, allowing your code to run instead.
      * Using this, you are also able to modify the return value, using the return of your code instead.
      * 
-     * @param {string} caller - Name of the caller of the patch function. Using this you can undo all patches with the same name using {@link Patcher#unpatchAll}. Use `""` if you don't care.
+     * @param {string} caller - Name of the caller of the patch function. Using this you can undo all patches with the same name using {@link module:Patcher.unpatchAll}. Use `""` if you don't care.
      * @param {object} moduleToPatch - Object with the function to be patched. Can also patch an object's prototype.
      * @param {string} functionName - Name of the method to be patched
      * @param {module:Patcher~patchCallback} callback - Function to run after the original method
@@ -182,7 +182,7 @@ export default class Patcher {
      * Using this you are able to modify the incoming arguments before the original function is run as well as the return
      * value before the original function actually returns.
      * 
-     * @param {string} caller - Name of the caller of the patch function. Using this you can undo all patches with the same name using {@link Patcher#unpatchAll}. Use `""` if you don't care.
+     * @param {string} caller - Name of the caller of the patch function. Using this you can undo all patches with the same name using {@link module:Patcher.unpatchAll}. Use `""` if you don't care.
      * @param {object} moduleToPatch - Object with the function to be patched. Can also patch an object's prototype.
      * @param {string} functionName - Name of the method to be patched
      * @param {module:Patcher~patchCallback} callback - Function to run after the original method

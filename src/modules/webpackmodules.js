@@ -101,7 +101,7 @@ export default class WebpackModules {
         for (let index in modules) {
             if (!modules.hasOwnProperty(index)) continue;
             const module = modules[index];
-            const { exports } = module;
+            const {exports} = module;
             let foundModule = null;
 
             if (!exports) continue;
@@ -188,9 +188,9 @@ export default class WebpackModules {
     static get require() {
         if (this._require) return this._require;
         const id = "zl-webpackmodules";
-        const __webpack_require__ = typeof(window["webpackJsonp"]) == "function" ? window["webpackJsonp"]([], {
+        const __webpack_require__ = typeof(window.webpackJsonp) == "function" ? window.webpackJsonp([], {
             [id]: (module, exports, __webpack_require__) => exports.default = __webpack_require__
-        }, [id]).default : window["webpackJsonp"].push([[], {
+        }, [id]).default : window.webpackJsonp.push([[], {
             [id]: (module, exports, __webpack_require__) => module.exports = __webpack_require__
         }, [[id]]]);
         delete __webpack_require__.m[id];

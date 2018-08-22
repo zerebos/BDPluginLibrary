@@ -151,7 +151,7 @@
 									<div class="form-group">
 										<label class="col-sm-3 control-label">Version</label>
 										<div class="col-sm-9">
-											<p class="form-control-static">0.0.2</p>
+											<p class="form-control-static">0.0.3</p>
 										</div>
 									</div>
 					
@@ -2902,6 +2902,101 @@
 </dd>
 											<hr/>
 											<dt class="symbol-title function public collapsible-symbol">
+			<h4 id=".once" class="function public"><span class="signature-attribs">&lt;static> </span><span class="name">once</span><span class="signature-params">( <span class="signature-param">element</span>, <span class="signature-param">event</span>, <span class="signature-param">delegate</span> [,&nbsp;<span class="signature-param">callback</span>&nbsp;]&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{<a href="module-DOMTools.html#~CancelListener">module:DOMTools~CancelListener</a>}</span></h4>
+		</dt>
+<dd class="symbol-details function public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>Functionality for this method matches <a href="module-DOMTools.html#.on">module:DOMTools.on</a> but automatically cancels itself
+			and removes the listener upon the first firing of the desired event.</p></div>
+			</div>			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+							<th>Attributes</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>element</code></td>
+							<td><span class="param-type">Element</span></td>
+								<td class="attributes"></td>
+							<td class="last">
+									<p>Element to add listener to</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>event</code></td>
+							<td><span class="param-type">string</span></td>
+								<td class="attributes"></td>
+							<td class="last">
+									<p>Event to listen to with option namespace (e.g. &quot;event.namespace&quot;)</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>delegate</code></td>
+							<td><span class="param-type">string</span> | <span class="param-type">callable</span></td>
+								<td class="attributes"></td>
+							<td class="last">
+									<p>Selector to run on element to listen to</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>callback</code></td>
+							<td><span class="param-type">callable</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+							<td class="last">
+									<p>Function to fire on event</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type"><a href="module-DOMTools.html#~CancelListener">module:DOMTools~CancelListener</a></span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description"><ul>
+			<li>A function that will undo the listener</li>
+			</ul></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line-494">line 494</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function public collapsible-symbol">
 			<h4 id=".off" class="function public"><span class="signature-attribs">&lt;static> </span><span class="name">off</span><span class="signature-params">( <span class="signature-param">element</span> [,&nbsp;<span class="signature-param">event</span> [,&nbsp;<span class="signature-param">delegate</span> [,&nbsp;<span class="signature-param">callback</span>&nbsp;]&nbsp;]&nbsp;]&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Element}</span></h4>
 		</dt>
 <dd class="symbol-details function public  collapsible-symbol">
@@ -2997,7 +3092,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line-522">line 522</a></p>
+									<p class="form-control-static"><a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line-565">line 565</a></p>
 								</div>
 							</div>
 			
@@ -3062,7 +3157,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line-544">line 544</a></p>
+									<p class="form-control-static"><a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line-587">line 587</a></p>
 								</div>
 							</div>
 			
@@ -3127,7 +3222,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line-566">line 566</a></p>
+									<p class="form-control-static"><a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line-609">line 609</a></p>
 								</div>
 							</div>
 			
@@ -3185,7 +3280,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line-587">line 587</a></p>
+									<p class="form-control-static"><a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line-630">line 630</a></p>
 								</div>
 							</div>
 			
@@ -3243,7 +3338,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line-597">line 597</a></p>
+									<p class="form-control-static"><a href="modules_domtools.js.html">modules/domtools.js</a>, <a href="modules_domtools.js.html#line-640">line 640</a></p>
 								</div>
 							</div>
 			
@@ -3311,7 +3406,7 @@
 	</div>
 	<footer>
 				<div class="copyright">Copyright © 2018 Zack Rauen</div>
-			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on August 15th 2018, 11:12:33 pm using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
+			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on August 22nd 2018, 5:50:56 pm using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
 	</footer>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>

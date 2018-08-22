@@ -132,41 +132,27 @@ module.exports = {"info":{"name":"ZeresPluginLibrary","authors":[{"name":"Zerebo
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ((BasePlugin, Library) => {
-    const {PluginUpdater, Patcher, Structs, Logger, Settings, Toasts} = Library;
-    return class ZeresPluginLibrary extends BasePlugin {
+    const {PluginUpdater, Patcher, Logger, Settings, Toasts, PluginUtilities} = Library;
+    const PluginLibrary = class PluginLibrary extends BasePlugin {
         get Library() {return Library;}
         
         load() {
             this.start();
-            BdApi.clearCSS("ZeresLibraryCSS");
-            BdApi.injectCSS("ZeresLibraryCSS", Settings.CSS + Toasts.CSS + PluginUpdater.CSS);
-
-            jQuery.extend(jQuery.easing, { easeInSine: function (x, t, b, c, d) { return -c * Math.cos(t / d * (Math.PI / 2)) + c + b; }});
-
-
-            const SelectorConverter = (thisObject, args) => {
-                if (args.length && args[0] instanceof Structs.Selector) args[0] = args[0].toString();
-            };
-
-            Patcher.unpatchAll("ZeresLibrary");
-            Patcher.before("ZeresLibrary", jQuery.fn, "find", SelectorConverter);
-            Patcher.before("ZeresLibrary", jQuery.fn, "parents", SelectorConverter);
-            Patcher.before("ZeresLibrary", jQuery.fn, "closest", SelectorConverter);
-
-            Patcher.before("ZeresLibrary", global, "$", SelectorConverter);
-            jQuery.extend(true, global.$, jQuery);
+            PluginUtilities.removeStyle("ZLibraryCSS");
+            PluginUtilities.addStyle("ZLibraryCSS", Settings.CSS + Toasts.CSS + PluginUpdater.CSS);
         }
 
         static buildPlugin(config) {
             const name = config.info.name;
             const BoundAPI = {
                 Logger: {
-                    log: (message) => Logger.log(name, message),
-                    error: (message, error) => Logger.err(name, message, error),
-                    err: (message, error) => Logger.err(name, message, error),
-                    warn: (message) => Logger.warn(name, message),
-                    info: (message) => Logger.info(name, message),
-                    debug: (message) => Logger.debug(name, message)
+                    stacktrace: (message, error) => Logger.stacktrace(name, message, error),
+                    log: (...message) => Logger.log(name, ...message),
+                    error: (...message) => Logger.err(name, ...message),
+                    err: (...message) => Logger.err(name, ...message),
+                    warn: (...message) => Logger.warn(name, ...message),
+                    info: (...message) => Logger.info(name, ...message),
+                    debug: (...message) => Logger.debug(name, ...message)
                 },
                 Patcher: {
                     getPatchesByCaller: () => {return Patcher.getPatchesByCaller(name);},
@@ -182,6 +168,12 @@ __webpack_require__.r(__webpack_exports__);
             return [Library.Structs.Plugin(config), BoundLib];		
         }
     };
+
+    Object.assign(PluginLibrary, Library);
+    Library.buildPlugin = PluginLibrary.buildPlugin;
+    window.ZLibrary = Library;
+    window.ZLibraryPromise = new Promise(r => setImmediate(r));
+    return PluginLibrary;
 });
 
 /***/ }),
@@ -216,12 +208,13 @@ const getBoundLibrary = () => {
 	const name = config.info.name;
 	const BoundAPI = {
 		Logger: {
-			log: (message) => Library.Logger.log(name, message),
-			error: (message, error) => Library.Logger.err(name, message, error),
-			err: (message, error) => Library.Logger.err(name, message, error),
-			warn: (message) => Library.Logger.warn(name, message),
-			info: (message) => Library.Logger.info(name, message),
-			debug: (message) => Library.Logger.debug(name, message)
+			stacktrace: (message, error) => Library.Logger.stacktrace(name, message, error),
+			log: (...message) => Library.Logger.log(name, ...message),
+			error: (...message) => Library.Logger.err(name, ...message),
+			err: (...message) => Library.Logger.err(name, ...message),
+			warn: (...message) => Library.Logger.warn(name, ...message),
+			info: (...message) => Library.Logger.info(name, ...message),
+			debug: (...message) => Library.Logger.debug(name, ...message)
 		},
 		Patcher: {
 			getPatchesByCaller: () => {return Library.Patcher.getPatchesByCaller(name);},
@@ -306,11 +299,7 @@ class ColorConverter {
 	 */
 	static darkenColor(color, percent) {
 		var rgb = this.getRGB(color);
-		
-		for(var i = 0; i < rgb.length; i++){
-			rgb[i] = Math.round(Math.max(0, rgb[i] - rgb[i] * (percent / 100)));
-		}
-		
+		for (var i = 0; i < rgb.length; i++) rgb[i] = Math.round(Math.max(0, rgb[i] - rgb[i] * (percent / 100)));
 		return "rgb(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + ")";
 	}
 
@@ -322,11 +311,7 @@ class ColorConverter {
 	 */
 	static lightenColor(color, percent) {
 		var rgb = this.getRGB(color);
-		
-		for(var i = 0; i < rgb.length; i++){
-			rgb[i] = Math.round(Math.min(255, rgb[i] + rgb[i] * (percent / 100)));
-		}
-		
+		for (var i = 0; i < rgb.length; i++) rgb[i] = Math.round(Math.min(255, rgb[i] + rgb[i] * (percent / 100)));
 		return "rgb(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + ")";
 	}
 
@@ -522,7 +507,9 @@ __webpack_require__.r(__webpack_exports__);
 
 /**
  * A large list of known and labelled classes in discord.
- * Click the filename below to see the whole list.
+ * Click the source link down below to view more info. Otherwise, if you
+ * have the library installed or have a plugin using this library,
+ * do `Object.keys(ZLibrary.DiscordClassModules)` in console for a list of modules.
  * 
  * You can use this directly, however the preferred way of doing this is to use {@link module:DiscordClasses} or {@link module:DiscordSelectors}
  * 
@@ -533,7 +520,7 @@ __webpack_require__.r(__webpack_exports__);
  */
 /* harmony default export */ __webpack_exports__["default"] = (_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].memoizeObject({
 	get ContextMenu() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("itemToggle");},
-	get Scrollers() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("scrollerWrap");},
+	get Scrollers() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("scrollerWrap", "scrollerThemed", "scrollerTrack");},
 	get AccountDetails() {return Object.assign({}, _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("nameTag"), _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("accountDetails"));},
 	get Typing() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("typing", "text");},
 	get UserPopout() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("userPopout");},
@@ -555,7 +542,8 @@ __webpack_require__.r(__webpack_exports__);
 	get Margins() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => !m.title && m.marginBottom40 && m.marginTop40);},
 	get Dividers() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m.dividerDefault);},
 	get Changelog() {return Object.assign({}, _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("container", "added"), _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("content", "modal", "size"));},
-	get BasicInputs() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("inputDefault", "size16");}
+	get BasicInputs() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("inputDefault", "size16");},
+	get Messages() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("message", "containerCozy");}
 }));
 
 
@@ -575,7 +563,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _webpackmodules__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./webpackmodules */ "./src/modules/webpackmodules.js");
 /**
  * A large list of known and useful webpack modules internal to Discord.
- * Click the filename below to see the whole list.
+ * Click the source link down below to view more info. Otherwise, if you
+ * have the library installed or have a plugin using this library,
+ * do `Object.keys(ZLibrary.DiscordModules)` in console for a list of modules.
  * @module DiscordModules
  * @version 0.0.1
  */
@@ -731,7 +721,8 @@ __webpack_require__.r(__webpack_exports__);
     get UserProfileModals() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("fetchMutualFriends", "setSection");},
     get AlertModal() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByPrototypes("handleCancel", "handleSubmit", "handleMinorConfirm");},
     get ConfirmationModal() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m.defaultProps && m.key && m.key() == "confirm-modal");},
-    get UserProfileModal() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].find(m => {
+    get UserProfileModal() {
+        return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].find(m => {
             try {
                 return m.modalConfig && m.prototype.render().type.displayName == "FluxContainer(SubscribeGuildMembersContainer(t))";
             }
@@ -750,7 +741,8 @@ __webpack_require__.r(__webpack_exports__);
     get PrivacySettingsModal() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByRegex(/PRIVACY_SETTINGS_MODAL_OPEN/, m => m.open);},
     get CreateInviteModal() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps(["open", "createInvite"]);},
     get Changelog() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule((m => m.defaultProps && m.defaultProps.selectable == false));},
-    get Avatar() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].find(m => {
+    get Avatar() {
+        return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].find(m => {
             if (m.displayName != "FluxContainer(t)") return false;
             try {
                 const temp = new m();
@@ -764,7 +756,8 @@ __webpack_require__.r(__webpack_exports__);
     get PopoutStack() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("open", "close", "closeAll");},
     get PopoutOpener() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("openPopout");},
     get EmojiPicker() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByPrototypes("onHoverEmoji", "selectEmoji");},
-    get UserPopout() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByDisplayName("FluxContainer(SubscribeGuildMembersContainer(t))")  || _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].find(m => {
+    get UserPopout() {
+        return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByDisplayName("FluxContainer(SubscribeGuildMembersContainer(t))")  || _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].find(m => {
             try { return m.displayName == "FluxContainer(Component)" && !(new m()); }
             catch (e) { return e.toString().includes("user"); }
         });
@@ -789,7 +782,7 @@ __webpack_require__.r(__webpack_exports__);
     get ColorPicker() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByPrototypes("renderCustomColorPopout");},
     get Dropdown() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m.prototype && !m.prototype.handleClick && m.prototype.render && m.prototype.render.toString().includes("default.select"));},
     get Keybind() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByPrototypes("handleComboChange");},
-    get RadioGroup() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByPrototypes("renderRadio");},
+    get RadioGroup() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m.defaultProps && m.defaultProps.options && m.defaultProps.size);},
     get Slider() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByPrototypes("renderMark");},
     get SwitchRow() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m.defaultProps && m.defaultProps.hideBorder == false);},
     get Textbox() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m.defaultProps && m.defaultProps.type == "text");},
@@ -858,7 +851,7 @@ __webpack_require__.r(__webpack_exports__);
  * the same as the ones available in the module itself, but with the `element`
  * parameter bound to `this`.
  * @module DOMTools
- * @version 0.0.2
+ * @version 0.0.3
  */
 
 
@@ -1201,7 +1194,7 @@ class DOMTools {
 	 * @returns {Element|string} - When setting a value, element is returned for chaining, otherwise the value is returned.
 	 */
 	static css(element, attribute, value) {
-		if (typeof(value) == "undefined") return global.getComputedStyle(element).color;
+		if (typeof(value) == "undefined") return global.getComputedStyle(element)[attribute];
 		element.style[attribute] = value;
 		return element;
 	}
@@ -1312,6 +1305,49 @@ class DOMTools {
 			if (event.target.matches(delegate)) {
 				callback(event);
 			}
+		};
+
+		element.addEventListener(type, eventFunc);
+		const cancel = () => {
+			element.removeEventListener(type, eventFunc);
+		};
+		if (namespace) {
+			if (!this.listeners[namespace]) this.listeners[namespace] = [];
+			const newCancel = () => {
+				cancel();
+				this.listeners[namespace].splice(this.listeners[namespace].findIndex(l => l.event == type && l.element == element), 1);
+			};
+			this.listeners[namespace].push({
+				event: type,
+				element: element,
+				cancel: newCancel
+			});
+			return newCancel;
+		}
+		return cancel;
+	}
+
+	/**
+	 * Functionality for this method matches {@link module:DOMTools.on} but automatically cancels itself
+	 * and removes the listener upon the first firing of the desired event.
+	 * 
+	 * @param {Element} element - Element to add listener to
+	 * @param {string} event - Event to listen to with option namespace (e.g. "event.namespace")
+	 * @param {(string|callable)} delegate - Selector to run on element to listen to
+	 * @param {callable} [callback] - Function to fire on event
+	 * @returns {module:DOMTools~CancelListener} - A function that will undo the listener
+	 */
+	static once(element, event, delegate, callback) {
+		const [type, namespace] = event.split(".");
+		const hasDelegate = delegate && callback;
+		if (!callback) callback = delegate;
+		const eventFunc = !hasDelegate ? function(event) {
+			callback(event);
+			element.removeEventListener(type, eventFunc);
+		} : function(event) {
+			if (!event.target.matches(delegate)) return;
+			callback(event);
+			element.removeEventListener(type, eventFunc);
 		};
 
 		element.addEventListener(type, eventFunc);
@@ -1482,6 +1518,7 @@ _utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "
 _utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "outerHeight", function() {return DOMTools.outerHeight(this);});
 _utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "offset", function() {return DOMTools.offset(this);});
 _utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "on", function(event, delegate, callback) {return DOMTools.on(this, event, delegate, callback);});
+_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "once", function(event, delegate, callback) {return DOMTools.once(this, event, delegate, callback);});
 _utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "off", function(event, delegate, callback) {return DOMTools.off(this, event, delegate, callback);});
 _utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "find", function(selector) {return DOMTools.query(selector, this);});
 _utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "findAll", function(selector) {return DOMTools.queryAll(selector, this);});
@@ -1506,7 +1543,7 @@ __webpack_require__.r(__webpack_exports__);
  * Simple logger for the lib and plugins.
  * 
  * @module Logger
- * @version 0.0.2
+ * @version 0.1.0
  */
 
 /* eslint-disable no-console */
@@ -1533,47 +1570,63 @@ class Logger {
      * 
      * @param {string} module - Name of the calling module.
      * @param {string} message - Message or error to have logged.
-	 * @param {Error} error - Optional error to log with the message.
+	 * @param {Error} error - Error object to log with the message.
      */
-    static err(module, message, error) {
-		if (error) return console.error(`%c[${module}]%c ${message}\n\n%c`, "color: #3a71c1; font-weight: 700;", "color: red; font-weight: 700;", "color: red;", error);
-		else Logger.log(module, message, "error");
+    static stacktrace(module, message, error) {
+		console.error(`%c[${module}]%c ${message}\n\n%c`, "color: #3a71c1; font-weight: 700;", "color: red; font-weight: 700;", "color: red;", error);
     }
 
     /**
-     * Logs a warning message/
+     * Logs using error formatting. For logging an actual error object consider {@link module:Logger.stacktrace}
      * 
      * @param {string} module - Name of the calling module.
-     * @param {string} message - Message to have logged.
+     * @param {string} message - Messages to have logged.
      */
-    static warn(module, message) { Logger.log(module, message, "warn"); }
+    static err(module, ...message) { Logger._log(module, message, "error"); }
+
+    /**
+     * Logs a warning message.
+     * 
+     * @param {string} module - Name of the calling module.
+     * @param {...any} message - Messages to have logged.
+     */
+    static warn(module, ...message) { Logger._log(module, message, "warn"); }
 
     /**
      * Logs an informational message.
      * 
      * @param {string} module - Name of the calling module.
-     * @param {string} message - Message to have logged.
+     * @param {...any} message - Messages to have logged.
      */
-    static info(module, message) { Logger.log(module, message, "info"); }
+    static info(module, ...message) { Logger._log(module, message, "info"); }
 
     /**
      * Logs used for debugging purposes.
      * 
      * @param {string} module - Name of the calling module.
-     * @param {string} message - Message to have logged.
+     * @param {...any} message - Messages to have logged.
      */
-    static debug(module, message) { Logger.log(module, message, "debug"); }
+    static debug(module, ...message) { Logger._log(module, message, "debug"); }
     
+    /**
+     * Logs used for basic loggin.
+     * 
+     * @param {string} module - Name of the calling module.
+     * @param {...any} message - Messages to have logged.
+     */
+    static log(module, ...message) { Logger._log(module, message); }
+
     /**
      * Logs strings using different console levels and a module label.
      * 
      * @param {string} module - Name of the calling module.
-     * @param {string} message - Message to have logged.
+     * @param {any|Array<any>} message - Messages to have logged.
      * @param {module:Logger.LogTypes} type - Type of log to use in console.
      */
-    static log(module, message, type = "log") {
+    static _log(module, message, type = "log") {
         type = Logger.parseType(type);
-        console[type](`%c[${module}]%c`, "color: #3a71c1; font-weight: 700;", "", message);
+        if (!Array.isArray(message)) message = [message];
+        console[type](`%c[${module}]%c`, "color: #3a71c1; font-weight: 700;", "", ...message);
     }
 
     static parseType(type) {
@@ -1734,7 +1787,7 @@ class Patcher {
     static makeOverride(patch) {
         return function () {
             let returnValue = undefined;
-            if (!patch.children) return patch.originalFunction.apply(this, arguments);
+            if (!patch.children || !patch.children.length) return patch.originalFunction.apply(this, arguments);
             for (const superPatch of patch.children.filter(c => c.type === "before")) {
                 try {
                     superPatch.callback(this, arguments);
@@ -1745,7 +1798,7 @@ class Patcher {
             }
 
             const insteads = patch.children.filter(c => c.type === "instead");
-            if (!insteads.length) returnValue = patch.originalFunction.apply(this, arguments);
+            if (!insteads.length) {returnValue = patch.originalFunction.apply(this, arguments);}
             else {
                 for (const insteadPatch of insteads) {
                     try {
@@ -1795,7 +1848,7 @@ class Patcher {
     }
 
     /**
-     * Function with no arguments and no return value that may be called to revert changes made by {@link Patcher}, restoring (unpatching) original method.
+     * Function with no arguments and no return value that may be called to revert changes made by {@link module:Patcher}, restoring (unpatching) original method.
      * @callback module:Patcher~unpatch
      */
 
@@ -1815,7 +1868,7 @@ class Patcher {
      * This method patches onto another function, allowing your code to run beforehand.
      * Using this, you are also able to modify the incoming arguments before the original method is run.
      * 
-     * @param {string} caller - Name of the caller of the patch function. Using this you can undo all patches with the same name using {@link Patcher#unpatchAll}. Use `""` if you don't care.
+     * @param {string} caller - Name of the caller of the patch function. Using this you can undo all patches with the same name using {@link module:Patcher.unpatchAll}. Use `""` if you don't care.
      * @param {object} moduleToPatch - Object with the function to be patched. Can also patch an object's prototype.
      * @param {string} functionName - Name of the method to be patched
      * @param {module:Patcher~patchCallback} callback - Function to run before the original method
@@ -1827,10 +1880,10 @@ class Patcher {
     static before(caller, moduleToPatch, functionName, callback, options = {}) { return this.pushChildPatch(caller, moduleToPatch, functionName, callback, Object.assign(options, {type: "before"})); }
     
     /**
-     * This method patches onto another function, allowing your code to run instead.
+     * This method patches onto another function, allowing your code to run after.
      * Using this, you are also able to modify the return value, using the return of your code instead.
      * 
-     * @param {string} caller - Name of the caller of the patch function. Using this you can undo all patches with the same name using {@link Patcher#unpatchAll}. Use `""` if you don't care.
+     * @param {string} caller - Name of the caller of the patch function. Using this you can undo all patches with the same name using {@link module:Patcher.unpatchAll}. Use `""` if you don't care.
      * @param {object} moduleToPatch - Object with the function to be patched. Can also patch an object's prototype.
      * @param {string} functionName - Name of the method to be patched
      * @param {module:Patcher~patchCallback} callback - Function to run instead of the original method
@@ -1842,10 +1895,10 @@ class Patcher {
     static after(caller, moduleToPatch, functionName, callback, options = {}) { return this.pushChildPatch(caller, moduleToPatch, functionName, callback, Object.assign(options, {type: "after"})); }
     
     /**
-     * This method patches onto another function, allowing your code to run afterwards.
+     * This method patches onto another function, allowing your code to run instead.
      * Using this, you are also able to modify the return value, using the return of your code instead.
      * 
-     * @param {string} caller - Name of the caller of the patch function. Using this you can undo all patches with the same name using {@link Patcher#unpatchAll}. Use `""` if you don't care.
+     * @param {string} caller - Name of the caller of the patch function. Using this you can undo all patches with the same name using {@link module:Patcher.unpatchAll}. Use `""` if you don't care.
      * @param {object} moduleToPatch - Object with the function to be patched. Can also patch an object's prototype.
      * @param {string} functionName - Name of the method to be patched
      * @param {module:Patcher~patchCallback} callback - Function to run after the original method
@@ -1861,7 +1914,7 @@ class Patcher {
      * Using this you are able to modify the incoming arguments before the original function is run as well as the return
      * value before the original function actually returns.
      * 
-     * @param {string} caller - Name of the caller of the patch function. Using this you can undo all patches with the same name using {@link Patcher#unpatchAll}. Use `""` if you don't care.
+     * @param {string} caller - Name of the caller of the patch function. Using this you can undo all patches with the same name using {@link module:Patcher.unpatchAll}. Use `""` if you don't care.
      * @param {object} moduleToPatch - Object with the function to be patched. Can also patch an object's prototype.
      * @param {string} functionName - Name of the method to be patched
      * @param {module:Patcher~patchCallback} callback - Function to run after the original method
@@ -1922,12 +1975,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _domtools__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./domtools */ "./src/modules/domtools.js");
 /* harmony import */ var _logger__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./logger */ "./src/modules/logger.js");
 /* harmony import */ var _discordclasses__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./discordclasses */ "./src/modules/discordclasses.js");
-/* harmony import */ var ui__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ui */ "./src/ui/ui.js");
+/* harmony import */ var _discordmodules__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./discordmodules */ "./src/modules/discordmodules.js");
+/* harmony import */ var ui__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ui */ "./src/ui/ui.js");
 /**
  * Functions that check for and update existing plugins.
  * @module PluginUpdater
- * @version 0.1.0
+ * @version 0.1.1
  */
+
 
 
 
@@ -1997,7 +2052,7 @@ class PluginUpdater {
 	/**
 	 * Will check for updates and automatically show or remove the update notice
 	 * bar based on the internal result. Better not to call this directly and to
-	 * instead use {@link PluginUtilities.checkForUpdate}.
+	 * instead use {@link module:PluginUpdater.checkForUpdate}.
 	 * @param {string} pluginName - name of the plugin to check
 	 * @param {string} updateLink - link to the raw text version of the plugin
 	 */
@@ -2039,13 +2094,13 @@ class PluginUpdater {
 		if (remoteVersion[0] > currentVersion[0]) return true;
 		else if (remoteVersion[0] == currentVersion[0] && remoteVersion[1] > currentVersion[1]) return true;
 		else if (remoteVersion[0] == currentVersion[0] && remoteVersion[1] == currentVersion[1] && remoteVersion[2] > currentVersion[2]) return true;
-		else return false;
+		return false;
 	}
 
 	static patchPluginList() {
 		_patcher__WEBPACK_IMPORTED_MODULE_1__["default"].after("ZeresLibrary", V2C_ContentColumn.prototype, "componentDidMount", (self) => {
 			if (self._reactInternalFiber.key != "pcolumn") return;
-			const column = DiscordModules.ReactDOM.findDOMNode(self);
+			const column = _discordmodules__WEBPACK_IMPORTED_MODULE_5__["default"].ReactDOM.findDOMNode(self);
 			if (!column) return;
 			const button = column.getElementsByClassName("bd-pfbtn")[0];
 			if (!button || button.nextElementSibling.classList.contains("bd-updatebtn")) return;
@@ -2066,7 +2121,7 @@ class PluginUpdater {
 		updateButton.onclick = function () {
 			window.PluginUpdates.checkAll();
 		};
-		let tooltip = new ui__WEBPACK_IMPORTED_MODULE_5__["Tooltip"](updateButton, "Checks for updates of plugins that support this feature. Right-click for a list.");
+		let tooltip = new ui__WEBPACK_IMPORTED_MODULE_6__["Tooltip"](updateButton, "Checks for updates of plugins that support this feature. Right-click for a list.");
 		updateButton.oncontextmenu = function () {
 			if (!window.PluginUpdates || !window.PluginUpdates.plugins) return;
 			tooltip.label = Object.values(window.PluginUpdates.plugins).map(p => p.name).join(", ");
@@ -2098,7 +2153,7 @@ class PluginUpdater {
 			filename = filename[filename.length - 1];
 			const file = path.join(_pluginutilities__WEBPACK_IMPORTED_MODULE_0__["default"].getPluginsFolder(), filename);
 			await fileSystem.writeFile(file, body);
-			ui__WEBPACK_IMPORTED_MODULE_5__["Toasts"].success(`${pluginName} ${window.PluginUpdates.plugins[updateLink].version} has been replaced by ${pluginName} ${remoteVersion}`);
+			ui__WEBPACK_IMPORTED_MODULE_6__["Toasts"].success(`${pluginName} ${window.PluginUpdates.plugins[updateLink].version} has been replaced by ${pluginName} ${remoteVersion}`);
 			this.removeUpdateNotice(pluginName);
 
 			let oldRNM = window.bdplugins["Restart-No-More"] && window.pluginCookie["Restart-No-More"];
@@ -2107,7 +2162,7 @@ class PluginUpdater {
 			if (!window.PluginUpdates.downloaded) {
 				window.PluginUpdates.downloaded = [];
 				const button = _domtools__WEBPACK_IMPORTED_MODULE_2__["default"].parseHTML(`<button class="btn btn-reload ${_discordclasses__WEBPACK_IMPORTED_MODULE_4__["default"].Notices.btn} ${_discordclasses__WEBPACK_IMPORTED_MODULE_4__["default"].Notices.button}">Reload</button>`);
-				const tooltip = new ui__WEBPACK_IMPORTED_MODULE_5__["Tooltip"](button, window.PluginUpdates.downloaded.join(", "), {side: "top"});
+				const tooltip = new ui__WEBPACK_IMPORTED_MODULE_6__["Tooltip"](button, window.PluginUpdates.downloaded.join(", "), {side: "top"});
 				button.addEventListener("click", (e) => {
 					e.preventDefault();
 					window.location.reload(false);
@@ -2124,7 +2179,7 @@ class PluginUpdater {
 
 	/**
 	 * Will show the update notice top bar seen in Discord. Better not to call
-	 * this directly and to instead use {@link PluginUtilities.checkForUpdate}.
+	 * this directly and to instead use {@link module:PluginUpdater.checkForUpdate}.
 	 * @param {string} pluginName - name of the plugin
 	 * @param {string} updateLink - link to the raw text version of the plugin
 	 */
@@ -2153,7 +2208,7 @@ class PluginUpdater {
 
 	/**
 	 * Will remove the plugin from the update notice top bar seen in Discord.
-	 * Better not to call this directly and to instead use {@link PluginUtilities.checkForUpdate}.
+	 * Better not to call this directly and to instead use {@link module:PluginUpdater.checkForUpdate}.
 	 * @param {string} pluginName - name of the plugin
 	 */
 	static removeUpdateNotice(pluginName) {
@@ -2186,13 +2241,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return PluginUtilities; });
 /* harmony import */ var _logger__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./logger */ "./src/modules/logger.js");
 /* harmony import */ var _utilities__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utilities */ "./src/modules/utilities.js");
+/* harmony import */ var _domtools__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./domtools */ "./src/modules/domtools.js");
+
 
 
 
 /**
  * A series of useful functions for BetterDiscord plugins.
  * @module PluginUtilities
- * @version 0.2.3
+ * @version 0.2.4
  */
 
 
@@ -2288,6 +2345,42 @@ __webpack_require__.r(__webpack_exports__);
 	static removeOnSwitchListener(callback) {
 		__webpack_require__(/*! electron */ "electron").remote.getCurrentWebContents().removeListener("did-navigate-in-page", callback);
 	}
+
+	/**
+	 * Adds a style to the document.
+	 * @param {string} id - identifier to use as the element id
+	 * @param {string} css - css to add to the document
+	 */
+	static addStyle(id, css) {
+		document.head.append(_domtools__WEBPACK_IMPORTED_MODULE_2__["default"].createElement(`<style id="${id}">${css}</style>`));
+	}
+
+	/**
+	 * Removes a style from the document.
+	 * @param {string} id - original identifier used
+	 */
+	static removeStyle(id) {
+		const element = document.getElementById(id);
+		if (element) element.remove();
+	}
+
+	/**
+	 * Adds/requires a remote script to be loaded
+	 * @param {string} id - identifier to use for this script
+	 * @param {string} url - url from which to load the script
+	 */
+	static addScript(id, url) {
+		document.head.append(_domtools__WEBPACK_IMPORTED_MODULE_2__["default"].createElement(`<script id="${id}" src="${url}"></script>`));
+	}
+
+	/**
+	 * Removes a remote script from the document.
+	 * @param {string} id - original identifier used
+	 */
+	static removeScript(id) {
+		const element = document.getElementById(id);
+		if (element) element.remove();
+	}
 }
 
 
@@ -2326,8 +2419,8 @@ class ReactTools {
 	 * @return {object} the internal react instance
 	 */
 	static getReactInstance(node) {
-		if (!(node instanceof jQuery) && !(node instanceof Element)) return undefined;
-		var domNode = node instanceof jQuery ? node[0] : node;
+		if (!(node instanceof window.jQuery) && !(node instanceof Element)) return undefined;
+		var domNode = node instanceof window.jQuery ? node[0] : node;
 		return domNode[Object.keys(domNode).find((key) => key.startsWith("__reactInternalInstance"))];
 	}
 
@@ -2352,28 +2445,27 @@ class ReactTools {
 	 * @param {object} options - options for the search
 	 * @param {array} [options.include] - list of items to include from the search
 	 * @param {array} [options.exclude=["Popout", "Tooltip", "Scroller", "BackgroundFlash"]] - list of items to exclude from the search
+	 * @param {callable} [options.filter=_=>_] - filter to check the current instance with (should return a boolean)
 	 * @return {(*|null)} the owner instance or undefined if not found.
 	 */
-	static getOwnerInstance(node, {include, exclude = ["Popout", "Tooltip", "Scroller", "BackgroundFlash"]} = {}) {
-		if (node === undefined)
-			return undefined;
+	static getOwnerInstance(node, {include, exclude = ["Popout", "Tooltip", "Scroller", "BackgroundFlash"], filter = _ => _} = {}) {
+		if (node === undefined) return undefined;
 		const excluding = include === undefined;
-		const filter = excluding ? exclude : include;
+		const nameFilter = excluding ? exclude : include;
 		function getDisplayName(owner) {
 			const type = owner.type;
 			return type.displayName || type.name || null;
 		}
 		function classFilter(owner) {
 			const name = getDisplayName(owner);
-			return (name !== null && !!(filter.includes(name) ^ excluding));
+			return (name !== null && !!(nameFilter.includes(name) ^ excluding));
 		}
 		
-		for (let curr = this.getReactInstance(node).return; !_utilities__WEBPACK_IMPORTED_MODULE_2__["default"].isNil(curr); curr = curr.return) {
-			if (_utilities__WEBPACK_IMPORTED_MODULE_2__["default"].isNil(curr))
-				continue;
+		let curr = this.getReactInstance(node);
+		for (curr = curr && curr.return; !_utilities__WEBPACK_IMPORTED_MODULE_2__["default"].isNil(curr); curr = curr.return) {
+			if (_utilities__WEBPACK_IMPORTED_MODULE_2__["default"].isNil(curr)) continue;
 			let owner = curr.stateNode;
-			if (!_utilities__WEBPACK_IMPORTED_MODULE_2__["default"].isNil(owner) && !(owner instanceof HTMLElement) && classFilter(curr))
-				return owner;
+			if (!_utilities__WEBPACK_IMPORTED_MODULE_2__["default"].isNil(owner) && !(owner instanceof HTMLElement) && classFilter(curr) && filter(owner)) return owner;
 		}
 		
 		return null;
@@ -2429,8 +2521,6 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 
-
-const fs = __webpack_require__(/*! fs */ "fs");
 
 class Utilities {
 
@@ -2557,12 +2647,14 @@ class Utilities {
 
 			if (argType === "string" || argType === "number") {
 				classes.push(arg);
-			} else if (Array.isArray(arg) && arg.length) {
+            }
+            else if (Array.isArray(arg) && arg.length) {
 				var inner = this.classNames.apply(null, arg);
 				if (inner) {
 					classes.push(inner);
 				}
-			} else if (argType === "object") {
+            }
+            else if (argType === "object") {
 				for (var key in arg) {
 					if (hasOwn.call(arg, key) && arg[key]) {
 						classes.push(key);
@@ -2663,8 +2755,7 @@ class Utilities {
      */
     static removeFromArray(array, item) {
         let index;
-        while ((index = array.indexOf(item)) > -1)
-            array.splice(index, 1);
+        while ((index = array.indexOf(item)) > -1) array.splice(index, 1);
         return array;
     }
 
@@ -2674,17 +2765,22 @@ class Utilities {
      * @return {Promise}
      */
     static async fileExists(path) {
+        const fs = __webpack_require__(/*! fs */ "fs");
         return new Promise((resolve, reject) => {
             fs.stat(path, (err, stats) => {
-                if (err) return reject({
-                    message: `No such file or directory: ${err.path}`,
-                    err
-                });
+                if (err) {
+                    return reject({
+                        message: `No such file or directory: ${err.path}`,
+                        err
+                    });
+                }
 
-                if (!stats.isFile()) return reject({
-                    message: `Not a file: ${path}`,
-                    stats
-                });
+                if (!stats.isFile()) {
+                    return reject({
+                        message: `Not a file: ${path}`,
+                        stats
+                    });
+                }
 
                 resolve();
             });
@@ -2699,16 +2795,20 @@ class Utilities {
     static async readFile(path) {
         try {
             await this.fileExists(path);
-        } catch (err) {
+        }
+        catch (err) {
             throw err;
         }
-
+        
+        const fs = __webpack_require__(/*! fs */ "fs");
         return new Promise((resolve, reject) => {
             fs.readFile(path, "utf-8", (err, data) => {
-                if (err) return reject({
-                    message: `Could not read file: ${path}`,
-                    err
-                });
+                if (err) {
+                    return reject({
+                        message: `Could not read file: ${path}`,
+                        err
+                    });
+                }
 
                 resolve(data);
             });
@@ -2834,7 +2934,7 @@ class WebpackModules {
         for (let index in modules) {
             if (!modules.hasOwnProperty(index)) continue;
             const module = modules[index];
-            const { exports } = module;
+            const {exports} = module;
             let foundModule = null;
 
             if (!exports) continue;
@@ -2921,9 +3021,9 @@ class WebpackModules {
     static get require() {
         if (this._require) return this._require;
         const id = "zl-webpackmodules";
-        const __webpack_require__ = typeof(window["webpackJsonp"]) == "function" ? window["webpackJsonp"]([], {
+        const __webpack_require__ = typeof(window.webpackJsonp) == "function" ? window.webpackJsonp([], {
             [id]: (module, exports, __webpack_require__) => exports.default = __webpack_require__
-        }, [id]).default : window["webpackJsonp"].push([[], {
+        }, [id]).default : window.webpackJsonp.push([[], {
             [id]: (module, exports, __webpack_require__) => module.exports = __webpack_require__
         }, [[id]]]);
         delete __webpack_require__.m[id];
@@ -4829,7 +4929,7 @@ class ClassName {
 	}
 	
 	/**
-	 * Returns the classname represented as {@link Selector}.
+	 * Returns the classname represented as {@link module:DOMTools.Selector}.
 	 * @returns {Selector} selector representation of this class name.
 	 */
 	get selector() {
@@ -5077,7 +5177,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_reacttools__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../modules/reacttools */ "./src/modules/reacttools.js");
 /* harmony import */ var _ui_modals__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../ui/modals */ "./src/ui/modals.js");
 /* harmony import */ var _modules_pluginutilities__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../modules/pluginutilities */ "./src/modules/pluginutilities.js");
-/* harmony import */ var _ui_settings__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../ui/settings */ "./src/ui/settings/index.js");
+/* harmony import */ var _modules_discordmodules__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../modules/discordmodules */ "./src/modules/discordmodules.js");
+/* harmony import */ var _ui_settings__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../ui/settings */ "./src/ui/settings/index.js");
+
 
 
 
@@ -5094,7 +5196,7 @@ __webpack_require__.r(__webpack_exports__);
                 this.defaultSettings = {};
                 for (let s = 0; s < config.defaultConfig.length; s++) {
                     const current = config.defaultConfig[s];
-                    if (current.type != "category") this.defaultSettings[current.id] = current.value;
+                    if (current.type != "category") {this.defaultSettings[current.id] = current.value;}
                     else {
                         this.defaultSettings[current.id] = {};
                         for (let s = 0; s < current.settings.length; s++) {
@@ -5112,8 +5214,8 @@ __webpack_require__.r(__webpack_exports__);
         getVersion() { return this._config.info.version; }
         getAuthor() { return this._config.info.authors.map(a => a.name).join(", "); }
         load() {}
-        start() {
-            _modules_logger__WEBPACK_IMPORTED_MODULE_1__["default"].info(this.getName(), "Started");
+        async start() {
+            _modules_logger__WEBPACK_IMPORTED_MODULE_1__["default"].info(this.getName(), `version ${this.getVersion()} has started.`);
             if (this.defaultSettings) this.settings = this.loadSettings();
             const currentVersionInfo = _modules_pluginutilities__WEBPACK_IMPORTED_MODULE_4__["default"].loadData(this.getName(), "currentVersionInfo", {version: this.getVersion(), hasShownChangelog: false});
             if (currentVersionInfo.version != this.getVersion() || !currentVersionInfo.hasShownChangelog) {
@@ -5125,12 +5227,23 @@ __webpack_require__.r(__webpack_exports__);
             if (typeof(this.onStart) == "function") this.onStart();
         }
         stop() {
-            _modules_logger__WEBPACK_IMPORTED_MODULE_1__["default"].info(this.getName(), "Stopped");
+            _modules_logger__WEBPACK_IMPORTED_MODULE_1__["default"].info(this.getName(), `version ${this.getVersion()} has stopped.`);
             this._enabled = false;
             if (typeof(this.onStop) == "function") this.onStop();
         }
 
         get isEnabled() {return this._enabled;}
+        get strings() {
+            if (!this._config.strings) return {};
+            const locale = _modules_discordmodules__WEBPACK_IMPORTED_MODULE_5__["default"].UserSettingsStore.locale.split("-")[0];
+            if (this._config.strings.hasOwnProperty(locale)) return this._config.strings[locale];
+            if (this._config.strings.hasOwnProperty("en")) return this._config.strings.en;
+            return this._config.strings;
+        }
+        
+        set strings(strings) {
+            this._config.strings = strings;
+        }
 
         showSettingsModal() {
             if (typeof(this.getSettingsPanel) != "function") return;
@@ -5156,26 +5269,33 @@ __webpack_require__.r(__webpack_exports__);
 
         buildSetting(data) {
             const {name, note, type, value, onChange} = data;
-            if (type == "color")
-                return new _ui_settings__WEBPACK_IMPORTED_MODULE_5__["ColorPicker"](name, note, value, onChange, {disabled: data.disabled, presetColors: data.presetColors});
-            else if (type == "dropdown")
-                return new _ui_settings__WEBPACK_IMPORTED_MODULE_5__["Dropdown"](name, note, value, data.options, onChange);
-            else if (type == "file")
-                return new _ui_settings__WEBPACK_IMPORTED_MODULE_5__["FilePicker"](name, note, onChange);
-            else if (type == "keybind")
-                return new _ui_settings__WEBPACK_IMPORTED_MODULE_5__["Keybind"](name, note, value, onChange);
-            else if (type == "radio")
-                return new _ui_settings__WEBPACK_IMPORTED_MODULE_5__["RadioGroup"](name, note, value, data.options, onChange, {disabled: data.disabled});
+            if (type == "color") {
+                return new _ui_settings__WEBPACK_IMPORTED_MODULE_6__["ColorPicker"](name, note, value, onChange, {disabled: data.disabled, presetColors: data.presetColors});
+            }
+            else if (type == "dropdown") {
+                return new _ui_settings__WEBPACK_IMPORTED_MODULE_6__["Dropdown"](name, note, value, data.options, onChange);
+            }
+            else if (type == "file") {
+                return new _ui_settings__WEBPACK_IMPORTED_MODULE_6__["FilePicker"](name, note, onChange);
+            }
+            else if (type == "keybind") {
+                return new _ui_settings__WEBPACK_IMPORTED_MODULE_6__["Keybind"](name, note, value, onChange);
+            }
+            else if (type == "radio") {
+                return new _ui_settings__WEBPACK_IMPORTED_MODULE_6__["RadioGroup"](name, note, value, data.options, onChange, {disabled: data.disabled});
+            }
             else if (type == "slider") {
                 const options = {};
                 if (typeof(data.markers) != "undefined") options.markers = data.markers;
                 if (typeof(data.stickToMarkers) != "undefined") options.stickToMarkers = data.stickToMarkers;
-                return new _ui_settings__WEBPACK_IMPORTED_MODULE_5__["Slider"](name, note, data.min, data.max, value, onChange, options);
+                return new _ui_settings__WEBPACK_IMPORTED_MODULE_6__["Slider"](name, note, data.min, data.max, value, onChange, options);
             }
-            else if (type == "switch")
-                return new _ui_settings__WEBPACK_IMPORTED_MODULE_5__["Switch"](name, note, value, onChange, {disabled: data.disabled});
-            else if (type == "textbox")
-                return new _ui_settings__WEBPACK_IMPORTED_MODULE_5__["Textbox"](name, note, value, onChange, {placeholder: data.placeholder || ""});
+            else if (type == "switch") {
+                return new _ui_settings__WEBPACK_IMPORTED_MODULE_6__["Switch"](name, note, value, onChange, {disabled: data.disabled});
+            }
+            else if (type == "textbox") {
+                return new _ui_settings__WEBPACK_IMPORTED_MODULE_6__["Textbox"](name, note, value, onChange, {placeholder: data.placeholder || ""});
+            }
         }
 
         buildSettingsPanel() {
@@ -5194,7 +5314,7 @@ __webpack_require__.r(__webpack_exports__);
                     list.push(this.buildSetting(current));
                 }
                 
-                return new _ui_settings__WEBPACK_IMPORTED_MODULE_5__["SettingGroup"](name, {shown, collapsible}).append(...list);
+                return new _ui_settings__WEBPACK_IMPORTED_MODULE_6__["SettingGroup"](name, {shown, collapsible}).append(...list);
             };
             const list = [];
             for (let s = 0; s < config.length; s++) {
@@ -5206,10 +5326,12 @@ __webpack_require__.r(__webpack_exports__);
                     };
                     list.push(this.buildSetting(current));
                 }
-                else list.push(buildGroup(current));
+                else {
+                    list.push(buildGroup(current));
+                }
             }
 
-            return new _ui_settings__WEBPACK_IMPORTED_MODULE_5__["SettingPanel"](this.saveSettings.bind(this), ...list);
+            return new _ui_settings__WEBPACK_IMPORTED_MODULE_6__["SettingPanel"](this.saveSettings.bind(this), ...list);
         }
     };
 });
@@ -5243,7 +5365,7 @@ class Screen {
 /*!********************************!*\
   !*** ./src/structs/structs.js ***!
   \********************************/
-/*! exports provided: List, Screen, Selector, ClassName, InsufficientPermissions, Plugin, User, GuildMember, Role, Emoji, Guild, Channel, PermissionOverwrite, RolePermissionOverwrite, MemberPermissionOverwrite, GuildChannel, GuildTextChannel, GuildVoiceChannel, ChannelCategory, PrivateChannel, DirectMessageChannel, GroupChannel, Reaction, Embed, Message, DefaultMessage, RecipientAddMessage, RecipientRemoveMessage, CallMessage, GroupChannelNameChangeMessage, GroupChannelIconChangeMessage, MessagePinnedMessage, GuildMemberJoinMessage, UserSettings */
+/*! exports provided: List, Screen, Selector, ClassName, InsufficientPermissions, Plugin, Listenable, User, GuildMember, Role, Emoji, Guild, Channel, PermissionOverwrite, RolePermissionOverwrite, MemberPermissionOverwrite, GuildChannel, GuildTextChannel, GuildVoiceChannel, ChannelCategory, PrivateChannel, DirectMessageChannel, GroupChannel, Reaction, Embed, Message, DefaultMessage, RecipientAddMessage, RecipientRemoveMessage, CallMessage, GroupChannelNameChangeMessage, GroupChannelIconChangeMessage, MessagePinnedMessage, GuildMemberJoinMessage, UserSettings */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5326,6 +5448,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony import */ var _plugin__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./plugin */ "./src/structs/plugin.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Plugin", function() { return _plugin__WEBPACK_IMPORTED_MODULE_10__["default"]; });
+
+/* harmony import */ var _listenable__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./listenable */ "./src/structs/listenable.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Listenable", function() { return _listenable__WEBPACK_IMPORTED_MODULE_11__["default"]; });
+
 
 
 
@@ -5440,7 +5566,7 @@ class Menu {
     
     /**
      * Adds items to the context menu directly. It is recommended to add to a group and use 
-     * {@link module:ContextMenu.Menu#addGroup} instead to behave as natively as possible.
+     * {@link module:ContextMenu.Menu.addGroup} instead to behave as natively as possible.
      * @param {module:ContextMenu.MenuItem} contextItems - list of items to add to the context menu
      * @returns {module:ContextMenu.Menu} returns self for chaining
      */
@@ -5677,8 +5803,8 @@ class ToggleItem extends MenuItem {
 		super(label, options);
 		this.element.addClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.itemToggle.toString());
         this.element.append($("<div>").addClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.label.toString()).text(label));
-        this.checkbox = $("<div>", {class: "checkbox"});
-        this.checkbox.append($("<div>", {class: "checkbox-inner"}));
+        this.checkbox = $("<div>", {"class": "checkbox"});
+        this.checkbox.append($("<div>", {"class": "checkbox-inner"}));
         this.checkbox.append("<span>");
         this.input = $("<input>", {type: "checkbox", checked: checked, value: "on"});
         this.checkbox.find(".checkbox-inner").append(this.input).append("<span>");
@@ -6853,7 +6979,7 @@ class Toast {
 
     static getIcon(icon) {
         let iconInner = `<img src="${icon}" width="20" height="20" />`;
-        switch(icon) {
+        switch (icon) {
             case "success": iconInner = ui__WEBPACK_IMPORTED_MODULE_1__["Icons"].IconSuccess(20); break;
             case "warning": iconInner = ui__WEBPACK_IMPORTED_MODULE_1__["Icons"].IconWarning(20); break;
             case "info": iconInner = ui__WEBPACK_IMPORTED_MODULE_1__["Icons"].IconInfo(20); break;
@@ -6888,11 +7014,11 @@ class Toast {
      */
     static get ToastTypes() {
         return {
-            default: "",
-            error: "error",
-            success: "success",
-            warning: "warning",
-            info: "info"
+            "default": "",
+            "error": "error",
+            "success": "success",
+            "warning": "warning",
+            "info": "info"
         };
     }
 }
@@ -6931,17 +7057,20 @@ class Tooltip {
 	 * @param {string} [options.style=black] - correlates to the discord styling
 	 * @param {string} [options.side=top] - can be any of top, right, bottom, left
 	 * @param {boolean} [options.preventFlip=false] - prevents moving the tooltip to the opposite side if it is too big or goes offscreen
+	 * @param {boolean} [options.disabled=false] - whether the tooltip should be disabled from showing on hover
 	 */
 	constructor(node, text, options = {}) {
 		if (!(node instanceof jQuery) && !(node instanceof Element)) return undefined;
 		this.node = node instanceof jQuery ? node[0] : node;
-		const {style = "black", side = "top"} = options;
+		const {style = "black", side = "top", disabled = false} = options;
 		this.label = text;
 		this.style = style;
 		this.side = side;
+		this.disabled = disabled;
 		this.id = modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].KeyGenerator();
 
 		this.node.addEventListener("mouseenter", () => {
+			if (this.disabled) return;
 			this.show();
 
 			const observer = new MutationObserver((mutations) => {
@@ -6962,6 +7091,20 @@ class Tooltip {
 		this.node.addEventListener("mouseleave", () => {
 			this.hide();
 		});
+	}
+
+	/**
+	 * Disabled the tooltip and prevents it from showing on hover.
+	 */
+	disable() {
+		this.disabled = true;
+	}
+
+	/**
+	 * Enables the tooltip and allows it to show on hover.
+	 */
+	enable() {
+		this.disabled = false;
 	}
 
     /** Hides the tooltip. Automatically called on mouseleave. */
@@ -7026,35 +7169,35 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "electron":
-/*!*********************************************!*\
-  !*** external "window.require('electron')" ***!
-  \*********************************************/
+/*!***********************************************!*\
+  !*** external "window.require(\"electron\")" ***!
+  \***********************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = window.require('electron');
+module.exports = window.require("electron");
 
 /***/ }),
 
 /***/ "fs":
-/*!***************************************!*\
-  !*** external "window.require('fs')" ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = window.require('fs');
-
-/***/ }),
-
-/***/ "path":
 /*!*****************************************!*\
-  !*** external "window.require('path')" ***!
+  !*** external "window.require(\"fs\")" ***!
   \*****************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = window.require('path');
+module.exports = window.require("fs");
+
+/***/ }),
+
+/***/ "path":
+/*!*******************************************!*\
+  !*** external "window.require(\"path\")" ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = window.require("path");
 
 /***/ }),
 
@@ -7070,13 +7213,13 @@ module.exports = require("process");
 /***/ }),
 
 /***/ "request":
-/*!********************************************!*\
-  !*** external "window.require('request')" ***!
-  \********************************************/
+/*!**********************************************!*\
+  !*** external "window.require(\"request\")" ***!
+  \**********************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = window.require('request');
+module.exports = window.require("request");
 
 /***/ })
 

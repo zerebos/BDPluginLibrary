@@ -46,8 +46,7 @@ export default class ReactTools {
 	 * @return {(*|null)} the owner instance or undefined if not found.
 	 */
 	static getOwnerInstance(node, {include, exclude = ["Popout", "Tooltip", "Scroller", "BackgroundFlash"], filter = _ => _} = {}) {
-		if (node === undefined)
-			return undefined;
+		if (node === undefined) return undefined;
 		const excluding = include === undefined;
 		const nameFilter = excluding ? exclude : include;
 		function getDisplayName(owner) {
@@ -59,12 +58,11 @@ export default class ReactTools {
 			return (name !== null && !!(nameFilter.includes(name) ^ excluding));
 		}
 		
-		for (let curr = this.getReactInstance(node).return; !Utilities.isNil(curr); curr = curr.return) {
-			if (Utilities.isNil(curr))
-				continue;
+		let curr = this.getReactInstance(node);
+		for (curr = curr && curr.return; !Utilities.isNil(curr); curr = curr.return) {
+			if (Utilities.isNil(curr)) continue;
 			let owner = curr.stateNode;
-			if (!Utilities.isNil(owner) && !(owner instanceof HTMLElement) && classFilter(curr) && filter(owner))
-				return owner;
+			if (!Utilities.isNil(owner) && !(owner instanceof HTMLElement) && classFilter(curr) && filter(owner)) return owner;
 		}
 		
 		return null;

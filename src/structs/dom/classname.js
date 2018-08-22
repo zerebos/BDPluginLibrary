@@ -42,7 +42,7 @@ class ClassName {
 	}
 	
 	/**
-	 * Returns the classname represented as {@link Selector}.
+	 * Returns the classname represented as {@link module:DOMTools.Selector}.
 	 * @returns {Selector} selector representation of this class name.
 	 */
 	get selector() {

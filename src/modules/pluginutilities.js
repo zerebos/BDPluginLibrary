@@ -5,7 +5,7 @@ import DOMTools from "./domtools";
 /**
  * A series of useful functions for BetterDiscord plugins.
  * @module PluginUtilities
- * @version 0.2.3
+ * @version 0.2.4
  */
 
 
@@ -102,19 +102,37 @@ import DOMTools from "./domtools";
 		require("electron").remote.getCurrentWebContents().removeListener("did-navigate-in-page", callback);
 	}
 
+	/**
+	 * Adds a style to the document.
+	 * @param {string} id - identifier to use as the element id
+	 * @param {string} css - css to add to the document
+	 */
 	static addStyle(id, css) {
 		document.head.append(DOMTools.createElement(`<style id="${id}">${css}</style>`));
 	}
 
+	/**
+	 * Removes a style from the document.
+	 * @param {string} id - original identifier used
+	 */
 	static removeStyle(id) {
 		const element = document.getElementById(id);
 		if (element) element.remove();
 	}
 
+	/**
+	 * Adds/requires a remote script to be loaded
+	 * @param {string} id - identifier to use for this script
+	 * @param {string} url - url from which to load the script
+	 */
 	static addScript(id, url) {
 		document.head.append(DOMTools.createElement(`<script id="${id}" src="${url}"></script>`));
 	}
 
+	/**
+	 * Removes a remote script from the document.
+	 * @param {string} id - original identifier used
+	 */
 	static removeScript(id) {
 		const element = document.getElementById(id);
 		if (element) element.remove();

@@ -148,7 +148,7 @@
 									<div class="form-group">
 										<label class="col-sm-3 control-label">Version</label>
 										<div class="col-sm-9">
-											<p class="form-control-static">0.0.2</p>
+											<p class="form-control-static">0.1.0</p>
 										</div>
 									</div>
 					
@@ -182,7 +182,7 @@
 									<dl class="symbol">
 											<hr/>
 											<dt class="symbol-title function public collapsible-symbol">
-			<h4 id=".err" class="function public"><span class="signature-attribs">&lt;static> </span><span class="name">err</span><span class="signature-params">( <span class="signature-param">module</span>, <span class="signature-param">message</span>, <span class="signature-param">error</span>&nbsp;)</span><span class="signature-type"></span></h4>
+			<h4 id=".stacktrace" class="function public"><span class="signature-attribs">&lt;static> </span><span class="name">stacktrace</span><span class="signature-params">( <span class="signature-param">module</span>, <span class="signature-param">message</span>, <span class="signature-param">error</span>&nbsp;)</span><span class="signature-type"></span></h4>
 		</dt>
 <dd class="symbol-details function public  collapsible-symbol">
 	<div class="symbol-details-inner">
@@ -216,7 +216,7 @@
 								<td><code>error</code></td>
 							<td><span class="param-type">Error</span></td>
 							<td class="last">
-									<p>Optional error to log with the message.</p>
+									<p>Error object to log with the message.</p>
 							</td>
 						</tr>
 					</tbody>
@@ -254,11 +254,11 @@
 </dd>
 											<hr/>
 											<dt class="symbol-title function public collapsible-symbol">
-			<h4 id=".warn" class="function public"><span class="signature-attribs">&lt;static> </span><span class="name">warn</span><span class="signature-params">( <span class="signature-param">module</span>, <span class="signature-param">message</span>&nbsp;)</span><span class="signature-type"></span></h4>
+			<h4 id=".err" class="function public"><span class="signature-attribs">&lt;static> </span><span class="name">err</span><span class="signature-params">( <span class="signature-param">module</span>, <span class="signature-param">...message</span>&nbsp;)</span><span class="signature-type"></span></h4>
 		</dt>
 <dd class="symbol-details function public  collapsible-symbol">
 	<div class="symbol-details-inner">
-			<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>Logs a warning message/</p></div>
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>Logs using error formatting. For logging an actual error object consider <a href="module-Logger.html#.stacktrace">module:Logger.stacktrace</a></p></div>
 			</div>			<div class="callout callout-info">
 				<h5>Parameters</h5>
 				<table class="params table table-striped">
@@ -266,6 +266,7 @@
 					<tr>
 							<th>Name</th>
 						<th>Type</th>
+							<th>Attributes</th>
 						<th class="last">Description</th>
 					</tr>
 					</thead>
@@ -273,6 +274,7 @@
 						<tr>
 								<td><code>module</code></td>
 							<td><span class="param-type">string</span></td>
+								<td class="attributes"></td>
 							<td class="last">
 									<p>Name of the calling module.</p>
 							</td>
@@ -280,8 +282,9 @@
 						<tr>
 								<td><code>message</code></td>
 							<td><span class="param-type">string</span></td>
+								<td class="attributes">&lt;repeatable&gt;<br/></td>
 							<td class="last">
-									<p>Message to have logged.</p>
+									<p>Messages to have logged.</p>
 							</td>
 						</tr>
 					</tbody>
@@ -307,7 +310,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="modules_logger.js.html">modules/logger.js</a>, <a href="modules_logger.js.html#line-45">line 45</a></p>
+									<p class="form-control-static"><a href="modules_logger.js.html">modules/logger.js</a>, <a href="modules_logger.js.html#line-44">line 44</a></p>
 								</div>
 							</div>
 			
@@ -319,7 +322,75 @@
 </dd>
 											<hr/>
 											<dt class="symbol-title function public collapsible-symbol">
-			<h4 id=".info" class="function public"><span class="signature-attribs">&lt;static> </span><span class="name">info</span><span class="signature-params">( <span class="signature-param">module</span>, <span class="signature-param">message</span>&nbsp;)</span><span class="signature-type"></span></h4>
+			<h4 id=".warn" class="function public"><span class="signature-attribs">&lt;static> </span><span class="name">warn</span><span class="signature-params">( <span class="signature-param">module</span>, <span class="signature-param">...message</span>&nbsp;)</span><span class="signature-type"></span></h4>
+		</dt>
+<dd class="symbol-details function public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>Logs a warning message.</p></div>
+			</div>			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+							<th>Attributes</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>module</code></td>
+							<td><span class="param-type">string</span></td>
+								<td class="attributes"></td>
+							<td class="last">
+									<p>Name of the calling module.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>message</code></td>
+							<td><span class="param-type">any</span></td>
+								<td class="attributes">&lt;repeatable&gt;<br/></td>
+							<td class="last">
+									<p>Messages to have logged.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="modules_logger.js.html">modules/logger.js</a>, <a href="modules_logger.js.html#line-52">line 52</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function public collapsible-symbol">
+			<h4 id=".info" class="function public"><span class="signature-attribs">&lt;static> </span><span class="name">info</span><span class="signature-params">( <span class="signature-param">module</span>, <span class="signature-param">...message</span>&nbsp;)</span><span class="signature-type"></span></h4>
 		</dt>
 <dd class="symbol-details function public  collapsible-symbol">
 	<div class="symbol-details-inner">
@@ -331,6 +402,7 @@
 					<tr>
 							<th>Name</th>
 						<th>Type</th>
+							<th>Attributes</th>
 						<th class="last">Description</th>
 					</tr>
 					</thead>
@@ -338,15 +410,17 @@
 						<tr>
 								<td><code>module</code></td>
 							<td><span class="param-type">string</span></td>
+								<td class="attributes"></td>
 							<td class="last">
 									<p>Name of the calling module.</p>
 							</td>
 						</tr>
 						<tr>
 								<td><code>message</code></td>
-							<td><span class="param-type">string</span></td>
+							<td><span class="param-type">any</span></td>
+								<td class="attributes">&lt;repeatable&gt;<br/></td>
 							<td class="last">
-									<p>Message to have logged.</p>
+									<p>Messages to have logged.</p>
 							</td>
 						</tr>
 					</tbody>
@@ -372,7 +446,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="modules_logger.js.html">modules/logger.js</a>, <a href="modules_logger.js.html#line-53">line 53</a></p>
+									<p class="form-control-static"><a href="modules_logger.js.html">modules/logger.js</a>, <a href="modules_logger.js.html#line-60">line 60</a></p>
 								</div>
 							</div>
 			
@@ -384,7 +458,7 @@
 </dd>
 											<hr/>
 											<dt class="symbol-title function public collapsible-symbol">
-			<h4 id=".debug" class="function public"><span class="signature-attribs">&lt;static> </span><span class="name">debug</span><span class="signature-params">( <span class="signature-param">module</span>, <span class="signature-param">message</span>&nbsp;)</span><span class="signature-type"></span></h4>
+			<h4 id=".debug" class="function public"><span class="signature-attribs">&lt;static> </span><span class="name">debug</span><span class="signature-params">( <span class="signature-param">module</span>, <span class="signature-param">...message</span>&nbsp;)</span><span class="signature-type"></span></h4>
 		</dt>
 <dd class="symbol-details function public  collapsible-symbol">
 	<div class="symbol-details-inner">
@@ -396,6 +470,7 @@
 					<tr>
 							<th>Name</th>
 						<th>Type</th>
+							<th>Attributes</th>
 						<th class="last">Description</th>
 					</tr>
 					</thead>
@@ -403,15 +478,17 @@
 						<tr>
 								<td><code>module</code></td>
 							<td><span class="param-type">string</span></td>
+								<td class="attributes"></td>
 							<td class="last">
 									<p>Name of the calling module.</p>
 							</td>
 						</tr>
 						<tr>
 								<td><code>message</code></td>
-							<td><span class="param-type">string</span></td>
+							<td><span class="param-type">any</span></td>
+								<td class="attributes">&lt;repeatable&gt;<br/></td>
 							<td class="last">
-									<p>Message to have logged.</p>
+									<p>Messages to have logged.</p>
 							</td>
 						</tr>
 					</tbody>
@@ -437,7 +514,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="modules_logger.js.html">modules/logger.js</a>, <a href="modules_logger.js.html#line-61">line 61</a></p>
+									<p class="form-control-static"><a href="modules_logger.js.html">modules/logger.js</a>, <a href="modules_logger.js.html#line-68">line 68</a></p>
 								</div>
 							</div>
 			
@@ -449,7 +526,75 @@
 </dd>
 											<hr/>
 											<dt class="symbol-title function public collapsible-symbol">
-			<h4 id=".log" class="function public"><span class="signature-attribs">&lt;static> </span><span class="name">log</span><span class="signature-params">( <span class="signature-param">module</span>, <span class="signature-param">message</span>, <span class="signature-param">type</span>&nbsp;)</span><span class="signature-type"></span></h4>
+			<h4 id=".log" class="function public"><span class="signature-attribs">&lt;static> </span><span class="name">log</span><span class="signature-params">( <span class="signature-param">module</span>, <span class="signature-param">...message</span>&nbsp;)</span><span class="signature-type"></span></h4>
+		</dt>
+<dd class="symbol-details function public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>Logs used for basic loggin.</p></div>
+			</div>			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+							<th>Attributes</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>module</code></td>
+							<td><span class="param-type">string</span></td>
+								<td class="attributes"></td>
+							<td class="last">
+									<p>Name of the calling module.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>message</code></td>
+							<td><span class="param-type">any</span></td>
+								<td class="attributes">&lt;repeatable&gt;<br/></td>
+							<td class="last">
+									<p>Messages to have logged.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="modules_logger.js.html">modules/logger.js</a>, <a href="modules_logger.js.html#line-76">line 76</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function public collapsible-symbol">
+			<h4 id="._log" class="function public"><span class="signature-attribs">&lt;static> </span><span class="name">_log</span><span class="signature-params">( <span class="signature-param">module</span>, <span class="signature-param">message</span>, <span class="signature-param">type</span>&nbsp;)</span><span class="signature-type"></span></h4>
 		</dt>
 <dd class="symbol-details function public  collapsible-symbol">
 	<div class="symbol-details-inner">
@@ -476,10 +621,10 @@
 						</tr>
 						<tr>
 								<td><code>message</code></td>
-							<td><span class="param-type">string</span></td>
+							<td><span class="param-type">any</span> | <span class="param-type">Array.&lt;any></span></td>
 								<td></td>
 							<td class="last">
-									<p>Message to have logged.</p>
+									<p>Messages to have logged.</p>
 							</td>
 						</tr>
 						<tr>
@@ -513,7 +658,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="modules_logger.js.html">modules/logger.js</a>, <a href="modules_logger.js.html#line-70">line 70</a></p>
+									<p class="form-control-static"><a href="modules_logger.js.html">modules/logger.js</a>, <a href="modules_logger.js.html#line-85">line 85</a></p>
 								</div>
 							</div>
 			
@@ -534,7 +679,7 @@
 	</div>
 	<footer>
 				<div class="copyright">Copyright © 2018 Zack Rauen</div>
-			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on August 15th 2018, 11:12:33 pm using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
+			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on August 22nd 2018, 5:50:56 pm using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
 	</footer>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>

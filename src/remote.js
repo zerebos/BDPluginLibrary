@@ -14,12 +14,13 @@ Library.buildPlugin = function(config) {
     const name = config.info.name;
     const BoundAPI = {
         Logger: {
-            log: (message) => Library.Logger.log(name, message),
-            error: (message, error) => Library.Logger.err(name, message, error),
-            err: (message, error) => Library.Logger.err(name, message, error),
-            warn: (message) => Library.Logger.warn(name, message),
-            info: (message) => Library.Logger.info(name, message),
-            debug: (message) => Library.Logger.debug(name, message)
+            stacktrace: (message, error) => Library.Logger.stacktrace(name, message, error),
+			log: (...message) => Library.Logger.log(name, ...message),
+			error: (...message) => Library.Logger.err(name, ...message),
+			err: (...message) => Library.Logger.err(name, ...message),
+			warn: (...message) => Library.Logger.warn(name, ...message),
+			info: (...message) => Library.Logger.info(name, ...message),
+			debug: (...message) => Library.Logger.debug(name, ...message)
         },
         Patcher: {
             getPatchesByCaller: () => {return Library.Patcher.getPatchesByCaller(name);},

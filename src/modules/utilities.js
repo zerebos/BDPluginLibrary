@@ -131,12 +131,14 @@ export default class Utilities {
 
 			if (argType === "string" || argType === "number") {
 				classes.push(arg);
-			} else if (Array.isArray(arg) && arg.length) {
+            }
+            else if (Array.isArray(arg) && arg.length) {
 				var inner = this.classNames.apply(null, arg);
 				if (inner) {
 					classes.push(inner);
 				}
-			} else if (argType === "object") {
+            }
+            else if (argType === "object") {
 				for (var key in arg) {
 					if (hasOwn.call(arg, key) && arg[key]) {
 						classes.push(key);
@@ -237,8 +239,7 @@ export default class Utilities {
      */
     static removeFromArray(array, item) {
         let index;
-        while ((index = array.indexOf(item)) > -1)
-            array.splice(index, 1);
+        while ((index = array.indexOf(item)) > -1) array.splice(index, 1);
         return array;
     }
 
@@ -251,15 +252,19 @@ export default class Utilities {
         const fs = require("fs");
         return new Promise((resolve, reject) => {
             fs.stat(path, (err, stats) => {
-                if (err) return reject({
-                    message: `No such file or directory: ${err.path}`,
-                    err
-                });
+                if (err) {
+                    return reject({
+                        message: `No such file or directory: ${err.path}`,
+                        err
+                    });
+                }
 
-                if (!stats.isFile()) return reject({
-                    message: `Not a file: ${path}`,
-                    stats
-                });
+                if (!stats.isFile()) {
+                    return reject({
+                        message: `Not a file: ${path}`,
+                        stats
+                    });
+                }
 
                 resolve();
             });
@@ -274,17 +279,20 @@ export default class Utilities {
     static async readFile(path) {
         try {
             await this.fileExists(path);
-        } catch (err) {
+        }
+        catch (err) {
             throw err;
         }
         
         const fs = require("fs");
         return new Promise((resolve, reject) => {
             fs.readFile(path, "utf-8", (err, data) => {
-                if (err) return reject({
-                    message: `Could not read file: ${path}`,
-                    err
-                });
+                if (err) {
+                    return reject({
+                        message: `Could not read file: ${path}`,
+                        err
+                    });
+                }
 
                 resolve(data);
             });
