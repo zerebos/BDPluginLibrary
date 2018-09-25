@@ -48,6 +48,14 @@ class ClassName {
 	get selector() {
 		return new Selector(this.value);
 	}
+
+	get single() {
+		return this.value.split(" ")[0];
+	}
+
+	get first() {
+		return this.value.split(" ")[0];
+	}
 }
 
 export default ClassName;

@@ -125,11 +125,16 @@ export default function(config) {
 
                 const list = [];
                 for (let s = 0; s < settings.length; s++) {
-                    const current = settings[s];
+                    const current = Object.assign({}, settings[s]);
                     this.settings[id][current.id] = current.value;
                     current.onChange = (value) => {
                         this.settings[id][current.id] = value;
                     };
+                    if (Object.keys(this.strings).length && this.strings.settings && this.strings.settings[id] && this.strings.settings[id][current.id]) {
+                        const {name, note} = this.strings.settings[id][current.id];
+                        current.name = name;
+                        current.note = note;
+                    }
                     list.push(this.buildSetting(current));
                 }
                 
@@ -137,12 +142,17 @@ export default function(config) {
             };
             const list = [];
             for (let s = 0; s < config.length; s++) {
-                const current = config[s];
+                const current = Object.assign({}, config[s]);
                 if (current.type != "category") {
                     this.settings[current.id] = current.value;
                     current.onChange = (value) => {
                         this.settings[current.id] = value;
                     };
+                    if (Object.keys(this.strings).length && this.strings.settings && this.strings.settings[current.id]) {
+                        const {name, note} = this.strings.settings[current.id];
+                        current.name = name;
+                        current.note = note;
+                    }
                     list.push(this.buildSetting(current));
                 }
                 else {

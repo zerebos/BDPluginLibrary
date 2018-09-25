@@ -74,7 +74,7 @@ export class Menu {
 			var top = this.element.parents(type).last();
 			var closest = this.element.parents(type).first();
 			var negate = closest.hasClass(DiscordClasses.ContextMenu.invertChildX.toString()) ? -1 : 1;
-			this.element.css("margin-left", negate * closest.find(`.${DiscordClasses.ContextMenu.item}`).outerWidth() + closest.offset().left - top.offset().left);
+			this.element.css("margin-left", negate * closest.find(DiscordSelectors.ContextMenu.item.toString()).outerWidth() + closest.offset().left - top.offset().left);
 		}
 		
 		if (mouseY + this.element.outerHeight() >= maxHeight) {

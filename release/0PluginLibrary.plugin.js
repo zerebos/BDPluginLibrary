@@ -465,6 +465,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+const getRaw = function(prop) {
+	if (!this.hasOwnProperty(prop)) return "";
+	return this[prop];
+};
+
+const getClass = function(prop) {
+	if (!this.hasOwnProperty(prop)) return "";
+	return this[prop].split(" ")[0];
+};
+
 /**
  * Proxy for all the class packages, allows us to safely attempt
  * to retrieve nested things without error. Also wraps the class in
@@ -475,19 +485,23 @@ __webpack_require__.r(__webpack_exports__);
  * 
  * @see module:DiscordClassModules
  * @module DiscordClasses
- * @version 0.0.1
+ * @version 0.1.0
  */
-/* harmony default export */ __webpack_exports__["default"] = (new Proxy(_discordclassmodules__WEBPACK_IMPORTED_MODULE_0__["default"], {
+const DiscordModules = new Proxy(_discordclassmodules__WEBPACK_IMPORTED_MODULE_0__["default"], {
 	get: function(list, item) {
+		if (item == "getRaw" || item == "getClass") return (module, prop) => DiscordModules[module][item]([prop]);
 		if (list[item] === undefined) return new Proxy({}, {get: function() {return "";}});
 		return new Proxy(list[item], {
 			get: function(obj, prop) {
+				if (prop == "getRaw") return getRaw.bind(obj);
+				if (prop == "getClass") return getClass.bind(obj);
 				if (!obj.hasOwnProperty(prop)) return "";
 				return new _domtools__WEBPACK_IMPORTED_MODULE_1__["default"].ClassName(obj[prop]);
 			}
 		});
 	}
-}));
+});
+/* harmony default export */ __webpack_exports__["default"] = (DiscordModules);
 
 /***/ }),
 
@@ -610,7 +624,7 @@ __webpack_require__.r(__webpack_exports__);
 
     /* User Stores and Utils */
     get UserStore() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getCurrentUser");},
-    get UserStatusStore() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getStatuses");},
+    get UserStatusStore() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getStatus", "getState");},
     get UserTypingStore() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("isTyping");},
     get UserActivityStore() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getActivity");},
     get UserNameResolver() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getName");},
@@ -806,6 +820,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+const getSelectorAll = function(prop) {
+	if (!this.hasOwnProperty(prop)) return "";
+	return `.${this[prop].split(" ").join(".")}`;
+};
+
+const getSelector = function(prop) {
+	if (!this.hasOwnProperty(prop)) return "";
+	return `.${this[prop].split(" ")[0]}`;
+};
+
 /**
  * Gives us a way to retrieve the internal classes as selectors without
  * needing to concatenate strings or use string templates. Wraps the
@@ -816,19 +840,24 @@ __webpack_require__.r(__webpack_exports__);
  * 
  * @see module:DiscordClassModules
  * @module DiscordSelectors
- * @version 0.0.1
+ * @version 0.1.0
  */
-/* harmony default export */ __webpack_exports__["default"] = (new Proxy(_discordclassmodules__WEBPACK_IMPORTED_MODULE_0__["default"], {
+const DiscordSelectors = new Proxy(_discordclassmodules__WEBPACK_IMPORTED_MODULE_0__["default"], {
 	get: function(list, item) {
+		if (item == "getSelectorAll" || item == "getSelector") return (module, prop) => DiscordSelectors[module][item]([prop]);
 		if (list[item] === undefined) return new Proxy({}, {get: function() {return "";}});
 		return new Proxy(list[item], {
 			get: function(obj, prop) {
+				if (prop == "getSelectorAll") return getSelectorAll.bind(obj);
+				if (prop == "getSelector") return getSelector.bind(obj);
 				if (!obj.hasOwnProperty(prop)) return "";
 				return new _domtools__WEBPACK_IMPORTED_MODULE_1__["default"].Selector(obj[prop]);
 			}
 		});
 	}
-}));
+});
+
+/* harmony default export */ __webpack_exports__["default"] = (DiscordSelectors);
 
 /***/ }),
 
@@ -2068,7 +2097,7 @@ class PluginUpdater {
 	}
 
 	/**
-	 * The default versioner used as {@link module:PluginUpdater~versioner} for {@link module:PluginUpdater~checkForUpdate}.
+	 * The default versioner used as {@link module:PluginUpdater~versioner} for {@link module:PluginUpdater.checkForUpdate}.
 	 * This works on basic semantic versioning e.g. "1.0.0". You do not need to provide this as a versioner if your plugin adheres
 	 * to this style as this will be used as default.
 	 * @param {string} currentVersion 
@@ -2081,7 +2110,7 @@ class PluginUpdater {
 	}
 
 	/**
-	 * The default comparator used as {@link module:PluginUpdater~comparator} for {@link module:PluginUpdater~checkForUpdate}.
+	 * The default comparator used as {@link module:PluginUpdater~comparator} for {@link module:PluginUpdater.checkForUpdate}.
 	 * This works on basic semantic versioning e.g. "1.0.0". You do not need to provide this as a comparator if your plugin adheres
 	 * to this style as this will be used as default.
 	 * @param {string} currentVersion 
@@ -4935,6 +4964,14 @@ class ClassName {
 	get selector() {
 		return new _selector__WEBPACK_IMPORTED_MODULE_0__["default"](this.value);
 	}
+
+	get single() {
+		return this.value.split(" ")[0];
+	}
+
+	get first() {
+		return this.value.split(" ")[0];
+	}
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (ClassName);
@@ -5306,11 +5343,16 @@ __webpack_require__.r(__webpack_exports__);
 
                 const list = [];
                 for (let s = 0; s < settings.length; s++) {
-                    const current = settings[s];
+                    const current = Object.assign({}, settings[s]);
                     this.settings[id][current.id] = current.value;
                     current.onChange = (value) => {
                         this.settings[id][current.id] = value;
                     };
+                    if (Object.keys(this.strings).length && this.strings.settings && this.strings.settings[id] && this.strings.settings[id][current.id]) {
+                        const {name, note} = this.strings.settings[id][current.id];
+                        current.name = name;
+                        current.note = note;
+                    }
                     list.push(this.buildSetting(current));
                 }
                 
@@ -5318,12 +5360,17 @@ __webpack_require__.r(__webpack_exports__);
             };
             const list = [];
             for (let s = 0; s < config.length; s++) {
-                const current = config[s];
+                const current = Object.assign({}, config[s]);
                 if (current.type != "category") {
                     this.settings[current.id] = current.value;
                     current.onChange = (value) => {
                         this.settings[current.id] = value;
                     };
+                    if (Object.keys(this.strings).length && this.strings.settings && this.strings.settings[current.id]) {
+                        const {name, note} = this.strings.settings[current.id];
+                        current.name = name;
+                        current.note = note;
+                    }
                     list.push(this.buildSetting(current));
                 }
                 else {
@@ -5599,7 +5646,7 @@ class Menu {
 			var top = this.element.parents(type).last();
 			var closest = this.element.parents(type).first();
 			var negate = closest.hasClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.invertChildX.toString()) ? -1 : 1;
-			this.element.css("margin-left", negate * closest.find(`.${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.item}`).outerWidth() + closest.offset().left - top.offset().left);
+			this.element.css("margin-left", negate * closest.find(_modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].ContextMenu.item.toString()).outerWidth() + closest.offset().left - top.offset().left);
 		}
 		
 		if (mouseY + this.element.outerHeight() >= maxHeight) {

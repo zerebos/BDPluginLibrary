@@ -47,7 +47,7 @@ export default Utilities.memoizeObject({
 
     /* User Stores and Utils */
     get UserStore() {return WebpackModules.getByProps("getCurrentUser");},
-    get UserStatusStore() {return WebpackModules.getByProps("getStatuses");},
+    get UserStatusStore() {return WebpackModules.getByProps("getStatus", "getState");},
     get UserTypingStore() {return WebpackModules.getByProps("isTyping");},
     get UserActivityStore() {return WebpackModules.getByProps("getActivity");},
     get UserNameResolver() {return WebpackModules.getByProps("getName");},

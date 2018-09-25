@@ -89,7 +89,7 @@ export default class PluginUpdater {
 	}
 
 	/**
-	 * The default versioner used as {@link module:PluginUpdater~versioner} for {@link module:PluginUpdater~checkForUpdate}.
+	 * The default versioner used as {@link module:PluginUpdater~versioner} for {@link module:PluginUpdater.checkForUpdate}.
 	 * This works on basic semantic versioning e.g. "1.0.0". You do not need to provide this as a versioner if your plugin adheres
 	 * to this style as this will be used as default.
 	 * @param {string} currentVersion 
@@ -102,7 +102,7 @@ export default class PluginUpdater {
 	}
 
 	/**
-	 * The default comparator used as {@link module:PluginUpdater~comparator} for {@link module:PluginUpdater~checkForUpdate}.
+	 * The default comparator used as {@link module:PluginUpdater~comparator} for {@link module:PluginUpdater.checkForUpdate}.
 	 * This works on basic semantic versioning e.g. "1.0.0". You do not need to provide this as a comparator if your plugin adheres
 	 * to this style as this will be used as default.
 	 * @param {string} currentVersion 
