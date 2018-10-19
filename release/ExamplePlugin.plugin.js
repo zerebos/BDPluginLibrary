@@ -1,16 +1,18 @@
 //META{"name":"ExamplePlugin","displayName":"ExamplePlugin","website":"","source":""}*//
 
 var ExamplePlugin = (() => {
-	if (!global.ZLibrary && !global.ZLibraryPromise) global.ZLibraryPromise = new Promise((resolve, reject) => {
-		require("request").get("https://rauenzi.github.io/BetterDiscordAddons/Plugins/ZLibrary.js", (err, res, body) => { //https://zackrauen.com/BetterDiscordApp/ZLibrary.js | https://rauenzi.github.io/BetterDiscordAddons/Plugins/ZLibrary.js
-			if (err || 200 !== res.statusCode) reject(err || res.statusMessage);
-			try {const vm = require("vm"), script = new vm.Script(body, {displayErrors: true}); resolve(script.runInThisContext());}
-			catch(err) {reject(err);}
-		});
-	});
-	const config = {"info":{"name":"Example Plugin","authors":[{"name":"Zerebos","discord_id":"249746236008169473","github_username":"rauenzi","twitter_username":"ZackRauen"}],"version":"0.0.3","description":"Patcher Test Description","github":"","github_raw":""},"changelog":[{"title":"New Stuff","items":["Added more settings","Added changelog"]},{"title":"Bugs Squashed","type":"fixed","items":["React errors on reload"]},{"title":"Improvements","type":"improved","items":["Improvements to the base plugin"]},{"title":"On-going","type":"progress","items":["More modals and popouts being added","More classes and modules being added"]}],"main":"index.js"};
-	const compilePlugin = ([Plugin, Api]) => {
-		const plugin = (Plugin, Library) => {
+    const config = {"info":{"name":"Example Plugin","authors":[{"name":"Zerebos","discord_id":"249746236008169473","github_username":"rauenzi","twitter_username":"ZackRauen"}],"version":"0.0.3","description":"Patcher Test Description","github":"","github_raw":""},"changelog":[{"title":"New Stuff","items":["Added more settings","Added changelog"]},{"title":"Bugs Squashed","type":"fixed","items":["React errors on reload"]},{"title":"Improvements","type":"improved","items":["Improvements to the base plugin"]},{"title":"On-going","type":"progress","items":["More modals and popouts being added","More classes and modules being added"]}],"main":"index.js"};
+
+    return !global.ZeresPluginLibrary ? class {
+        getName() {return config.info.name;}
+        getAuthor() {return config.info.authors.map(a => a.name).join(", ");}
+        getDescription() {return config.info.description;}
+        getVersion() {return config.info.version;}
+        load() {window.BdApi.alert("Library Missing",`The library plugin needed for ${config.info.name} is missing.<br /><br /> <a href="https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js">Click here to download the library!</a>`);}
+        start() {}
+        stop() {}
+    } : (([Plugin, Api]) => {
+        const plugin = (Plugin, Library) => {
 
     const {Logger, Patcher, Settings} = Library;
 
@@ -81,26 +83,6 @@ var ExamplePlugin = (() => {
     };
 
 };
-		return plugin(Plugin, Api);
-	};
-	
-	return !global.ZLibrary ? class {
-		getName() {return config.info.name.replace(" ", "");} getAuthor() {return config.info.authors.map(a => a.name).join(", ");} getDescription() {return config.info.description;} getVersion() {return config.info.version;} stop() {}
-		showAlert() {window.mainCore.alert("Loading Error",`Something went wrong trying to load the library for the plugin. Try reloading?`);}
-		async load() {
-			try {await global.ZLibraryPromise;}
-			catch(err) {return this.showAlert();}
-			const vm = require("vm"), plugin = compilePlugin(global.ZLibrary.buildPlugin(config));
-			try {new vm.Script(plugin, {displayErrors: true});} catch(err) {return bdpluginErrors.push({name: this.getName(), file: this.getName() + ".plugin.js", reason: "Plugin could not be compiled.", error: {message: err.message, stack: err.stack}});}
-			global[this.getName()] = plugin;
-			try {new vm.Script(`new global["${this.getName()}"]();`, {displayErrors: true});} catch(err) {return bdpluginErrors.push({name: this.getName(), file: this.getName() + ".plugin.js", reason: "Plugin could not be constructed", error: {message: err.message, stack: err.stack}});}
-			bdplugins[this.getName()].plugin = new global[this.getName()]();
-			bdplugins[this.getName()].plugin.load();
-		}
-		async start() {
-			try {await global.ZLibraryPromise;}
-			catch(err) {return this.showAlert();}
-			bdplugins[this.getName()].plugin.start();
-		}
-	} : compilePlugin(global.ZLibrary.buildPlugin(config));
+        return plugin(Plugin, Api);
+    })(global.ZeresPluginLibrary.buildPlugin(config));
 })();

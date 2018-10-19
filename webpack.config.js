@@ -12,7 +12,7 @@ module.exports = env => {
       filename: "PluginLibrary.js",
       path: path.resolve(__dirname, "release"),
       library: "ZeresPluginLibrary",
-      libraryTarget: "var",
+      libraryTarget: "window",
       libraryExport: "default"
     },
     externals: {
