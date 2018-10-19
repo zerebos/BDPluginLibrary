@@ -1,5 +1,5 @@
 //META{"name":"ZeresPluginLibrary","displayName":"ZeresPluginLibrary","website":"https://github.com/rauenzi/BetterDiscordAddons/tree/master/Plugins/ZeresPluginLibrary","source":"https://raw.githubusercontent.com/rauenzi/BetterDiscordAddons/master/Plugins/ZeresPluginLibrary/0PluginLibrary.plugin.js"}*//
-window["ZeresPluginLibrary"] =
+var ZeresPluginLibrary =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -118,7 +118,7 @@ webpackContext.id = "./plugins/0PluginLibrary sync recursive ^\\.\\/.*$";
 /*! exports provided: info, main, default */
 /***/ (function(module) {
 
-module.exports = {"info":{"name":"ZeresPluginLibrary","authors":[{"name":"Zerebos","discord_id":"249746236008169473","github_username":"rauenzi","twitter_username":"ZackRauen"}],"version":"1.0.1","description":"Gives other plugins utility functions and the ability to emulate v2.","github":"https://github.com/rauenzi/BetterDiscordAddons/tree/master/Plugins/ZeresPluginLibrary","github_raw":"https://raw.githubusercontent.com/rauenzi/BetterDiscordAddons/master/Plugins/ZeresPluginLibrary/0PluginLibrary.plugin.js"},"main":"index.js"};
+module.exports = {"info":{"name":"ZeresPluginLibrary","authors":[{"name":"Zerebos","discord_id":"249746236008169473","github_username":"rauenzi","twitter_username":"ZackRauen"}],"version":"1.0.2","description":"Gives other plugins utility functions and the ability to emulate v2.","github":"https://github.com/rauenzi/BetterDiscordAddons/tree/master/Plugins/ZeresPluginLibrary","github_raw":"https://raw.githubusercontent.com/rauenzi/BetterDiscordAddons/master/Plugins/ZeresPluginLibrary/0PluginLibrary.plugin.js"},"main":"index.js"};
 
 /***/ }),
 
@@ -173,6 +173,7 @@ __webpack_require__.r(__webpack_exports__);
     Library.buildPlugin = PluginLibrary.buildPlugin;
     window.ZLibrary = Library;
     window.ZLibraryPromise = new Promise(r => setImmediate(r));
+	window.ZeresPluginLibrary = PluginLibrary;
     return PluginLibrary;
 });
 
@@ -2292,7 +2293,7 @@ __webpack_require__.r(__webpack_exports__);
 	 * @returns {object} the combined saved and default data
 	*/
 	static loadData(name, key, defaultData) {
-		try { return _utilities__WEBPACK_IMPORTED_MODULE_1__["default"].extend(defaultData ? defaultData : {}, bdPluginStorage.get(name, key)); }
+		try { return _utilities__WEBPACK_IMPORTED_MODULE_1__["default"].extend(defaultData ? defaultData : {}, BdApi.getData(name, key)); }
 		catch (err) { _logger__WEBPACK_IMPORTED_MODULE_0__["default"].err(name, "Unable to load data: ", err); }
 	}
 
@@ -2303,7 +2304,7 @@ __webpack_require__.r(__webpack_exports__);
 	 * @param {object} data - data to save
 	*/
 	static saveData(name, key, data) {
-		try { bdPluginStorage.set(name, key, data); }
+		try { BdApi.setData(name, key, data); }
 		catch (err) { _logger__WEBPACK_IMPORTED_MODULE_0__["default"].err(name, "Unable to save data: ", err); }
 	}
 
@@ -7222,7 +7223,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-(function() { module.exports = window["window.require(\"electron\")"]; }());
+module.exports = window.require("electron");
 
 /***/ }),
 
@@ -7233,7 +7234,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-(function() { module.exports = window["window.require(\"fs\")"]; }());
+module.exports = window.require("fs");
 
 /***/ }),
 
@@ -7244,7 +7245,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-(function() { module.exports = window["window.require(\"path\")"]; }());
+module.exports = window.require("path");
 
 /***/ }),
 
@@ -7266,7 +7267,7 @@ module.exports = require("process");
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-(function() { module.exports = window["window.require(\"request\")"]; }());
+module.exports = window.require("request");
 
 /***/ })
 

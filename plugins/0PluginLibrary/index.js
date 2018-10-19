@@ -40,5 +40,6 @@ export default (BasePlugin, Library) => {
     Library.buildPlugin = PluginLibrary.buildPlugin;
     window.ZLibrary = Library;
     window.ZLibraryPromise = new Promise(r => setImmediate(r));
+	window.ZeresPluginLibrary = PluginLibrary;
     return PluginLibrary;
 };

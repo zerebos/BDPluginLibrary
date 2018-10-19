@@ -19,7 +19,7 @@ import DOMTools from "./domtools";
 	 * @returns {object} the combined saved and default data
 	*/
 	static loadData(name, key, defaultData) {
-		try { return Utilities.extend(defaultData ? defaultData : {}, bdPluginStorage.get(name, key)); }
+		try { return Utilities.extend(defaultData ? defaultData : {}, BdApi.getData(name, key)); }
 		catch (err) { Logger.err(name, "Unable to load data: ", err); }
 	}
 
@@ -30,7 +30,7 @@ import DOMTools from "./domtools";
 	 * @param {object} data - data to save
 	*/
 	static saveData(name, key, data) {
-		try { bdPluginStorage.set(name, key, data); }
+		try { BdApi.setData(name, key, data); }
 		catch (err) { Logger.err(name, "Unable to save data: ", err); }
 	}
 
