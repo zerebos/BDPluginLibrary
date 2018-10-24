@@ -2130,7 +2130,7 @@ __webpack_require__.r(__webpack_exports__);
 	 * @returns {object} the combined saved and default data
 	*/
 	static loadData(name, key, defaultData) {
-		try { return _utilities__WEBPACK_IMPORTED_MODULE_1__["default"].extend(defaultData ? defaultData : {}, bdPluginStorage.get(name, key)); }
+		try { return _utilities__WEBPACK_IMPORTED_MODULE_1__["default"].extend(defaultData ? defaultData : {}, BdApi.getData(name, key)); }
 		catch (err) { _logger__WEBPACK_IMPORTED_MODULE_0__["default"].err(name, "Unable to load data: ", err); }
 	}
 
@@ -2141,7 +2141,7 @@ __webpack_require__.r(__webpack_exports__);
 	 * @param {object} data - data to save
 	*/
 	static saveData(name, key, data) {
-		try { bdPluginStorage.set(name, key, data); }
+		try { BdApi.setData(name, key, data); }
 		catch (err) { _logger__WEBPACK_IMPORTED_MODULE_0__["default"].err(name, "Unable to save data: ", err); }
 	}
 
@@ -5103,8 +5103,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_reacttools__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../modules/reacttools */ "./src/modules/reacttools.js");
 /* harmony import */ var _ui_modals__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../ui/modals */ "./src/ui/modals.js");
 /* harmony import */ var _modules_pluginutilities__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../modules/pluginutilities */ "./src/modules/pluginutilities.js");
-/* harmony import */ var _modules_discordmodules__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../modules/discordmodules */ "./src/modules/discordmodules.js");
-/* harmony import */ var _ui_settings__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../ui/settings */ "./src/ui/settings/index.js");
+/* harmony import */ var _modules_utilities__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../modules/utilities */ "./src/modules/utilities.js");
+/* harmony import */ var _modules_discordmodules__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../modules/discordmodules */ "./src/modules/discordmodules.js");
+/* harmony import */ var _ui_settings__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../ui/settings */ "./src/ui/settings/index.js");
+
 
 
 
@@ -5132,7 +5134,7 @@ __webpack_require__.r(__webpack_exports__);
                     }
                 }
                 this._hasConfig = true;
-                this.settings = {};
+                this.settings = _modules_utilities__WEBPACK_IMPORTED_MODULE_5__["default"].deepclone(this.defaultSettings);
             }
         }
         getName() { return this._config.info.name.replace(" ", ""); }
@@ -5161,7 +5163,7 @@ __webpack_require__.r(__webpack_exports__);
         get isEnabled() {return this._enabled;}
         get strings() {
             if (!this._config.strings) return {};
-            const locale = _modules_discordmodules__WEBPACK_IMPORTED_MODULE_5__["default"].UserSettingsStore.locale.split("-")[0];
+            const locale = _modules_discordmodules__WEBPACK_IMPORTED_MODULE_6__["default"].UserSettingsStore.locale.split("-")[0];
             if (this._config.strings.hasOwnProperty(locale)) return this._config.strings[locale];
             if (this._config.strings.hasOwnProperty("en")) return this._config.strings.en;
             return this._config.strings;
@@ -5196,31 +5198,31 @@ __webpack_require__.r(__webpack_exports__);
         buildSetting(data) {
             const {name, note, type, value, onChange} = data;
             if (type == "color") {
-                return new _ui_settings__WEBPACK_IMPORTED_MODULE_6__["ColorPicker"](name, note, value, onChange, {disabled: data.disabled, presetColors: data.presetColors});
+                return new _ui_settings__WEBPACK_IMPORTED_MODULE_7__["ColorPicker"](name, note, value, onChange, {disabled: data.disabled, presetColors: data.presetColors});
             }
             else if (type == "dropdown") {
-                return new _ui_settings__WEBPACK_IMPORTED_MODULE_6__["Dropdown"](name, note, value, data.options, onChange);
+                return new _ui_settings__WEBPACK_IMPORTED_MODULE_7__["Dropdown"](name, note, value, data.options, onChange);
             }
             else if (type == "file") {
-                return new _ui_settings__WEBPACK_IMPORTED_MODULE_6__["FilePicker"](name, note, onChange);
+                return new _ui_settings__WEBPACK_IMPORTED_MODULE_7__["FilePicker"](name, note, onChange);
             }
             else if (type == "keybind") {
-                return new _ui_settings__WEBPACK_IMPORTED_MODULE_6__["Keybind"](name, note, value, onChange);
+                return new _ui_settings__WEBPACK_IMPORTED_MODULE_7__["Keybind"](name, note, value, onChange);
             }
             else if (type == "radio") {
-                return new _ui_settings__WEBPACK_IMPORTED_MODULE_6__["RadioGroup"](name, note, value, data.options, onChange, {disabled: data.disabled});
+                return new _ui_settings__WEBPACK_IMPORTED_MODULE_7__["RadioGroup"](name, note, value, data.options, onChange, {disabled: data.disabled});
             }
             else if (type == "slider") {
                 const options = {};
                 if (typeof(data.markers) != "undefined") options.markers = data.markers;
                 if (typeof(data.stickToMarkers) != "undefined") options.stickToMarkers = data.stickToMarkers;
-                return new _ui_settings__WEBPACK_IMPORTED_MODULE_6__["Slider"](name, note, data.min, data.max, value, onChange, options);
+                return new _ui_settings__WEBPACK_IMPORTED_MODULE_7__["Slider"](name, note, data.min, data.max, value, onChange, options);
             }
             else if (type == "switch") {
-                return new _ui_settings__WEBPACK_IMPORTED_MODULE_6__["Switch"](name, note, value, onChange, {disabled: data.disabled});
+                return new _ui_settings__WEBPACK_IMPORTED_MODULE_7__["Switch"](name, note, value, onChange, {disabled: data.disabled});
             }
             else if (type == "textbox") {
-                return new _ui_settings__WEBPACK_IMPORTED_MODULE_6__["Textbox"](name, note, value, onChange, {placeholder: data.placeholder || ""});
+                return new _ui_settings__WEBPACK_IMPORTED_MODULE_7__["Textbox"](name, note, value, onChange, {placeholder: data.placeholder || ""});
             }
         }
 
@@ -5228,12 +5230,12 @@ __webpack_require__.r(__webpack_exports__);
             const config = this._config.defaultConfig;
             const buildGroup = (group) => {
                 const {name, id, collapsible, shown, settings} = group;
-                this.settings[id] = {};
+                // this.settings[id] = {};
 
                 const list = [];
                 for (let s = 0; s < settings.length; s++) {
                     const current = Object.assign({}, settings[s]);
-                    this.settings[id][current.id] = current.value;
+                    current.value = this.settings[id][current.id];
                     current.onChange = (value) => {
                         this.settings[id][current.id] = value;
                     };
@@ -5245,13 +5247,13 @@ __webpack_require__.r(__webpack_exports__);
                     list.push(this.buildSetting(current));
                 }
                 
-                return new _ui_settings__WEBPACK_IMPORTED_MODULE_6__["SettingGroup"](name, {shown, collapsible}).append(...list);
+                return new _ui_settings__WEBPACK_IMPORTED_MODULE_7__["SettingGroup"](name, {shown, collapsible}).append(...list);
             };
             const list = [];
             for (let s = 0; s < config.length; s++) {
                 const current = Object.assign({}, config[s]);
                 if (current.type != "category") {
-                    this.settings[current.id] = current.value;
+                    current.value = this.settings[current.id];
                     current.onChange = (value) => {
                         this.settings[current.id] = value;
                     };
@@ -5267,7 +5269,7 @@ __webpack_require__.r(__webpack_exports__);
                 }
             }
 
-            return new _ui_settings__WEBPACK_IMPORTED_MODULE_6__["SettingPanel"](this.saveSettings.bind(this), ...list);
+            return new _ui_settings__WEBPACK_IMPORTED_MODULE_7__["SettingPanel"](this.saveSettings.bind(this), ...list);
         }
     };
 });

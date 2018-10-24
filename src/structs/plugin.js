@@ -3,6 +3,7 @@ import Logger from "../modules/logger";
 import ReactTools from "../modules/reacttools";
 import Modals from "../ui/modals";
 import PluginUtilities from "../modules/pluginutilities";
+import Utilities from "../modules/utilities";
 import DiscordModules from "../modules/discordmodules";
 import * as Settings from "../ui/settings";
 
@@ -25,7 +26,7 @@ export default function(config) {
                     }
                 }
                 this._hasConfig = true;
-                this.settings = {};
+                this.settings = Utilities.deepclone(this.defaultSettings);
             }
         }
         getName() { return this._config.info.name.replace(" ", ""); }
@@ -121,12 +122,12 @@ export default function(config) {
             const config = this._config.defaultConfig;
             const buildGroup = (group) => {
                 const {name, id, collapsible, shown, settings} = group;
-                this.settings[id] = {};
+                // this.settings[id] = {};
 
                 const list = [];
                 for (let s = 0; s < settings.length; s++) {
                     const current = Object.assign({}, settings[s]);
-                    this.settings[id][current.id] = current.value;
+                    current.value = this.settings[id][current.id];
                     current.onChange = (value) => {
                         this.settings[id][current.id] = value;
                     };
@@ -144,7 +145,7 @@ export default function(config) {
             for (let s = 0; s < config.length; s++) {
                 const current = Object.assign({}, config[s]);
                 if (current.type != "category") {
-                    this.settings[current.id] = current.value;
+                    current.value = this.settings[current.id];
                     current.onChange = (value) => {
                         this.settings[current.id] = value;
                     };
