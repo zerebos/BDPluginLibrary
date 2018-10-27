@@ -177,9 +177,10 @@ export default class PluginUpdater {
 			Toasts.success(`${pluginName} ${window.PluginUpdates.plugins[updateLink].version} has been replaced by ${pluginName} ${remoteVersion}`);
 			this.removeUpdateNotice(pluginName);
 
-			let oldRNM = window.bdplugins["Restart-No-More"] && window.pluginCookie["Restart-No-More"];
-			let newRNM = window.bdplugins["Restart No More"] && window.pluginCookie["Restart No More"];
-			if (oldRNM || newRNM) return;
+			const oldRNM = window.bdplugins["Restart-No-More"] && window.pluginCookie["Restart-No-More"];
+			const newRNM = window.bdplugins["Restart No More"] && window.pluginCookie["Restart No More"];
+			const BBDLoader = window.settingsCookie["fork-ps-5"];
+			if (oldRNM || newRNM || BBDLoader) return;
 			if (!window.PluginUpdates.downloaded) {
 				window.PluginUpdates.downloaded = [];
 				const button = DOMTools.parseHTML(`<button class="btn btn-reload ${DiscordClasses.Notices.btn} ${DiscordClasses.Notices.button}">Reload</button>`);

@@ -2186,9 +2186,10 @@ class PluginUpdater {
 			ui__WEBPACK_IMPORTED_MODULE_6__["Toasts"].success(`${pluginName} ${window.PluginUpdates.plugins[updateLink].version} has been replaced by ${pluginName} ${remoteVersion}`);
 			this.removeUpdateNotice(pluginName);
 
-			let oldRNM = window.bdplugins["Restart-No-More"] && window.pluginCookie["Restart-No-More"];
-			let newRNM = window.bdplugins["Restart No More"] && window.pluginCookie["Restart No More"];
-			if (oldRNM || newRNM) return;
+			const oldRNM = window.bdplugins["Restart-No-More"] && window.pluginCookie["Restart-No-More"];
+			const newRNM = window.bdplugins["Restart No More"] && window.pluginCookie["Restart No More"];
+			const BBDLoader = window.settingsCookie["fork-ps-5"];
+			if (oldRNM || newRNM || BBDLoader) return;
 			if (!window.PluginUpdates.downloaded) {
 				window.PluginUpdates.downloaded = [];
 				const button = _domtools__WEBPACK_IMPORTED_MODULE_2__["default"].parseHTML(`<button class="btn btn-reload ${_discordclasses__WEBPACK_IMPORTED_MODULE_4__["default"].Notices.btn} ${_discordclasses__WEBPACK_IMPORTED_MODULE_4__["default"].Notices.button}">Reload</button>`);
@@ -2334,7 +2335,14 @@ __webpack_require__.r(__webpack_exports__);
 	static getBDFolder(subtarget = "") {
 		const process = __webpack_require__(/*! process */ "process");
 		const path = __webpack_require__(/*! path */ "path");
-		return path.resolve(window.bdConfig.dataPath, subtarget);
+		switch (process.platform) {
+			case "win32":
+				return path.resolve(process.env.appdata, "BetterDiscord/", subtarget);
+			case "darwin":
+				return path.resolve(process.env.HOME, "Library/Preferences/", "BetterDiscord/", subtarget);
+			default:
+				return path.resolve(process.env.XDG_CONFIG_HOME ? process.env.XDG_CONFIG_HOME : process.env.HOME + "/.config", "BetterDiscord/", subtarget);
+		}
 	}
 
 	/**
