@@ -60,6 +60,7 @@ import DOMTools from "./domtools";
 	static getBDFolder(subtarget = "") {
 		const process = require("process");
 		const path = require("path");
+		if (process.env.injDir) return path.resolve(process.env.injDir, subtarget);
 		switch (process.platform) {
 			case "win32":
 				return path.resolve(process.env.appdata, "BetterDiscord/", subtarget);

@@ -2335,6 +2335,7 @@ __webpack_require__.r(__webpack_exports__);
 	static getBDFolder(subtarget = "") {
 		const process = __webpack_require__(/*! process */ "process");
 		const path = __webpack_require__(/*! path */ "path");
+		if (process.env.injDir) return path.resolve(process.env.injDir, subtarget);
 		switch (process.platform) {
 			case "win32":
 				return path.resolve(process.env.appdata, "BetterDiscord/", subtarget);
