@@ -15,7 +15,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build_plugin": "node ./scripts/buildy.js",
+    "build_plugin": "node ./scripts/build.js",
     "build_plugin_remote": "node ./scripts/build.js --loader remote",
     "build_plugin_packed": "node ./scripts/pack.js",
     "build_lib": "node ./scripts/pack.js --plugin 0PluginLibrary",
