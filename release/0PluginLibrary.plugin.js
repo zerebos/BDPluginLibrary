@@ -6469,9 +6469,11 @@ class SettingGroup extends _structs_listenable__WEBPACK_IMPORTED_MODULE_0__["def
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var modules__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! modules */ "./src/modules/modules.js");
-/* harmony import */ var _settingfield__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./settingfield */ "./src/ui/settings/settingfield.js");
-/* harmony import */ var _settinggroup__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./settinggroup */ "./src/ui/settings/settinggroup.js");
+/* harmony import */ var _structs_listenable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../structs/listenable */ "./src/structs/listenable.js");
+/* harmony import */ var modules__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! modules */ "./src/modules/modules.js");
+/* harmony import */ var _settingfield__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./settingfield */ "./src/ui/settings/settingfield.js");
+/* harmony import */ var _settinggroup__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./settinggroup */ "./src/ui/settings/settinggroup.js");
+
 
 
 
@@ -6481,7 +6483,7 @@ __webpack_require__.r(__webpack_exports__);
  * @memberof module:Settings
  * @version 1.0.1
  */
-class SettingPanel {
+class SettingPanel extends _structs_listenable__WEBPACK_IMPORTED_MODULE_0__["default"] {
 
 	/**
 	 * Creates a new settings panel
@@ -6489,8 +6491,9 @@ class SettingPanel {
 	 * @param {(...HTMLElement|...jQuery|...module:Settings.SettingField|...module:Settings.SettingGroup)} nodes  - list of nodes to add to the panel container 
 	 */
 	constructor(onChange, ...nodes) {
-		this.element = modules__WEBPACK_IMPORTED_MODULE_0__["DOMTools"].parseHTML(`<div class="plugin-form-container"></div>`);		
-		this.onChangeCallback = typeof(onChange) == "function" ? onChange : _ => _;
+		super();
+		this.element = modules__WEBPACK_IMPORTED_MODULE_1__["DOMTools"].parseHTML(`<div class="plugin-form-container"></div>`);	
+		if (typeof(onChange) == "function") this.addListener(onChange);
         this.onChange = this.onChange.bind(this);
         this.append(...nodes);
     }
@@ -6516,14 +6519,14 @@ class SettingPanel {
 	append(...nodes) {
 		for (var i = 0; i < nodes.length; i++) {
 			if (nodes[i] instanceof jQuery || nodes[i] instanceof Element) this.element.append(nodes[i]);
-			else if (nodes[i] instanceof _settingfield__WEBPACK_IMPORTED_MODULE_1__["default"] || nodes[i] instanceof _settinggroup__WEBPACK_IMPORTED_MODULE_2__["default"]) this.element.append(nodes[i].getElement()), nodes[i].addListener(this.onChange);
+			else if (nodes[i] instanceof _settingfield__WEBPACK_IMPORTED_MODULE_2__["default"] || nodes[i] instanceof _settinggroup__WEBPACK_IMPORTED_MODULE_3__["default"]) this.element.append(nodes[i].getElement()), nodes[i].addListener(this.onChange);
 		}
 		return this;
 	}
 
 	/** Fires onchange to listeners */
 	onChange() {
-		this.onChangeCallback(...arguments);
+		this.alertListeners(...arguments);
 	}
 }
 

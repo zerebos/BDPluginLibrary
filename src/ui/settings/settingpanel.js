@@ -1,3 +1,4 @@
+import Listenable from "../../structs/listenable";
 import {DOMTools} from "modules";
 import SettingField from "./settingfield";
 import SettingGroup from "./settinggroup";
@@ -7,7 +8,7 @@ import SettingGroup from "./settinggroup";
  * @memberof module:Settings
  * @version 1.0.1
  */
-class SettingPanel {
+class SettingPanel extends Listenable {
 
 	/**
 	 * Creates a new settings panel
@@ -15,8 +16,9 @@ class SettingPanel {
 	 * @param {(...HTMLElement|...jQuery|...module:Settings.SettingField|...module:Settings.SettingGroup)} nodes  - list of nodes to add to the panel container 
 	 */
 	constructor(onChange, ...nodes) {
-		this.element = DOMTools.parseHTML(`<div class="plugin-form-container"></div>`);		
-		this.onChangeCallback = typeof(onChange) == "function" ? onChange : _ => _;
+		super();
+		this.element = DOMTools.parseHTML(`<div class="plugin-form-container"></div>`);	
+		if (typeof(onChange) == "function") this.addListener(onChange);
         this.onChange = this.onChange.bind(this);
         this.append(...nodes);
     }
@@ -49,7 +51,7 @@ class SettingPanel {
 
 	/** Fires onchange to listeners */
 	onChange() {
-		this.onChangeCallback(...arguments);
+		this.alertListeners(...arguments);
 	}
 }
 
