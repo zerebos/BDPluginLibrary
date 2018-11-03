@@ -6,6 +6,17 @@
 
 import DiscordClasses from "../modules/discordclasses";
 import DiscordSelectors from "../modules/discordselectors";
+import ReactTools from "../modules/reacttools";
+
+/**
+ * Updates the location of a Discord menu, especially useful when adding items to the menu via DOM.
+ * @param {HTMLElement|jQuery} menu - The original discord menu
+ */
+export function updateDiscordMenu(menu) {
+	if (!(menu instanceof window.jQuery) && !(menu instanceof Element)) return;
+	const updateHeight = ReactTools.getReactProperty(menu, "return.stateNode.props.onHeightUpdate");
+	if (updateHeight) updateHeight();
+}
 
 /** Main menu class for creating custom context menus. */
 export class Menu {

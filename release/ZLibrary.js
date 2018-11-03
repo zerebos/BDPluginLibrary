@@ -5456,11 +5456,12 @@ module.exports = "#pluginNotice {\r\n    -webkit-app-region: drag;\r\n    border
 /*!*******************************!*\
   !*** ./src/ui/contextmenu.js ***!
   \*******************************/
-/*! exports provided: Menu, ItemGroup, MenuItem, TextItem, ImageItem, SubMenuItem, ToggleItem */
+/*! exports provided: updateDiscordMenu, Menu, ItemGroup, MenuItem, TextItem, ImageItem, SubMenuItem, ToggleItem */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateDiscordMenu", function() { return updateDiscordMenu; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Menu", function() { return Menu; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ItemGroup", function() { return ItemGroup; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MenuItem", function() { return MenuItem; });
@@ -5470,6 +5471,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ToggleItem", function() { return ToggleItem; });
 /* harmony import */ var _modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../modules/discordclasses */ "./src/modules/discordclasses.js");
 /* harmony import */ var _modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../modules/discordselectors */ "./src/modules/discordselectors.js");
+/* harmony import */ var _modules_reacttools__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../modules/reacttools */ "./src/modules/reacttools.js");
 /**
  * Self-made context menus that emulate Discord's own context menus.
  * @module ContextMenu
@@ -5478,6 +5480,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+function updateDiscordMenu(menu) {
+	if (!(menu instanceof window.jQuery) && !(menu instanceof Element)) return;
+	const updateHeight = _modules_reacttools__WEBPACK_IMPORTED_MODULE_2__["default"].getReactProperty(menu, "return.stateNode.props.onHeightUpdate");
+	if (updateHeight) updateHeight();
+}
 
 /** Main menu class for creating custom context menus. */
 class Menu {
