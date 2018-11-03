@@ -1,4 +1,4 @@
-//META{"name":"ZeresPluginLibrary","displayName":"ZeresPluginLibrary","website":"https://github.com/rauenzi/BetterDiscordAddons/tree/master/Plugins/ZeresPluginLibrary","source":"https://raw.githubusercontent.com/rauenzi/BetterDiscordAddons/master/Plugins/ZeresPluginLibrary/0PluginLibrary.plugin.js"}*//
+//META{"name":"ZeresPluginLibrary","displayName":"ZeresPluginLibrary","website":"https://github.com/rauenzi/BDPluginLibrary","source":"https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"}*//
 var ZeresPluginLibrary =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -118,7 +118,7 @@ webpackContext.id = "./plugins/0PluginLibrary sync recursive ^\\.\\/.*$";
 /*! exports provided: info, main, default */
 /***/ (function(module) {
 
-module.exports = {"info":{"name":"ZeresPluginLibrary","authors":[{"name":"Zerebos","discord_id":"249746236008169473","github_username":"rauenzi","twitter_username":"ZackRauen"}],"version":"1.0.3","description":"Gives other plugins utility functions and the ability to emulate v2.","github":"https://github.com/rauenzi/BetterDiscordAddons/tree/master/Plugins/ZeresPluginLibrary","github_raw":"https://raw.githubusercontent.com/rauenzi/BetterDiscordAddons/master/Plugins/ZeresPluginLibrary/0PluginLibrary.plugin.js"},"main":"index.js"};
+module.exports = {"info":{"name":"ZeresPluginLibrary","authors":[{"name":"Zerebos","discord_id":"249746236008169473","github_username":"rauenzi","twitter_username":"ZackRauen"}],"version":"1.0.3","description":"Gives other plugins utility functions and the ability to emulate v2.","github":"https://github.com/rauenzi/BDPluginLibrary","github_raw":"https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"},"main":"index.js"};
 
 /***/ }),
 
@@ -5587,6 +5587,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+/**
+ * Updates the location of a Discord menu, especially useful when adding items to the menu via DOM.
+ * @param {HTMLElement|jQuery} menu - The original discord menu
+ */
 function updateDiscordMenu(menu) {
 	if (!(menu instanceof window.jQuery) && !(menu instanceof Element)) return;
 	const updateHeight = _modules_reacttools__WEBPACK_IMPORTED_MODULE_2__["default"].getReactProperty(menu, "return.stateNode.props.onHeightUpdate");

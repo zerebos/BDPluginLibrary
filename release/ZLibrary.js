@@ -5482,6 +5482,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+/**
+ * Updates the location of a Discord menu, especially useful when adding items to the menu via DOM.
+ * @param {HTMLElement|jQuery} menu - The original discord menu
+ */
 function updateDiscordMenu(menu) {
 	if (!(menu instanceof window.jQuery) && !(menu instanceof Element)) return;
 	const updateHeight = _modules_reacttools__WEBPACK_IMPORTED_MODULE_2__["default"].getReactProperty(menu, "return.stateNode.props.onHeightUpdate");
