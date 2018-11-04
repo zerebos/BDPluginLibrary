@@ -5,7 +5,7 @@
  * the same as the ones available in the module itself, but with the `element`
  * parameter bound to `this`.
  * @module DOMTools
- * @version 0.0.3
+ * @version 0.0.5
  */
 
 import Utilities from "./utilities";
@@ -101,6 +101,8 @@ export default class DOMTools {
 	 * @returns {Element} - `element` to allow for chaining
 	 */
 	static addClass(element, ...classes) {
+		for (let c = 0; c < classes.length; c++) classes[c] = classes[c].toString().split(" ");
+		classes = classes.flatten().filter(c => c);
 		element.classList.add(...classes);
 		return element;
 	}
@@ -112,6 +114,8 @@ export default class DOMTools {
 	 * @returns {Element} - `element` to allow for chaining
 	 */
 	static removeClass(element, ...classes) {
+		for (let c = 0; c < classes.length; c++) classes[c] = classes[c].toString().split(" ");
+		classes = classes.flatten().filter(c => c);
 		element.classList.remove(...classes);
 		return element;
 	}
@@ -127,8 +131,9 @@ export default class DOMTools {
 	 * @returns {Element} - `element` to allow for chaining
 	 */
 	static toggleClass(element, classname, indicator) {
-		if (typeof(indicator) !== "undefined") element.classList.toggle(classname, indicator);
-		else element.classList.toggle(classname);
+		classname = classname.toString().split(" ").filter(c => c);
+		if (typeof(indicator) !== "undefined") classname.forEach(c => element.classList.toggle(c, indicator));
+		else classname.forEach(c => element.classList.toggle(c));
 		return element;
 	}
 
@@ -139,7 +144,7 @@ export default class DOMTools {
 	 * @returns {boolean} - `true` if the element has the class, `false` otherwise.
 	 */
 	static hasClass(element, classname) {
-		return element.classList.contains(classname);
+		return classname.toString().split(" ").filter(c => c).every(c => element.classList.contains(c));
 	}
 
 	/**
@@ -311,7 +316,7 @@ export default class DOMTools {
 	 */
 	static parents(element, selector = "") {
 		const parents = [];
-		if (selector) while (element.parentElement.closest(selector)) parents.push(element = element.parentElement.closest(selector));
+		if (selector) while (element.parentElement && element.parentElement.closest(selector)) parents.push(element = element.parentElement.closest(selector));
 		else while (element.parentElement) parents.push(element = element.parentElement);
 		return parents;
 	}
@@ -424,6 +429,15 @@ export default class DOMTools {
 	 */
 	static offset(element) {
 		return element.getBoundingClientRect();
+	}
+
+	/**
+	 * Sets the inner text of an element.
+	 * @param {Element} element - Element to set the text of
+	 * @param {string} text - Content to set
+	 */
+	static text(element, text) {
+		return element.textContent = text;
 	}
 
 	static get listeners() { return global._listeners || (global._listeners = {}); }
@@ -671,11 +685,12 @@ Utilities.addToPrototype(HTMLElement, "innerHeight", function() {return DOMTools
 Utilities.addToPrototype(HTMLElement, "outerWidth", function() {return DOMTools.outerWidth(this);});
 Utilities.addToPrototype(HTMLElement, "outerHeight", function() {return DOMTools.outerHeight(this);});
 Utilities.addToPrototype(HTMLElement, "offset", function() {return DOMTools.offset(this);});
+Utilities.addToPrototype(HTMLElement, "text", function(value) {return DOMTools.text(this, value);});
 Utilities.addToPrototype(HTMLElement, "on", function(event, delegate, callback) {return DOMTools.on(this, event, delegate, callback);});
 Utilities.addToPrototype(HTMLElement, "once", function(event, delegate, callback) {return DOMTools.once(this, event, delegate, callback);});
 Utilities.addToPrototype(HTMLElement, "off", function(event, delegate, callback) {return DOMTools.off(this, event, delegate, callback);});
 Utilities.addToPrototype(HTMLElement, "find", function(selector) {return DOMTools.query(selector, this);});
 Utilities.addToPrototype(HTMLElement, "findAll", function(selector) {return DOMTools.queryAll(selector, this);});
 Utilities.addToPrototype(HTMLElement, "appendTo", function(otherNode) {return DOMTools.appendTo(this, otherNode);});
-Utilities.addToPrototype(HTMLElement, "onAdded", function(callback) {return DOMTools.hasClass(this, callback);});
-Utilities.addToPrototype(HTMLElement, "onRemoved", function(callback) {return DOMTools.hasClass(this, callback);});
+Utilities.addToPrototype(HTMLElement, "onAdded", function(callback) {return DOMTools.onAdded(this, callback);});
+Utilities.addToPrototype(HTMLElement, "onRemoved", function(callback) {return DOMTools.onRemoved(this, callback);});

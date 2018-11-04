@@ -224,7 +224,7 @@ export default class PluginUpdater {
 		pluginNoticeElement.addEventListener("click", () => {
 			this.downloadPlugin(pluginName, updateLink);
 		});
-		if (document.getElementById("outdatedPlugins").querySelectorAll("span").length) document.getElementById("outdatedPlugins").append("<span class='separator'>, </span>");
+		if (document.getElementById("outdatedPlugins").querySelectorAll("span").length) document.getElementById("outdatedPlugins").append(DOMTools.createElement("<span class='separator'>, </span>"));
 		document.getElementById("outdatedPlugins").append(pluginNoticeElement);
 	}
 

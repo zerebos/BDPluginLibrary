@@ -1,12 +1,15 @@
 /**
  * Self-made context menus that emulate Discord's own context menus.
  * @module ContextMenu
- * @version 0.0.7
+ * @version 0.1.0
  */
 
 import DiscordClasses from "../modules/discordclasses";
 import DiscordSelectors from "../modules/discordselectors";
 import ReactTools from "../modules/reacttools";
+import DiscordModules from "../modules/discordmodules";
+import DOMTools from "../modules/domtools";
+import Screen from "../structs/screen";
 
 /**
  * Updates the location of a Discord menu, especially useful when adding items to the menu via DOM.
@@ -25,18 +28,14 @@ export class Menu {
      * @param {boolean} [scroll=false] - should this menu be a scrolling menu (usually only used for submenus)
      */
 	constructor(scroll = false) {
-		this.theme = $(".theme-dark").length ? "theme-dark" : "theme-light";
-		this.element = $("<div>").addClass(DiscordClasses.ContextMenu.contextMenu.toString()).addClass("plugin-context-menu").addClass(this.theme);
+		this.theme = DiscordModules.UserSettingsStore.theme == "dark" ? "theme-dark" : "theme-light";
+		this.element = DOMTools.createElement(`<div class="${DiscordClasses.ContextMenu.contextMenu} plugin-context-menu ${this.theme}"></div>`);
 		this.scroll = scroll;
-		if (scroll) {
-			this.scroller = $("<div>").addClass(DiscordClasses.Scrollers.scroller.toString()).addClass(DiscordClasses.ContextMenu.scroller.toString());
-			this.element.append($("<div>")
-				.addClass(DiscordClasses.Scrollers.scrollerWrap.toString())
-				.addClass(DiscordClasses.Scrollers.scrollerThemed.toString())
-				.addClass(DiscordClasses.Scrollers.themeGhostHairline.toString()).append(
-					this.scroller
-			));
-		}
+		if (!scroll) return;
+		this.scroller = DOMTools.createElement(`<div class="${DiscordClasses.Scrollers.scroller} ${DiscordClasses.ContextMenu.scroller}"></div>`);
+		this.scrollerWrap = DOMTools.createElement(`<div class="${DiscordClasses.Scrollers.scrollerWrap} ${DiscordClasses.Scrollers.scrollerThemed} ${DiscordClasses.Scrollers.themeGhostHairline}"></div>`);
+		this.scrollerWrap.append(this.scroller);
+		this.element.append(this.scrollerWrap);
 	}
     
     /**
@@ -71,63 +70,47 @@ export class Menu {
      * @param {number} y - y coordinate for the menu to show at
      */
 	show(x, y) {
-		const maxWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-		const maxHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 		const mouseX = x;
 		const mouseY = y;
 		
-		let type = this.element.parents(".plugin-context-menu").length > this.element.parents(DiscordSelectors.ContextMenu.contextMenu.toString()).length ? ".plugin-context-menu" : DiscordSelectors.ContextMenu.contextMenu.toString();
-		var depth = this.element.parents(type).length;
+		const parents = this.element.parents(this.parentSelector);
+		const depth = parents.length;
 		if (depth == 0) this.element.appendTo("#app-mount");
-		this.element.css("top", mouseY).css("left", mouseX);
+		this.element.css("top", mouseY + "px").css("left", mouseX + "px");
 		
 		if (depth > 0) {
-			var top = this.element.parents(type).last();
-			var closest = this.element.parents(type).first();
-			var negate = closest.hasClass(DiscordClasses.ContextMenu.invertChildX.toString()) ? -1 : 1;
-			this.element.css("margin-left", negate * closest.find(DiscordSelectors.ContextMenu.item.toString()).outerWidth() + closest.offset().left - top.offset().left);
+			const top = parents[parents.length - 1];
+			const closest = parents[0];
+			const negate = closest.hasClass(DiscordClasses.ContextMenu.invertChildX) ? -1 : 1;
+			const value = negate * closest.find(DiscordSelectors.ContextMenu.item).outerWidth() + closest.offset().left - top.offset().left;
+			this.element.css("margin-left", `${value}px`);
 		}
 		
-		if (mouseY + this.element.outerHeight() >= maxHeight) {
-			this.element.addClass("invertY").addClass(DiscordClasses.ContextMenu.invertY.toString());
-			this.element.css("top", mouseY - this.element.outerHeight());
-			if (depth > 0) this.element.css("top", (mouseY + this.element.parent().outerHeight()) - this.element.outerHeight());
+		if (mouseY + this.element.outerHeight() >= Screen.height) {
+			this.element.addClass("invertY").addClass(DiscordClasses.ContextMenu.invertY);
+			this.element.css("top", `${mouseY - this.element.outerHeight()}px`);
+			if (depth > 0) this.element.css("top", `${(mouseY + this.element.parent().outerHeight()) - this.element.outerHeight()}px`);
 		}
-		if (this.element.offset().left + this.element.outerWidth() >= maxWidth) {
+		if (this.element.offset().left + this.element.outerWidth() >= Screen.width) {
 			this.element.addClass("invertX");
-			this.element.css("left", mouseX - this.element.outerWidth());
+			this.element.css("left", `${mouseX - this.element.outerWidth()}px`);
 		}
-		if (this.element.offset().left + 2 * this.element.outerWidth() >= maxWidth) {
-			this.element.addClass(DiscordClasses.ContextMenu.invertChildX.toString());
+		if (this.element.offset().left + 2 * this.element.outerWidth() >= Screen.width) {
+			this.element.addClass(DiscordClasses.ContextMenu.invertChildX);
 		}
 
-		if (depth == 0) {
-			$(document).on("mousedown.zctx", (e) => {
-				if (!this.element.has(e.target).length && !this.element.is(e.target)) {
-					this.removeMenu();
-				}
-			});
-			$(document).on("click.zctx", (e) => {
-				if (this.element.has(e.target).length) {
-					if ($._data($(e.target).closest(DiscordSelectors.ContextMenu.item.toString())[0], "events").click) {
-						this.removeMenu();
-					}
-				}
-			});
-			$(document).on("keyup.zctx", (e) => {
-				if (e.keyCode === 27) {
-					this.removeMenu();
-				}
-			});
-		}
+		if (depth !== 0) return;
+		DOMTools.on(document, "mousedown.zctx", (e) => { if (!this.element.contains(e.target) && !this.element.isSameNode(e.target)) this.removeMenu(); });
+		DOMTools.on(document, "click.zctx", (e) => { if (this.element.contains(e.target)) this.removeMenu(); });
+		DOMTools.on(document, "keyup.zctx", (e) => { if (e.keyCode === 27) this.removeMenu(); });
 	}
     
     /** Allows you to remove the menu. */
 	removeMenu() {
-		let type = this.element.parents(".plugin-context-menu").length > this.element.parents(DiscordSelectors.ContextMenu.contextMenu.toString()).length ? ".plugin-context-menu" : DiscordSelectors.ContextMenu.contextMenu.toString();
-		this.element.detach();
-		this.element.find(type).detach();
-		$(document).off(".zctx");
+		this.element.remove();
+		const childs = this.element.findAll(this.parentSelector);
+		if (childs) childs.forEach(c => c.remove());
+		DOMTools.off(document, ".zctx");
 	}
     
     /**
@@ -142,18 +125,20 @@ export class Menu {
 		this.menuItem = $(menuItem);
 		menuItem.on("mouseenter", () => {
 			this.element.appendTo(menuItem);
-			let type = this.element.parents(".plugin-context-menu").length > this.element.parents(DiscordSelectors.ContextMenu.contextMenu.toString()).length ? ".plugin-context-menu" : DiscordSelectors.ContextMenu.contextMenu.toString();
-			this.show(this.element.parents(type).css("left"), menuItem.offset().top);
+			const left = this.element.parents(this.parentSelector)[0].css("left");
+			this.show(parseInt(left.replace("px", "")), menuItem.offset().top);
 		});
-		menuItem.on("mouseleave", () => { this.element.detach(); });
+		menuItem.on("mouseleave", () => { this.element.remove(); });
 	}
+
+	get parentSelector() {return this.element.parents(".plugin-context-menu").length > this.element.parents(DiscordSelectors.ContextMenu.contextMenu).length ? ".plugin-context-menu" : DiscordSelectors.ContextMenu.contextMenu;}
 }
 
 /** Class that represents a group of menu items. */
 export class ItemGroup {
     /** Creates an item group. */
 	constructor() {
-		this.element = $("<div>").addClass(DiscordClasses.ContextMenu.itemGroup.toString());
+		this.element = DOMTools.createElement(`<div class="${DiscordClasses.ContextMenu.itemGroup}"></div>`);
 	}
     
     /**
@@ -193,16 +178,15 @@ export class MenuItem {
      * @param {module:ContextMenu~clickEvent} [options.callback] - callback for when it is clicked
      */
 	constructor(label, options = {}) {
-		var {danger = false, callback} = options;
-		this.element = $("<div>").addClass(DiscordClasses.ContextMenu.item.toString());
+		const {danger = false, callback} = options;
+		this.element = DOMTools.createElement(`<div class="${DiscordClasses.ContextMenu.item}"></div>`);
 		this.label = label;
-		if (danger) this.element.addClass(DiscordClasses.ContextMenu.danger.toString());
-		if (typeof(callback) == "function") {
-			this.element.on("click", (event) => {
-				event.stopPropagation();
-				callback(event);
-			});
-		}
+		if (danger) this.element.addClass(DiscordClasses.ContextMenu.danger);
+		this.element.on("click", (event) => {
+			if (!Array.from(this.element.children).some(c => c.isSameNode(event.target)) && !this.element.isSameNode(event.target)) return;
+			if (typeof(callback) == "function") callback(event);
+			else event.stopPropagation();
+		});
 	}
 	getElement() { return this.element;}
 }
@@ -221,9 +205,9 @@ export class TextItem extends MenuItem {
      */
 	constructor(label, options = {}) {
 		super(label, options);
-		var {hint = ""} = options;
-		this.element.append($("<span>").text(label));
-		this.element.append($("<div>").addClass(DiscordClasses.ContextMenu.hint.toString()).text(hint));
+		const {hint = ""} = options;
+		this.element.append(DOMTools.createElement(`<span>${label}</span>`));
+		this.element.append(DOMTools.createElement(`<div class="${DiscordClasses.ContextMenu.hint}">${hint}</div>`));
 	}
 }
 
@@ -242,9 +226,9 @@ export class ImageItem extends MenuItem {
      */
 	constructor(label, imageSrc, options = {}) {
 		super(label, options);
-		this.element.addClass(DiscordClasses.ContextMenu.itemImage.toString());
-		this.element.append($("<div>").addClass(DiscordClasses.ContextMenu.label.toString()).text(label));
-		this.element.append($("<img>", {src: imageSrc}));
+		this.element.addClass(DiscordClasses.ContextMenu.itemImage);
+		this.element.append(DOMTools.createElement(`<div class="${DiscordClasses.ContextMenu.label}">${label}</div>`));
+		this.element.append(DOMTools.createElement(`<img src="${imageSrc}">`));
 	}
 }
 
@@ -264,7 +248,7 @@ export class SubMenuItem extends MenuItem {
 	constructor(label, subMenu, options = {}) {
 		// if (!(subMenu instanceof ContextSubMenu)) throw "subMenu must be of ContextSubMenu type.";
 		super(label, options);
-		this.element.addClass(DiscordClasses.ContextMenu.itemSubMenu.toString()).text(label);
+		this.element.addClass(DiscordClasses.ContextMenu.itemSubMenu).text(label);
 		this.subMenu = subMenu;
 		this.subMenu.attachTo(this.getElement());
 	}
@@ -281,24 +265,27 @@ export class ToggleItem extends MenuItem {
      * @param {object} options - additional options for the item
      * @param {string} [options.hint=""] - hint to show on the item (usually used for key combos)
      * @param {boolean} [options.danger=false] - should the item show as danger
-     * @param {module:ContextMenu~clickEvent} [options.callback] - callback for when it is clicked
-     * @param {module:ContextMenu~onChange} [options.onChange] - callback for when the checkbox changes
+     * @param {module:ContextMenu~onChange} [options.callback] - callback for when the checkbox changes
      */
 	constructor(label, checked, options = {}) {
-        var {onChange} = options;
+		const {callback: onChange} = options;
+		if (options.callback) delete options.callback;
 		super(label, options);
-		this.element.addClass(DiscordClasses.ContextMenu.itemToggle.toString());
-        this.element.append($("<div>").addClass(DiscordClasses.ContextMenu.label.toString()).text(label));
-        this.checkbox = $("<div>", {"class": "checkbox"});
-        this.checkbox.append($("<div>", {"class": "checkbox-inner"}));
-        this.checkbox.append("<span>");
-        this.input = $("<input>", {type: "checkbox", checked: checked, value: "on"});
-        this.checkbox.find(".checkbox-inner").append(this.input).append("<span>");
+		this.element.addClass(DiscordClasses.ContextMenu.itemToggle);
+		this.element.append(DOMTools.createElement(`<div class="${DiscordClasses.ContextMenu.label}">${label}</div>`));
+		this.checkbox = DOMTools.createElement(`<div class="checkbox"></div>`);
+		this.checkbox.append(DOMTools.createElement(`<div class="checkbox-inner"></div>`));
+		this.checkbox.append(DOMTools.createElement("<span>"));
+		this.input = DOMTools.createElement(`<input type="checkbox">`);
+		this.input.checked = checked;
+		this.checkbox.find(".checkbox-inner").append(this.input);
+		this.checkbox.find(".checkbox-inner").append(DOMTools.createElement("<span>"));
         this.element.append(this.checkbox);
         this.element.on("click", (e) => {
-            e.stopPropagation();
-            this.input.prop("checked", !this.input.prop("checked"));
-            if (typeof(onChange) == "function") onChange(this.input.prop("checked"));
+			if (!Array.from(this.element.children).some(c => c.isSameNode(e.target)) && !this.element.isSameNode(e.target)) return;
+			e.stopPropagation();
+			this.input.checked = !this.input.checked;
+            if (typeof(onChange) == "function") onChange(this.input.checked);
         });
 	}
 }
