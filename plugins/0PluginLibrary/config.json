@@ -14,7 +14,7 @@
     },
     "changelog": [
         {"title": "New Stuff", "items": ["Additional DOMTools functionality"]},
-        {"title": "Bugs Squashed", "type": "fixed", "items": ["Fixed onAdded() and onRemoved() in DOMTools", "The weird <span> in the plugin update bar", "Fixed parents() giving an error when using a root element"]},
+        {"title": "Bugs Squashed", "type": "fixed", "items": ["Fixed onAdded() and onRemoved() in DOMTools", "The weird span element in the plugin update bar is gone", "Fixed parents() giving an error when using a root element"]},
         {"title": "Improvements", "type": "improved", "items": ["Remove jQuery dependency in ContextMenu module", "DOMTools class related function now automagically split on space -- great for using internal classes"]},
         {"title": "On-going", "type": "progress", "items": ["More classes and modules being added"]}
     ],

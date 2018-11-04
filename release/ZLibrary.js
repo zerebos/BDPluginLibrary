@@ -718,7 +718,7 @@ __webpack_require__.r(__webpack_exports__);
  * the same as the ones available in the module itself, but with the `element`
  * parameter bound to `this`.
  * @module DOMTools
- * @version 0.0.3
+ * @version 0.0.5
  */
 
 
@@ -814,6 +814,8 @@ class DOMTools {
 	 * @returns {Element} - `element` to allow for chaining
 	 */
 	static addClass(element, ...classes) {
+		for (let c = 0; c < classes.length; c++) classes[c] = classes[c].toString().split(" ");
+		classes = classes.flatten().filter(c => c);
 		element.classList.add(...classes);
 		return element;
 	}
@@ -825,6 +827,8 @@ class DOMTools {
 	 * @returns {Element} - `element` to allow for chaining
 	 */
 	static removeClass(element, ...classes) {
+		for (let c = 0; c < classes.length; c++) classes[c] = classes[c].toString().split(" ");
+		classes = classes.flatten().filter(c => c);
 		element.classList.remove(...classes);
 		return element;
 	}
@@ -840,8 +844,9 @@ class DOMTools {
 	 * @returns {Element} - `element` to allow for chaining
 	 */
 	static toggleClass(element, classname, indicator) {
-		if (typeof(indicator) !== "undefined") element.classList.toggle(classname, indicator);
-		else element.classList.toggle(classname);
+		classname = classname.toString().split(" ").filter(c => c);
+		if (typeof(indicator) !== "undefined") classname.forEach(c => element.classList.toggle(c, indicator));
+		else classname.forEach(c => element.classList.toggle(c));
 		return element;
 	}
 
@@ -852,7 +857,7 @@ class DOMTools {
 	 * @returns {boolean} - `true` if the element has the class, `false` otherwise.
 	 */
 	static hasClass(element, classname) {
-		return element.classList.contains(classname);
+		return classname.toString().split(" ").filter(c => c).every(c => element.classList.contains(c));
 	}
 
 	/**
@@ -1024,7 +1029,7 @@ class DOMTools {
 	 */
 	static parents(element, selector = "") {
 		const parents = [];
-		if (selector) while (element.parentElement.closest(selector)) parents.push(element = element.parentElement.closest(selector));
+		if (selector) while (element.parentElement && element.parentElement.closest(selector)) parents.push(element = element.parentElement.closest(selector));
 		else while (element.parentElement) parents.push(element = element.parentElement);
 		return parents;
 	}
@@ -1137,6 +1142,15 @@ class DOMTools {
 	 */
 	static offset(element) {
 		return element.getBoundingClientRect();
+	}
+
+	/**
+	 * Sets the inner text of an element.
+	 * @param {Element} element - Element to set the text of
+	 * @param {string} text - Content to set
+	 */
+	static text(element, text) {
+		return element.textContent = text;
 	}
 
 	static get listeners() { return global._listeners || (global._listeners = {}); }
@@ -1384,14 +1398,15 @@ _utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "
 _utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "outerWidth", function() {return DOMTools.outerWidth(this);});
 _utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "outerHeight", function() {return DOMTools.outerHeight(this);});
 _utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "offset", function() {return DOMTools.offset(this);});
+_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "text", function(value) {return DOMTools.text(this, value);});
 _utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "on", function(event, delegate, callback) {return DOMTools.on(this, event, delegate, callback);});
 _utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "once", function(event, delegate, callback) {return DOMTools.once(this, event, delegate, callback);});
 _utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "off", function(event, delegate, callback) {return DOMTools.off(this, event, delegate, callback);});
 _utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "find", function(selector) {return DOMTools.query(selector, this);});
 _utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "findAll", function(selector) {return DOMTools.queryAll(selector, this);});
 _utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "appendTo", function(otherNode) {return DOMTools.appendTo(this, otherNode);});
-_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "onAdded", function(callback) {return DOMTools.hasClass(this, callback);});
-_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "onRemoved", function(callback) {return DOMTools.hasClass(this, callback);});
+_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "onAdded", function(callback) {return DOMTools.onAdded(this, callback);});
+_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "onRemoved", function(callback) {return DOMTools.onRemoved(this, callback);});
 
 /***/ }),
 
@@ -2070,7 +2085,7 @@ class PluginUpdater {
 		pluginNoticeElement.addEventListener("click", () => {
 			this.downloadPlugin(pluginName, updateLink);
 		});
-		if (document.getElementById("outdatedPlugins").querySelectorAll("span").length) document.getElementById("outdatedPlugins").append("<span class='separator'>, </span>");
+		if (document.getElementById("outdatedPlugins").querySelectorAll("span").length) document.getElementById("outdatedPlugins").append(_domtools__WEBPACK_IMPORTED_MODULE_2__["default"].createElement("<span class='separator'>, </span>"));
 		document.getElementById("outdatedPlugins").append(pluginNoticeElement);
 	}
 
@@ -5472,11 +5487,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../modules/discordclasses */ "./src/modules/discordclasses.js");
 /* harmony import */ var _modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../modules/discordselectors */ "./src/modules/discordselectors.js");
 /* harmony import */ var _modules_reacttools__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../modules/reacttools */ "./src/modules/reacttools.js");
+/* harmony import */ var _modules_discordmodules__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../modules/discordmodules */ "./src/modules/discordmodules.js");
+/* harmony import */ var _modules_domtools__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../modules/domtools */ "./src/modules/domtools.js");
+/* harmony import */ var _structs_screen__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../structs/screen */ "./src/structs/screen.js");
 /**
  * Self-made context menus that emulate Discord's own context menus.
  * @module ContextMenu
- * @version 0.0.7
+ * @version 0.1.0
  */
+
+
+
 
 
 
@@ -5499,18 +5520,14 @@ class Menu {
      * @param {boolean} [scroll=false] - should this menu be a scrolling menu (usually only used for submenus)
      */
 	constructor(scroll = false) {
-		this.theme = $(".theme-dark").length ? "theme-dark" : "theme-light";
-		this.element = $("<div>").addClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.contextMenu.toString()).addClass("plugin-context-menu").addClass(this.theme);
+		this.theme = _modules_discordmodules__WEBPACK_IMPORTED_MODULE_3__["default"].UserSettingsStore.theme == "dark" ? "theme-dark" : "theme-light";
+		this.element = _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.contextMenu} plugin-context-menu ${this.theme}"></div>`);
 		this.scroll = scroll;
-		if (scroll) {
-			this.scroller = $("<div>").addClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].Scrollers.scroller.toString()).addClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.scroller.toString());
-			this.element.append($("<div>")
-				.addClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].Scrollers.scrollerWrap.toString())
-				.addClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].Scrollers.scrollerThemed.toString())
-				.addClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].Scrollers.themeGhostHairline.toString()).append(
-					this.scroller
-			));
-		}
+		if (!scroll) return;
+		this.scroller = _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].Scrollers.scroller} ${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.scroller}"></div>`);
+		this.scrollerWrap = _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].Scrollers.scrollerWrap} ${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].Scrollers.scrollerThemed} ${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].Scrollers.themeGhostHairline}"></div>`);
+		this.scrollerWrap.append(this.scroller);
+		this.element.append(this.scrollerWrap);
 	}
     
     /**
@@ -5545,63 +5562,47 @@ class Menu {
      * @param {number} y - y coordinate for the menu to show at
      */
 	show(x, y) {
-		const maxWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-		const maxHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 		const mouseX = x;
 		const mouseY = y;
 		
-		let type = this.element.parents(".plugin-context-menu").length > this.element.parents(_modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].ContextMenu.contextMenu.toString()).length ? ".plugin-context-menu" : _modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].ContextMenu.contextMenu.toString();
-		var depth = this.element.parents(type).length;
+		const parents = this.element.parents(this.parentSelector);
+		const depth = parents.length;
 		if (depth == 0) this.element.appendTo("#app-mount");
-		this.element.css("top", mouseY).css("left", mouseX);
+		this.element.css("top", mouseY + "px").css("left", mouseX + "px");
 		
 		if (depth > 0) {
-			var top = this.element.parents(type).last();
-			var closest = this.element.parents(type).first();
-			var negate = closest.hasClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.invertChildX.toString()) ? -1 : 1;
-			this.element.css("margin-left", negate * closest.find(_modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].ContextMenu.item.toString()).outerWidth() + closest.offset().left - top.offset().left);
+			const top = parents[parents.length - 1];
+			const closest = parents[0];
+			const negate = closest.hasClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.invertChildX) ? -1 : 1;
+			const value = negate * closest.find(_modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].ContextMenu.item).outerWidth() + closest.offset().left - top.offset().left;
+			this.element.css("margin-left", `${value}px`);
 		}
 		
-		if (mouseY + this.element.outerHeight() >= maxHeight) {
-			this.element.addClass("invertY").addClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.invertY.toString());
-			this.element.css("top", mouseY - this.element.outerHeight());
-			if (depth > 0) this.element.css("top", (mouseY + this.element.parent().outerHeight()) - this.element.outerHeight());
+		if (mouseY + this.element.outerHeight() >= _structs_screen__WEBPACK_IMPORTED_MODULE_5__["default"].height) {
+			this.element.addClass("invertY").addClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.invertY);
+			this.element.css("top", `${mouseY - this.element.outerHeight()}px`);
+			if (depth > 0) this.element.css("top", `${(mouseY + this.element.parent().outerHeight()) - this.element.outerHeight()}px`);
 		}
-		if (this.element.offset().left + this.element.outerWidth() >= maxWidth) {
+		if (this.element.offset().left + this.element.outerWidth() >= _structs_screen__WEBPACK_IMPORTED_MODULE_5__["default"].width) {
 			this.element.addClass("invertX");
-			this.element.css("left", mouseX - this.element.outerWidth());
+			this.element.css("left", `${mouseX - this.element.outerWidth()}px`);
 		}
-		if (this.element.offset().left + 2 * this.element.outerWidth() >= maxWidth) {
-			this.element.addClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.invertChildX.toString());
+		if (this.element.offset().left + 2 * this.element.outerWidth() >= _structs_screen__WEBPACK_IMPORTED_MODULE_5__["default"].width) {
+			this.element.addClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.invertChildX);
 		}
 
-		if (depth == 0) {
-			$(document).on("mousedown.zctx", (e) => {
-				if (!this.element.has(e.target).length && !this.element.is(e.target)) {
-					this.removeMenu();
-				}
-			});
-			$(document).on("click.zctx", (e) => {
-				if (this.element.has(e.target).length) {
-					if ($._data($(e.target).closest(_modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].ContextMenu.item.toString())[0], "events").click) {
-						this.removeMenu();
-					}
-				}
-			});
-			$(document).on("keyup.zctx", (e) => {
-				if (e.keyCode === 27) {
-					this.removeMenu();
-				}
-			});
-		}
+		if (depth !== 0) return;
+		_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].on(document, "mousedown.zctx", (e) => { if (!this.element.contains(e.target) && !this.element.isSameNode(e.target)) this.removeMenu(); });
+		_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].on(document, "click.zctx", (e) => { if (this.element.contains(e.target)) this.removeMenu(); });
+		_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].on(document, "keyup.zctx", (e) => { if (e.keyCode === 27) this.removeMenu(); });
 	}
     
     /** Allows you to remove the menu. */
 	removeMenu() {
-		let type = this.element.parents(".plugin-context-menu").length > this.element.parents(_modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].ContextMenu.contextMenu.toString()).length ? ".plugin-context-menu" : _modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].ContextMenu.contextMenu.toString();
-		this.element.detach();
-		this.element.find(type).detach();
-		$(document).off(".zctx");
+		this.element.remove();
+		const childs = this.element.findAll(this.parentSelector);
+		if (childs) childs.forEach(c => c.remove());
+		_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].off(document, ".zctx");
 	}
     
     /**
@@ -5616,18 +5617,20 @@ class Menu {
 		this.menuItem = $(menuItem);
 		menuItem.on("mouseenter", () => {
 			this.element.appendTo(menuItem);
-			let type = this.element.parents(".plugin-context-menu").length > this.element.parents(_modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].ContextMenu.contextMenu.toString()).length ? ".plugin-context-menu" : _modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].ContextMenu.contextMenu.toString();
-			this.show(this.element.parents(type).css("left"), menuItem.offset().top);
+			const left = this.element.parents(this.parentSelector)[0].css("left");
+			this.show(parseInt(left.replace("px", "")), menuItem.offset().top);
 		});
-		menuItem.on("mouseleave", () => { this.element.detach(); });
+		menuItem.on("mouseleave", () => { this.element.remove(); });
 	}
+
+	get parentSelector() {return this.element.parents(".plugin-context-menu").length > this.element.parents(_modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].ContextMenu.contextMenu).length ? ".plugin-context-menu" : _modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].ContextMenu.contextMenu;}
 }
 
 /** Class that represents a group of menu items. */
 class ItemGroup {
     /** Creates an item group. */
 	constructor() {
-		this.element = $("<div>").addClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.itemGroup.toString());
+		this.element = _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.itemGroup}"></div>`);
 	}
     
     /**
@@ -5667,16 +5670,15 @@ class MenuItem {
      * @param {module:ContextMenu~clickEvent} [options.callback] - callback for when it is clicked
      */
 	constructor(label, options = {}) {
-		var {danger = false, callback} = options;
-		this.element = $("<div>").addClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.item.toString());
+		const {danger = false, callback} = options;
+		this.element = _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.item}"></div>`);
 		this.label = label;
-		if (danger) this.element.addClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.danger.toString());
-		if (typeof(callback) == "function") {
-			this.element.on("click", (event) => {
-				event.stopPropagation();
-				callback(event);
-			});
-		}
+		if (danger) this.element.addClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.danger);
+		this.element.on("click", (event) => {
+			if (!Array.from(this.element.children).some(c => c.isSameNode(event.target)) && !this.element.isSameNode(event.target)) return;
+			if (typeof(callback) == "function") callback(event);
+			else event.stopPropagation();
+		});
 	}
 	getElement() { return this.element;}
 }
@@ -5695,9 +5697,9 @@ class TextItem extends MenuItem {
      */
 	constructor(label, options = {}) {
 		super(label, options);
-		var {hint = ""} = options;
-		this.element.append($("<span>").text(label));
-		this.element.append($("<div>").addClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.hint.toString()).text(hint));
+		const {hint = ""} = options;
+		this.element.append(_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<span>${label}</span>`));
+		this.element.append(_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.hint}">${hint}</div>`));
 	}
 }
 
@@ -5716,9 +5718,9 @@ class ImageItem extends MenuItem {
      */
 	constructor(label, imageSrc, options = {}) {
 		super(label, options);
-		this.element.addClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.itemImage.toString());
-		this.element.append($("<div>").addClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.label.toString()).text(label));
-		this.element.append($("<img>", {src: imageSrc}));
+		this.element.addClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.itemImage);
+		this.element.append(_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.label}">${label}</div>`));
+		this.element.append(_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<img src="${imageSrc}">`));
 	}
 }
 
@@ -5738,7 +5740,7 @@ class SubMenuItem extends MenuItem {
 	constructor(label, subMenu, options = {}) {
 		// if (!(subMenu instanceof ContextSubMenu)) throw "subMenu must be of ContextSubMenu type.";
 		super(label, options);
-		this.element.addClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.itemSubMenu.toString()).text(label);
+		this.element.addClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.itemSubMenu).text(label);
 		this.subMenu = subMenu;
 		this.subMenu.attachTo(this.getElement());
 	}
@@ -5755,24 +5757,27 @@ class ToggleItem extends MenuItem {
      * @param {object} options - additional options for the item
      * @param {string} [options.hint=""] - hint to show on the item (usually used for key combos)
      * @param {boolean} [options.danger=false] - should the item show as danger
-     * @param {module:ContextMenu~clickEvent} [options.callback] - callback for when it is clicked
-     * @param {module:ContextMenu~onChange} [options.onChange] - callback for when the checkbox changes
+     * @param {module:ContextMenu~onChange} [options.callback] - callback for when the checkbox changes
      */
 	constructor(label, checked, options = {}) {
-        var {onChange} = options;
+		const {callback: onChange} = options;
+		if (options.callback) delete options.callback;
 		super(label, options);
-		this.element.addClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.itemToggle.toString());
-        this.element.append($("<div>").addClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.label.toString()).text(label));
-        this.checkbox = $("<div>", {"class": "checkbox"});
-        this.checkbox.append($("<div>", {"class": "checkbox-inner"}));
-        this.checkbox.append("<span>");
-        this.input = $("<input>", {type: "checkbox", checked: checked, value: "on"});
-        this.checkbox.find(".checkbox-inner").append(this.input).append("<span>");
+		this.element.addClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.itemToggle);
+		this.element.append(_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.label}">${label}</div>`));
+		this.checkbox = _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="checkbox"></div>`);
+		this.checkbox.append(_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="checkbox-inner"></div>`));
+		this.checkbox.append(_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement("<span>"));
+		this.input = _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<input type="checkbox">`);
+		this.input.checked = checked;
+		this.checkbox.find(".checkbox-inner").append(this.input);
+		this.checkbox.find(".checkbox-inner").append(_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement("<span>"));
         this.element.append(this.checkbox);
         this.element.on("click", (e) => {
-            e.stopPropagation();
-            this.input.prop("checked", !this.input.prop("checked"));
-            if (typeof(onChange) == "function") onChange(this.input.prop("checked"));
+			if (!Array.from(this.element.children).some(c => c.isSameNode(e.target)) && !this.element.isSameNode(e.target)) return;
+			e.stopPropagation();
+			this.input.checked = !this.input.checked;
+            if (typeof(onChange) == "function") onChange(this.input.checked);
         });
 	}
 }
