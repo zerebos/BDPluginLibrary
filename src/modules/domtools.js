@@ -676,7 +676,7 @@ Utilities.addToPrototype(HTMLElement, "findChildren", function(selector) {return
 Utilities.addToPrototype(HTMLElement, "parent", function(selector) {return DOMTools.parent(this, selector);});
 Utilities.addToPrototype(HTMLElement, "parents", function(selector = "") {return DOMTools.parents(this, selector);});
 Utilities.addToPrototype(HTMLElement, "parentsUntil", function(selector) {return DOMTools.parentsUntil(this, selector);});
-Utilities.addToPrototype(HTMLElement, "siblings", function(selector = "*") {return DOMTools.sublings(this, selector);});
+Utilities.addToPrototype(HTMLElement, "siblings", function(selector = "*") {return DOMTools.siblings(this, selector);});
 Utilities.addToPrototype(HTMLElement, "css", function(attribute, value) {return DOMTools.css(this, attribute, value);});
 Utilities.addToPrototype(HTMLElement, "width", function(value) {return DOMTools.width(this, value);});
 Utilities.addToPrototype(HTMLElement, "height", function(value) {return DOMTools.height(this, value);});

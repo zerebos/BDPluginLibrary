@@ -5,8 +5,15 @@ export default (BasePlugin, Library) => {
         
         load() {
             this.start();
+            const exists = document.getElementById("ZLibraryCSS");
             PluginUtilities.removeStyle("ZLibraryCSS");
             PluginUtilities.addStyle("ZLibraryCSS", Settings.CSS + Toasts.CSS + PluginUpdater.CSS);
+            if (!exists) return; // This is first load, no need to reload dependent plugins
+            const prev = window.settingsCookie["fork-ps-2"];
+            window.settingsCookie["fork-ps-2"] = false;
+            const list = Object.keys(window.bdplugins).filter(k => window.bdplugins[k].plugin._config && k != "ZeresPluginLibrary");
+            for (let p = 0; p < list.length; p++) window.pluginModule.reloadPlugin(list[p]);
+            window.settingsCookie["fork-ps-2"] = prev;
         }
 
         static buildPlugin(config) {

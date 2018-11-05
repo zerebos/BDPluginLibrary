@@ -5,10 +5,11 @@ release/*
 !release/ExamplePlugin.plugin.js
 !release/ExamplePlugin2.plugin.js
 !release/HideDisabledEmojis.plugin.js
+!release/SendButton.plugin.js
 !release/ZLibrary.js
 plugins/*
 !plugins/0PluginLibrary
 !plugins/ExamplePlugin
 !plugins/ExamplePlugin2
 !plugins/HideDisabledEmojis
-plugins/HideDisabledEmojisRemote
+!plugins/SendButton

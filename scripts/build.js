@@ -11,6 +11,18 @@ const formatString = function(string, values) {
     return string;
 };
 
+const embedFiles = function(content, pluginName, files) {
+    for (let fileName of files) {
+        const isJS = fileName.endsWith(".js");
+        content = content.replace(new RegExp(`require\\(('|"|\`)${fileName}('|"|\`)\\)`, "g"), () => {
+            const filePath = path.join(pluginsPath, pluginName, fileName);
+            if (!isJS) return `\`${fs.readFileSync(filePath).toString().replace(/`/g, "\\`")}\``;
+            return `(${require(filePath).toString()})`;
+        });
+    }
+    return content;
+};
+
 const template = fs.readFileSync(path.join(__dirname, args.loader == "remote" ? "template.remote.js" : "template.local.js")).toString();
 const list = args.plugin ? [args.plugin] : fs.readdirSync(pluginsPath).filter(f => fs.lstatSync(path.join(pluginsPath, f)).isDirectory() && f != "0PluginLibrary");
 console.log("");
@@ -18,12 +30,13 @@ console.log("Building: " + list.join(", "));
 console.time("Build took");
 for (let f = 0; f < list.length; f++) {
     const pluginName = list[f];
-    let config = require(path.join(pluginsPath, pluginName, "config.json"));
-    let content = require(path.join(pluginsPath, pluginName, "index.js"));
+    const config = require(path.join(pluginsPath, pluginName, "config.json"));
+    const files = fs.readdirSync(path.join(pluginsPath, pluginName)).filter(f => f != "config.json" && f != config.main);
+    const content = embedFiles(require(path.join(pluginsPath, pluginName, config.main)).toString(), pluginName, files);
     fs.writeFileSync(path.join(releasePath, pluginName + ".plugin.js"), formatString(template, {
         PLUGIN_NAME: pluginName,
         CONFIG: JSON.stringify(config),
-        INNER: content.toString(),
+        INNER: content,
         WEBSITE: config.info.github,
         SOURCE: config.info.github_raw,
         DISPLAY_NAME: config.info.name

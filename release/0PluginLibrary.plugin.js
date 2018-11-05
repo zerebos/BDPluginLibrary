@@ -138,8 +138,15 @@ __webpack_require__.r(__webpack_exports__);
         
         load() {
             this.start();
+            const exists = document.getElementById("ZLibraryCSS");
             PluginUtilities.removeStyle("ZLibraryCSS");
             PluginUtilities.addStyle("ZLibraryCSS", Settings.CSS + Toasts.CSS + PluginUpdater.CSS);
+            if (!exists) return; // This is first load, no need to reload dependent plugins
+            const prev = window.settingsCookie["fork-ps-2"];
+            window.settingsCookie["fork-ps-2"] = false;
+            const list = Object.keys(window.bdplugins).filter(k => window.bdplugins[k].plugin._config && k != "ZeresPluginLibrary");
+            for (let p = 0; p < list.length; p++) window.pluginModule.reloadPlugin(list[p]);
+            window.settingsCookie["fork-ps-2"] = prev;
         }
 
         static buildPlugin(config) {
@@ -1552,7 +1559,7 @@ _utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "
 _utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "parent", function(selector) {return DOMTools.parent(this, selector);});
 _utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "parents", function(selector = "") {return DOMTools.parents(this, selector);});
 _utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "parentsUntil", function(selector) {return DOMTools.parentsUntil(this, selector);});
-_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "siblings", function(selector = "*") {return DOMTools.sublings(this, selector);});
+_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "siblings", function(selector = "*") {return DOMTools.siblings(this, selector);});
 _utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "css", function(attribute, value) {return DOMTools.css(this, attribute, value);});
 _utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "width", function(value) {return DOMTools.width(this, value);});
 _utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "height", function(value) {return DOMTools.height(this, value);});
