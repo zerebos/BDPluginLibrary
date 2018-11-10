@@ -148,7 +148,7 @@
 									<div class="form-group">
 										<label class="col-sm-3 control-label">Version</label>
 										<div class="col-sm-9">
-											<p class="form-control-static">0.0.1</p>
+											<p class="form-control-static">0.0.2</p>
 										</div>
 									</div>
 					
@@ -594,6 +594,174 @@
 </dd>
 											<hr/>
 											<dt class="symbol-title function public collapsible-symbol">
+			<h4 id=".findInReactTree" class="function public"><span class="signature-attribs">&lt;static> </span><span class="name">findInReactTree</span><span class="signature-params">( <span class="signature-param">tree</span>, <span class="signature-param">searchFilter</span>&nbsp;)</span><span class="signature-type"></span></h4>
+		</dt>
+<dd class="symbol-details function public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>Finds a value, subobject, or array from a tree that matches a specific filter. Great for patching render functions.</p></div>
+			</div>			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>tree</code></td>
+							<td><span class="param-type">object</span></td>
+							<td class="last">
+									<p>React tree to look through. Can be a rendered object or an internal instance.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>searchFilter</code></td>
+							<td><span class="param-type">callable</span></td>
+							<td class="last">
+									<p>Filter function to check subobjects against.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="modules_utilities.js.html">modules/utilities.js</a>, <a href="modules_utilities.js.html#line-124">line 124</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function public collapsible-symbol">
+			<h4 id=".findInTree" class="function public"><span class="signature-attribs">&lt;static> </span><span class="name">findInTree</span><span class="signature-params">( <span class="signature-param">tree</span>, <span class="signature-param">searchFilter</span>, <span class="signature-param">options</span>&nbsp;)</span><span class="signature-type"></span></h4>
+		</dt>
+<dd class="symbol-details function public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>Finds a value, subobject, or array from a tree that matches a specific filter.</p></div>
+			</div>			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>tree</code></td>
+							<td><span class="param-type">object</span></td>
+							<td class="last">
+									<p>Tree that should be walked</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>searchFilter</code></td>
+							<td><span class="param-type">callable</span></td>
+							<td class="last">
+									<p>Filter to check against each object and subobject</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>options</code></td>
+							<td><span class="param-type">object</span></td>
+							<td class="last">
+									<p>Additional options to customize the search</p>
+										<table class="params table table-striped">
+											<thead>
+											<tr>
+													<th>Name</th>
+												<th>Type</th>
+													<th>Attributes</th>
+													<th>Default</th>
+												<th class="last">Description</th>
+											</tr>
+											</thead>
+											<tbody>
+												<tr>
+														<td><code>walkable</code></td>
+													<td><span class="param-type">Array.&lt;string></span> | <span class="param-type">null</span></td>
+														<td class="attributes">&lt;optional&gt;<br/></td>
+														<td></td>
+													<td class="last">
+															<p>Array of strings to use as keys that are allowed to be walked on. Null value indicates all keys are walkable</p>
+													</td>
+												</tr>
+												<tr>
+														<td><code>ignore</code></td>
+													<td><span class="param-type">Array.&lt;string></span></td>
+														<td class="attributes">&lt;optional&gt;<br/></td>
+														<td>[]</td>
+													<td class="last">
+															<p>Array of strings to use as keys to exclude from the search, most helpful when <code>walkable = null</code>.</p>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="modules_utilities.js.html">modules/utilities.js</a>, <a href="modules_utilities.js.html#line-136">line 136</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function public collapsible-symbol">
 			<h4 id=".className" class="function public"><span class="signature-attribs">&lt;static> </span><span class="name">className</span><span class="signature-params">()</span><span class="signature-type"></span></h4>
 		</dt>
 <dd class="symbol-details function public  collapsible-symbol">
@@ -619,7 +787,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="modules_utilities.js.html">modules/utilities.js</a>, <a href="modules_utilities.js.html#line-122">line 122</a></p>
+									<p class="form-control-static"><a href="modules_utilities.js.html">modules/utilities.js</a>, <a href="modules_utilities.js.html#line-167">line 167</a></p>
 								</div>
 							</div>
 			
@@ -692,7 +860,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="modules_utilities.js.html">modules/utilities.js</a>, <a href="modules_utilities.js.html#line-160">line 160</a></p>
+									<p class="form-control-static"><a href="modules_utilities.js.html">modules/utilities.js</a>, <a href="modules_utilities.js.html#line-205">line 205</a></p>
 								</div>
 							</div>
 			
@@ -773,7 +941,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="modules_utilities.js.html">modules/utilities.js</a>, <a href="modules_utilities.js.html#line-175">line 175</a></p>
+									<p class="form-control-static"><a href="modules_utilities.js.html">modules/utilities.js</a>, <a href="modules_utilities.js.html#line-220">line 220</a></p>
 								</div>
 							</div>
 			
@@ -839,7 +1007,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="modules_utilities.js.html">modules/utilities.js</a>, <a href="modules_utilities.js.html#line-197">line 197</a></p>
+									<p class="form-control-static"><a href="modules_utilities.js.html">modules/utilities.js</a>, <a href="modules_utilities.js.html#line-242">line 242</a></p>
 								</div>
 							</div>
 			
@@ -904,7 +1072,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="modules_utilities.js.html">modules/utilities.js</a>, <a href="modules_utilities.js.html#line-218">line 218</a></p>
+									<p class="form-control-static"><a href="modules_utilities.js.html">modules/utilities.js</a>, <a href="modules_utilities.js.html#line-263">line 263</a></p>
 								</div>
 							</div>
 			
@@ -977,7 +1145,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="modules_utilities.js.html">modules/utilities.js</a>, <a href="modules_utilities.js.html#line-240">line 240</a></p>
+									<p class="form-control-static"><a href="modules_utilities.js.html">modules/utilities.js</a>, <a href="modules_utilities.js.html#line-285">line 285</a></p>
 								</div>
 							</div>
 			
@@ -1043,7 +1211,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="modules_utilities.js.html">modules/utilities.js</a>, <a href="modules_utilities.js.html#line-251">line 251</a></p>
+									<p class="form-control-static"><a href="modules_utilities.js.html">modules/utilities.js</a>, <a href="modules_utilities.js.html#line-296">line 296</a></p>
 								</div>
 							</div>
 			
@@ -1109,7 +1277,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="modules_utilities.js.html">modules/utilities.js</a>, <a href="modules_utilities.js.html#line-279">line 279</a></p>
+									<p class="form-control-static"><a href="modules_utilities.js.html">modules/utilities.js</a>, <a href="modules_utilities.js.html#line-324">line 324</a></p>
 								</div>
 							</div>
 			
@@ -1130,7 +1298,7 @@
 	</div>
 	<footer>
 				<div class="copyright">Copyright © 2018 Zack Rauen</div>
-			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on November 3rd 2018, 11:43:03 pm using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
+			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on November 9th 2018, 10:04:09 pm using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
 	</footer>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>

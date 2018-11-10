@@ -11883,7 +11883,7 @@ window.lunrData = {
                 "docs": {
                   "Listenable.html#alertListeners": {
                     "ref": "Listenable.html#alertListeners",
-                    "tf": 57.14285714285714
+                    "tf": 7.142857142857142
                   }
                 }
               }
@@ -25013,7 +25013,7 @@ window.lunrData = {
                               "docs": {
                                 "Listenable.html#alertListeners": {
                                   "ref": "Listenable.html#alertListeners",
-                                  "tf": 700
+                                  "tf": 750
                                 }
                               }
                             }
@@ -28272,7 +28272,7 @@ window.lunrData = {
     "Listenable.html#alertListeners": {
       "id": "Listenable.html#alertListeners",
       "kind": "function",
-      "title": "alertListeners( [ data ] )",
+      "title": "alertListeners( )",
       "longname": "Listenable#alertListeners",
       "name": "alertListeners",
       "tags": "Listenable#alertListeners alertListeners",
