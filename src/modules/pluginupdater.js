@@ -1,7 +1,7 @@
 /**
  * Functions that check for and update existing plugins.
  * @module PluginUpdater
- * @version 0.1.1
+ * @version 0.1.2
  */
 
 import PluginUtilities from "./pluginutilities";
@@ -173,7 +173,7 @@ export default class PluginUpdater {
 			let filename = updateLink.split("/");
 			filename = filename[filename.length - 1];
 			const file = path.join(PluginUtilities.getPluginsFolder(), filename);
-			await fileSystem.writeFile(file, body);
+			await new Promise(r => fileSystem.writeFile(file, body, r));
 			Toasts.success(`${pluginName} ${window.PluginUpdates.plugins[updateLink].version} has been replaced by ${pluginName} ${remoteVersion}`);
 			this.removeUpdateNotice(pluginName);
 

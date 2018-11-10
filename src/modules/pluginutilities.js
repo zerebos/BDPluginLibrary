@@ -5,7 +5,7 @@ import DOMTools from "./domtools";
 /**
  * A series of useful functions for BetterDiscord plugins.
  * @module PluginUtilities
- * @version 0.2.4
+ * @version 0.2.5
  */
 
 
@@ -125,9 +125,17 @@ import DOMTools from "./domtools";
 	 * Adds/requires a remote script to be loaded
 	 * @param {string} id - identifier to use for this script
 	 * @param {string} url - url from which to load the script
+	 * @returns {Promise} promise that resolves when the script is loaded
 	 */
 	static addScript(id, url) {
-		document.head.append(DOMTools.createElement(`<script id="${id}" src="${url}"></script>`));
+		return new Promise(resolve => {
+			const script = document.createElement("script");
+			script.id = id;
+			script.src = url;
+			script.type = "text/javascript";
+			script.onload = resolve;
+			document.head.append(script);
+		});
 	}
 
 	/**

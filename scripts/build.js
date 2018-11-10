@@ -13,11 +13,14 @@ const formatString = function(string, values) {
 
 const embedFiles = function(content, pluginName, files) {
     for (let fileName of files) {
-        const isJS = fileName.endsWith(".js");
         content = content.replace(new RegExp(`require\\(('|"|\`)${fileName}('|"|\`)\\)`, "g"), () => {
             const filePath = path.join(pluginsPath, pluginName, fileName);
-            if (!isJS) return `\`${fs.readFileSync(filePath).toString().replace(/`/g, "\\`")}\``;
-            return `(${require(filePath).toString()})`;
+            if (!fileName.endsWith(".js")) return `\`${fs.readFileSync(filePath).toString().replace(/`/g, "\\`")}\``;
+            const exported = require(filePath);
+            if (typeof(exported) !== "object" && !Array.isArray(exported)) return `(${require(filePath).toString()})`;
+            if (Array.isArray(exported)) return `(${JSON.stringify(exported)})`;
+            const raw = fs.readFileSync(filePath).toString().replace(/module\.exports\s*=\s*/, "");
+            return `(() => {return ${raw}})()`;
         });
     }
     return content;

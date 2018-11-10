@@ -88,34 +88,37 @@ export default function(config) {
         }
 
         buildSetting(data) {
-            const {name, note, type, value, onChange} = data;
+            const {name, note, type, value, onChange, id} = data;
+            let setting = null;
             if (type == "color") {
-                return new Settings.ColorPicker(name, note, value, onChange, {disabled: data.disabled, presetColors: data.presetColors});
+                setting = new Settings.ColorPicker(name, note, value, onChange, {disabled: data.disabled, presetColors: data.presetColors});
             }
             else if (type == "dropdown") {
-                return new Settings.Dropdown(name, note, value, data.options, onChange);
+                setting = new Settings.Dropdown(name, note, value, data.options, onChange);
             }
             else if (type == "file") {
-                return new Settings.FilePicker(name, note, onChange);
+                setting = new Settings.FilePicker(name, note, onChange);
             }
             else if (type == "keybind") {
-                return new Settings.Keybind(name, note, value, onChange);
+                setting = new Settings.Keybind(name, note, value, onChange);
             }
             else if (type == "radio") {
-                return new Settings.RadioGroup(name, note, value, data.options, onChange, {disabled: data.disabled});
+                setting = new Settings.RadioGroup(name, note, value, data.options, onChange, {disabled: data.disabled});
             }
             else if (type == "slider") {
                 const options = {};
                 if (typeof(data.markers) != "undefined") options.markers = data.markers;
                 if (typeof(data.stickToMarkers) != "undefined") options.stickToMarkers = data.stickToMarkers;
-                return new Settings.Slider(name, note, data.min, data.max, value, onChange, options);
+                setting = new Settings.Slider(name, note, data.min, data.max, value, onChange, options);
             }
             else if (type == "switch") {
-                return new Settings.Switch(name, note, value, onChange, {disabled: data.disabled});
+                setting = new Settings.Switch(name, note, value, onChange, {disabled: data.disabled});
             }
             else if (type == "textbox") {
-                return new Settings.Textbox(name, note, value, onChange, {placeholder: data.placeholder || ""});
+                setting = new Settings.Textbox(name, note, value, onChange, {placeholder: data.placeholder || ""});
             }
+            if (id) setting.id = id;
+            return setting;
         }
 
         buildSettingsPanel() {
@@ -139,7 +142,9 @@ export default function(config) {
                     list.push(this.buildSetting(current));
                 }
                 
-                return new Settings.SettingGroup(name, {shown, collapsible}).append(...list);
+                const settingGroup = new Settings.SettingGroup(name, {shown, collapsible}).append(...list);
+                settingGroup.id = id;
+                return settingGroup;
             };
             const list = [];
             for (let s = 0; s < config.length; s++) {

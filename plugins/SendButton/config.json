@@ -13,7 +13,7 @@
         "github_raw": "https://raw.githubusercontent.com/rauenzi/BetterDiscordAddons/master/Plugins/SendButton/SendButton.plugin.js"
     },
     "changelog": [
-        {"title": "Improvements", "type": "improved", "items": ["Tapped into Discord's secondary status cache to show less members as offline when they aren't."]}
+        {"title": "New Stuff", "items": ["Rewrite to use new library."]}
     ],
     "main": "index.js"
 }

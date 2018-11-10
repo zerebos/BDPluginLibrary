@@ -4,10 +4,11 @@
  * a MutationObserver.
  * 
  * @module Tooltip
- * @version 0.0.1
+ * @version 0.0.2
  */
 
 import {DiscordModules} from "modules";
+import Screen from "../structs/screen";
 
 export default class Tooltip {
 	/**
@@ -83,6 +84,8 @@ export default class Tooltip {
 			color: this.style,
 			targetWidth: width,
 			targetHeight: height,
+			windowWidth: Screen.width,
+			windowHeight: Screen.height,
 			x: left,
 			y: top
 		});

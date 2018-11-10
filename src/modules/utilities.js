@@ -1,7 +1,7 @@
 /**
  * Random set of utilities that didn't fit elsewhere.
  * @module Utilities
- * @version 0.0.1
+ * @version 0.0.2
  */
 
 import Logger from "./logger";
@@ -114,6 +114,51 @@ export default class Utilities {
             string = string.replace(new RegExp(`{{${val}}}`, "g"), values[val]);
         }
         return string;
+    }
+
+    /**
+     * Finds a value, subobject, or array from a tree that matches a specific filter. Great for patching render functions.
+     * @param {object} tree React tree to look through. Can be a rendered object or an internal instance.
+     * @param {callable} searchFilter Filter function to check subobjects against.
+     */
+    static findInReactTree(tree, searchFilter) {
+        return this.findInTree(tree, searchFilter, {walkable: ["props", "children", "child", "sibling"]});
+    }
+
+    /**
+     * Finds a value, subobject, or array from a tree that matches a specific filter.
+     * @param {object} tree Tree that should be walked
+     * @param {callable} searchFilter Filter to check against each object and subobject
+     * @param {object} options Additional options to customize the search
+     * @param {Array<string>|null} [options.walkable=null] Array of strings to use as keys that are allowed to be walked on. Null value indicates all keys are walkable
+     * @param {Array<string>} [options.ignore=[]] Array of strings to use as keys to exclude from the search, most helpful when `walkable = null`.
+     */
+    static findInTree(tree, searchFilter, {walkable = null, ignore = []}) {
+        if (typeof searchFilter === "string") {
+            if (tree.hasOwnProperty(searchFilter)) return tree[searchFilter];
+        }
+        else if (searchFilter(tree)) {
+            return tree;
+        }
+
+        if (typeof tree !== "object" || tree == null) return undefined;
+
+        let tempReturn = undefined;
+        if (tree instanceof Array) {
+            for (const value of tree) {
+                tempReturn = this.findInTree(value, searchFilter, {walkable, ignore});
+                if (typeof tempReturn != "undefined") return tempReturn;
+            }
+        }
+        else {
+            const toWalk = walkable == null ? Object.keys(tree) : walkable;
+            for (const key of toWalk) {
+                if (!tree.hasOwnProperty(key) || ignore.includes(key)) continue;
+                tempReturn = this.findInTree(tree[key], searchFilter, {walkable, ignore});
+                if (typeof tempReturn != "undefined") return tempReturn;
+            }
+        }
+        return tempReturn;
     }
 
     /**

@@ -4,7 +4,7 @@
  * have the library installed or have a plugin using this library,
  * do `Object.keys(ZLibrary.DiscordModules)` in console for a list of modules.
  * @module DiscordModules
- * @version 0.0.1
+ * @version 0.0.2
  */
 import Utilities from "./utilities";
 import WebpackModules from "./webpackmodules";
@@ -69,6 +69,7 @@ export default Utilities.memoizeObject({
     get Permissions() {return WebpackModules.getByProps("getHighestRole");},
     get ColorConverter() {return WebpackModules.getByProps("hex2int");},
     get ColorShader() {return WebpackModules.getByProps("darken");},
+    get TinyColor() {return WebpackModules.getByPrototypes("toRgb");},
     get ClassResolver() {return WebpackModules.getByProps("getClass");},
     get ButtonData() {return WebpackModules.getByProps("ButtonSizes");},
     get IconNames() {return WebpackModules.getByProps("IconNames");},
@@ -90,7 +91,7 @@ export default Utilities.memoizeObject({
     get CurrentExperiment() {return WebpackModules.getByProps("getExperimentId");},
 
     /* Images, Avatars and Utils */
-    get ImageResolver() {return WebpackModules.getByProps("getUserAvatarURL");},
+    get ImageResolver() {return WebpackModules.getByProps("getUserAvatarURL", "getGuildIconURL");},
     get ImageUtils() {return WebpackModules.getByProps("getSizedImageSrc");},
     get AvatarDefaults() {return WebpackModules.getByProps("getUserAvatarURL", "DEFAULT_AVATARS");},
 

@@ -31,10 +31,10 @@ class Listenable {
 	
 	/**
 	 * Alerts the listeners that an event occurred. Data passed is optional
-	 * @param {*} [data] - Any data desired to be passed to listeners 
+	 * @param {*} [...data] - Any data desired to be passed to listeners 
 	 */
-    alertListeners(data) {
-        for (let l = 0; l < this.listeners.length; l++) this.listeners[l](data);
+    alertListeners(...data) {
+        for (let l = 0; l < this.listeners.length; l++) this.listeners[l](...data);
     }
 }
 

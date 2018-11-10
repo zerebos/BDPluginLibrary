@@ -12,7 +12,7 @@ import WebpackModules from "./webpackmodules";
  * @see module:DiscordClasses
  * @see module:DiscordSelectors
  * @module DiscordClassModules
- * @version 0.0.1
+ * @version 0.0.2
  */
 export default Utilities.memoizeObject({
 	get ContextMenu() {return WebpackModules.getByProps("itemToggle");},
@@ -39,6 +39,7 @@ export default Utilities.memoizeObject({
 	get Dividers() {return WebpackModules.getModule(m => m.dividerDefault);},
 	get Changelog() {return Object.assign({}, WebpackModules.getByProps("container", "added"), WebpackModules.getByProps("content", "modal", "size"));},
 	get BasicInputs() {return WebpackModules.getByProps("inputDefault", "size16");},
-	get Messages() {return WebpackModules.getByProps("message", "containerCozy");}
+	get Messages() {return WebpackModules.getByProps("message", "containerCozy");},
+	get Guilds() {return WebpackModules.getByProps("guildsWrapper");}
 });
 

@@ -5,7 +5,7 @@ import SettingField from "./settingfield";
 /** 
  * Grouping of controls for easier management in settings panels.
  * @memberof module:Settings
- * @version 1.0.1
+ * @version 1.0.2
  */
 class SettingGroup extends Listenable {
     /**
@@ -65,7 +65,17 @@ class SettingGroup extends Listenable {
 	append(...nodes) {
 		for (var i = 0; i < nodes.length; i++) {
 			if (nodes[i] instanceof jQuery || nodes[i] instanceof Element) this.controls.append(nodes[i]);
-			else if (nodes[i] instanceof SettingField || nodes[i] instanceof SettingGroup) this.controls.append(nodes[i].getElement()), nodes[i].addListener(this.onChange);
+			else if (nodes[i] instanceof SettingField || nodes[i] instanceof SettingGroup) this.controls.append(nodes[i].getElement());
+			if (nodes[i] instanceof SettingField) {
+				nodes[i].addListener(((node) => (value) => {
+					this.onChange(node.id || node.name, value);
+				})(nodes[i]));
+			}
+			else if (nodes[i] instanceof SettingGroup) {
+				nodes[i].addListener(((node) => (settingId, value) => {
+					this.onChange(node.id || node.name, settingId, value);
+				})(nodes[i]));
+			}
 		}
 		return this;
 	}

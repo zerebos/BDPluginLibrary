@@ -1,7 +1,7 @@
 /**
  * Helpful utilities for dealing with getting react information from DOM objects.
  * @module ReactTools
- * @version 0.0.4
+ * @version 0.0.5
  */
 
 import DOMTools from "./domtools";
@@ -51,6 +51,7 @@ export default class ReactTools {
 		const nameFilter = excluding ? exclude : include;
 		function getDisplayName(owner) {
 			const type = owner.type;
+			if (!type) return null;
 			return type.displayName || type.name || null;
 		}
 		function classFilter(owner) {

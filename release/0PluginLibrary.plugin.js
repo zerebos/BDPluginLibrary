@@ -118,7 +118,7 @@ webpackContext.id = "./plugins/0PluginLibrary sync recursive ^\\.\\/.*$";
 /*! exports provided: info, changelog, main, default */
 /***/ (function(module) {
 
-module.exports = {"info":{"name":"ZeresPluginLibrary","authors":[{"name":"Zerebos","discord_id":"249746236008169473","github_username":"rauenzi","twitter_username":"ZackRauen"}],"version":"1.0.4","description":"Gives other plugins utility functions and the ability to emulate v2.","github":"https://github.com/rauenzi/BDPluginLibrary","github_raw":"https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"},"changelog":[{"title":"New Stuff","items":["Additional DOMTools functionality"]},{"title":"Bugs Squashed","type":"fixed","items":["Fixed onAdded() and onRemoved() in DOMTools","The weird span element in the plugin update bar is gone","Fixed parents() giving an error when using a root element"]},{"title":"Improvements","type":"improved","items":["Remove jQuery dependency in ContextMenu module","DOMTools class related function now automagically split on space -- great for using internal classes"]},{"title":"On-going","type":"progress","items":["More classes and modules being added"]}],"main":"index.js"};
+module.exports = {"info":{"name":"ZeresPluginLibrary","authors":[{"name":"Zerebos","discord_id":"249746236008169473","github_username":"rauenzi","twitter_username":"ZackRauen"}],"version":"1.1.0","description":"Gives other plugins utility functions and the ability to emulate v2.","github":"https://github.com/rauenzi/BDPluginLibrary","github_raw":"https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"},"changelog":[{"title":"New Stuff","items":["Library will automagically reload dependent plugins."]},{"title":"Bugs Squashed","type":"fixed","items":["Fixed an issue with plugin updates on canary.","Account for null types.","Listenable type can pass multiple arguments.","Tooltips stuck to the top of the screen."]},{"title":"Improvements","type":"improved","items":["Allow synchronous script loading through promise.","Add some treewalkers.","Setting groups and panels can now have listeners -- callback uses setting and group id along with the value."]},{"title":"On-going","type":"progress","items":["More classes and modules being added."]}],"main":"index.js"};
 
 /***/ }),
 
@@ -538,7 +538,7 @@ __webpack_require__.r(__webpack_exports__);
  * @see module:DiscordClasses
  * @see module:DiscordSelectors
  * @module DiscordClassModules
- * @version 0.0.1
+ * @version 0.0.2
  */
 /* harmony default export */ __webpack_exports__["default"] = (_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].memoizeObject({
 	get ContextMenu() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("itemToggle");},
@@ -565,7 +565,8 @@ __webpack_require__.r(__webpack_exports__);
 	get Dividers() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m.dividerDefault);},
 	get Changelog() {return Object.assign({}, _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("container", "added"), _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("content", "modal", "size"));},
 	get BasicInputs() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("inputDefault", "size16");},
-	get Messages() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("message", "containerCozy");}
+	get Messages() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("message", "containerCozy");},
+	get Guilds() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("guildsWrapper");}
 }));
 
 
@@ -589,7 +590,7 @@ __webpack_require__.r(__webpack_exports__);
  * have the library installed or have a plugin using this library,
  * do `Object.keys(ZLibrary.DiscordModules)` in console for a list of modules.
  * @module DiscordModules
- * @version 0.0.1
+ * @version 0.0.2
  */
 
 
@@ -654,6 +655,7 @@ __webpack_require__.r(__webpack_exports__);
     get Permissions() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getHighestRole");},
     get ColorConverter() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("hex2int");},
     get ColorShader() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("darken");},
+    get TinyColor() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByPrototypes("toRgb");},
     get ClassResolver() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getClass");},
     get ButtonData() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("ButtonSizes");},
     get IconNames() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("IconNames");},
@@ -675,7 +677,7 @@ __webpack_require__.r(__webpack_exports__);
     get CurrentExperiment() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getExperimentId");},
 
     /* Images, Avatars and Utils */
-    get ImageResolver() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getUserAvatarURL");},
+    get ImageResolver() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getUserAvatarURL", "getGuildIconURL");},
     get ImageUtils() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getSizedImageSrc");},
     get AvatarDefaults() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getUserAvatarURL", "DEFAULT_AVATARS");},
 
@@ -2032,7 +2034,7 @@ __webpack_require__.r(__webpack_exports__);
 /**
  * Functions that check for and update existing plugins.
  * @module PluginUpdater
- * @version 0.1.1
+ * @version 0.1.2
  */
 
 
@@ -2204,7 +2206,7 @@ class PluginUpdater {
 			let filename = updateLink.split("/");
 			filename = filename[filename.length - 1];
 			const file = path.join(_pluginutilities__WEBPACK_IMPORTED_MODULE_0__["default"].getPluginsFolder(), filename);
-			await fileSystem.writeFile(file, body);
+			await new Promise(r => fileSystem.writeFile(file, body, r));
 			ui__WEBPACK_IMPORTED_MODULE_6__["Toasts"].success(`${pluginName} ${window.PluginUpdates.plugins[updateLink].version} has been replaced by ${pluginName} ${remoteVersion}`);
 			this.removeUpdateNotice(pluginName);
 
@@ -2302,7 +2304,7 @@ __webpack_require__.r(__webpack_exports__);
 /**
  * A series of useful functions for BetterDiscord plugins.
  * @module PluginUtilities
- * @version 0.2.4
+ * @version 0.2.5
  */
 
 
@@ -2422,9 +2424,17 @@ __webpack_require__.r(__webpack_exports__);
 	 * Adds/requires a remote script to be loaded
 	 * @param {string} id - identifier to use for this script
 	 * @param {string} url - url from which to load the script
+	 * @returns {Promise} promise that resolves when the script is loaded
 	 */
 	static addScript(id, url) {
-		document.head.append(_domtools__WEBPACK_IMPORTED_MODULE_2__["default"].createElement(`<script id="${id}" src="${url}"></script>`));
+		return new Promise(resolve => {
+			const script = document.createElement("script");
+			script.id = id;
+			script.src = url;
+			script.type = "text/javascript";
+			script.onload = resolve;
+			document.head.append(script);
+		});
 	}
 
 	/**
@@ -2458,7 +2468,7 @@ __webpack_require__.r(__webpack_exports__);
 /**
  * Helpful utilities for dealing with getting react information from DOM objects.
  * @module ReactTools
- * @version 0.0.4
+ * @version 0.0.5
  */
 
 
@@ -2508,6 +2518,7 @@ class ReactTools {
 		const nameFilter = excluding ? exclude : include;
 		function getDisplayName(owner) {
 			const type = owner.type;
+			if (!type) return null;
 			return type.displayName || type.name || null;
 		}
 		function classFilter(owner) {
@@ -2571,7 +2582,7 @@ __webpack_require__.r(__webpack_exports__);
 /**
  * Random set of utilities that didn't fit elsewhere.
  * @module Utilities
- * @version 0.0.1
+ * @version 0.0.2
  */
 
 
@@ -2684,6 +2695,51 @@ class Utilities {
             string = string.replace(new RegExp(`{{${val}}}`, "g"), values[val]);
         }
         return string;
+    }
+
+    /**
+     * Finds a value, subobject, or array from a tree that matches a specific filter. Great for patching render functions.
+     * @param {object} tree React tree to look through. Can be a rendered object or an internal instance.
+     * @param {callable} searchFilter Filter function to check subobjects against.
+     */
+    static findInReactTree(tree, searchFilter) {
+        return this.findInTree(tree, searchFilter, {walkable: ["props", "children", "child", "sibling"]});
+    }
+
+    /**
+     * Finds a value, subobject, or array from a tree that matches a specific filter.
+     * @param {object} tree Tree that should be walked
+     * @param {callable} searchFilter Filter to check against each object and subobject
+     * @param {object} options Additional options to customize the search
+     * @param {Array<string>|null} [options.walkable=null] Array of strings to use as keys that are allowed to be walked on. Null value indicates all keys are walkable
+     * @param {Array<string>} [options.ignore=[]] Array of strings to use as keys to exclude from the search, most helpful when `walkable = null`.
+     */
+    static findInTree(tree, searchFilter, {walkable = null, ignore = []}) {
+        if (typeof searchFilter === "string") {
+            if (tree.hasOwnProperty(searchFilter)) return tree[searchFilter];
+        }
+        else if (searchFilter(tree)) {
+            return tree;
+        }
+
+        if (typeof tree !== "object" || tree == null) return undefined;
+
+        let tempReturn = undefined;
+        if (tree instanceof Array) {
+            for (const value of tree) {
+                tempReturn = this.findInTree(value, searchFilter, {walkable, ignore});
+                if (typeof tempReturn != "undefined") return tempReturn;
+            }
+        }
+        else {
+            const toWalk = walkable == null ? Object.keys(tree) : walkable;
+            for (const key of toWalk) {
+                if (!tree.hasOwnProperty(key) || ignore.includes(key)) continue;
+                tempReturn = this.findInTree(tree[key], searchFilter, {walkable, ignore});
+                if (typeof tempReturn != "undefined") return tempReturn;
+            }
+        }
+        return tempReturn;
     }
 
     /**
@@ -5214,10 +5270,10 @@ class Listenable {
 	
 	/**
 	 * Alerts the listeners that an event occurred. Data passed is optional
-	 * @param {*} [data] - Any data desired to be passed to listeners 
+	 * @param {*} [...data] - Any data desired to be passed to listeners 
 	 */
-    alertListeners(data) {
-        for (let l = 0; l < this.listeners.length; l++) this.listeners[l](data);
+    alertListeners(...data) {
+        for (let l = 0; l < this.listeners.length; l++) this.listeners[l](...data);
     }
 }
 
@@ -5332,34 +5388,37 @@ __webpack_require__.r(__webpack_exports__);
         }
 
         buildSetting(data) {
-            const {name, note, type, value, onChange} = data;
+            const {name, note, type, value, onChange, id} = data;
+            let setting = null;
             if (type == "color") {
-                return new _ui_settings__WEBPACK_IMPORTED_MODULE_7__["ColorPicker"](name, note, value, onChange, {disabled: data.disabled, presetColors: data.presetColors});
+                setting = new _ui_settings__WEBPACK_IMPORTED_MODULE_7__["ColorPicker"](name, note, value, onChange, {disabled: data.disabled, presetColors: data.presetColors});
             }
             else if (type == "dropdown") {
-                return new _ui_settings__WEBPACK_IMPORTED_MODULE_7__["Dropdown"](name, note, value, data.options, onChange);
+                setting = new _ui_settings__WEBPACK_IMPORTED_MODULE_7__["Dropdown"](name, note, value, data.options, onChange);
             }
             else if (type == "file") {
-                return new _ui_settings__WEBPACK_IMPORTED_MODULE_7__["FilePicker"](name, note, onChange);
+                setting = new _ui_settings__WEBPACK_IMPORTED_MODULE_7__["FilePicker"](name, note, onChange);
             }
             else if (type == "keybind") {
-                return new _ui_settings__WEBPACK_IMPORTED_MODULE_7__["Keybind"](name, note, value, onChange);
+                setting = new _ui_settings__WEBPACK_IMPORTED_MODULE_7__["Keybind"](name, note, value, onChange);
             }
             else if (type == "radio") {
-                return new _ui_settings__WEBPACK_IMPORTED_MODULE_7__["RadioGroup"](name, note, value, data.options, onChange, {disabled: data.disabled});
+                setting = new _ui_settings__WEBPACK_IMPORTED_MODULE_7__["RadioGroup"](name, note, value, data.options, onChange, {disabled: data.disabled});
             }
             else if (type == "slider") {
                 const options = {};
                 if (typeof(data.markers) != "undefined") options.markers = data.markers;
                 if (typeof(data.stickToMarkers) != "undefined") options.stickToMarkers = data.stickToMarkers;
-                return new _ui_settings__WEBPACK_IMPORTED_MODULE_7__["Slider"](name, note, data.min, data.max, value, onChange, options);
+                setting = new _ui_settings__WEBPACK_IMPORTED_MODULE_7__["Slider"](name, note, data.min, data.max, value, onChange, options);
             }
             else if (type == "switch") {
-                return new _ui_settings__WEBPACK_IMPORTED_MODULE_7__["Switch"](name, note, value, onChange, {disabled: data.disabled});
+                setting = new _ui_settings__WEBPACK_IMPORTED_MODULE_7__["Switch"](name, note, value, onChange, {disabled: data.disabled});
             }
             else if (type == "textbox") {
-                return new _ui_settings__WEBPACK_IMPORTED_MODULE_7__["Textbox"](name, note, value, onChange, {placeholder: data.placeholder || ""});
+                setting = new _ui_settings__WEBPACK_IMPORTED_MODULE_7__["Textbox"](name, note, value, onChange, {placeholder: data.placeholder || ""});
             }
+            if (id) setting.id = id;
+            return setting;
         }
 
         buildSettingsPanel() {
@@ -5383,7 +5442,9 @@ __webpack_require__.r(__webpack_exports__);
                     list.push(this.buildSetting(current));
                 }
                 
-                return new _ui_settings__WEBPACK_IMPORTED_MODULE_7__["SettingGroup"](name, {shown, collapsible}).append(...list);
+                const settingGroup = new _ui_settings__WEBPACK_IMPORTED_MODULE_7__["SettingGroup"](name, {shown, collapsible}).append(...list);
+                settingGroup.id = id;
+                return settingGroup;
             };
             const list = [];
             for (let s = 0; s < config.length; s++) {
@@ -6400,7 +6461,7 @@ __webpack_require__.r(__webpack_exports__);
 /** 
  * Grouping of controls for easier management in settings panels.
  * @memberof module:Settings
- * @version 1.0.1
+ * @version 1.0.2
  */
 class SettingGroup extends _structs_listenable__WEBPACK_IMPORTED_MODULE_0__["default"] {
     /**
@@ -6460,7 +6521,17 @@ class SettingGroup extends _structs_listenable__WEBPACK_IMPORTED_MODULE_0__["def
 	append(...nodes) {
 		for (var i = 0; i < nodes.length; i++) {
 			if (nodes[i] instanceof jQuery || nodes[i] instanceof Element) this.controls.append(nodes[i]);
-			else if (nodes[i] instanceof _settingfield__WEBPACK_IMPORTED_MODULE_2__["default"] || nodes[i] instanceof SettingGroup) this.controls.append(nodes[i].getElement()), nodes[i].addListener(this.onChange);
+			else if (nodes[i] instanceof _settingfield__WEBPACK_IMPORTED_MODULE_2__["default"] || nodes[i] instanceof SettingGroup) this.controls.append(nodes[i].getElement());
+			if (nodes[i] instanceof _settingfield__WEBPACK_IMPORTED_MODULE_2__["default"]) {
+				nodes[i].addListener(((node) => (value) => {
+					this.onChange(node.id || node.name, value);
+				})(nodes[i]));
+			}
+			else if (nodes[i] instanceof SettingGroup) {
+				nodes[i].addListener(((node) => (settingId, value) => {
+					this.onChange(node.id || node.name, settingId, value);
+				})(nodes[i]));
+			}
 		}
 		return this;
 	}
@@ -6506,7 +6577,7 @@ __webpack_require__.r(__webpack_exports__);
 /** 
  * Grouping of controls for easier management in settings panels.
  * @memberof module:Settings
- * @version 1.0.1
+ * @version 1.0.2
  */
 class SettingPanel extends _structs_listenable__WEBPACK_IMPORTED_MODULE_0__["default"] {
 
@@ -6544,7 +6615,17 @@ class SettingPanel extends _structs_listenable__WEBPACK_IMPORTED_MODULE_0__["def
 	append(...nodes) {
 		for (var i = 0; i < nodes.length; i++) {
 			if (nodes[i] instanceof jQuery || nodes[i] instanceof Element) this.element.append(nodes[i]);
-			else if (nodes[i] instanceof _settingfield__WEBPACK_IMPORTED_MODULE_2__["default"] || nodes[i] instanceof _settinggroup__WEBPACK_IMPORTED_MODULE_3__["default"]) this.element.append(nodes[i].getElement()), nodes[i].addListener(this.onChange);
+			else if (nodes[i] instanceof _settingfield__WEBPACK_IMPORTED_MODULE_2__["default"] || nodes[i] instanceof _settinggroup__WEBPACK_IMPORTED_MODULE_3__["default"]) this.element.append(nodes[i].getElement());
+			if (nodes[i] instanceof _settingfield__WEBPACK_IMPORTED_MODULE_2__["default"]) {
+				nodes[i].addListener(((node) => (value) => {
+					this.onChange(node.id || node.name, value);
+				})(nodes[i]));
+			}
+			else if (nodes[i] instanceof _settinggroup__WEBPACK_IMPORTED_MODULE_3__["default"]) {
+				nodes[i].addListener(((node) => (settingId, value) => {
+					this.onChange(node.id || node.name, settingId, value);
+				})(nodes[i]));
+			}
 		}
 		return this;
 	}
@@ -7116,14 +7197,16 @@ class Toast {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Tooltip; });
 /* harmony import */ var modules__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! modules */ "./src/modules/modules.js");
+/* harmony import */ var _structs_screen__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../structs/screen */ "./src/structs/screen.js");
 /** 
  * Tooltips that automatically show and hide themselves on mouseenter and mouseleave events.
  * Will also remove themselves if the node to watch is removed from DOM through
  * a MutationObserver.
  * 
  * @module Tooltip
- * @version 0.0.1
+ * @version 0.0.2
  */
+
 
 
 
@@ -7201,6 +7284,8 @@ class Tooltip {
 			color: this.style,
 			targetWidth: width,
 			targetHeight: height,
+			windowWidth: _structs_screen__WEBPACK_IMPORTED_MODULE_1__["default"].width,
+			windowHeight: _structs_screen__WEBPACK_IMPORTED_MODULE_1__["default"].height,
 			x: left,
 			y: top
 		});

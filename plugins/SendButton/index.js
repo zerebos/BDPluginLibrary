@@ -19,7 +19,7 @@ module.exports = (Plugin, Api) => {
             if (elem.querySelector(".send-button")) return;
             const button = DOMTools.createElement(buttonHTML);
             elem.querySelector(DiscordSelectors.Textarea.inner).append(button);
-            elem.querySelector("[class*=\"emojiButton-\"]").css("margin-right", (button.outerWidth() + 10) + "px");
+            if (elem.querySelector("[class*=\"emojiButton-\"]")) elem.querySelector("[class*=\"emojiButton-\"]").css("margin-right", (button.outerWidth() + 10) + "px");
             button.on("click", () => {
                 const textarea = button.siblings("textarea")[0];
                 const press = new KeyboardEvent("keypress", {key: "Enter", code: "Enter", which: 13, keyCode: 13, bubbles: true});

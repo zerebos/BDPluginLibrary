@@ -7,16 +7,16 @@
             "github_username": "rauenzi",
             "twitter_username": "ZackRauen"
         }],
-        "version": "1.0.4",
+        "version": "1.1.0",
         "description": "Gives other plugins utility functions and the ability to emulate v2.",
         "github": "https://github.com/rauenzi/BDPluginLibrary",
         "github_raw": "https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"
     },
     "changelog": [
-        {"title": "New Stuff", "items": ["Additional DOMTools functionality"]},
-        {"title": "Bugs Squashed", "type": "fixed", "items": ["Fixed onAdded() and onRemoved() in DOMTools", "The weird span element in the plugin update bar is gone", "Fixed parents() giving an error when using a root element"]},
-        {"title": "Improvements", "type": "improved", "items": ["Remove jQuery dependency in ContextMenu module", "DOMTools class related function now automagically split on space -- great for using internal classes"]},
-        {"title": "On-going", "type": "progress", "items": ["More classes and modules being added"]}
+        {"title": "New Stuff", "items": ["Library will automagically reload dependent plugins."]},
+        {"title": "Bugs Squashed", "type": "fixed", "items": ["Fixed an issue with plugin updates on canary.", "Account for null types.", "Listenable type can pass multiple arguments.", "Tooltips stuck to the top of the screen."]},
+        {"title": "Improvements", "type": "improved", "items": ["Allow synchronous script loading through promise.", "Add some treewalkers.", "Setting groups and panels can now have listeners -- callback uses setting and group id along with the value."]},
+        {"title": "On-going", "type": "progress", "items": ["More classes and modules being added."]}
     ],
     "main": "index.js"
 }

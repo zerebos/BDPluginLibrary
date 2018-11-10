@@ -8,7 +8,7 @@ var SendButton = (() => {
 			catch(err) {reject(err);}
 		});
 	});
-	const config = {"info":{"name":"SendButton","authors":[{"name":"Zerebos","discord_id":"249746236008169473","github_username":"rauenzi","twitter_username":"ZackRauen"}],"version":"0.1.0","description":"Adds a clickable send button. Support Server: bit.ly/ZeresServer","github":"https://github.com/rauenzi/BetterDiscordAddons/tree/master/Plugins/SendButton","github_raw":"https://raw.githubusercontent.com/rauenzi/BetterDiscordAddons/master/Plugins/SendButton/SendButton.plugin.js"},"changelog":[{"title":"Improvements","type":"improved","items":["Tapped into Discord's secondary status cache to show less members as offline when they aren't."]}],"main":"index.js"};
+	const config = {"info":{"name":"SendButton","authors":[{"name":"Zerebos","discord_id":"249746236008169473","github_username":"rauenzi","twitter_username":"ZackRauen"}],"version":"0.1.0","description":"Adds a clickable send button. Support Server: bit.ly/ZeresServer","github":"https://github.com/rauenzi/BetterDiscordAddons/tree/master/Plugins/SendButton","github_raw":"https://raw.githubusercontent.com/rauenzi/BetterDiscordAddons/master/Plugins/SendButton/SendButton.plugin.js"},"changelog":[{"title":"New Stuff","items":["Rewrite to use new library."]}],"main":"index.js"};
 	const compilePlugin = ([Plugin, Api]) => {
 		const plugin = (Plugin, Api) => {
     const css = `.send-button {
@@ -65,7 +65,7 @@ var SendButton = (() => {
             if (elem.querySelector(".send-button")) return;
             const button = DOMTools.createElement(buttonHTML);
             elem.querySelector(DiscordSelectors.Textarea.inner).append(button);
-            elem.querySelector("[class*=\"emojiButton-\"]").css("margin-right", (button.outerWidth() + 10) + "px");
+            if (elem.querySelector("[class*=\"emojiButton-\"]")) elem.querySelector("[class*=\"emojiButton-\"]").css("margin-right", (button.outerWidth() + 10) + "px");
             button.on("click", () => {
                 const textarea = button.siblings("textarea")[0];
                 const press = new KeyboardEvent("keypress", {key: "Enter", code: "Enter", which: 13, keyCode: 13, bubbles: true});
