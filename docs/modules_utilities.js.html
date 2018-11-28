@@ -1,0 +1,514 @@
+<!-- start:source.tmpl.hbs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+		<title>modules/utilities.js</title>
+		<!--[if lt IE 9]>
+		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<link href="https://fonts.googleapis.com/css?family=PT+Mono" rel="stylesheet">
+		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
+		<link type="text/css" rel="stylesheet" href="css/prism.min.css">
+		<link type="text/css" rel="stylesheet" href="css/template.min.css">
+		<script type="text/javascript">
+			window.TEMPLATE_OPTIONS = {"includeDate":true,"dateFormat":"MMMM Do YYYY, h:mm:ss a","systemName":"Zere's Plugin Library","systemSummary":"A set of helpful utilities and tools for BD plugins.","systemLogo":"","systemColor":"","navMembers":[{"kind":"class","title":"Classes","summary":"All documented classes."},{"kind":"external","title":"Externals","summary":"All documented external members."},{"kind":"global","title":"Globals","summary":"All documented globals."},{"kind":"mixin","title":"Mixins","summary":"All documented mixins."},{"kind":"interface","title":"Interfaces","summary":"All documented interfaces."},{"kind":"module","title":"Modules","summary":"All documented modules."},{"kind":"namespace","title":"Namespaces","summary":"All documented namespaces."},{"kind":"tutorial","title":"Tutorials","summary":"All available tutorials."}],"footer":"","copyright":"Copyright © 2018 Zack Rauen","linenums":true,"collapseSymbols":true,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":false,"showTableOfContents":true,"showAccessFilter":true,"analytics":null,"methodHeadingReturns":true,"sort":"linenum, longname, version, since","search":true,"favicon":null,"stylesheets":[],"scripts":[],"monospaceLinks":false,"cleverLinks":false,"default":{"outputSourceFiles":true},"path":"ink-docstrap","theme":"cerulean","navType":"vertical"};
+			window.DOCLET_TOC_ENABLED = false;
+			window.DOCLET_AFILTER_ENABLED = false;
+		</script>
+</head>
+<body>
+	<!-- start:navbar.hbs -->
+	<header class="navbar navbar-default navbar-fixed-top navbar-inverse">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="index.html">
+					Zere&#x27;s Plugin Library
+				</a>
+				<!-- displayed on small devices -->
+				<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="navbar-collapse collapse" id="topNavigation">
+				<ul class="nav navbar-nav">
+								<li class="dropdown">
+									<a href="list_class.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="List.html">List</a></li>
+											<li><a href="Listenable.html">Listenable</a></li>
+											<li><a href="module-ContextMenu.ImageItem.html">ContextMenu.ImageItem</a></li>
+											<li><a href="module-ContextMenu.ItemGroup.html">ContextMenu.ItemGroup</a></li>
+											<li><a href="module-ContextMenu.Menu.html">ContextMenu.Menu</a></li>
+											<li><a href="module-ContextMenu.MenuItem.html">ContextMenu.MenuItem</a></li>
+											<li><a href="module-ContextMenu.SubMenuItem.html">ContextMenu.SubMenuItem</a></li>
+											<li><a href="module-ContextMenu.TextItem.html">ContextMenu.TextItem</a></li>
+											<li><a href="module-ContextMenu.ToggleItem.html">ContextMenu.ToggleItem</a></li>
+											<li><a href="module-DiscordAPI.Channel.html">DiscordAPI.Channel</a></li>
+											<li><a href="module-DiscordAPI.Guild.html">DiscordAPI.Guild</a></li>
+											<li><a href="module-DiscordAPI.InsufficientPermissions.html">DiscordAPI.InsufficientPermissions</a></li>
+											<li><a href="module-DiscordAPI.Message.html">DiscordAPI.Message</a></li>
+											<li><a href="module-DiscordAPI.User.html">DiscordAPI.User</a></li>
+											<li><a href="module-DiscordAPI.UserSettings.html">DiscordAPI.UserSettings</a></li>
+											<li><a href="module-DOMTools.ClassName.html">DOMTools.ClassName</a></li>
+											<li><a href="module-DOMTools.Selector.html">DOMTools.Selector</a></li>
+											<li><a href="module-Settings.ColorPicker.html">Settings.ColorPicker</a></li>
+											<li><a href="module-Settings.Dropdown.html">Settings.Dropdown</a></li>
+											<li><a href="module-Settings.FilePicker.html">Settings.FilePicker</a></li>
+											<li><a href="module-Settings.Keybind.html">Settings.Keybind</a></li>
+											<li><a href="module-Settings.RadioGroup.html">Settings.RadioGroup</a></li>
+											<li><a href="module-Settings.SettingField.html">Settings.SettingField</a></li>
+											<li><a href="module-Settings.SettingGroup.html">Settings.SettingGroup</a></li>
+											<li><a href="module-Settings.SettingPanel.html">Settings.SettingPanel</a></li>
+											<li><a href="module-Settings.Slider.html">Settings.Slider</a></li>
+											<li><a href="module-Settings.Switch.html">Settings.Switch</a></li>
+											<li><a href="module-Settings.Textbox.html">Settings.Textbox</a></li>
+											<li><a href="module-Tooltip_module_Tooltip.html">Tooltip>module:Tooltip</a></li>
+											<li><a href="module-WebpackModules.Filters.html">WebpackModules.Filters</a></li>
+											<li><a href="Screen.html">Screen</a></li>
+									</ul>
+								</li>
+								<li class="dropdown">
+									<a href="list_interface.html" class="dropdown-toggle" data-toggle="dropdown">Interfaces<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="module-DOMTools-Offset.html">DOMTools~Offset</a></li>
+											<li><a href="module-Modals-Changelog.html">Modals~Changelog</a></li>
+											<li><a href="module-Settings-DropdownItem.html">Settings~DropdownItem</a></li>
+											<li><a href="module-Settings-RadioItem.html">Settings~RadioItem</a></li>
+									</ul>
+								</li>
+								<li class="dropdown">
+									<a href="list_module.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="module-ColorConverter.html">ColorConverter</a></li>
+											<li><a href="module-ContextMenu.html">ContextMenu</a></li>
+											<li><a href="module-DiscordAPI.html">DiscordAPI</a></li>
+											<li><a href="module-DiscordClasses.html">DiscordClasses</a></li>
+											<li><a href="module-DiscordClassModules.html">DiscordClassModules</a></li>
+											<li><a href="module-DiscordModules.html">DiscordModules</a></li>
+											<li><a href="module-DiscordSelectors.html">DiscordSelectors</a></li>
+											<li><a href="module-DOMTools.html">DOMTools</a></li>
+											<li><a href="module-Logger.html">Logger</a></li>
+											<li><a href="module-Modals.html">Modals</a></li>
+											<li><a href="module-Patcher.html">Patcher</a></li>
+											<li><a href="module-PluginUpdater.html">PluginUpdater</a></li>
+											<li><a href="module-PluginUtilities.html">PluginUtilities</a></li>
+											<li><a href="module-Popouts.html">Popouts</a></li>
+											<li><a href="module-ReactTools.html">ReactTools</a></li>
+											<li><a href="module-Settings.html">Settings</a></li>
+											<li><a href="module-Toasts.html">Toasts</a></li>
+											<li><a href="module-Tooltip.html">Tooltip</a></li>
+											<li><a href="module-Utilities.html">Utilities</a></li>
+											<li><a href="module-WebpackModules.html">WebpackModules</a></li>
+									</ul>
+								</li>
+				</ul>
+					<!-- start:lunr-search-navbar.hbs -->
+					<form class="navbar-form navbar-right" role="search">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Search" id="lunr-search-input">
+							<div class="input-group-btn">
+								<button class="btn btn-default" id="lunr-search-submit">
+									<i class="glyphicon glyphicon-search"></i>
+								</button>
+							</div>
+						</div>
+					</form>
+					<!-- start:lunr-search-navbar.hbs -->		</div>
+		</div>
+	</header>
+	<!-- end:navbar.hbs -->		<div class="page-header">
+			<div class="container">
+				<span class="kind">source</span>
+				<h1><span class="name">modules/utilities.js</span></h1>
+			</div>
+		</div>
+	<div class="container content">
+		<div class="row">
+			<div class="col-md-12 main-content">
+		<section class="source-section">
+			<article></article>
+			<pre class="prettyprint source language-javascript line-numbers"><code class="language-javascript">/**
+ * Random set of utilities that didn't fit elsewhere.
+ * @module Utilities
+ * @version 0.0.2
+ */
+
+import Logger from "./logger";
+
+export default class Utilities {
+
+    /**
+     * Stably sorts arrays since `.sort()` has issues.
+     * @param {Array} list - array to sort
+     * @param {function} comparator - comparator to sort by
+     */
+    static stableSort(list, comparator) {
+        var length = list.length;
+        var entries = Array(length);
+        var index;
+
+        // wrap values with initial indices
+        for (index = 0; index &lt; length; index++) {
+            entries[index] = [index, list[index]];
+        }
+
+        // sort with fallback based on initial indices
+        entries.sort(function (a, b) {
+            var comparison = Number(this(a[1], b[1]));
+            return comparison || a[0] - b[0];
+        }.bind(comparator));
+
+        // re-map original array to stable sorted values
+        for (index = 0; index &lt; length; index++) {
+            list[index] = entries[index][1];
+        }
+    }
+
+    /**
+     * Generates an automatically memoizing version of an object.
+     * @param {Object} object - object to memoize
+     * @returns {Proxy} the proxy to the object that memoizes properties
+     */
+    static memoizeObject(object) {
+        const proxy = new Proxy(object, {
+            get: function(obj, mod) {
+                if (!obj.hasOwnProperty(mod)) return undefined;
+                if (Object.getOwnPropertyDescriptor(obj, mod).get) {
+                    let value = obj[mod];
+                    delete obj[mod];
+                    obj[mod] = value;
+                }
+                return obj[mod];
+            },
+            set: function(obj, mod, value) {
+                if (obj.hasOwnProperty(mod)) return Logger.err("MemoizedObject", "Trying to overwrite existing property");
+                obj[mod] = value;
+                return obj[mod];
+            }
+        });
+
+        Object.defineProperty(proxy, "hasOwnProperty", {value: function(prop) {
+            return this[prop] !== undefined;
+        }});
+
+        return proxy;
+    }
+
+    /**
+     * Wraps the method in a `try..catch` block.
+     * @param {callable} method - method to wrap
+     * @param {string} description - description of method
+     * @returns {callable} wrapped version of method
+     */
+    static suppressErrors(method, description) {
+        return (...params) => {
+            try { return method(...params);	}
+            catch (e) { Logger.err("Suppression", "Error occurred in " + description, e); }
+        };
+    }
+
+    /**
+     * This only exists because Samo relied on lodash being there... fuck lodash.
+     * @param {*} anything - whatever you want
+     */
+    static isNil(anything) {
+        return anything == null;
+    }
+
+    /**
+     * Format strings with placeholders (`${placeholder}`) into full strings.
+     * Quick example: `PluginUtilities.formatString("Hello, ${user}", {user: "Zerebos"})`
+     * would return "Hello, Zerebos".
+     * @param {string} string - string to format
+     * @param {object} values - object literal of placeholders to replacements
+     * @returns {string} the properly formatted string
+     */
+    static formatTString(string, values) {
+        for (let val in values) {
+            string = string.replace(new RegExp(`\\$\\{${val}\\}`, "g"), values[val]);
+        }
+        return string;
+    }
+
+    /**
+     * Format strings with placeholders (`{{placeholder}}`) into full strings.
+     * Quick example: `PluginUtilities.formatString("Hello, {{user}}", {user: "Zerebos"})`
+     * would return "Hello, Zerebos".
+     * @param {string} string - string to format
+     * @param {object} values - object literal of placeholders to replacements
+     * @returns {string} the properly formatted string
+     */
+    static formatString(string, values) {
+        for (let val in values) {
+            string = string.replace(new RegExp(`{{${val}}}`, "g"), values[val]);
+        }
+        return string;
+    }
+
+    /**
+     * Finds a value, subobject, or array from a tree that matches a specific filter. Great for patching render functions.
+     * @param {object} tree React tree to look through. Can be a rendered object or an internal instance.
+     * @param {callable} searchFilter Filter function to check subobjects against.
+     */
+    static findInReactTree(tree, searchFilter) {
+        return this.findInTree(tree, searchFilter, {walkable: ["props", "children", "child", "sibling"]});
+    }
+
+    /**
+     * Finds a value, subobject, or array from a tree that matches a specific filter.
+     * @param {object} tree Tree that should be walked
+     * @param {callable} searchFilter Filter to check against each object and subobject
+     * @param {object} options Additional options to customize the search
+     * @param {Array&lt;string>|null} [options.walkable=null] Array of strings to use as keys that are allowed to be walked on. Null value indicates all keys are walkable
+     * @param {Array&lt;string>} [options.ignore=[]] Array of strings to use as keys to exclude from the search, most helpful when `walkable = null`.
+     */
+    static findInTree(tree, searchFilter, {walkable = null, ignore = []}) {
+        if (typeof searchFilter === "string") {
+            if (tree.hasOwnProperty(searchFilter)) return tree[searchFilter];
+        }
+        else if (searchFilter(tree)) {
+            return tree;
+        }
+
+        if (typeof tree !== "object" || tree == null) return undefined;
+
+        let tempReturn = undefined;
+        if (tree instanceof Array) {
+            for (const value of tree) {
+                tempReturn = this.findInTree(value, searchFilter, {walkable, ignore});
+                if (typeof tempReturn != "undefined") return tempReturn;
+            }
+        }
+        else {
+            const toWalk = walkable == null ? Object.keys(tree) : walkable;
+            for (const key of toWalk) {
+                if (!tree.hasOwnProperty(key) || ignore.includes(key)) continue;
+                tempReturn = this.findInTree(tree[key], searchFilter, {walkable, ignore});
+                if (typeof tempReturn != "undefined") return tempReturn;
+            }
+        }
+        return tempReturn;
+    }
+
+    /**
+     * https://github.com/JedWatson/classnames
+     */
+    static className() {
+        var classes = [];
+        var hasOwn = {}.hasOwnProperty;
+
+		for (var i = 0; i &lt; arguments.length; i++) {
+			var arg = arguments[i];
+			if (!arg) continue;
+
+			var argType = typeof arg;
+
+			if (argType === "string" || argType === "number") {
+				classes.push(arg);
+            }
+            else if (Array.isArray(arg) &amp;&amp; arg.length) {
+				var inner = this.classNames.apply(null, arg);
+				if (inner) {
+					classes.push(inner);
+				}
+            }
+            else if (argType === "object") {
+				for (var key in arg) {
+					if (hasOwn.call(arg, key) &amp;&amp; arg[key]) {
+						classes.push(key);
+					}
+				}
+			}
+		}
+
+		return classes.join(" ");
+    }
+
+    /**
+     * Safely adds to the prototype of an existing object by checking if the
+     * property exists on the prototype.
+     * @param {object} object - Object whose prototype to extend
+     * @param {string} prop - Name of the prototype property to add
+     * @param {callable} func - Function to run
+     */
+    static addToPrototype(object, prop, func) {
+        if (!object.prototype) return;
+        if (object.prototype[prop]) return;
+        return object.prototype[prop] = func;
+    }
+
+    /**
+     * Deep extends an object with a set of other objects. Objects later in the list
+     * of `extenders` have priority, that is to say if one sets a key to be a primitive,
+     * it will be overwritten with the next one with the same key. If it is an object, 
+     * and the keys match, the object is extended. This happens recursively.
+     * @param {object} extendee - Object to be extended
+     * @param {...object} extenders - Objects to extend with
+     * @returns {object} - A reference to `extendee`
+     */
+    static extend(extendee, ...extenders) {
+        for (let i = 0; i &lt; extenders.length; i++) {
+            for (let key in extenders[i]) {
+                if (extenders[i].hasOwnProperty(key)) {
+                    if (typeof extendee[key] === "object" &amp;&amp; typeof extenders[i][key] === "object") this.extend(extendee[key], extenders[i][key]);
+                    else if (typeof extenders[i][key] === "object") extendee[key] = {}, this.extend(extendee[key], extenders[i][key]);
+                    else extendee[key] = extenders[i][key];
+                }
+            }
+        }
+        return extendee;
+    }
+
+    /* Code below comes from our work on BDv2:
+     * https://github.com/JsSucks/BetterDiscordApp/blob/master/common/modules/utils.js
+     */
+
+    /**
+     * Clones an object and all it's properties.
+     * @param {Any} value The value to clone
+     * @return {Any} The cloned value
+     */
+    static deepclone(value) {
+        if (typeof value === "object") {
+            if (value instanceof Array) return value.map(i => this.deepclone(i));
+
+            const clone = Object.assign({}, value);
+
+            for (let key in clone) {
+                clone[key] = this.deepclone(clone[key]);
+            }
+
+            return clone;
+        }
+
+        return value;
+    }
+
+    /**
+     * Freezes an object and all it's properties.
+     * @param {Any} object The object to freeze
+     * @param {Function} exclude A function to filter object that shouldn't be frozen
+     */
+    static deepfreeze(object, exclude) {
+        if (exclude &amp;&amp; exclude(object)) return;
+
+        if (typeof object === "object" &amp;&amp; object !== null) {
+            const properties = Object.getOwnPropertyNames(object);
+
+            for (let property of properties) {
+                this.deepfreeze(object[property], exclude);
+            }
+
+            Object.freeze(object);
+        }
+
+        return object;
+    }
+
+    /**
+     * Removes an item from an array. This differs from Array.prototype.filter as it mutates the original array instead of creating a new one.
+     * @param {Array} array The array to filter
+     * @param {Any} item The item to remove from the array
+     * @return {Array}
+     */
+    static removeFromArray(array, item) {
+        let index;
+        while ((index = array.indexOf(item)) > -1) array.splice(index, 1);
+        return array;
+    }
+
+    /**
+     * Checks if a file exists and is a file.
+     * @param {String} path The file's path
+     * @return {Promise}
+     */
+    static async fileExists(path) {
+        const fs = require("fs");
+        return new Promise((resolve, reject) => {
+            fs.stat(path, (err, stats) => {
+                if (err) {
+                    return reject({
+                        message: `No such file or directory: ${err.path}`,
+                        err
+                    });
+                }
+
+                if (!stats.isFile()) {
+                    return reject({
+                        message: `Not a file: ${path}`,
+                        stats
+                    });
+                }
+
+                resolve();
+            });
+        });
+    }
+
+    /**
+     * Returns the contents of a file.
+     * @param {String} path The file's path
+     * @return {Promise}
+     */
+    static async readFile(path) {
+        try {
+            await this.fileExists(path);
+        }
+        catch (err) {
+            throw err;
+        }
+        
+        const fs = require("fs");
+        return new Promise((resolve, reject) => {
+            fs.readFile(path, "utf-8", (err, data) => {
+                if (err) {
+                    return reject({
+                        message: `Could not read file: ${path}`,
+                        err
+                    });
+                }
+
+                resolve(data);
+            });
+        });
+    }
+
+}</code></pre>
+		</section>
+			</div>
+		</div>
+	</div>
+	<footer>
+				<div class="copyright">Copyright © 2018 Zack Rauen</div>
+			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on November 28th 2018, 6:17:35 pm using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
+	</footer>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/clipboard.min.js"></script>
+	<script src="js/prism.min.js"></script>
+	<script src="js/template.min.js"></script>
+		<!-- start:lunr-search-modal.hbs -->
+		<div class="modal fade" id="lunr-search-modal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">Search results</h4>
+					</div>
+					<div class="modal-body" id="lunr-search-body">
+					</div>
+					<div class="modal-footer" id="lunr-search-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div>
+		<!-- end:lunr-search-modal.hbs -->		<script src="js/lunr.min.js"></script>
+	
+</body>
+</html>
+<!-- end:source.tmpl.hbs -->

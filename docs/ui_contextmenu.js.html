@@ -1,0 +1,458 @@
+<!-- start:source.tmpl.hbs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+		<title>ui/contextmenu.js</title>
+		<!--[if lt IE 9]>
+		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<link href="https://fonts.googleapis.com/css?family=PT+Mono" rel="stylesheet">
+		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
+		<link type="text/css" rel="stylesheet" href="css/prism.min.css">
+		<link type="text/css" rel="stylesheet" href="css/template.min.css">
+		<script type="text/javascript">
+			window.TEMPLATE_OPTIONS = {"includeDate":true,"dateFormat":"MMMM Do YYYY, h:mm:ss a","systemName":"Zere's Plugin Library","systemSummary":"A set of helpful utilities and tools for BD plugins.","systemLogo":"","systemColor":"","navMembers":[{"kind":"class","title":"Classes","summary":"All documented classes."},{"kind":"external","title":"Externals","summary":"All documented external members."},{"kind":"global","title":"Globals","summary":"All documented globals."},{"kind":"mixin","title":"Mixins","summary":"All documented mixins."},{"kind":"interface","title":"Interfaces","summary":"All documented interfaces."},{"kind":"module","title":"Modules","summary":"All documented modules."},{"kind":"namespace","title":"Namespaces","summary":"All documented namespaces."},{"kind":"tutorial","title":"Tutorials","summary":"All available tutorials."}],"footer":"","copyright":"Copyright © 2018 Zack Rauen","linenums":true,"collapseSymbols":true,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":false,"showTableOfContents":true,"showAccessFilter":true,"analytics":null,"methodHeadingReturns":true,"sort":"linenum, longname, version, since","search":true,"favicon":null,"stylesheets":[],"scripts":[],"monospaceLinks":false,"cleverLinks":false,"default":{"outputSourceFiles":true},"path":"ink-docstrap","theme":"cerulean","navType":"vertical"};
+			window.DOCLET_TOC_ENABLED = false;
+			window.DOCLET_AFILTER_ENABLED = false;
+		</script>
+</head>
+<body>
+	<!-- start:navbar.hbs -->
+	<header class="navbar navbar-default navbar-fixed-top navbar-inverse">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="index.html">
+					Zere&#x27;s Plugin Library
+				</a>
+				<!-- displayed on small devices -->
+				<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="navbar-collapse collapse" id="topNavigation">
+				<ul class="nav navbar-nav">
+								<li class="dropdown">
+									<a href="list_class.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="List.html">List</a></li>
+											<li><a href="Listenable.html">Listenable</a></li>
+											<li><a href="module-ContextMenu.ImageItem.html">ContextMenu.ImageItem</a></li>
+											<li><a href="module-ContextMenu.ItemGroup.html">ContextMenu.ItemGroup</a></li>
+											<li><a href="module-ContextMenu.Menu.html">ContextMenu.Menu</a></li>
+											<li><a href="module-ContextMenu.MenuItem.html">ContextMenu.MenuItem</a></li>
+											<li><a href="module-ContextMenu.SubMenuItem.html">ContextMenu.SubMenuItem</a></li>
+											<li><a href="module-ContextMenu.TextItem.html">ContextMenu.TextItem</a></li>
+											<li><a href="module-ContextMenu.ToggleItem.html">ContextMenu.ToggleItem</a></li>
+											<li><a href="module-DiscordAPI.Channel.html">DiscordAPI.Channel</a></li>
+											<li><a href="module-DiscordAPI.Guild.html">DiscordAPI.Guild</a></li>
+											<li><a href="module-DiscordAPI.InsufficientPermissions.html">DiscordAPI.InsufficientPermissions</a></li>
+											<li><a href="module-DiscordAPI.Message.html">DiscordAPI.Message</a></li>
+											<li><a href="module-DiscordAPI.User.html">DiscordAPI.User</a></li>
+											<li><a href="module-DiscordAPI.UserSettings.html">DiscordAPI.UserSettings</a></li>
+											<li><a href="module-DOMTools.ClassName.html">DOMTools.ClassName</a></li>
+											<li><a href="module-DOMTools.Selector.html">DOMTools.Selector</a></li>
+											<li><a href="module-Settings.ColorPicker.html">Settings.ColorPicker</a></li>
+											<li><a href="module-Settings.Dropdown.html">Settings.Dropdown</a></li>
+											<li><a href="module-Settings.FilePicker.html">Settings.FilePicker</a></li>
+											<li><a href="module-Settings.Keybind.html">Settings.Keybind</a></li>
+											<li><a href="module-Settings.RadioGroup.html">Settings.RadioGroup</a></li>
+											<li><a href="module-Settings.SettingField.html">Settings.SettingField</a></li>
+											<li><a href="module-Settings.SettingGroup.html">Settings.SettingGroup</a></li>
+											<li><a href="module-Settings.SettingPanel.html">Settings.SettingPanel</a></li>
+											<li><a href="module-Settings.Slider.html">Settings.Slider</a></li>
+											<li><a href="module-Settings.Switch.html">Settings.Switch</a></li>
+											<li><a href="module-Settings.Textbox.html">Settings.Textbox</a></li>
+											<li><a href="module-Tooltip_module_Tooltip.html">Tooltip>module:Tooltip</a></li>
+											<li><a href="module-WebpackModules.Filters.html">WebpackModules.Filters</a></li>
+											<li><a href="Screen.html">Screen</a></li>
+									</ul>
+								</li>
+								<li class="dropdown">
+									<a href="list_interface.html" class="dropdown-toggle" data-toggle="dropdown">Interfaces<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="module-DOMTools-Offset.html">DOMTools~Offset</a></li>
+											<li><a href="module-Modals-Changelog.html">Modals~Changelog</a></li>
+											<li><a href="module-Settings-DropdownItem.html">Settings~DropdownItem</a></li>
+											<li><a href="module-Settings-RadioItem.html">Settings~RadioItem</a></li>
+									</ul>
+								</li>
+								<li class="dropdown">
+									<a href="list_module.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="module-ColorConverter.html">ColorConverter</a></li>
+											<li><a href="module-ContextMenu.html">ContextMenu</a></li>
+											<li><a href="module-DiscordAPI.html">DiscordAPI</a></li>
+											<li><a href="module-DiscordClasses.html">DiscordClasses</a></li>
+											<li><a href="module-DiscordClassModules.html">DiscordClassModules</a></li>
+											<li><a href="module-DiscordModules.html">DiscordModules</a></li>
+											<li><a href="module-DiscordSelectors.html">DiscordSelectors</a></li>
+											<li><a href="module-DOMTools.html">DOMTools</a></li>
+											<li><a href="module-Logger.html">Logger</a></li>
+											<li><a href="module-Modals.html">Modals</a></li>
+											<li><a href="module-Patcher.html">Patcher</a></li>
+											<li><a href="module-PluginUpdater.html">PluginUpdater</a></li>
+											<li><a href="module-PluginUtilities.html">PluginUtilities</a></li>
+											<li><a href="module-Popouts.html">Popouts</a></li>
+											<li><a href="module-ReactTools.html">ReactTools</a></li>
+											<li><a href="module-Settings.html">Settings</a></li>
+											<li><a href="module-Toasts.html">Toasts</a></li>
+											<li><a href="module-Tooltip.html">Tooltip</a></li>
+											<li><a href="module-Utilities.html">Utilities</a></li>
+											<li><a href="module-WebpackModules.html">WebpackModules</a></li>
+									</ul>
+								</li>
+				</ul>
+					<!-- start:lunr-search-navbar.hbs -->
+					<form class="navbar-form navbar-right" role="search">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Search" id="lunr-search-input">
+							<div class="input-group-btn">
+								<button class="btn btn-default" id="lunr-search-submit">
+									<i class="glyphicon glyphicon-search"></i>
+								</button>
+							</div>
+						</div>
+					</form>
+					<!-- start:lunr-search-navbar.hbs -->		</div>
+		</div>
+	</header>
+	<!-- end:navbar.hbs -->		<div class="page-header">
+			<div class="container">
+				<span class="kind">source</span>
+				<h1><span class="name">ui/contextmenu.js</span></h1>
+			</div>
+		</div>
+	<div class="container content">
+		<div class="row">
+			<div class="col-md-12 main-content">
+		<section class="source-section">
+			<article></article>
+			<pre class="prettyprint source language-javascript line-numbers"><code class="language-javascript">/**
+ * Self-made context menus that emulate Discord's own context menus.
+ * @module ContextMenu
+ * @version 0.1.0
+ */
+
+import DiscordClasses from "../modules/discordclasses";
+import DiscordSelectors from "../modules/discordselectors";
+import ReactTools from "../modules/reacttools";
+import DiscordModules from "../modules/discordmodules";
+import DOMTools from "../modules/domtools";
+import Screen from "../structs/screen";
+
+/**
+ * Updates the location of a Discord menu, especially useful when adding items to the menu via DOM.
+ * @param {HTMLElement|jQuery} menu - The original discord menu
+ */
+export function updateDiscordMenu(menu) {
+	if (!(menu instanceof window.jQuery) &amp;&amp; !(menu instanceof Element)) return;
+	const updateHeight = ReactTools.getReactProperty(menu, "return.stateNode.props.onHeightUpdate");
+	if (updateHeight) updateHeight();
+}
+
+/** Main menu class for creating custom context menus. */
+export class Menu {
+    /**
+     * 
+     * @param {boolean} [scroll=false] - should this menu be a scrolling menu (usually only used for submenus)
+     */
+	constructor(scroll = false) {
+		this.theme = DiscordModules.UserSettingsStore.theme == "dark" ? "theme-dark" : "theme-light";
+		this.element = DOMTools.createElement(`&lt;div class="${DiscordClasses.ContextMenu.contextMenu} plugin-context-menu ${this.theme}">&lt;/div>`);
+		this.scroll = scroll;
+		if (!scroll) return;
+		this.scroller = DOMTools.createElement(`&lt;div class="${DiscordClasses.Scrollers.scroller} ${DiscordClasses.ContextMenu.scroller}">&lt;/div>`);
+		this.scrollerWrap = DOMTools.createElement(`&lt;div class="${DiscordClasses.Scrollers.scrollerWrap} ${DiscordClasses.Scrollers.scrollerThemed} ${DiscordClasses.Scrollers.themeGhostHairline}">&lt;/div>`);
+		this.scrollerWrap.append(this.scroller);
+		this.element.append(this.scrollerWrap);
+	}
+    
+    /**
+     * Adds an item group to the menu. The group should already be populated.
+     * @param {module:ContextMenu.ItemGroup} contextGroup - group to add to the menu
+     * @returns {module:ContextMenu.Menu} returns self for chaining
+     */
+	addGroup(contextGroup) {
+		if (this.scroll) this.scroller.append(contextGroup.getElement());
+		else this.element.append(contextGroup.getElement());
+		return this;
+	}
+    
+    /**
+     * Adds items to the context menu directly. It is recommended to add to a group and use 
+     * {@link module:ContextMenu.Menu.addGroup} instead to behave as natively as possible.
+     * @param {module:ContextMenu.MenuItem} contextItems - list of items to add to the context menu
+     * @returns {module:ContextMenu.Menu} returns self for chaining
+     */
+	addItems(...contextItems) {
+		for (var i = 0; i &lt; contextItems.length; i++) {
+			if (this.scroll) this.scroller.append(contextItems[i].getElement());
+			else this.element.append(contextItems[i].getElement());
+		}
+		return this;
+	}
+    
+    /**
+     * Shows the menu at a specific x and y position. This generally comes from the
+     * pointer position on a right click event.
+     * @param {number} x - x coordinate for the menu to show at
+     * @param {number} y - y coordinate for the menu to show at
+     */
+	show(x, y) {
+		const mouseX = x;
+		const mouseY = y;
+		
+		const parents = this.element.parents(this.parentSelector);
+		const depth = parents.length;
+		if (depth == 0) this.element.appendTo("#app-mount");
+		this.element.css("top", mouseY + "px").css("left", mouseX + "px");
+		
+		if (depth > 0) {
+			const top = parents[parents.length - 1];
+			const closest = parents[0];
+			const negate = closest.hasClass(DiscordClasses.ContextMenu.invertChildX) ? -1 : 1;
+			const value = negate * closest.find(DiscordSelectors.ContextMenu.item).outerWidth() + closest.offset().left - top.offset().left;
+			this.element.css("margin-left", `${value}px`);
+		}
+		
+		if (mouseY + this.element.outerHeight() >= Screen.height) {
+			this.element.addClass("invertY").addClass(DiscordClasses.ContextMenu.invertY);
+			this.element.css("top", `${mouseY - this.element.outerHeight()}px`);
+			if (depth > 0) this.element.css("top", `${(mouseY + this.element.parent().outerHeight()) - this.element.outerHeight()}px`);
+		}
+		if (this.element.offset().left + this.element.outerWidth() >= Screen.width) {
+			this.element.addClass("invertX");
+			this.element.css("left", `${mouseX - this.element.outerWidth()}px`);
+		}
+		if (this.element.offset().left + 2 * this.element.outerWidth() >= Screen.width) {
+			this.element.addClass(DiscordClasses.ContextMenu.invertChildX);
+		}
+
+		if (depth !== 0) return;
+		DOMTools.on(document, "mousedown.zctx", (e) => { if (!this.element.contains(e.target) &amp;&amp; !this.element.isSameNode(e.target)) this.removeMenu(); });
+		DOMTools.on(document, "click.zctx", (e) => { if (this.element.contains(e.target)) this.removeMenu(); });
+		DOMTools.on(document, "keyup.zctx", (e) => { if (e.keyCode === 27) this.removeMenu(); });
+	}
+    
+    /** Allows you to remove the menu. */
+	removeMenu() {
+		this.element.remove();
+		const childs = this.element.findAll(this.parentSelector);
+		if (childs) childs.forEach(c => c.remove());
+		DOMTools.off(document, ".zctx");
+	}
+    
+    /**
+     * Used to attach a menu to a menu item. This is how to create a submenu.
+     * If using {@link module:ContextMenu.SubMenuItem} then you do not need
+     * to call this function as it is done automatically. If you want to attach
+     * a submenu to an existing Discord context menu, then you should use this
+     * method.
+     * @param {(HTMLElement|jQuery)} menuItem - item to attach to
+     */
+	attachTo(menuItem) {
+		this.menuItem = $(menuItem);
+		menuItem.on("mouseenter", () => {
+			this.element.appendTo(menuItem);
+			const left = this.element.parents(this.parentSelector)[0].css("left");
+			this.show(parseInt(left.replace("px", "")), menuItem.offset().top);
+		});
+		menuItem.on("mouseleave", () => { this.element.remove(); });
+	}
+
+	get parentSelector() {return this.element.parents(".plugin-context-menu").length > this.element.parents(DiscordSelectors.ContextMenu.contextMenu).length ? ".plugin-context-menu" : DiscordSelectors.ContextMenu.contextMenu;}
+}
+
+/** Class that represents a group of menu items. */
+export class ItemGroup {
+    /** Creates an item group. */
+	constructor() {
+		this.element = DOMTools.createElement(`&lt;div class="${DiscordClasses.ContextMenu.itemGroup}">&lt;/div>`);
+	}
+    
+    /**
+     * This is the method of adding menu items to a menu group.
+     * @param {module:ContextMenu.MenuItem} contextItems - list of context menu items to add to this group
+     * @returns {module:ContextMenu.ItemGroup} returns self for chaining
+     */
+	addItems(...contextItems) {
+		for (var i = 0; i &lt; contextItems.length; i++) {
+			this.element.append(contextItems[i].getElement());
+		}
+		return this;
+	}
+    
+    /** @returns {HTMLElement} returns the DOM node for the group */
+	getElement() { return this.element; }
+}
+
+/**
+ * Fires when the attached menu item it clicked.
+ * @param {MouseEvent} event - the mouse event from clicking the item
+ * @callback module:ContextMenu~clickEvent
+ */
+
+ /**
+ * Fires when the checkbox item changes state.
+ * @param {boolean} isChecked - if the checkbox is now checked
+ * @callback module:ContextMenu~onChange
+ */
+
+/** Base class for all other menu items. */
+export class MenuItem {
+    /**
+     * @param {string} label - label to show on the menu item
+     * @param {object} options - additional options for the item
+     * @param {boolean} [options.danger=false] - should the item show as danger
+     * @param {module:ContextMenu~clickEvent} [options.callback] - callback for when it is clicked
+     */
+	constructor(label, options = {}) {
+		const {danger = false, callback} = options;
+		this.element = DOMTools.createElement(`&lt;div class="${DiscordClasses.ContextMenu.item}">&lt;/div>`);
+		this.label = label;
+		if (danger) this.element.addClass(DiscordClasses.ContextMenu.danger);
+		this.element.on("click", (event) => {
+			if (!Array.from(this.element.children).some(c => c.isSameNode(event.target)) &amp;&amp; !this.element.isSameNode(event.target)) return;
+			if (typeof(callback) == "function") callback(event);
+			else event.stopPropagation();
+		});
+	}
+	getElement() { return this.element;}
+}
+
+/** 
+ * Creates a text menu item that can have a hint.
+ * @extends module:ContextMenu.MenuItem
+ */
+export class TextItem extends MenuItem {
+    /**
+     * @param {string} label - label to show on the menu item
+     * @param {object} options - additional options for the item
+     * @param {string} [options.hint=""] - hint to show on the item (usually used for key combos)
+     * @param {boolean} [options.danger=false] - should the item show as danger
+     * @param {module:ContextMenu~clickEvent} [options.callback] - callback for when it is clicked
+     */
+	constructor(label, options = {}) {
+		super(label, options);
+		const {hint = ""} = options;
+		this.element.append(DOMTools.createElement(`&lt;span>${label}&lt;/span>`));
+		this.element.append(DOMTools.createElement(`&lt;div class="${DiscordClasses.ContextMenu.hint}">${hint}&lt;/div>`));
+	}
+}
+
+/** 
+ * Creates an image menu item that can have an image.
+ * @extends module:ContextMenu.MenuItem
+ */
+export class ImageItem extends MenuItem {
+    /**
+     * @param {string} label - label to show on the menu item
+     * @param {string} imageSrc - link to the image to embed
+     * @param {object} options - additional options for the item
+     * @param {string} [options.hint=""] - hint to show on the item (usually used for key combos)
+     * @param {boolean} [options.danger=false] - should the item show as danger
+     * @param {module:ContextMenu~clickEvent} [options.callback] - callback for when it is clicked
+     */
+	constructor(label, imageSrc, options = {}) {
+		super(label, options);
+		this.element.addClass(DiscordClasses.ContextMenu.itemImage);
+		this.element.append(DOMTools.createElement(`&lt;div class="${DiscordClasses.ContextMenu.label}">${label}&lt;/div>`));
+		this.element.append(DOMTools.createElement(`&lt;img src="${imageSrc}">`));
+	}
+}
+
+/** 
+ * Creates a menu item with an attached submenu.
+ * @extends module:ContextMenu.MenuItem
+ */
+export class SubMenuItem extends MenuItem {
+    /**
+     * @param {string} label - label to show on the menu item
+     * @param {module:ContextMenu.Menu} subMenu - context menu that should be attached to this item
+     * @param {object} options - additional options for the item
+     * @param {string} [options.hint=""] - hint to show on the item (usually used for key combos)
+     * @param {boolean} [options.danger=false] - should the item show as danger
+     * @param {module:ContextMenu~clickEvent} [options.callback] - callback for when it is clicked
+     */
+	constructor(label, subMenu, options = {}) {
+		// if (!(subMenu instanceof ContextSubMenu)) throw "subMenu must be of ContextSubMenu type.";
+		super(label, options);
+		this.element.addClass(DiscordClasses.ContextMenu.itemSubMenu).text(label);
+		this.subMenu = subMenu;
+		this.subMenu.attachTo(this.getElement());
+	}
+}
+
+/** 
+ * Creates a menu item with a checkbox.
+ * @extends module:ContextMenu.MenuItem
+ */
+export class ToggleItem extends MenuItem {
+    /**
+     * @param {string} label - label to show on the menu item
+     * @param {boolean} checked - should the item start out checked
+     * @param {object} options - additional options for the item
+     * @param {string} [options.hint=""] - hint to show on the item (usually used for key combos)
+     * @param {boolean} [options.danger=false] - should the item show as danger
+     * @param {module:ContextMenu~onChange} [options.callback] - callback for when the checkbox changes
+     */
+	constructor(label, checked, options = {}) {
+		const {callback: onChange} = options;
+		if (options.callback) delete options.callback;
+		super(label, options);
+		this.element.addClass(DiscordClasses.ContextMenu.itemToggle);
+		this.element.append(DOMTools.createElement(`&lt;div class="${DiscordClasses.ContextMenu.label}">${label}&lt;/div>`));
+		this.checkbox = DOMTools.createElement(`&lt;div class="checkbox">&lt;/div>`);
+		this.checkbox.append(DOMTools.createElement(`&lt;div class="checkbox-inner">&lt;/div>`));
+		this.checkbox.append(DOMTools.createElement("&lt;span>"));
+		this.input = DOMTools.createElement(`&lt;input type="checkbox">`);
+		this.input.checked = checked;
+		this.checkbox.find(".checkbox-inner").append(this.input);
+		this.checkbox.find(".checkbox-inner").append(DOMTools.createElement("&lt;span>"));
+        this.element.append(this.checkbox);
+        this.element.on("click", (e) => {
+			if (!Array.from(this.element.children).some(c => c.isSameNode(e.target)) &amp;&amp; !this.element.isSameNode(e.target)) return;
+			e.stopPropagation();
+			this.input.checked = !this.input.checked;
+            if (typeof(onChange) == "function") onChange(this.input.checked);
+        });
+	}
+}</code></pre>
+		</section>
+			</div>
+		</div>
+	</div>
+	<footer>
+				<div class="copyright">Copyright © 2018 Zack Rauen</div>
+			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on November 28th 2018, 6:17:35 pm using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
+	</footer>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/clipboard.min.js"></script>
+	<script src="js/prism.min.js"></script>
+	<script src="js/template.min.js"></script>
+		<!-- start:lunr-search-modal.hbs -->
+		<div class="modal fade" id="lunr-search-modal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">Search results</h4>
+					</div>
+					<div class="modal-body" id="lunr-search-body">
+					</div>
+					<div class="modal-footer" id="lunr-search-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div>
+		<!-- end:lunr-search-modal.hbs -->		<script src="js/lunr.min.js"></script>
+	
+</body>
+</html>
+<!-- end:source.tmpl.hbs -->

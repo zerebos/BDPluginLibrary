@@ -1,0 +1,639 @@
+<!-- start:source.tmpl.hbs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+		<title>structs/discord/guild.js</title>
+		<!--[if lt IE 9]>
+		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<link href="https://fonts.googleapis.com/css?family=PT+Mono" rel="stylesheet">
+		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
+		<link type="text/css" rel="stylesheet" href="css/prism.min.css">
+		<link type="text/css" rel="stylesheet" href="css/template.min.css">
+		<script type="text/javascript">
+			window.TEMPLATE_OPTIONS = {"includeDate":true,"dateFormat":"MMMM Do YYYY, h:mm:ss a","systemName":"Zere's Plugin Library","systemSummary":"A set of helpful utilities and tools for BD plugins.","systemLogo":"","systemColor":"","navMembers":[{"kind":"class","title":"Classes","summary":"All documented classes."},{"kind":"external","title":"Externals","summary":"All documented external members."},{"kind":"global","title":"Globals","summary":"All documented globals."},{"kind":"mixin","title":"Mixins","summary":"All documented mixins."},{"kind":"interface","title":"Interfaces","summary":"All documented interfaces."},{"kind":"module","title":"Modules","summary":"All documented modules."},{"kind":"namespace","title":"Namespaces","summary":"All documented namespaces."},{"kind":"tutorial","title":"Tutorials","summary":"All available tutorials."}],"footer":"","copyright":"Copyright © 2018 Zack Rauen","linenums":true,"collapseSymbols":true,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":false,"showTableOfContents":true,"showAccessFilter":true,"analytics":null,"methodHeadingReturns":true,"sort":"linenum, longname, version, since","search":true,"favicon":null,"stylesheets":[],"scripts":[],"monospaceLinks":false,"cleverLinks":false,"default":{"outputSourceFiles":true},"path":"ink-docstrap","theme":"cerulean","navType":"vertical"};
+			window.DOCLET_TOC_ENABLED = false;
+			window.DOCLET_AFILTER_ENABLED = false;
+		</script>
+</head>
+<body>
+	<!-- start:navbar.hbs -->
+	<header class="navbar navbar-default navbar-fixed-top navbar-inverse">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="index.html">
+					Zere&#x27;s Plugin Library
+				</a>
+				<!-- displayed on small devices -->
+				<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="navbar-collapse collapse" id="topNavigation">
+				<ul class="nav navbar-nav">
+								<li class="dropdown">
+									<a href="list_class.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="List.html">List</a></li>
+											<li><a href="Listenable.html">Listenable</a></li>
+											<li><a href="module-ContextMenu.ImageItem.html">ContextMenu.ImageItem</a></li>
+											<li><a href="module-ContextMenu.ItemGroup.html">ContextMenu.ItemGroup</a></li>
+											<li><a href="module-ContextMenu.Menu.html">ContextMenu.Menu</a></li>
+											<li><a href="module-ContextMenu.MenuItem.html">ContextMenu.MenuItem</a></li>
+											<li><a href="module-ContextMenu.SubMenuItem.html">ContextMenu.SubMenuItem</a></li>
+											<li><a href="module-ContextMenu.TextItem.html">ContextMenu.TextItem</a></li>
+											<li><a href="module-ContextMenu.ToggleItem.html">ContextMenu.ToggleItem</a></li>
+											<li><a href="module-DiscordAPI.Channel.html">DiscordAPI.Channel</a></li>
+											<li><a href="module-DiscordAPI.Guild.html">DiscordAPI.Guild</a></li>
+											<li><a href="module-DiscordAPI.InsufficientPermissions.html">DiscordAPI.InsufficientPermissions</a></li>
+											<li><a href="module-DiscordAPI.Message.html">DiscordAPI.Message</a></li>
+											<li><a href="module-DiscordAPI.User.html">DiscordAPI.User</a></li>
+											<li><a href="module-DiscordAPI.UserSettings.html">DiscordAPI.UserSettings</a></li>
+											<li><a href="module-DOMTools.ClassName.html">DOMTools.ClassName</a></li>
+											<li><a href="module-DOMTools.Selector.html">DOMTools.Selector</a></li>
+											<li><a href="module-Settings.ColorPicker.html">Settings.ColorPicker</a></li>
+											<li><a href="module-Settings.Dropdown.html">Settings.Dropdown</a></li>
+											<li><a href="module-Settings.FilePicker.html">Settings.FilePicker</a></li>
+											<li><a href="module-Settings.Keybind.html">Settings.Keybind</a></li>
+											<li><a href="module-Settings.RadioGroup.html">Settings.RadioGroup</a></li>
+											<li><a href="module-Settings.SettingField.html">Settings.SettingField</a></li>
+											<li><a href="module-Settings.SettingGroup.html">Settings.SettingGroup</a></li>
+											<li><a href="module-Settings.SettingPanel.html">Settings.SettingPanel</a></li>
+											<li><a href="module-Settings.Slider.html">Settings.Slider</a></li>
+											<li><a href="module-Settings.Switch.html">Settings.Switch</a></li>
+											<li><a href="module-Settings.Textbox.html">Settings.Textbox</a></li>
+											<li><a href="module-Tooltip_module_Tooltip.html">Tooltip>module:Tooltip</a></li>
+											<li><a href="module-WebpackModules.Filters.html">WebpackModules.Filters</a></li>
+											<li><a href="Screen.html">Screen</a></li>
+									</ul>
+								</li>
+								<li class="dropdown">
+									<a href="list_interface.html" class="dropdown-toggle" data-toggle="dropdown">Interfaces<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="module-DOMTools-Offset.html">DOMTools~Offset</a></li>
+											<li><a href="module-Modals-Changelog.html">Modals~Changelog</a></li>
+											<li><a href="module-Settings-DropdownItem.html">Settings~DropdownItem</a></li>
+											<li><a href="module-Settings-RadioItem.html">Settings~RadioItem</a></li>
+									</ul>
+								</li>
+								<li class="dropdown">
+									<a href="list_module.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="module-ColorConverter.html">ColorConverter</a></li>
+											<li><a href="module-ContextMenu.html">ContextMenu</a></li>
+											<li><a href="module-DiscordAPI.html">DiscordAPI</a></li>
+											<li><a href="module-DiscordClasses.html">DiscordClasses</a></li>
+											<li><a href="module-DiscordClassModules.html">DiscordClassModules</a></li>
+											<li><a href="module-DiscordModules.html">DiscordModules</a></li>
+											<li><a href="module-DiscordSelectors.html">DiscordSelectors</a></li>
+											<li><a href="module-DOMTools.html">DOMTools</a></li>
+											<li><a href="module-Logger.html">Logger</a></li>
+											<li><a href="module-Modals.html">Modals</a></li>
+											<li><a href="module-Patcher.html">Patcher</a></li>
+											<li><a href="module-PluginUpdater.html">PluginUpdater</a></li>
+											<li><a href="module-PluginUtilities.html">PluginUtilities</a></li>
+											<li><a href="module-Popouts.html">Popouts</a></li>
+											<li><a href="module-ReactTools.html">ReactTools</a></li>
+											<li><a href="module-Settings.html">Settings</a></li>
+											<li><a href="module-Toasts.html">Toasts</a></li>
+											<li><a href="module-Tooltip.html">Tooltip</a></li>
+											<li><a href="module-Utilities.html">Utilities</a></li>
+											<li><a href="module-WebpackModules.html">WebpackModules</a></li>
+									</ul>
+								</li>
+				</ul>
+					<!-- start:lunr-search-navbar.hbs -->
+					<form class="navbar-form navbar-right" role="search">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Search" id="lunr-search-input">
+							<div class="input-group-btn">
+								<button class="btn btn-default" id="lunr-search-submit">
+									<i class="glyphicon glyphicon-search"></i>
+								</button>
+							</div>
+						</div>
+					</form>
+					<!-- start:lunr-search-navbar.hbs -->		</div>
+		</div>
+	</header>
+	<!-- end:navbar.hbs -->		<div class="page-header">
+			<div class="container">
+				<span class="kind">source</span>
+				<h1><span class="name">structs/discord/guild.js</span></h1>
+			</div>
+		</div>
+	<div class="container content">
+		<div class="row">
+			<div class="col-md-12 main-content">
+		<section class="source-section">
+			<article></article>
+			<pre class="prettyprint source language-javascript line-numbers"><code class="language-javascript">/**
+ * BetterDiscord Guild Struct
+ * Copyright (c) 2018-present JsSucks
+ * All rights reserved.
+ *
+ * This source code is licensed under the MIT license found at
+ * https://github.com/JsSucks/BetterDiscordApp/blob/master/LICENSE
+*/
+
+import { DiscordAPI, DiscordModules as Modules, Utilities } from "modules";
+import { List, InsufficientPermissions } from "structs";
+import { Channel } from "./channel";
+import { GuildMember } from "./user";
+
+const roles = new WeakMap();
+
+export class Role {
+    constructor(data, guild_id) {
+        if (roles.has(data)) return roles.get(data);
+        roles.set(data, this);
+
+        this.discordObject = data;
+        this.guildId = guild_id;
+    }
+
+    get id() { return this.discordObject.id; }
+    get name() { return this.discordObject.name; }
+    get position() { return this.discordObject.position; }
+    get originalPosition() { return this.discordObject.originalPosition; }
+    get permissions() { return this.discordObject.permissions; }
+    get managed() { return this.discordObject.managed; }
+    get mentionable() { return this.discordObject.mentionable; }
+    get hoist() { return this.discordObject.hoist; }
+    get colour() { return this.discordObject.color; }
+    get colourString() { return this.discordObject.colorString; }
+
+    get guild() {
+        return Guild.fromId(this.guildId);
+    }
+
+    get members() {
+        return this.guild.members.filter(m => m.roles.includes(this));
+    }
+}
+
+const emojis = new WeakMap();
+
+export class Emoji {
+    constructor(data) {
+        if (emojis.has(data)) return emojis.get(data);
+        emojis.set(data, this);
+
+        this.discordObject = data;
+    }
+
+    get id() { return this.discordObject.id; }
+    get guildId() { return this.discordObject.guild_id; }
+    get name() { return this.discordObject.name; }
+    get managed() { return this.discordObject.managed; }
+    get animated() { return this.discordObject.animated; }
+    get allNamesString() { return this.discordObject.allNamesString; }
+    get requireColons() { return this.discordObject.require_colons; }
+    get url() { return this.discordObject.url; }
+    get roles() { return this.discordObject.roles; }
+
+    get guild() {
+        return Guild.fromId(this.guildId);
+    }
+}
+
+const guilds = new WeakMap();
+
+/**
+ * @memberof module:DiscordAPI
+ */
+class Guild {
+
+    constructor(data) {
+        if (guilds.has(data)) return guilds.get(data);
+        guilds.set(data, this);
+
+        this.discordObject = data;
+    }
+
+    static from(data) {
+        return new Guild(data);
+    }
+
+    static fromId(id) {
+        const guild = Modules.GuildStore.getGuild(id);
+        if (guild) return Guild.from(guild);
+    }
+
+    static get Role() { return Role; }
+    static get Emoji() { return Emoji; }
+
+    get id() { return this.discordObject.id; }
+    get ownerId() { return this.discordObject.ownerId; }
+    get applicationId() { return this.discordObject.application_id; }
+    get systemChannelId() { return this.discordObject.systemChannelId; }
+    get name() { return this.discordObject.name; }
+    get acronym() { return this.discordObject.acronym; }
+    get icon() { return this.discordObject.icon; }
+    get joinedAt() { return this.discordObject.joinedAt; }
+    get verificationLevel() { return this.discordObject.verificationLevel; }
+    get mfaLevel() { return this.discordObject.mfaLevel; }
+    get large() { return this.discordObject.large; }
+    get lazy() { return this.discordObject.lazy; }
+    get voiceRegion() { return this.discordObject.region; }
+    get afkChannelId() { return this.discordObject.afkChannelId; }
+    get afkTimeout() { return this.discordObject.afkTimeout; }
+    get explicitContentFilter() { return this.discordObject.explicitContentFilter; }
+    get defaultMessageNotifications() { return this.discordObject.defaultMessageNotifications; }
+    get splash() { return this.discordObject.splash; }
+    get features() { return this.discordObject.features; }
+
+    get owner() {
+        return this.members.find(m => m.userId === this.ownerId);
+    }
+
+    get roles() {
+        return List.from(Object.values(this.discordObject.roles), r => new Role(r, this.id))
+            .sort((r1, r2) => r1.position === r2.position ? 0 : r1.position > r2.position ? 1 : -1);
+    }
+
+    get channels() {
+        const channels = Modules.GuildChannelsStore.getChannels(this.id);
+        const returnChannels = new List();
+        for (const category in channels) {
+            if (channels.hasOwnProperty(category)) {
+                if (!Array.isArray(channels[category])) continue;
+                const channelList = channels[category];
+                for (const channel of channelList) {
+                    // For some reason Discord adds a new category with the ID "null" and name "Uncategorized"
+                    if (channel.channel.id === "null") continue;
+                    returnChannels.push(Channel.from(channel.channel));
+                }
+            }
+        }
+        return returnChannels;
+    }
+
+    /**
+     * Channels that don't have a parent. (Channel categories and any text/voice channel not in one.)
+     */
+    get mainChannels() {
+        return this.channels.filter(c => !c.parentId);
+    }
+
+    /**
+     * The guild's default channel. (Usually the first in the list.)
+     */
+    get defaultChannel() {
+        return Channel.from(Modules.GuildChannelsStore.getDefaultChannel(this.id));
+    }
+
+    /**
+     * The guild's AFK channel.
+     */
+    get afkChannel() {
+        if (this.afkChannelId) return Channel.fromId(this.afkChannelId);
+    }
+
+    /**
+     * The channel system messages are sent to.
+     */
+    get systemChannel() {
+        if (this.systemChannelId) return Channel.fromId(this.systemChannelId);
+    }
+
+    /**
+     * A list of GuildMember objects.
+     */
+    get members() {
+        const members = Modules.GuildMemberStore.getMembers(this.id);
+        return List.from(members, m => new GuildMember(m, this.id));
+    }
+
+    /**
+     * The current user as a GuildMember of this guild.
+     */
+    get currentUser() {
+        return this.members.find(m => m.user === DiscordAPI.currentUser);
+    }
+
+    /**
+     * The total number of members in the guild.
+     */
+    get memberCount() {
+        return Modules.MemberCountStore.getMemberCount(this.id);
+    }
+
+    /**
+     * An array of the guild's custom emojis.
+     */
+    get emojis() {
+        return List.from(Modules.EmojiUtils.getGuildEmoji(this.id), e => new Emoji(e, this.id));
+    }
+
+    checkPermissions(perms) {
+        return Modules.Permissions.can(perms, DiscordAPI.currentUser, this.discordObject);
+    }
+
+    assertPermissions(name, perms) {
+        if (!this.checkPermissions(perms)) throw new InsufficientPermissions(name);
+    }
+
+    /**
+     * The current user's permissions on this guild.
+     */
+    get permissions() {
+        return Modules.GuildPermissions.getGuildPermissions(this.id);
+    }
+
+    getMember(id) {
+        const member = Modules.GuildMemberStore.getMember(this.id, id);
+        if (member) return new GuildMember(member, this.id);
+    }
+
+    isMember(id) {
+        return Modules.GuildMemberStore.isMember(this.id, id);
+    }
+
+    /**
+     * Whether the user has not restricted direct messages from members of this guild.
+     */
+    get allowPrivateMessages() {
+        return !DiscordAPI.UserSettings.restrictedGuildIds.includes(this.id);
+    }
+
+    /**
+     * Marks all messages in the guild as read.
+     */
+    markAsRead() {
+        Modules.GuildActions.markGuildAsRead(this.id);
+    }
+
+    /**
+     * Selects the guild in the UI.
+     */
+    select() {
+        Modules.GuildActions.selectGuild(this.id);
+    }
+
+    /**
+     * Whether this guild is currently selected.
+     */
+    get isSelected() {
+        return DiscordAPI.currentGuild === this;
+    }
+
+    /**
+     * Opens this guild's settings window.
+     * @param {String} section The section to open (see DiscordConstants.GuildSettingsSections)
+     */
+    openSettings(section = "OVERVIEW") {
+        Modules.GuildSettingsWindow.setSection(section);
+        Modules.GuildSettingsWindow.open(this.id);
+    }
+
+    /**
+     * Kicks members who don't have any roles and haven't been seen in the number of days passed.
+     * @param {Number} days
+     */
+    pruneMembers(days) {
+        this.assertPermissions("KICK_MEMBERS", Modules.DiscordPermissions.KICK_MEMBERS);
+        Modules.PruneMembersModal.prune(this.id, days);
+    }
+
+    openPruneMumbersModal() {
+        this.assertPermissions("KICK_MEMBERS", Modules.DiscordPermissions.KICK_MEMBERS);
+        Modules.PruneMembersModal.open(this.id);
+    }
+
+    /**
+     * Opens the create channel modal for this guild.
+     * @param {Number} type The type of channel to create - either 0 (text), 2 (voice) or 4 (category)
+     * @param {ChannelCategory} category The category to create the channel in
+     * @param {GuildChannel} clone A channel to clone permissions, topic, bitrate and user limit of
+     */
+    openCreateChannelModal(type, category, clone) {
+        this.assertPermissions("MANAGE_CHANNELS", Modules.DiscordPermissions.MANAGE_CHANNELS);
+        Modules.CreateChannelModal.open(type, this.id, category ? category.id : undefined, clone ? clone.id : undefined);
+    }
+
+    /**
+     * Creates a channel in this guild.
+     * @param {Number} type The type of channel to create - either 0 (text), 2 (voice) or 4 (category)
+     * @param {String} name A name for the new channel
+     * @param {ChannelCategory} category The category to create the channel in
+     * @param {Array} permission_overwrites An array of PermissionOverwrite-like objects - leave to use the permissions of the category
+     * @return {Promise&lt;GuildChannel>}
+     */
+    async createChannel(type, name, category, permission_overwrites) {
+        this.assertPermissions("MANAGE_CHANNELS", Modules.DiscordPermissions.MANAGE_CHANNELS);
+        const response = await Modules.APIModule.post({
+            url: Modules.DiscordConstants.Endpoints.GUILD_CHANNELS(this.id),
+            body: {
+                type, name,
+                parent_id: category ? category.id : undefined,
+                permission_overwrites: permission_overwrites ? permission_overwrites.map(p => ({
+                    type: p.type,
+                    id: (p.type === "user" ? p.userId : p.roleId) || p.id,
+                    allow: p.allow,
+                    deny: p.deny
+                })) : undefined
+            }
+        });
+
+        return Channel.fromId(response.body.id);
+    }
+
+    openNotificationSettingsModal() {
+        Modules.NotificationSettingsModal.open(this.id);
+    }
+
+    openPrivacySettingsModal() {
+        Modules.PrivacySettingsModal.open(this.id);
+    }
+
+    nsfwAgree() {
+        Modules.GuildActions.nsfwAgree(this.id);
+    }
+
+    nsfwDisagree() {
+        Modules.GuildActions.nsfwDisagree(this.id);
+    }
+
+    /**
+     * Changes the guild's position in the list.
+     * @param {Number} index The new position
+     */
+    changeSortLocation(index) {
+        Modules.GuildActions.move(DiscordAPI.guildPositions.indexOf(this.id), index);
+    }
+
+    /**
+     * Updates this guild.
+     * @return {Promise}
+     */
+    async updateGuild(body) {
+        this.assertPermissions("MANAGE_GUILD", Modules.DiscordPermissions.MANAGE_GUILD);
+        await Modules.GuildSettingsWindow.saveGuild(this.id, body);
+        this.discordObject = Modules.GuildStore.getGuild(this.id);
+        guilds.set(this.discordObject, this);
+    }
+
+    /**
+     * Updates this guild's name.
+     * @param {String} name The new name
+     * @return {Promise}
+     */
+    updateName(name) {
+        return this.updateGuild({ name });
+    }
+
+    /**
+     * Updates this guild's voice region.
+     * @param {String} region The ID of the new voice region (obtainable via the API - see https://discordapp.com/developers/docs/resources/voice#list-voice-regions)
+     * @return {Promise}
+     */
+    updateVoiceRegion(region) {
+        return this.updateGuild({ region });
+    }
+
+    /**
+     * Updates this guild's verification level.
+     * @param {Number} verificationLevel The new verification level (see https://discordapp.com/developers/docs/resources/guild#guild-object-verification-level)
+     * @return {Promise}
+     */
+    updateVerificationLevel(verification_level) {
+        return this.updateGuild({ verification_level });
+    }
+
+    /**
+     * Updates this guild's default message notification level.
+     * @param {Number} defaultMessageNotifications The new default notification level (0: all messages, 1: only mentions)
+     * @return {Promise}
+     */
+    updateDefaultMessageNotifications(default_message_notifications) {
+        return this.updateGuild({ default_message_notifications });
+    }
+
+    /**
+     * Updates this guild's explicit content filter level.
+     * @param {Number} explicitContentFilter The new explicit content filter level (0: disabled, 1: members without roles, 2: everyone)
+     * @return {Promise}
+     */
+    updateExplicitContentFilter(explicit_content_filter) {
+        return this.updateGuild({ explicit_content_filter });
+    }
+
+    /**
+     * Updates this guild's AFK channel.
+     * @param {GuildVoiceChannel} afkChannel The new AFK channel
+     * @return {Promise}
+     */
+    updateAfkChannel(afk_channel) {
+        return this.updateGuild({ afk_channel_id: afk_channel.id || afk_channel });
+    }
+
+    /**
+     * Updates this guild's AFK timeout.
+     * @param {Number} afkTimeout The new AFK timeout
+     * @return {Promise}
+     */
+    updateAfkTimeout(afk_timeout) {
+        return this.updateGuild({ afk_timeout });
+    }
+
+    /**
+     * Updates this guild's icon.
+     * @param {Buffer|String} icon A buffer/base 64 encoded 128x128 JPEG image
+     * @return {Promise}
+     */
+    updateIcon(icon) {
+        return this.updateGuild({ icon: typeof icon === "string" ? icon : icon.toString("base64") });
+    }
+
+    /**
+     * Updates this guild's icon using a local file.
+     * TODO
+     * @param {String} icon_path The path to the new icon
+     * @return {Promise}
+     */
+    async updateIconFromFile(icon_path) {
+        const buffer = await Utilities.readFileBuffer(icon_path);
+        return this.updateIcon(buffer);
+    }
+
+    /**
+     * Updates this guild's owner. (Should plugins really ever need to do this?)
+     * @param {User|GuildMember} owner The user/guild member to transfer ownership to
+     * @return {Promise}
+     */
+    updateOwner(owner) {
+        return this.updateGuild({ owner_id: owner.user ? owner.user.id : owner.id || owner });
+    }
+
+    /**
+     * Updates this guild's splash image.
+     * (I don't know what this is actually used for. The API documentation says it's VIP-only.)
+     * @param {Buffer|String} icon A buffer/base 64 encoded 128x128 JPEG image
+     * @return {Promise}
+     */
+    updateSplash(splash) {
+        return this.updateGuild({ splash: typeof splash === "string" ? splash : splash.toString("base64") });
+    }
+
+    /**
+     * Updates this guild's splash image using a local file.
+     * TODO
+     * @param {String} splash_path The path to the new splash
+     * @return {Promise}
+     */
+    async updateSplashFromFile(splash_path) {
+        const buffer = await Utilities.readFileBuffer(splash_path);
+        return this.updateSplash(buffer);
+    }
+
+    /**
+     * Updates this guild's system channel.
+     * @param {GuildTextChannel} systemChannel The new system channel
+     * @return {Promise}
+     */
+    updateSystemChannel(system_channel) {
+        return this.updateGuild({ system_channel_id: system_channel.id || system_channel });
+    }
+
+}
+
+export {Guild};</code></pre>
+		</section>
+			</div>
+		</div>
+	</div>
+	<footer>
+				<div class="copyright">Copyright © 2018 Zack Rauen</div>
+			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on November 28th 2018, 6:17:35 pm using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
+	</footer>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/clipboard.min.js"></script>
+	<script src="js/prism.min.js"></script>
+	<script src="js/template.min.js"></script>
+		<!-- start:lunr-search-modal.hbs -->
+		<div class="modal fade" id="lunr-search-modal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">Search results</h4>
+					</div>
+					<div class="modal-body" id="lunr-search-body">
+					</div>
+					<div class="modal-footer" id="lunr-search-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div>
+		<!-- end:lunr-search-modal.hbs -->		<script src="js/lunr.min.js"></script>
+	
+</body>
+</html>
+<!-- end:source.tmpl.hbs -->
