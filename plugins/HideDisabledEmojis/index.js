@@ -1,11 +1,8 @@
 
 module.exports = (Plugin, Api) => {
-    const {Logger, Patcher, Toasts, WebpackModules} = Api;
+    const {Patcher, Toasts, WebpackModules} = Api;
     return class HideDisabledEmojis extends Plugin {
         onStart() {
-            //super.start();
-            Logger.info("Started");
-
             let EmojiInfo = WebpackModules.findByUniqueProperties(["isEmojiDisabled"]);
             let EmojiPicker = WebpackModules.findByDisplayName("EmojiPicker");
             Patcher.after(EmojiInfo, "isEmojiFiltered", (thisObject, methodArguments, returnValue) => {
@@ -38,7 +35,6 @@ module.exports = (Plugin, Api) => {
         }
         
         onStop() {
-            Logger.info("stopped");
             Patcher.unpatchAll();
         }
 

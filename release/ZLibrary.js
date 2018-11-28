@@ -420,7 +420,7 @@ __webpack_require__.r(__webpack_exports__);
  * have the library installed or have a plugin using this library,
  * do `Object.keys(ZLibrary.DiscordModules)` in console for a list of modules.
  * @module DiscordModules
- * @version 0.0.2
+ * @version 0.0.3
  */
 
 
@@ -467,8 +467,8 @@ __webpack_require__.r(__webpack_exports__);
     get UserTypingStore() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("isTyping");},
     get UserActivityStore() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getActivity");},
     get UserNameResolver() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getName");},
-    get UserNoteStore() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps(["getNote"]);},
-    get UserNoteActions() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps(["updateNote"]);},
+    get UserNoteStore() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getNote");},
+    get UserNoteActions() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("updateNote");},
 
     /* Emoji Store and Utils */
     get EmojiInfo() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("isEmojiDisabled");},
@@ -482,6 +482,7 @@ __webpack_require__.r(__webpack_exports__);
 
     /* Discord Objects & Utils */
     get DiscordConstants() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("Permissions", "ActivityTypes", "StatusTypes");},
+    get DiscordPermissions() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("Permissions", "ActivityTypes", "StatusTypes").Permissions;},
     get Permissions() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getHighestRole");},
     get ColorConverter() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("hex2int");},
     get ColorShader() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("darken");},
@@ -559,16 +560,16 @@ __webpack_require__.r(__webpack_exports__);
     get ExtraURLs() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getArticleURL");},
 
     /* Text Processing */
-    get hljs() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps(["highlight", "highlightBlock"]);},
-    get SimpleMarkdown() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps(["parseBlock", "parseInline", "defaultOutput"]);},
+    get hljs() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("highlight", "highlightBlock");},
+    get SimpleMarkdown() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("parseBlock", "parseInline", "defaultOutput");},
 
     /* DOM/React Components */
     /* ==================== */
     get LayerManager() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("popLayer", "pushLayer");},
     get Tooltips() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].find(m => m.hide && m.show && !m.search && !m.submit && !m.search && !m.activateRagingDemon && !m.dismiss);},
-    get UserSettingsWindow() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps(["open", "updateAccount"]);},
-    get ChannelSettingsWindow() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps(["open", "updateChannel"]);},
-    get GuildSettingsWindow() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps(["open", "updateGuild"]);},
+    get UserSettingsWindow() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("open", "updateAccount");},
+    get ChannelSettingsWindow() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("open", "updateChannel");},
+    get GuildSettingsWindow() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("open", "updateGuild");},
 
     /* Modals */
     get ModalStack() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("push", "update", "pop", "popWithKey");},
@@ -577,23 +578,16 @@ __webpack_require__.r(__webpack_exports__);
     get ConfirmationModal() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m.defaultProps && m.key && m.key() == "confirm-modal");},
     get UserProfileModal() {
         return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].find(m => {
-            try {
-                return m.modalConfig && m.prototype.render().type.displayName == "FluxContainer(SubscribeGuildMembersContainer(t))";
-            }
-            catch (err) {return false;}
-        }) || _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].find(m => {
-            try {
-                return m.modalConfig && m.prototype.render().type.displayName == "FluxContainer(Component)";
-            }
+            try {return m.modalConfig && m.prototype.render().type.displayName == "FluxContainer(Component)";}
             catch (err) {return false;}
         });
     },
-    get ChangeNicknameModal() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps(["open", "changeNickname"]);},
-    get CreateChannelModal() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps(["open", "createChannel"]);},
-    get PruneMembersModal() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps(["open", "prune"]);},
-    get NotificationSettingsModal() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps(["open", "updateNotificationSettings"]);},
+    get ChangeNicknameModal() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("open", "changeNickname");},
+    get CreateChannelModal() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("open", "createChannel");},
+    get PruneMembersModal() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("open", "prune");},
+    get NotificationSettingsModal() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("open", "updateNotificationSettings");},
     get PrivacySettingsModal() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByRegex(/PRIVACY_SETTINGS_MODAL_OPEN/, m => m.open);},
-    get CreateInviteModal() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps(["open", "createInvite"]);},
+    get CreateInviteModal() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("open", "createInvite");},
     get Changelog() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule((m => m.defaultProps && m.defaultProps.selectable == false));},
     get Avatar() {
         return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].find(m => {
@@ -611,19 +605,19 @@ __webpack_require__.r(__webpack_exports__);
     get PopoutOpener() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("openPopout");},
     get EmojiPicker() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByPrototypes("onHoverEmoji", "selectEmoji");},
     get UserPopout() {
-        return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByDisplayName("FluxContainer(SubscribeGuildMembersContainer(t))")  || _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].find(m => {
-            try { return m.displayName == "FluxContainer(Component)" && !(new m()); }
-            catch (e) { return e.toString().includes("user"); }
+        return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].find(m => {
+            try {return m.displayName == "FluxContainer(Component)" && !(new m());}
+            catch (e) {return e.toString().includes("user");}
         });
     },
 
     /* Context Menus */
-    get ContextMenuActions() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByRegex(/CONTEXT_MENU_CLOSE/, c => c.close);},
+    get ContextMenuActions() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("openContextMenu");},
     get ContextMenuItemsGroup() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByRegex(/itemGroup/);},
     get ContextMenuItem() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByRegex(/\.label\b.*\.hint\b.*\.action\b/);},
 
     /* Misc */
-    get ExternalLink() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByRegex(/\.trusted\b/);},
+    get ExternalLink() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByRegex(/trusted/);},
     get TextElement() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("Sizes", "Weights");},
     get FlexChild() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("Child");},
     get Titles() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("Tags", "default");},
@@ -641,8 +635,6 @@ __webpack_require__.r(__webpack_exports__);
     get SwitchRow() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m.defaultProps && m.defaultProps.hideBorder == false);},
     get Textbox() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m.defaultProps && m.defaultProps.type == "text");},
 }));
-
-
 
 /***/ }),
 
@@ -2774,7 +2766,7 @@ __webpack_require__.r(__webpack_exports__);
 /**
  * Random set of utilities that didn't fit elsewhere.
  * @module WebpackModules
- * @version 0.0.1
+ * @version 0.0.2
  */
 
 
@@ -2828,7 +2820,7 @@ class Filters {
         return module => {
             const method = filter(module);
             if (!method) return false;
-            return method.toString().search(search) !== -1;
+            return method.toString([]).search(search) !== -1;
         };
     }
 
@@ -3274,7 +3266,7 @@ class GuildChannel extends Channel {
     get nicks() { return this.discordObject.nicks; }
 
     checkPermissions(perms) {
-        return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].PermissionUtils.can(perms, modules__WEBPACK_IMPORTED_MODULE_0__["DiscordAPI"].currentUser, this.discordObject);
+        return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].Permissions.can(perms, modules__WEBPACK_IMPORTED_MODULE_0__["DiscordAPI"].currentUser, this.discordObject);
     }
 
     assertPermissions(name, perms) {
@@ -3728,7 +3720,7 @@ class Guild {
     }
 
     checkPermissions(perms) {
-        return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].PermissionUtils.can(perms, modules__WEBPACK_IMPORTED_MODULE_0__["DiscordAPI"].currentUser, this.discordObject);
+        return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].Permissions.can(perms, modules__WEBPACK_IMPORTED_MODULE_0__["DiscordAPI"].currentUser, this.discordObject);
     }
 
     assertPermissions(name, perms) {
@@ -4537,7 +4529,7 @@ class GuildMember {
     }
 
     checkPermissions(perms) {
-        return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].PermissionUtils.can(perms, modules__WEBPACK_IMPORTED_MODULE_0__["DiscordAPI"].currentUser.discordObject, this.guild.discordObject);
+        return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].Permissions.can(perms, modules__WEBPACK_IMPORTED_MODULE_0__["DiscordAPI"].currentUser.discordObject, this.guild.discordObject);
     }
 
     assertPermissions(name, perms) {

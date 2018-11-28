@@ -178,7 +178,7 @@ export class GuildMember {
     }
 
     checkPermissions(perms) {
-        return Modules.PermissionUtils.can(perms, DiscordAPI.currentUser.discordObject, this.guild.discordObject);
+        return Modules.Permissions.can(perms, DiscordAPI.currentUser.discordObject, this.guild.discordObject);
     }
 
     assertPermissions(name, perms) {

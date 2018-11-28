@@ -1,7 +1,7 @@
 /**
  * Random set of utilities that didn't fit elsewhere.
  * @module WebpackModules
- * @version 0.0.1
+ * @version 0.0.2
  */
 import DiscordModules from "./discordmodules";
 
@@ -55,7 +55,7 @@ export class Filters {
         return module => {
             const method = filter(module);
             if (!method) return false;
-            return method.toString().search(search) !== -1;
+            return method.toString([]).search(search) !== -1;
         };
     }
 

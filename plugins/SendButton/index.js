@@ -4,7 +4,6 @@ module.exports = (Plugin, Api) => {
     const {DiscordSelectors, PluginUtilities, DOMTools} = Api;
     return class SendButton extends Plugin {
         onStart() {
-            require("announcement.js")(Api);
             PluginUtilities.addStyle(this.getName(), css);
             if (document.querySelector("form")) this.addButton(document.querySelector("form"));
         }

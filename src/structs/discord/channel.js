@@ -206,7 +206,7 @@ export class GuildChannel extends Channel {
     get nicks() { return this.discordObject.nicks; }
 
     checkPermissions(perms) {
-        return Modules.PermissionUtils.can(perms, DiscordAPI.currentUser, this.discordObject);
+        return Modules.Permissions.can(perms, DiscordAPI.currentUser, this.discordObject);
     }
 
     assertPermissions(name, perms) {

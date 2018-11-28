@@ -4,7 +4,7 @@
  * have the library installed or have a plugin using this library,
  * do `Object.keys(ZLibrary.DiscordModules)` in console for a list of modules.
  * @module DiscordModules
- * @version 0.0.2
+ * @version 0.0.3
  */
 import Utilities from "./utilities";
 import WebpackModules from "./webpackmodules";
@@ -51,8 +51,8 @@ export default Utilities.memoizeObject({
     get UserTypingStore() {return WebpackModules.getByProps("isTyping");},
     get UserActivityStore() {return WebpackModules.getByProps("getActivity");},
     get UserNameResolver() {return WebpackModules.getByProps("getName");},
-    get UserNoteStore() {return WebpackModules.getByProps(["getNote"]);},
-    get UserNoteActions() {return WebpackModules.getByProps(["updateNote"]);},
+    get UserNoteStore() {return WebpackModules.getByProps("getNote");},
+    get UserNoteActions() {return WebpackModules.getByProps("updateNote");},
 
     /* Emoji Store and Utils */
     get EmojiInfo() {return WebpackModules.getByProps("isEmojiDisabled");},
@@ -66,6 +66,7 @@ export default Utilities.memoizeObject({
 
     /* Discord Objects & Utils */
     get DiscordConstants() {return WebpackModules.getByProps("Permissions", "ActivityTypes", "StatusTypes");},
+    get DiscordPermissions() {return WebpackModules.getByProps("Permissions", "ActivityTypes", "StatusTypes").Permissions;},
     get Permissions() {return WebpackModules.getByProps("getHighestRole");},
     get ColorConverter() {return WebpackModules.getByProps("hex2int");},
     get ColorShader() {return WebpackModules.getByProps("darken");},
@@ -143,16 +144,16 @@ export default Utilities.memoizeObject({
     get ExtraURLs() {return WebpackModules.getByProps("getArticleURL");},
 
     /* Text Processing */
-    get hljs() {return WebpackModules.getByProps(["highlight", "highlightBlock"]);},
-    get SimpleMarkdown() {return WebpackModules.getByProps(["parseBlock", "parseInline", "defaultOutput"]);},
+    get hljs() {return WebpackModules.getByProps("highlight", "highlightBlock");},
+    get SimpleMarkdown() {return WebpackModules.getByProps("parseBlock", "parseInline", "defaultOutput");},
 
     /* DOM/React Components */
     /* ==================== */
     get LayerManager() {return WebpackModules.getByProps("popLayer", "pushLayer");},
     get Tooltips() {return WebpackModules.find(m => m.hide && m.show && !m.search && !m.submit && !m.search && !m.activateRagingDemon && !m.dismiss);},
-    get UserSettingsWindow() {return WebpackModules.getByProps(["open", "updateAccount"]);},
-    get ChannelSettingsWindow() {return WebpackModules.getByProps(["open", "updateChannel"]);},
-    get GuildSettingsWindow() {return WebpackModules.getByProps(["open", "updateGuild"]);},
+    get UserSettingsWindow() {return WebpackModules.getByProps("open", "updateAccount");},
+    get ChannelSettingsWindow() {return WebpackModules.getByProps("open", "updateChannel");},
+    get GuildSettingsWindow() {return WebpackModules.getByProps("open", "updateGuild");},
 
     /* Modals */
     get ModalStack() {return WebpackModules.getByProps("push", "update", "pop", "popWithKey");},
@@ -161,23 +162,16 @@ export default Utilities.memoizeObject({
     get ConfirmationModal() {return WebpackModules.getModule(m => m.defaultProps && m.key && m.key() == "confirm-modal");},
     get UserProfileModal() {
         return WebpackModules.find(m => {
-            try {
-                return m.modalConfig && m.prototype.render().type.displayName == "FluxContainer(SubscribeGuildMembersContainer(t))";
-            }
-            catch (err) {return false;}
-        }) || WebpackModules.find(m => {
-            try {
-                return m.modalConfig && m.prototype.render().type.displayName == "FluxContainer(Component)";
-            }
+            try {return m.modalConfig && m.prototype.render().type.displayName == "FluxContainer(Component)";}
             catch (err) {return false;}
         });
     },
-    get ChangeNicknameModal() {return WebpackModules.getByProps(["open", "changeNickname"]);},
-    get CreateChannelModal() {return WebpackModules.getByProps(["open", "createChannel"]);},
-    get PruneMembersModal() {return WebpackModules.getByProps(["open", "prune"]);},
-    get NotificationSettingsModal() {return WebpackModules.getByProps(["open", "updateNotificationSettings"]);},
+    get ChangeNicknameModal() {return WebpackModules.getByProps("open", "changeNickname");},
+    get CreateChannelModal() {return WebpackModules.getByProps("open", "createChannel");},
+    get PruneMembersModal() {return WebpackModules.getByProps("open", "prune");},
+    get NotificationSettingsModal() {return WebpackModules.getByProps("open", "updateNotificationSettings");},
     get PrivacySettingsModal() {return WebpackModules.getByRegex(/PRIVACY_SETTINGS_MODAL_OPEN/, m => m.open);},
-    get CreateInviteModal() {return WebpackModules.getByProps(["open", "createInvite"]);},
+    get CreateInviteModal() {return WebpackModules.getByProps("open", "createInvite");},
     get Changelog() {return WebpackModules.getModule((m => m.defaultProps && m.defaultProps.selectable == false));},
     get Avatar() {
         return WebpackModules.find(m => {
@@ -195,19 +189,19 @@ export default Utilities.memoizeObject({
     get PopoutOpener() {return WebpackModules.getByProps("openPopout");},
     get EmojiPicker() {return WebpackModules.getByPrototypes("onHoverEmoji", "selectEmoji");},
     get UserPopout() {
-        return WebpackModules.getByDisplayName("FluxContainer(SubscribeGuildMembersContainer(t))")  || WebpackModules.find(m => {
-            try { return m.displayName == "FluxContainer(Component)" && !(new m()); }
-            catch (e) { return e.toString().includes("user"); }
+        return WebpackModules.find(m => {
+            try {return m.displayName == "FluxContainer(Component)" && !(new m());}
+            catch (e) {return e.toString().includes("user");}
         });
     },
 
     /* Context Menus */
-    get ContextMenuActions() {return WebpackModules.getByRegex(/CONTEXT_MENU_CLOSE/, c => c.close);},
+    get ContextMenuActions() {return WebpackModules.getByProps("openContextMenu");},
     get ContextMenuItemsGroup() {return WebpackModules.getByRegex(/itemGroup/);},
     get ContextMenuItem() {return WebpackModules.getByRegex(/\.label\b.*\.hint\b.*\.action\b/);},
 
     /* Misc */
-    get ExternalLink() {return WebpackModules.getByRegex(/\.trusted\b/);},
+    get ExternalLink() {return WebpackModules.getByRegex(/trusted/);},
     get TextElement() {return WebpackModules.getByProps("Sizes", "Weights");},
     get FlexChild() {return WebpackModules.getByProps("Child");},
     get Titles() {return WebpackModules.getByProps("Tags", "default");},
@@ -225,4 +219,3 @@ export default Utilities.memoizeObject({
     get SwitchRow() {return WebpackModules.getModule(m => m.defaultProps && m.defaultProps.hideBorder == false);},
     get Textbox() {return WebpackModules.getModule(m => m.defaultProps && m.defaultProps.type == "text");},
 });
-
