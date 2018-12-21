@@ -162,6 +162,18 @@ export default class Utilities {
     }
 
     /**
+     * Gets a nested property (if it exists) safely. Path should be something like `prop.prop2.prop3`.
+     * Numbers can be used for arrays as well like `prop.prop2.array.0.id`.
+     * @param {Object} obj - object to get nested property of
+     * @param {string} path - representation of the property to obtain
+     */
+    static getNestedProp(obj, path) {
+        return path.split(/\s?\.\s?/).reduce(function(obj, prop) {
+            return obj && obj[prop];
+        }, obj);
+    }
+
+    /**
      * https://github.com/JedWatson/classnames
      */
     static className() {
@@ -282,11 +294,11 @@ export default class Utilities {
      * @param {Any} item The item to remove from the array
      * @return {Array}
      */
-    static removeFromArray(array, item) {
+    static removeFromArray(array, item, filter) {
         let index;
-        while ((index = array.indexOf(item)) > -1) array.splice(index, 1);
+        while ((index = filter ? array.findIndex(item) : array.indexOf(item)) > -1) array.splice(index, 1);
         return array;
-    }
+}
 
     /**
      * Checks if a file exists and is a file.

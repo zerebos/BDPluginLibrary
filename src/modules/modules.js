@@ -6,6 +6,7 @@ export {default as DOMTools} from "./domtools";
 export {default as DiscordClasses} from "./discordclasses";
 export {default as DiscordSelectors} from "./discordselectors";
 export {default as ReactTools} from "./reacttools";
+export {default as ReactComponents} from "./reactcomponents";
 export {default as DiscordAPI} from "./discordapi";
 
 

@@ -1,14 +1,13 @@
 
 module.exports = (Plugin, Api) => {
-    const {Patcher, Toasts, WebpackModules} = Api;
+    const {Patcher, DiscordModules, ReactComponents, DiscordSelectors} = Api;
     return class HideDisabledEmojis extends Plugin {
-        onStart() {
-            let EmojiInfo = WebpackModules.findByUniqueProperties(["isEmojiDisabled"]);
-            let EmojiPicker = WebpackModules.findByDisplayName("EmojiPicker");
-            Patcher.after(EmojiInfo, "isEmojiFiltered", (thisObject, methodArguments, returnValue) => {
-                return returnValue || EmojiInfo.isEmojiDisabled(methodArguments[0], methodArguments[1]);
+        async onStart() {            
+            Patcher.after(DiscordModules.EmojiInfo, "isEmojiFiltered", (thisObject, methodArguments, returnValue) => {
+                return returnValue || DiscordModules.EmojiInfo.isEmojiDisabled(methodArguments[0], methodArguments[1]);
             });
 
+            const EmojiPicker = await ReactComponents.getComponentByName("EmojiPicker", DiscordSelectors.EmojiPicker.emojiPicker);
             Patcher.before(EmojiPicker.prototype, "render", (thisObject) => {
                 let cats = thisObject.categories;
                 let filtered = thisObject.computeMetaData();
@@ -30,8 +29,6 @@ module.exports = (Plugin, Api) => {
 
                 cats.sort((a,b) => a.offsetTop - b.offsetTop);
             });
-
-            Toasts.default(this.getName() + " " + this.getVersion() + " has started.");
         }
         
         onStop() {

@@ -40,6 +40,8 @@ export default Utilities.memoizeObject({
 	get Changelog() {return Object.assign({}, WebpackModules.getByProps("container", "added"), WebpackModules.getByProps("content", "modal", "size"));},
 	get BasicInputs() {return WebpackModules.getByProps("inputDefault", "size16");},
 	get Messages() {return WebpackModules.getByProps("message", "containerCozy");},
-	get Guilds() {return WebpackModules.getByProps("guildsWrapper");}
+	get Guilds() {return WebpackModules.getByProps("guildsWrapper");},
+	get EmojiPicker() {return WebpackModules.getByProps("emojiPicker", "emojiItem");},
+	get Reactions() {return WebpackModules.getByProps("reaction", "reactionInner");}
 });
 

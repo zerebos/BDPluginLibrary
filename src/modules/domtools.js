@@ -9,7 +9,7 @@
  */
 
 import Utilities from "./utilities";
-import {Selector, ClassName} from "structs";
+import {Selector, ClassName, DOMObserver} from "structs";
 
 /**
  * @interface
@@ -31,6 +31,12 @@ export default class DOMTools {
 
 	static get Selector() {return Selector;}
 	static get ClassName() {return ClassName;}
+	static get DOMObserver() {return DOMObserver;}
+
+	/**	Default DOMObserver */
+	static get observer() {
+        return this._observer || (this._observer = new DOMObserver());
+    }
 
 	/**
 	 * This is my shit version of not having to use `$` from jQuery. Meaning
@@ -440,7 +446,7 @@ export default class DOMTools {
 		return element.textContent = text;
 	}
 
-	static get listeners() { return global._listeners || (global._listeners = {}); }
+	static get listeners() { return this._listeners || (this._listeners = {}); }
 
 	/**
 	 * This is similar to jQuery's `on` function and can *hopefully* be used in the same way.

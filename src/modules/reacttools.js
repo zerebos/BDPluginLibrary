@@ -7,8 +7,19 @@
 import DOMTools from "./domtools";
 import DiscordModules from "./discordmodules";
 import Utilities from "./utilities";
+import Reflection from "./reflection";
 
 export default class ReactTools {
+
+	/**
+	 * Performs reflection on a specific node.
+	 * @param {(HTMLElement|jQuery|Selector)} node - node or selector to reflect on.
+	 */
+	static Reflect(node) {
+		return Reflection(node);
+	}
+
+	static get rootInstance() {return document.getElementById("app-mount")._reactRootContainer._internalRoot.current;}
 
 	/**
 	 * Grabs the react internal instance of a specific node.
@@ -96,5 +107,4 @@ export default class ReactTools {
 			render() {return DiscordModules.React.createElement("div", {className: "react-wrapper", ref: "element"});}
 		};
 	}
-
 }

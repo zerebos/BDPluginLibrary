@@ -1,5 +1,5 @@
 export default (BasePlugin, Library) => {
-    const {PluginUpdater, Patcher, Logger, Settings, Toasts, PluginUtilities} = Library;
+    const {PluginUpdater, Patcher, Logger, Settings, Toasts, PluginUtilities, ReactComponents} = Library;
     const PluginLibrary = class PluginLibrary extends BasePlugin {
         get Library() {return Library;}
         
@@ -14,6 +14,8 @@ export default (BasePlugin, Library) => {
             const list = Object.keys(window.bdplugins).filter(k => window.bdplugins[k].plugin._config && k != "ZeresPluginLibrary");
             for (let p = 0; p < list.length; p++) window.pluginModule.reloadPlugin(list[p]);
             window.settingsCookie["fork-ps-2"] = prev;
+            ReactComponents.AutoPatcher.processAll();
+            ReactComponents.AutoPatcher.autoPatch();
         }
 
         static buildPlugin(config) {

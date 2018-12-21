@@ -86,6 +86,7 @@ export class Filters {
 export default class WebpackModules {
 
     static find(filter, first = true) {return this.getModule(filter, first);}
+    static findAll(filter) {return this.getModule(filter, false);}
     static findByUniqueProperties(props, first = true) {return first ? this.getByProps(...props) : this.getAllByProps(...props);}
     static findByDisplayName(name) {return this.getByDisplayName(name);}
 
@@ -113,6 +114,12 @@ export default class WebpackModules {
         }
         return first || rm.length == 0 ? undefined : rm;
     }
+
+    /**
+     * Finds all modules matching a filter function.
+     * @param {Function} filter A function to use to filter modules
+     */
+    static getModules(filter) {return this.getModule(filter, false);}
 
     /**
      * Finds a module by its name.

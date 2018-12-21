@@ -14,7 +14,7 @@ import WebpackModules from "./webpackmodules";
  
 export default class Patcher {
 
-    static get patches() { return global._patches || (global._patches = []); }
+    static get patches() { return this._patches || (this._patches = []); }
 
     /**
      * Returns all the patches done by a specific caller

@@ -118,7 +118,7 @@ webpackContext.id = "./plugins/0PluginLibrary sync recursive ^\\.\\/.*$";
 /*! exports provided: info, changelog, main, default */
 /***/ (function(module) {
 
-module.exports = {"info":{"name":"ZeresPluginLibrary","authors":[{"name":"Zerebos","discord_id":"249746236008169473","github_username":"rauenzi","twitter_username":"ZackRauen"}],"version":"1.1.1","description":"Gives other plugins utility functions and the ability to emulate v2.","github":"https://github.com/rauenzi/BDPluginLibrary","github_raw":"https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"},"changelog":[{"title":"Bugs Squashed","type":"fixed","items":["Fixed module import errors.","Fixed errors in DiscordAPI module."]}],"main":"index.js"};
+module.exports = {"info":{"name":"ZeresPluginLibrary","authors":[{"name":"Zerebos","discord_id":"249746236008169473","github_username":"rauenzi","twitter_username":"ZackRauen"}],"version":"1.2.0","description":"Gives other plugins utility functions and the ability to emulate v2.","github":"https://github.com/rauenzi/BDPluginLibrary","github_raw":"https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"},"changelog":[{"title":"New Stuff","items":["ReactComponents module to easily grab react components through reflection.","Additional reflection and observer tools."]},{"title":"Bugs Squashed","type":"improved","items":["More Utilities and WebpackModules functions."]}],"main":"index.js"};
 
 /***/ }),
 
@@ -132,7 +132,7 @@ module.exports = {"info":{"name":"ZeresPluginLibrary","authors":[{"name":"Zerebo
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ((BasePlugin, Library) => {
-    const {PluginUpdater, Patcher, Logger, Settings, Toasts, PluginUtilities} = Library;
+    const {PluginUpdater, Patcher, Logger, Settings, Toasts, PluginUtilities, ReactComponents} = Library;
     const PluginLibrary = class PluginLibrary extends BasePlugin {
         get Library() {return Library;}
         
@@ -147,6 +147,8 @@ __webpack_require__.r(__webpack_exports__);
             const list = Object.keys(window.bdplugins).filter(k => window.bdplugins[k].plugin._config && k != "ZeresPluginLibrary");
             for (let p = 0; p < list.length; p++) window.pluginModule.reloadPlugin(list[p]);
             window.settingsCookie["fork-ps-2"] = prev;
+            ReactComponents.AutoPatcher.processAll();
+            ReactComponents.AutoPatcher.autoPatch();
         }
 
         static buildPlugin(config) {
@@ -568,7 +570,9 @@ __webpack_require__.r(__webpack_exports__);
 	get Changelog() {return Object.assign({}, _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("container", "added"), _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("content", "modal", "size"));},
 	get BasicInputs() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("inputDefault", "size16");},
 	get Messages() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("message", "containerCozy");},
-	get Guilds() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("guildsWrapper");}
+	get Guilds() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("guildsWrapper");},
+	get EmojiPicker() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("emojiPicker", "emojiItem");},
+	get Reactions() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("reaction", "reactionInner");}
 }));
 
 
@@ -775,7 +779,7 @@ __webpack_require__.r(__webpack_exports__);
     /* Popouts */
     get PopoutStack() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("open", "close", "closeAll");},
     get PopoutOpener() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("openPopout");},
-    get EmojiPicker() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByPrototypes("onHoverEmoji", "selectEmoji");},
+    get EmojiPicker() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByDisplayName("FluxContainer(EmojiPicker)");},
     get UserPopout() {
         return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].find(m => {
             try {return m.displayName == "FluxContainer(Component)" && !(new m());}
@@ -910,6 +914,12 @@ class DOMTools {
 
 	static get Selector() {return structs__WEBPACK_IMPORTED_MODULE_1__["Selector"];}
 	static get ClassName() {return structs__WEBPACK_IMPORTED_MODULE_1__["ClassName"];}
+	static get DOMObserver() {return structs__WEBPACK_IMPORTED_MODULE_1__["DOMObserver"];}
+
+	/**	Default DOMObserver */
+	static get observer() {
+        return this._observer || (this._observer = new structs__WEBPACK_IMPORTED_MODULE_1__["DOMObserver"]());
+    }
 
 	/**
 	 * This is my shit version of not having to use `$` from jQuery. Meaning
@@ -1319,7 +1329,7 @@ class DOMTools {
 		return element.textContent = text;
 	}
 
-	static get listeners() { return global._listeners || (global._listeners = {}); }
+	static get listeners() { return this._listeners || (this._listeners = {}); }
 
 	/**
 	 * This is similar to jQuery's `on` function and can *hopefully* be used in the same way.
@@ -1689,7 +1699,7 @@ class Logger {
 /*!********************************!*\
   !*** ./src/modules/modules.js ***!
   \********************************/
-/*! exports provided: Utilities, WebpackModules, Filters, DiscordModules, ColorConverter, DOMTools, DiscordClasses, DiscordSelectors, ReactTools, DiscordAPI, Logger, Patcher, PluginUpdater, PluginUtilities, DiscordClassModules, Structs */
+/*! exports provided: Utilities, WebpackModules, Filters, DiscordModules, ColorConverter, DOMTools, DiscordClasses, DiscordSelectors, ReactTools, ReactComponents, DiscordAPI, Logger, Patcher, PluginUpdater, PluginUtilities, DiscordClassModules, Structs */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1720,26 +1730,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reacttools__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./reacttools */ "./src/modules/reacttools.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ReactTools", function() { return _reacttools__WEBPACK_IMPORTED_MODULE_7__["default"]; });
 
-/* harmony import */ var _discordapi__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./discordapi */ "./src/modules/discordapi.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DiscordAPI", function() { return _discordapi__WEBPACK_IMPORTED_MODULE_8__["default"]; });
+/* harmony import */ var _reactcomponents__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./reactcomponents */ "./src/modules/reactcomponents.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ReactComponents", function() { return _reactcomponents__WEBPACK_IMPORTED_MODULE_8__["default"]; });
 
-/* harmony import */ var _logger__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./logger */ "./src/modules/logger.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Logger", function() { return _logger__WEBPACK_IMPORTED_MODULE_9__["default"]; });
+/* harmony import */ var _discordapi__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./discordapi */ "./src/modules/discordapi.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DiscordAPI", function() { return _discordapi__WEBPACK_IMPORTED_MODULE_9__["default"]; });
 
-/* harmony import */ var _patcher__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./patcher */ "./src/modules/patcher.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Patcher", function() { return _patcher__WEBPACK_IMPORTED_MODULE_10__["default"]; });
+/* harmony import */ var _logger__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./logger */ "./src/modules/logger.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Logger", function() { return _logger__WEBPACK_IMPORTED_MODULE_10__["default"]; });
 
-/* harmony import */ var _pluginupdater__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./pluginupdater */ "./src/modules/pluginupdater.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PluginUpdater", function() { return _pluginupdater__WEBPACK_IMPORTED_MODULE_11__["default"]; });
+/* harmony import */ var _patcher__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./patcher */ "./src/modules/patcher.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Patcher", function() { return _patcher__WEBPACK_IMPORTED_MODULE_11__["default"]; });
 
-/* harmony import */ var _pluginutilities__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./pluginutilities */ "./src/modules/pluginutilities.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PluginUtilities", function() { return _pluginutilities__WEBPACK_IMPORTED_MODULE_12__["default"]; });
+/* harmony import */ var _pluginupdater__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./pluginupdater */ "./src/modules/pluginupdater.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PluginUpdater", function() { return _pluginupdater__WEBPACK_IMPORTED_MODULE_12__["default"]; });
 
-/* harmony import */ var _discordclassmodules__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./discordclassmodules */ "./src/modules/discordclassmodules.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DiscordClassModules", function() { return _discordclassmodules__WEBPACK_IMPORTED_MODULE_13__["default"]; });
+/* harmony import */ var _pluginutilities__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./pluginutilities */ "./src/modules/pluginutilities.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PluginUtilities", function() { return _pluginutilities__WEBPACK_IMPORTED_MODULE_13__["default"]; });
 
-/* harmony import */ var structs__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! structs */ "./src/structs/structs.js");
-/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "Structs", function() { return structs__WEBPACK_IMPORTED_MODULE_14__; });
+/* harmony import */ var _discordclassmodules__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./discordclassmodules */ "./src/modules/discordclassmodules.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DiscordClassModules", function() { return _discordclassmodules__WEBPACK_IMPORTED_MODULE_14__["default"]; });
+
+/* harmony import */ var structs__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! structs */ "./src/structs/structs.js");
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "Structs", function() { return structs__WEBPACK_IMPORTED_MODULE_15__; });
+
 
 
 
@@ -1794,7 +1808,7 @@ __webpack_require__.r(__webpack_exports__);
  
 class Patcher {
 
-    static get patches() { return global._patches || (global._patches = []); }
+    static get patches() { return this._patches || (this._patches = []); }
 
     /**
      * Returns all the patches done by a specific caller
@@ -2446,6 +2460,362 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./src/modules/reactcomponents.js":
+/*!****************************************!*\
+  !*** ./src/modules/reactcomponents.js ***!
+  \****************************************/
+/*! exports provided: ReactHelpers, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ReactHelpers", function() { return Helpers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ReactComponents; });
+/* harmony import */ var _logger__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./logger */ "./src/modules/logger.js");
+/* harmony import */ var _utilities__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utilities */ "./src/modules/utilities.js");
+/* harmony import */ var _patcher__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./patcher */ "./src/modules/patcher.js");
+/* harmony import */ var _reflection__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./reflection */ "./src/modules/reflection.js");
+/* harmony import */ var _discordmodules__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./discordmodules */ "./src/modules/discordmodules.js");
+/* harmony import */ var _domtools__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./domtools */ "./src/modules/domtools.js");
+/* harmony import */ var _reacttools__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./reacttools */ "./src/modules/reacttools.js");
+/**
+ * BetterDiscord React Component Manipulations
+ * Original concept and some code by samogot - https://github.com/samogot / https://github.com/samogot/betterdiscord-plugins/tree/master/v2/1Lib%20Discord%20Internals
+ *
+ * Copyright (c) 2015-present JsSucks - https://github.com/JsSucks
+ * All rights reserved.
+ * https://github.com/JsSucks - https://betterdiscord.net
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+*/
+
+
+
+
+
+
+
+
+
+class Helpers {
+    static get plannedActions() {
+        return this._plannedActions || (this._plannedActions = new Map());
+    }
+
+    static recursiveArray(parent, key, count = 1) {
+        let index = 0;
+        function* innerCall(parent, key) {
+            const item = parent[key];
+            if (item instanceof Array) {
+                for (const subKey of item.keys()) {
+                    yield* innerCall(item, subKey);
+                }
+                return;
+            }
+            yield {item, parent, key, index: index++, count};
+        }
+
+        return innerCall(parent, key);
+    }
+
+    static recursiveArrayCount(parent, key) {
+        let count = 0;
+        // eslint-disable-next-line no-empty-pattern
+        for (let {} of this.recursiveArray(parent, key)) ++count;
+        return this.recursiveArray(parent, key, count);
+    }
+
+    static get recursiveChildren() {
+        return function* (parent, key, index = 0, count = 1) {
+            const item = parent[key];
+            yield {item, parent, key, index, count};
+            if (item && item.props && item.props.children) {
+                for (const {parent, key, index, count} of this.recursiveArrayCount(item.props, "children")) {
+                    yield* this.recursiveChildren(parent, key, index, count);
+                }
+            }
+        };
+    }
+
+    static returnFirst(iterator, process) {
+        for (const child of iterator) {
+            const retVal = process(child);
+            if (retVal !== undefined) return retVal;
+        }
+    }
+
+    static getFirstChild(rootParent, rootKey, selector) {
+        const getDirectChild = (item, selector) => {
+            if (item && item.props && item.props.children) {
+                return this.returnFirst(this.recursiveArrayCount(item.props, "children"), checkFilter.bind(null, selector));
+            }
+        };
+        const checkFilter = (selector, {item, parent, key, count, index}) => {
+            let match = true;
+            if (match && selector.type) match = item && selector.type === item.type;
+            if (match && selector.tag) match = item && typeof item.type === "string" && selector.tag === item.type;
+            if (match && selector.className) {
+                match = item && item.props && typeof item.props.className === "string";
+                if (match) {
+                    const classes = item.props.className.split(" ");
+                    if (selector.className === true) match = !!classes[0];
+                    else if (typeof selector.className === "string") match = classes.includes(selector.className);
+                    else if (selector.className instanceof RegExp) match = !!classes.find(cls => selector.className.test(cls));
+                    else match = false;
+                }
+            }
+            if (match && selector.text) {
+                if (selector.text === true) match = typeof item === "string";
+                else if (typeof selector.text === "string") match = item === selector.text;
+                else if (selector.text instanceof RegExp) match = typeof item === "string" && selector.text.test(item);
+                else match = false;
+            }
+            if (match && selector.nthChild) match = index === (selector.nthChild < 0 ? count + selector.nthChild : selector.nthChild);
+            if (match && selector.hasChild) match = getDirectChild(item, selector.hasChild);
+            if (match && selector.hasSuccessor) match = item && !!this.getFirstChild(parent, key, selector.hasSuccessor).item;
+            if (match && selector.eq) {
+                --selector.eq;
+                return;
+            }
+            if (match) {
+                if (selector.child) return getDirectChild(item, selector.child);
+                else if (selector.successor) return this.getFirstChild(parent, key, selector.successor);
+                return {item, parent, key};
+            }
+        };
+        return this.returnFirst(this.recursiveChildren(rootParent, rootKey), checkFilter.bind(null, selector)) || {};
+    }
+
+    static parseSelector(selector) {
+        if (selector.startsWith(".")) return {className: selector.substr(1)};
+        if (selector.startsWith("#")) return {id: selector.substr(1)};
+        return {};
+    }
+
+    static findByProp(obj, what, value) {
+        if (obj.hasOwnProperty(what) && obj[what] === value) return obj;
+        if (obj.props && !obj.children) return this.findByProp(obj.props, what, value);
+        if (!obj.children) return null;
+        if (!(obj.children instanceof Array)) return this.findByProp(obj.children, what, value);
+        for (const child of obj.children) {
+            if (!child) continue;
+            const findInChild = this.findByProp(child, what, value);
+            if (findInChild) return findInChild;
+        }
+        return null;
+    }
+
+    static findProp(obj, what) {
+        if (obj.hasOwnProperty(what)) return obj[what];
+        if (obj.props && !obj.children) return this.findProp(obj.props, what);
+        if (!obj.children) return null;
+        if (!(obj.children instanceof Array)) return this.findProp(obj.children, what);
+        for (const child of obj.children) {
+            if (!child) continue;
+            const findInChild = this.findProp(child, what);
+            if (findInChild) return findInChild;
+        }
+        return null;
+    }
+
+    static get React() {
+        return _discordmodules__WEBPACK_IMPORTED_MODULE_4__["default"].React;
+    }
+
+    static get ReactDOM() {
+        return _discordmodules__WEBPACK_IMPORTED_MODULE_4__["default"].ReactDOM;
+    }
+}
+
+
+
+class ReactComponent {
+    constructor(id, component, selector, filter) {
+        this.id = id;
+        this.component = component;
+        // this.important = important;
+        this.selector = selector;
+        this.filter = filter;
+    }
+
+    forceUpdateAll() {
+        if (!this.selector) return;
+        for (const e of document.querySelectorAll(this.selector)) {
+            Object(_reflection__WEBPACK_IMPORTED_MODULE_3__["default"])(e).forceUpdate(this);
+        }
+    }
+}
+
+class ReactComponents {
+    static get components() {return this._components || (this._components = []);}
+    static get unknownComponents() {return this._unknownComponents || (this._unknownComponents = []);}
+    static get listeners() {return this._listeners || (this._listeners = []);}
+    static get nameSetters() {return this._nameSetters || (this._nameSetters = []);}
+
+    static get ReactComponent() {return ReactComponent;}
+    static get Helpers() {return Helpers;}
+    static get AutoPatcher() {return ReactAutoPatcher;}
+
+    static push(component, selector, filter) {
+        if (!(component instanceof Function)) return null;
+        const {displayName} = component;
+        if (!displayName) return this.processUnknown(component);
+
+        const have = this.components.find(comp => comp.id === displayName);
+        if (have) {
+            if (!have.selector) have.selector = selector;
+            if (!have.filter) have.filter = filter;
+            return component;
+        }
+
+        const c = new ReactComponent(displayName, component, selector, filter);
+        this.components.push(c);
+
+        const listener = this.listeners.find(listener => listener.id === displayName);
+        if (listener) {
+            for (const l of listener.listeners) l(c);
+            _utilities__WEBPACK_IMPORTED_MODULE_1__["default"].removeFromArray(this.listeners, listener);
+        }
+
+        return c;
+    }
+
+    /**
+     * Finds a component from the components array or by waiting for it to be mounted.
+     * @param {String} name The component's name
+     * @param {Object} selector A selector to look for
+     * @return {Promise => ReactComponent}
+     */
+    static async getComponentByName(name, selector) {
+        return this.getComponent(name, selector, m => m.displayName == name);
+    }
+
+    /**
+     * Finds a component from the components array or by waiting for it to be mounted.
+     * @param {String} name The component's name
+     * @param {Object} selector A selector to look for
+     * @param {Function} filter A function to filter components if a single element is rendered by multiple components
+     * @return {Promise => ReactComponent}
+     */
+    static async getComponent(name, selector, filter) {
+        const have = this.components.find(c => c.id === name);
+        if (have) return have;
+
+        if (selector) {
+            const callback = () => {
+                if (this.components.find(c => c.id === name)) {
+                    _logger__WEBPACK_IMPORTED_MODULE_0__["default"].info("ReactComponents", `Important component ${name} already found`);
+                    _domtools__WEBPACK_IMPORTED_MODULE_5__["default"].observer.unsubscribe(observerSubscription);
+                    return;
+                }
+
+                const elements = document.querySelectorAll(selector);
+                if (!elements.length) return;
+
+                let component, reflect;
+                for (const element of elements) {
+                    reflect = Object(_reflection__WEBPACK_IMPORTED_MODULE_3__["default"])(element);
+                    component = filter ? reflect.components.find(filter) : reflect.component;
+                    if (component) break;
+                }
+
+                if (!component && filter) {
+                    _logger__WEBPACK_IMPORTED_MODULE_0__["default"].log("ReactComponents", ["Found elements matching the query selector but no components passed the filter"]);
+                    return;
+                }
+
+                _domtools__WEBPACK_IMPORTED_MODULE_5__["default"].observer.unsubscribe(observerSubscription);
+
+                if (!component) {
+                    _logger__WEBPACK_IMPORTED_MODULE_0__["default"].err("ReactComponents", [`FAILED TO GET IMPORTANT COMPONENT ${name} WITH REFLECTION FROM`, elements]);
+                    return;
+                }
+
+                if (!component.displayName) component.displayName = name;
+                _logger__WEBPACK_IMPORTED_MODULE_0__["default"].info("ReactComponents", [`Found important component ${name} with reflection`, reflect]);
+                this.push(component, selector, filter);
+            };
+
+            const observerSubscription = _domtools__WEBPACK_IMPORTED_MODULE_5__["default"].observer.subscribeToQuerySelector(callback, selector, null, true);
+            setTimeout(callback, 0);
+        }
+
+        let listener = this.listeners.find(l => l.id === name);
+        if (!listener) {
+            this.listeners.push(listener = {
+                id: name,
+                listeners: []
+            });
+        }
+
+
+        return new Promise(resolve => {
+            listener.listeners.push(resolve);
+        });
+    }
+
+    static setName(name, filter) {
+        const have = this.components.find(c => c.id === name);
+        if (have) return have;
+
+        for (const [rci, rc] of this.unknownComponents.entries()) {
+            if (filter(rc.component)) {
+                rc.component.displayName = name;
+                this.unknownComponents.splice(rci, 1);
+                return this.push(rc.component);
+            }
+        }
+        return this.nameSetters.push({name, filter});
+    }
+
+    static processUnknown(component) {
+        const have = this.unknownComponents.find(c => c.component === component);
+        for (const [fi, filter] of this.nameSetters.entries()) {
+            if (filter.filter.filter(component)) {
+                _logger__WEBPACK_IMPORTED_MODULE_0__["default"].log("ReactComponents", "Filter match!");
+                component.displayName = filter.name;
+                this.nameSetters.splice(fi, 1);
+                return this.push(component);
+            }
+        }
+        if (have) return have;
+        this.unknownComponents.push(component);
+        return component;
+    }
+
+    static *recursiveComponents(internalInstance = _reacttools__WEBPACK_IMPORTED_MODULE_6__["default"].rootInstance) {
+        if (internalInstance.stateNode) yield internalInstance.stateNode;
+        if (internalInstance.sibling) yield *this.recursiveComponents(internalInstance.sibling);
+        if (internalInstance.child) yield *this.recursiveComponents(internalInstance.child);
+    }
+}
+
+class ReactAutoPatcher {
+    /**
+     * Wait for React to be loaded and patch it's createElement to store all unknown components.
+     * Also patches some known components.
+     */
+    static async autoPatch() {
+        this.unpatchCreateElement = _patcher__WEBPACK_IMPORTED_MODULE_2__["default"].before("ReactComponents", _discordmodules__WEBPACK_IMPORTED_MODULE_4__["default"].React, "createElement", (react, [component]) => ReactComponents.push(component));
+        this.unpatchCreateElement = _patcher__WEBPACK_IMPORTED_MODULE_2__["default"].instead("ReactComponents", _discordmodules__WEBPACK_IMPORTED_MODULE_4__["default"].React.Component.prototype, "UNSAFE_componentWillMount", (component) => ReactComponents.push(component));
+        this.unpatchCreateElement = _patcher__WEBPACK_IMPORTED_MODULE_2__["default"].instead("ReactComponents", _discordmodules__WEBPACK_IMPORTED_MODULE_4__["default"].React.Component.prototype, "componentWillMount", (component) => ReactComponents.push(component));
+        // this.patchComponents();
+    }
+
+    /**
+     * Finds and processes all currently available react components.
+     */
+    static processAll() {
+        for (const component of ReactComponents.recursiveComponents()) {
+            ReactComponents.push(component.constructor);
+        }
+    }
+}
+
+
+/***/ }),
+
 /***/ "./src/modules/reacttools.js":
 /*!***********************************!*\
   !*** ./src/modules/reacttools.js ***!
@@ -2459,6 +2829,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _domtools__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./domtools */ "./src/modules/domtools.js");
 /* harmony import */ var _discordmodules__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./discordmodules */ "./src/modules/discordmodules.js");
 /* harmony import */ var _utilities__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utilities */ "./src/modules/utilities.js");
+/* harmony import */ var _reflection__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./reflection */ "./src/modules/reflection.js");
 /**
  * Helpful utilities for dealing with getting react information from DOM objects.
  * @module ReactTools
@@ -2469,7 +2840,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 class ReactTools {
+
+	/**
+	 * Performs reflection on a specific node.
+	 * @param {(HTMLElement|jQuery|Selector)} node - node or selector to reflect on.
+	 */
+	static Reflect(node) {
+		return Object(_reflection__WEBPACK_IMPORTED_MODULE_3__["default"])(node);
+	}
+
+	static get rootInstance() {return document.getElementById("app-mount")._reactRootContainer._internalRoot.current;}
 
 	/**
 	 * Grabs the react internal instance of a specific node.
@@ -2557,8 +2939,249 @@ class ReactTools {
 			render() {return _discordmodules__WEBPACK_IMPORTED_MODULE_1__["default"].React.createElement("div", {className: "react-wrapper", ref: "element"});}
 		};
 	}
-
 }
+
+/***/ }),
+
+/***/ "./src/modules/reflection.js":
+/*!***********************************!*\
+  !*** ./src/modules/reflection.js ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _logger__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./logger */ "./src/modules/logger.js");
+/* harmony import */ var _webpackmodules__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./webpackmodules */ "./src/modules/webpackmodules.js");
+/* harmony import */ var _reactcomponents__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./reactcomponents */ "./src/modules/reactcomponents.js");
+/**
+ * BetterDiscord Reflection Module
+ * Copyright (c) 2015-present JsSucks - https://github.com/JsSucks
+ * All rights reserved.
+ * https://betterdiscord.net
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+*/
+
+
+
+
+
+class Reflection {
+    static reactInternalInstance(node) {
+        if (!node) return null;
+        if (!Object.keys(node) || !Object.keys(node).length) return null;
+        const riiKey = Object.keys(node).find(k => k.startsWith("__reactInternalInstance"));
+        return riiKey ? node[riiKey] : null;
+    }
+
+    static findProp(node, prop) {
+        const ii = this.reactInternalInstance(node);
+        if (!ii) return null;
+        const fir = this.findInReturn(ii, prop);
+        if (fir) return fir;
+        const fim = this.findInChildProps(ii, prop);
+        if (fim) return fim;
+        return null;
+    }
+
+    static findInReturn(internalInstance, prop) {
+        const r = internalInstance.return;
+        if (!r) return null;
+        let find = this.findMemoizedProp(r, prop);
+        if (find) return find;
+        find = this.findMemoizedState(r, prop);
+        if (find) return find;
+        return this.findInReturn(r, prop);
+    }
+
+    static findMemoizedProp(obj, prop) {
+        if (!obj.hasOwnProperty("memoizedProps")) return null;
+        obj = obj.memoizedProps;
+        return this.findPropIn(obj, prop);
+    }
+
+    static findMemoizedState(obj, prop) {
+        if (!obj.hasOwnProperty("memoizedState")) return null;
+        obj = obj.memoizedState;
+        return this.findPropIn(obj, prop);
+    }
+
+    static findInChildProps(obj, prop) {
+        try {
+            const f = obj.children || obj.memoizedProps.children;
+            if (!f.props) return null;
+            if (!f.props.hasOwnProperty(prop)) return null;
+            return f.props[prop];
+        }
+        catch (err) {
+            return null;
+        }
+    }
+
+    static findPropIn(obj, prop) {
+        if (obj && !(obj instanceof Array) && obj instanceof Object && obj.hasOwnProperty(prop)) return obj[prop];
+        if (obj && obj instanceof Array) {
+            const found = obj.find(mp => {
+                if (mp.props && mp.props.hasOwnProperty(prop)) return true;
+            });
+            if (found) return found;
+        }
+        return null;
+    }
+
+    static propIterator(obj, propNames) {
+        if (obj === null || obj === undefined) return null;
+        const curPropName = propNames.shift(1);
+        if (!obj.hasOwnProperty(curPropName)) return null;
+        const curProp = obj[curPropName];
+        if (propNames.length === 0) {
+            return curProp;
+        }
+        return this.propIterator(curProp, propNames);
+    }
+
+    static getState(node) {
+        const stateNode = this.getStateNode(node);
+        if (stateNode) return stateNode.state;
+    }
+
+    static getStateNode(node) {
+        return this.getStateNodes(node)[0];
+    }
+
+    static getStateNodes(node) {
+        const instance = this.reactInternalInstance(node);
+        const stateNodes = [];
+        let lastInstance = instance;
+
+        do {
+            if (lastInstance.return.stateNode instanceof HTMLElement) break;
+            if (lastInstance.return.stateNode) stateNodes.push(lastInstance.return.stateNode);
+            lastInstance = lastInstance.return;
+        } while (lastInstance.return);
+
+        return stateNodes;
+    }
+
+    static getComponentStateNode(node, component) {
+        if (component instanceof _reactcomponents__WEBPACK_IMPORTED_MODULE_2__["default"].ReactComponent) component = component.component;
+
+        for (const stateNode of this.getStateNodes(node)) {
+            if (stateNode instanceof component) return stateNode;
+        }
+    }
+
+    static findStateNode(node, filter, first = true) {
+        return this.getStateNodes(node)[first ? "find" : "filter"](filter);
+    }
+
+    static getComponent(node) {
+        return this.getComponents(node)[0];
+    }
+
+    static getComponents(node) {
+        const instance = this.reactInternalInstance(node);
+        const components = [];
+        let lastInstance = instance;
+
+        do {
+            if (typeof lastInstance.return.type === "string") break;
+            if (lastInstance.return.type) components.push(lastInstance.return.type);
+            lastInstance = lastInstance.return;
+        } while (lastInstance.return);
+
+        return components;
+    }
+
+    static findComponent(node, filter, first = true) {
+        return this.getComponents(node)[first ? "find" : "filter"](filter);
+    }
+}
+
+const propsProxyHandler = {
+    get(node, prop) {
+        return Reflection.findProp(node, prop);
+    }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (function(node) {
+    return new class ReflectionInstance {
+        constructor(node) {
+            if (typeof node === "string") node = document.querySelector(node);
+            this.node = node instanceof window.jQuery ? node[0] : node;
+        }
+
+        get el() { return this.node; }
+        get element() { return this.node; }
+
+        get reactInternalInstance() {
+            return Reflection.reactInternalInstance(this.node);
+        }
+
+        get props() {
+            return new Proxy(this.node, propsProxyHandler);
+        }
+        get state() {
+            return Reflection.getState(this.node);
+        }
+
+        get stateNode() {
+            return Reflection.getStateNode(this.node);
+        }
+        get stateNodes() {
+            return Reflection.getStateNodes(this.node);
+        }
+        getComponentStateNode(component) {
+            return Reflection.getComponentStateNode(this.node, component);
+        }
+        findStateNode(filter) {
+            if (typeof filter === "function") return Reflection.findStateNode(this.node, filter);
+            if (filter) return Reflection.getComponentStateNode(this.node, filter);
+            return Reflection.getStateNode(this.node);
+        }
+
+        get component() {
+            return Reflection.getComponent(this.node);
+        }
+        get components() {
+            return Reflection.getComponents(this.node);
+        }
+        getComponentByProps(props, selector) {
+            return Reflection.findComponent(this.node, _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["Filters"].byProperties(props, selector));
+        }
+        getComponentByPrototypes(props, selector) {
+            return Reflection.findComponent(this.node, _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["Filters"].byPrototypeFields(props, selector));
+        }
+        getComponentByRegex(regex, selector) {
+            return Reflection.findComponent(this.node, _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["Filters"].byCode(regex, selector));
+        }
+        getComponentByDisplayName(name) {
+            return Reflection.findComponent(this.node, _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["Filters"].byDisplayName(name));
+        }
+
+        forceUpdate(filter) {
+            try {
+                const stateNode = this.findStateNode(filter);
+                if (!stateNode || !stateNode.forceUpdate) return;
+                stateNode.forceUpdate();
+            }
+            catch (err) {
+                _logger__WEBPACK_IMPORTED_MODULE_0__["default"].err("Reflection", err);
+            }
+        }
+
+        prop(propName) {
+            const split = propName.split(".");
+            const first = Reflection.findProp(this.node, split[0]);
+            if (split.length === 1) return first;
+            return Reflection.propIterator(first, split.slice(1));
+        }
+    }(node);
+});
+
 
 /***/ }),
 
@@ -2737,6 +3360,18 @@ class Utilities {
     }
 
     /**
+     * Gets a nested property (if it exists) safely. Path should be something like `prop.prop2.prop3`.
+     * Numbers can be used for arrays as well like `prop.prop2.array.0.id`.
+     * @param {Object} obj - object to get nested property of
+     * @param {string} path - representation of the property to obtain
+     */
+    static getNestedProp(obj, path) {
+        return path.split(/\s?\.\s?/).reduce(function(obj, prop) {
+            return obj && obj[prop];
+        }, obj);
+    }
+
+    /**
      * https://github.com/JedWatson/classnames
      */
     static className() {
@@ -2857,11 +3492,11 @@ class Utilities {
      * @param {Any} item The item to remove from the array
      * @return {Array}
      */
-    static removeFromArray(array, item) {
+    static removeFromArray(array, item, filter) {
         let index;
-        while ((index = array.indexOf(item)) > -1) array.splice(index, 1);
+        while ((index = filter ? array.findIndex(item) : array.indexOf(item)) > -1) array.splice(index, 1);
         return array;
-    }
+}
 
     /**
      * Checks if a file exists and is a file.
@@ -3023,6 +3658,7 @@ class Filters {
 class WebpackModules {
 
     static find(filter, first = true) {return this.getModule(filter, first);}
+    static findAll(filter) {return this.getModule(filter, false);}
     static findByUniqueProperties(props, first = true) {return first ? this.getByProps(...props) : this.getAllByProps(...props);}
     static findByDisplayName(name) {return this.getByDisplayName(name);}
 
@@ -3050,6 +3686,12 @@ class WebpackModules {
         }
         return first || rm.length == 0 ? undefined : rm;
     }
+
+    /**
+     * Finds all modules matching a filter function.
+     * @param {Function} filter A function to use to filter modules
+     */
+    static getModules(filter) {return this.getModule(filter, false);}
 
     /**
      * Finds a module by its name.
@@ -5053,6 +5695,149 @@ class ClassName {
 
 /***/ }),
 
+/***/ "./src/structs/dom/observer.js":
+/*!*************************************!*\
+  !*** ./src/structs/dom/observer.js ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return DOMObserver; });
+/* harmony import */ var modules__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! modules */ "./src/modules/modules.js");
+/**
+ * BetterDiscord Client DOM Module
+ * Copyright (c) 2015-present JsSucks - https://github.com/JsSucks
+ * All rights reserved.
+ * https://betterdiscord.net
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+*/
+
+
+
+class DOMObserver {
+    constructor(root, options) {
+        this.observe = this.observe.bind(this);
+        this.subscribe = this.subscribe.bind(this);
+        this.observerCallback = this.observerCallback.bind(this);
+
+        this.active = false;
+        this.root = root || document.getElementById("app-mount");
+        this.options = options || {attributes: true, childList: true, subtree: true};
+
+        this.observer = new MutationObserver(this.observerCallback);
+        this.observe();
+    }
+
+    observerCallback(mutations) {
+        for (const sub of this.subscriptions) {
+            try {
+                const filteredMutations = sub.filter ? mutations.filter(sub.filter) : mutations;
+
+                if (sub.group) {
+                    if (!filteredMutations.length) continue;
+                    sub.callback.call(sub.bind || sub, filteredMutations);
+                }
+                else {
+                    for (const mutation of filteredMutations) sub.callback.call(sub.bind || sub, mutation);
+                }
+            }
+            catch (err) {
+                modules__WEBPACK_IMPORTED_MODULE_0__["Logger"].stacktrace("DOMObserver", "Error in observer callback", err);
+            }
+        }
+    }
+
+    /**
+     * Starts observing the element. This will be called when attaching a callback.
+     * You don't need to call this manually.
+     */
+    observe() {
+        if (this.active) return;
+        this.observer.observe(this.root, this.options);
+        this.active = true;
+    }
+
+    /**
+     * Disconnects this observer. This stops callbacks being called, but does not unbind them.
+     * You probably want to use observer.unsubscribeAll instead.
+     */
+    disconnect() {
+        if (!this.active) return;
+        this.observer.disconnect();
+        this.active = false;
+    }
+
+    reconnect() {
+        if (this.active) {
+            this.disconnect();
+            this.observe();
+        }
+    }
+
+    get root() { return this._root; }
+    set root(root) { this._root = root; this.reconnect(); }
+
+    get options() { return this._options; }
+    set options(options) { this._options = options; this.reconnect(); }
+
+    get subscriptions() {
+        return this._subscriptions || (this._subscriptions = []);
+    }
+
+    /**
+     * Subscribes to mutations.
+     * @param {Function} callback A function to call when on a mutation
+     * @param {Function} filter A function to call to filter mutations
+     * @param {Any} bind Something to bind the callback to
+     * @param {Boolean} group Whether to call the callback with an array of mutations instead of a single mutation
+     * @return {Object}
+     */
+    subscribe(callback, filter, bind, group) {
+        const subscription = {callback, filter, bind, group};
+        this.subscriptions.push(subscription);
+        this.observe();
+        return subscription;
+    }
+
+    /**
+     * Removes a subscription and disconnect if there are none left.
+     * @param {Object} subscription A subscription object returned by observer.subscribe
+     */
+    unsubscribe(subscription) {
+        if (!this.subscriptions.includes(subscription)) subscription = this.subscriptions.find(s => s.callback === subscription);
+        modules__WEBPACK_IMPORTED_MODULE_0__["Utilities"].removeFromArray(this.subscriptions, subscription);
+        if (!this.subscriptions.length) this.disconnect();
+    }
+
+    unsubscribeAll() {
+        this.subscriptions.splice(0, this.subscriptions.length);
+        this.disconnect();
+    }
+
+    /**
+     * Subscribes to mutations that affect an element matching a selector.
+     * @param {Function} callback A function to call when on a mutation
+     * @param {Function} filter A function to call to filter mutations
+     * @param {Any} bind Something to bind the callback to
+     * @param {Boolean} group Whether to call the callback with an array of mutations instead of a single mutation
+     * @return {Object}
+     */
+    subscribeToQuerySelector(callback, selector, bind, group) {
+        return this.subscribe(callback, mutation => {
+            return mutation.target.matches(selector) // If the target matches the selector
+                || Array.from(mutation.addedNodes).concat(Array.from(mutation.removedNodes)) // Or if either an added or removed node
+                    .find(n => n instanceof Element && (n.matches(selector) || n.querySelector(selector))); // match or contain an element matching the selector
+        }, bind, group);
+    }
+}
+
+
+/***/ }),
+
 /***/ "./src/structs/dom/selector.js":
 /*!*************************************!*\
   !*** ./src/structs/dom/selector.js ***!
@@ -5494,7 +6279,7 @@ class Screen {
 /*!********************************!*\
   !*** ./src/structs/structs.js ***!
   \********************************/
-/*! exports provided: List, Screen, Selector, ClassName, InsufficientPermissions, Plugin, Listenable, User, GuildMember, Role, Emoji, Guild, Channel, PermissionOverwrite, RolePermissionOverwrite, MemberPermissionOverwrite, GuildChannel, GuildTextChannel, GuildVoiceChannel, ChannelCategory, PrivateChannel, DirectMessageChannel, GroupChannel, Reaction, Embed, Message, DefaultMessage, RecipientAddMessage, RecipientRemoveMessage, CallMessage, GroupChannelNameChangeMessage, GroupChannelIconChangeMessage, MessagePinnedMessage, GuildMemberJoinMessage, UserSettings */
+/*! exports provided: List, Screen, Selector, ClassName, DOMObserver, InsufficientPermissions, Plugin, Listenable, User, GuildMember, Role, Emoji, Guild, Channel, PermissionOverwrite, RolePermissionOverwrite, MemberPermissionOverwrite, GuildChannel, GuildTextChannel, GuildVoiceChannel, ChannelCategory, PrivateChannel, DirectMessageChannel, GroupChannel, Reaction, Embed, Message, DefaultMessage, RecipientAddMessage, RecipientRemoveMessage, CallMessage, GroupChannelNameChangeMessage, GroupChannelIconChangeMessage, MessagePinnedMessage, GuildMemberJoinMessage, UserSettings */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5511,75 +6296,79 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _dom_classname__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./dom/classname */ "./src/structs/dom/classname.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ClassName", function() { return _dom_classname__WEBPACK_IMPORTED_MODULE_3__["default"]; });
 
-/* harmony import */ var _errors_permissionserror__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./errors/permissionserror */ "./src/structs/errors/permissionserror.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InsufficientPermissions", function() { return _errors_permissionserror__WEBPACK_IMPORTED_MODULE_4__["InsufficientPermissions"]; });
+/* harmony import */ var _dom_observer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./dom/observer */ "./src/structs/dom/observer.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DOMObserver", function() { return _dom_observer__WEBPACK_IMPORTED_MODULE_4__["default"]; });
 
-/* harmony import */ var _discord_user__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./discord/user */ "./src/structs/discord/user.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "User", function() { return _discord_user__WEBPACK_IMPORTED_MODULE_5__["User"]; });
+/* harmony import */ var _errors_permissionserror__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./errors/permissionserror */ "./src/structs/errors/permissionserror.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InsufficientPermissions", function() { return _errors_permissionserror__WEBPACK_IMPORTED_MODULE_5__["InsufficientPermissions"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GuildMember", function() { return _discord_user__WEBPACK_IMPORTED_MODULE_5__["GuildMember"]; });
+/* harmony import */ var _discord_user__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./discord/user */ "./src/structs/discord/user.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "User", function() { return _discord_user__WEBPACK_IMPORTED_MODULE_6__["User"]; });
 
-/* harmony import */ var _discord_guild__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./discord/guild */ "./src/structs/discord/guild.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Role", function() { return _discord_guild__WEBPACK_IMPORTED_MODULE_6__["Role"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GuildMember", function() { return _discord_user__WEBPACK_IMPORTED_MODULE_6__["GuildMember"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Emoji", function() { return _discord_guild__WEBPACK_IMPORTED_MODULE_6__["Emoji"]; });
+/* harmony import */ var _discord_guild__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./discord/guild */ "./src/structs/discord/guild.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Role", function() { return _discord_guild__WEBPACK_IMPORTED_MODULE_7__["Role"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Guild", function() { return _discord_guild__WEBPACK_IMPORTED_MODULE_6__["Guild"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Emoji", function() { return _discord_guild__WEBPACK_IMPORTED_MODULE_7__["Emoji"]; });
 
-/* harmony import */ var _discord_channel__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./discord/channel */ "./src/structs/discord/channel.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Channel", function() { return _discord_channel__WEBPACK_IMPORTED_MODULE_7__["Channel"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Guild", function() { return _discord_guild__WEBPACK_IMPORTED_MODULE_7__["Guild"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PermissionOverwrite", function() { return _discord_channel__WEBPACK_IMPORTED_MODULE_7__["PermissionOverwrite"]; });
+/* harmony import */ var _discord_channel__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./discord/channel */ "./src/structs/discord/channel.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Channel", function() { return _discord_channel__WEBPACK_IMPORTED_MODULE_8__["Channel"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RolePermissionOverwrite", function() { return _discord_channel__WEBPACK_IMPORTED_MODULE_7__["RolePermissionOverwrite"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PermissionOverwrite", function() { return _discord_channel__WEBPACK_IMPORTED_MODULE_8__["PermissionOverwrite"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MemberPermissionOverwrite", function() { return _discord_channel__WEBPACK_IMPORTED_MODULE_7__["MemberPermissionOverwrite"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RolePermissionOverwrite", function() { return _discord_channel__WEBPACK_IMPORTED_MODULE_8__["RolePermissionOverwrite"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GuildChannel", function() { return _discord_channel__WEBPACK_IMPORTED_MODULE_7__["GuildChannel"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MemberPermissionOverwrite", function() { return _discord_channel__WEBPACK_IMPORTED_MODULE_8__["MemberPermissionOverwrite"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GuildTextChannel", function() { return _discord_channel__WEBPACK_IMPORTED_MODULE_7__["GuildTextChannel"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GuildChannel", function() { return _discord_channel__WEBPACK_IMPORTED_MODULE_8__["GuildChannel"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GuildVoiceChannel", function() { return _discord_channel__WEBPACK_IMPORTED_MODULE_7__["GuildVoiceChannel"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GuildTextChannel", function() { return _discord_channel__WEBPACK_IMPORTED_MODULE_8__["GuildTextChannel"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ChannelCategory", function() { return _discord_channel__WEBPACK_IMPORTED_MODULE_7__["ChannelCategory"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GuildVoiceChannel", function() { return _discord_channel__WEBPACK_IMPORTED_MODULE_8__["GuildVoiceChannel"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PrivateChannel", function() { return _discord_channel__WEBPACK_IMPORTED_MODULE_7__["PrivateChannel"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ChannelCategory", function() { return _discord_channel__WEBPACK_IMPORTED_MODULE_8__["ChannelCategory"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DirectMessageChannel", function() { return _discord_channel__WEBPACK_IMPORTED_MODULE_7__["DirectMessageChannel"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PrivateChannel", function() { return _discord_channel__WEBPACK_IMPORTED_MODULE_8__["PrivateChannel"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GroupChannel", function() { return _discord_channel__WEBPACK_IMPORTED_MODULE_7__["GroupChannel"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DirectMessageChannel", function() { return _discord_channel__WEBPACK_IMPORTED_MODULE_8__["DirectMessageChannel"]; });
 
-/* harmony import */ var _discord_message__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./discord/message */ "./src/structs/discord/message.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Reaction", function() { return _discord_message__WEBPACK_IMPORTED_MODULE_8__["Reaction"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GroupChannel", function() { return _discord_channel__WEBPACK_IMPORTED_MODULE_8__["GroupChannel"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Embed", function() { return _discord_message__WEBPACK_IMPORTED_MODULE_8__["Embed"]; });
+/* harmony import */ var _discord_message__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./discord/message */ "./src/structs/discord/message.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Reaction", function() { return _discord_message__WEBPACK_IMPORTED_MODULE_9__["Reaction"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Message", function() { return _discord_message__WEBPACK_IMPORTED_MODULE_8__["Message"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Embed", function() { return _discord_message__WEBPACK_IMPORTED_MODULE_9__["Embed"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DefaultMessage", function() { return _discord_message__WEBPACK_IMPORTED_MODULE_8__["DefaultMessage"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Message", function() { return _discord_message__WEBPACK_IMPORTED_MODULE_9__["Message"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RecipientAddMessage", function() { return _discord_message__WEBPACK_IMPORTED_MODULE_8__["RecipientAddMessage"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DefaultMessage", function() { return _discord_message__WEBPACK_IMPORTED_MODULE_9__["DefaultMessage"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RecipientRemoveMessage", function() { return _discord_message__WEBPACK_IMPORTED_MODULE_8__["RecipientRemoveMessage"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RecipientAddMessage", function() { return _discord_message__WEBPACK_IMPORTED_MODULE_9__["RecipientAddMessage"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CallMessage", function() { return _discord_message__WEBPACK_IMPORTED_MODULE_8__["CallMessage"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RecipientRemoveMessage", function() { return _discord_message__WEBPACK_IMPORTED_MODULE_9__["RecipientRemoveMessage"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GroupChannelNameChangeMessage", function() { return _discord_message__WEBPACK_IMPORTED_MODULE_8__["GroupChannelNameChangeMessage"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CallMessage", function() { return _discord_message__WEBPACK_IMPORTED_MODULE_9__["CallMessage"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GroupChannelIconChangeMessage", function() { return _discord_message__WEBPACK_IMPORTED_MODULE_8__["GroupChannelIconChangeMessage"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GroupChannelNameChangeMessage", function() { return _discord_message__WEBPACK_IMPORTED_MODULE_9__["GroupChannelNameChangeMessage"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MessagePinnedMessage", function() { return _discord_message__WEBPACK_IMPORTED_MODULE_8__["MessagePinnedMessage"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GroupChannelIconChangeMessage", function() { return _discord_message__WEBPACK_IMPORTED_MODULE_9__["GroupChannelIconChangeMessage"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GuildMemberJoinMessage", function() { return _discord_message__WEBPACK_IMPORTED_MODULE_8__["GuildMemberJoinMessage"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MessagePinnedMessage", function() { return _discord_message__WEBPACK_IMPORTED_MODULE_9__["MessagePinnedMessage"]; });
 
-/* harmony import */ var _discord_usersettings__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./discord/usersettings */ "./src/structs/discord/usersettings.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UserSettings", function() { return _discord_usersettings__WEBPACK_IMPORTED_MODULE_9__["UserSettings"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GuildMemberJoinMessage", function() { return _discord_message__WEBPACK_IMPORTED_MODULE_9__["GuildMemberJoinMessage"]; });
 
-/* harmony import */ var _plugin__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./plugin */ "./src/structs/plugin.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Plugin", function() { return _plugin__WEBPACK_IMPORTED_MODULE_10__["default"]; });
+/* harmony import */ var _discord_usersettings__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./discord/usersettings */ "./src/structs/discord/usersettings.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UserSettings", function() { return _discord_usersettings__WEBPACK_IMPORTED_MODULE_10__["UserSettings"]; });
 
-/* harmony import */ var _listenable__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./listenable */ "./src/structs/listenable.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Listenable", function() { return _listenable__WEBPACK_IMPORTED_MODULE_11__["default"]; });
+/* harmony import */ var _plugin__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./plugin */ "./src/structs/plugin.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Plugin", function() { return _plugin__WEBPACK_IMPORTED_MODULE_11__["default"]; });
+
+/* harmony import */ var _listenable__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./listenable */ "./src/structs/listenable.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Listenable", function() { return _listenable__WEBPACK_IMPORTED_MODULE_12__["default"]; });
+
 
 
 

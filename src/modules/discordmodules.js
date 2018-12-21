@@ -187,7 +187,7 @@ export default Utilities.memoizeObject({
     /* Popouts */
     get PopoutStack() {return WebpackModules.getByProps("open", "close", "closeAll");},
     get PopoutOpener() {return WebpackModules.getByProps("openPopout");},
-    get EmojiPicker() {return WebpackModules.getByPrototypes("onHoverEmoji", "selectEmoji");},
+    get EmojiPicker() {return WebpackModules.getByDisplayName("FluxContainer(EmojiPicker)");},
     get UserPopout() {
         return WebpackModules.find(m => {
             try {return m.displayName == "FluxContainer(Component)" && !(new m());}
