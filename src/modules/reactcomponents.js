@@ -191,12 +191,17 @@ export default class ReactComponents {
 
         const c = new ReactComponent(displayName, component, selector, filter);
         this.components.push(c);
+        // if (!have) this.components.push(c);
 
         const listener = this.listeners.find(listener => listener.id === displayName);
         if (listener) {
             for (const l of listener.listeners) l(c);
             Utilities.removeFromArray(this.listeners, listener);
         }
+
+        // for (const listen of this.listeners) {
+        //     if (!listen.filter) continue;
+        // }
 
         return c;
     }
@@ -239,21 +244,25 @@ export default class ReactComponents {
                     component = filter ? reflect.components.find(filter) : reflect.component;
                     if (component) break;
                 }
-
-                if (!component && filter) {
-                    Logger.log("ReactComponents", ["Found elements matching the query selector but no components passed the filter"]);
-                    return;
-                }
+                
+                if (!component && filter) return Logger.log("ReactComponents", ["Found elements matching the query selector but no components passed the filter"]);
 
                 DOMTools.observer.unsubscribe(observerSubscription);
 
-                if (!component) {
-                    Logger.err("ReactComponents", [`FAILED TO GET IMPORTANT COMPONENT ${name} WITH REFLECTION FROM`, elements]);
-                    return;
-                }
+                if (!component) return Logger.err("ReactComponents", [`FAILED TO GET IMPORTANT COMPONENT ${name} WITH REFLECTION FROM`, elements]);
 
                 if (!component.displayName) component.displayName = name;
+                // if (component.displayName && component.displayName != name) {
+                //     let existing = this.listeners.find(l => l.id === component.displayName);
+                //     let current = this.listeners.find(l => l.id === name);
+                //     if (!existing) {current.id = component.displayName;}
+                //     else {
+                //         existing.listeners.push(current.listeners);
+                //         Utilities.removeFromArray(this.listeners, current);
+                //     }
+                // }
                 Logger.info("ReactComponents", [`Found important component ${name} with reflection`, reflect]);
+
                 this.push(component, selector, filter);
             };
 
@@ -265,7 +274,8 @@ export default class ReactComponents {
         if (!listener) {
             this.listeners.push(listener = {
                 id: name,
-                listeners: []
+                listeners: [],
+                filter
             });
         }
 

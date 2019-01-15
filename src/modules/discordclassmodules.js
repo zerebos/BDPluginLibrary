@@ -42,6 +42,7 @@ export default Utilities.memoizeObject({
 	get Messages() {return WebpackModules.getByProps("message", "containerCozy");},
 	get Guilds() {return WebpackModules.getByProps("guildsWrapper");},
 	get EmojiPicker() {return WebpackModules.getByProps("emojiPicker", "emojiItem");},
-	get Reactions() {return WebpackModules.getByProps("reaction", "reactionInner");}
+	get Reactions() {return WebpackModules.getByProps("reaction", "reactionInner");},
+	get Checkbox() {return WebpackModules.getByProps("checkbox", "checkboxInner");}
 });
 

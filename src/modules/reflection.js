@@ -100,11 +100,11 @@ class Reflection {
         const stateNodes = [];
         let lastInstance = instance;
 
-        do {
+        while (lastInstance && lastInstance.return) {
             if (lastInstance.return.stateNode instanceof HTMLElement) break;
             if (lastInstance.return.stateNode) stateNodes.push(lastInstance.return.stateNode);
             lastInstance = lastInstance.return;
-        } while (lastInstance.return);
+        }
 
         return stateNodes;
     }
@@ -130,11 +130,11 @@ class Reflection {
         const components = [];
         let lastInstance = instance;
 
-        do {
+        while (lastInstance && lastInstance.return) {
             if (typeof lastInstance.return.type === "string") break;
             if (lastInstance.return.type) components.push(lastInstance.return.type);
             lastInstance = lastInstance.return;
-        } while (lastInstance.return);
+        }
 
         return components;
     }

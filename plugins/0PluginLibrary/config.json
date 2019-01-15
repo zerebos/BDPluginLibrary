@@ -7,14 +7,15 @@
             "github_username": "rauenzi",
             "twitter_username": "ZackRauen"
         }],
-        "version": "1.2.0",
+        "version": "1.2.1",
         "description": "Gives other plugins utility functions and the ability to emulate v2.",
         "github": "https://github.com/rauenzi/BDPluginLibrary",
         "github_raw": "https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"
     },
     "changelog": [
-        {"title": "New Stuff", "items": ["ReactComponents module to easily grab react components through reflection.", "Additional reflection and observer tools."]},
-        {"title": "Bugs Squashed", "type": "improved", "items": ["More Utilities and WebpackModules functions."]}
+        {"title": "New Stuff", "items": ["New internal classes registered (Checkboxes)."]},
+        {"title": "Improvements", "type": "improved", "items": ["Additional reflection tools"]},
+        {"title": "Bugs Squashed", "type": "fixed", "items": ["Issues with ContextMenu", "Issues with Toasts"]}
     ],
     "main": "index.js"
 }

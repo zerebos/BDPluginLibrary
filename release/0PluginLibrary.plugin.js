@@ -118,7 +118,7 @@ webpackContext.id = "./plugins/0PluginLibrary sync recursive ^\\.\\/.*$";
 /*! exports provided: info, changelog, main, default */
 /***/ (function(module) {
 
-module.exports = {"info":{"name":"ZeresPluginLibrary","authors":[{"name":"Zerebos","discord_id":"249746236008169473","github_username":"rauenzi","twitter_username":"ZackRauen"}],"version":"1.2.0","description":"Gives other plugins utility functions and the ability to emulate v2.","github":"https://github.com/rauenzi/BDPluginLibrary","github_raw":"https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"},"changelog":[{"title":"New Stuff","items":["ReactComponents module to easily grab react components through reflection.","Additional reflection and observer tools."]},{"title":"Bugs Squashed","type":"improved","items":["More Utilities and WebpackModules functions."]}],"main":"index.js"};
+module.exports = {"info":{"name":"ZeresPluginLibrary","authors":[{"name":"Zerebos","discord_id":"249746236008169473","github_username":"rauenzi","twitter_username":"ZackRauen"}],"version":"1.2.1","description":"Gives other plugins utility functions and the ability to emulate v2.","github":"https://github.com/rauenzi/BDPluginLibrary","github_raw":"https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"},"changelog":[{"title":"New Stuff","items":["New internal classes registered (Checkboxes)."]},{"title":"Improvements","type":"improved","items":["Additional reflection tools"]},{"title":"Bugs Squashed","type":"fixed","items":["Issues with ContextMenu","Issues with Toasts"]}],"main":"index.js"};
 
 /***/ }),
 
@@ -572,7 +572,8 @@ __webpack_require__.r(__webpack_exports__);
 	get Messages() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("message", "containerCozy");},
 	get Guilds() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("guildsWrapper");},
 	get EmojiPicker() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("emojiPicker", "emojiItem");},
-	get Reactions() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("reaction", "reactionInner");}
+	get Reactions() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("reaction", "reactionInner");},
+	get Checkbox() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("checkbox", "checkboxInner");}
 }));
 
 
@@ -2671,12 +2672,17 @@ class ReactComponents {
 
         const c = new ReactComponent(displayName, component, selector, filter);
         this.components.push(c);
+        // if (!have) this.components.push(c);
 
         const listener = this.listeners.find(listener => listener.id === displayName);
         if (listener) {
             for (const l of listener.listeners) l(c);
             _utilities__WEBPACK_IMPORTED_MODULE_1__["default"].removeFromArray(this.listeners, listener);
         }
+
+        // for (const listen of this.listeners) {
+        //     if (!listen.filter) continue;
+        // }
 
         return c;
     }
@@ -2719,21 +2725,25 @@ class ReactComponents {
                     component = filter ? reflect.components.find(filter) : reflect.component;
                     if (component) break;
                 }
-
-                if (!component && filter) {
-                    _logger__WEBPACK_IMPORTED_MODULE_0__["default"].log("ReactComponents", ["Found elements matching the query selector but no components passed the filter"]);
-                    return;
-                }
+                
+                if (!component && filter) return _logger__WEBPACK_IMPORTED_MODULE_0__["default"].log("ReactComponents", ["Found elements matching the query selector but no components passed the filter"]);
 
                 _domtools__WEBPACK_IMPORTED_MODULE_5__["default"].observer.unsubscribe(observerSubscription);
 
-                if (!component) {
-                    _logger__WEBPACK_IMPORTED_MODULE_0__["default"].err("ReactComponents", [`FAILED TO GET IMPORTANT COMPONENT ${name} WITH REFLECTION FROM`, elements]);
-                    return;
-                }
+                if (!component) return _logger__WEBPACK_IMPORTED_MODULE_0__["default"].err("ReactComponents", [`FAILED TO GET IMPORTANT COMPONENT ${name} WITH REFLECTION FROM`, elements]);
 
                 if (!component.displayName) component.displayName = name;
+                // if (component.displayName && component.displayName != name) {
+                //     let existing = this.listeners.find(l => l.id === component.displayName);
+                //     let current = this.listeners.find(l => l.id === name);
+                //     if (!existing) {current.id = component.displayName;}
+                //     else {
+                //         existing.listeners.push(current.listeners);
+                //         Utilities.removeFromArray(this.listeners, current);
+                //     }
+                // }
                 _logger__WEBPACK_IMPORTED_MODULE_0__["default"].info("ReactComponents", [`Found important component ${name} with reflection`, reflect]);
+
                 this.push(component, selector, filter);
             };
 
@@ -2745,7 +2755,8 @@ class ReactComponents {
         if (!listener) {
             this.listeners.push(listener = {
                 id: name,
-                listeners: []
+                listeners: [],
+                filter
             });
         }
 
@@ -3057,11 +3068,11 @@ class Reflection {
         const stateNodes = [];
         let lastInstance = instance;
 
-        do {
+        while (lastInstance && lastInstance.return) {
             if (lastInstance.return.stateNode instanceof HTMLElement) break;
             if (lastInstance.return.stateNode) stateNodes.push(lastInstance.return.stateNode);
             lastInstance = lastInstance.return;
-        } while (lastInstance.return);
+        }
 
         return stateNodes;
     }
@@ -3087,11 +3098,11 @@ class Reflection {
         const components = [];
         let lastInstance = instance;
 
-        do {
+        while (lastInstance && lastInstance.return) {
             if (typeof lastInstance.return.type === "string") break;
             if (lastInstance.return.type) components.push(lastInstance.return.type);
             lastInstance = lastInstance.return;
-        } while (lastInstance.return);
+        }
 
         return components;
     }
@@ -6721,10 +6732,10 @@ class ToggleItem extends MenuItem {
 		super(label, options);
 		this.element.addClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.itemToggle);
 		this.element.append(_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.label}">${label}</div>`));
-		this.checkbox = _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="checkbox"></div>`);
-		this.checkbox.append(_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="checkbox-inner"></div>`));
+		this.checkbox = _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="checkbox ${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].Checkbox.checkbox} ${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.checkbox}" role="button"></div>`);
+		this.checkbox.append(_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="checkbox-inner ${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].Checkbox.checkboxInner}"></div>`));
 		this.checkbox.append(_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement("<span>"));
-		this.input = _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<input type="checkbox">`);
+		this.input = _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<input type="checkbox" class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].Checkbox.checkboxElement}">`);
 		this.input.checked = checked;
 		this.checkbox.find(".checkbox-inner").append(this.input);
 		this.checkbox.find(".checkbox-inner").append(_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement("<span>"));
@@ -7934,8 +7945,8 @@ class Toast {
 
     static ensureContainer() {
         if (document.querySelector(".toasts")) return;
-        let container = document.querySelector(".channels-3g2vYe + div, .channels-Ie2l6A + div");
-        let memberlist = container.querySelector(".membersWrap-2h-GB4");
+        let container = document.querySelector(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordSelectors"].ChannelList.channels.adjacent("div"));
+        let memberlist = container.querySelector(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordSelectors"].MemberList.membersWrap);
         let form = container ? container.querySelector("form") : null;
         let left = container ? container.getBoundingClientRect().left : 310;
         let right = memberlist ? memberlist.getBoundingClientRect().left : 0;
@@ -7946,7 +7957,7 @@ class Toast {
         toastWrapper.style.setProperty("left", left + "px");
         toastWrapper.style.setProperty("width", width + "px");
         toastWrapper.style.setProperty("bottom", bottom + "px");
-        document.querySelector(".app").appendChild(toastWrapper);
+        document.querySelector("#app-mount").appendChild(toastWrapper);
     }
 
     static parseType(type) {

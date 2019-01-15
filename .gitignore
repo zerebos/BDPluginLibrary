@@ -13,3 +13,4 @@ plugins/*
 !plugins/ExamplePlugin2
 !plugins/HideDisabledEmojis
 !plugins/SendButton
+TODO.txt

@@ -273,10 +273,10 @@ export class ToggleItem extends MenuItem {
 		super(label, options);
 		this.element.addClass(DiscordClasses.ContextMenu.itemToggle);
 		this.element.append(DOMTools.createElement(`<div class="${DiscordClasses.ContextMenu.label}">${label}</div>`));
-		this.checkbox = DOMTools.createElement(`<div class="checkbox"></div>`);
-		this.checkbox.append(DOMTools.createElement(`<div class="checkbox-inner"></div>`));
+		this.checkbox = DOMTools.createElement(`<div class="checkbox ${DiscordClasses.Checkbox.checkbox} ${DiscordClasses.ContextMenu.checkbox}" role="button"></div>`);
+		this.checkbox.append(DOMTools.createElement(`<div class="checkbox-inner ${DiscordClasses.Checkbox.checkboxInner}"></div>`));
 		this.checkbox.append(DOMTools.createElement("<span>"));
-		this.input = DOMTools.createElement(`<input type="checkbox">`);
+		this.input = DOMTools.createElement(`<input type="checkbox" class="${DiscordClasses.Checkbox.checkboxElement}">`);
 		this.input.checked = checked;
 		this.checkbox.find(".checkbox-inner").append(this.input);
 		this.checkbox.find(".checkbox-inner").append(DOMTools.createElement("<span>"));

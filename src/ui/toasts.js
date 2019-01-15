@@ -4,7 +4,7 @@
  * @module Toasts
  * @version 0.0.1
  */
-import {Utilities, DOMTools} from "modules";
+import {Utilities, DOMTools, DiscordSelectors} from "modules";
 import {Icons} from "ui";
 
 export default class Toast {
@@ -74,8 +74,8 @@ export default class Toast {
 
     static ensureContainer() {
         if (document.querySelector(".toasts")) return;
-        let container = document.querySelector(".channels-3g2vYe + div, .channels-Ie2l6A + div");
-        let memberlist = container.querySelector(".membersWrap-2h-GB4");
+        let container = document.querySelector(DiscordSelectors.ChannelList.channels.adjacent("div"));
+        let memberlist = container.querySelector(DiscordSelectors.MemberList.membersWrap);
         let form = container ? container.querySelector("form") : null;
         let left = container ? container.getBoundingClientRect().left : 310;
         let right = memberlist ? memberlist.getBoundingClientRect().left : 0;
@@ -86,7 +86,7 @@ export default class Toast {
         toastWrapper.style.setProperty("left", left + "px");
         toastWrapper.style.setProperty("width", width + "px");
         toastWrapper.style.setProperty("bottom", bottom + "px");
-        document.querySelector(".app").appendChild(toastWrapper);
+        document.querySelector("#app-mount").appendChild(toastWrapper);
     }
 
     static parseType(type) {
