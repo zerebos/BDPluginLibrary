@@ -118,7 +118,7 @@ webpackContext.id = "./plugins/0PluginLibrary sync recursive ^\\.\\/.*$";
 /*! exports provided: info, changelog, main, default */
 /***/ (function(module) {
 
-module.exports = {"info":{"name":"ZeresPluginLibrary","authors":[{"name":"Zerebos","discord_id":"249746236008169473","github_username":"rauenzi","twitter_username":"ZackRauen"}],"version":"1.2.1","description":"Gives other plugins utility functions and the ability to emulate v2.","github":"https://github.com/rauenzi/BDPluginLibrary","github_raw":"https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"},"changelog":[{"title":"New Stuff","items":["New internal classes registered (Checkboxes)."]},{"title":"Improvements","type":"improved","items":["Additional reflection tools"]},{"title":"Bugs Squashed","type":"fixed","items":["Issues with ContextMenu","Issues with Toasts"]}],"main":"index.js"};
+module.exports = {"info":{"name":"ZeresPluginLibrary","authors":[{"name":"Zerebos","discord_id":"249746236008169473","github_username":"rauenzi","twitter_username":"ZackRauen"}],"version":"1.2.2","description":"Gives other plugins utility functions and the ability to emulate v2.","github":"https://github.com/rauenzi/BDPluginLibrary","github_raw":"https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"},"changelog":[{"title":"Bugs Squashed","type":"fixed","items":["Fixed fatal error for showing update notice."]}],"main":"index.js"};
 
 /***/ }),
 
@@ -2253,7 +2253,7 @@ class PluginUpdater {
 														<div class="${_discordclasses__WEBPACK_IMPORTED_MODULE_4__["default"].Notices.dismiss}" id="pluginNoticeDismiss"></div>
 														<span class="notice-message">The following plugins have updates:</span>&nbsp;&nbsp;<strong id="outdatedPlugins"></strong>
 													</div>`);
-			_domtools__WEBPACK_IMPORTED_MODULE_2__["default"].query(".app").prepend(noticeElement);
+			_domtools__WEBPACK_IMPORTED_MODULE_2__["default"].query("[class*='app-'] > [class*='app-']").prepend(noticeElement);
 			noticeElement.querySelector("#pluginNoticeDismiss").addEventListener("click", async () => {
 				noticeElement.classList.add("closing");
 				await new Promise(resolve => setTimeout(resolve, 400));

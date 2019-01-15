@@ -211,7 +211,7 @@ export default class PluginUpdater {
 														<div class="${DiscordClasses.Notices.dismiss}" id="pluginNoticeDismiss"></div>
 														<span class="notice-message">The following plugins have updates:</span>&nbsp;&nbsp;<strong id="outdatedPlugins"></strong>
 													</div>`);
-			DOMTools.query(".app").prepend(noticeElement);
+			DOMTools.query("[class*='app-'] > [class*='app-']").prepend(noticeElement);
 			noticeElement.querySelector("#pluginNoticeDismiss").addEventListener("click", async () => {
 				noticeElement.classList.add("closing");
 				await new Promise(resolve => setTimeout(resolve, 400));

@@ -2079,7 +2079,7 @@ class PluginUpdater {
 														<div class="${_discordclasses__WEBPACK_IMPORTED_MODULE_4__["default"].Notices.dismiss}" id="pluginNoticeDismiss"></div>
 														<span class="notice-message">The following plugins have updates:</span>&nbsp;&nbsp;<strong id="outdatedPlugins"></strong>
 													</div>`);
-			_domtools__WEBPACK_IMPORTED_MODULE_2__["default"].query(".app").prepend(noticeElement);
+			_domtools__WEBPACK_IMPORTED_MODULE_2__["default"].query("[class*='app-'] > [class*='app-']").prepend(noticeElement);
 			noticeElement.querySelector("#pluginNoticeDismiss").addEventListener("click", async () => {
 				noticeElement.classList.add("closing");
 				await new Promise(resolve => setTimeout(resolve, 400));
