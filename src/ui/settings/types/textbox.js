@@ -17,7 +17,7 @@ class Textbox extends SettingField {
 	 * @param {callable} onChange - callback to perform on setting change, callback receives text
 	 * @param {object} [options] - object of options to give to the setting
 	 * @param {string} [options.placeholder=""] - placeholder for when textbox is empty
-     * @param {boolean} [options.disabled=false] - should the setting be disabled
+	 * @param {boolean} [options.disabled=false] - should the setting be disabled
 	 */
     constructor(name, note, value, onChange, options = {}) {
         const {placeholder = "", disabled=false} = options;
