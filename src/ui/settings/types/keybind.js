@@ -13,7 +13,7 @@ class Keybind extends SettingField {
 	 * @param {string} note - help/note to show underneath or above the setting
 	 * @param {Array<number>} value - array of keycodes
 	 * @param {callable} onChange - callback to perform on setting change, callback receives array of keycodes
-     * @param {object} [options] - object of options to give to the setting
+	 * @param {object} [options] - object of options to give to the setting
 	 * @param {boolean} [options.disabled=false] - should the setting be disabled
 	 */    
     constructor(label, help, value, onChange, options = {}) {
