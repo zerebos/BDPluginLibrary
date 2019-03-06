@@ -7,11 +7,6 @@ release/*
 !release/HideDisabledEmojis.plugin.js
 !release/SendButton.plugin.js
 !release/ZLibrary.js
-plugins/*
-!plugins/0PluginLibrary
-!plugins/ExamplePlugin
-!plugins/ExamplePlugin2
-!plugins/HideDisabledEmojis
-!plugins/SendButton
+plugins
 TODO.txt
 config.json
