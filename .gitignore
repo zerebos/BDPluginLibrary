@@ -14,3 +14,4 @@ plugins/*
 !plugins/HideDisabledEmojis
 !plugins/SendButton
 TODO.txt
+config.json

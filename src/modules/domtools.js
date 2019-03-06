@@ -33,7 +33,11 @@ export default class DOMTools {
 	static get ClassName() {return ClassName;}
 	static get DOMObserver() {return DOMObserver;}
 
-	/**	Default DOMObserver */
+	/**	
+	 * Default DOMObserver for global usage.
+	 * 
+	 * @see DOMObserver
+	 */
 	static get observer() {
         return this._observer || (this._observer = new DOMObserver());
     }

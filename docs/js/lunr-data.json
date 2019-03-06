@@ -663,16 +663,6 @@
           "module:discordapi.us",
           "user"
         ],
-        "module-DiscordAPI.User.html#updateNote": [
-          "function",
-          "module:discordapi.user#updatenot",
-          "note",
-          "promis",
-          "updat",
-          "updatenot",
-          "user",
-          "user#updatenot"
-        ],
         "module-DiscordAPI.User.html#openUserProfileModal": [
           "function",
           "modal",
@@ -683,6 +673,16 @@
           "section",
           "user",
           "user#openuserprofilemod"
+        ],
+        "module-DiscordAPI.User.html#updateNote": [
+          "function",
+          "module:discordapi.user#updatenot",
+          "note",
+          "promis",
+          "updat",
+          "updatenot",
+          "user",
+          "user#updatenot"
         ],
         "module-DiscordAPI.UserSettings.html": [
           "class",
@@ -1126,6 +1126,87 @@
           "string",
           "valu",
           "valueof"
+        ],
+        "module-DOMTools.DOMObserver.html": [
+          "class",
+          "domobserv",
+          "domtools.domobserv",
+          "help",
+          "module:domtools.domobserv",
+          "mutationobserv",
+          "represent",
+          "util"
+        ],
+        "module-DOMTools.DOMObserver.html#observe": [
+          "attach",
+          "call",
+          "callback",
+          "domobserver#observ",
+          "don't",
+          "element",
+          "function",
+          "manual",
+          "module:domtools.domobserver#observ",
+          "need",
+          "observ",
+          "start"
+        ],
+        "module-DOMTools.DOMObserver.html#disconnect": [
+          "be",
+          "call",
+          "callback",
+          "disconnect",
+          "domobserver#disconnect",
+          "function",
+          "instead",
+          "module:domtools.domobserver#disconnect",
+          "observ",
+          "observer.unsubscribeal",
+          "probabl",
+          "stop",
+          "unbind",
+          "us",
+          "want"
+        ],
+        "module-DOMTools.DOMObserver.html#subscribe": [
+          "bind",
+          "callback",
+          "domobserver#subscrib",
+          "filter",
+          "function",
+          "group",
+          "module:domtools.domobserver#subscrib",
+          "mutat",
+          "object",
+          "subscrib"
+        ],
+        "module-DOMTools.DOMObserver.html#unsubscribe": [
+          "disconnect",
+          "domobserver#unsubscrib",
+          "function",
+          "left",
+          "module:domtools.domobserver#unsubscrib",
+          "none",
+          "remov",
+          "subscript",
+          "unsubscrib"
+        ],
+        "module-DOMTools.DOMObserver.html#subscribeToQuerySelector": [
+          "affect",
+          "bind",
+          "callback",
+          "domobserver#subscribetoqueryselector",
+          "element",
+          "filter",
+          "function",
+          "group",
+          "match",
+          "module:domtools.domobserver#subscribetoqueryselector",
+          "mutat",
+          "object",
+          "selector",
+          "subscrib",
+          "subscribetoqueryselector"
         ],
         "module-DOMTools.Selector.html": [
           "class",
@@ -2248,6 +2329,16 @@
           "seri",
           "us"
         ],
+        "module-ReactComponents.html": [
+          "compon",
+          "interact",
+          "method",
+          "modul",
+          "module:reactcompon",
+          "obtain",
+          "react",
+          "reactcompon"
+        ],
         "module-ReactTools.html": [
           "deal",
           "dom",
@@ -2375,7 +2466,7 @@
           "settings~radioitem"
         ]
       },
-      "length": 201
+      "length": 208
     },
     "tokenStore": {
       "root": {
@@ -2623,7 +2714,12 @@
             }
           },
           "e": {
-            "docs": {},
+            "docs": {
+              "module-DOMTools.DOMObserver.html#disconnect": {
+                "ref": "module-DOMTools.DOMObserver.html#disconnect",
+                "tf": 4.166666666666666
+              }
+            },
             "f": {
               "docs": {},
               "o": {
@@ -2717,6 +2813,24 @@
               }
             }
           },
+          "i": {
+            "docs": {},
+            "n": {
+              "docs": {},
+              "d": {
+                "docs": {
+                  "module-DOMTools.DOMObserver.html#subscribe": {
+                    "ref": "module-DOMTools.DOMObserver.html#subscribe",
+                    "tf": 16.666666666666664
+                  },
+                  "module-DOMTools.DOMObserver.html#subscribeToQuerySelector": {
+                    "ref": "module-DOMTools.DOMObserver.html#subscribeToQuerySelector",
+                    "tf": 16.666666666666664
+                  }
+                }
+              }
+            }
+          },
           "a": {
             "docs": {},
             "s": {
@@ -2796,6 +2910,10 @@
                   "index.html": {
                     "ref": "index.html",
                     "tf": 11.666666666666666
+                  },
+                  "module-DOMTools.DOMObserver.html": {
+                    "ref": "module-DOMTools.DOMObserver.html",
+                    "tf": 12.5
                   },
                   "module-ColorConverter.html": {
                     "ref": "module-ColorConverter.html",
@@ -3347,6 +3465,20 @@
                         "tf": 1.7241379310344827
                       }
                     }
+                  },
+                  "a": {
+                    "docs": {},
+                    "c": {
+                      "docs": {},
+                      "t": {
+                        "docs": {
+                          "module-ReactComponents.html": {
+                            "ref": "module-ReactComponents.html",
+                            "tf": 10
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               }
@@ -3464,6 +3596,46 @@
             },
             "s": {
               "docs": {},
+              "t": {
+                "docs": {},
+                "e": {
+                  "docs": {},
+                  "a": {
+                    "docs": {},
+                    "d": {
+                      "docs": {
+                        "module-DOMTools.DOMObserver.html#disconnect": {
+                          "ref": "module-DOMTools.DOMObserver.html#disconnect",
+                          "tf": 4.166666666666666
+                        },
+                        "module-ContextMenu.Menu.html#addItems": {
+                          "ref": "module-ContextMenu.Menu.html#addItems",
+                          "tf": 3.571428571428571
+                        },
+                        "module-Patcher.html": {
+                          "ref": "module-Patcher.html",
+                          "tf": 2.631578947368421
+                        }
+                      }
+                    }
+                  }
+                },
+                "a": {
+                  "docs": {},
+                  "l": {
+                    "docs": {
+                      "module-DiscordClassModules.html": {
+                        "ref": "module-DiscordClassModules.html",
+                        "tf": 1.5625
+                      },
+                      "module-DiscordModules.html": {
+                        "ref": "module-DiscordModules.html",
+                        "tf": 1.9230769230769231
+                      }
+                    }
+                  }
+                }
+              },
               "u": {
                 "docs": {},
                 "f": {
@@ -3512,42 +3684,6 @@
                             }
                           }
                         }
-                      }
-                    }
-                  }
-                }
-              },
-              "t": {
-                "docs": {},
-                "e": {
-                  "docs": {},
-                  "a": {
-                    "docs": {},
-                    "d": {
-                      "docs": {
-                        "module-ContextMenu.Menu.html#addItems": {
-                          "ref": "module-ContextMenu.Menu.html#addItems",
-                          "tf": 3.571428571428571
-                        },
-                        "module-Patcher.html": {
-                          "ref": "module-Patcher.html",
-                          "tf": 2.631578947368421
-                        }
-                      }
-                    }
-                  }
-                },
-                "a": {
-                  "docs": {},
-                  "l": {
-                    "docs": {
-                      "module-DiscordClassModules.html": {
-                        "ref": "module-DiscordClassModules.html",
-                        "tf": 1.5625
-                      },
-                      "module-DiscordModules.html": {
-                        "ref": "module-DiscordModules.html",
-                        "tf": 1.9230769230769231
                       }
                     }
                   }
@@ -4627,6 +4763,17 @@
                   }
                 }
               }
+            },
+            "f": {
+              "docs": {},
+              "t": {
+                "docs": {
+                  "module-DOMTools.DOMObserver.html#unsubscribe": {
+                    "ref": "module-DOMTools.DOMObserver.html#unsubscribe",
+                    "tf": 10
+                  }
+                }
+              }
             }
           },
           "o": {
@@ -5053,6 +5200,23 @@
                       "module-DiscordAPI.User.html#openUserProfileModal": {
                         "ref": "module-DiscordAPI.User.html#openUserProfileModal",
                         "tf": 12.5
+                      }
+                    }
+                  }
+                }
+              },
+              "b": {
+                "docs": {},
+                "a": {
+                  "docs": {},
+                  "b": {
+                    "docs": {},
+                    "l": {
+                      "docs": {
+                        "module-DOMTools.DOMObserver.html#disconnect": {
+                          "ref": "module-DOMTools.DOMObserver.html#disconnect",
+                          "tf": 4.166666666666666
+                        }
                       }
                     }
                   }
@@ -5604,6 +5768,10 @@
                 "docs": {},
                 "t": {
                   "docs": {
+                    "module-ReactComponents.html": {
+                      "ref": "module-ReactComponents.html",
+                      "tf": 10
+                    },
                     "module-ReactTools.html": {
                       "ref": "module-ReactTools.html",
                       "tf": 6.25
@@ -5618,6 +5786,29 @@
                           "module-DiscordAPI.UserSettings.html#.showReactions": {
                             "ref": "module-DiscordAPI.UserSettings.html#.showReactions",
                             "tf": 6.25
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "c": {
+                    "docs": {},
+                    "o": {
+                      "docs": {},
+                      "m": {
+                        "docs": {},
+                        "p": {
+                          "docs": {},
+                          "o": {
+                            "docs": {},
+                            "n": {
+                              "docs": {
+                                "module-ReactComponents.html": {
+                                  "ref": "module-ReactComponents.html",
+                                  "tf": 600
+                                }
+                              }
+                            }
                           }
                         }
                       }
@@ -5753,6 +5944,10 @@
                               "ref": "module-DOMTools.ClassName.html",
                               "tf": 16.666666666666664
                             },
+                            "module-DOMTools.DOMObserver.html": {
+                              "ref": "module-DOMTools.DOMObserver.html",
+                              "tf": 12.5
+                            },
                             "module-DOMTools.Selector.html": {
                               "ref": "module-DOMTools.Selector.html",
                               "tf": 25
@@ -5833,6 +6028,10 @@
                 "docs": {},
                 "v": {
                   "docs": {
+                    "module-DOMTools.DOMObserver.html#unsubscribe": {
+                      "ref": "module-DOMTools.DOMObserver.html#unsubscribe",
+                      "tf": 10
+                    },
                     "Listenable.html#removeListener": {
                       "ref": "Listenable.html#removeListener",
                       "tf": 12.5
@@ -7113,6 +7312,10 @@
                             "ref": "module-DOMTools.ClassName.html#selector",
                             "tf": 700
                           },
+                          "module-DOMTools.DOMObserver.html#subscribeToQuerySelector": {
+                            "ref": "module-DOMTools.DOMObserver.html#subscribeToQuerySelector",
+                            "tf": 8.333333333333332
+                          },
                           "module-DOMTools.Selector.html": {
                             "ref": "module-DOMTools.Selector.html",
                             "tf": 675
@@ -7669,6 +7872,17 @@
                     }
                   }
                 }
+              },
+              "r": {
+                "docs": {},
+                "t": {
+                  "docs": {
+                    "module-DOMTools.DOMObserver.html#observe": {
+                      "ref": "module-DOMTools.DOMObserver.html#observe",
+                      "tf": 5
+                    }
+                  }
+                }
               }
             },
             "r": {
@@ -7704,6 +7918,17 @@
                         "tf": 3.4482758620689653
                       }
                     }
+                  }
+                }
+              }
+            },
+            "o": {
+              "docs": {},
+              "p": {
+                "docs": {
+                  "module-DOMTools.DOMObserver.html#disconnect": {
+                    "ref": "module-DOMTools.DOMObserver.html#disconnect",
+                    "tf": 4.166666666666666
                   }
                 }
               }
@@ -7878,6 +8103,149 @@
               }
             }
           },
+          "u": {
+            "docs": {},
+            "b": {
+              "docs": {},
+              "s": {
+                "docs": {},
+                "c": {
+                  "docs": {},
+                  "r": {
+                    "docs": {},
+                    "i": {
+                      "docs": {},
+                      "b": {
+                        "docs": {
+                          "module-DOMTools.DOMObserver.html#subscribe": {
+                            "ref": "module-DOMTools.DOMObserver.html#subscribe",
+                            "tf": 641.6666666666666
+                          },
+                          "module-DOMTools.DOMObserver.html#subscribeToQuerySelector": {
+                            "ref": "module-DOMTools.DOMObserver.html#subscribeToQuerySelector",
+                            "tf": 8.333333333333332
+                          }
+                        },
+                        "e": {
+                          "docs": {},
+                          "t": {
+                            "docs": {},
+                            "o": {
+                              "docs": {},
+                              "q": {
+                                "docs": {},
+                                "u": {
+                                  "docs": {},
+                                  "e": {
+                                    "docs": {},
+                                    "r": {
+                                      "docs": {},
+                                      "y": {
+                                        "docs": {},
+                                        "s": {
+                                          "docs": {},
+                                          "e": {
+                                            "docs": {},
+                                            "l": {
+                                              "docs": {},
+                                              "e": {
+                                                "docs": {},
+                                                "c": {
+                                                  "docs": {},
+                                                  "t": {
+                                                    "docs": {},
+                                                    "o": {
+                                                      "docs": {},
+                                                      "r": {
+                                                        "docs": {
+                                                          "module-DOMTools.DOMObserver.html#subscribeToQuerySelector": {
+                                                            "ref": "module-DOMTools.DOMObserver.html#subscribeToQuerySelector",
+                                                            "tf": 616.6666666666666
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "p": {
+                        "docs": {},
+                        "t": {
+                          "docs": {
+                            "module-DOMTools.DOMObserver.html#unsubscribe": {
+                              "ref": "module-DOMTools.DOMObserver.html#unsubscribe",
+                              "tf": 60
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "m": {
+                "docs": {},
+                "e": {
+                  "docs": {},
+                  "n": {
+                    "docs": {},
+                    "u": {
+                      "docs": {
+                        "module-ContextMenu.Menu.html#attachTo": {
+                          "ref": "module-ContextMenu.Menu.html#attachTo",
+                          "tf": 4.3478260869565215
+                        },
+                        "module-ContextMenu.SubMenuItem.html": {
+                          "ref": "module-ContextMenu.SubMenuItem.html",
+                          "tf": 10
+                        }
+                      },
+                      "i": {
+                        "docs": {},
+                        "t": {
+                          "docs": {},
+                          "e": {
+                            "docs": {},
+                            "m": {
+                              "docs": {
+                                "module-ContextMenu.SubMenuItem.html": {
+                                  "ref": "module-ContextMenu.SubMenuItem.html",
+                                  "tf": 650
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "c": {
+              "docs": {},
+              "h": {
+                "docs": {
+                  "Screen.html": {
+                    "ref": "Screen.html",
+                    "tf": 10
+                  }
+                }
+              }
+            }
+          },
           "i": {
             "docs": {},
             "b": {
@@ -7985,61 +8353,6 @@
                                       "tf": 1150
                                     }
                                   }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "u": {
-            "docs": {},
-            "c": {
-              "docs": {},
-              "h": {
-                "docs": {
-                  "Screen.html": {
-                    "ref": "Screen.html",
-                    "tf": 10
-                  }
-                }
-              }
-            },
-            "b": {
-              "docs": {},
-              "m": {
-                "docs": {},
-                "e": {
-                  "docs": {},
-                  "n": {
-                    "docs": {},
-                    "u": {
-                      "docs": {
-                        "module-ContextMenu.Menu.html#attachTo": {
-                          "ref": "module-ContextMenu.Menu.html#attachTo",
-                          "tf": 4.3478260869565215
-                        },
-                        "module-ContextMenu.SubMenuItem.html": {
-                          "ref": "module-ContextMenu.SubMenuItem.html",
-                          "tf": 10
-                        }
-                      },
-                      "i": {
-                        "docs": {},
-                        "t": {
-                          "docs": {},
-                          "e": {
-                            "docs": {},
-                            "m": {
-                              "docs": {
-                                "module-ContextMenu.SubMenuItem.html": {
-                                  "ref": "module-ContextMenu.SubMenuItem.html",
-                                  "tf": 650
                                 }
                               }
                             }
@@ -8887,6 +9200,10 @@
                     "ref": "index.html",
                     "tf": 11.666666666666666
                   },
+                  "module-DOMTools.DOMObserver.html": {
+                    "ref": "module-DOMTools.DOMObserver.html",
+                    "tf": 12.5
+                  },
                   "List.html": {
                     "ref": "List.html",
                     "tf": 10
@@ -8936,6 +9253,10 @@
               "module-DOMTools.ClassName.html#add": {
                 "ref": "module-DOMTools.ClassName.html#add",
                 "tf": 6.25
+              },
+              "module-DOMTools.DOMObserver.html#disconnect": {
+                "ref": "module-DOMTools.DOMObserver.html#disconnect",
+                "tf": 4.166666666666666
               },
               "module-ContextMenu.Menu.html#addItems": {
                 "ref": "module-ContextMenu.Menu.html#addItems",
@@ -9022,13 +9343,13 @@
                     "ref": "module-DiscordAPI.User.html",
                     "tf": 650
                   },
-                  "module-DiscordAPI.User.html#updateNote": {
-                    "ref": "module-DiscordAPI.User.html#updateNote",
-                    "tf": 16.666666666666664
-                  },
                   "module-DiscordAPI.User.html#openUserProfileModal": {
                     "ref": "module-DiscordAPI.User.html#openUserProfileModal",
                     "tf": 12.5
+                  },
+                  "module-DiscordAPI.User.html#updateNote": {
+                    "ref": "module-DiscordAPI.User.html#updateNote",
+                    "tf": 16.666666666666664
                   },
                   "module-DiscordAPI.UserSettings.html#.restrictedGuildIds": {
                     "ref": "module-DiscordAPI.UserSettings.html#.restrictedGuildIds",
@@ -9081,38 +9402,6 @@
                 },
                 "#": {
                   "docs": {},
-                  "u": {
-                    "docs": {},
-                    "p": {
-                      "docs": {},
-                      "d": {
-                        "docs": {},
-                        "a": {
-                          "docs": {},
-                          "t": {
-                            "docs": {},
-                            "e": {
-                              "docs": {},
-                              "n": {
-                                "docs": {},
-                                "o": {
-                                  "docs": {},
-                                  "t": {
-                                    "docs": {
-                                      "module-DiscordAPI.User.html#updateNote": {
-                                        "ref": "module-DiscordAPI.User.html#updateNote",
-                                        "tf": 100
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  },
                   "o": {
                     "docs": {},
                     "p": {
@@ -9161,6 +9450,38 @@
                                             }
                                           }
                                         }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "u": {
+                    "docs": {},
+                    "p": {
+                      "docs": {},
+                      "d": {
+                        "docs": {},
+                        "a": {
+                          "docs": {},
+                          "t": {
+                            "docs": {},
+                            "e": {
+                              "docs": {},
+                              "n": {
+                                "docs": {},
+                                "o": {
+                                  "docs": {},
+                                  "t": {
+                                    "docs": {
+                                      "module-DiscordAPI.User.html#updateNote": {
+                                        "ref": "module-DiscordAPI.User.html#updateNote",
+                                        "tf": 100
                                       }
                                     }
                                   }
@@ -10692,6 +11013,55 @@
                 }
               }
             }
+          },
+          "n": {
+            "docs": {},
+            "b": {
+              "docs": {},
+              "i": {
+                "docs": {},
+                "n": {
+                  "docs": {},
+                  "d": {
+                    "docs": {
+                      "module-DOMTools.DOMObserver.html#disconnect": {
+                        "ref": "module-DOMTools.DOMObserver.html#disconnect",
+                        "tf": 4.166666666666666
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "s": {
+              "docs": {},
+              "u": {
+                "docs": {},
+                "b": {
+                  "docs": {},
+                  "s": {
+                    "docs": {},
+                    "c": {
+                      "docs": {},
+                      "r": {
+                        "docs": {},
+                        "i": {
+                          "docs": {},
+                          "b": {
+                            "docs": {
+                              "module-DOMTools.DOMObserver.html#unsubscribe": {
+                                "ref": "module-DOMTools.DOMObserver.html#unsubscribe",
+                                "tf": 650
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         "z": {
@@ -10809,6 +11179,10 @@
                     "module-DiscordAPI.Guild.html#updateSplash": {
                       "ref": "module-DiscordAPI.Guild.html#updateSplash",
                       "tf": 4.166666666666666
+                    },
+                    "module-DOMTools.DOMObserver.html#observe": {
+                      "ref": "module-DOMTools.DOMObserver.html#observe",
+                      "tf": 5
                     }
                   }
                 }
@@ -10955,6 +11329,38 @@
                               }
                             }
                           },
+                          "d": {
+                            "docs": {},
+                            "o": {
+                              "docs": {},
+                              "m": {
+                                "docs": {},
+                                "o": {
+                                  "docs": {},
+                                  "b": {
+                                    "docs": {},
+                                    "s": {
+                                      "docs": {},
+                                      "e": {
+                                        "docs": {},
+                                        "r": {
+                                          "docs": {},
+                                          "v": {
+                                            "docs": {
+                                              "module-DOMTools.DOMObserver.html": {
+                                                "ref": "module-DOMTools.DOMObserver.html",
+                                                "tf": 100
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          },
                           "s": {
                             "docs": {},
                             "e": {
@@ -11022,6 +11428,213 @@
                                         "module-DOMTools-Offset.html": {
                                           "ref": "module-DOMTools-Offset.html",
                                           "tf": 100
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "o": {
+                "docs": {},
+                "b": {
+                  "docs": {},
+                  "s": {
+                    "docs": {},
+                    "e": {
+                      "docs": {},
+                      "r": {
+                        "docs": {},
+                        "v": {
+                          "docs": {
+                            "module-DOMTools.DOMObserver.html": {
+                              "ref": "module-DOMTools.DOMObserver.html",
+                              "tf": 650
+                            }
+                          },
+                          "e": {
+                            "docs": {},
+                            "r": {
+                              "docs": {},
+                              "#": {
+                                "docs": {},
+                                "o": {
+                                  "docs": {},
+                                  "b": {
+                                    "docs": {},
+                                    "s": {
+                                      "docs": {},
+                                      "e": {
+                                        "docs": {},
+                                        "r": {
+                                          "docs": {},
+                                          "v": {
+                                            "docs": {
+                                              "module-DOMTools.DOMObserver.html#observe": {
+                                                "ref": "module-DOMTools.DOMObserver.html#observe",
+                                                "tf": 100
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "d": {
+                                  "docs": {},
+                                  "i": {
+                                    "docs": {},
+                                    "s": {
+                                      "docs": {},
+                                      "c": {
+                                        "docs": {},
+                                        "o": {
+                                          "docs": {},
+                                          "n": {
+                                            "docs": {},
+                                            "n": {
+                                              "docs": {},
+                                              "e": {
+                                                "docs": {},
+                                                "c": {
+                                                  "docs": {},
+                                                  "t": {
+                                                    "docs": {
+                                                      "module-DOMTools.DOMObserver.html#disconnect": {
+                                                        "ref": "module-DOMTools.DOMObserver.html#disconnect",
+                                                        "tf": 100
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "s": {
+                                  "docs": {},
+                                  "u": {
+                                    "docs": {},
+                                    "b": {
+                                      "docs": {},
+                                      "s": {
+                                        "docs": {},
+                                        "c": {
+                                          "docs": {},
+                                          "r": {
+                                            "docs": {},
+                                            "i": {
+                                              "docs": {},
+                                              "b": {
+                                                "docs": {
+                                                  "module-DOMTools.DOMObserver.html#subscribe": {
+                                                    "ref": "module-DOMTools.DOMObserver.html#subscribe",
+                                                    "tf": 100
+                                                  }
+                                                },
+                                                "e": {
+                                                  "docs": {},
+                                                  "t": {
+                                                    "docs": {},
+                                                    "o": {
+                                                      "docs": {},
+                                                      "q": {
+                                                        "docs": {},
+                                                        "u": {
+                                                          "docs": {},
+                                                          "e": {
+                                                            "docs": {},
+                                                            "r": {
+                                                              "docs": {},
+                                                              "y": {
+                                                                "docs": {},
+                                                                "s": {
+                                                                  "docs": {},
+                                                                  "e": {
+                                                                    "docs": {},
+                                                                    "l": {
+                                                                      "docs": {},
+                                                                      "e": {
+                                                                        "docs": {},
+                                                                        "c": {
+                                                                          "docs": {},
+                                                                          "t": {
+                                                                            "docs": {},
+                                                                            "o": {
+                                                                              "docs": {},
+                                                                              "r": {
+                                                                                "docs": {
+                                                                                  "module-DOMTools.DOMObserver.html#subscribeToQuerySelector": {
+                                                                                    "ref": "module-DOMTools.DOMObserver.html#subscribeToQuerySelector",
+                                                                                    "tf": 100
+                                                                                  }
+                                                                                }
+                                                                              }
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "u": {
+                                  "docs": {},
+                                  "n": {
+                                    "docs": {},
+                                    "s": {
+                                      "docs": {},
+                                      "u": {
+                                        "docs": {},
+                                        "b": {
+                                          "docs": {},
+                                          "s": {
+                                            "docs": {},
+                                            "c": {
+                                              "docs": {},
+                                              "r": {
+                                                "docs": {},
+                                                "i": {
+                                                  "docs": {},
+                                                  "b": {
+                                                    "docs": {
+                                                      "module-DOMTools.DOMObserver.html#unsubscribe": {
+                                                        "ref": "module-DOMTools.DOMObserver.html#unsubscribe",
+                                                        "tf": 100
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
                                         }
                                       }
                                     }
@@ -11401,6 +12014,30 @@
                                     }
                                   }
                                 }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "n": {
+                    "docs": {},
+                    "n": {
+                      "docs": {},
+                      "e": {
+                        "docs": {},
+                        "c": {
+                          "docs": {},
+                          "t": {
+                            "docs": {
+                              "module-DOMTools.DOMObserver.html#disconnect": {
+                                "ref": "module-DOMTools.DOMObserver.html#disconnect",
+                                "tf": 704.1666666666666
+                              },
+                              "module-DOMTools.DOMObserver.html#unsubscribe": {
+                                "ref": "module-DOMTools.DOMObserver.html#unsubscribe",
+                                "tf": 10
                               }
                             }
                           }
@@ -13433,14 +14070,6 @@
               }
             }
           },
-          "t": {
-            "docs": {
-              "module-DOMTools.Selector.html#child": {
-                "ref": "module-DOMTools.Selector.html#child",
-                "tf": 7.142857142857142
-              }
-            }
-          },
           "r": {
             "docs": {},
             "o": {
@@ -13449,6 +14078,14 @@
                 "docs": {},
                 "p": {
                   "docs": {
+                    "module-DOMTools.DOMObserver.html#subscribe": {
+                      "ref": "module-DOMTools.DOMObserver.html#subscribe",
+                      "tf": 16.666666666666664
+                    },
+                    "module-DOMTools.DOMObserver.html#subscribeToQuerySelector": {
+                      "ref": "module-DOMTools.DOMObserver.html#subscribeToQuerySelector",
+                      "tf": 16.666666666666664
+                    },
                     "module-ContextMenu.Menu.html#addGroup": {
                       "ref": "module-ContextMenu.Menu.html#addGroup",
                       "tf": 14.285714285714285
@@ -13483,6 +14120,14 @@
                     }
                   }
                 }
+              }
+            }
+          },
+          "t": {
+            "docs": {
+              "module-DOMTools.Selector.html#child": {
+                "ref": "module-DOMTools.Selector.html#child",
+                "tf": 7.142857142857142
               }
             }
           }
@@ -13540,6 +14185,10 @@
                     "module-DOMTools.ClassName.html#valueOf": {
                       "ref": "module-DOMTools.ClassName.html#valueOf",
                       "tf": 7.142857142857142
+                    },
+                    "module-DOMTools.DOMObserver.html": {
+                      "ref": "module-DOMTools.DOMObserver.html",
+                      "tf": 110
                     },
                     "module-DOMTools.Selector.html": {
                       "ref": "module-DOMTools.Selector.html",
@@ -13852,6 +14501,17 @@
                           "ref": "module-DiscordAPI.UserSettings.html#.displayCompact",
                           "tf": 6.25
                         }
+                      }
+                    }
+                  }
+                },
+                "o": {
+                  "docs": {},
+                  "n": {
+                    "docs": {
+                      "module-ReactComponents.html": {
+                        "ref": "module-ReactComponents.html",
+                        "tf": 10
                       }
                     }
                   }
@@ -15230,9 +15890,54 @@
               "docs": {},
               "l": {
                 "docs": {
+                  "module-DOMTools.DOMObserver.html#observe": {
+                    "ref": "module-DOMTools.DOMObserver.html#observe",
+                    "tf": 10
+                  },
+                  "module-DOMTools.DOMObserver.html#disconnect": {
+                    "ref": "module-DOMTools.DOMObserver.html#disconnect",
+                    "tf": 4.166666666666666
+                  },
                   "module-ContextMenu.Menu.html#attachTo": {
                     "ref": "module-ContextMenu.Menu.html#attachTo",
                     "tf": 2.1739130434782608
+                  }
+                },
+                "b": {
+                  "docs": {},
+                  "a": {
+                    "docs": {},
+                    "c": {
+                      "docs": {},
+                      "k": {
+                        "docs": {
+                          "module-DOMTools.DOMObserver.html#observe": {
+                            "ref": "module-DOMTools.DOMObserver.html#observe",
+                            "tf": 5
+                          },
+                          "module-DOMTools.DOMObserver.html#disconnect": {
+                            "ref": "module-DOMTools.DOMObserver.html#disconnect",
+                            "tf": 4.166666666666666
+                          },
+                          "module-DOMTools.DOMObserver.html#subscribe": {
+                            "ref": "module-DOMTools.DOMObserver.html#subscribe",
+                            "tf": 16.666666666666664
+                          },
+                          "module-DOMTools.DOMObserver.html#subscribeToQuerySelector": {
+                            "ref": "module-DOMTools.DOMObserver.html#subscribeToQuerySelector",
+                            "tf": 16.666666666666664
+                          },
+                          "Listenable.html#addListener": {
+                            "ref": "Listenable.html#addListener",
+                            "tf": 33.33333333333333
+                          },
+                          "Listenable.html#removeListener": {
+                            "ref": "Listenable.html#removeListener",
+                            "tf": 50
+                          }
+                        }
+                      }
+                    }
                   }
                 },
                 "a": {
@@ -15244,27 +15949,6 @@
                         "Listenable.html#addListener": {
                           "ref": "Listenable.html#addListener",
                           "tf": 33.33333333333333
-                        }
-                      }
-                    }
-                  }
-                },
-                "b": {
-                  "docs": {},
-                  "a": {
-                    "docs": {},
-                    "c": {
-                      "docs": {},
-                      "k": {
-                        "docs": {
-                          "Listenable.html#addListener": {
-                            "ref": "Listenable.html#addListener",
-                            "tf": 33.33333333333333
-                          },
-                          "Listenable.html#removeListener": {
-                            "ref": "Listenable.html#removeListener",
-                            "tf": 50
-                          }
                         }
                       }
                     }
@@ -15456,6 +16140,10 @@
                     },
                     "module-PluginUtilities.html": {
                       "ref": "module-PluginUtilities.html",
+                      "tf": 110
+                    },
+                    "module-ReactComponents.html": {
+                      "ref": "module-ReactComponents.html",
                       "tf": 110
                     },
                     "module-ReactTools.html": {
@@ -17249,38 +17937,6 @@
                                                     "docs": {},
                                                     "#": {
                                                       "docs": {},
-                                                      "u": {
-                                                        "docs": {},
-                                                        "p": {
-                                                          "docs": {},
-                                                          "d": {
-                                                            "docs": {},
-                                                            "a": {
-                                                              "docs": {},
-                                                              "t": {
-                                                                "docs": {},
-                                                                "e": {
-                                                                  "docs": {},
-                                                                  "n": {
-                                                                    "docs": {},
-                                                                    "o": {
-                                                                      "docs": {},
-                                                                      "t": {
-                                                                        "docs": {
-                                                                          "module-DiscordAPI.User.html#updateNote": {
-                                                                            "ref": "module-DiscordAPI.User.html#updateNote",
-                                                                            "tf": 1100
-                                                                          }
-                                                                        }
-                                                                      }
-                                                                    }
-                                                                  }
-                                                                }
-                                                              }
-                                                            }
-                                                          }
-                                                        }
-                                                      },
                                                       "o": {
                                                         "docs": {},
                                                         "p": {
@@ -17329,6 +17985,38 @@
                                                                                 }
                                                                               }
                                                                             }
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      },
+                                                      "u": {
+                                                        "docs": {},
+                                                        "p": {
+                                                          "docs": {},
+                                                          "d": {
+                                                            "docs": {},
+                                                            "a": {
+                                                              "docs": {},
+                                                              "t": {
+                                                                "docs": {},
+                                                                "e": {
+                                                                  "docs": {},
+                                                                  "n": {
+                                                                    "docs": {},
+                                                                    "o": {
+                                                                      "docs": {},
+                                                                      "t": {
+                                                                        "docs": {
+                                                                          "module-DiscordAPI.User.html#updateNote": {
+                                                                            "ref": "module-DiscordAPI.User.html#updateNote",
+                                                                            "tf": 1100
                                                                           }
                                                                         }
                                                                       }
@@ -18716,6 +19404,222 @@
                                                                           "module-DOMTools.Selector.html#descend": {
                                                                             "ref": "module-DOMTools.Selector.html#descend",
                                                                             "tf": 1100
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "d": {
+                                          "docs": {},
+                                          "o": {
+                                            "docs": {},
+                                            "m": {
+                                              "docs": {},
+                                              "o": {
+                                                "docs": {},
+                                                "b": {
+                                                  "docs": {},
+                                                  "s": {
+                                                    "docs": {},
+                                                    "e": {
+                                                      "docs": {},
+                                                      "r": {
+                                                        "docs": {},
+                                                        "v": {
+                                                          "docs": {
+                                                            "module-DOMTools.DOMObserver.html": {
+                                                              "ref": "module-DOMTools.DOMObserver.html",
+                                                              "tf": 1150
+                                                            }
+                                                          },
+                                                          "e": {
+                                                            "docs": {},
+                                                            "r": {
+                                                              "docs": {},
+                                                              "#": {
+                                                                "docs": {},
+                                                                "o": {
+                                                                  "docs": {},
+                                                                  "b": {
+                                                                    "docs": {},
+                                                                    "s": {
+                                                                      "docs": {},
+                                                                      "e": {
+                                                                        "docs": {},
+                                                                        "r": {
+                                                                          "docs": {},
+                                                                          "v": {
+                                                                            "docs": {
+                                                                              "module-DOMTools.DOMObserver.html#observe": {
+                                                                                "ref": "module-DOMTools.DOMObserver.html#observe",
+                                                                                "tf": 1100
+                                                                              }
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                },
+                                                                "d": {
+                                                                  "docs": {},
+                                                                  "i": {
+                                                                    "docs": {},
+                                                                    "s": {
+                                                                      "docs": {},
+                                                                      "c": {
+                                                                        "docs": {},
+                                                                        "o": {
+                                                                          "docs": {},
+                                                                          "n": {
+                                                                            "docs": {},
+                                                                            "n": {
+                                                                              "docs": {},
+                                                                              "e": {
+                                                                                "docs": {},
+                                                                                "c": {
+                                                                                  "docs": {},
+                                                                                  "t": {
+                                                                                    "docs": {
+                                                                                      "module-DOMTools.DOMObserver.html#disconnect": {
+                                                                                        "ref": "module-DOMTools.DOMObserver.html#disconnect",
+                                                                                        "tf": 1100
+                                                                                      }
+                                                                                    }
+                                                                                  }
+                                                                                }
+                                                                              }
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                },
+                                                                "s": {
+                                                                  "docs": {},
+                                                                  "u": {
+                                                                    "docs": {},
+                                                                    "b": {
+                                                                      "docs": {},
+                                                                      "s": {
+                                                                        "docs": {},
+                                                                        "c": {
+                                                                          "docs": {},
+                                                                          "r": {
+                                                                            "docs": {},
+                                                                            "i": {
+                                                                              "docs": {},
+                                                                              "b": {
+                                                                                "docs": {
+                                                                                  "module-DOMTools.DOMObserver.html#subscribe": {
+                                                                                    "ref": "module-DOMTools.DOMObserver.html#subscribe",
+                                                                                    "tf": 1100
+                                                                                  }
+                                                                                },
+                                                                                "e": {
+                                                                                  "docs": {},
+                                                                                  "t": {
+                                                                                    "docs": {},
+                                                                                    "o": {
+                                                                                      "docs": {},
+                                                                                      "q": {
+                                                                                        "docs": {},
+                                                                                        "u": {
+                                                                                          "docs": {},
+                                                                                          "e": {
+                                                                                            "docs": {},
+                                                                                            "r": {
+                                                                                              "docs": {},
+                                                                                              "y": {
+                                                                                                "docs": {},
+                                                                                                "s": {
+                                                                                                  "docs": {},
+                                                                                                  "e": {
+                                                                                                    "docs": {},
+                                                                                                    "l": {
+                                                                                                      "docs": {},
+                                                                                                      "e": {
+                                                                                                        "docs": {},
+                                                                                                        "c": {
+                                                                                                          "docs": {},
+                                                                                                          "t": {
+                                                                                                            "docs": {},
+                                                                                                            "o": {
+                                                                                                              "docs": {},
+                                                                                                              "r": {
+                                                                                                                "docs": {
+                                                                                                                  "module-DOMTools.DOMObserver.html#subscribeToQuerySelector": {
+                                                                                                                    "ref": "module-DOMTools.DOMObserver.html#subscribeToQuerySelector",
+                                                                                                                    "tf": 1100
+                                                                                                                  }
+                                                                                                                }
+                                                                                                              }
+                                                                                                            }
+                                                                                                          }
+                                                                                                        }
+                                                                                                      }
+                                                                                                    }
+                                                                                                  }
+                                                                                                }
+                                                                                              }
+                                                                                            }
+                                                                                          }
+                                                                                        }
+                                                                                      }
+                                                                                    }
+                                                                                  }
+                                                                                }
+                                                                              }
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                },
+                                                                "u": {
+                                                                  "docs": {},
+                                                                  "n": {
+                                                                    "docs": {},
+                                                                    "s": {
+                                                                      "docs": {},
+                                                                      "u": {
+                                                                        "docs": {},
+                                                                        "b": {
+                                                                          "docs": {},
+                                                                          "s": {
+                                                                            "docs": {},
+                                                                            "c": {
+                                                                              "docs": {},
+                                                                              "r": {
+                                                                                "docs": {},
+                                                                                "i": {
+                                                                                  "docs": {},
+                                                                                  "b": {
+                                                                                    "docs": {
+                                                                                      "module-DOMTools.DOMObserver.html#unsubscribe": {
+                                                                                        "ref": "module-DOMTools.DOMObserver.html#unsubscribe",
+                                                                                        "tf": 1100
+                                                                                      }
+                                                                                    }
+                                                                                  }
+                                                                                }
+                                                                              }
+                                                                            }
                                                                           }
                                                                         }
                                                                       }
@@ -20842,6 +21746,29 @@
                               "docs": {},
                               "t": {
                                 "docs": {},
+                                "c": {
+                                  "docs": {},
+                                  "o": {
+                                    "docs": {},
+                                    "m": {
+                                      "docs": {},
+                                      "p": {
+                                        "docs": {},
+                                        "o": {
+                                          "docs": {},
+                                          "n": {
+                                            "docs": {
+                                              "module-ReactComponents.html": {
+                                                "ref": "module-ReactComponents.html",
+                                                "tf": 1300
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
                                 "t": {
                                   "docs": {},
                                   "o": {
@@ -21113,6 +22040,10 @@
                     "module-WebpackModules.Filters.html#~filter": {
                       "ref": "module-WebpackModules.Filters.html#~filter",
                       "tf": 8.333333333333332
+                    },
+                    "module-DOMTools.DOMObserver.html#subscribeToQuerySelector": {
+                      "ref": "module-DOMTools.DOMObserver.html#subscribeToQuerySelector",
+                      "tf": 8.333333333333332
                     }
                   }
                 }
@@ -21191,6 +22122,20 @@
             },
             "n": {
               "docs": {},
+              "u": {
+                "docs": {},
+                "a": {
+                  "docs": {},
+                  "l": {
+                    "docs": {
+                      "module-DOMTools.DOMObserver.html#observe": {
+                        "ref": "module-DOMTools.DOMObserver.html#observe",
+                        "tf": 5
+                      }
+                    }
+                  }
+                }
+              },
               "a": {
                 "docs": {},
                 "g": {
@@ -21789,6 +22734,10 @@
                       "module-ContextMenu.ItemGroup.html#addItems": {
                         "ref": "module-ContextMenu.ItemGroup.html#addItems",
                         "tf": 8.333333333333332
+                      },
+                      "module-ReactComponents.html": {
+                        "ref": "module-ReactComponents.html",
+                        "tf": 10
                       }
                     }
                   }
@@ -21817,7 +22766,16 @@
               "a": {
                 "docs": {},
                 "t": {
-                  "docs": {},
+                  "docs": {
+                    "module-DOMTools.DOMObserver.html#subscribe": {
+                      "ref": "module-DOMTools.DOMObserver.html#subscribe",
+                      "tf": 25
+                    },
+                    "module-DOMTools.DOMObserver.html#subscribeToQuerySelector": {
+                      "ref": "module-DOMTools.DOMObserver.html#subscribeToQuerySelector",
+                      "tf": 8.333333333333332
+                    }
+                  },
                   "i": {
                     "docs": {},
                     "o": {
@@ -21836,6 +22794,10 @@
                                   "docs": {},
                                   "v": {
                                     "docs": {
+                                      "module-DOMTools.DOMObserver.html": {
+                                        "ref": "module-DOMTools.DOMObserver.html",
+                                        "tf": 12.5
+                                      },
                                       "module-Tooltip.html": {
                                         "ref": "module-Tooltip.html",
                                         "tf": 3.125
@@ -21928,6 +22890,14 @@
                     "docs": {},
                     "t": {
                       "docs": {
+                        "module-DOMTools.DOMObserver.html#observe": {
+                          "ref": "module-DOMTools.DOMObserver.html#observe",
+                          "tf": 5
+                        },
+                        "module-DOMTools.DOMObserver.html#subscribeToQuerySelector": {
+                          "ref": "module-DOMTools.DOMObserver.html#subscribeToQuerySelector",
+                          "tf": 8.333333333333332
+                        },
                         "module-DOMTools.html": {
                           "ref": "module-DOMTools.html",
                           "tf": 2.5
@@ -22319,6 +23289,14 @@
                       "module-DiscordAPI.UserSettings.html#.explicitContentFilter": {
                         "ref": "module-DiscordAPI.UserSettings.html#.explicitContentFilter",
                         "tf": 2.941176470588235
+                      },
+                      "module-DOMTools.DOMObserver.html#subscribe": {
+                        "ref": "module-DOMTools.DOMObserver.html#subscribe",
+                        "tf": 16.666666666666664
+                      },
+                      "module-DOMTools.DOMObserver.html#subscribeToQuerySelector": {
+                        "ref": "module-DOMTools.DOMObserver.html#subscribeToQuerySelector",
+                        "tf": 16.666666666666664
                       },
                       "List.html#get": {
                         "ref": "List.html#get",
@@ -22948,12 +23926,12 @@
                             "ref": "module-DiscordAPI.Message.html#jumpTo",
                             "tf": 110
                           },
-                          "module-DiscordAPI.User.html#updateNote": {
-                            "ref": "module-DiscordAPI.User.html#updateNote",
-                            "tf": 110
-                          },
                           "module-DiscordAPI.User.html#openUserProfileModal": {
                             "ref": "module-DiscordAPI.User.html#openUserProfileModal",
+                            "tf": 110
+                          },
+                          "module-DiscordAPI.User.html#updateNote": {
+                            "ref": "module-DiscordAPI.User.html#updateNote",
                             "tf": 110
                           },
                           "module-DiscordAPI.UserSettings.html#.open": {
@@ -22971,6 +23949,26 @@
                           "module-DOMTools.ClassName.html#valueOf": {
                             "ref": "module-DOMTools.ClassName.html#valueOf",
                             "tf": 117.14285714285714
+                          },
+                          "module-DOMTools.DOMObserver.html#observe": {
+                            "ref": "module-DOMTools.DOMObserver.html#observe",
+                            "tf": 110
+                          },
+                          "module-DOMTools.DOMObserver.html#disconnect": {
+                            "ref": "module-DOMTools.DOMObserver.html#disconnect",
+                            "tf": 110
+                          },
+                          "module-DOMTools.DOMObserver.html#subscribe": {
+                            "ref": "module-DOMTools.DOMObserver.html#subscribe",
+                            "tf": 110
+                          },
+                          "module-DOMTools.DOMObserver.html#unsubscribe": {
+                            "ref": "module-DOMTools.DOMObserver.html#unsubscribe",
+                            "tf": 110
+                          },
+                          "module-DOMTools.DOMObserver.html#subscribeToQuerySelector": {
+                            "ref": "module-DOMTools.DOMObserver.html#subscribeToQuerySelector",
+                            "tf": 110
                           },
                           "module-DOMTools.Selector.html#toString": {
                             "ref": "module-DOMTools.Selector.html#toString",
@@ -23627,6 +24625,10 @@
               "docs": {},
               "t": {
                 "docs": {
+                  "module-DOMTools.DOMObserver.html#disconnect": {
+                    "ref": "module-DOMTools.DOMObserver.html#disconnect",
+                    "tf": 4.166666666666666
+                  },
                   "module-ContextMenu.Menu.html#attachTo": {
                     "ref": "module-ContextMenu.Menu.html#attachTo",
                     "tf": 2.1739130434782608
@@ -23716,6 +24718,14 @@
                     "docs": {
                       "module-DiscordAPI.Guild.html#members": {
                         "ref": "module-DiscordAPI.Guild.html#members",
+                        "tf": 16.666666666666664
+                      },
+                      "module-DOMTools.DOMObserver.html#subscribe": {
+                        "ref": "module-DOMTools.DOMObserver.html#subscribe",
+                        "tf": 16.666666666666664
+                      },
+                      "module-DOMTools.DOMObserver.html#subscribeToQuerySelector": {
+                        "ref": "module-DOMTools.DOMObserver.html#subscribeToQuerySelector",
                         "tf": 16.666666666666664
                       },
                       "Listenable.html#addListener": {
@@ -23862,6 +24872,97 @@
                             }
                           }
                         }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "s": {
+              "docs": {},
+              "e": {
+                "docs": {},
+                "r": {
+                  "docs": {},
+                  "v": {
+                    "docs": {
+                      "module-DOMTools.DOMObserver.html#observe": {
+                        "ref": "module-DOMTools.DOMObserver.html#observe",
+                        "tf": 705
+                      },
+                      "module-DOMTools.DOMObserver.html#disconnect": {
+                        "ref": "module-DOMTools.DOMObserver.html#disconnect",
+                        "tf": 4.166666666666666
+                      }
+                    },
+                    "e": {
+                      "docs": {},
+                      "r": {
+                        "docs": {},
+                        ".": {
+                          "docs": {},
+                          "u": {
+                            "docs": {},
+                            "n": {
+                              "docs": {},
+                              "s": {
+                                "docs": {},
+                                "u": {
+                                  "docs": {},
+                                  "b": {
+                                    "docs": {},
+                                    "s": {
+                                      "docs": {},
+                                      "c": {
+                                        "docs": {},
+                                        "r": {
+                                          "docs": {},
+                                          "i": {
+                                            "docs": {},
+                                            "b": {
+                                              "docs": {},
+                                              "e": {
+                                                "docs": {},
+                                                "a": {
+                                                  "docs": {},
+                                                  "l": {
+                                                    "docs": {
+                                                      "module-DOMTools.DOMObserver.html#disconnect": {
+                                                        "ref": "module-DOMTools.DOMObserver.html#disconnect",
+                                                        "tf": 4.166666666666666
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "t": {
+              "docs": {},
+              "a": {
+                "docs": {},
+                "i": {
+                  "docs": {},
+                  "n": {
+                    "docs": {
+                      "module-ReactComponents.html": {
+                        "ref": "module-ReactComponents.html",
+                        "tf": 10
                       }
                     }
                   }
@@ -24557,6 +25658,17 @@
                 }
               }
             },
+            "n": {
+              "docs": {},
+              "e": {
+                "docs": {
+                  "module-DOMTools.DOMObserver.html#unsubscribe": {
+                    "ref": "module-DOMTools.DOMObserver.html#unsubscribe",
+                    "tf": 10
+                  }
+                }
+              }
+            },
             "d": {
               "docs": {},
               "e": {
@@ -24666,6 +25778,10 @@
                   "module-DiscordAPI.Guild.html#updateOwner": {
                     "ref": "module-DiscordAPI.Guild.html#updateOwner",
                     "tf": 8.333333333333332
+                  },
+                  "module-DOMTools.DOMObserver.html#observe": {
+                    "ref": "module-DOMTools.DOMObserver.html#observe",
+                    "tf": 5
                   },
                   "module-ContextMenu.Menu.html#attachTo": {
                     "ref": "module-ContextMenu.Menu.html#attachTo",
@@ -24830,6 +25946,23 @@
                             }
                           }
                         }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "f": {
+              "docs": {},
+              "e": {
+                "docs": {},
+                "c": {
+                  "docs": {},
+                  "t": {
+                    "docs": {
+                      "module-DOMTools.DOMObserver.html#subscribeToQuerySelector": {
+                        "ref": "module-DOMTools.DOMObserver.html#subscribeToQuerySelector",
+                        "tf": 8.333333333333332
                       }
                     }
                   }
@@ -25587,6 +26720,10 @@
                   "docs": {},
                   "h": {
                     "docs": {
+                      "module-DOMTools.DOMObserver.html#observe": {
+                        "ref": "module-DOMTools.DOMObserver.html#observe",
+                        "tf": 5
+                      },
                       "module-ContextMenu.Menu.html#attachTo": {
                         "ref": "module-ContextMenu.Menu.html#attachTo",
                         "tf": 4.3478260869565215
@@ -26364,7 +27501,7 @@
           }
         }
       },
-      "length": 1933
+      "length": 2010
     },
     "corpusTokens": [
       "0",
@@ -26381,6 +27518,7 @@
       "additem",
       "addlisten",
       "adjac",
+      "affect",
       "afk",
       "afkchannel",
       "afktimeout",
@@ -26412,10 +27550,12 @@
       "base",
       "bd",
       "bdv2",
+      "be",
       "befor",
       "behav",
       "below",
       "betterdiscord",
+      "bind",
       "boolean",
       "bot",
       "both",
@@ -26467,6 +27607,7 @@
       "combin",
       "come",
       "compact",
+      "compon",
       "comput",
       "concaten",
       "configur",
@@ -26510,6 +27651,7 @@
       "directli",
       "disabl",
       "disallow",
+      "disconnect",
       "discord",
       "discord'",
       "discordapi",
@@ -26529,8 +27671,15 @@
       "document",
       "document/window",
       "dom",
+      "domobserv",
+      "domobserver#disconnect",
+      "domobserver#observ",
+      "domobserver#subscrib",
+      "domobserver#subscribetoqueryselector",
+      "domobserver#unsubscrib",
       "domtool",
       "domtools.classnam",
+      "domtools.domobserv",
       "domtools.selector",
       "domtools~offset",
       "don't",
@@ -26656,6 +27805,7 @@
       "instal",
       "instead",
       "insufficientpermiss",
+      "interact",
       "interfac",
       "intern",
       "invit",
@@ -26681,6 +27831,7 @@
       "languag",
       "larg",
       "latest",
+      "left",
       "level",
       "lib",
       "librari",
@@ -26704,6 +27855,7 @@
       "make",
       "maker",
       "manag",
+      "manual",
       "mark",
       "markasread",
       "match",
@@ -26827,6 +27979,12 @@
       "module:domtools.classname#selector",
       "module:domtools.classname#tostr",
       "module:domtools.classname#valueof",
+      "module:domtools.domobserv",
+      "module:domtools.domobserver#disconnect",
+      "module:domtools.domobserver#observ",
+      "module:domtools.domobserver#subscrib",
+      "module:domtools.domobserver#subscribetoqueryselector",
+      "module:domtools.domobserver#unsubscrib",
       "module:domtools.selector",
       "module:domtools.selector#adjac",
       "module:domtools.selector#and",
@@ -26843,6 +28001,7 @@
       "module:pluginupdat",
       "module:pluginutil",
       "module:popout",
+      "module:reactcompon",
       "module:reacttool",
       "module:set",
       "module:settings.colorpick",
@@ -26920,6 +28079,7 @@
       "mouseent",
       "mouseleav",
       "multipl",
+      "mutat",
       "mutationobserv",
       "mutual",
       "name",
@@ -26929,6 +28089,7 @@
       "nest",
       "new",
       "node",
+      "none",
       "note",
       "notif",
       "number",
@@ -26936,6 +28097,9 @@
       "object'",
       "object.keys(zlibrary.discordclassmodul",
       "object.keys(zlibrary.discordmodul",
+      "observ",
+      "observer.unsubscribeal",
+      "obtain",
       "occur",
       "offset",
       "on",
@@ -26979,6 +28143,7 @@
       "prefer",
       "presetcolor",
       "privaci",
+      "probabl",
       "profil",
       "promis",
       "promise.&lt;guildchannel&gt",
@@ -27010,6 +28175,7 @@
       "random",
       "raw",
       "react",
+      "reactcompon",
       "reaction",
       "reacttool",
       "read",
@@ -27110,11 +28276,16 @@
       "speech",
       "splash",
       "splash_path",
+      "start",
       "statu",
       "still",
+      "stop",
       "string",
       "submenu",
       "submenuitem",
+      "subscrib",
+      "subscribetoqueryselector",
+      "subscript",
       "such",
       "switch",
       "switch#getel",
@@ -27151,6 +28322,8 @@
       "type",
       "typedef",
       "ui",
+      "unbind",
+      "unsubscrib",
       "updat",
       "updateafkchannel",
       "updateafktimeout",
@@ -27823,16 +28996,6 @@
       "description": "",
       "body": ""
     },
-    "module-DiscordAPI.User.html#updateNote": {
-      "id": "module-DiscordAPI.User.html#updateNote",
-      "kind": "function",
-      "title": "updateNote( note ) → {Promise}",
-      "longname": "module:DiscordAPI.User#updateNote",
-      "name": "updateNote",
-      "tags": "module:DiscordAPI.User#updateNote User#updateNote updateNote",
-      "summary": "",
-      "description": "Updates the note for this user."
-    },
     "module-DiscordAPI.User.html#openUserProfileModal": {
       "id": "module-DiscordAPI.User.html#openUserProfileModal",
       "kind": "function",
@@ -27842,6 +29005,16 @@
       "tags": "module:DiscordAPI.User#openUserProfileModal User#openUserProfileModal openUserProfileModal",
       "summary": "",
       "description": "Opens the profile modal for this user."
+    },
+    "module-DiscordAPI.User.html#updateNote": {
+      "id": "module-DiscordAPI.User.html#updateNote",
+      "kind": "function",
+      "title": "updateNote( note ) → {Promise}",
+      "longname": "module:DiscordAPI.User#updateNote",
+      "name": "updateNote",
+      "tags": "module:DiscordAPI.User#updateNote User#updateNote updateNote",
+      "summary": "",
+      "description": "Updates the note for this user."
     },
     "module-DiscordAPI.UserSettings.html": {
       "id": "module-DiscordAPI.UserSettings.html",
@@ -28124,6 +29297,67 @@
       "tags": "module:DOMTools.ClassName#valueOf ClassName#valueOf valueOf",
       "summary": "",
       "description": "Returns the raw class name, this is how native function get the value."
+    },
+    "module-DOMTools.DOMObserver.html": {
+      "id": "module-DOMTools.DOMObserver.html",
+      "kind": "class",
+      "title": "DOMTools.DOMObserver",
+      "longname": "module:DOMTools.DOMObserver",
+      "name": "DOMObserver",
+      "tags": "module:DOMTools.DOMObserver DOMObserver",
+      "summary": "",
+      "description": "Representation of a MutationObserver but with helpful utilities.",
+      "body": ""
+    },
+    "module-DOMTools.DOMObserver.html#observe": {
+      "id": "module-DOMTools.DOMObserver.html#observe",
+      "kind": "function",
+      "title": "observe()",
+      "longname": "module:DOMTools.DOMObserver#observe",
+      "name": "observe",
+      "tags": "module:DOMTools.DOMObserver#observe DOMObserver#observe observe",
+      "summary": "",
+      "description": "Starts observing the element. This will be called when attaching a callback. You don't need to call this manually."
+    },
+    "module-DOMTools.DOMObserver.html#disconnect": {
+      "id": "module-DOMTools.DOMObserver.html#disconnect",
+      "kind": "function",
+      "title": "disconnect()",
+      "longname": "module:DOMTools.DOMObserver#disconnect",
+      "name": "disconnect",
+      "tags": "module:DOMTools.DOMObserver#disconnect DOMObserver#disconnect disconnect",
+      "summary": "",
+      "description": "Disconnects this observer. This stops callbacks being called, but does not unbind them. You probably want to use observer.unsubscribeAll instead."
+    },
+    "module-DOMTools.DOMObserver.html#subscribe": {
+      "id": "module-DOMTools.DOMObserver.html#subscribe",
+      "kind": "function",
+      "title": "subscribe( callback, filter, bind, group ) → {Object}",
+      "longname": "module:DOMTools.DOMObserver#subscribe",
+      "name": "subscribe",
+      "tags": "module:DOMTools.DOMObserver#subscribe DOMObserver#subscribe subscribe",
+      "summary": "",
+      "description": "Subscribes to mutations."
+    },
+    "module-DOMTools.DOMObserver.html#unsubscribe": {
+      "id": "module-DOMTools.DOMObserver.html#unsubscribe",
+      "kind": "function",
+      "title": "unsubscribe( subscription )",
+      "longname": "module:DOMTools.DOMObserver#unsubscribe",
+      "name": "unsubscribe",
+      "tags": "module:DOMTools.DOMObserver#unsubscribe DOMObserver#unsubscribe unsubscribe",
+      "summary": "",
+      "description": "Removes a subscription and disconnect if there are none left."
+    },
+    "module-DOMTools.DOMObserver.html#subscribeToQuerySelector": {
+      "id": "module-DOMTools.DOMObserver.html#subscribeToQuerySelector",
+      "kind": "function",
+      "title": "subscribeToQuerySelector( callback, filter, bind, group ) → {Object}",
+      "longname": "module:DOMTools.DOMObserver#subscribeToQuerySelector",
+      "name": "subscribeToQuerySelector",
+      "tags": "module:DOMTools.DOMObserver#subscribeToQuerySelector DOMObserver#subscribeToQuerySelector subscribeToQuerySelector",
+      "summary": "",
+      "description": "Subscribes to mutations that affect an element matching a selector."
     },
     "module-DOMTools.Selector.html": {
       "id": "module-DOMTools.Selector.html",
@@ -29158,6 +30392,17 @@
       "tags": "module:PluginUtilities",
       "summary": "",
       "description": "A series of useful functions for BetterDiscord plugins.",
+      "body": ""
+    },
+    "module-ReactComponents.html": {
+      "id": "module-ReactComponents.html",
+      "kind": "module",
+      "title": "ReactComponents",
+      "longname": "module:ReactComponents",
+      "name": "ReactComponents",
+      "tags": "module:ReactComponents",
+      "summary": "",
+      "description": "Methods for obtaining and interacting with react components.",
       "body": ""
     },
     "module-ReactTools.html": {

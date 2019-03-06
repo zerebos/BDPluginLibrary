@@ -1,10 +1,9 @@
-<!-- start:source.tmpl.hbs -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-		<title>modules/discordclasses.js</title>
+		<title>ReactComponents</title>
 		<!--[if lt IE 9]>
 		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
@@ -14,7 +13,7 @@
 		<link type="text/css" rel="stylesheet" href="css/template.min.css">
 		<script type="text/javascript">
 			window.TEMPLATE_OPTIONS = {"includeDate":true,"dateFormat":"MMMM Do YYYY, h:mm:ss a","systemName":"Zere's Plugin Library","systemSummary":"A set of helpful utilities and tools for BD plugins.","systemLogo":"","systemColor":"","navMembers":[{"kind":"class","title":"Classes","summary":"All documented classes."},{"kind":"external","title":"Externals","summary":"All documented external members."},{"kind":"global","title":"Globals","summary":"All documented globals."},{"kind":"mixin","title":"Mixins","summary":"All documented mixins."},{"kind":"interface","title":"Interfaces","summary":"All documented interfaces."},{"kind":"module","title":"Modules","summary":"All documented modules."},{"kind":"namespace","title":"Namespaces","summary":"All documented namespaces."},{"kind":"tutorial","title":"Tutorials","summary":"All available tutorials."}],"footer":"","copyright":"Copyright © 2018 Zack Rauen","linenums":true,"collapseSymbols":true,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":false,"showTableOfContents":true,"showAccessFilter":true,"analytics":null,"methodHeadingReturns":true,"sort":"linenum, longname, version, since","search":true,"favicon":null,"stylesheets":[],"scripts":[],"monospaceLinks":false,"cleverLinks":false,"default":{"outputSourceFiles":true},"path":"ink-docstrap","theme":"cerulean","navType":"vertical"};
-			window.DOCLET_TOC_ENABLED = false;
+			window.DOCLET_TOC_ENABLED = true;
 			window.DOCLET_AFILTER_ENABLED = false;
 		</script>
 </head>
@@ -124,57 +123,225 @@
 	</header>
 	<!-- end:navbar.hbs -->		<div class="page-header">
 			<div class="container">
-				<span class="kind">source</span>
-				<h1><span class="name">modules/discordclasses.js</span></h1>
+				<span class="kind">module</span>
+				<h1><span class="name">ReactComponents</span></h1>
 			</div>
 		</div>
 	<div class="container content">
 		<div class="row">
-			<div class="col-md-12 main-content">
-		<section class="source-section">
-			<article></article>
-			<pre class="prettyprint source language-javascript line-numbers"><code class="language-javascript">import DiscordClassModules from "./discordclassmodules";
-import DOMTools from "./domtools";
-
-const getRaw = function(prop) {
-	if (!this.hasOwnProperty(prop)) return "";
-	return this[prop];
-};
-
-const getClass = function(prop) {
-	if (!this.hasOwnProperty(prop)) return "";
-	return this[prop].split(" ")[0];
-};
-
-/**
- * Proxy for all the class packages, allows us to safely attempt
- * to retrieve nested things without error. Also wraps the class in
- * {@link module:DOMTools.ClassName} which adds features but can still
- * be used in native function.
- * 
- * For a list of all available class namespaces check out {@link module:DiscordClassModules}.
- * 
- * @see module:DiscordClassModules
- * @module DiscordClasses
- * @version 0.1.0
- */
-const DiscordModules = new Proxy(DiscordClassModules, {
-	get: function(list, item) {
-		if (item == "getRaw" || item == "getClass") return (module, prop) => DiscordModules[module][item]([prop]);
-		if (list[item] === undefined) return new Proxy({}, {get: function() {return "";}});
-		return new Proxy(list[item], {
-			get: function(obj, prop) {
-				if (prop == "getRaw") return getRaw.bind(obj);
-				if (prop == "getClass") return getClass.bind(obj);
-				if (!obj.hasOwnProperty(prop)) return "";
-				return new DOMTools.ClassName(obj[prop]);
-			}
-		});
-	}
-});
-export default DiscordModules;</code></pre>
-		</section>
+			<div class="col-md-9 main-content">
+						<ol class="breadcrumb">
+							<li><a href="index.html">Home</a></li>
+							<li><a href="list_module.html">Modules</a></li>
+							<li class="active">ReactComponents</li>
+						</ol>
+					<section>
+		<dl class="symbol">
+			<dt class="symbol-title "></dt>
+			<dd class="symbol-details ">
+				<div class="symbol-details-inner">
+					<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>Methods for obtaining and interacting with react components.</p></div>
+					</div>					<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+					
+					
+					
+					
+									<!-- version -->
+									<div class="form-group">
+										<label class="col-sm-3 control-label">Version</label>
+										<div class="col-sm-9">
+											<p class="form-control-static">0.0.1</p>
+										</div>
+									</div>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+									<!-- source -->
+									<div class="form-group">
+										<label class="col-sm-3 control-label">Source</label>
+										<div class="col-sm-9">
+											<p class="form-control-static"><a href="modules_reactcomponents.js.html">modules/reactcomponents.js</a>, <a href="modules_reactcomponents.js.html#line-170">line 170</a></p>
+										</div>
+									</div>
+					
+					
+					
+					
+							</form>
+					</div>				</div>
+			</dd>
+		</dl>
+							<article class="secondary">
+									<h3>Methods</h3>
+									<dl class="symbol">
+											<hr/>
+											<dt class="symbol-title function public collapsible-symbol">
+			<h4 id=".getComponentByName" class="function public"><span class="signature-attribs">&lt;async, static> </span><span class="name">getComponentByName</span><span class="signature-params">( <span class="signature-param">name</span>, <span class="signature-param">selector</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;ReactComponent>}</span></h4>
+		</dt>
+<dd class="symbol-details function public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>Finds a component from the components array or by waiting for it to be mounted.</p></div>
+			</div>			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>name</code></td>
+							<td><span class="param-type">String</span></td>
+							<td class="last">
+									<p>The component's name</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>selector</code></td>
+							<td><span class="param-type">Object</span></td>
+							<td class="last">
+									<p>A selector to look for</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise.&lt;ReactComponent></span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description"></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="modules_reactcomponents.js.html">modules/reactcomponents.js</a>, <a href="modules_reactcomponents.js.html#line-220">line 220</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function public collapsible-symbol">
+			<h4 id=".getComponent" class="function public"><span class="signature-attribs">&lt;async, static> </span><span class="name">getComponent</span><span class="signature-params">( <span class="signature-param">name</span>, <span class="signature-param">selector</span>, <span class="signature-param">filter</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;ReactComponent>}</span></h4>
+		</dt>
+<dd class="symbol-details function public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>Finds a component from the components array or by waiting for it to be mounted.</p></div>
+			</div>			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>name</code></td>
+							<td><span class="param-type">String</span></td>
+							<td class="last">
+									<p>The component's name</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>selector</code></td>
+							<td><span class="param-type">Object</span></td>
+							<td class="last">
+									<p>A selector to look for</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>filter</code></td>
+							<td><span class="param-type">function</span></td>
+							<td class="last">
+									<p>A function to filter components if a single element is rendered by multiple components</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise.&lt;ReactComponent></span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description"></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="modules_reactcomponents.js.html">modules/reactcomponents.js</a>, <a href="modules_reactcomponents.js.html#line-231">line 231</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+									</dl>
+							</article>
+					</section>
+			</div>
+				<div class="col-md-3 side-content">
+					<nav class="toc hidden-print hidden-sm hidden-xs"></nav>
+				</div>
 		</div>
 	</div>
 	<footer>
@@ -206,4 +373,3 @@ export default DiscordModules;</code></pre>
 	
 </body>
 </html>
-<!-- end:source.tmpl.hbs -->

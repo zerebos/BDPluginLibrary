@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-		<title>DiscordAPI.Channel</title>
+		<title>DOMTools.DOMObserver</title>
 		<!--[if lt IE 9]>
 		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
@@ -124,7 +124,7 @@
 	<!-- end:navbar.hbs -->		<div class="page-header">
 			<div class="container">
 				<span class="kind">class</span>
-				<h1><span class="ancestors"><a href="module-DiscordAPI.html">DiscordAPI</a>.</span><span class="name">Channel</span></h1>
+				<h1><span class="ancestors"><a href="module-DOMTools.html">DOMTools</a>.</span><span class="name">DOMObserver</span></h1>
 			</div>
 		</div>
 	<div class="container content">
@@ -133,15 +133,241 @@
 						<ol class="breadcrumb">
 							<li><a href="index.html">Home</a></li>
 							<li><a href="list_class.html">Classes</a></li>
-							<li class="active"><a href="module-DiscordAPI.html">DiscordAPI</a>.Channel</li>
+							<li class="active"><a href="module-DOMTools.html">DOMTools</a>.DOMObserver</li>
 						</ol>
 					<section>
 							<dl class="symbol primary">
 								<dt class="symbol-title class collapsible-symbol expanded">
-			<h2 class="class"><span class="signature-new">new&nbsp;</span><span class="name">Channel</span><span class="signature-params">()</span><span class="signature-type"></span></h2>
+			<h2 class="class"><span class="signature-new">new&nbsp;</span><span class="name">DOMObserver</span><span class="signature-params">()</span><span class="signature-type"></span></h2>
 </dt>
 <dd class="symbol-details class  collapsible-symbol expanded" style="max-height: 9999px;">
 	<div class="symbol-details-inner">
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description classdesc"><p>Representation of a MutationObserver but with helpful utilities.</p></div>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="structs_dom_observer.js.html">structs/dom/observer.js</a>, <a href="structs_dom_observer.js.html#line-17">line 17</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+							</dl>
+							<article class="secondary">
+									<h3>Methods</h3>
+									<dl class="symbol">
+											<hr/>
+											<dt class="symbol-title function public collapsible-symbol">
+			<h4 id="observe" class="function public"><span class="name">observe</span><span class="signature-params">()</span><span class="signature-type"></span></h4>
+		</dt>
+<dd class="symbol-details function public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>Starts observing the element. This will be called when attaching a callback.
+			You don't need to call this manually.</p></div>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="structs_dom_observer.js.html">structs/dom/observer.js</a>, <a href="structs_dom_observer.js.html#line-54">line 54</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function public collapsible-symbol">
+			<h4 id="disconnect" class="function public"><span class="name">disconnect</span><span class="signature-params">()</span><span class="signature-type"></span></h4>
+		</dt>
+<dd class="symbol-details function public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>Disconnects this observer. This stops callbacks being called, but does not unbind them.
+			You probably want to use observer.unsubscribeAll instead.</p></div>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="structs_dom_observer.js.html">structs/dom/observer.js</a>, <a href="structs_dom_observer.js.html#line-64">line 64</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function public collapsible-symbol">
+			<h4 id="subscribe" class="function public"><span class="name">subscribe</span><span class="signature-params">( <span class="signature-param">callback</span>, <span class="signature-param">filter</span>, <span class="signature-param">bind</span>, <span class="signature-param">group</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Object}</span></h4>
+		</dt>
+<dd class="symbol-details function public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>Subscribes to mutations.</p></div>
+			</div>			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>callback</code></td>
+							<td><span class="param-type">function</span></td>
+							<td class="last">
+									<p>A function to call when on a mutation</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>filter</code></td>
+							<td><span class="param-type">function</span></td>
+							<td class="last">
+									<p>A function to call to filter mutations</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>bind</code></td>
+							<td><span class="param-type">Any</span></td>
+							<td class="last">
+									<p>Something to bind the callback to</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>group</code></td>
+							<td><span class="param-type">Boolean</span></td>
+							<td class="last">
+									<p>Whether to call the callback with an array of mutations instead of a single mutation</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">Object</span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description"></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="structs_dom_observer.js.html">structs/dom/observer.js</a>, <a href="structs_dom_observer.js.html#line-95">line 95</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function public collapsible-symbol">
+			<h4 id="unsubscribe" class="function public"><span class="name">unsubscribe</span><span class="signature-params">( <span class="signature-param">subscription</span>&nbsp;)</span><span class="signature-type"></span></h4>
+		</dt>
+<dd class="symbol-details function public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>Removes a subscription and disconnect if there are none left.</p></div>
+			</div>			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>subscription</code></td>
+							<td><span class="param-type">Object</span></td>
+							<td class="last">
+									<p>A subscription object returned by observer.subscribe</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
 			
 			
@@ -162,7 +388,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="structs_discord_channel.js.html">structs/discord/channel.js</a>, <a href="structs_discord_channel.js.html#line-21">line 21</a></p>
+									<p class="form-control-static"><a href="structs_dom_observer.js.html">structs/dom/observer.js</a>, <a href="structs_dom_observer.js.html#line-106">line 106</a></p>
 								</div>
 							</div>
 			
@@ -172,94 +398,13 @@
 					</form>
 			</div>	</div>
 </dd>
-							</dl>
-							<article class="secondary">
-									<h3>Members</h3>
-									<dl class="symbol">
-											<hr/>
-											<dt class="symbol-title member public collapsible-symbol">
-			<h4 id="messages" class="member public"><span class="name">messages</span><span class="signature-type"></span></h4>
-		</dt>
-<dd class="symbol-details member public  collapsible-symbol">
-	<div class="symbol-details-inner">
-			<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>A list of messages in this channel.</p></div>
-			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-							<!-- source -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Source</label>
-								<div class="col-sm-9">
-									<p class="form-control-static"><a href="structs_discord_channel.js.html">structs/discord/channel.js</a>, <a href="structs_discord_channel.js.html#line-92">line 92</a></p>
-								</div>
-							</div>
-			
-			
-			
-			
-					</form>
-			</div>	</div>
-</dd>
-											<hr/>
-											<dt class="symbol-title member public collapsible-symbol">
-			<h4 id="isSelected" class="member public"><span class="name">isSelected</span><span class="signature-type"></span></h4>
-		</dt>
-<dd class="symbol-details member public  collapsible-symbol">
-	<div class="symbol-details-inner">
-			<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>Whether this channel is currently selected.</p></div>
-			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-							<!-- source -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Source</label>
-								<div class="col-sm-9">
-									<p class="form-control-static"><a href="structs_discord_channel.js.html">structs/discord/channel.js</a>, <a href="structs_discord_channel.js.html#line-132">line 132</a></p>
-								</div>
-							</div>
-			
-			
-			
-			
-					</form>
-			</div>	</div>
-</dd>
-									</dl>
-									<h3>Methods</h3>
-									<dl class="symbol">
 											<hr/>
 											<dt class="symbol-title function public collapsible-symbol">
-			<h4 id="sendMessage" class="function public"><span class="signature-attribs">&lt;async> </span><span class="name">sendMessage</span><span class="signature-params">( <span class="signature-param">content</span>, <span class="signature-param">parse</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Message>}</span></h4>
+			<h4 id="subscribeToQuerySelector" class="function public"><span class="name">subscribeToQuerySelector</span><span class="signature-params">( <span class="signature-param">callback</span>, <span class="signature-param">filter</span>, <span class="signature-param">bind</span>, <span class="signature-param">group</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Object}</span></h4>
 		</dt>
 <dd class="symbol-details function public  collapsible-symbol">
 	<div class="symbol-details-inner">
-			<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>Send a message in this channel.</p></div>
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>Subscribes to mutations that affect an element matching a selector.</p></div>
 			</div>			<div class="callout callout-info">
 				<h5>Parameters</h5>
 				<table class="params table table-striped">
@@ -267,25 +412,36 @@
 					<tr>
 							<th>Name</th>
 						<th>Type</th>
-							<th>Default</th>
 						<th class="last">Description</th>
 					</tr>
 					</thead>
 					<tbody>
 						<tr>
-								<td><code>content</code></td>
-							<td><span class="param-type">String</span></td>
-								<td></td>
+								<td><code>callback</code></td>
+							<td><span class="param-type">function</span></td>
 							<td class="last">
-									<p>The new message's content</p>
+									<p>A function to call when on a mutation</p>
 							</td>
 						</tr>
 						<tr>
-								<td><code>parse</code></td>
+								<td><code>filter</code></td>
+							<td><span class="param-type">function</span></td>
+							<td class="last">
+									<p>A function to call to filter mutations</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>bind</code></td>
+							<td><span class="param-type">Any</span></td>
+							<td class="last">
+									<p>Something to bind the callback to</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>group</code></td>
 							<td><span class="param-type">Boolean</span></td>
-								<td>false</td>
 							<td class="last">
-									<p>Whether to parse the message or send it as it is</p>
+									<p>Whether to call the callback with an array of mutations instead of a single mutation</p>
 							</td>
 						</tr>
 					</tbody>
@@ -293,7 +449,7 @@
 			</div>
 			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
 							<div class="form-group">
-								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise.&lt;Message></span></label>
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">Object</span></label>
 								<div class="col-sm-9">
 									<div class="form-control-static returns-description"></div>
 								</div>
@@ -319,258 +475,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="structs_discord_channel.js.html">structs/discord/channel.js</a>, <a href="structs_discord_channel.js.html#line-65">line 65</a></p>
-								</div>
-							</div>
-			
-			
-			
-			
-					</form>
-			</div>	</div>
-</dd>
-											<hr/>
-											<dt class="symbol-title function public collapsible-symbol">
-			<h4 id="sendBotMessage" class="function public"><span class="name">sendBotMessage</span><span class="signature-params">( <span class="signature-param">content</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Message}</span></h4>
-		</dt>
-<dd class="symbol-details function public  collapsible-symbol">
-	<div class="symbol-details-inner">
-			<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>Send a bot message in this channel that only the current user can see.</p></div>
-			</div>			<div class="callout callout-info">
-				<h5>Parameters</h5>
-				<table class="params table table-striped">
-					<thead>
-					<tr>
-							<th>Name</th>
-						<th>Type</th>
-						<th class="last">Description</th>
-					</tr>
-					</thead>
-					<tbody>
-						<tr>
-								<td><code>content</code></td>
-							<td><span class="param-type">String</span></td>
-							<td class="last">
-									<p>The new message's content</p>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
-							<div class="form-group">
-								<label class="col-sm-3 control-label returns-type"><span class="param-type">Message</span></label>
-								<div class="col-sm-9">
-									<div class="form-control-static returns-description"></div>
-								</div>
-							</div>
-					</form>
-			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-							<!-- source -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Source</label>
-								<div class="col-sm-9">
-									<p class="form-control-static"><a href="structs_discord_channel.js.html">structs/discord/channel.js</a>, <a href="structs_discord_channel.js.html#line-82">line 82</a></p>
-								</div>
-							</div>
-			
-			
-			
-			
-					</form>
-			</div>	</div>
-</dd>
-											<hr/>
-											<dt class="symbol-title function public collapsible-symbol">
-			<h4 id="jumpToPresent" class="function public"><span class="name">jumpToPresent</span><span class="signature-params">()</span><span class="signature-type"></span></h4>
-		</dt>
-<dd class="symbol-details function public  collapsible-symbol">
-	<div class="symbol-details-inner">
-			<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>Jumps to the latest message in this channel.</p></div>
-			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-							<!-- source -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Source</label>
-								<div class="col-sm-9">
-									<p class="form-control-static"><a href="structs_discord_channel.js.html">structs/discord/channel.js</a>, <a href="structs_discord_channel.js.html#line-100">line 100</a></p>
-								</div>
-							</div>
-			
-			
-			
-			
-					</form>
-			</div>	</div>
-</dd>
-											<hr/>
-											<dt class="symbol-title function public collapsible-symbol">
-			<h4 id="sendInvite" class="function public"><span class="signature-attribs">&lt;async> </span><span class="name">sendInvite</span><span class="signature-params">( <span class="signature-param">code</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Message>}</span></h4>
-		</dt>
-<dd class="symbol-details function public  collapsible-symbol">
-	<div class="symbol-details-inner">
-			<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>Sends an invite in this channel.</p></div>
-			</div>			<div class="callout callout-info">
-				<h5>Parameters</h5>
-				<table class="params table table-striped">
-					<thead>
-					<tr>
-							<th>Name</th>
-						<th>Type</th>
-						<th class="last">Description</th>
-					</tr>
-					</thead>
-					<tbody>
-						<tr>
-								<td><code>code</code></td>
-							<td><span class="param-type">String</span></td>
-							<td class="last">
-									<p>The invite code</p>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
-							<div class="form-group">
-								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise.&lt;Message></span></label>
-								<div class="col-sm-9">
-									<div class="form-control-static returns-description"></div>
-								</div>
-							</div>
-					</form>
-			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-							<!-- source -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Source</label>
-								<div class="col-sm-9">
-									<p class="form-control-static"><a href="structs_discord_channel.js.html">structs/discord/channel.js</a>, <a href="structs_discord_channel.js.html#line-115">line 115</a></p>
-								</div>
-							</div>
-			
-			
-			
-			
-					</form>
-			</div>	</div>
-</dd>
-											<hr/>
-											<dt class="symbol-title function public collapsible-symbol">
-			<h4 id="select" class="function public"><span class="name">select</span><span class="signature-params">()</span><span class="signature-type"></span></h4>
-		</dt>
-<dd class="symbol-details function public  collapsible-symbol">
-	<div class="symbol-details-inner">
-			<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>Opens this channel in the UI.</p></div>
-			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-							<!-- source -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Source</label>
-								<div class="col-sm-9">
-									<p class="form-control-static"><a href="structs_discord_channel.js.html">structs/discord/channel.js</a>, <a href="structs_discord_channel.js.html#line-124">line 124</a></p>
-								</div>
-							</div>
-			
-			
-			
-			
-					</form>
-			</div>	</div>
-</dd>
-											<hr/>
-											<dt class="symbol-title function public collapsible-symbol">
-			<h4 id="updateChannel" class="function public"><span class="signature-attribs">&lt;async> </span><span class="name">updateChannel</span><span class="signature-params">()</span><span class="signature-type"> &rarr;&nbsp;{Promise}</span></h4>
-		</dt>
-<dd class="symbol-details function public  collapsible-symbol">
-	<div class="symbol-details-inner">
-			<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>Updates this channel.</p></div>
-			</div>			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
-							<div class="form-group">
-								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise</span></label>
-								<div class="col-sm-9">
-									<div class="form-control-static returns-description"></div>
-								</div>
-							</div>
-					</form>
-			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-							<!-- source -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Source</label>
-								<div class="col-sm-9">
-									<p class="form-control-static"><a href="structs_discord_channel.js.html">structs/discord/channel.js</a>, <a href="structs_discord_channel.js.html#line-140">line 140</a></p>
+									<p class="form-control-static"><a href="structs_dom_observer.js.html">structs/dom/observer.js</a>, <a href="structs_dom_observer.js.html#line-125">line 125</a></p>
 								</div>
 							</div>
 			

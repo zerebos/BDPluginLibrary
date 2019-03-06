@@ -10,7 +10,11 @@
 
 import {Utilities, Logger} from "modules";
 
-export default class DOMObserver {
+/** 
+ * Representation of a MutationObserver but with helpful utilities.
+ * @memberof module:DOMTools
+ **/
+class DOMObserver {
     constructor(root, options) {
         this.observe = this.observe.bind(this);
         this.subscribe = this.subscribe.bind(this);
@@ -126,3 +130,5 @@ export default class DOMObserver {
         }, bind, group);
     }
 }
+
+export default DOMObserver;
