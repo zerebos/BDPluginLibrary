@@ -158,13 +158,13 @@ module.exports = (Plugin, Library) => {
 
 #### Using Library Plugin
 
-To build all plugins in `plugins` folder, run `npm run build_plugin`. (Note: this will automatically ignore the `0PluginLibrary` plugin). To build a single plugin run `npm run build_plugin -- --plugin PluginName`. This will yield `PluginName.plugin.js` in the `releases` folder with the same meta as outlined in the template. The resulting file will automatically check if the plugin library exists, and alert the user if it does not giving them a link to download it.
+To build all plugins in `plugins` folder, run `npm run build_plugin`. (Note: this will automatically ignore the `0PluginLibrary` plugin). To build a single plugin run `npm run build_plugin PluginName`. This will yield `PluginName.plugin.js` in the `releases` folder with the same meta as outlined in the template. The resulting file will automatically check if the plugin library exists, and alert the user if it does not giving them a link to download it.
 
 #### Using Remote Library
 
-To build all plugins in `plugins` folder, run `npm run build_plugin_remote`. (Note: this will automatically ignore the `0PluginLibrary` plugin). To build a single plugin run `npm run build_plugin_remote -- --plugin PluginName`. This will yield `PluginName.plugin.js` in the `releases` folder with the same meta as outlined in the template. The resulting file will automatically load the library from a remote source (on this repo) if it is not found.
+To build all plugins in `plugins` folder, run `npm run build_plugin_remote`. (Note: this will automatically ignore the `0PluginLibrary` plugin). To build a single plugin run `npm run build_plugin_remote PluginName`. This will yield `PluginName.plugin.js` in the `releases` folder with the same meta as outlined in the template. The resulting file will automatically load the library from a remote source (on this repo) if it is not found.
 
 #### Building Library Into Plugins (larger file sizes)
 
-To pack a plugin run `npm run build_plugin_packed -- --plugin PluginName`. This will produce a single `PluginName.plugin.js` file in the `releases` folder with the basic meta up top. This version will include all lib functions internally. To pack all plugins in the `plugins` folder run `npm run build_plugin_packed` without arguments.
+To pack a plugin run `npm run build_plugin_packed PluginName`. This will produce a single `PluginName.plugin.js` file in the `releases` folder with the basic meta up top. This version will include all lib functions internally. To pack all plugins in the `plugins` folder run `npm run build_plugin_packed` without arguments.
 

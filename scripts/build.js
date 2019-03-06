@@ -1,8 +1,10 @@
 const path = require("path");
 const fs = require("fs");
-const args = require("yargs").argv;
-const pluginsPath = path.join(__dirname, "../plugins");
-const releasePath = path.join(__dirname, "../release");
+const args = process.argv.slice(2);
+const libConfig = require(path.join(__dirname, "../config.json"));
+const pluginsPath = path.isAbsolute(libConfig.pluginsFolder) ? libConfig.pluginsFolder : path.join(__dirname, "..", libConfig.pluginsFolder);
+const releasePath = path.isAbsolute(libConfig.releaseFolder) ? libConfig.releaseFolder : path.join(__dirname, "..", libConfig.releaseFolder);
+const bdFolder = (process.platform == "win32" ? process.env.APPDATA : process.platform == "darwin" ? process.env.HOME + "/Library/Preferences" :  process.env.XDG_CONFIG_HOME ? process.env.XDG_CONFIG_HOME : process.env.HOME + "/.config") + "/BetterDiscord/";
 
 const formatString = function(string, values) {
     for (let val in values) {
@@ -26,23 +28,37 @@ const embedFiles = function(content, pluginName, files) {
     return content;
 };
 
-const template = fs.readFileSync(path.join(__dirname, args.loader == "remote" ? "template.remote.js" : "template.local.js")).toString();
-const list = args.plugin ? [args.plugin] : fs.readdirSync(pluginsPath).filter(f => fs.lstatSync(path.join(pluginsPath, f)).isDirectory() && f != "0PluginLibrary");
+const template = fs.readFileSync(path.join(__dirname, args[0] == "remote" ? "template.remote.js" : "template.local.js")).toString();
+const list = args.slice(1).length ? args.slice(1) : fs.readdirSync(pluginsPath).filter(f => fs.lstatSync(path.join(pluginsPath, f)).isDirectory() && f != "0PluginLibrary");
 console.log("");
-console.log("Building: " + list.join(", "));
+console.log(`Building ${list.length} plugin${list.length > 1 ? "s" : ""}`);
 console.time("Build took");
 for (let f = 0; f < list.length; f++) {
     const pluginName = list[f];
-    const config = require(path.join(pluginsPath, pluginName, "config.json"));
+    console.log(`Building ${pluginName}`);
+    const configPath = path.join(pluginsPath, pluginName, "config.json");
+    if (!fs.existsSync(configPath)) {
+        console.error(`Could not find "${configPath}". Skipping...`);
+        continue;
+    }
+    const config = require(configPath);
     const files = fs.readdirSync(path.join(pluginsPath, pluginName)).filter(f => f != "config.json" && f != config.main);
     const content = embedFiles(require(path.join(pluginsPath, pluginName, config.main)).toString(), pluginName, files);
-    fs.writeFileSync(path.join(releasePath, pluginName + ".plugin.js"), formatString(template, {
+    let result = formatString(template, {
         PLUGIN_NAME: pluginName,
         CONFIG: JSON.stringify(config),
         INNER: content,
         WEBSITE: config.info.github,
         SOURCE: config.info.github_raw,
-        DISPLAY_NAME: config.info.name
-    }));
+        DISPLAY_NAME: config.info.name,
+        HOST_SCRIPT: libConfig.addInstallScript ? fs.readFileSync(path.join(__dirname, "installscript.js")) : ""
+    });
+    if (libConfig.addInstallScript) result = result + "\n/*@end@*/";
+    fs.writeFileSync(path.join(releasePath, pluginName + ".plugin.js"), result);
+    if (libConfig.copyToBD) {
+        console.log(`Copying ${pluginName} to BD folder`);
+        fs.writeFileSync(path.join(bdFolder, "plugins", pluginName + ".plugin.js"), result);
+    }
+    console.log(`${pluginName} built successfully`);
 }
 console.timeEnd("Build took");

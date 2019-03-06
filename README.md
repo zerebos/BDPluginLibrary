@@ -1,10 +1,12 @@
-# PluginLibrary
+# PluginLibrary - [Download](https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js)
 
 This is the repo for Zere's Plugin Library for BetterDiscord. For now this is only for BBD/BDv1 You can follow development here. There will be more info and shit to come, but for now here ya go.
 
 ## Documentation
 
 View the documentation here: [https://rauenzi.github.io/BDPluginLibrary/docs](https://rauenzi.github.io/BDPluginLibrary/docs)
+
+The information below is just a quickstart guide.
 
 ## Building The Lib
 
@@ -21,14 +23,14 @@ See the example plugin in `plugins/ExamplePlugin`. Note how it does not check fo
 
 All plugin styles will set the meta using the plugin name for `name`. `github` and `github_raw` will be used as `website` and `source` options in the meta.
 
-### Plugins Using Remote Lib (recommended)
+### Plugins Using Lib Plugin (recommended)
 
-To build all plugins in `plugins` folder, run `npm run build_plugin_remote`. (Note: this will automatically ignore the `0PluginLibrary` plugin). To build a single plugin run `npm run build_plugin_remote -- --plugin PluginName`. This will yield `PluginName.plugin.js` in the `releases` folder with the same meta as outlined in the template. The resulting file will automatically load the library from a remote source (on this repo) if it is not found.
+To build all plugins in `plugins` folder, run `npm run build_plugin`. (Note: this will automatically ignore the `0PluginLibrary` plugin). To build a single plugin run `npm run build_plugin PluginName`. This will yield `PluginName.plugin.js` in the `releases` folder with the same meta as outlined in the template. The resulting file will automatically check if the plugin library exists, and alert the user if it does not giving them a link to download it.
 
-### Plugins Using Lib Plugin
+### Plugins Using Remote Lib
 
-To build all plugins in `plugins` folder, run `npm run build_plugin`. (Note: this will automatically ignore the `0PluginLibrary` plugin). To build a single plugin run `npm run build_plugin -- --plugin PluginName`. This will yield `PluginName.plugin.js` in the `releases` folder with the same meta as outlined in the template. The resulting file will automatically check if the plugin library exists, and alert the user if it does not giving them a link to download it.
+To build all plugins in `plugins` folder, run `npm run build_plugin_remote`. (Note: this will automatically ignore the `0PluginLibrary` plugin). To build a single plugin run `npm run build_plugin_remote PluginName`. This will yield `PluginName.plugin.js` in the `releases` folder with the same meta as outlined in the template. The resulting file will automatically load the library from a remote source (on this repo) if it is not found.
 
 ### Plugins w/ Packed Lib (larger file sizes)
 
-To pack a plugin run `npm run pack_plugin -- --plugin PluginName`. This will produce a single `PluginName.plugin.js` file in the `releases` folder with the basic meta up top. This version will include all lib functions internally. To pack all plugins in the `plugins` folder run `npm run pack_plugin` without arguments.
+To pack a plugin run `npm run pack_plugin PluginName`. This will produce a single `PluginName.plugin.js` file in the `releases` folder with the basic meta up top. This version will include all lib functions internally. To pack all plugins in the `plugins` folder run `npm run pack_plugin` without arguments.

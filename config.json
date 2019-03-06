@@ -1,0 +1,6 @@
+{
+    "pluginsFolder": "./plugins",
+    "releaseFolder": "./release",
+    "copyToBD": false,
+    "addInstallScript": false
+}

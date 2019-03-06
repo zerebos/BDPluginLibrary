@@ -99,6 +99,18 @@ export default class DOMTools {
 
 	/** Alternate name for {@link module:DOMTools.parseHTML} */
 	static createElement(html, fragment = false) {return this.parseHTML(html, fragment);}
+	
+	/**
+	 * Takes a string of html and escapes it using the brower's own escaping mechanism.
+	 * @param {String} html - html to be escaped
+	 */
+	static escapeHTML(html) {
+		const textNode = document.createTextNode("");
+		const spanElement = document.createElement("span");
+		spanElement.append(textNode);
+		textNode.nodeValue = html;
+		return spanElement.innerHTML;
+	}
 
 	/**
 	 * Adds a list of classes from the target element.

@@ -1,5 +1,5 @@
 //META{"name":"{{PLUGIN_NAME}}","displayName":"{{PLUGIN_NAME}}","website":"{{WEBSITE}}","source":"{{SOURCE}}"}*//
-
+{{HOST_SCRIPT}}
 var {{PLUGIN_NAME}} = (() => {
     const config = {{CONFIG}};
 

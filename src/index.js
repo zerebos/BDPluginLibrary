@@ -40,6 +40,4 @@ const getBoundLibrary = () => {
 	return BoundLib;
 };
 
-if (!window.jQuery) window.jQuery = window.$ = document.querySelector;
-
 export default pluginModule(Library.Structs.Plugin(config), process.env.PLUGIN_NAME != "0PluginLibrary" ? getBoundLibrary() : Library);
