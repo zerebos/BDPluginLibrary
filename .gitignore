@@ -9,4 +9,3 @@ release/*
 !release/ZLibrary.js
 plugins
 TODO.txt
-config.json

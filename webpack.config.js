@@ -33,13 +33,11 @@ module.exports = env => {
       rules: [{test: /\.css$/, use: "raw-loader"}]
     },
     plugins: [
-      new webpack.BannerPlugin({
-        banner: `//META{"name":"[name]","website":"https://github.com/rauenzi/BetterDiscordAddons/tree/master/Plugins/[name]","source":"https://github.com/rauenzi/BetterDiscordAddons/blob/master/Plugins/[name]/[name].plugin.js"}*//`,
-        raw: true
-      }),
       new webpack.DefinePlugin({
         "process.env": {
-          PLUGIN_NAME: JSON.stringify(env ? env.PLUGIN_NAME : "0PluginLibrary")
+          PLUGIN_NAME: JSON.stringify(env ? env.PLUGIN_NAME : "0PluginLibrary"),
+          CONFIG_PATH: JSON.stringify(env ? env.CONFIG_PATH : ""),
+          PLUGIN_PATH: JSON.stringify(env ? env.PLUGIN_PATH : "")
         }
       })
     ]

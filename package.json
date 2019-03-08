@@ -7,17 +7,21 @@
     "url": "https://github.com/rauenzi/BDPluginLibrary"
   },
   "devDependencies": {
-    "jsdoc": "^3.5.5",
+    "@babel/core": "^7.3.4",
+    "@babel/register": "^7.0.0",
+    "@babel/preset-env": "^7.3.4",
     "foodoc": "^0.0.9",
+    "jsdoc": "^3.5.5",
+    "mocha": "^6.0.2",
     "raw-loader": "^1.0.0",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.2.3"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha --require @babel/register --recursive \"./tests/*.js\"",
     "build_plugin": "node ./scripts/build.js local",
     "build_plugin_remote": "node ./scripts/build.js remote",
-    "build_plugin_packed": "node ./scripts/pack.js",
+    "build_plugin_packed": "node ./scripts/pack.js development",
     "build_lib": "node ./scripts/pack.js development 0PluginLibrary",
     "build_lib_prod": "node ./scripts/pack.js production 0PluginLibrary",
     "build_lib_remote": "npm run webpack -- ZLibrary=./src/remote.js --output-library ZLibrary -o release/ZLibrary.js --devtool none --config webpack.config.js --progress --colors",
@@ -28,8 +32,12 @@
   "author": "Zerebos",
   "license": "MIT",
   "eslintIgnore": [
-    "pack.js",
-    "build.js",
     "scripts/template*"
-  ]
+  ],
+  "defaultConfig": {
+    "pluginsFolder": "./plugins",
+    "releaseFolder": "./release",
+    "copyToBD": false,
+    "addInstallScript": false
+  }
 }

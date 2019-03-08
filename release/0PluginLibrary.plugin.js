@@ -1,5 +1,28 @@
 //META{"name":"ZeresPluginLibrary","displayName":"ZeresPluginLibrary","website":"https://github.com/rauenzi/BDPluginLibrary","source":"https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"}*//
 
+/*@cc_on
+@if (@_jscript)
+	
+	// Offer to self-install for clueless users that try to run this directly.
+	var shell = WScript.CreateObject('WScript.Shell');
+	var fs = new ActiveXObject('Scripting.FileSystemObject');
+	var pathPlugins = shell.ExpandEnvironmentStrings('%APPDATA%\\BetterDiscord\\plugins');
+	var pathSelf = WScript.ScriptFullName;
+	// Put the user at ease by addressing them in the first person
+	shell.Popup('It looks like you\'ve mistakenly tried to run me directly. \n(Don\'t do that!)', 0, 'I\'m a plugin for BetterDiscord', 0x30);
+	if (fs.GetParentFolderName(pathSelf) === fs.GetAbsolutePathName(pathPlugins)) {
+		shell.Popup('I\'m in the correct folder already.\nJust reload Discord with Ctrl+R.', 0, 'I\'m already installed', 0x40);
+	} else if (!fs.FolderExists(pathPlugins)) {
+		shell.Popup('I can\'t find the BetterDiscord plugins folder.\nAre you sure it\'s even installed?', 0, 'Can\'t install myself', 0x10);
+	} else if (shell.Popup('Should I copy myself to BetterDiscord\'s plugins folder for you?', 0, 'Do you need some help?', 0x34) === 6) {
+		fs.CopyFile(pathSelf, fs.BuildPath(pathPlugins, fs.GetFileName(pathSelf)), true);
+		// Show the user where to put plugins in the future
+		shell.Exec('explorer ' + pathPlugins);
+		shell.Popup('I\'m installed!\nJust reload Discord with Ctrl+R.', 0, 'Successfully installed', 0x40);
+	}
+	WScript.Quit();
+
+@else@*/
 var ZeresPluginLibrary =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -89,116 +112,14 @@ var ZeresPluginLibrary =
 /************************************************************************/
 /******/ ({
 
-/***/ "./plugins/0PluginLibrary sync recursive ^\\.\\/.*$":
-/*!**********************************************!*\
-  !*** ./plugins/0PluginLibrary sync ^\.\/.*$ ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var map = {
-	"./": "./plugins/0PluginLibrary/index.js",
-	"./config.json": "./plugins/0PluginLibrary/config.json",
-	"./index": "./plugins/0PluginLibrary/index.js",
-	"./index.js": "./plugins/0PluginLibrary/index.js"
-};
-
-
-function webpackContext(req) {
-	var id = webpackContextResolve(req);
-	return __webpack_require__(id);
-}
-function webpackContextResolve(req) {
-	if(!__webpack_require__.o(map, req)) {
-		var e = new Error("Cannot find module '" + req + "'");
-		e.code = 'MODULE_NOT_FOUND';
-		throw e;
-	}
-	return map[req];
-}
-webpackContext.keys = function webpackContextKeys() {
-	return Object.keys(map);
-};
-webpackContext.resolve = webpackContextResolve;
-module.exports = webpackContext;
-webpackContext.id = "./plugins/0PluginLibrary sync recursive ^\\.\\/.*$";
-
-/***/ }),
-
-/***/ "./plugins/0PluginLibrary/config.json":
-/*!********************************************!*\
-  !*** ./plugins/0PluginLibrary/config.json ***!
-  \********************************************/
+/***/ "./src/config.json":
+/*!*************************!*\
+  !*** ./src/config.json ***!
+  \*************************/
 /*! exports provided: info, changelog, main, default */
 /***/ (function(module) {
 
-module.exports = {"info":{"name":"ZeresPluginLibrary","authors":[{"name":"Zerebos","discord_id":"249746236008169473","github_username":"rauenzi","twitter_username":"ZackRauen"}],"version":"1.2.2","description":"Gives other plugins utility functions and the ability to emulate v2.","github":"https://github.com/rauenzi/BDPluginLibrary","github_raw":"https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"},"changelog":[{"title":"Bugs Squashed","type":"fixed","items":["Fixed fatal error for showing update notice."]}],"main":"index.js"};
-
-/***/ }),
-
-/***/ "./plugins/0PluginLibrary/index.js":
-/*!*****************************************!*\
-  !*** ./plugins/0PluginLibrary/index.js ***!
-  \*****************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ((BasePlugin, Library) => {
-    const {PluginUpdater, Patcher, Logger, Settings, Toasts, PluginUtilities, ReactComponents} = Library;
-    const PluginLibrary = class PluginLibrary extends BasePlugin {
-        get Library() {return Library;}
-        
-        load() {
-            this.start();
-            const exists = document.getElementById("ZLibraryCSS");
-            PluginUtilities.removeStyle("ZLibraryCSS");
-            PluginUtilities.addStyle("ZLibraryCSS", Settings.CSS + Toasts.CSS + PluginUpdater.CSS);
-            if (!exists) return; // This is first load, no need to reload dependent plugins
-            const prev = window.settingsCookie["fork-ps-2"];
-            window.settingsCookie["fork-ps-2"] = false;
-            const list = Object.keys(window.bdplugins).filter(k => window.bdplugins[k].plugin._config && k != "ZeresPluginLibrary");
-            for (let p = 0; p < list.length; p++) window.pluginModule.reloadPlugin(list[p]);
-            window.settingsCookie["fork-ps-2"] = prev;
-            ReactComponents.AutoPatcher.processAll();
-            ReactComponents.AutoPatcher.autoPatch();
-        }
-
-        static buildPlugin(config) {
-            const name = config.info.name;
-            const BoundAPI = {
-                Logger: {
-                    stacktrace: (message, error) => Logger.stacktrace(name, message, error),
-                    log: (...message) => Logger.log(name, ...message),
-                    error: (...message) => Logger.err(name, ...message),
-                    err: (...message) => Logger.err(name, ...message),
-                    warn: (...message) => Logger.warn(name, ...message),
-                    info: (...message) => Logger.info(name, ...message),
-                    debug: (...message) => Logger.debug(name, ...message)
-                },
-                Patcher: {
-                    getPatchesByCaller: () => {return Patcher.getPatchesByCaller(name);},
-                    unpatchAll: () => {return Patcher.unpatchAll(name);},
-                    before: (moduleToPatch, functionName, callback, options = {}) => {return Patcher.before(name, moduleToPatch, functionName, callback, options);},
-                    instead: (moduleToPatch, functionName, callback, options = {}) => {return Patcher.instead(name, moduleToPatch, functionName, callback, options);},
-                    after: (moduleToPatch, functionName, callback, options = {}) => {return Patcher.after(name, moduleToPatch, functionName, callback, options);}
-                }
-            };
-            const BoundLib = Object.assign({}, Library);
-            BoundLib.Logger = BoundAPI.Logger;
-            BoundLib.Patcher = BoundAPI.Patcher;
-            return [Library.Structs.Plugin(config), BoundLib];		
-        }
-    };
-
-    Object.assign(PluginLibrary, Library);
-    Library.buildPlugin = PluginLibrary.buildPlugin;
-    window.ZLibrary = Library;
-    window.ZLibraryPromise = new Promise(r => setImmediate(r));
-	window.ZeresPluginLibrary = PluginLibrary;
-    return PluginLibrary;
-});
+module.exports = {"info":{"name":"ZeresPluginLibrary","authors":[{"name":"Zerebos","discord_id":"249746236008169473","github_username":"rauenzi","twitter_username":"ZackRauen"}],"version":"1.2.2","description":"Gives other plugins utility functions and the ability to emulate v2.","github":"https://github.com/rauenzi/BDPluginLibrary","github_raw":"https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"},"changelog":[{"title":"Bugs Squashed","type":"fixed","items":["Fixed fatal error for showing update notice."]}],"main":"plugin.js"};
 
 /***/ }),
 
@@ -225,8 +146,9 @@ Library.Popouts = ui__WEBPACK_IMPORTED_MODULE_1__["Popouts"];
 Library.Modals = ui__WEBPACK_IMPORTED_MODULE_1__["Modals"];
 for (const mod in modules__WEBPACK_IMPORTED_MODULE_0__) Library[mod] = modules__WEBPACK_IMPORTED_MODULE_0__[mod];
 
-const config = __webpack_require__(/*! ../plugins/0PluginLibrary/config.json */ "./plugins/0PluginLibrary/config.json");
-const pluginModule = __webpack_require__("./plugins/0PluginLibrary sync recursive ^\\.\\/.*$")("./" + config.main).default;
+const config = __webpack_require__(/*! ./src/config.json */ "./src/config.json");
+const pluginModule = __webpack_require__(/*! ./src/plugin.js */ "./src/plugin.js");
+const pluginFunction = pluginModule.default ? pluginModule.default : pluginModule;
 
 const getBoundLibrary = () => {
 	const name = config.info.name;
@@ -255,7 +177,7 @@ const getBoundLibrary = () => {
 	return BoundLib;
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (pluginModule(Library.Structs.Plugin(config),  false ? undefined : Library));
+/* harmony default export */ __webpack_exports__["default"] = (pluginFunction(Library.Structs.Plugin(config),  false ? undefined : Library));
 
 /***/ }),
 
@@ -929,7 +851,11 @@ class DOMTools {
 	static get ClassName() {return structs__WEBPACK_IMPORTED_MODULE_1__["ClassName"];}
 	static get DOMObserver() {return structs__WEBPACK_IMPORTED_MODULE_1__["DOMObserver"];}
 
-	/**	Default DOMObserver */
+	/**	
+	 * Default DOMObserver for global usage.
+	 * 
+	 * @see DOMObserver
+	 */
 	static get observer() {
         return this._observer || (this._observer = new structs__WEBPACK_IMPORTED_MODULE_1__["DOMObserver"]());
     }
@@ -2672,6 +2598,11 @@ class ReactComponent {
     }
 }
 
+/**
+ * Methods for obtaining and interacting with react components.
+ * @module ReactComponents
+ * @version 0.0.1
+ */
 class ReactComponents {
     static get components() {return this._components || (this._components = []);}
     static get unknownComponents() {return this._unknownComponents || (this._unknownComponents = []);}
@@ -2715,7 +2646,7 @@ class ReactComponents {
      * Finds a component from the components array or by waiting for it to be mounted.
      * @param {String} name The component's name
      * @param {Object} selector A selector to look for
-     * @return {Promise => ReactComponent}
+     * @return {Promise<ReactComponent>}
      */
     static async getComponentByName(name, selector) {
         return this.getComponent(name, selector, m => m.displayName == name);
@@ -2726,7 +2657,7 @@ class ReactComponents {
      * @param {String} name The component's name
      * @param {Object} selector A selector to look for
      * @param {Function} filter A function to filter components if a single element is rendered by multiple components
-     * @return {Promise => ReactComponent}
+     * @return {Promise<ReactComponent>}
      */
     static async getComponent(name, selector, filter) {
         const have = this.components.find(c => c.id === name);
@@ -3821,6 +3752,72 @@ class WebpackModules {
     }
 
 }
+
+/***/ }),
+
+/***/ "./src/plugin.js":
+/*!***********************!*\
+  !*** ./src/plugin.js ***!
+  \***********************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ((BasePlugin, Library) => {
+    const {PluginUpdater, Patcher, Logger, Settings, Toasts, PluginUtilities, ReactComponents} = Library;
+    const PluginLibrary = class PluginLibrary extends BasePlugin {
+        get Library() {return Library;}
+        
+        load() {
+            this.start();
+            const exists = document.getElementById("ZLibraryCSS");
+            PluginUtilities.removeStyle("ZLibraryCSS");
+            PluginUtilities.addStyle("ZLibraryCSS", Settings.CSS + Toasts.CSS + PluginUpdater.CSS);
+            if (!exists) return; // This is first load, no need to reload dependent plugins
+            const prev = window.settingsCookie["fork-ps-2"];
+            window.settingsCookie["fork-ps-2"] = false;
+            const list = Object.keys(window.bdplugins).filter(k => window.bdplugins[k].plugin._config && k != "ZeresPluginLibrary");
+            for (let p = 0; p < list.length; p++) window.pluginModule.reloadPlugin(list[p]);
+            window.settingsCookie["fork-ps-2"] = prev;
+            ReactComponents.AutoPatcher.processAll();
+            ReactComponents.AutoPatcher.autoPatch();
+        }
+
+        static buildPlugin(config) {
+            const name = config.info.name;
+            const BoundAPI = {
+                Logger: {
+                    stacktrace: (message, error) => Logger.stacktrace(name, message, error),
+                    log: (...message) => Logger.log(name, ...message),
+                    error: (...message) => Logger.err(name, ...message),
+                    err: (...message) => Logger.err(name, ...message),
+                    warn: (...message) => Logger.warn(name, ...message),
+                    info: (...message) => Logger.info(name, ...message),
+                    debug: (...message) => Logger.debug(name, ...message)
+                },
+                Patcher: {
+                    getPatchesByCaller: () => {return Patcher.getPatchesByCaller(name);},
+                    unpatchAll: () => {return Patcher.unpatchAll(name);},
+                    before: (moduleToPatch, functionName, callback, options = {}) => {return Patcher.before(name, moduleToPatch, functionName, callback, options);},
+                    instead: (moduleToPatch, functionName, callback, options = {}) => {return Patcher.instead(name, moduleToPatch, functionName, callback, options);},
+                    after: (moduleToPatch, functionName, callback, options = {}) => {return Patcher.after(name, moduleToPatch, functionName, callback, options);}
+                }
+            };
+            const BoundLib = Object.assign({}, Library);
+            BoundLib.Logger = BoundAPI.Logger;
+            BoundLib.Patcher = BoundAPI.Patcher;
+            return [Library.Structs.Plugin(config), BoundLib];		
+        }
+    };
+
+    Object.assign(PluginLibrary, Library);
+    Library.buildPlugin = PluginLibrary.buildPlugin;
+    window.ZLibrary = Library;
+    window.ZLibraryPromise = new Promise(r => setImmediate(r));
+	window.ZeresPluginLibrary = PluginLibrary;
+    return PluginLibrary;
+});
 
 /***/ }),
 
@@ -5739,7 +5736,6 @@ class ClassName {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return DOMObserver; });
 /* harmony import */ var modules__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! modules */ "./src/modules/modules.js");
 /**
  * BetterDiscord Client DOM Module
@@ -5753,6 +5749,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+/** 
+ * Representation of a MutationObserver but with helpful utilities.
+ * @memberof module:DOMTools
+ **/
 class DOMObserver {
     constructor(root, options) {
         this.observe = this.observe.bind(this);
@@ -5870,6 +5870,7 @@ class DOMObserver {
     }
 }
 
+/* harmony default export */ __webpack_exports__["default"] = (DOMObserver);
 
 /***/ }),
 
@@ -8207,3 +8208,4 @@ module.exports = window.require("request");
 /***/ })
 
 /******/ })["default"];
+/*@end@*/

@@ -10,8 +10,9 @@ Library.Popouts = Popouts;
 Library.Modals = Modals;
 for (const mod in Modules) Library[mod] = Modules[mod];
 
-const config = require("../plugins/" + process.env.PLUGIN_NAME + "/" + "config.json");
-const pluginModule = require("../plugins/" + process.env.PLUGIN_NAME + "/" + config.main).default;
+const config = require(process.env.CONFIG_PATH);
+const pluginModule = require(process.env.PLUGIN_PATH);
+const pluginFunction = pluginModule.default ? pluginModule.default : pluginModule;
 
 const getBoundLibrary = () => {
 	const name = config.info.name;
@@ -40,4 +41,4 @@ const getBoundLibrary = () => {
 	return BoundLib;
 };
 
-export default pluginModule(Library.Structs.Plugin(config), process.env.PLUGIN_NAME != "0PluginLibrary" ? getBoundLibrary() : Library);
+export default pluginFunction(Library.Structs.Plugin(config), process.env.PLUGIN_NAME != "0PluginLibrary" ? getBoundLibrary() : Library);

@@ -1,7 +1,10 @@
+/* eslint-disable no-console */
 const path = require("path");
 const fs = require("fs");
 const args = process.argv.slice(2);
-const libConfig = require(path.join(__dirname, "../config.json"));
+const defaultConfig = require(path.join(__dirname, "../package.json")).defaultConfig;
+const libConfigPath = path.join(__dirname, "../config.json");
+const libConfig = Object.assign(defaultConfig, fs.existsSync(libConfigPath) ? require(libConfigPath) : {});
 const pluginsPath = path.isAbsolute(libConfig.pluginsFolder) ? libConfig.pluginsFolder : path.join(__dirname, "..", libConfig.pluginsFolder);
 const releasePath = path.isAbsolute(libConfig.releaseFolder) ? libConfig.releaseFolder : path.join(__dirname, "..", libConfig.releaseFolder);
 const bdFolder = (process.platform == "win32" ? process.env.APPDATA : process.platform == "darwin" ? process.env.HOME + "/Library/Preferences" :  process.env.XDG_CONFIG_HOME ? process.env.XDG_CONFIG_HOME : process.env.HOME + "/.config") + "/BetterDiscord/";
