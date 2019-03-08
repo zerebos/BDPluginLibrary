@@ -8,4 +8,5 @@ release/*
 !release/SendButton.plugin.js
 !release/ZLibrary.js
 plugins
+/config.json
 TODO.txt

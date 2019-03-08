@@ -28,7 +28,7 @@ If you want to make BDv2 style plugins that will make the transition to BDv2 eas
 
 ### Development Utility
 
-Perhaps the easiest way to use the library is to not make a plugin with it, but to put `0PluginLibrary.plugin.js` and using the global `ZLibrary` object to help you develop other plugins, or just explore functionality of either this library or of Discord's internals. Obviously you can combine this with the two above.
+Perhaps the easiest way to use the library is to not make a plugin with it, but to put `./release/0PluginLibrary.plugin.js` in your BD plugins folder and using the global `ZLibrary` object to help you develop other plugins, or just explore functionality of either this library or of Discord's internals. Obviously you can combine this with the two above.
 
 ## Using The Library
 
@@ -103,7 +103,7 @@ class ExampleLibraryPlugin {
 
 The only required functions in V2 are `onStart` and `onStop` which fire when the plugin is started and stopped respectively. The config is also required.
 
-See the example plugin in `plugins/ExamplePlugin`. Note how it does not check for updates in `onStart` instead the base class `Plugin` automatically checks for updates using the `github_raw` in the `config.json`.
+See the example plugin in `examples/ExamplePlugin`. Note how it does not check for updates in `onStart` instead the base class `Plugin` automatically checks for updates using the `github_raw` in the `config.json`.
 
 All plugin styles will set the meta using the plugin name for `name`. `github` and `github_raw` will be used as `website` and `source` options in the meta.
 
@@ -158,11 +158,11 @@ module.exports = (Plugin, Library) => {
 
 #### Using Library Plugin
 
-To build all plugins in `plugins` folder, run `npm run build_plugin`. (Note: this will automatically ignore the `0PluginLibrary` plugin). To build a single plugin run `npm run build_plugin PluginName`. This will yield `PluginName.plugin.js` in the `releases` folder with the same meta as outlined in the template. The resulting file will automatically check if the plugin library exists, and alert the user if it does not giving them a link to download it.
+To build all plugins in `plugins` folder, run `npm run build_plugin`. To build a single plugin run `npm run build_plugin PluginName`. This will yield `PluginName.plugin.js` in the `releases` folder with the same meta as outlined in the template. The resulting file will automatically check if the plugin library exists, and alert the user if it does not giving them a link to download it.
 
 #### Using Remote Library
 
-To build all plugins in `plugins` folder, run `npm run build_plugin_remote`. (Note: this will automatically ignore the `0PluginLibrary` plugin). To build a single plugin run `npm run build_plugin_remote PluginName`. This will yield `PluginName.plugin.js` in the `releases` folder with the same meta as outlined in the template. The resulting file will automatically load the library from a remote source (on this repo) if it is not found.
+To build all plugins in `plugins` folder, run `npm run build_plugin_remote`. To build a single plugin run `npm run build_plugin_remote PluginName`. This will yield `PluginName.plugin.js` in the `releases` folder with the same meta as outlined in the template. The resulting file will automatically load the library from a remote source (on this repo) if it is not found.
 
 #### Building Library Into Plugins (larger file sizes)
 

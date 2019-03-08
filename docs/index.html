@@ -139,7 +139,7 @@ npm run build_lib</code></pre><p>This generates a BD compatible 0PluginLibrary.p
 <p>Below is a brief comparison between the different ways to use the library.</p>
 <h3>BDv1 Style Plugins</h3><p>You can remotely link this library or require the local <code>0PluginLibrary.plugin.js</code>. See the <a href="#creating-bdv1-style-plugins">section below</a> for details.</p>
 <h3>BDv2 Style Plugins</h3><p>If you want to make BDv2 style plugins that will make the transition to BDv2 easier check out <a href="#creating-bdv2-style-plugins">this section</a> below. Like the BDv1 style, the BDv2 style plugins can remotely link the library or require the local copy. However there are several additional benefits to using BDv2 style over BDv1 style such as wrapped methods that automatically provide plugin information and the base <code>Plugin</code> object that your plugin extends from. This base plugin adds a lot of functionality to your plugin such as automatic setting panel generation, setting/data management, string (and locale) management, checking for updates (and alerting the user when needed), changelogs, and of course automatically filling BDv1 function requirements like <code>getName()</code>, <code>getVersion()</code> and so on.</p>
-<h3>Development Utility</h3><p>Perhaps the easiest way to use the library is to not make a plugin with it, but to put <code>0PluginLibrary.plugin.js</code> and using the global <code>ZLibrary</code> object to help you develop other plugins, or just explore functionality of either this library or of Discord's internals. Obviously you can combine this with the two above.</p>
+<h3>Development Utility</h3><p>Perhaps the easiest way to use the library is to not make a plugin with it, but to put <code>./release/0PluginLibrary.plugin.js</code> in your BD plugins folder and using the global <code>ZLibrary</code> object to help you develop other plugins, or just explore functionality of either this library or of Discord's internals. Obviously you can combine this with the two above.</p>
 <h2>Using The Library</h2><h3>Creating BDv1 Style Plugins</h3><p>There are two ways to use this library while keeping the plugin in BDv1 style. Either by requiring the user to have the local lib installed (recommended) or my remotely linking the library.</p>
 <p>When creating plugins in this format, the modules listed in the dropdown above will be available on the <code>ZLibrary</code> global object as shown in the skeletons below.</p>
 <h4>Using Library Plugin</h4><p>Here's what the skeleton for a V1 plugin using the local library would look like:</p>
@@ -191,7 +191,7 @@ class ExampleLibraryPlugin {
 
     }
 }</code></pre><h3>Creating BDv2 Style Plugins</h3><p>The only required functions in V2 are <code>onStart</code> and <code>onStop</code> which fire when the plugin is started and stopped respectively. The config is also required.</p>
-<p>See the example plugin in <code>plugins/ExamplePlugin</code>. Note how it does not check for updates in <code>onStart</code> instead the base class <code>Plugin</code> automatically checks for updates using the <code>github_raw</code> in the <code>config.json</code>.</p>
+<p>See the example plugin in <code>examples/ExamplePlugin</code>. Note how it does not check for updates in <code>onStart</code> instead the base class <code>Plugin</code> automatically checks for updates using the <code>github_raw</code> in the <code>config.json</code>.</p>
 <p>All plugin styles will set the meta using the plugin name for <code>name</code>. <code>github</code> and <code>github_raw</code> will be used as <code>website</code> and <code>source</code> options in the meta.</p>
 <p>When creating plugins in this format, the modules listed in the dropdown above will be available in the <code>Library</code> object as shown in the skeletons below.</p>
 <h4>Skeleton <code>index.js</code></h4><pre class="prettyprint source lang-js"><code>module.exports = (Plugin, Library) => {
@@ -229,8 +229,8 @@ class ExampleLibraryPlugin {
         {&quot;title&quot;: &quot;On-going&quot;, &quot;type&quot;: &quot;progress&quot;, &quot;items&quot;: [&quot;More modals and popouts being added&quot;, &quot;More classes and modules being added&quot;]}
     ],
     &quot;main&quot;: &quot;index.js&quot;
-}</code></pre><h4>Using Library Plugin</h4><p>To build all plugins in <code>plugins</code> folder, run <code>npm run build_plugin</code>. (Note: this will automatically ignore the <code>0PluginLibrary</code> plugin). To build a single plugin run <code>npm run build_plugin PluginName</code>. This will yield <code>PluginName.plugin.js</code> in the <code>releases</code> folder with the same meta as outlined in the template. The resulting file will automatically check if the plugin library exists, and alert the user if it does not giving them a link to download it.</p>
-<h4>Using Remote Library</h4><p>To build all plugins in <code>plugins</code> folder, run <code>npm run build_plugin_remote</code>. (Note: this will automatically ignore the <code>0PluginLibrary</code> plugin). To build a single plugin run <code>npm run build_plugin_remote PluginName</code>. This will yield <code>PluginName.plugin.js</code> in the <code>releases</code> folder with the same meta as outlined in the template. The resulting file will automatically load the library from a remote source (on this repo) if it is not found.</p>
+}</code></pre><h4>Using Library Plugin</h4><p>To build all plugins in <code>plugins</code> folder, run <code>npm run build_plugin</code>. To build a single plugin run <code>npm run build_plugin PluginName</code>. This will yield <code>PluginName.plugin.js</code> in the <code>releases</code> folder with the same meta as outlined in the template. The resulting file will automatically check if the plugin library exists, and alert the user if it does not giving them a link to download it.</p>
+<h4>Using Remote Library</h4><p>To build all plugins in <code>plugins</code> folder, run <code>npm run build_plugin_remote</code>. To build a single plugin run <code>npm run build_plugin_remote PluginName</code>. This will yield <code>PluginName.plugin.js</code> in the <code>releases</code> folder with the same meta as outlined in the template. The resulting file will automatically load the library from a remote source (on this repo) if it is not found.</p>
 <h4>Building Library Into Plugins (larger file sizes)</h4><p>To pack a plugin run <code>npm run build_plugin_packed PluginName</code>. This will produce a single <code>PluginName.plugin.js</code> file in the <code>releases</code> folder with the basic meta up top. This version will include all lib functions internally. To pack all plugins in the <code>plugins</code> folder run <code>npm run build_plugin_packed</code> without arguments.</p></article>
 		</section>
 			</div>
@@ -241,7 +241,7 @@ class ExampleLibraryPlugin {
 	</div>
 	<footer>
 				<div class="copyright">Copyright © 2018 Zack Rauen</div>
-			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on March 5th 2019, 9:58:18 pm using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
+			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on March 8th 2019, 12:50:33 am using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
 	</footer>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
