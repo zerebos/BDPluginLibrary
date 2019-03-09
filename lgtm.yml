@@ -5,3 +5,5 @@ path_classifiers:
     - "tests/*.js"
   template:
     - "scripts/template.*"
+  docs:
+    - "docs/*"
