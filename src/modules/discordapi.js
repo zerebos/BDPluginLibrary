@@ -77,7 +77,7 @@ export default class DiscordAPI {
      */
     static get currentGuild() {
         const guild = Modules.GuildStore.getGuild(Modules.SelectedGuildStore.getGuildId());
-        if (guild) return Guild.from(guild);
+        return guild ? Guild.from(guild) : null;
     }
 
     /**
@@ -85,7 +85,7 @@ export default class DiscordAPI {
      */
     static get currentChannel() {
         const channel = Modules.ChannelStore.getChannel(Modules.SelectedChannelStore.getChannelId());
-        if (channel) return Channel.from(channel);
+        return channel ? Channel.from(channel) : null;
     }
 
     /**
@@ -93,7 +93,7 @@ export default class DiscordAPI {
      */
     static get currentUser() {
         const user = Modules.UserStore.getCurrentUser();
-        if (user) return User.from(user);
+        return user ? User.from(user) : null;
     }
 
     /**

@@ -18,7 +18,8 @@ export default class Popouts {
 	 * @param {string} [options.position="right"] - Positioning relative to element
      */
     static showUserPopout(target, user, options = {}) {
-		let {guild = DiscordModules.SelectedGuildStore.getGuildId(), channel = DiscordModules.SelectedChannelStore.getChannelId(), position = "right"} = options;
+		const {guild = DiscordModules.SelectedGuildStore.getGuildId(), channel = DiscordModules.SelectedChannelStore.getChannelId()} = options;
+		let {position = "right"} = options;
 		target = DOMTools.resolveElement(target);
 		if (target.getBoundingClientRect().right + 250 >= Screen.width) position = "left";
 		DiscordModules.PopoutOpener.openPopout(target, {

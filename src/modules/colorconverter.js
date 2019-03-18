@@ -30,7 +30,7 @@ export default class ColorConverter {
 	 * @returns {array} - array containing the red, green, and blue values
 	 */
 	static getRGB(color) {
-		var result = /rgb\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*\)/.exec(color);
+		let result = /rgb\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*\)/.exec(color);
 		if (result) return [parseInt(result[1]), parseInt(result[2]), parseInt(result[3])];
 
 		result = /rgb\(\s*([0-9]+(?:\.[0-9]+)?)%\s*,\s*([0-9]+(?:\.[0-9]+)?)%\s*,\s*([0-9]+(?:\.[0-9]+)?)%\s*\)/.exec(color);
@@ -50,8 +50,8 @@ export default class ColorConverter {
 	 * @returns {string} - new color in rgb format
 	 */
 	static darkenColor(color, percent) {
-		var rgb = this.getRGB(color);
-		for (var i = 0; i < rgb.length; i++) rgb[i] = Math.round(Math.max(0, rgb[i] - rgb[i] * (percent / 100)));
+		const rgb = this.getRGB(color);
+		for (let i = 0; i < rgb.length; i++) rgb[i] = Math.round(Math.max(0, rgb[i] - rgb[i] * (percent / 100)));
 		return "rgb(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + ")";
 	}
 
@@ -62,8 +62,8 @@ export default class ColorConverter {
 	 * @returns {string} - new color in rgb format
 	 */
 	static lightenColor(color, percent) {
-		var rgb = this.getRGB(color);
-		for (var i = 0; i < rgb.length; i++) rgb[i] = Math.round(Math.min(255, rgb[i] + rgb[i] * (percent / 100)));
+		const rgb = this.getRGB(color);
+		for (let i = 0; i < rgb.length; i++) rgb[i] = Math.round(Math.min(255, rgb[i] + rgb[i] * (percent / 100)));
 		return "rgb(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + ")";
 	}
 
@@ -74,7 +74,7 @@ export default class ColorConverter {
 	 * @returns {string} - new color in rgb format
 	 */
 	static rgbToAlpha(color, alpha) {
-		var rgb = this.getRGB(color);		
+		const rgb = this.getRGB(color);		
 		return "rgba(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + "," + alpha + ")";
 	}
 

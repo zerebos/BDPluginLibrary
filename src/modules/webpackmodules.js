@@ -99,7 +99,7 @@ export default class WebpackModules {
     static getModule(filter, first = true) {
         const modules = this.getAllModules();
         const rm = [];
-        for (let index in modules) {
+        for (const index in modules) {
             if (!modules.hasOwnProperty(index)) continue;
             const module = modules[index];
             const {exports} = module;

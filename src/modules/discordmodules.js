@@ -178,7 +178,7 @@ export default Utilities.memoizeObject({
             if (m.displayName != "FluxContainer(t)") return false;
             try {
                 const temp = new m();
-                return temp && temp.state && temp.state.hasOwnProperty("isFocused");
+                return temp.state && temp.state.hasOwnProperty("isFocused");
             }
             catch (err) {return false;}
         });

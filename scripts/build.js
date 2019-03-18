@@ -10,17 +10,17 @@ const releasePath = path.isAbsolute(libConfig.releaseFolder) ? libConfig.release
 const bdFolder = (process.platform == "win32" ? process.env.APPDATA : process.platform == "darwin" ? process.env.HOME + "/Library/Preferences" :  process.env.XDG_CONFIG_HOME ? process.env.XDG_CONFIG_HOME : process.env.HOME + "/.config") + "/BetterDiscord/";
 
 const formatString = function(string, values) {
-    for (let val in values) {
+    for (const val in values) {
         string = string.replace(new RegExp(`{{${val}}}`, "g"), () => values[val]);
     }
     return string;
 };
 
 const embedFiles = function(content, pluginName, files) {
-    for (let fileName of files) {
+    for (const fileName of files) {
         content = content.replace(new RegExp(`require\\(('|"|\`)${fileName}('|"|\`)\\)`, "g"), () => {
             const filePath = path.join(pluginsPath, pluginName, fileName);
-            if (!fileName.endsWith(".js")) return `\`${fs.readFileSync(filePath).toString().replace(/`/g, "\\`")}\``;
+            if (!fileName.endsWith(".js")) return `\`${fs.readFileSync(filePath).toString().replace(/\\/g, `\\\\`).replace(/`/g, "\\`")}\``;
             const exported = require(filePath);
             if (typeof(exported) !== "object" && !Array.isArray(exported)) return `(${require(filePath).toString()})`;
             if (Array.isArray(exported)) return `(${JSON.stringify(exported)})`;
@@ -54,7 +54,7 @@ for (let f = 0; f < list.length; f++) {
         WEBSITE: config.info.github,
         SOURCE: config.info.github_raw,
         DISPLAY_NAME: config.info.name,
-        HOST_SCRIPT: libConfig.addInstallScript ? fs.readFileSync(path.join(__dirname, "installscript.js")) : ""
+        HOST_SCRIPT: libConfig.addInstallScript ? require(path.join(__dirname, "installscript.js")) : ""
     });
     if (libConfig.addInstallScript) result = result + "\n/*@end@*/";
     fs.writeFileSync(path.join(releasePath, pluginName + ".plugin.js"), result);
