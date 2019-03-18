@@ -28,7 +28,7 @@ export default class ReactTools {
 	 */
 	static getReactInstance(node) {
 		if (!(node instanceof window.jQuery) && !(node instanceof Element)) return undefined;
-		var domNode = node instanceof window.jQuery ? node[0] : node;
+		const domNode = node instanceof window.jQuery ? node[0] : node;
 		return domNode[Object.keys(domNode).find((key) => key.startsWith("__reactInternalInstance"))];
 	}
 
@@ -40,10 +40,7 @@ export default class ReactTools {
 	 * @return {(*|undefined)} the value requested or undefined if not found.
 	 */
 	static getReactProperty(node, path) {
-		var value = path.split(/\s?\.\s?/).reduce(function(obj, prop) {
-			return obj && obj[prop];
-		}, this.getReactInstance(node));
-		return value;
+		return Utilities.getNestedProp(this.getReactInstance(node), path);
 	}
 
 	/**
@@ -73,7 +70,7 @@ export default class ReactTools {
 		let curr = this.getReactInstance(node);
 		for (curr = curr && curr.return; !Utilities.isNil(curr); curr = curr.return) {
 			if (Utilities.isNil(curr)) continue;
-			let owner = curr.stateNode;
+			const owner = curr.stateNode;
 			if (!Utilities.isNil(owner) && !(owner instanceof HTMLElement) && classFilter(curr) && filter(owner)) return owner;
 		}
 		

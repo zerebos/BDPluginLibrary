@@ -56,7 +56,7 @@ export class Menu {
      * @returns {module:ContextMenu.Menu} returns self for chaining
      */
 	addItems(...contextItems) {
-		for (var i = 0; i < contextItems.length; i++) {
+		for (let i = 0; i < contextItems.length; i++) {
 			if (this.scroll) this.scroller.append(contextItems[i].getElement());
 			else this.element.append(contextItems[i].getElement());
 		}
@@ -147,7 +147,7 @@ export class ItemGroup {
      * @returns {module:ContextMenu.ItemGroup} returns self for chaining
      */
 	addItems(...contextItems) {
-		for (var i = 0; i < contextItems.length; i++) {
+		for (let i = 0; i < contextItems.length; i++) {
 			this.element.append(contextItems[i].getElement());
 		}
 		return this;

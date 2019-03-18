@@ -3,7 +3,7 @@
 [lgtm-badge]: https://img.shields.io/lgtm/grade/javascript/g/rauenzi/BDPluginLibrary.svg?style=flat-square
 [lgtm-link]: https://lgtm.com/projects/g/rauenzi/BDPluginLibrary/context:javascript
 
-[travis-badge]: https://img.shields.io/travis/rauenzi/BDPluginLibrary.svg?color=%2397CA00&style=flat-square&branch=master
+[travis-badge]: https://img.shields.io/travis/rauenzi/BDPluginLibrary.svg?&style=flat-square&branch=master
 [travis-link]: https://travis-ci.org/rauenzi/BDPluginLibrary
 
 [download]: https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js

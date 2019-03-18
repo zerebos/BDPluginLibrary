@@ -74,14 +74,14 @@ export default class Toast {
 
     static ensureContainer() {
         if (document.querySelector(".toasts")) return;
-        let container = document.querySelector(DiscordSelectors.ChannelList.channels.adjacent("div"));
-        let memberlist = container.querySelector(DiscordSelectors.MemberList.membersWrap);
-        let form = container ? container.querySelector("form") : null;
-        let left = container ? container.getBoundingClientRect().left : 310;
-        let right = memberlist ? memberlist.getBoundingClientRect().left : 0;
-        let width = right ? right - container.getBoundingClientRect().left : container.offsetWidth;
-        let bottom = form ? form.offsetHeight : 80;
-        let toastWrapper = document.createElement("div");
+        const container = document.querySelector(DiscordSelectors.ChannelList.channels.adjacent("div"));
+        const memberlist = container.querySelector(DiscordSelectors.MemberList.membersWrap);
+        const form = container ? container.querySelector("form") : null;
+        const left = container ? container.getBoundingClientRect().left : 310;
+        const right = memberlist ? memberlist.getBoundingClientRect().left : 0;
+        const width = right ? right - container.getBoundingClientRect().left : container.offsetWidth;
+        const bottom = form ? form.offsetHeight : 80;
+        const toastWrapper = document.createElement("div");
         toastWrapper.classList.add("toasts");
         toastWrapper.style.setProperty("left", left + "px");
         toastWrapper.style.setProperty("width", width + "px");

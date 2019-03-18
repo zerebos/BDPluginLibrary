@@ -17,8 +17,8 @@ class List extends Array {
      */
     get(...filters) {
         return this.find(item => {
-            for (let filter of filters) {
-                for (let key in filter) {
+            for (const filter of filters) {
+                for (const key in filter) {
                     if (filter.hasOwnProperty(key)) {
                         if (item[key] !== filter[key]) return false;
                     }

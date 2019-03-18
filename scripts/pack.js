@@ -44,7 +44,7 @@ const list = args.slice(1).length ? args.slice(1) : fs.readdirSync(pluginsPath).
             });
         });
         let result = fs.readFileSync(path.join(config.output.path, config.output.filename)).toString();
-        if (libConfig.addInstallScript) result = fs.readFileSync(path.join(__dirname, "installscript.js")) + result + "\n/*@end@*/";
+        if (libConfig.addInstallScript) result = require(path.join(__dirname, "installscript.js")) + result + "\n/*@end@*/";
         result = banner + "\n" + result;
         fs.writeFileSync(path.join(config.output.path, config.output.filename), result);
         if (libConfig.copyToBD) {

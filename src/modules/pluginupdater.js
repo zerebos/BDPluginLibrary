@@ -52,8 +52,8 @@ export default class PluginUpdater {
 			window.PluginUpdates = {
 				plugins: {},
 				checkAll: function() {
-					for (let key in this.plugins) {
-						let plugin = this.plugins[key];
+					for (const key in this.plugins) {
+						const plugin = this.plugins[key];
 						if (!plugin.versioner) plugin.versioner = PluginUpdater.defaultVersioner;
 						if (!plugin.comparator) plugin.comparator = PluginUpdater.defaultComparator;
 						PluginUpdater.processUpdateCheck(plugin.name, plugin.raw);
@@ -96,7 +96,7 @@ export default class PluginUpdater {
 	 * @param {string} content 
 	 */
 	static defaultVersioner(content) {
-		var remoteVersion = content.match(/['"][0-9]+\.[0-9]+\.[0-9]+['"]/i);
+		const remoteVersion = content.match(/['"][0-9]+\.[0-9]+\.[0-9]+['"]/i);
 		if (!remoteVersion) return "0.0.0";
 		return remoteVersion.toString().replace(/['"]/g, "");
 	}
@@ -142,7 +142,7 @@ export default class PluginUpdater {
 		updateButton.onclick = function () {
 			window.PluginUpdates.checkAll();
 		};
-		let tooltip = new Tooltip(updateButton, "Checks for updates of plugins that support this feature. Right-click for a list.");
+		const tooltip = new Tooltip(updateButton, "Checks for updates of plugins that support this feature. Right-click for a list.");
 		updateButton.oncontextmenu = function () {
 			if (!window.PluginUpdates || !window.PluginUpdates.plugins) return;
 			tooltip.label = Object.values(window.PluginUpdates.plugins).map(p => p.name).join(", ");
@@ -164,9 +164,9 @@ export default class PluginUpdater {
 	 * @param {string} updateLink - link to the raw text version of the plugin
 	 */
 	static downloadPlugin(pluginName, updateLink) {
-		let request = require("request");
-		let fileSystem = require("fs");
-		let path = require("path");
+		const request = require("request");
+		const fileSystem = require("fs");
+		const path = require("path");
 		request(updateLink, async (error, response, body) => {
 			if (error) return Logger.warn("PluginUpdates", "Unable to get update for " + pluginName);
 			const remoteVersion = window.PluginUpdates.plugins[updateLink].versioner(body);

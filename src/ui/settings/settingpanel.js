@@ -42,7 +42,7 @@ class SettingPanel extends Listenable {
      * @returns {module:Settings.SettingPanel} - returns self for chaining
      */
 	append(...nodes) {
-		for (var i = 0; i < nodes.length; i++) {
+		for (let i = 0; i < nodes.length; i++) {
 			if (nodes[i] instanceof jQuery || nodes[i] instanceof Element) this.element.append(nodes[i]);
 			else if (nodes[i] instanceof SettingField || nodes[i] instanceof SettingGroup) this.element.append(nodes[i].getElement());
 			if (nodes[i] instanceof SettingField) {

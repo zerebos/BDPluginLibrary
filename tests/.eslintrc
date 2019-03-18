@@ -2,6 +2,7 @@
 	"extends": "../.eslintrc",
     "globals": {
         "describe": false,
-        "it": false
+        "it": false,
+        "Reflect": false
     }
 }

@@ -73,7 +73,7 @@ class Helpers {
         };
         const checkFilter = (selector, {item, parent, key, count, index}) => {
             let match = true;
-            if (match && selector.type) match = item && selector.type === item.type;
+            if (selector.type) match = item && selector.type === item.type;
             if (match && selector.tag) match = item && typeof item.type === "string" && selector.tag === item.type;
             if (match && selector.className) {
                 match = item && item.props && typeof item.props.className === "string";

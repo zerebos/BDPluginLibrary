@@ -19,9 +19,7 @@ class ClassName {
 	 * @returns {ClassName} returns self to allow chaining
 	 */
 	add(...classNames) {
-		for (var i = 0; i < classNames.length; i++) {
-			this.value += " " + classNames[i];
-		}
+		for (let i = 0; i < classNames.length; i++) this.value += " " + classNames[i];
 		return this;
 	}
 	

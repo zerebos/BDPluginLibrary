@@ -194,7 +194,7 @@ class Guild {
      * An array of the guild's custom emojis.
      */
     get emojis() {
-        return List.from(Modules.EmojiUtils.getGuildEmoji(this.id), e => new Emoji(e, this.id));
+        return List.from(Modules.EmojiUtils.getGuildEmoji(this.id), e => new Emoji(e));
     }
 
     checkPermissions(perms) {
