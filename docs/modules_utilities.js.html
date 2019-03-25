@@ -149,23 +149,21 @@ export default class Utilities {
      * @param {function} comparator - comparator to sort by
      */
     static stableSort(list, comparator) {
-        var length = list.length;
-        var entries = Array(length);
-        var index;
+        const entries = Array(length);
 
         // wrap values with initial indices
-        for (index = 0; index &lt; length; index++) {
+        for (let index = 0; index &lt; list.length; index++) {
             entries[index] = [index, list[index]];
         }
 
         // sort with fallback based on initial indices
         entries.sort(function (a, b) {
-            var comparison = Number(this(a[1], b[1]));
+            const comparison = Number(this(a[1], b[1]));
             return comparison || a[0] - b[0];
         }.bind(comparator));
 
         // re-map original array to stable sorted values
-        for (index = 0; index &lt; length; index++) {
+        for (let index = 0; index &lt; list.length; index++) {
             list[index] = entries[index][1];
         }
     }
@@ -180,7 +178,7 @@ export default class Utilities {
             get: function(obj, mod) {
                 if (!obj.hasOwnProperty(mod)) return undefined;
                 if (Object.getOwnPropertyDescriptor(obj, mod).get) {
-                    let value = obj[mod];
+                    const value = obj[mod];
                     delete obj[mod];
                     obj[mod] = value;
                 }
@@ -222,7 +220,7 @@ export default class Utilities {
     }
 
     /**
-     * Format strings with placeholders (`${placeholder}`) into full strings.
+     * Format template strings with placeholders (`${placeholder}`) into full strings.
      * Quick example: `PluginUtilities.formatString("Hello, ${user}", {user: "Zerebos"})`
      * would return "Hello, Zerebos".
      * @param {string} string - string to format
@@ -230,8 +228,11 @@ export default class Utilities {
      * @returns {string} the properly formatted string
      */
     static formatTString(string, values) {
-        for (let val in values) {
-            string = string.replace(new RegExp(`\\$\\{${val}\\}`, "g"), values[val]);
+        for (const val in values) {
+            let replacement = values[val];
+            if (Array.isArray(replacement)) replacement = JSON.stringify(replacement);
+            if (typeof(replacement) === "object" &amp;&amp; replacement !== null) replacement = replacement.toString();
+            string = string.replace(new RegExp(`\\$\\{${val}\\}`, "g"), replacement);
         }
         return string;
     }
@@ -245,8 +246,11 @@ export default class Utilities {
      * @returns {string} the properly formatted string
      */
     static formatString(string, values) {
-        for (let val in values) {
-            string = string.replace(new RegExp(`{{${val}}}`, "g"), values[val]);
+        for (const val in values) {
+            let replacement = values[val];
+            if (Array.isArray(replacement)) replacement = JSON.stringify(replacement);
+            if (typeof(replacement) === "object" &amp;&amp; replacement !== null) replacement = replacement.toString();
+            string = string.replace(new RegExp(`{{${val}}}`, "g"), replacement);
         }
         return string;
     }
@@ -268,7 +272,7 @@ export default class Utilities {
      * @param {Array&lt;string>|null} [options.walkable=null] Array of strings to use as keys that are allowed to be walked on. Null value indicates all keys are walkable
      * @param {Array&lt;string>} [options.ignore=[]] Array of strings to use as keys to exclude from the search, most helpful when `walkable = null`.
      */
-    static findInTree(tree, searchFilter, {walkable = null, ignore = []}) {
+    static findInTree(tree, searchFilter, {walkable = null, ignore = []} = {}) {
         if (typeof searchFilter === "string") {
             if (tree.hasOwnProperty(searchFilter)) return tree[searchFilter];
         }
@@ -309,29 +313,33 @@ export default class Utilities {
     }
 
     /**
-     * https://github.com/JedWatson/classnames
+     * Builds a classname string from any number of arguments. This includes arrays and objects.
+     * When given an array all values from the array are added to the list.
+     * When given an object they keys are added as the classnames if the value is truthy.
+     * Copyright (c) 2018 Jed Watson https://github.com/JedWatson/classnames MIT License
+     * @param {...Any} argument - anything that should be used to add classnames.
      */
     static className() {
-        var classes = [];
-        var hasOwn = {}.hasOwnProperty;
+        const classes = [];
+        const hasOwn = {}.hasOwnProperty;
 
-		for (var i = 0; i &lt; arguments.length; i++) {
-			var arg = arguments[i];
+		for (let i = 0; i &lt; arguments.length; i++) {
+			const arg = arguments[i];
 			if (!arg) continue;
 
-			var argType = typeof arg;
+			const argType = typeof arg;
 
 			if (argType === "string" || argType === "number") {
 				classes.push(arg);
             }
             else if (Array.isArray(arg) &amp;&amp; arg.length) {
-				var inner = this.classNames.apply(null, arg);
+				const inner = this.classNames.apply(null, arg);
 				if (inner) {
 					classes.push(inner);
 				}
             }
             else if (argType === "object") {
-				for (var key in arg) {
+				for (const key in arg) {
 					if (hasOwn.call(arg, key) &amp;&amp; arg[key]) {
 						classes.push(key);
 					}
@@ -366,7 +374,7 @@ export default class Utilities {
      */
     static extend(extendee, ...extenders) {
         for (let i = 0; i &lt; extenders.length; i++) {
-            for (let key in extenders[i]) {
+            for (const key in extenders[i]) {
                 if (extenders[i].hasOwnProperty(key)) {
                     if (typeof extendee[key] === "object" &amp;&amp; typeof extenders[i][key] === "object") this.extend(extendee[key], extenders[i][key]);
                     else if (typeof extenders[i][key] === "object") extendee[key] = {}, this.extend(extendee[key], extenders[i][key]);
@@ -392,7 +400,7 @@ export default class Utilities {
 
             const clone = Object.assign({}, value);
 
-            for (let key in clone) {
+            for (const key in clone) {
                 clone[key] = this.deepclone(clone[key]);
             }
 
@@ -413,7 +421,7 @@ export default class Utilities {
         if (typeof object === "object" &amp;&amp; object !== null) {
             const properties = Object.getOwnPropertyNames(object);
 
-            for (let property of properties) {
+            for (const property of properties) {
                 this.deepfreeze(object[property], exclude);
             }
 
@@ -498,7 +506,7 @@ export default class Utilities {
 	</div>
 	<footer>
 				<div class="copyright">Copyright © 2018 Zack Rauen</div>
-			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on March 8th 2019, 12:50:33 am using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
+			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on March 25th 2019, 2:31:22 am using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
 	</footer>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>

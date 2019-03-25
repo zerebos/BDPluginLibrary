@@ -123,6 +123,18 @@
           "regex",
           "search"
         ],
+        "module-WebpackModules.Filters.html#.byString": [
+          "bystr",
+          "filter",
+          "filters.bystr",
+          "function",
+          "gener",
+          "lt;static&gt",
+          "module:webpackmodules.filters.bystr",
+          "module:webpackmodules.filters~filt",
+          "search",
+          "string"
+        ],
         "module-WebpackModules.Filters.html#.byDisplayName": [
           "bydisplaynam",
           "filter",
@@ -663,6 +675,16 @@
           "module:discordapi.us",
           "user"
         ],
+        "module-DiscordAPI.User.html#updateNote": [
+          "function",
+          "module:discordapi.user#updatenot",
+          "note",
+          "promis",
+          "updat",
+          "updatenot",
+          "user",
+          "user#updatenot"
+        ],
         "module-DiscordAPI.User.html#openUserProfileModal": [
           "function",
           "modal",
@@ -673,16 +695,6 @@
           "section",
           "user",
           "user#openuserprofilemod"
-        ],
-        "module-DiscordAPI.User.html#updateNote": [
-          "function",
-          "module:discordapi.user#updatenot",
-          "note",
-          "promis",
-          "updat",
-          "updatenot",
-          "user",
-          "user#updatenot"
         ],
         "module-DiscordAPI.UserSettings.html": [
           "class",
@@ -2466,7 +2478,7 @@
           "settings~radioitem"
         ]
       },
-      "length": 208
+      "length": 209
     },
     "tokenStore": {
       "root": {
@@ -2619,6 +2631,20 @@
                     "module-WebpackModules.Filters.html#.byCode": {
                       "ref": "module-WebpackModules.Filters.html#.byCode",
                       "tf": 620
+                    }
+                  }
+                }
+              }
+            },
+            "s": {
+              "docs": {},
+              "t": {
+                "docs": {},
+                "r": {
+                  "docs": {
+                    "module-WebpackModules.Filters.html#.byString": {
+                      "ref": "module-WebpackModules.Filters.html#.byString",
+                      "tf": 625
                     }
                   }
                 }
@@ -4485,6 +4511,10 @@
                                   "module-WebpackModules.Filters.html#.byCode": {
                                     "ref": "module-WebpackModules.Filters.html#.byCode",
                                     "tf": 20
+                                  },
+                                  "module-WebpackModules.Filters.html#.byString": {
+                                    "ref": "module-WebpackModules.Filters.html#.byString",
+                                    "tf": 25
                                   },
                                   "module-WebpackModules.Filters.html#.byDisplayName": {
                                     "ref": "module-WebpackModules.Filters.html#.byDisplayName",
@@ -7261,6 +7291,10 @@
                       "module-WebpackModules.Filters.html#.byCode": {
                         "ref": "module-WebpackModules.Filters.html#.byCode",
                         "tf": 20
+                      },
+                      "module-WebpackModules.Filters.html#.byString": {
+                        "ref": "module-WebpackModules.Filters.html#.byString",
+                        "tf": 25
                       }
                     }
                   }
@@ -7699,6 +7733,108 @@
               }
             }
           },
+          "t": {
+            "docs": {},
+            "r": {
+              "docs": {},
+              "i": {
+                "docs": {},
+                "n": {
+                  "docs": {},
+                  "g": {
+                    "docs": {
+                      "module-WebpackModules.Filters.html#.byString": {
+                        "ref": "module-WebpackModules.Filters.html#.byString",
+                        "tf": 12.5
+                      },
+                      "module-DOMTools.ClassName.html#toString": {
+                        "ref": "module-DOMTools.ClassName.html#toString",
+                        "tf": 50
+                      },
+                      "module-DOMTools.ClassName.html#valueOf": {
+                        "ref": "module-DOMTools.ClassName.html#valueOf",
+                        "tf": 50
+                      },
+                      "module-DOMTools.Selector.html#toString": {
+                        "ref": "module-DOMTools.Selector.html#toString",
+                        "tf": 50
+                      },
+                      "module-DOMTools.Selector.html#valueOf": {
+                        "ref": "module-DOMTools.Selector.html#valueOf",
+                        "tf": 50
+                      },
+                      "module-Settings.ColorPicker.html": {
+                        "ref": "module-Settings.ColorPicker.html",
+                        "tf": 3.571428571428571
+                      },
+                      "module-DiscordSelectors.html": {
+                        "ref": "module-DiscordSelectors.html",
+                        "tf": 3.4482758620689653
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "a": {
+              "docs": {},
+              "t": {
+                "docs": {},
+                "u": {
+                  "docs": {
+                    "module-DiscordAPI.UserSettings.html#.status": {
+                      "ref": "module-DiscordAPI.UserSettings.html#.status",
+                      "tf": 657.1428571428571
+                    },
+                    "module-DiscordAPI.UserSettings.html#.showCurrentGame": {
+                      "ref": "module-DiscordAPI.UserSettings.html#.showCurrentGame",
+                      "tf": 5
+                    }
+                  }
+                }
+              },
+              "r": {
+                "docs": {},
+                "t": {
+                  "docs": {
+                    "module-DOMTools.DOMObserver.html#observe": {
+                      "ref": "module-DOMTools.DOMObserver.html#observe",
+                      "tf": 5
+                    }
+                  }
+                }
+              }
+            },
+            "o": {
+              "docs": {},
+              "p": {
+                "docs": {
+                  "module-DOMTools.DOMObserver.html#disconnect": {
+                    "ref": "module-DOMTools.DOMObserver.html#disconnect",
+                    "tf": 4.166666666666666
+                  }
+                }
+              }
+            },
+            "i": {
+              "docs": {},
+              "l": {
+                "docs": {},
+                "l": {
+                  "docs": {
+                    "module-DiscordClasses.html": {
+                      "ref": "module-DiscordClasses.html",
+                      "tf": 1.8518518518518516
+                    },
+                    "module-DiscordSelectors.html": {
+                      "ref": "module-DiscordSelectors.html",
+                      "tf": 1.7241379310344827
+                    }
+                  }
+                }
+              }
+            }
+          },
           "y": {
             "docs": {},
             "s": {
@@ -7848,104 +7984,6 @@
                     "module-DOMTools.Selector.html#descend": {
                       "ref": "module-DOMTools.Selector.html#descend",
                       "tf": 8.333333333333332
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "t": {
-            "docs": {},
-            "a": {
-              "docs": {},
-              "t": {
-                "docs": {},
-                "u": {
-                  "docs": {
-                    "module-DiscordAPI.UserSettings.html#.status": {
-                      "ref": "module-DiscordAPI.UserSettings.html#.status",
-                      "tf": 657.1428571428571
-                    },
-                    "module-DiscordAPI.UserSettings.html#.showCurrentGame": {
-                      "ref": "module-DiscordAPI.UserSettings.html#.showCurrentGame",
-                      "tf": 5
-                    }
-                  }
-                }
-              },
-              "r": {
-                "docs": {},
-                "t": {
-                  "docs": {
-                    "module-DOMTools.DOMObserver.html#observe": {
-                      "ref": "module-DOMTools.DOMObserver.html#observe",
-                      "tf": 5
-                    }
-                  }
-                }
-              }
-            },
-            "r": {
-              "docs": {},
-              "i": {
-                "docs": {},
-                "n": {
-                  "docs": {},
-                  "g": {
-                    "docs": {
-                      "module-DOMTools.ClassName.html#toString": {
-                        "ref": "module-DOMTools.ClassName.html#toString",
-                        "tf": 50
-                      },
-                      "module-DOMTools.ClassName.html#valueOf": {
-                        "ref": "module-DOMTools.ClassName.html#valueOf",
-                        "tf": 50
-                      },
-                      "module-DOMTools.Selector.html#toString": {
-                        "ref": "module-DOMTools.Selector.html#toString",
-                        "tf": 50
-                      },
-                      "module-DOMTools.Selector.html#valueOf": {
-                        "ref": "module-DOMTools.Selector.html#valueOf",
-                        "tf": 50
-                      },
-                      "module-Settings.ColorPicker.html": {
-                        "ref": "module-Settings.ColorPicker.html",
-                        "tf": 3.571428571428571
-                      },
-                      "module-DiscordSelectors.html": {
-                        "ref": "module-DiscordSelectors.html",
-                        "tf": 3.4482758620689653
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "o": {
-              "docs": {},
-              "p": {
-                "docs": {
-                  "module-DOMTools.DOMObserver.html#disconnect": {
-                    "ref": "module-DOMTools.DOMObserver.html#disconnect",
-                    "tf": 4.166666666666666
-                  }
-                }
-              }
-            },
-            "i": {
-              "docs": {},
-              "l": {
-                "docs": {},
-                "l": {
-                  "docs": {
-                    "module-DiscordClasses.html": {
-                      "ref": "module-DiscordClasses.html",
-                      "tf": 1.8518518518518516
-                    },
-                    "module-DiscordSelectors.html": {
-                      "ref": "module-DiscordSelectors.html",
-                      "tf": 1.7241379310344827
                     }
                   }
                 }
@@ -9343,13 +9381,13 @@
                     "ref": "module-DiscordAPI.User.html",
                     "tf": 650
                   },
-                  "module-DiscordAPI.User.html#openUserProfileModal": {
-                    "ref": "module-DiscordAPI.User.html#openUserProfileModal",
-                    "tf": 12.5
-                  },
                   "module-DiscordAPI.User.html#updateNote": {
                     "ref": "module-DiscordAPI.User.html#updateNote",
                     "tf": 16.666666666666664
+                  },
+                  "module-DiscordAPI.User.html#openUserProfileModal": {
+                    "ref": "module-DiscordAPI.User.html#openUserProfileModal",
+                    "tf": 12.5
                   },
                   "module-DiscordAPI.UserSettings.html#.restrictedGuildIds": {
                     "ref": "module-DiscordAPI.UserSettings.html#.restrictedGuildIds",
@@ -9402,6 +9440,38 @@
                 },
                 "#": {
                   "docs": {},
+                  "u": {
+                    "docs": {},
+                    "p": {
+                      "docs": {},
+                      "d": {
+                        "docs": {},
+                        "a": {
+                          "docs": {},
+                          "t": {
+                            "docs": {},
+                            "e": {
+                              "docs": {},
+                              "n": {
+                                "docs": {},
+                                "o": {
+                                  "docs": {},
+                                  "t": {
+                                    "docs": {
+                                      "module-DiscordAPI.User.html#updateNote": {
+                                        "ref": "module-DiscordAPI.User.html#updateNote",
+                                        "tf": 100
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
                   "o": {
                     "docs": {},
                     "p": {
@@ -9450,38 +9520,6 @@
                                             }
                                           }
                                         }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "u": {
-                    "docs": {},
-                    "p": {
-                      "docs": {},
-                      "d": {
-                        "docs": {},
-                        "a": {
-                          "docs": {},
-                          "t": {
-                            "docs": {},
-                            "e": {
-                              "docs": {},
-                              "n": {
-                                "docs": {},
-                                "o": {
-                                  "docs": {},
-                                  "t": {
-                                    "docs": {
-                                      "module-DiscordAPI.User.html#updateNote": {
-                                        "ref": "module-DiscordAPI.User.html#updateNote",
-                                        "tf": 100
                                       }
                                     }
                                   }
@@ -12690,6 +12728,10 @@
                     },
                     "module-WebpackModules.Filters.html#.byCode": {
                       "ref": "module-WebpackModules.Filters.html#.byCode",
+                      "tf": 12.5
+                    },
+                    "module-WebpackModules.Filters.html#.byString": {
+                      "ref": "module-WebpackModules.Filters.html#.byString",
                       "tf": 12.5
                     },
                     "module-WebpackModules.Filters.html#.byDisplayName": {
@@ -16332,6 +16374,20 @@
                                                                             }
                                                                           }
                                                                         },
+                                                                        "s": {
+                                                                          "docs": {},
+                                                                          "t": {
+                                                                            "docs": {},
+                                                                            "r": {
+                                                                              "docs": {
+                                                                                "module-WebpackModules.Filters.html#.byString": {
+                                                                                  "ref": "module-WebpackModules.Filters.html#.byString",
+                                                                                  "tf": 1100
+                                                                                }
+                                                                              }
+                                                                            }
+                                                                          }
+                                                                        },
                                                                         "d": {
                                                                           "docs": {},
                                                                           "i": {
@@ -16414,6 +16470,10 @@
                                                                               "module-WebpackModules.Filters.html#.byCode": {
                                                                                 "ref": "module-WebpackModules.Filters.html#.byCode",
                                                                                 "tf": 32.5
+                                                                              },
+                                                                              "module-WebpackModules.Filters.html#.byString": {
+                                                                                "ref": "module-WebpackModules.Filters.html#.byString",
+                                                                                "tf": 37.5
                                                                               },
                                                                               "module-WebpackModules.Filters.html#.byDisplayName": {
                                                                                 "ref": "module-WebpackModules.Filters.html#.byDisplayName",
@@ -17937,6 +17997,38 @@
                                                     "docs": {},
                                                     "#": {
                                                       "docs": {},
+                                                      "u": {
+                                                        "docs": {},
+                                                        "p": {
+                                                          "docs": {},
+                                                          "d": {
+                                                            "docs": {},
+                                                            "a": {
+                                                              "docs": {},
+                                                              "t": {
+                                                                "docs": {},
+                                                                "e": {
+                                                                  "docs": {},
+                                                                  "n": {
+                                                                    "docs": {},
+                                                                    "o": {
+                                                                      "docs": {},
+                                                                      "t": {
+                                                                        "docs": {
+                                                                          "module-DiscordAPI.User.html#updateNote": {
+                                                                            "ref": "module-DiscordAPI.User.html#updateNote",
+                                                                            "tf": 1100
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      },
                                                       "o": {
                                                         "docs": {},
                                                         "p": {
@@ -17985,38 +18077,6 @@
                                                                                 }
                                                                               }
                                                                             }
-                                                                          }
-                                                                        }
-                                                                      }
-                                                                    }
-                                                                  }
-                                                                }
-                                                              }
-                                                            }
-                                                          }
-                                                        }
-                                                      },
-                                                      "u": {
-                                                        "docs": {},
-                                                        "p": {
-                                                          "docs": {},
-                                                          "d": {
-                                                            "docs": {},
-                                                            "a": {
-                                                              "docs": {},
-                                                              "t": {
-                                                                "docs": {},
-                                                                "e": {
-                                                                  "docs": {},
-                                                                  "n": {
-                                                                    "docs": {},
-                                                                    "o": {
-                                                                      "docs": {},
-                                                                      "t": {
-                                                                        "docs": {
-                                                                          "module-DiscordAPI.User.html#updateNote": {
-                                                                            "ref": "module-DiscordAPI.User.html#updateNote",
-                                                                            "tf": 1100
                                                                           }
                                                                         }
                                                                       }
@@ -23270,6 +23330,10 @@
                         "ref": "module-WebpackModules.Filters.html#.byCode",
                         "tf": 32.5
                       },
+                      "module-WebpackModules.Filters.html#.byString": {
+                        "ref": "module-WebpackModules.Filters.html#.byString",
+                        "tf": 12.5
+                      },
                       "module-WebpackModules.Filters.html#.byDisplayName": {
                         "ref": "module-WebpackModules.Filters.html#.byDisplayName",
                         "tf": 30
@@ -23386,6 +23450,20 @@
                                   "docs": {
                                     "module-WebpackModules.Filters.html#.byCode": {
                                       "ref": "module-WebpackModules.Filters.html#.byCode",
+                                      "tf": 100
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "s": {
+                              "docs": {},
+                              "t": {
+                                "docs": {},
+                                "r": {
+                                  "docs": {
+                                    "module-WebpackModules.Filters.html#.byString": {
+                                      "ref": "module-WebpackModules.Filters.html#.byString",
                                       "tf": 100
                                     }
                                   }
@@ -23802,6 +23880,10 @@
                             "ref": "module-WebpackModules.Filters.html#.byCode",
                             "tf": 110
                           },
+                          "module-WebpackModules.Filters.html#.byString": {
+                            "ref": "module-WebpackModules.Filters.html#.byString",
+                            "tf": 110
+                          },
                           "module-WebpackModules.Filters.html#.byDisplayName": {
                             "ref": "module-WebpackModules.Filters.html#.byDisplayName",
                             "tf": 110
@@ -23926,12 +24008,12 @@
                             "ref": "module-DiscordAPI.Message.html#jumpTo",
                             "tf": 110
                           },
-                          "module-DiscordAPI.User.html#openUserProfileModal": {
-                            "ref": "module-DiscordAPI.User.html#openUserProfileModal",
-                            "tf": 110
-                          },
                           "module-DiscordAPI.User.html#updateNote": {
                             "ref": "module-DiscordAPI.User.html#updateNote",
+                            "tf": 110
+                          },
+                          "module-DiscordAPI.User.html#openUserProfileModal": {
+                            "ref": "module-DiscordAPI.User.html#openUserProfileModal",
                             "tf": 110
                           },
                           "module-DiscordAPI.UserSettings.html#.open": {
@@ -27501,7 +27583,7 @@
           }
         }
       },
-      "length": 2010
+      "length": 2020
     },
     "corpusTokens": [
       "0",
@@ -27567,6 +27649,7 @@
       "bypass",
       "byproperti",
       "byprototypefield",
+      "bystr",
       "call",
       "callabl",
       "callback",
@@ -27725,6 +27808,7 @@
       "filters.bydisplaynam",
       "filters.byproperti",
       "filters.byprototypefield",
+      "filters.bystr",
       "filters.combin",
       "filters~filt",
       "fire",
@@ -28072,6 +28156,7 @@
       "module:webpackmodules.filters.bydisplaynam",
       "module:webpackmodules.filters.byproperti",
       "module:webpackmodules.filters.byprototypefield",
+      "module:webpackmodules.filters.bystr",
       "module:webpackmodules.filters.combin",
       "module:webpackmodules.filters~filt",
       "more",
@@ -28501,6 +28586,16 @@
       "tags": "module:WebpackModules.Filters.byCode Filters.byCode byCode",
       "summary": "",
       "description": "Generates a module:WebpackModules.Filters~filter that filters by a regex."
+    },
+    "module-WebpackModules.Filters.html#.byString": {
+      "id": "module-WebpackModules.Filters.html#.byString",
+      "kind": "function",
+      "title": "&lt;static&gt; byString( ...search ) → {module:WebpackModules.Filters~filter}",
+      "longname": "module:WebpackModules.Filters.byString",
+      "name": "byString",
+      "tags": "module:WebpackModules.Filters.byString Filters.byString byString",
+      "summary": "",
+      "description": "Generates a module:WebpackModules.Filters~filter that filters by strings."
     },
     "module-WebpackModules.Filters.html#.byDisplayName": {
       "id": "module-WebpackModules.Filters.html#.byDisplayName",
@@ -28996,16 +29091,6 @@
       "description": "",
       "body": ""
     },
-    "module-DiscordAPI.User.html#openUserProfileModal": {
-      "id": "module-DiscordAPI.User.html#openUserProfileModal",
-      "kind": "function",
-      "title": "openUserProfileModal( section )",
-      "longname": "module:DiscordAPI.User#openUserProfileModal",
-      "name": "openUserProfileModal",
-      "tags": "module:DiscordAPI.User#openUserProfileModal User#openUserProfileModal openUserProfileModal",
-      "summary": "",
-      "description": "Opens the profile modal for this user."
-    },
     "module-DiscordAPI.User.html#updateNote": {
       "id": "module-DiscordAPI.User.html#updateNote",
       "kind": "function",
@@ -29015,6 +29100,16 @@
       "tags": "module:DiscordAPI.User#updateNote User#updateNote updateNote",
       "summary": "",
       "description": "Updates the note for this user."
+    },
+    "module-DiscordAPI.User.html#openUserProfileModal": {
+      "id": "module-DiscordAPI.User.html#openUserProfileModal",
+      "kind": "function",
+      "title": "openUserProfileModal( section )",
+      "longname": "module:DiscordAPI.User#openUserProfileModal",
+      "name": "openUserProfileModal",
+      "tags": "module:DiscordAPI.User#openUserProfileModal User#openUserProfileModal openUserProfileModal",
+      "summary": "",
+      "description": "Opens the profile modal for this user."
     },
     "module-DiscordAPI.UserSettings.html": {
       "id": "module-DiscordAPI.UserSettings.html",
