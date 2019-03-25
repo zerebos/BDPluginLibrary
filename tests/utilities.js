@@ -58,10 +58,12 @@ describe("Utilities", function() {
             const filledOut = Utilities.formatTString(template, {success: "success", otherthing: "foo"});
             assert.equal("This is a success", filledOut);
         });
-        it("Should stringify objects", function() {
+        it("Should toString objects", function() {
             const template = `This is a \${success}`;
             const filledOut = Utilities.formatTString(template, {success: {misnomer: "good"}});
-            assert.equal(`This is a {"misnomer":"good"}`, filledOut);
+            assert.equal(`This is a [object Object]`, filledOut);
+            const filledOut2 = Utilities.formatTString(template, {success: {toString: () => {return "good test";}}});
+            assert.equal(`This is a good test`, filledOut2);
         });
         it("Should stringify arrays", function() {
             const template = `This is a \${success}`;
@@ -86,10 +88,12 @@ describe("Utilities", function() {
             const filledOut = Utilities.formatString(template, {success: "success", otherthing: "foo"});
             assert.equal("This is a success", filledOut);
         });
-        it("Should stringify objects", function() {
+        it("Should toString objects", function() {
             const template = `This is a {{success}}`;
             const filledOut = Utilities.formatString(template, {success: {misnomer: "good"}});
-            assert.equal(`This is a {"misnomer":"good"}`, filledOut);
+            assert.equal(`This is a [object Object]`, filledOut);
+            const filledOut2 = Utilities.formatString(template, {success: {toString: () => {return "good test";}}});
+            assert.equal(`This is a good test`, filledOut2);
         });
         it("Should stringify arrays", function() {
             const template = `This is a {{success}}`;

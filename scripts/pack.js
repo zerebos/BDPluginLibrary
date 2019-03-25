@@ -49,7 +49,7 @@ const list = args.slice(1).length ? args.slice(1) : fs.readdirSync(pluginsPath).
         fs.writeFileSync(path.join(config.output.path, config.output.filename), result);
         if (libConfig.copyToBD) {
             console.log(`Copying ${pluginName} to BD folder`);
-            fs.writeFileSync(path.join(bdFolder, "plugins", pluginName + ".plugin.js"), result);
+            fs.writeFileSync(path.join(bdFolder, "plugins", config.output.filename), result);
         }
         console.log(`${pluginName} packed successfully`);
     }

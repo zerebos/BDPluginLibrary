@@ -85,7 +85,7 @@ export default class Utilities {
     }
 
     /**
-     * Format strings with placeholders (`${placeholder}`) into full strings.
+     * Format template strings with placeholders (`${placeholder}`) into full strings.
      * Quick example: `PluginUtilities.formatString("Hello, ${user}", {user: "Zerebos"})`
      * would return "Hello, Zerebos".
      * @param {string} string - string to format
@@ -96,7 +96,7 @@ export default class Utilities {
         for (const val in values) {
             let replacement = values[val];
             if (Array.isArray(replacement)) replacement = JSON.stringify(replacement);
-            if (typeof(replacement) === "object" && replacement !== null) replacement = JSON.stringify(replacement);
+            if (typeof(replacement) === "object" && replacement !== null) replacement = replacement.toString();
             string = string.replace(new RegExp(`\\$\\{${val}\\}`, "g"), replacement);
         }
         return string;
@@ -114,7 +114,7 @@ export default class Utilities {
         for (const val in values) {
             let replacement = values[val];
             if (Array.isArray(replacement)) replacement = JSON.stringify(replacement);
-            if (typeof(replacement) === "object" && replacement !== null) replacement = JSON.stringify(replacement);
+            if (typeof(replacement) === "object" && replacement !== null) replacement = replacement.toString();
             string = string.replace(new RegExp(`{{${val}}}`, "g"), replacement);
         }
         return string;

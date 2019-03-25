@@ -7,13 +7,14 @@
             "github_username": "rauenzi",
             "twitter_username": "ZackRauen"
         }],
-        "version": "1.2.2",
+        "version": "1.2.3",
         "description": "Gives other plugins utility functions and the ability to emulate v2.",
         "github": "https://github.com/rauenzi/BDPluginLibrary",
         "github_raw": "https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"
     },
     "changelog": [
-        {"title": "Bugs Squashed", "type": "fixed", "items": ["Fixed fatal error for showing update notice."]}
+        {"title": "Improvements", "type": "improved", "items": ["Added module grabbing via string(s) in WebpackModules.", "Added additional DOMTool functions. (escapeHTML, onMount, etc.)", "Improved DOM listening events."]},
+        {"title": "Bugs Squashed", "type": "fixed", "items": ["Fixed too many logs from ReactComponents.", "Fixed JSON stringify issues with string formatters.", "Fix internal showUserPopout function."]}
     ],
     "main": "plugin.js"
 }

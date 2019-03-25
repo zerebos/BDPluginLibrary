@@ -50,6 +50,8 @@ Boolean to determine if the built plugin should also be automatically copied ove
 
 **Default**: `false`
 
+***
+
 #### `addInstallScript`
 Boolean to determine if the plugin should include the Windows Host Script install script. This means that users on Windows that double click the plugin will be prompted to automatically install the plugin.
 

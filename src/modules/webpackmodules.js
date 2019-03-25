@@ -60,6 +60,21 @@ export class Filters {
     }
 
     /**
+     * Generates a {@link module:WebpackModules.Filters~filter} that filters by strings.
+     * @param {...String} search - A RegExp to check on the module
+     * @returns {module:WebpackModules.Filters~filter} - A filter that checks for a set of strings
+     */
+    static byString(...strings) {
+        return module => {
+            const moduleString = module.toString([]);
+            for (const s of strings) {
+                if (!moduleString.includes(s)) return false;
+            }
+            return true;
+        };
+    }
+
+    /**
      * Generates a {@link module:WebpackModules.Filters~filter} that filters by a set of properties.
      * @param {string} name - Name the module should have
      * @param {module:WebpackModules.Filters~filter} filter - Additional filter
@@ -187,6 +202,24 @@ export default class WebpackModules {
      */
     static getAllByProps(...props) {
         return this.getModule(Filters.byProperties(props), false);
+    }
+
+    /**
+     * Finds a single module using a set of strings.
+     * @param {...String} props Strings to use to filter modules
+     * @return {Any}
+     */
+    static getByString(...strings) {
+        return this.getModule(Filters.byString(...strings), true);
+    }
+
+    /**
+     * Finds all modules with a set of strings.
+     * @param {...String} strings Strings to use to filter modules
+     * @return {Any}
+     */
+    static getAllByString(...strings) {
+        return this.getModule(Filters.byString(...strings), false);
     }
 
     /**

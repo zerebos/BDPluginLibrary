@@ -20,4 +20,5 @@ module.exports = `/*@cc_on
 	}
 	WScript.Quit();
 
-@else@*/`;
+@else@*/
+`;

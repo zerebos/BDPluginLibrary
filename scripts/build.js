@@ -20,7 +20,7 @@ const embedFiles = function(content, pluginName, files) {
     for (const fileName of files) {
         content = content.replace(new RegExp(`require\\(('|"|\`)${fileName}('|"|\`)\\)`, "g"), () => {
             const filePath = path.join(pluginsPath, pluginName, fileName);
-            if (!fileName.endsWith(".js")) return `\`${fs.readFileSync(filePath).toString().replace(/\\/g, `\\\\`).replace(/`/g, "\\`")}\``;
+            if (!fileName.endsWith(".js")) return `\`${fs.readFileSync(filePath).toString().replace(/\\/g, `\\\\`).replace(/\\\\\$\{/g, "\\${").replace(/`/g, "\\`")}\``;
             const exported = require(filePath);
             if (typeof(exported) !== "object" && !Array.isArray(exported)) return `(${require(filePath).toString()})`;
             if (Array.isArray(exported)) return `(${JSON.stringify(exported)})`;
@@ -32,7 +32,7 @@ const embedFiles = function(content, pluginName, files) {
 };
 
 const template = fs.readFileSync(path.join(__dirname, args[0] == "remote" ? "template.remote.js" : "template.local.js")).toString();
-const list = args.slice(1).length ? args.slice(1) : fs.readdirSync(pluginsPath).filter(f => fs.lstatSync(path.join(pluginsPath, f)).isDirectory() && f != "0PluginLibrary");
+const list = args.slice(1).length ? args.slice(1) : fs.readdirSync(pluginsPath).filter(f => fs.lstatSync(path.join(pluginsPath, f)).isDirectory());
 console.log("");
 console.log(`Building ${list.length} plugin${list.length > 1 ? "s" : ""}`);
 console.time("Build took");
@@ -54,7 +54,7 @@ for (let f = 0; f < list.length; f++) {
         WEBSITE: config.info.github,
         SOURCE: config.info.github_raw,
         DISPLAY_NAME: config.info.name,
-        HOST_SCRIPT: libConfig.addInstallScript ? require(path.join(__dirname, "installscript.js")) : ""
+        INSTALL_SCRIPT: libConfig.addInstallScript ? require(path.join(__dirname, "installscript.js")) : ""
     });
     if (libConfig.addInstallScript) result = result + "\n/*@end@*/";
     fs.writeFileSync(path.join(releasePath, pluginName + ".plugin.js"), result);

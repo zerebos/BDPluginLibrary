@@ -1,5 +1,5 @@
 //META{"name":"{{PLUGIN_NAME}}","displayName":"{{PLUGIN_NAME}}","website":"{{WEBSITE}}","source":"{{SOURCE}}"}*//
-
+{{INSTALL_SCRIPT}}
 var {{PLUGIN_NAME}} = (() => {
 	if (!global.ZLibrary && !global.ZLibraryPromise) global.ZLibraryPromise = new Promise((resolve, reject) => {
 		require("request").get({url: "https://rauenzi.github.io/BDPluginLibrary/release/ZLibrary.js", timeout: 10000}, (err, res, body) => {

@@ -10,7 +10,7 @@
  * LICENSE file in the root directory of this source tree.
 */
 
-import Logger from "./logger";
+// import Logger from "./logger";
 import Utilities from "./utilities";
 import Patcher from "./patcher";
 import Reflection from "./reflection";
@@ -235,7 +235,7 @@ export default class ReactComponents {
         if (selector) {
             const callback = () => {
                 if (this.components.find(c => c.id === name)) {
-                    Logger.info("ReactComponents", `Important component ${name} already found`);
+                    // Logger.info("ReactComponents", `Important component ${name} already found`);
                     DOMTools.observer.unsubscribe(observerSubscription);
                     return;
                 }
@@ -250,11 +250,11 @@ export default class ReactComponents {
                     if (component) break;
                 }
                 
-                if (!component && filter) return Logger.log("ReactComponents", ["Found elements matching the query selector but no components passed the filter"]);
+                if (!component && filter) return;// Logger.log("ReactComponents", ["Found elements matching the query selector but no components passed the filter"]);
 
                 DOMTools.observer.unsubscribe(observerSubscription);
 
-                if (!component) return Logger.err("ReactComponents", [`FAILED TO GET IMPORTANT COMPONENT ${name} WITH REFLECTION FROM`, elements]);
+                if (!component) return;// Logger.err("ReactComponents", [`FAILED TO GET IMPORTANT COMPONENT ${name} WITH REFLECTION FROM`, elements]);
 
                 if (!component.displayName) component.displayName = name;
                 // if (component.displayName && component.displayName != name) {
@@ -266,7 +266,7 @@ export default class ReactComponents {
                 //         Utilities.removeFromArray(this.listeners, current);
                 //     }
                 // }
-                Logger.info("ReactComponents", [`Found important component ${name} with reflection`, reflect]);
+                //Logger.info("ReactComponents", [`Found important component ${name} with reflection`, reflect]);
 
                 this.push(component, selector, filter);
             };
@@ -308,7 +308,7 @@ export default class ReactComponents {
         const have = this.unknownComponents.find(c => c.component === component);
         for (const [fi, filter] of this.nameSetters.entries()) {
             if (filter.filter.filter(component)) {
-                Logger.log("ReactComponents", "Filter match!");
+                // Logger.log("ReactComponents", "Filter match!");
                 component.displayName = filter.name;
                 this.nameSetters.splice(fi, 1);
                 return this.push(component);

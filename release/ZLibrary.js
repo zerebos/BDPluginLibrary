@@ -1,4 +1,3 @@
-//META{"name":"ZLibrary","website":"https://github.com/rauenzi/BetterDiscordAddons/tree/master/Plugins/ZLibrary","source":"https://github.com/rauenzi/BetterDiscordAddons/blob/master/Plugins/ZLibrary/ZLibrary.plugin.js"}*//
 var ZLibrary =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -38,17 +37,32 @@ var ZLibrary =
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, {
-/******/ 				configurable: false,
-/******/ 				enumerable: true,
-/******/ 				get: getter
-/******/ 			});
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
 /******/ 		}
 /******/ 	};
 /******/
 /******/ 	// define __esModule on exports
 /******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
 /******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
 /******/ 	};
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
@@ -116,7 +130,7 @@ class ColorConverter {
 	 * @returns {array} - array containing the red, green, and blue values
 	 */
 	static getRGB(color) {
-		var result = /rgb\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*\)/.exec(color);
+		let result = /rgb\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*\)/.exec(color);
 		if (result) return [parseInt(result[1]), parseInt(result[2]), parseInt(result[3])];
 
 		result = /rgb\(\s*([0-9]+(?:\.[0-9]+)?)%\s*,\s*([0-9]+(?:\.[0-9]+)?)%\s*,\s*([0-9]+(?:\.[0-9]+)?)%\s*\)/.exec(color);
@@ -136,8 +150,8 @@ class ColorConverter {
 	 * @returns {string} - new color in rgb format
 	 */
 	static darkenColor(color, percent) {
-		var rgb = this.getRGB(color);
-		for (var i = 0; i < rgb.length; i++) rgb[i] = Math.round(Math.max(0, rgb[i] - rgb[i] * (percent / 100)));
+		const rgb = this.getRGB(color);
+		for (let i = 0; i < rgb.length; i++) rgb[i] = Math.round(Math.max(0, rgb[i] - rgb[i] * (percent / 100)));
 		return "rgb(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + ")";
 	}
 
@@ -148,8 +162,8 @@ class ColorConverter {
 	 * @returns {string} - new color in rgb format
 	 */
 	static lightenColor(color, percent) {
-		var rgb = this.getRGB(color);
-		for (var i = 0; i < rgb.length; i++) rgb[i] = Math.round(Math.min(255, rgb[i] + rgb[i] * (percent / 100)));
+		const rgb = this.getRGB(color);
+		for (let i = 0; i < rgb.length; i++) rgb[i] = Math.round(Math.min(255, rgb[i] + rgb[i] * (percent / 100)));
 		return "rgb(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + ")";
 	}
 
@@ -160,7 +174,7 @@ class ColorConverter {
 	 * @returns {string} - new color in rgb format
 	 */
 	static rgbToAlpha(color, alpha) {
-		var rgb = this.getRGB(color);		
+		const rgb = this.getRGB(color);		
 		return "rgba(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + "," + alpha + ")";
 	}
 
@@ -259,7 +273,7 @@ class DiscordAPI {
      */
     static get currentGuild() {
         const guild = _discordmodules__WEBPACK_IMPORTED_MODULE_1__["default"].GuildStore.getGuild(_discordmodules__WEBPACK_IMPORTED_MODULE_1__["default"].SelectedGuildStore.getGuildId());
-        if (guild) return structs__WEBPACK_IMPORTED_MODULE_0__["Guild"].from(guild);
+        return guild ? structs__WEBPACK_IMPORTED_MODULE_0__["Guild"].from(guild) : null;
     }
 
     /**
@@ -267,7 +281,7 @@ class DiscordAPI {
      */
     static get currentChannel() {
         const channel = _discordmodules__WEBPACK_IMPORTED_MODULE_1__["default"].ChannelStore.getChannel(_discordmodules__WEBPACK_IMPORTED_MODULE_1__["default"].SelectedChannelStore.getChannelId());
-        if (channel) return structs__WEBPACK_IMPORTED_MODULE_0__["Channel"].from(channel);
+        return channel ? structs__WEBPACK_IMPORTED_MODULE_0__["Channel"].from(channel) : null;
     }
 
     /**
@@ -275,7 +289,7 @@ class DiscordAPI {
      */
     static get currentUser() {
         const user = _discordmodules__WEBPACK_IMPORTED_MODULE_1__["default"].UserStore.getCurrentUser();
-        if (user) return structs__WEBPACK_IMPORTED_MODULE_0__["User"].from(user);
+        return user ? structs__WEBPACK_IMPORTED_MODULE_0__["User"].from(user) : null;
     }
 
     /**
@@ -597,7 +611,7 @@ __webpack_require__.r(__webpack_exports__);
             if (m.displayName != "FluxContainer(t)") return false;
             try {
                 const temp = new m();
-                return temp && temp.state && temp.state.hasOwnProperty("isFocused");
+                return temp.state && temp.state.hasOwnProperty("isFocused");
             }
             catch (err) {return false;}
         });
@@ -608,10 +622,17 @@ __webpack_require__.r(__webpack_exports__);
     get PopoutOpener() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("openPopout");},
     get EmojiPicker() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByDisplayName("FluxContainer(EmojiPicker)");},
     get UserPopout() {
-        return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].find(m => {
-            try {return m.displayName == "FluxContainer(Component)" && !(new m());}
-            catch (e) {return e.toString().includes("user");}
+        const module = _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].find(m => {
+            if (!m.render) return false;
+            try {
+                const container = m.render({}).type;
+                new container({});
+                return false;
+            }
+            catch (e) {return e.toString().includes("'id'");}
         });
+        if (module.render) return module.render;
+        return module;
     },
 
     /* Context Menus */
@@ -739,638 +760,660 @@ __webpack_require__.r(__webpack_exports__);
  
 class DOMTools {
 
-	static get Selector() {return structs__WEBPACK_IMPORTED_MODULE_1__["Selector"];}
-	static get ClassName() {return structs__WEBPACK_IMPORTED_MODULE_1__["ClassName"];}
-	static get DOMObserver() {return structs__WEBPACK_IMPORTED_MODULE_1__["DOMObserver"];}
+    static get Selector() {return structs__WEBPACK_IMPORTED_MODULE_1__["Selector"];}
+    static get ClassName() {return structs__WEBPACK_IMPORTED_MODULE_1__["ClassName"];}
+    static get DOMObserver() {return structs__WEBPACK_IMPORTED_MODULE_1__["DOMObserver"];}
 
-	/**	Default DOMObserver */
-	static get observer() {
+    /**	
+     * Default DOMObserver for global usage.
+     * 
+     * @see DOMObserver
+     */
+    static get observer() {
         return this._observer || (this._observer = new structs__WEBPACK_IMPORTED_MODULE_1__["DOMObserver"]());
     }
 
-	/**
-	 * This is my shit version of not having to use `$` from jQuery. Meaning
-	 * that you can pass a selector and it will automatically run {@link module:DOMTools.query}.
-	 * It also means that you can pass a string of html and it will perform and return `parseHTML`.
-	 * @see module:DOMTools.parseHTML
-	 * @see module:DOMTools.query
-	 * @param {string} selector - Selector to query or HTML to parse
-	 * @returns {(DocumentFragment|NodeList|HTMLElement)} - Either the result of `parseHTML` or `query`
-	 */
-	static Q(selector) {
-		const element = this.parseHTML(selector);
-		const isHTML = element instanceof NodeList ? Array.from(element).some(n => n.nodeType === 1) : element.nodeType === 1;
-		if (isHTML) return element;
-		return this.query(selector);
-	}
+    /**
+     * This is my shit version of not having to use `$` from jQuery. Meaning
+     * that you can pass a selector and it will automatically run {@link module:DOMTools.query}.
+     * It also means that you can pass a string of html and it will perform and return `parseHTML`.
+     * @see module:DOMTools.parseHTML
+     * @see module:DOMTools.query
+     * @param {string} selector - Selector to query or HTML to parse
+     * @returns {(DocumentFragment|NodeList|HTMLElement)} - Either the result of `parseHTML` or `query`
+     */
+    static Q(selector) {
+        const element = this.parseHTML(selector);
+        const isHTML = element instanceof NodeList ? Array.from(element).some(n => n.nodeType === 1) : element.nodeType === 1;
+        if (isHTML) return element;
+        return this.query(selector);
+    }
 
-	/**
-	 * Essentially a shorthand for `document.querySelector`. If the `baseElement` is not provided
-	 * `document` is used by default.
-	 * @param {string} selector - Selector to query
-	 * @param {Element} [baseElement] - Element to base the query from
-	 * @returns {(Element|null)} - The found element or null if not found
-	 */
-	static query(selector, baseElement) {
-		if (!baseElement) baseElement = document;
-		return baseElement.querySelector(selector);
-	}
+    /**
+     * Essentially a shorthand for `document.querySelector`. If the `baseElement` is not provided
+     * `document` is used by default.
+     * @param {string} selector - Selector to query
+     * @param {Element} [baseElement] - Element to base the query from
+     * @returns {(Element|null)} - The found element or null if not found
+     */
+    static query(selector, baseElement) {
+        if (!baseElement) baseElement = document;
+        return baseElement.querySelector(selector);
+    }
 
-	/**
-	 * Essentially a shorthand for `document.querySelectorAll`. If the `baseElement` is not provided
-	 * `document` is used by default.
-	 * @param {string} selector - Selector to query
-	 * @param {Element} [baseElement] - Element to base the query from
-	 * @returns {Array<Element>} - Array of all found elements
-	 */
-	static queryAll(selector, baseElement) {
-		if (!baseElement) baseElement = document;
-		return baseElement.querySelectorAll(selector);
-	}
+    /**
+     * Essentially a shorthand for `document.querySelectorAll`. If the `baseElement` is not provided
+     * `document` is used by default.
+     * @param {string} selector - Selector to query
+     * @param {Element} [baseElement] - Element to base the query from
+     * @returns {Array<Element>} - Array of all found elements
+     */
+    static queryAll(selector, baseElement) {
+        if (!baseElement) baseElement = document;
+        return baseElement.querySelectorAll(selector);
+    }
 
-	/**
-	 * Parses a string of HTML and returns the results. If the second parameter is true,
-	 * the parsed HTML will be returned as a document fragment {@see https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment}.
-	 * This is extremely useful if you have a list of elements at the top level, they can then be appended all at once to another node.
-	 * 
-	 * If the second parameter is false, then the return value will be the list of parsed
-	 * nodes and there were multiple top level nodes, otherwise the single node is returned.
-	 * @param {string} html - HTML to be parsed
-	 * @param {boolean} [fragment=false] - Whether or not the return should be the raw `DocumentFragment`
-	 * @returns {(DocumentFragment|NodeList|HTMLElement)} - The result of HTML parsing
-	 */
-	static parseHTML(html, fragment = false) {
-		const template = document.createElement("template");
-		template.innerHTML = html;
-		const node = template.content.cloneNode(true);
-		if (fragment) return node;
-		return node.childNodes.length > 1 ? node.childNodes : node.childNodes[0];
-	}
+    /**
+     * Parses a string of HTML and returns the results. If the second parameter is true,
+     * the parsed HTML will be returned as a document fragment {@see https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment}.
+     * This is extremely useful if you have a list of elements at the top level, they can then be appended all at once to another node.
+     * 
+     * If the second parameter is false, then the return value will be the list of parsed
+     * nodes and there were multiple top level nodes, otherwise the single node is returned.
+     * @param {string} html - HTML to be parsed
+     * @param {boolean} [fragment=false] - Whether or not the return should be the raw `DocumentFragment`
+     * @returns {(DocumentFragment|NodeList|HTMLElement)} - The result of HTML parsing
+     */
+    static parseHTML(html, fragment = false) {
+        const template = document.createElement("template");
+        template.innerHTML = html;
+        const node = template.content.cloneNode(true);
+        if (fragment) return node;
+        return node.childNodes.length > 1 ? node.childNodes : node.childNodes[0];
+    }
 
-	/** Alternate name for {@link module:DOMTools.parseHTML} */
-	static createElement(html, fragment = false) {return this.parseHTML(html, fragment);}
+    /** Alternate name for {@link module:DOMTools.parseHTML} */
+    static createElement(html, fragment = false) {return this.parseHTML(html, fragment);}
+    
+    /**
+     * Takes a string of html and escapes it using the brower's own escaping mechanism.
+     * @param {String} html - html to be escaped
+     */
+    static escapeHTML(html) {
+        const textNode = document.createTextNode("");
+        const spanElement = document.createElement("span");
+        spanElement.append(textNode);
+        textNode.nodeValue = html;
+        return spanElement.innerHTML;
+    }
 
-	/**
-	 * Adds a list of classes from the target element.
-	 * @param {Element} element - Element to edit classes of
-	 * @param {...string} classes - Names of classes to add
-	 * @returns {Element} - `element` to allow for chaining
-	 */
-	static addClass(element, ...classes) {
-		for (let c = 0; c < classes.length; c++) classes[c] = classes[c].toString().split(" ");
-		classes = classes.flatten().filter(c => c);
-		element.classList.add(...classes);
-		return element;
-	}
+    /**
+     * Adds a list of classes from the target element.
+     * @param {Element} element - Element to edit classes of
+     * @param {...string} classes - Names of classes to add
+     * @returns {Element} - `element` to allow for chaining
+     */
+    static addClass(element, ...classes) {
+        classes = classes.flatten().filter(c => c);
+        for (let c = 0; c < classes.length; c++) classes[c] = classes[c].toString().split(" ");
+        classes = classes.flatten().filter(c => c);
+        element.classList.add(...classes);
+        return element;
+    }
 
-	/**
-	 * Removes a list of classes from the target element.
-	 * @param {Element} element - Element to edit classes of
-	 * @param {...string} classes - Names of classes to remove
-	 * @returns {Element} - `element` to allow for chaining
-	 */
-	static removeClass(element, ...classes) {
-		for (let c = 0; c < classes.length; c++) classes[c] = classes[c].toString().split(" ");
-		classes = classes.flatten().filter(c => c);
-		element.classList.remove(...classes);
-		return element;
-	}
+    /**
+     * Removes a list of classes from the target element.
+     * @param {Element} element - Element to edit classes of
+     * @param {...string} classes - Names of classes to remove
+     * @returns {Element} - `element` to allow for chaining
+     */
+    static removeClass(element, ...classes) {
+        for (let c = 0; c < classes.length; c++) classes[c] = classes[c].toString().split(" ");
+        classes = classes.flatten().filter(c => c);
+        element.classList.remove(...classes);
+        return element;
+    }
 
-	/**
-	 * When only one argument is present: Toggle class value;
-	 * i.e., if class exists then remove it and return false, if not, then add it and return true.
-	 * When a second argument is present:
-	 * If the second argument evaluates to true, add specified class value, and if it evaluates to false, remove it.
-	 * @param {Element} element - Element to edit classes of
-	 * @param {string} classname - Name of class to toggle
-	 * @param {boolean} [indicator] - Optional indicator for if the class should be toggled
-	 * @returns {Element} - `element` to allow for chaining
-	 */
-	static toggleClass(element, classname, indicator) {
-		classname = classname.toString().split(" ").filter(c => c);
-		if (typeof(indicator) !== "undefined") classname.forEach(c => element.classList.toggle(c, indicator));
-		else classname.forEach(c => element.classList.toggle(c));
-		return element;
-	}
+    /**
+     * When only one argument is present: Toggle class value;
+     * i.e., if class exists then remove it and return false, if not, then add it and return true.
+     * When a second argument is present:
+     * If the second argument evaluates to true, add specified class value, and if it evaluates to false, remove it.
+     * @param {Element} element - Element to edit classes of
+     * @param {string} classname - Name of class to toggle
+     * @param {boolean} [indicator] - Optional indicator for if the class should be toggled
+     * @returns {Element} - `element` to allow for chaining
+     */
+    static toggleClass(element, classname, indicator) {
+        classname = classname.toString().split(" ").filter(c => c);
+        if (typeof(indicator) !== "undefined") classname.forEach(c => element.classList.toggle(c, indicator));
+        else classname.forEach(c => element.classList.toggle(c));
+        return element;
+    }
 
-	/**
-	 * Checks if an element has a specific class
-	 * @param {Element} element - Element to edit classes of
-	 * @param {string} classname - Name of class to check
-	 * @returns {boolean} - `true` if the element has the class, `false` otherwise.
-	 */
-	static hasClass(element, classname) {
-		return classname.toString().split(" ").filter(c => c).every(c => element.classList.contains(c));
-	}
+    /**
+     * Checks if an element has a specific class
+     * @param {Element} element - Element to edit classes of
+     * @param {string} classname - Name of class to check
+     * @returns {boolean} - `true` if the element has the class, `false` otherwise.
+     */
+    static hasClass(element, classname) {
+        return classname.toString().split(" ").filter(c => c).every(c => element.classList.contains(c));
+    }
 
-	/**
-	 * Replaces one class with another
-	 * @param {Element} element - Element to edit classes of
-	 * @param {string} oldName - Name of class to replace
-	 * @param {string} newName - New name for the class
-	 * @returns {Element} - `element` to allow for chaining
-	 */
-	static replaceClass(element, oldName, newName) {
-		element.classList.replace(oldName, newName);
-		return element;
-	}
+    /**
+     * Replaces one class with another
+     * @param {Element} element - Element to edit classes of
+     * @param {string} oldName - Name of class to replace
+     * @param {string} newName - New name for the class
+     * @returns {Element} - `element` to allow for chaining
+     */
+    static replaceClass(element, oldName, newName) {
+        element.classList.replace(oldName, newName);
+        return element;
+    }
 
-	/**
-	 * Appends `thisNode` to `thatNode`
-	 * @param {Node} thisNode - Node to be appended to another node
-	 * @param {Node} thatNode - Node for `thisNode` to be appended to
-	 * @returns {Node} - `thisNode` to allow for chaining
-	 */
-	static appendTo(thisNode, thatNode) {
-		if (typeof(thatNode) == "string") thatNode = this.query(thatNode);
-		thatNode.append(thisNode);
-		return thisNode;
-	}
+    /**
+     * Appends `thisNode` to `thatNode`
+     * @param {Node} thisNode - Node to be appended to another node
+     * @param {Node} thatNode - Node for `thisNode` to be appended to
+     * @returns {Node} - `thisNode` to allow for chaining
+     */
+    static appendTo(thisNode, thatNode) {
+        if (typeof(thatNode) == "string") thatNode = this.query(thatNode);
+        if (!thatNode) return null;
+        thatNode.append(thisNode);
+        return thisNode;
+    }
 
-	/**
-	 * Insert after a specific element, similar to jQuery's `thisElement.insertAfter(otherElement)`.
-	 * @param {Node} thisNode - The node to insert
-	 * @param {Node} targetNode - Node to insert after in the tree
-	 * @returns {Node} - `thisNode` to allow for chaining
-	 */
-	static insertAfter(thisNode, targetNode) {
-		targetNode.parentNode.insertBefore(thisNode, targetNode.nextSibling);
-		return thisNode;
-	}
+    /**
+     * Prepends `thisNode` to `thatNode`
+     * @param {Node} thisNode - Node to be prepended to another node
+     * @param {Node} thatNode - Node for `thisNode` to be prepended to
+     * @returns {Node} - `thisNode` to allow for chaining
+     */
+    static prependTo(thisNode, thatNode) {
+        if (typeof(thatNode) == "string") thatNode = this.query(thatNode);
+        if (!thatNode) return null;
+        thatNode.prepend(thisNode);
+        return thisNode;
+    }
 
-	/**
-	 * Insert after a specific element, similar to jQuery's `thisElement.after(newElement)`.
-	 * @param {Node} thisNode - The node to insert
-	 * @param {Node} newNode - Node to insert after in the tree
-	 * @returns {Node} - `thisNode` to allow for chaining
-	 */
-	static after(thisNode, newNode) {
-		thisNode.parentNode.insertBefore(newNode, thisNode.nextSibling);
-		return thisNode;
-	}
+    /**
+     * Insert after a specific element, similar to jQuery's `thisElement.insertAfter(otherElement)`.
+     * @param {Node} thisNode - The node to insert
+     * @param {Node} targetNode - Node to insert after in the tree
+     * @returns {Node} - `thisNode` to allow for chaining
+     */
+    static insertAfter(thisNode, targetNode) {
+        targetNode.parentNode.insertBefore(thisNode, targetNode.nextSibling);
+        return thisNode;
+    }
 
-	/**
-	 * Gets the next sibling element that matches the selector.
-	 * @param {Element} element - Element to get the next sibling of
-	 * @param {string} [selector=""] - Optional selector
-	 * @returns {Element} - The sibling element
-	 */
-	static next(element, selector = "") {
-		return selector ? element.querySelector("+ " + selector) : element.nextElementSibling;
-	}
+    /**
+     * Insert after a specific element, similar to jQuery's `thisElement.after(newElement)`.
+     * @param {Node} thisNode - The node to insert
+     * @param {Node} newNode - Node to insert after in the tree
+     * @returns {Node} - `thisNode` to allow for chaining
+     */
+    static after(thisNode, newNode) {
+        thisNode.parentNode.insertBefore(newNode, thisNode.nextSibling);
+        return thisNode;
+    }
 
-	/**
-	 * Gets all subsequent siblings.
-	 * @param {Element} element - Element to get next siblings of
-	 * @returns {NodeList} - The list of siblings
-	 */
-	static nextAll(element) {
-		return element.querySelectorAll("~ *");
-	}
+    /**
+     * Gets the next sibling element that matches the selector.
+     * @param {Element} element - Element to get the next sibling of
+     * @param {string} [selector=""] - Optional selector
+     * @returns {Element} - The sibling element
+     */
+    static next(element, selector = "") {
+        return selector ? element.querySelector("+ " + selector) : element.nextElementSibling;
+    }
 
-	/**
-	 * Gets the subsequent siblings until an element matches the selector.
-	 * @param {Element} element - Element to get the following siblings of
-	 * @param {string} selector - Selector to stop at
-	 * @returns {Array<Element>} - The list of siblings
-	 */
-	static nextUntil(element, selector) {
-		const next = []; 
-		while (element.nextElementSibling && !element.nextElementSibling.matches(selector)) next.push(element = element.nextElementSibling);
-		return next;
-	}
+    /**
+     * Gets all subsequent siblings.
+     * @param {Element} element - Element to get next siblings of
+     * @returns {NodeList} - The list of siblings
+     */
+    static nextAll(element) {
+        return element.querySelectorAll("~ *");
+    }
 
-	/**
-	 * Gets the previous sibling element that matches the selector.
-	 * @param {Element} element - Element to get the previous sibling of
-	 * @param {string} [selector=""] - Optional selector
-	 * @returns {Element} - The sibling element
-	 */
-	static previous(element, selector = "") {
-		const previous = element.previousElementSibling;
-		if (selector) return previous && previous.matches(selector) ? previous : null;
-		return previous;
-	}
+    /**
+     * Gets the subsequent siblings until an element matches the selector.
+     * @param {Element} element - Element to get the following siblings of
+     * @param {string} selector - Selector to stop at
+     * @returns {Array<Element>} - The list of siblings
+     */
+    static nextUntil(element, selector) {
+        const next = []; 
+        while (element.nextElementSibling && !element.nextElementSibling.matches(selector)) next.push(element = element.nextElementSibling);
+        return next;
+    }
 
-	/**
-	 * Gets all preceeding siblings.
-	 * @param {Element} element - Element to get preceeding siblings of
-	 * @returns {NodeList} - The list of siblings
-	 */
-	static previousAll(element) {
-		const previous = [];
-		while (element.previousElementSibling) previous.push(element = element.previousElementSibling);
-		return previous;
-	}
+    /**
+     * Gets the previous sibling element that matches the selector.
+     * @param {Element} element - Element to get the previous sibling of
+     * @param {string} [selector=""] - Optional selector
+     * @returns {Element} - The sibling element
+     */
+    static previous(element, selector = "") {
+        const previous = element.previousElementSibling;
+        if (selector) return previous && previous.matches(selector) ? previous : null;
+        return previous;
+    }
 
-	/**
-	 * Gets the preceeding siblings until an element matches the selector.
-	 * @param {Element} element - Element to get the preceeding siblings of
-	 * @param {string} selector - Selector to stop at
-	 * @returns {Array<Element>} - The list of siblings
-	 */
-	static previousUntil(element, selector) {
-		var previous = []; 
-		while (element.previousElementSibling && !element.previousElementSibling.matches(selector)) previous.push(element = element.previousElementSibling);
-		return previous;
-	}
+    /**
+     * Gets all preceeding siblings.
+     * @param {Element} element - Element to get preceeding siblings of
+     * @returns {NodeList} - The list of siblings
+     */
+    static previousAll(element) {
+        const previous = [];
+        while (element.previousElementSibling) previous.push(element = element.previousElementSibling);
+        return previous;
+    }
 
-	/**
-	 * Find which index in children a certain node is. Similar to jQuery's `$.index()`
-	 * @param {HTMLElement} node - The node to find its index in parent
-	 * @returns {number} Index of the node
-	 */
-	static indexInParent(node) {
-		var children = node.parentNode.childNodes;
-		var num = 0;
-		for (var i = 0; i < children.length; i++) {
-			if (children[i] == node) return num;
-			if (children[i].nodeType == 1) num++;
-		}
-		return -1;
-	}
+    /**
+     * Gets the preceeding siblings until an element matches the selector.
+     * @param {Element} element - Element to get the preceeding siblings of
+     * @param {string} selector - Selector to stop at
+     * @returns {Array<Element>} - The list of siblings
+     */
+    static previousUntil(element, selector) {
+        const previous = []; 
+        while (element.previousElementSibling && !element.previousElementSibling.matches(selector)) previous.push(element = element.previousElementSibling);
+        return previous;
+    }
 
-	/** Shorthand for {@link module:DOMTools.indexInParent} */
-	static index(node) {return this.indexInParent(node);}
+    /**
+     * Find which index in children a certain node is. Similar to jQuery's `$.index()`
+     * @param {HTMLElement} node - The node to find its index in parent
+     * @returns {number} Index of the node
+     */
+    static indexInParent(node) {
+        const children = node.parentNode.childNodes;
+        let num = 0;
+        for (let i = 0; i < children.length; i++) {
+            if (children[i] == node) return num;
+            if (children[i].nodeType == 1) num++;
+        }
+        return -1;
+    }
 
-	/**
-	 * Gets the parent of the element if it matches the selector,
-	 * otherwise returns null.
-	 * @param {Element} element - Element to get parent of
-	 * @param {string} [selector=""] - Selector to match parent
-	 * @returns {(Element|null)} - The sibling element or null
-	 */
-	static parent(element, selector = "") {
-		return !selector || element.parentElement.matches(selector) ? element.parentElement : null;
-	}
+    /** Shorthand for {@link module:DOMTools.indexInParent} */
+    static index(node) {return this.indexInParent(node);}
 
-	/**
-	 * Gets all children of Element that match the selector if provided.
-	 * @param {Element} element - Element to get all children of
-	 * @param {string} selector - Selector to match the children to
-	 * @returns {Array<Element>} - The list of children
-	 */
-	static findChild(element, selector) {
-		return element.querySelector(":scope > " + selector);
-	}
+    /**
+     * Gets the parent of the element if it matches the selector,
+     * otherwise returns null.
+     * @param {Element} element - Element to get parent of
+     * @param {string} [selector=""] - Selector to match parent
+     * @returns {(Element|null)} - The sibling element or null
+     */
+    static parent(element, selector = "") {
+        return !selector || element.parentElement.matches(selector) ? element.parentElement : null;
+    }
 
-	/**
-	 * Gets all children of Element that match the selector if provided.
-	 * @param {Element} element - Element to get all children of
-	 * @param {string} selector - Selector to match the children to
-	 * @returns {Array<Element>} - The list of children
-	 */
-	static findChildren(element, selector) {
-		return element.querySelectorAll(":scope > " + selector);
-	}
+    /**
+     * Gets all children of Element that match the selector if provided.
+     * @param {Element} element - Element to get all children of
+     * @param {string} selector - Selector to match the children to
+     * @returns {Array<Element>} - The list of children
+     */
+    static findChild(element, selector) {
+        return element.querySelector(":scope > " + selector);
+    }
 
-	/**
-	 * Gets all ancestors of Element that match the selector if provided.
-	 * @param {Element} element - Element to get all parents of
-	 * @param {string} [selector=""] - Selector to match the parents to
-	 * @returns {Array<Element>} - The list of parents
-	 */
-	static parents(element, selector = "") {
-		const parents = [];
-		if (selector) while (element.parentElement && element.parentElement.closest(selector)) parents.push(element = element.parentElement.closest(selector));
-		else while (element.parentElement) parents.push(element = element.parentElement);
-		return parents;
-	}
+    /**
+     * Gets all children of Element that match the selector if provided.
+     * @param {Element} element - Element to get all children of
+     * @param {string} selector - Selector to match the children to
+     * @returns {Array<Element>} - The list of children
+     */
+    static findChildren(element, selector) {
+        return element.querySelectorAll(":scope > " + selector);
+    }
 
-	/**
-	 * Gets the ancestors until an element matches the selector.
-	 * @param {Element} element - Element to get the ancestors of
-	 * @param {string} selector - Selector to stop at
-	 * @returns {Array<Element>} - The list of parents
-	 */
-	static parentsUntil(element, selector) {
-		const parents = [];
-		while (element.parentElement && !element.parentElement.matches(selector)) parents.push(element = element.parentElement);
-		return parents;
-	}
+    /**
+     * Gets all ancestors of Element that match the selector if provided.
+     * @param {Element} element - Element to get all parents of
+     * @param {string} [selector=""] - Selector to match the parents to
+     * @returns {Array<Element>} - The list of parents
+     */
+    static parents(element, selector = "") {
+        const parents = [];
+        if (selector) while (element.parentElement && element.parentElement.closest(selector)) parents.push(element = element.parentElement.closest(selector));
+        else while (element.parentElement) parents.push(element = element.parentElement);
+        return parents;
+    }
 
-	/**
-	 * Gets all siblings of the element that match the selector.
-	 * @param {Element} element - Element to get all siblings of
-	 * @param {string} [selector="*"] - Selector to match the siblings to
-	 * @returns {Array<Element>} - The list of siblings
-	 */
-	static siblings(element, selector = "*") {
-		return Array.from(element.parentElement.children).filter(e => e != element && e.matches(selector));
-	}
+    /**
+     * Gets the ancestors until an element matches the selector.
+     * @param {Element} element - Element to get the ancestors of
+     * @param {string} selector - Selector to stop at
+     * @returns {Array<Element>} - The list of parents
+     */
+    static parentsUntil(element, selector) {
+        const parents = [];
+        while (element.parentElement && !element.parentElement.matches(selector)) parents.push(element = element.parentElement);
+        return parents;
+    }
 
-	/**
-	 * Sets or gets css styles for a specific element. If `value` is provided
-	 * then it sets the style and returns the element to allow for chaining,
-	 * otherwise returns the style.  
-	 * @param {Element} element - Element to set the CSS of
-	 * @param {string} attribute - Attribute to get or set
-	 * @param {string} [value] - Value to set for attribute
-	 * @returns {Element|string} - When setting a value, element is returned for chaining, otherwise the value is returned.
-	 */
-	static css(element, attribute, value) {
-		if (typeof(value) == "undefined") return global.getComputedStyle(element)[attribute];
-		element.style[attribute] = value;
-		return element;
-	}
+    /**
+     * Gets all siblings of the element that match the selector.
+     * @param {Element} element - Element to get all siblings of
+     * @param {string} [selector="*"] - Selector to match the siblings to
+     * @returns {Array<Element>} - The list of siblings
+     */
+    static siblings(element, selector = "*") {
+        return Array.from(element.parentElement.children).filter(e => e != element && e.matches(selector));
+    }
 
-	/**
-	 * Sets or gets the width for a specific element. If `value` is provided
-	 * then it sets the width and returns the element to allow for chaining,
-	 * otherwise returns the width.  
-	 * @param {Element} element - Element to set the CSS of
-	 * @param {string} [value] - Width to set
-	 * @returns {Element|string} - When setting a value, element is returned for chaining, otherwise the value is returned.
-	 */
-	static width(element, value) {
-		if (typeof(value) == "undefined") return parseInt(getComputedStyle(element).width);
-		element.style.width = value;
-		return element;
-	}
+    /**
+     * Sets or gets css styles for a specific element. If `value` is provided
+     * then it sets the style and returns the element to allow for chaining,
+     * otherwise returns the style.  
+     * @param {Element} element - Element to set the CSS of
+     * @param {string} attribute - Attribute to get or set
+     * @param {string} [value] - Value to set for attribute
+     * @returns {Element|string} - When setting a value, element is returned for chaining, otherwise the value is returned.
+     */
+    static css(element, attribute, value) {
+        if (typeof(value) == "undefined") return global.getComputedStyle(element)[attribute];
+        element.style[attribute] = value;
+        return element;
+    }
 
-	/**
-	 * Sets or gets the height for a specific element. If `value` is provided
-	 * then it sets the height and returns the element to allow for chaining,
-	 * otherwise returns the height.  
-	 * @param {Element} element - Element to set the CSS of
-	 * @param {string} [value] - Height to set
-	 * @returns {Element|string} - When setting a value, element is returned for chaining, otherwise the value is returned.
-	 */
-	static height(element, value) {
-		if (typeof(value) == "undefined") return parseInt(getComputedStyle(element).height);
-		element.style.height = value;
-		return element;
-	}
+    /**
+     * Sets or gets the width for a specific element. If `value` is provided
+     * then it sets the width and returns the element to allow for chaining,
+     * otherwise returns the width.  
+     * @param {Element} element - Element to set the CSS of
+     * @param {string} [value] - Width to set
+     * @returns {Element|string} - When setting a value, element is returned for chaining, otherwise the value is returned.
+     */
+    static width(element, value) {
+        if (typeof(value) == "undefined") return parseInt(getComputedStyle(element).width);
+        element.style.width = value;
+        return element;
+    }
 
-	/**
-	 * Returns the innerWidth of the element.
-	 * @param {Element} element - Element to retrieve inner width of
-	 * @return {number} - The inner width of the element.
-	 */
-	static innerWidth(element) {
-		return element.clientWidth;
-	}
+    /**
+     * Sets or gets the height for a specific element. If `value` is provided
+     * then it sets the height and returns the element to allow for chaining,
+     * otherwise returns the height.  
+     * @param {Element} element - Element to set the CSS of
+     * @param {string} [value] - Height to set
+     * @returns {Element|string} - When setting a value, element is returned for chaining, otherwise the value is returned.
+     */
+    static height(element, value) {
+        if (typeof(value) == "undefined") return parseInt(getComputedStyle(element).height);
+        element.style.height = value;
+        return element;
+    }
 
-	/**
-	 * Returns the innerHeight of the element.
-	 * @param {Element} element - Element to retrieve inner height of
-	 * @return {number} - The inner height of the element.
-	 */
-	static innerHeight(element) {
-		return element.clientHeight;
-	}
+    /**
+     * Sets the inner text of an element if given a value, otherwise returns it.
+     * @param {Element} element - Element to set the text of
+     * @param {string} [text] - Content to set
+     * @returns {string} - Either the string set by this call or the current text content of the node.
+     */
+    static text(element, text) {
+        if (typeof(text) == "undefined") return element.textContent;
+        return element.textContent = text;
+    }
 
-	/**
-	 * Returns the outerWidth of the element.
-	 * @param {Element} element - Element to retrieve outer width of
-	 * @return {number} - The outer width of the element.
-	 */
-	static outerWidth(element) {
-		return element.offsetWidth;
-	}
+    /**
+     * Returns the innerWidth of the element.
+     * @param {Element} element - Element to retrieve inner width of
+     * @return {number} - The inner width of the element.
+     */
+    static innerWidth(element) {
+        return element.clientWidth;
+    }
 
-	/**
-	 * Returns the outerHeight of the element.
-	 * @param {Element} element - Element to retrieve outer height of
-	 * @return {number} - The outer height of the element.
-	 */
-	static outerHeight(element) {
-		return element.offsetHeight;
-	}
+    /**
+     * Returns the innerHeight of the element.
+     * @param {Element} element - Element to retrieve inner height of
+     * @return {number} - The inner height of the element.
+     */
+    static innerHeight(element) {
+        return element.clientHeight;
+    }
 
-	/**
-	 * Gets the offset of the element in the page.
-	 * @param {Element} element - Element to get offset of
-	 * @return {Offset} - The offset of the element
-	 */
-	static offset(element) {
-		return element.getBoundingClientRect();
-	}
+    /**
+     * Returns the outerWidth of the element.
+     * @param {Element} element - Element to retrieve outer width of
+     * @return {number} - The outer width of the element.
+     */
+    static outerWidth(element) {
+        return element.offsetWidth;
+    }
 
-	/**
-	 * Sets the inner text of an element.
-	 * @param {Element} element - Element to set the text of
-	 * @param {string} text - Content to set
-	 */
-	static text(element, text) {
-		return element.textContent = text;
-	}
+    /**
+     * Returns the outerHeight of the element.
+     * @param {Element} element - Element to retrieve outer height of
+     * @return {number} - The outer height of the element.
+     */
+    static outerHeight(element) {
+        return element.offsetHeight;
+    }
 
-	static get listeners() { return this._listeners || (this._listeners = {}); }
+    /**
+     * Gets the offset of the element in the page.
+     * @param {Element} element - Element to get offset of
+     * @return {Offset} - The offset of the element
+     */
+    static offset(element) {
+        return element.getBoundingClientRect();
+    }
 
-	/**
-	 * This is similar to jQuery's `on` function and can *hopefully* be used in the same way.
-	 * 
-	 * Rather than attempt to explain, I'll show some example usages.
-	 * 
-	 * The following will add a click listener (in the `myPlugin` namespace) to `element`.
-	 * `DOMTools.on(element, "click.myPlugin", () => {console.log("clicked!");});`
-	 * 
-	 * The following will add a click listener (in the `myPlugin` namespace) to `element` that only fires when the target is a `.block` element.
-	 * `DOMTools.on(element, "click.myPlugin", ".block", () => {console.log("clicked!");});`
-	 * 
-	 * The following will add a click listener (without namespace) to `element`.
-	 * `DOMTools.on(element, "click", () => {console.log("clicked!");});`
-	 * 
-	 * The following will add a click listener (without namespace) to `element` that only fires once.
-	 * `const cancel = DOMTools.on(element, "click", () => {console.log("fired!"); cancel();});`
-	 * 
-	 * @param {Element} element - Element to add listener to
-	 * @param {string} event - Event to listen to with option namespace (e.g. "event.namespace")
-	 * @param {(string|callable)} delegate - Selector to run on element to listen to
-	 * @param {callable} [callback] - Function to fire on event
-	 * @returns {module:DOMTools~CancelListener} - A function that will undo the listener
-	 */
-	static on(element, event, delegate, callback) {
-		const [type, namespace] = event.split(".");
-		const hasDelegate = delegate && callback;
-		if (!callback) callback = delegate;
-		const eventFunc = !hasDelegate ? callback : function(event) {
-			if (event.target.matches(delegate)) {
-				callback(event);
-			}
-		};
+    static get listeners() { return this._listeners || (this._listeners = {}); }
 
-		element.addEventListener(type, eventFunc);
-		const cancel = () => {
-			element.removeEventListener(type, eventFunc);
-		};
-		if (namespace) {
-			if (!this.listeners[namespace]) this.listeners[namespace] = [];
-			const newCancel = () => {
-				cancel();
-				this.listeners[namespace].splice(this.listeners[namespace].findIndex(l => l.event == type && l.element == element), 1);
-			};
-			this.listeners[namespace].push({
-				event: type,
-				element: element,
-				cancel: newCancel
-			});
-			return newCancel;
-		}
-		return cancel;
-	}
+    /**
+     * This is similar to jQuery's `on` function and can *hopefully* be used in the same way.
+     * 
+     * Rather than attempt to explain, I'll show some example usages.
+     * 
+     * The following will add a click listener (in the `myPlugin` namespace) to `element`.
+     * `DOMTools.on(element, "click.myPlugin", () => {console.log("clicked!");});`
+     * 
+     * The following will add a click listener (in the `myPlugin` namespace) to `element` that only fires when the target is a `.block` element.
+     * `DOMTools.on(element, "click.myPlugin", ".block", () => {console.log("clicked!");});`
+     * 
+     * The following will add a click listener (without namespace) to `element`.
+     * `DOMTools.on(element, "click", () => {console.log("clicked!");});`
+     * 
+     * The following will add a click listener (without namespace) to `element` that only fires once.
+     * `const cancel = DOMTools.on(element, "click", () => {console.log("fired!"); cancel();});`
+     * 
+     * @param {Element} element - Element to add listener to
+     * @param {string} event - Event to listen to with option namespace (e.g. "event.namespace")
+     * @param {(string|callable)} delegate - Selector to run on element to listen to
+     * @param {callable} [callback] - Function to fire on event
+     * @returns {module:DOMTools~CancelListener} - A function that will undo the listener
+     */
+    static on(element, event, delegate, callback) {
+        const [type, namespace] = event.split(".");
+        const hasDelegate = delegate && callback;
+        if (!callback) callback = delegate;
+        const eventFunc = !hasDelegate ? callback : function(event) {
+            if (event.target.matches(delegate)) {
+                callback(event);
+            }
+        };
 
-	/**
-	 * Functionality for this method matches {@link module:DOMTools.on} but automatically cancels itself
-	 * and removes the listener upon the first firing of the desired event.
-	 * 
-	 * @param {Element} element - Element to add listener to
-	 * @param {string} event - Event to listen to with option namespace (e.g. "event.namespace")
-	 * @param {(string|callable)} delegate - Selector to run on element to listen to
-	 * @param {callable} [callback] - Function to fire on event
-	 * @returns {module:DOMTools~CancelListener} - A function that will undo the listener
-	 */
-	static once(element, event, delegate, callback) {
-		const [type, namespace] = event.split(".");
-		const hasDelegate = delegate && callback;
-		if (!callback) callback = delegate;
-		const eventFunc = !hasDelegate ? function(event) {
-			callback(event);
-			element.removeEventListener(type, eventFunc);
-		} : function(event) {
-			if (!event.target.matches(delegate)) return;
-			callback(event);
-			element.removeEventListener(type, eventFunc);
-		};
+        element.addEventListener(type, eventFunc);
+        const cancel = () => {
+            element.removeEventListener(type, eventFunc);
+        };
+        if (namespace) {
+            if (!this.listeners[namespace]) this.listeners[namespace] = [];
+            const newCancel = () => {
+                cancel();
+                this.listeners[namespace].splice(this.listeners[namespace].findIndex(l => l.event == type && l.element == element), 1);
+            };
+            this.listeners[namespace].push({
+                event: type,
+                element: element,
+                cancel: newCancel
+            });
+            return newCancel;
+        }
+        return cancel;
+    }
 
-		element.addEventListener(type, eventFunc);
-		const cancel = () => {
-			element.removeEventListener(type, eventFunc);
-		};
-		if (namespace) {
-			if (!this.listeners[namespace]) this.listeners[namespace] = [];
-			const newCancel = () => {
-				cancel();
-				this.listeners[namespace].splice(this.listeners[namespace].findIndex(l => l.event == type && l.element == element), 1);
-			};
-			this.listeners[namespace].push({
-				event: type,
-				element: element,
-				cancel: newCancel
-			});
-			return newCancel;
-		}
-		return cancel;
-	}
+    /**
+     * Functionality for this method matches {@link module:DOMTools.on} but automatically cancels itself
+     * and removes the listener upon the first firing of the desired event.
+     * 
+     * @param {Element} element - Element to add listener to
+     * @param {string} event - Event to listen to with option namespace (e.g. "event.namespace")
+     * @param {(string|callable)} delegate - Selector to run on element to listen to
+     * @param {callable} [callback] - Function to fire on event
+     * @returns {module:DOMTools~CancelListener} - A function that will undo the listener
+     */
+    static once(element, event, delegate, callback) {
+        const [type, namespace] = event.split(".");
+        const hasDelegate = delegate && callback;
+        if (!callback) callback = delegate;
+        const eventFunc = !hasDelegate ? function(event) {
+            callback(event);
+            element.removeEventListener(type, eventFunc);
+        } : function(event) {
+            if (!event.target.matches(delegate)) return;
+            callback(event);
+            element.removeEventListener(type, eventFunc);
+        };
 
-	static __offAll(event, element) {
-		const [type, namespace] = event.split(".");
-		let matchFilter = listener => listener.event == type, defaultFilter = _ => _;
-		if (element) matchFilter = l => l.event == type && l.element == element, defaultFilter = l => l.element == element;
-		const listeners = this.listeners[namespace] || [];
-		const list = type ? listeners.filter(matchFilter) : listeners.filter(defaultFilter);
-		for (let c = 0; c < list.length; c++) list[c].cancel();
-	}
-	
-	/**
-	 * This is similar to jQuery's `off` function and can *hopefully* be used in the same way.
-	 * 
-	 * Rather than attempt to explain, I'll show some example usages.
-	 * 
-	 * The following will remove a click listener called `onClick` (in the `myPlugin` namespace) from `element`.
-	 * `DOMTools.off(element, "click.myPlugin", onClick);`
-	 * 
-	 * The following will remove a click listener called `onClick` (in the `myPlugin` namespace) from `element` that only fired when the target is a `.block` element.
-	 * `DOMTools.off(element, "click.myPlugin", ".block", onClick);`
-	 * 
-	 * The following will remove a click listener (without namespace) from `element`.
-	 * `DOMTools.off(element, "click", onClick);`
-	 * 
-	 * The following will remove all listeners in namespace `myPlugin` from `element`.
-	 * `DOMTools.off(element, ".myPlugin");`
-	 * 
-	 * The following will remove all click listeners in namespace `myPlugin` from *all elements*.
-	 * `DOMTools.off("click.myPlugin");`
-	 * 
-	 * The following will remove all listeners in namespace `myPlugin` from *all elements*.
-	 * `DOMTools.off(".myPlugin");`
-	 * 
-	 * @param {(Element|string)} element - Element to remove listener from
-	 * @param {string} [event] - Event to listen to with option namespace (e.g. "event.namespace")
-	 * @param {(string|callable)} [delegate] - Selector to run on element to listen to
-	 * @param {callable} [callback] - Function to fire on event
-	 * @returns {Element} - The original element to allow for chaining
-	 */
-	static off(element, event, delegate, callback) {
-		if (typeof(element) == "string") return this.__offAll(element);
-		const [type, namespace] = event.split(".");
-		if (namespace) return this.__offAll(event, element);
+        element.addEventListener(type, eventFunc);
+        const cancel = () => {
+            element.removeEventListener(type, eventFunc);
+        };
+        if (namespace) {
+            if (!this.listeners[namespace]) this.listeners[namespace] = [];
+            const newCancel = () => {
+                cancel();
+                this.listeners[namespace].splice(this.listeners[namespace].findIndex(l => l.event == type && l.element == element), 1);
+            };
+            this.listeners[namespace].push({
+                event: type,
+                element: element,
+                cancel: newCancel
+            });
+            return newCancel;
+        }
+        return cancel;
+    }
 
-		const hasDelegate = delegate && callback;
-		if (!callback) callback = delegate;
-		const eventFunc = !hasDelegate ? callback : function(event) {
-			if (event.target.matches(delegate)) {
-				callback(event);
-			}
-		};
+    static __offAll(event, element) {
+        const [type, namespace] = event.split(".");
+        let matchFilter = listener => listener.event == type, defaultFilter = _ => _;
+        if (element) matchFilter = l => l.event == type && l.element == element, defaultFilter = l => l.element == element;
+        const listeners = this.listeners[namespace] || [];
+        const list = type ? listeners.filter(matchFilter) : listeners.filter(defaultFilter);
+        for (let c = 0; c < list.length; c++) list[c].cancel();
+    }
+    
+    /**
+     * This is similar to jQuery's `off` function and can *hopefully* be used in the same way.
+     * 
+     * Rather than attempt to explain, I'll show some example usages.
+     * 
+     * The following will remove a click listener called `onClick` (in the `myPlugin` namespace) from `element`.
+     * `DOMTools.off(element, "click.myPlugin", onClick);`
+     * 
+     * The following will remove a click listener called `onClick` (in the `myPlugin` namespace) from `element` that only fired when the target is a `.block` element.
+     * `DOMTools.off(element, "click.myPlugin", ".block", onClick);`
+     * 
+     * The following will remove a click listener (without namespace) from `element`.
+     * `DOMTools.off(element, "click", onClick);`
+     * 
+     * The following will remove all listeners in namespace `myPlugin` from `element`.
+     * `DOMTools.off(element, ".myPlugin");`
+     * 
+     * The following will remove all click listeners in namespace `myPlugin` from *all elements*.
+     * `DOMTools.off("click.myPlugin");`
+     * 
+     * The following will remove all listeners in namespace `myPlugin` from *all elements*.
+     * `DOMTools.off(".myPlugin");`
+     * 
+     * @param {(Element|string)} element - Element to remove listener from
+     * @param {string} [event] - Event to listen to with option namespace (e.g. "event.namespace")
+     * @param {(string|callable)} [delegate] - Selector to run on element to listen to
+     * @param {callable} [callback] - Function to fire on event
+     * @returns {Element} - The original element to allow for chaining
+     */
+    static off(element, event, delegate, callback) {
+        if (typeof(element) == "string") return this.__offAll(element);
+        const [type, namespace] = event.split(".");
+        if (namespace) return this.__offAll(event, element);
 
-		element.removeEventListener(type, eventFunc);
-		return element;
-	}
+        const hasDelegate = delegate && callback;
+        if (!callback) callback = delegate;
+        const eventFunc = !hasDelegate ? callback : function(event) {
+            if (event.target.matches(delegate)) {
+                callback(event);
+            }
+        };
 
-	/**
-	 * Adds a listener for when the node is added to the document body.
-	 * @param {HTMLElement} node - node to wait for
-	 * @param {callable} callback - function to be performed on event
-	 */
-	static onAdded(node, callback) {
-		const observer = new MutationObserver((mutations) => {
-			for (let m = 0; m < mutations.length; m++) {
-				const mutation = mutations[m];
-				const nodes = Array.from(mutation.addedNodes);
-				const directMatch = nodes.indexOf(node) > -1;
-				const parentMatch = nodes.some(parent => parent.contains(node));
-				if (directMatch || parentMatch) {
-					observer.disconnect();
-					callback();
-				}
-			}
-		});
+        element.removeEventListener(type, eventFunc);
+        return element;
+    }
 
-		observer.observe(document.body, {subtree: true, childList: true});
-	}
+    /**
+     * Adds a listener for when the node is added/removed from the document body.
+     * The listener is automatically removed upon firing.
+     * @param {HTMLElement} node - node to wait for
+     * @param {callable} callback - function to be performed on event
+     * @param {boolean} onMount - determines if it should fire on Mount or on Unmount
+     */
+    static onMountChange(node, callback, onMount = true) {
+        const wrappedCallback = () => {
+            this.observer.unsubscribe(wrappedCallback);
+            callback();
+        };
+        this.observer.subscribe(wrappedCallback, mutation => {
+            const nodes = Array.from(onMount ? mutation.addedNode : mutation.removedNodes);
+            const directMatch = nodes.indexOf(node) > -1;
+            const parentMatch = nodes.some(parent => parent.contains(node));
+            return directMatch || parentMatch;
+        });
+        return node;
+    }
 
-	/**
-	 * Adds a listener for when the node is removed from the document body.
-	 * @param {HTMLElement} node - node to wait for
-	 * @param {callable} callback - function to be performed on event
-	 */
-	static onRemoved(node, callback) {
-		const observer = new MutationObserver((mutations) => {
-			for (let m = 0; m < mutations.length; m++) {
-				const mutation = mutations[m];
-				const nodes = Array.from(mutation.removedNodes);
-				const directMatch = nodes.indexOf(node) > -1;
-				const parentMatch = nodes.some(parent => parent.contains(node));
-				if (directMatch || parentMatch) {
-					observer.disconnect();
-					callback();
-				}
-			}
-		});
+    /** Shorthand for {@link module:DOMTools.onMountChange} with third parameter `true` */
+    static onMount(node, callback) { return this.onMountChange(node, callback); }
 
-		observer.observe(document.body, {subtree: true, childList: true});
-	}
+    /** Shorthand for {@link module:DOMTools.onMountChange} with third parameter `false` */
+    static onUnmount(node, callback) { return this.onMountChange(node, callback, false); }
 
-	/**
-	 * Helper function which combines multiple elements into one parent element
-	 * @param {Array<HTMLElement>} elements - array of elements to put into a single parent
-	 */
-	static wrap(elements) {
-		const domWrapper = this.parseHTML(`<div class="dom-wrapper"></div>`);
-		for (let e = 0; e < elements.length; e++) domWrapper.appendChild(elements[e]);
-		return domWrapper;
-	}
+    /** Alias for {@link module:DOMTools.onMount} */
+    static onAdded(node, callback) { return this.onMount(node, callback); }
 
-	/**
-	 * Resolves the node to an HTMLElement. This is mainly used by library modules.
-	 * @param {(jQuery|Element)} node - node to resolve
-	 */
-	static resolveElement(node) {
-		if (!(node instanceof jQuery) && !(node instanceof Element)) return undefined;
-		return node instanceof jQuery ? node[0] : node;
-	}
+    /** Alias for {@link module:DOMTools.onUnmount} */
+    static onRemoved(node, callback) { return this.onUnmount(node, callback); }
+
+    /**
+     * Helper function which combines multiple elements into one parent element
+     * @param {Array<HTMLElement>} elements - array of elements to put into a single parent
+     */
+    static wrap(elements) {
+        const domWrapper = this.parseHTML(`<div class="dom-wrapper"></div>`);
+        for (let e = 0; e < elements.length; e++) domWrapper.appendChild(elements[e]);
+        return domWrapper;
+    }
+
+    /**
+     * Resolves the node to an HTMLElement. This is mainly used by library modules.
+     * @param {(jQuery|Element)} node - node to resolve
+     */
+    static resolveElement(node) {
+        if (!(node instanceof jQuery) && !(node instanceof Element)) return undefined;
+        return node instanceof jQuery ? node[0] : node;
+    }
 }
 
 _utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "addClass", function(...classes) {return DOMTools.addClass(this, ...classes);});
@@ -1920,8 +1963,8 @@ class PluginUpdater {
 			window.PluginUpdates = {
 				plugins: {},
 				checkAll: function() {
-					for (let key in this.plugins) {
-						let plugin = this.plugins[key];
+					for (const key in this.plugins) {
+						const plugin = this.plugins[key];
 						if (!plugin.versioner) plugin.versioner = PluginUpdater.defaultVersioner;
 						if (!plugin.comparator) plugin.comparator = PluginUpdater.defaultComparator;
 						PluginUpdater.processUpdateCheck(plugin.name, plugin.raw);
@@ -1964,7 +2007,7 @@ class PluginUpdater {
 	 * @param {string} content 
 	 */
 	static defaultVersioner(content) {
-		var remoteVersion = content.match(/['"][0-9]+\.[0-9]+\.[0-9]+['"]/i);
+		const remoteVersion = content.match(/['"][0-9]+\.[0-9]+\.[0-9]+['"]/i);
 		if (!remoteVersion) return "0.0.0";
 		return remoteVersion.toString().replace(/['"]/g, "");
 	}
@@ -2010,7 +2053,7 @@ class PluginUpdater {
 		updateButton.onclick = function () {
 			window.PluginUpdates.checkAll();
 		};
-		let tooltip = new ui__WEBPACK_IMPORTED_MODULE_6__["Tooltip"](updateButton, "Checks for updates of plugins that support this feature. Right-click for a list.");
+		const tooltip = new ui__WEBPACK_IMPORTED_MODULE_6__["Tooltip"](updateButton, "Checks for updates of plugins that support this feature. Right-click for a list.");
 		updateButton.oncontextmenu = function () {
 			if (!window.PluginUpdates || !window.PluginUpdates.plugins) return;
 			tooltip.label = Object.values(window.PluginUpdates.plugins).map(p => p.name).join(", ");
@@ -2032,9 +2075,9 @@ class PluginUpdater {
 	 * @param {string} updateLink - link to the raw text version of the plugin
 	 */
 	static downloadPlugin(pluginName, updateLink) {
-		let request = __webpack_require__(/*! request */ "request");
-		let fileSystem = __webpack_require__(/*! fs */ "fs");
-		let path = __webpack_require__(/*! path */ "path");
+		const request = __webpack_require__(/*! request */ "request");
+		const fileSystem = __webpack_require__(/*! fs */ "fs");
+		const path = __webpack_require__(/*! path */ "path");
 		request(updateLink, async (error, response, body) => {
 			if (error) return _logger__WEBPACK_IMPORTED_MODULE_3__["default"].warn("PluginUpdates", "Unable to get update for " + pluginName);
 			const remoteVersion = window.PluginUpdates.plugins[updateLink].versioner(body);
@@ -2298,13 +2341,12 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ReactHelpers", function() { return Helpers; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ReactComponents; });
-/* harmony import */ var _logger__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./logger */ "./src/modules/logger.js");
-/* harmony import */ var _utilities__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utilities */ "./src/modules/utilities.js");
-/* harmony import */ var _patcher__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./patcher */ "./src/modules/patcher.js");
-/* harmony import */ var _reflection__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./reflection */ "./src/modules/reflection.js");
-/* harmony import */ var _discordmodules__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./discordmodules */ "./src/modules/discordmodules.js");
-/* harmony import */ var _domtools__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./domtools */ "./src/modules/domtools.js");
-/* harmony import */ var _reacttools__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./reacttools */ "./src/modules/reacttools.js");
+/* harmony import */ var _utilities__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utilities */ "./src/modules/utilities.js");
+/* harmony import */ var _patcher__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./patcher */ "./src/modules/patcher.js");
+/* harmony import */ var _reflection__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./reflection */ "./src/modules/reflection.js");
+/* harmony import */ var _discordmodules__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./discordmodules */ "./src/modules/discordmodules.js");
+/* harmony import */ var _domtools__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./domtools */ "./src/modules/domtools.js");
+/* harmony import */ var _reacttools__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./reacttools */ "./src/modules/reacttools.js");
 /**
  * BetterDiscord React Component Manipulations
  * Original concept and some code by samogot - https://github.com/samogot / https://github.com/samogot/betterdiscord-plugins/tree/master/v2/1Lib%20Discord%20Internals
@@ -2317,7 +2359,7 @@ __webpack_require__.r(__webpack_exports__);
  * LICENSE file in the root directory of this source tree.
 */
 
-
+// import Logger from "./logger";
 
 
 
@@ -2380,7 +2422,7 @@ class Helpers {
         };
         const checkFilter = (selector, {item, parent, key, count, index}) => {
             let match = true;
-            if (match && selector.type) match = item && selector.type === item.type;
+            if (selector.type) match = item && selector.type === item.type;
             if (match && selector.tag) match = item && typeof item.type === "string" && selector.tag === item.type;
             if (match && selector.className) {
                 match = item && item.props && typeof item.props.className === "string";
@@ -2447,11 +2489,11 @@ class Helpers {
     }
 
     static get React() {
-        return _discordmodules__WEBPACK_IMPORTED_MODULE_4__["default"].React;
+        return _discordmodules__WEBPACK_IMPORTED_MODULE_3__["default"].React;
     }
 
     static get ReactDOM() {
-        return _discordmodules__WEBPACK_IMPORTED_MODULE_4__["default"].ReactDOM;
+        return _discordmodules__WEBPACK_IMPORTED_MODULE_3__["default"].ReactDOM;
     }
 }
 
@@ -2469,11 +2511,16 @@ class ReactComponent {
     forceUpdateAll() {
         if (!this.selector) return;
         for (const e of document.querySelectorAll(this.selector)) {
-            Object(_reflection__WEBPACK_IMPORTED_MODULE_3__["default"])(e).forceUpdate(this);
+            Object(_reflection__WEBPACK_IMPORTED_MODULE_2__["default"])(e).forceUpdate(this);
         }
     }
 }
 
+/**
+ * Methods for obtaining and interacting with react components.
+ * @module ReactComponents
+ * @version 0.0.1
+ */
 class ReactComponents {
     static get components() {return this._components || (this._components = []);}
     static get unknownComponents() {return this._unknownComponents || (this._unknownComponents = []);}
@@ -2503,7 +2550,7 @@ class ReactComponents {
         const listener = this.listeners.find(listener => listener.id === displayName);
         if (listener) {
             for (const l of listener.listeners) l(c);
-            _utilities__WEBPACK_IMPORTED_MODULE_1__["default"].removeFromArray(this.listeners, listener);
+            _utilities__WEBPACK_IMPORTED_MODULE_0__["default"].removeFromArray(this.listeners, listener);
         }
 
         // for (const listen of this.listeners) {
@@ -2517,7 +2564,7 @@ class ReactComponents {
      * Finds a component from the components array or by waiting for it to be mounted.
      * @param {String} name The component's name
      * @param {Object} selector A selector to look for
-     * @return {Promise => ReactComponent}
+     * @return {Promise<ReactComponent>}
      */
     static async getComponentByName(name, selector) {
         return this.getComponent(name, selector, m => m.displayName == name);
@@ -2528,7 +2575,7 @@ class ReactComponents {
      * @param {String} name The component's name
      * @param {Object} selector A selector to look for
      * @param {Function} filter A function to filter components if a single element is rendered by multiple components
-     * @return {Promise => ReactComponent}
+     * @return {Promise<ReactComponent>}
      */
     static async getComponent(name, selector, filter) {
         const have = this.components.find(c => c.id === name);
@@ -2537,8 +2584,8 @@ class ReactComponents {
         if (selector) {
             const callback = () => {
                 if (this.components.find(c => c.id === name)) {
-                    _logger__WEBPACK_IMPORTED_MODULE_0__["default"].info("ReactComponents", `Important component ${name} already found`);
-                    _domtools__WEBPACK_IMPORTED_MODULE_5__["default"].observer.unsubscribe(observerSubscription);
+                    // Logger.info("ReactComponents", `Important component ${name} already found`);
+                    _domtools__WEBPACK_IMPORTED_MODULE_4__["default"].observer.unsubscribe(observerSubscription);
                     return;
                 }
 
@@ -2547,16 +2594,16 @@ class ReactComponents {
 
                 let component, reflect;
                 for (const element of elements) {
-                    reflect = Object(_reflection__WEBPACK_IMPORTED_MODULE_3__["default"])(element);
+                    reflect = Object(_reflection__WEBPACK_IMPORTED_MODULE_2__["default"])(element);
                     component = filter ? reflect.components.find(filter) : reflect.component;
                     if (component) break;
                 }
                 
-                if (!component && filter) return _logger__WEBPACK_IMPORTED_MODULE_0__["default"].log("ReactComponents", ["Found elements matching the query selector but no components passed the filter"]);
+                if (!component && filter) return;// Logger.log("ReactComponents", ["Found elements matching the query selector but no components passed the filter"]);
 
-                _domtools__WEBPACK_IMPORTED_MODULE_5__["default"].observer.unsubscribe(observerSubscription);
+                _domtools__WEBPACK_IMPORTED_MODULE_4__["default"].observer.unsubscribe(observerSubscription);
 
-                if (!component) return _logger__WEBPACK_IMPORTED_MODULE_0__["default"].err("ReactComponents", [`FAILED TO GET IMPORTANT COMPONENT ${name} WITH REFLECTION FROM`, elements]);
+                if (!component) return;// Logger.err("ReactComponents", [`FAILED TO GET IMPORTANT COMPONENT ${name} WITH REFLECTION FROM`, elements]);
 
                 if (!component.displayName) component.displayName = name;
                 // if (component.displayName && component.displayName != name) {
@@ -2568,12 +2615,12 @@ class ReactComponents {
                 //         Utilities.removeFromArray(this.listeners, current);
                 //     }
                 // }
-                _logger__WEBPACK_IMPORTED_MODULE_0__["default"].info("ReactComponents", [`Found important component ${name} with reflection`, reflect]);
+                //Logger.info("ReactComponents", [`Found important component ${name} with reflection`, reflect]);
 
                 this.push(component, selector, filter);
             };
 
-            const observerSubscription = _domtools__WEBPACK_IMPORTED_MODULE_5__["default"].observer.subscribeToQuerySelector(callback, selector, null, true);
+            const observerSubscription = _domtools__WEBPACK_IMPORTED_MODULE_4__["default"].observer.subscribeToQuerySelector(callback, selector, null, true);
             setTimeout(callback, 0);
         }
 
@@ -2610,7 +2657,7 @@ class ReactComponents {
         const have = this.unknownComponents.find(c => c.component === component);
         for (const [fi, filter] of this.nameSetters.entries()) {
             if (filter.filter.filter(component)) {
-                _logger__WEBPACK_IMPORTED_MODULE_0__["default"].log("ReactComponents", "Filter match!");
+                // Logger.log("ReactComponents", "Filter match!");
                 component.displayName = filter.name;
                 this.nameSetters.splice(fi, 1);
                 return this.push(component);
@@ -2621,7 +2668,7 @@ class ReactComponents {
         return component;
     }
 
-    static *recursiveComponents(internalInstance = _reacttools__WEBPACK_IMPORTED_MODULE_6__["default"].rootInstance) {
+    static *recursiveComponents(internalInstance = _reacttools__WEBPACK_IMPORTED_MODULE_5__["default"].rootInstance) {
         if (internalInstance.stateNode) yield internalInstance.stateNode;
         if (internalInstance.sibling) yield *this.recursiveComponents(internalInstance.sibling);
         if (internalInstance.child) yield *this.recursiveComponents(internalInstance.child);
@@ -2634,9 +2681,9 @@ class ReactAutoPatcher {
      * Also patches some known components.
      */
     static async autoPatch() {
-        this.unpatchCreateElement = _patcher__WEBPACK_IMPORTED_MODULE_2__["default"].before("ReactComponents", _discordmodules__WEBPACK_IMPORTED_MODULE_4__["default"].React, "createElement", (react, [component]) => ReactComponents.push(component));
-        this.unpatchCreateElement = _patcher__WEBPACK_IMPORTED_MODULE_2__["default"].instead("ReactComponents", _discordmodules__WEBPACK_IMPORTED_MODULE_4__["default"].React.Component.prototype, "UNSAFE_componentWillMount", (component) => ReactComponents.push(component));
-        this.unpatchCreateElement = _patcher__WEBPACK_IMPORTED_MODULE_2__["default"].instead("ReactComponents", _discordmodules__WEBPACK_IMPORTED_MODULE_4__["default"].React.Component.prototype, "componentWillMount", (component) => ReactComponents.push(component));
+        this.unpatchCreateElement = _patcher__WEBPACK_IMPORTED_MODULE_1__["default"].before("ReactComponents", _discordmodules__WEBPACK_IMPORTED_MODULE_3__["default"].React, "createElement", (react, [component]) => ReactComponents.push(component));
+        this.unpatchCreateElement = _patcher__WEBPACK_IMPORTED_MODULE_1__["default"].instead("ReactComponents", _discordmodules__WEBPACK_IMPORTED_MODULE_3__["default"].React.Component.prototype, "UNSAFE_componentWillMount", (component) => ReactComponents.push(component));
+        this.unpatchCreateElement = _patcher__WEBPACK_IMPORTED_MODULE_1__["default"].instead("ReactComponents", _discordmodules__WEBPACK_IMPORTED_MODULE_3__["default"].React.Component.prototype, "componentWillMount", (component) => ReactComponents.push(component));
         // this.patchComponents();
     }
 
@@ -2697,7 +2744,7 @@ class ReactTools {
 	 */
 	static getReactInstance(node) {
 		if (!(node instanceof window.jQuery) && !(node instanceof Element)) return undefined;
-		var domNode = node instanceof window.jQuery ? node[0] : node;
+		const domNode = node instanceof window.jQuery ? node[0] : node;
 		return domNode[Object.keys(domNode).find((key) => key.startsWith("__reactInternalInstance"))];
 	}
 
@@ -2709,10 +2756,7 @@ class ReactTools {
 	 * @return {(*|undefined)} the value requested or undefined if not found.
 	 */
 	static getReactProperty(node, path) {
-		var value = path.split(/\s?\.\s?/).reduce(function(obj, prop) {
-			return obj && obj[prop];
-		}, this.getReactInstance(node));
-		return value;
+		return _utilities__WEBPACK_IMPORTED_MODULE_2__["default"].getNestedProp(this.getReactInstance(node), path);
 	}
 
 	/**
@@ -2742,7 +2786,7 @@ class ReactTools {
 		let curr = this.getReactInstance(node);
 		for (curr = curr && curr.return; !_utilities__WEBPACK_IMPORTED_MODULE_2__["default"].isNil(curr); curr = curr.return) {
 			if (_utilities__WEBPACK_IMPORTED_MODULE_2__["default"].isNil(curr)) continue;
-			let owner = curr.stateNode;
+			const owner = curr.stateNode;
 			if (!_utilities__WEBPACK_IMPORTED_MODULE_2__["default"].isNil(owner) && !(owner instanceof HTMLElement) && classFilter(curr) && filter(owner)) return owner;
 		}
 		
@@ -3049,23 +3093,21 @@ class Utilities {
      * @param {function} comparator - comparator to sort by
      */
     static stableSort(list, comparator) {
-        var length = list.length;
-        var entries = Array(length);
-        var index;
+        const entries = Array(length);
 
         // wrap values with initial indices
-        for (index = 0; index < length; index++) {
+        for (let index = 0; index < list.length; index++) {
             entries[index] = [index, list[index]];
         }
 
         // sort with fallback based on initial indices
         entries.sort(function (a, b) {
-            var comparison = Number(this(a[1], b[1]));
+            const comparison = Number(this(a[1], b[1]));
             return comparison || a[0] - b[0];
         }.bind(comparator));
 
         // re-map original array to stable sorted values
-        for (index = 0; index < length; index++) {
+        for (let index = 0; index < list.length; index++) {
             list[index] = entries[index][1];
         }
     }
@@ -3080,7 +3122,7 @@ class Utilities {
             get: function(obj, mod) {
                 if (!obj.hasOwnProperty(mod)) return undefined;
                 if (Object.getOwnPropertyDescriptor(obj, mod).get) {
-                    let value = obj[mod];
+                    const value = obj[mod];
                     delete obj[mod];
                     obj[mod] = value;
                 }
@@ -3122,7 +3164,7 @@ class Utilities {
     }
 
     /**
-     * Format strings with placeholders (`${placeholder}`) into full strings.
+     * Format template strings with placeholders (`${placeholder}`) into full strings.
      * Quick example: `PluginUtilities.formatString("Hello, ${user}", {user: "Zerebos"})`
      * would return "Hello, Zerebos".
      * @param {string} string - string to format
@@ -3130,8 +3172,11 @@ class Utilities {
      * @returns {string} the properly formatted string
      */
     static formatTString(string, values) {
-        for (let val in values) {
-            string = string.replace(new RegExp(`\\$\\{${val}\\}`, "g"), values[val]);
+        for (const val in values) {
+            let replacement = values[val];
+            if (Array.isArray(replacement)) replacement = JSON.stringify(replacement);
+            if (typeof(replacement) === "object" && replacement !== null) replacement = replacement.toString();
+            string = string.replace(new RegExp(`\\$\\{${val}\\}`, "g"), replacement);
         }
         return string;
     }
@@ -3145,8 +3190,11 @@ class Utilities {
      * @returns {string} the properly formatted string
      */
     static formatString(string, values) {
-        for (let val in values) {
-            string = string.replace(new RegExp(`{{${val}}}`, "g"), values[val]);
+        for (const val in values) {
+            let replacement = values[val];
+            if (Array.isArray(replacement)) replacement = JSON.stringify(replacement);
+            if (typeof(replacement) === "object" && replacement !== null) replacement = replacement.toString();
+            string = string.replace(new RegExp(`{{${val}}}`, "g"), replacement);
         }
         return string;
     }
@@ -3168,7 +3216,7 @@ class Utilities {
      * @param {Array<string>|null} [options.walkable=null] Array of strings to use as keys that are allowed to be walked on. Null value indicates all keys are walkable
      * @param {Array<string>} [options.ignore=[]] Array of strings to use as keys to exclude from the search, most helpful when `walkable = null`.
      */
-    static findInTree(tree, searchFilter, {walkable = null, ignore = []}) {
+    static findInTree(tree, searchFilter, {walkable = null, ignore = []} = {}) {
         if (typeof searchFilter === "string") {
             if (tree.hasOwnProperty(searchFilter)) return tree[searchFilter];
         }
@@ -3209,29 +3257,33 @@ class Utilities {
     }
 
     /**
-     * https://github.com/JedWatson/classnames
+     * Builds a classname string from any number of arguments. This includes arrays and objects.
+     * When given an array all values from the array are added to the list.
+     * When given an object they keys are added as the classnames if the value is truthy.
+     * Copyright (c) 2018 Jed Watson https://github.com/JedWatson/classnames MIT License
+     * @param {...Any} argument - anything that should be used to add classnames.
      */
     static className() {
-        var classes = [];
-        var hasOwn = {}.hasOwnProperty;
+        const classes = [];
+        const hasOwn = {}.hasOwnProperty;
 
-		for (var i = 0; i < arguments.length; i++) {
-			var arg = arguments[i];
+		for (let i = 0; i < arguments.length; i++) {
+			const arg = arguments[i];
 			if (!arg) continue;
 
-			var argType = typeof arg;
+			const argType = typeof arg;
 
 			if (argType === "string" || argType === "number") {
 				classes.push(arg);
             }
             else if (Array.isArray(arg) && arg.length) {
-				var inner = this.classNames.apply(null, arg);
+				const inner = this.classNames.apply(null, arg);
 				if (inner) {
 					classes.push(inner);
 				}
             }
             else if (argType === "object") {
-				for (var key in arg) {
+				for (const key in arg) {
 					if (hasOwn.call(arg, key) && arg[key]) {
 						classes.push(key);
 					}
@@ -3266,7 +3318,7 @@ class Utilities {
      */
     static extend(extendee, ...extenders) {
         for (let i = 0; i < extenders.length; i++) {
-            for (let key in extenders[i]) {
+            for (const key in extenders[i]) {
                 if (extenders[i].hasOwnProperty(key)) {
                     if (typeof extendee[key] === "object" && typeof extenders[i][key] === "object") this.extend(extendee[key], extenders[i][key]);
                     else if (typeof extenders[i][key] === "object") extendee[key] = {}, this.extend(extendee[key], extenders[i][key]);
@@ -3292,7 +3344,7 @@ class Utilities {
 
             const clone = Object.assign({}, value);
 
-            for (let key in clone) {
+            for (const key in clone) {
                 clone[key] = this.deepclone(clone[key]);
             }
 
@@ -3313,7 +3365,7 @@ class Utilities {
         if (typeof object === "object" && object !== null) {
             const properties = Object.getOwnPropertyNames(object);
 
-            for (let property of properties) {
+            for (const property of properties) {
                 this.deepfreeze(object[property], exclude);
             }
 
@@ -3469,6 +3521,21 @@ class Filters {
     }
 
     /**
+     * Generates a {@link module:WebpackModules.Filters~filter} that filters by strings.
+     * @param {...String} search - A RegExp to check on the module
+     * @returns {module:WebpackModules.Filters~filter} - A filter that checks for a set of strings
+     */
+    static byString(...strings) {
+        return module => {
+            const moduleString = module.toString([]);
+            for (const s of strings) {
+                if (!moduleString.includes(s)) return false;
+            }
+            return true;
+        };
+    }
+
+    /**
      * Generates a {@link module:WebpackModules.Filters~filter} that filters by a set of properties.
      * @param {string} name - Name the module should have
      * @param {module:WebpackModules.Filters~filter} filter - Additional filter
@@ -3508,7 +3575,7 @@ class WebpackModules {
     static getModule(filter, first = true) {
         const modules = this.getAllModules();
         const rm = [];
-        for (let index in modules) {
+        for (const index in modules) {
             if (!modules.hasOwnProperty(index)) continue;
             const module = modules[index];
             const {exports} = module;
@@ -3599,6 +3666,24 @@ class WebpackModules {
     }
 
     /**
+     * Finds a single module using a set of strings.
+     * @param {...String} props Strings to use to filter modules
+     * @return {Any}
+     */
+    static getByString(...strings) {
+        return this.getModule(Filters.byString(...strings), true);
+    }
+
+    /**
+     * Finds all modules with a set of strings.
+     * @param {...String} strings Strings to use to filter modules
+     * @return {Any}
+     */
+    static getAllByString(...strings) {
+        return this.getModule(Filters.byString(...strings), false);
+    }
+
+    /**
      * Discord's __webpack_require__ function.
      */
     static get require() {
@@ -3675,8 +3760,6 @@ Library.buildPlugin = function(config) {
 
 if (document.getElementById("ZLibraryCSS")) document.getElementById("ZLibraryCSS").remove();
 document.head.append(Library.DOMTools.createElement(`<style id="ZLibraryCSS">${ui__WEBPACK_IMPORTED_MODULE_1__["Settings"].CSS + ui__WEBPACK_IMPORTED_MODULE_1__["Toasts"].CSS + Library.PluginUpdater.CSS}</style>`));
-
-if (false) {}
 
 /* harmony default export */ __webpack_exports__["default"] = (Library);
 
@@ -4367,7 +4450,7 @@ class Guild {
      * An array of the guild's custom emojis.
      */
     get emojis() {
-        return structs__WEBPACK_IMPORTED_MODULE_1__["List"].from(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].EmojiUtils.getGuildEmoji(this.id), e => new Emoji(e, this.id));
+        return structs__WEBPACK_IMPORTED_MODULE_1__["List"].from(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].EmojiUtils.getGuildEmoji(this.id), e => new Emoji(e));
     }
 
     checkPermissions(perms) {
@@ -5547,9 +5630,7 @@ class ClassName {
 	 * @returns {ClassName} returns self to allow chaining
 	 */
 	add(...classNames) {
-		for (var i = 0; i < classNames.length; i++) {
-			this.value += " " + classNames[i];
-		}
+		for (let i = 0; i < classNames.length; i++) this.value += " " + classNames[i];
 		return this;
 	}
 	
@@ -5599,7 +5680,6 @@ class ClassName {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return DOMObserver; });
 /* harmony import */ var modules__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! modules */ "./src/modules/modules.js");
 /**
  * BetterDiscord Client DOM Module
@@ -5613,6 +5693,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+/** 
+ * Representation of a MutationObserver but with helpful utilities.
+ * @memberof module:DOMTools
+ **/
 class DOMObserver {
     constructor(root, options) {
         this.observe = this.observe.bind(this);
@@ -5730,6 +5814,7 @@ class DOMObserver {
     }
 }
 
+/* harmony default export */ __webpack_exports__["default"] = (DOMObserver);
 
 /***/ }),
 
@@ -5886,8 +5971,8 @@ class List extends Array {
      */
     get(...filters) {
         return this.find(item => {
-            for (let filter of filters) {
-                for (let key in filter) {
+            for (const filter of filters) {
+                for (const key in filter) {
                     if (filter.hasOwnProperty(key)) {
                         if (item[key] !== filter[key]) return false;
                     }
@@ -6399,7 +6484,7 @@ class Menu {
      * @returns {module:ContextMenu.Menu} returns self for chaining
      */
 	addItems(...contextItems) {
-		for (var i = 0; i < contextItems.length; i++) {
+		for (let i = 0; i < contextItems.length; i++) {
 			if (this.scroll) this.scroller.append(contextItems[i].getElement());
 			else this.element.append(contextItems[i].getElement());
 		}
@@ -6490,7 +6575,7 @@ class ItemGroup {
      * @returns {module:ContextMenu.ItemGroup} returns self for chaining
      */
 	addItems(...contextItems) {
-		for (var i = 0; i < contextItems.length; i++) {
+		for (let i = 0; i < contextItems.length; i++) {
 			this.element.append(contextItems[i].getElement());
 		}
 		return this;
@@ -6930,7 +7015,8 @@ class Popouts {
 	 * @param {string} [options.position="right"] - Positioning relative to element
      */
     static showUserPopout(target, user, options = {}) {
-		let {guild = modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].SelectedGuildStore.getGuildId(), channel = modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].SelectedChannelStore.getChannelId(), position = "right"} = options;
+		const {guild = modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].SelectedGuildStore.getGuildId(), channel = modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].SelectedChannelStore.getChannelId()} = options;
+		let {position = "right"} = options;
 		target = modules__WEBPACK_IMPORTED_MODULE_1__["DOMTools"].resolveElement(target);
 		if (target.getBoundingClientRect().right + 250 >= structs__WEBPACK_IMPORTED_MODULE_0__["Screen"].width) position = "left";
 		modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].PopoutOpener.openPopout(target, {
@@ -7197,7 +7283,7 @@ class SettingGroup extends _structs_listenable__WEBPACK_IMPORTED_MODULE_0__["def
      * @returns {module:Settings.SettingGroup} - returns self for chaining
      */
 	append(...nodes) {
-		for (var i = 0; i < nodes.length; i++) {
+		for (let i = 0; i < nodes.length; i++) {
 			if (nodes[i] instanceof jQuery || nodes[i] instanceof Element) this.controls.append(nodes[i]);
 			else if (nodes[i] instanceof _settingfield__WEBPACK_IMPORTED_MODULE_2__["default"] || nodes[i] instanceof SettingGroup) this.controls.append(nodes[i].getElement());
 			if (nodes[i] instanceof _settingfield__WEBPACK_IMPORTED_MODULE_2__["default"]) {
@@ -7291,7 +7377,7 @@ class SettingPanel extends _structs_listenable__WEBPACK_IMPORTED_MODULE_0__["def
      * @returns {module:Settings.SettingPanel} - returns self for chaining
      */
 	append(...nodes) {
-		for (var i = 0; i < nodes.length; i++) {
+		for (let i = 0; i < nodes.length; i++) {
 			if (nodes[i] instanceof jQuery || nodes[i] instanceof Element) this.element.append(nodes[i]);
 			else if (nodes[i] instanceof _settingfield__WEBPACK_IMPORTED_MODULE_2__["default"] || nodes[i] instanceof _settinggroup__WEBPACK_IMPORTED_MODULE_3__["default"]) this.element.append(nodes[i].getElement());
 			if (nodes[i] instanceof _settingfield__WEBPACK_IMPORTED_MODULE_2__["default"]) {
@@ -7829,14 +7915,14 @@ class Toast {
 
     static ensureContainer() {
         if (document.querySelector(".toasts")) return;
-        let container = document.querySelector(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordSelectors"].ChannelList.channels.adjacent("div"));
-        let memberlist = container.querySelector(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordSelectors"].MemberList.membersWrap);
-        let form = container ? container.querySelector("form") : null;
-        let left = container ? container.getBoundingClientRect().left : 310;
-        let right = memberlist ? memberlist.getBoundingClientRect().left : 0;
-        let width = right ? right - container.getBoundingClientRect().left : container.offsetWidth;
-        let bottom = form ? form.offsetHeight : 80;
-        let toastWrapper = document.createElement("div");
+        const container = document.querySelector(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordSelectors"].ChannelList.channels.adjacent("div"));
+        const memberlist = container.querySelector(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordSelectors"].MemberList.membersWrap);
+        const form = container ? container.querySelector("form") : null;
+        const left = container ? container.getBoundingClientRect().left : 310;
+        const right = memberlist ? memberlist.getBoundingClientRect().left : 0;
+        const width = right ? right - container.getBoundingClientRect().left : container.offsetWidth;
+        const bottom = form ? form.offsetHeight : 80;
+        const toastWrapper = document.createElement("div");
         toastWrapper.classList.add("toasts");
         toastWrapper.style.setProperty("left", left + "px");
         toastWrapper.style.setProperty("width", width + "px");

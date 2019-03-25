@@ -695,7 +695,7 @@ Utilities.addToPrototype(HTMLElement, "after", function(newNode) {return DOMTool
 Utilities.addToPrototype(HTMLElement, "next", function(selector = "") {return DOMTools.next(this, selector);});
 Utilities.addToPrototype(HTMLElement, "nextAll", function() {return DOMTools.nextAll(this);});
 Utilities.addToPrototype(HTMLElement, "nextUntil", function(selector) {return DOMTools.nextUntil(this, selector);});
-Utilities.addToPrototype(HTMLElement, "", function(selector = "") {return DOMTools.previous(this, selector);});
+Utilities.addToPrototype(HTMLElement, "previous", function(selector = "") {return DOMTools.previous(this, selector);});
 Utilities.addToPrototype(HTMLElement, "previousAll", function() {return DOMTools.previousAll(this);});
 Utilities.addToPrototype(HTMLElement, "previousUntil", function(selector) {return DOMTools.previousUntil(this, selector);});
 Utilities.addToPrototype(HTMLElement, "index", function() {return DOMTools.index(this);});
