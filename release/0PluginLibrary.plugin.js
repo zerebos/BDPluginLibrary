@@ -1470,7 +1470,7 @@ class DOMTools {
             callback();
         };
         this.observer.subscribe(wrappedCallback, mutation => {
-            const nodes = Array.from(onMount ? mutation.addedNode : mutation.removedNodes);
+            const nodes = Array.from(onMount ? mutation.addedNodes : mutation.removedNodes);
             const directMatch = nodes.indexOf(node) > -1;
             const parentMatch = nodes.some(parent => parent.contains(node));
             return directMatch || parentMatch;
