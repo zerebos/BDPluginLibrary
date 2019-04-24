@@ -6196,16 +6196,17 @@ __webpack_require__.r(__webpack_exports__);
         getDescription() { return this._config.info.description; }
         getVersion() { return this._config.info.version; }
         getAuthor() { return this._config.info.authors.map(a => a.name).join(", "); }
-        load() {}
-        async start() {
-            _modules_logger__WEBPACK_IMPORTED_MODULE_1__["default"].info(this.getName(), `version ${this.getVersion()} has started.`);
-            if (this.defaultSettings) this.settings = this.loadSettings();
+        load() {
             const currentVersionInfo = _modules_pluginutilities__WEBPACK_IMPORTED_MODULE_4__["default"].loadData(this.getName(), "currentVersionInfo", {version: this.getVersion(), hasShownChangelog: false});
             if (currentVersionInfo.version != this.getVersion() || !currentVersionInfo.hasShownChangelog) {
                 this.showChangelog();
                 _modules_pluginutilities__WEBPACK_IMPORTED_MODULE_4__["default"].saveData(this.getName(), "currentVersionInfo", {version: this.getVersion(), hasShownChangelog: true});
             }
             _modules_pluginupdater__WEBPACK_IMPORTED_MODULE_0__["default"].checkForUpdate(this.getName(), this.getVersion(), this._config.info.github_raw);
+        }
+        async start() {
+            _modules_logger__WEBPACK_IMPORTED_MODULE_1__["default"].info(this.getName(), `version ${this.getVersion()} has started.`);
+            if (this.defaultSettings) this.settings = this.loadSettings();
             this._enabled = true;
             if (typeof(this.onStart) == "function") this.onStart();
         }

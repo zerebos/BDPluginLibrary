@@ -33,16 +33,17 @@ export default function(config) {
         getDescription() { return this._config.info.description; }
         getVersion() { return this._config.info.version; }
         getAuthor() { return this._config.info.authors.map(a => a.name).join(", "); }
-        load() {}
-        async start() {
-            Logger.info(this.getName(), `version ${this.getVersion()} has started.`);
-            if (this.defaultSettings) this.settings = this.loadSettings();
+        load() {
             const currentVersionInfo = PluginUtilities.loadData(this.getName(), "currentVersionInfo", {version: this.getVersion(), hasShownChangelog: false});
             if (currentVersionInfo.version != this.getVersion() || !currentVersionInfo.hasShownChangelog) {
                 this.showChangelog();
                 PluginUtilities.saveData(this.getName(), "currentVersionInfo", {version: this.getVersion(), hasShownChangelog: true});
             }
             PluginUpdater.checkForUpdate(this.getName(), this.getVersion(), this._config.info.github_raw);
+        }
+        async start() {
+            Logger.info(this.getName(), `version ${this.getVersion()} has started.`);
+            if (this.defaultSettings) this.settings = this.loadSettings();
             this._enabled = true;
             if (typeof(this.onStart) == "function") this.onStart();
         }
