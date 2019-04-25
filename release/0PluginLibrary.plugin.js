@@ -3820,7 +3820,7 @@ __webpack_require__.r(__webpack_exports__);
         get Library() {return Library;}
         
         load() {
-            this.start();
+            super.load();
             const exists = document.getElementById("ZLibraryCSS");
             PluginUtilities.removeStyle("ZLibraryCSS");
             PluginUtilities.addStyle("ZLibraryCSS", Settings.CSS + Toasts.CSS + PluginUpdater.CSS);
