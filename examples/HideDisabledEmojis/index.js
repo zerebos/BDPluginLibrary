@@ -8,15 +8,15 @@ module.exports = (Plugin, Api) => {
             });
 
             const EmojiPicker = await ReactComponents.getComponentByName("EmojiPicker", DiscordSelectors.EmojiPicker.emojiPicker);
-            Patcher.before(EmojiPicker.prototype, "render", (thisObject) => {
-                let cats = thisObject.categories;
-                let filtered = thisObject.computeMetaData();
-                let newcats = {};
+            Patcher.before(EmojiPicker.component.prototype, "render", (thisObject) => {
+                const cats = thisObject.categories;
+                const filtered = thisObject.computeMetaData();
+                const newcats = {};
 
-                for (let c of filtered) newcats[c.category] ? newcats[c.category] += 1 : newcats[c.category] = 1;
+                for (const c of filtered) newcats[c.category] ? newcats[c.category] += 1 : newcats[c.category] = 1;
 
                 let i = 0;
-                for (let cat of cats) {
+                for (const cat of cats) {
                     if (!newcats[cat.category]) {
                         cat.offsetTop = 999999;
                     }
@@ -29,6 +29,7 @@ module.exports = (Plugin, Api) => {
 
                 cats.sort((a,b) => a.offsetTop - b.offsetTop);
             });
+            EmojiPicker.forceUpdateAll();
         }
         
         onStop() {

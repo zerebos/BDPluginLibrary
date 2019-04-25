@@ -123,9 +123,9 @@ export default class DOMTools {
      * @returns {Element} - `element` to allow for chaining
      */
     static addClass(element, ...classes) {
-        classes = classes.flatten().filter(c => c);
+        classes = classes.flat().filter(c => c);
         for (let c = 0; c < classes.length; c++) classes[c] = classes[c].toString().split(" ");
-        classes = classes.flatten().filter(c => c);
+        classes = classes.flat().filter(c => c);
         element.classList.add(...classes);
         return element;
     }
@@ -138,7 +138,7 @@ export default class DOMTools {
      */
     static removeClass(element, ...classes) {
         for (let c = 0; c < classes.length; c++) classes[c] = classes[c].toString().split(" ");
-        classes = classes.flatten().filter(c => c);
+        classes = classes.flat().filter(c => c);
         element.classList.remove(...classes);
         return element;
     }
