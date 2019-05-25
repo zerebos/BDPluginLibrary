@@ -663,7 +663,7 @@ export default class DOMTools {
     static onAdded(node, callback) { return this.onMount(node, callback); }
 
     /** Alias for {@link module:DOMTools.onUnmount} */
-    static onRemoved(node, callback) { return this.onUnmount(node, callback); }
+    static onRemoved(node, callback) { return this.onUnmount(node, callback, false); }
 
     /**
      * Helper function which combines multiple elements into one parent element

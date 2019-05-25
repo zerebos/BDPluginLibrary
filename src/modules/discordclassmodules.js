@@ -35,6 +35,7 @@ export default Utilities.memoizeObject({
 	get Titlebar() {return WebpackModules.getByProps("titleBar");},
 	get Embeds() {return WebpackModules.getByProps("embed", "embedAuthor");},
 	get Layers() {return WebpackModules.getByProps("layers", "layer");},
+	get TooltipLayers() {return WebpackModules.getByProps("layerContainer", "layer");},
 	get Margins() {return WebpackModules.getModule(m => !m.title && m.marginBottom40 && m.marginTop40);},
 	get Dividers() {return WebpackModules.getModule(m => m.dividerDefault);},
 	get Changelog() {return Object.assign({}, WebpackModules.getByProps("container", "added"), WebpackModules.getByProps("content", "modal", "size"));},
@@ -43,6 +44,7 @@ export default Utilities.memoizeObject({
 	get Guilds() {return WebpackModules.getByProps("guildsWrapper");},
 	get EmojiPicker() {return WebpackModules.getByProps("emojiPicker", "emojiItem");},
 	get Reactions() {return WebpackModules.getByProps("reaction", "reactionInner");},
-	get Checkbox() {return WebpackModules.getByProps("checkbox", "checkboxInner");}
+	get Checkbox() {return WebpackModules.getByProps("checkbox", "checkboxInner");},
+	get Tooltips() {return WebpackModules.getByProps("tooltip", "tooltipBlack");}
 });
 

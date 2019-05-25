@@ -1,4 +1,10 @@
-# PluginLibrary [![Build Status][travis-badge]][travis-link] [![Language Grade][lgtm-badge]][lgtm-link] - [Download][download]
+# PluginLibrary - [Download][download] [![Build Status][travis-badge]][travis-link] [![Language Grade][lgtm-badge]][lgtm-link] [![Patreon][patreon-badge]][patreon-link] [![Paypal][paypal-badge]][paypal-link]
+
+[patreon-badge]: https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.herokuapp.com%2FZerebos&style=flat-square
+[patreon-link]: https://patreon.com/Zerebos
+
+[paypal-badge]: https://img.shields.io/badge/Paypal-Donate!-%2300457C.svg?logo=paypal&style=flat-square
+[paypal-link]: https://paypal.me/ZackRauen
 
 [lgtm-badge]: https://img.shields.io/lgtm/grade/javascript/g/rauenzi/BDPluginLibrary.svg?style=flat-square
 [lgtm-link]: https://lgtm.com/projects/g/rauenzi/BDPluginLibrary/context:javascript

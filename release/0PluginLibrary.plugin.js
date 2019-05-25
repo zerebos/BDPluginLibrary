@@ -119,7 +119,7 @@ var ZeresPluginLibrary =
 /*! exports provided: info, changelog, main, default */
 /***/ (function(module) {
 
-module.exports = {"info":{"name":"ZeresPluginLibrary","authors":[{"name":"Zerebos","discord_id":"249746236008169473","github_username":"rauenzi","twitter_username":"ZackRauen"}],"version":"1.2.4","description":"Gives other plugins utility functions and the ability to emulate v2.","github":"https://github.com/rauenzi/BDPluginLibrary","github_raw":"https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"},"changelog":[{"title":"Bugs Squashed","type":"fixed","items":["flat() instead of flatten()"]}],"main":"plugin.js"};
+module.exports = {"info":{"name":"ZeresPluginLibrary","authors":[{"name":"Zerebos","discord_id":"249746236008169473","github_username":"rauenzi","twitter_username":"ZackRauen"}],"version":"1.2.5","description":"Gives other plugins utility functions and the ability to emulate v2.","github":"https://github.com/rauenzi/BDPluginLibrary","github_raw":"https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"},"changelog":[{"title":"New Stuff","items":["New EmulatedTooltip module to help stop-gap for using native tooltips."]},{"title":"Improvements","type":"improved","items":["Additional class modules added"]},{"title":"Bugs Squashed","type":"fixed","items":["onRemoved wasn't checking for removal."]}],"main":"plugin.js"};
 
 /***/ }),
 
@@ -140,6 +140,7 @@ __webpack_require__.r(__webpack_exports__);
 const Library = {};
 Library.ContextMenu = ui__WEBPACK_IMPORTED_MODULE_1__["ContextMenu"];
 Library.Tooltip = ui__WEBPACK_IMPORTED_MODULE_1__["Tooltip"];
+Library.EmulatedTooltip = ui__WEBPACK_IMPORTED_MODULE_1__["EmulatedTooltip"];
 Library.Toasts = ui__WEBPACK_IMPORTED_MODULE_1__["Toasts"];
 Library.Settings = ui__WEBPACK_IMPORTED_MODULE_1__["Settings"];
 Library.Popouts = ui__WEBPACK_IMPORTED_MODULE_1__["Popouts"];
@@ -499,6 +500,7 @@ __webpack_require__.r(__webpack_exports__);
 	get Titlebar() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("titleBar");},
 	get Embeds() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("embed", "embedAuthor");},
 	get Layers() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("layers", "layer");},
+	get TooltipLayers() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("layerContainer", "layer");},
 	get Margins() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => !m.title && m.marginBottom40 && m.marginTop40);},
 	get Dividers() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m.dividerDefault);},
 	get Changelog() {return Object.assign({}, _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("container", "added"), _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("content", "modal", "size"));},
@@ -507,7 +509,8 @@ __webpack_require__.r(__webpack_exports__);
 	get Guilds() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("guildsWrapper");},
 	get EmojiPicker() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("emojiPicker", "emojiItem");},
 	get Reactions() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("reaction", "reactionInner");},
-	get Checkbox() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("checkbox", "checkboxInner");}
+	get Checkbox() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("checkbox", "checkboxInner");},
+	get Tooltips() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("tooltip", "tooltipBlack");}
 }));
 
 
@@ -1488,7 +1491,7 @@ class DOMTools {
     static onAdded(node, callback) { return this.onMount(node, callback); }
 
     /** Alias for {@link module:DOMTools.onUnmount} */
-    static onRemoved(node, callback) { return this.onUnmount(node, callback); }
+    static onRemoved(node, callback) { return this.onUnmount(node, callback, false); }
 
     /**
      * Helper function which combines multiple elements into one parent element
@@ -6825,6 +6828,194 @@ class ToggleItem extends MenuItem {
 
 /***/ }),
 
+/***/ "./src/ui/emulatedtooltip.js":
+/*!***********************************!*\
+  !*** ./src/ui/emulatedtooltip.js ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return EmulatedTooltip; });
+/* harmony import */ var modules__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! modules */ "./src/modules/modules.js");
+/* harmony import */ var _structs_screen__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../structs/screen */ "./src/structs/screen.js");
+/** 
+ * Tooltip that automatically show and hide themselves on mouseenter and mouseleave events.
+ * Will also remove themselves if the node to watch is removed from DOM through
+ * a MutationObserver.
+ * 
+ * Note this is not using Discord's internals but normal DOM manipulation and emulates 
+ * Discord's own tooltips as closely as possible.
+ * 
+ * @module EmulatedTooltip
+ * @version 0.0.1
+ */
+
+
+
+
+const getClass = function(sideOrColor) {
+    const upperCase = sideOrColor[0].toUpperCase() + sideOrColor.slice(1);
+    const tooltipClass = modules__WEBPACK_IMPORTED_MODULE_0__["DiscordClasses"].Tooltips[`tooltip${upperCase}`];
+    if (tooltipClass) return tooltipClass;
+    return null;
+};
+
+const classExists = function(sideOrColor) {
+    return getClass(sideOrColor) ? true : false;
+};
+
+const toPx = function(value) {
+    return `${value}px`;
+};
+
+/* <div class="layer-v9HyYc da-layer" style="left: 234.5px; bottom: 51px;">
+    <div class="tooltip-2QfLtc da-tooltip tooltipTop-XDDSxx tooltipBlack-PPG47z">
+        <div class="tooltipPointer-3ZfirK da-tooltipPointer"></div>
+        User Settings
+    </div>
+</div> */
+
+class EmulatedTooltip {
+	/**
+	 * 
+	 * @constructor
+	 * @param {(HTMLElement|jQuery)} node - DOM node to monitor and show the tooltip on
+	 * @param {string} tip - string to show in the tooltip
+	 * @param {object} options - additional options for the tooltip
+	 * @param {string} [options.style=black] - correlates to the discord styling/colors (black, brand, green, grey, red, yellow)
+	 * @param {string} [options.side=top] - can be any of top, right, bottom, left
+	 * @param {boolean} [options.preventFlip=false] - prevents moving the tooltip to the opposite side if it is too big or goes offscreen
+     * @param {boolean} [options.disabled=false] - whether the tooltip should be disabled from showing on hover
+	 */
+	constructor(node, text, options = {}) {
+		const {style = "black", side = "top", preventFlip = false, disabled = false} = options;
+		this.node = node instanceof jQuery ? node[0] : node;
+        this.label = text;
+        this.style = style.toLowerCase();
+		this.side = side.toLowerCase();
+        this.preventFlip = preventFlip;
+        this.disabled = disabled;
+
+        if (!classExists(this.side)) return modules__WEBPACK_IMPORTED_MODULE_0__["Logger"].err("EmulatedTooltip", `Side ${this.side} does not exist.`);
+        if (!classExists(this.style)) return modules__WEBPACK_IMPORTED_MODULE_0__["Logger"].err("EmulatedTooltip", `Style ${this.style} does not exist.`);
+
+        this.element = modules__WEBPACK_IMPORTED_MODULE_0__["DOMTools"].createElement(`<div class="${modules__WEBPACK_IMPORTED_MODULE_0__["DiscordClasses"].TooltipLayers.layer}">`);
+        this.tooltipElement = modules__WEBPACK_IMPORTED_MODULE_0__["DOMTools"].createElement(`<div class="${modules__WEBPACK_IMPORTED_MODULE_0__["DiscordClasses"].Tooltips.tooltip} ${getClass(this.style)}"><div class="${modules__WEBPACK_IMPORTED_MODULE_0__["DiscordClasses"].Tooltips.tooltipPointer}"></div>${this.label}</div>`);
+        this.labelElement = this.tooltipElement.childNodes[1];
+        this.element.append(this.tooltipElement);
+        
+
+		this.node.addEventListener("mouseenter", () => {
+            if (this.disabled) return;
+            this.show();
+			
+			const observer = new MutationObserver((mutations) => {
+				mutations.forEach((mutation) => {
+					const nodes = Array.from(mutation.removedNodes);
+					const directMatch = nodes.indexOf(this.node) > -1;
+					const parentMatch = nodes.some(parent => parent.contains(this.node));
+					if (directMatch || parentMatch) {
+						this.hide();
+						observer.disconnect();
+					}
+				});
+			});
+
+			observer.observe(document.body, {subtree: true, childList: true});
+		});
+
+		this.node.addEventListener("mouseleave", () => {
+			this.hide();
+		});
+    }
+    
+    /** Container where the tooltip will be appended. */
+    get container() { return document.querySelector(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordSelectors"].TooltipLayers.layerContainer); }
+    /** Boolean representing if the tooltip will fit on screen above the element */
+    get canShowAbove() { return this.node.offset().top - this.element.outerHeight() >= 0; }
+    /** Boolean representing if the tooltip will fit on screen below the element */
+    get canShowBelow() { return this.node.offset().top + this.node.outerHeight() + this.element.outerHeight() <= _structs_screen__WEBPACK_IMPORTED_MODULE_1__["default"].height; }
+    /** Boolean representing if the tooltip will fit on screen to the left of the element */
+    get canShowLeft() { return this.node.offset().left - this.element.outerWidth() >= 0; }
+    /** Boolean representing if the tooltip will fit on screen to the right of the element */
+	get canShowRight() { return this.node.offset().left + this.node.outerWidth() + this.element.outerWidth() <= _structs_screen__WEBPACK_IMPORTED_MODULE_1__["default"].width; }
+
+    /** Hides the tooltip. Automatically called on mouseleave. */
+	hide() {
+        this.element.remove();
+        this.tooltipElement.className = this._className;
+	}
+
+    /** Shows the tooltip. Automatically called on mouseenter. Will attempt to flip if position was wrong. */
+	show() {
+        this.tooltipElement.className = `${modules__WEBPACK_IMPORTED_MODULE_0__["DiscordClasses"].Tooltips.tooltip} ${getClass(this.style)}`;
+        this.labelElement.textContent = this.label;
+		this.element.appendTo(this.container);
+
+		if (this.side == "top") {
+			if (this.canShowAbove || (!this.canShowAbove && this.preventFlip)) this.showAbove();
+			else this.showBelow();
+		}
+
+		if (this.side == "bottom") {
+			if (this.canShowBelow || (!this.canShowBelow && this.preventFlip)) this.showBelow();
+			else this.showAbove();
+		}
+
+		if (this.side == "left") {
+			if (this.canShowLeft || (!this.canShowLeft && this.preventFlip)) this.showLeft();
+			else this.showRight();
+		}
+
+		if (this.side == "right") {
+			if (this.canShowRight || (!this.canShowRight && this.preventFlip)) this.showRight();
+			else this.showLeft();
+		}
+	}
+
+    /** Force showing the tooltip above the node. */
+	showAbove() {
+		this.tooltipElement.addClass(getClass("top"));
+		this.element.css("top", toPx(this.node.offset().top - this.element.outerHeight() - 10));
+		this.centerHorizontally();
+	}
+
+    /** Force showing the tooltip below the node. */
+	showBelow() {
+		this.tooltipElement.addClass(getClass("bottom"));
+		this.element.css("top", toPx(this.node.offset().top + this.element.outerHeight() - 10));
+		this.centerHorizontally();
+	}
+
+    /** Force showing the tooltip to the left of the node. */
+	showLeft() {
+		this.tooltipElement.addClass(getClass("left"));
+		this.element.css("left", toPx(this.node.offset().left - this.element.outerWidth() - 10));
+		this.centerVertically();
+	}
+
+    /** Force showing the tooltip to the right of the node. */
+	showRight() {
+		this.tooltipElement.addClass(getClass("right"));
+		this.element.css("left", toPx(this.node.offset().left + this.element.outerWidth() - 10));
+		this.centerVertically();
+	}
+
+	centerHorizontally() {
+		const nodecenter = this.node.offset().left + (this.node.outerWidth() / 2);
+		this.element.css("left", toPx(nodecenter - (this.element.outerWidth() / 2)));
+	}
+
+	centerVertically() {
+		const nodecenter = this.node.offset().top + (this.node.outerHeight() / 2);
+		this.element.css("top", toPx(nodecenter - (this.element.outerHeight() / 2)));
+	}
+}
+
+/***/ }),
+
 /***/ "./src/ui/icons.js":
 /*!*************************!*\
   !*** ./src/ui/icons.js ***!
@@ -8167,7 +8358,7 @@ class Tooltip {
 /*!**********************!*\
   !*** ./src/ui/ui.js ***!
   \**********************/
-/*! exports provided: Tooltip, Toasts, Popouts, Modals, Settings, ContextMenu, Icons */
+/*! exports provided: Tooltip, EmulatedTooltip, Toasts, Popouts, Modals, Settings, ContextMenu, Icons */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8181,14 +8372,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _tooltip__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./tooltip */ "./src/ui/tooltip.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Tooltip", function() { return _tooltip__WEBPACK_IMPORTED_MODULE_3__["default"]; });
 
-/* harmony import */ var _toasts__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./toasts */ "./src/ui/toasts.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Toasts", function() { return _toasts__WEBPACK_IMPORTED_MODULE_4__["default"]; });
+/* harmony import */ var _emulatedtooltip__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./emulatedtooltip */ "./src/ui/emulatedtooltip.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "EmulatedTooltip", function() { return _emulatedtooltip__WEBPACK_IMPORTED_MODULE_4__["default"]; });
 
-/* harmony import */ var _popouts__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./popouts */ "./src/ui/popouts.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Popouts", function() { return _popouts__WEBPACK_IMPORTED_MODULE_5__["default"]; });
+/* harmony import */ var _toasts__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./toasts */ "./src/ui/toasts.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Toasts", function() { return _toasts__WEBPACK_IMPORTED_MODULE_5__["default"]; });
 
-/* harmony import */ var _modals__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modals */ "./src/ui/modals.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Modals", function() { return _modals__WEBPACK_IMPORTED_MODULE_6__["default"]; });
+/* harmony import */ var _popouts__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./popouts */ "./src/ui/popouts.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Popouts", function() { return _popouts__WEBPACK_IMPORTED_MODULE_6__["default"]; });
+
+/* harmony import */ var _modals__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modals */ "./src/ui/modals.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Modals", function() { return _modals__WEBPACK_IMPORTED_MODULE_7__["default"]; });
+
 
 
 

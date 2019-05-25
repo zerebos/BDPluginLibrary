@@ -1,9 +1,10 @@
 import * as Modules from "modules";
-import {Settings, ContextMenu, Tooltip, Toasts, Popouts, Modals} from "ui";
+import {Settings, ContextMenu, Tooltip, EmulatedTooltip, Toasts, Popouts, Modals} from "ui";
 
 const Library = {};
 Library.ContextMenu = ContextMenu;
 Library.Tooltip = Tooltip;
+Library.EmulatedTooltip = EmulatedTooltip;
 Library.Toasts = Toasts;
 Library.Settings = Settings;
 Library.Popouts = Popouts;
