@@ -2055,7 +2055,7 @@ class PluginUpdater {
 		updateButton.onclick = function () {
 			window.PluginUpdates.checkAll();
 		};
-		const tooltip = new ui__WEBPACK_IMPORTED_MODULE_6__["Tooltip"](updateButton, "Checks for updates of plugins that support this feature. Right-click for a list.");
+		const tooltip = new ui__WEBPACK_IMPORTED_MODULE_6__["EmulatedTooltip"](updateButton, "Checks for updates of plugins that support this feature. Right-click for a list.");
 		updateButton.oncontextmenu = function () {
 			if (!window.PluginUpdates || !window.PluginUpdates.plugins) return;
 			tooltip.label = Object.values(window.PluginUpdates.plugins).map(p => p.name).join(", ");
@@ -2097,7 +2097,7 @@ class PluginUpdater {
 			if (!window.PluginUpdates.downloaded) {
 				window.PluginUpdates.downloaded = [];
 				const button = _domtools__WEBPACK_IMPORTED_MODULE_2__["default"].parseHTML(`<button class="btn btn-reload ${_discordclasses__WEBPACK_IMPORTED_MODULE_4__["default"].Notices.btn} ${_discordclasses__WEBPACK_IMPORTED_MODULE_4__["default"].Notices.button}">Reload</button>`);
-				const tooltip = new ui__WEBPACK_IMPORTED_MODULE_6__["Tooltip"](button, window.PluginUpdates.downloaded.join(", "), {side: "top"});
+				const tooltip = new ui__WEBPACK_IMPORTED_MODULE_6__["EmulatedTooltip"](button, window.PluginUpdates.downloaded.join(", "), {side: "top"});
 				button.addEventListener("click", (e) => {
 					e.preventDefault();
 					window.location.reload(false);
@@ -6880,7 +6880,7 @@ class EmulatedTooltip {
     /** Force showing the tooltip below the node. */
 	showBelow() {
 		this.tooltipElement.addClass(getClass("bottom"));
-		this.element.css("top", toPx(this.node.offset().top + this.element.outerHeight() - 10));
+		this.element.css("top", toPx(this.node.offset().top + this.node.outerHeight() + 10));
 		this.centerHorizontally();
 	}
 
@@ -6894,7 +6894,7 @@ class EmulatedTooltip {
     /** Force showing the tooltip to the right of the node. */
 	showRight() {
 		this.tooltipElement.addClass(getClass("right"));
-		this.element.css("left", toPx(this.node.offset().left + this.element.outerWidth() - 10));
+		this.element.css("left", toPx(this.node.offset().left + this.node.outerWidth() + 10));
 		this.centerVertically();
 	}
 

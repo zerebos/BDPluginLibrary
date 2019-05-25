@@ -10,7 +10,7 @@ import DOMTools from "./domtools";
 import Logger from "./logger";
 import DiscordClasses from "./discordclasses";
 import DiscordModules from "./discordmodules";
-import {Tooltip, Toasts} from "ui";
+import {EmulatedTooltip, Toasts} from "ui";
 
 /**
  * Function that gets the remote version from the file contents. 
@@ -142,7 +142,7 @@ export default class PluginUpdater {
 		updateButton.onclick = function () {
 			window.PluginUpdates.checkAll();
 		};
-		const tooltip = new Tooltip(updateButton, "Checks for updates of plugins that support this feature. Right-click for a list.");
+		const tooltip = new EmulatedTooltip(updateButton, "Checks for updates of plugins that support this feature. Right-click for a list.");
 		updateButton.oncontextmenu = function () {
 			if (!window.PluginUpdates || !window.PluginUpdates.plugins) return;
 			tooltip.label = Object.values(window.PluginUpdates.plugins).map(p => p.name).join(", ");
@@ -184,7 +184,7 @@ export default class PluginUpdater {
 			if (!window.PluginUpdates.downloaded) {
 				window.PluginUpdates.downloaded = [];
 				const button = DOMTools.parseHTML(`<button class="btn btn-reload ${DiscordClasses.Notices.btn} ${DiscordClasses.Notices.button}">Reload</button>`);
-				const tooltip = new Tooltip(button, window.PluginUpdates.downloaded.join(", "), {side: "top"});
+				const tooltip = new EmulatedTooltip(button, window.PluginUpdates.downloaded.join(", "), {side: "top"});
 				button.addEventListener("click", (e) => {
 					e.preventDefault();
 					window.location.reload(false);

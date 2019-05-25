@@ -143,7 +143,7 @@ export default class EmulatedTooltip {
     /** Force showing the tooltip below the node. */
 	showBelow() {
 		this.tooltipElement.addClass(getClass("bottom"));
-		this.element.css("top", toPx(this.node.offset().top + this.element.outerHeight() - 10));
+		this.element.css("top", toPx(this.node.offset().top + this.node.outerHeight() + 10));
 		this.centerHorizontally();
 	}
 
@@ -157,7 +157,7 @@ export default class EmulatedTooltip {
     /** Force showing the tooltip to the right of the node. */
 	showRight() {
 		this.tooltipElement.addClass(getClass("right"));
-		this.element.css("left", toPx(this.node.offset().left + this.element.outerWidth() - 10));
+		this.element.css("left", toPx(this.node.offset().left + this.node.outerWidth() + 10));
 		this.centerVertically();
 	}
 

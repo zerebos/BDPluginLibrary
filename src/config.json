@@ -15,7 +15,7 @@
     "changelog": [
         {"title": "New Stuff", "items": ["New EmulatedTooltip module to help stop-gap for using native tooltips."]},
         {"title": "Improvements", "type": "improved", "items": ["Additional class modules added"]},
-        {"title": "Bugs Squashed", "type": "fixed", "items": ["onRemoved wasn't checking for removal."]}
+        {"title": "Bugs Squashed", "type": "fixed", "items": ["onRemoved wasn't checking for removal.", "Tooltips on plugin updates and buttons work again!"]}
     ],
     "main": "plugin.js"
 }
