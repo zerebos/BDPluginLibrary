@@ -189,17 +189,7 @@ export default Utilities.memoizeObject({
     get PopoutOpener() {return WebpackModules.getByProps("openPopout");},
     get EmojiPicker() {return WebpackModules.getByDisplayName("FluxContainer(EmojiPicker)");},
     get UserPopout() {
-        const module = WebpackModules.find(m => {
-            if (!m.render) return false;
-            try {
-                const container = m.render({}).type;
-                new container({});
-                return false;
-            }
-            catch (e) {return e.toString().includes("'id'");}
-        });
-        if (module.render) return module.render;
-        return module;
+        return WebpackModules.getByDisplayName("FluxContainer(ForwardRef(SubscribeGuildMembersContainer(UserPopout)))");
     },
 
     /* Context Menus */

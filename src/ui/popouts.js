@@ -35,7 +35,7 @@ export default class Popouts {
             toggleClose: true,
             render: (props) => {
                 return DiscordModules.React.createElement(DiscordModules.UserPopout, Object.assign({}, props, {
-                    user: user,
+                    userId: user.id,
                     guildId: guild,
                     channelId: channel
                 }));
