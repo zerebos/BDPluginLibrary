@@ -54,7 +54,7 @@ class ExampleLibraryPlugin {
         if (!global.ZeresPluginLibrary) return window.BdApi.alert("Library Missing",`The library plugin needed for ${this.getName()} is missing.<br /><br /> <a href="https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js" target="_blank">Click here to download the library!</a>`);
         ZLibrary.PluginUpdater.checkForUpdate(this.getName(), this.getVersion(), "LINK_TO_RAW_CODE");
     }
-	
+
     stop() {
 
 	}
@@ -75,7 +75,7 @@ class ExampleLibraryPlugin {
 
     start() {
         let libraryScript = document.getElementById("ZLibraryScript");
-		if (!libraryScript || !window.ZLibrary) {
+		if (!window.ZLibrary && !libraryScript) {
 			if (libraryScript) libraryScript.parentElement.removeChild(libraryScript);
 			libraryScript = document.createElement("script");
 			libraryScript.setAttribute("type", "text/javascript");
@@ -87,11 +87,11 @@ class ExampleLibraryPlugin {
 		if (window.ZLibrary) this.initialize();
 		else libraryScript.addEventListener("load", () => { this.initialize(); });
 	}
-	
+
 	initialize() {
         ZLibrary.PluginUpdater.checkForUpdate(this.getName(), this.getVersion(), "LINK_TO_RAW_CODE");
 	}
-	
+
     stop() {
 
 	}
@@ -160,7 +160,7 @@ module.exports = (Plugin, Library) => {
 
 To build all plugins in `plugins` folder, run `npm run build_plugin`. To build a single plugin run `npm run build_plugin PluginName`. This will yield `PluginName.plugin.js` in the `releases` folder with the same meta as outlined in the template. The resulting file will automatically check if the plugin library exists, and alert the user if it does not giving them a link to download it.
 
-#### Using Remote Library
+#### ~~Using Remote Library~~ THIS IS DEPRECATED AND WILL CEASE TO WORK SOON DUE TO BBD UPDATE
 
 To build all plugins in `plugins` folder, run `npm run build_plugin_remote`. To build a single plugin run `npm run build_plugin_remote PluginName`. This will yield `PluginName.plugin.js` in the `releases` folder with the same meta as outlined in the template. The resulting file will automatically load the library from a remote source (on this repo) if it is not found.
 

@@ -13,8 +13,8 @@ import DiscordModules from "./discordmodules";
 import {EmulatedTooltip, Toasts} from "ui";
 
 /**
- * Function that gets the remote version from the file contents. 
- * @param {string} fileContent - the content of the remote file 
+ * Function that gets the remote version from the file contents.
+ * @param {string} fileContent - the content of the remote file
  * @returns {string} - remote version
  * @callback module:PluginUpdater~versioner
  */
@@ -47,7 +47,7 @@ export default class PluginUpdater {
 		if (updateURL) updateLink = updateURL;
 		if (typeof(versioner) != "function") versioner = this.defaultVersioner;
 		if (typeof(comparator) != "function") comparator = this.defaultComparator;
-		
+
 		if (typeof window.PluginUpdates === "undefined") {
 			window.PluginUpdates = {
 				plugins: {},
@@ -92,8 +92,8 @@ export default class PluginUpdater {
 	 * The default versioner used as {@link module:PluginUpdater~versioner} for {@link module:PluginUpdater.checkForUpdate}.
 	 * This works on basic semantic versioning e.g. "1.0.0". You do not need to provide this as a versioner if your plugin adheres
 	 * to this style as this will be used as default.
-	 * @param {string} currentVersion 
-	 * @param {string} content 
+	 * @param {string} currentVersion
+	 * @param {string} content
 	 */
 	static defaultVersioner(content) {
 		const remoteVersion = content.match(/['"][0-9]+\.[0-9]+\.[0-9]+['"]/i);
@@ -105,13 +105,13 @@ export default class PluginUpdater {
 	 * The default comparator used as {@link module:PluginUpdater~comparator} for {@link module:PluginUpdater.checkForUpdate}.
 	 * This works on basic semantic versioning e.g. "1.0.0". You do not need to provide this as a comparator if your plugin adheres
 	 * to this style as this will be used as default.
-	 * @param {string} currentVersion 
-	 * @param {string} content 
+	 * @param {string} currentVersion
+	 * @param {string} content
 	 */
 	static defaultComparator(currentVersion, remoteVersion) {
 		currentVersion = currentVersion.split(".").map((e) => {return parseInt(e);});
 		remoteVersion = remoteVersion.split(".").map((e) => {return parseInt(e);});
-		
+
 		if (remoteVersion[0] > currentVersion[0]) return true;
 		else if (remoteVersion[0] == currentVersion[0] && remoteVersion[1] > currentVersion[1]) return true;
 		else if (remoteVersion[0] == currentVersion[0] && remoteVersion[1] == currentVersion[1] && remoteVersion[2] > currentVersion[2]) return true;
@@ -119,6 +119,10 @@ export default class PluginUpdater {
 	}
 
 	static patchPluginList() {
+		try {
+			V2C_ContentColumn.prototype;
+		}
+		catch (e) {return;}
 		Patcher.after("ZeresLibrary", V2C_ContentColumn.prototype, "componentDidMount", (self) => {
 			if (self._reactInternalFiber.key != "pcolumn") return;
 			const column = DiscordModules.ReactDOM.findDOMNode(self);
@@ -127,7 +131,7 @@ export default class PluginUpdater {
 			if (!button || button.nextElementSibling.classList.contains("bd-updatebtn")) return;
 			button.after(PluginUpdater.createUpdateButton());
 		});
-		const button = document.getElementsByClassName("bd-pfbtn")[0];		
+		const button = document.getElementsByClassName("bd-pfbtn")[0];
 		if (!button || !button.textContent.toLowerCase().includes("plugin") || button.nextElementSibling.classList.contains("bd-updatebtn")) return;
 		button.after(PluginUpdater.createUpdateButton());
 	}

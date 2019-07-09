@@ -1,0 +1,7 @@
+<static> stableSort( list, comparator )
+<static> memoizeObject( object ) → {Proxy}
+<static> extend( extendee, ...extenders ) → {object}
+<static> deepclone( value ) → {Any}
+<static> deepfreeze( object, exclude )
+<async, static> fileExists( path ) → {Promise}
+<async, static> readFile( path ) → {Promise}
