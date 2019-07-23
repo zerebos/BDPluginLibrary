@@ -150,7 +150,7 @@ export default Utilities.memoizeObject({
     /* DOM/React Components */
     /* ==================== */
     get LayerManager() {return WebpackModules.getByProps("popLayer", "pushLayer");},
-    get Tooltips() {return WebpackModules.find(m => m.hide && m.show && !m.search && !m.submit && !m.search && !m.activateRagingDemon && !m.dismiss);},
+    get Tooltips() {return WebpackModules.find(m => m.hide && m.show && !m.submit && !m.activateRagingDemon && !m.dismiss);},
     get UserSettingsWindow() {return WebpackModules.getByProps("open", "updateAccount");},
     get ChannelSettingsWindow() {return WebpackModules.getByProps("open", "updateChannel");},
     get GuildSettingsWindow() {return WebpackModules.getByProps("open", "updateGuild");},
