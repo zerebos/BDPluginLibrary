@@ -74,8 +74,9 @@ export default class Toast {
 
     static ensureContainer() {
         if (document.querySelector(".toasts")) return;
-        const container = document.querySelector(DiscordSelectors.ChannelList.channels.adjacent("div"));
-        const memberlist = container.querySelector(DiscordSelectors.MemberList.membersWrap);
+        const channelClass = DiscordSelectors.ChannelList.sidebar;
+        const container = channelClass ? document.querySelector(channelClass.adjacent("div")) : null;
+        const memberlist = container ? container.querySelector(DiscordSelectors.MemberList.membersWrap) : null;
         const form = container ? container.querySelector("form") : null;
         const left = container ? container.getBoundingClientRect().left : 310;
         const right = memberlist ? memberlist.getBoundingClientRect().left : 0;

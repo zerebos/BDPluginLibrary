@@ -11,7 +11,7 @@
     "@babel/preset-env": "^7.3.4",
     "@babel/register": "^7.0.0",
     "foodoc": "^0.0.9",
-    "jsdoc": "^3.5.5",
+    "jsdoc": "^3.6.3",
     "mocha": "^6.1.4",
     "raw-loader": "^1.0.0",
     "webpack": "^4.29.6",

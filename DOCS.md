@@ -61,7 +61,7 @@ class ExampleLibraryPlugin {
 }
 ```
 
-#### Using Remote Library
+#### ~~Using Remote Library~~ THIS IS DEPRECATED
 
 Here's what the skeleton for a V1 plugin using the remote library would look like:
 ```js
@@ -160,7 +160,7 @@ module.exports = (Plugin, Library) => {
 
 To build all plugins in `plugins` folder, run `npm run build_plugin`. To build a single plugin run `npm run build_plugin PluginName`. This will yield `PluginName.plugin.js` in the `releases` folder with the same meta as outlined in the template. The resulting file will automatically check if the plugin library exists, and alert the user if it does not giving them a link to download it.
 
-#### ~~Using Remote Library~~ THIS IS DEPRECATED AND WILL CEASE TO WORK SOON DUE TO BBD UPDATE
+#### ~~Using Remote Library~~ THIS IS DEPRECATED
 
 To build all plugins in `plugins` folder, run `npm run build_plugin_remote`. To build a single plugin run `npm run build_plugin_remote PluginName`. This will yield `PluginName.plugin.js` in the `releases` folder with the same meta as outlined in the template. The resulting file will automatically load the library from a remote source (on this repo) if it is not found.
 

@@ -204,8 +204,8 @@ export default Utilities.memoizeObject({
     get Titles() {return WebpackModules.getByProps("Tags", "default");},
 
     /* Settings */
-    get SettingsWrapper() {return WebpackModules.getModule(m => m.prototype && m.prototype.render && m.prototype.render.toString().includes("required:"));},
-    get SettingsNote() {return WebpackModules.getModule(m => m.Types && m.defaultProps);},
+    get SettingsWrapper() {return WebpackModules.getByDisplayName("FormItem");},
+    get SettingsNote() {return WebpackModules.getByDisplayName("FormText");},
     get SettingsDivider() {return WebpackModules.getModule(m => !m.defaultProps && m.prototype && m.prototype.render && m.prototype.render.toString().includes("default.divider"));},
 
     get ColorPicker() {return WebpackModules.getByPrototypes("renderCustomColorPopout");},

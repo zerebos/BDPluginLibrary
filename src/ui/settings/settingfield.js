@@ -65,15 +65,19 @@ class ReactSetting extends DiscordModules.React.Component {
         return DiscordModules.React.createElement(DiscordModules.SettingsNote, {children: this.props.note, type: "description", className: className.toString()});
     }
 
-    get dividerElement() { return DiscordModules.React.createElement(DiscordModules.SettingsDivider, {className: DiscordClasses.Dividers.dividerDefault.toString()}); }
+    get dividerElement() { return DiscordModules.React.createElement("div", {className: DiscordClasses.Dividers.divider.add(DiscordClasses.Dividers.dividerDefault).toString()}); }
 
     render() {
         const SettingElement = DiscordModules.React.createElement(this.props.type, this.props);
-        return DiscordModules.React.createElement(DiscordModules.SettingsWrapper, {className: DiscordClasses.Margins.marginBottom20.toString(), title: this.props.title, children: [
-            this.props.noteOnTop ? this.noteElement : SettingElement,
-            this.props.noteOnTop ? SettingElement : this.noteElement,
-            this.dividerElement
-        ]});
+        return DiscordModules.React.createElement(DiscordModules.SettingsWrapper, {
+			className: DiscordClasses.Margins.marginBottom20.toString(),
+			title: this.props.title,
+			children: [
+				this.props.noteOnTop ? this.noteElement : SettingElement,
+				this.props.noteOnTop ? SettingElement : this.noteElement,
+				this.dividerElement
+			]
+		});
     }
 }
 
