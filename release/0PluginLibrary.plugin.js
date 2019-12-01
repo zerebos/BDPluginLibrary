@@ -119,7 +119,7 @@ var ZeresPluginLibrary =
 /*! exports provided: info, changelog, main, default */
 /***/ (function(module) {
 
-module.exports = {"info":{"name":"ZeresPluginLibrary","authors":[{"name":"Zerebos","discord_id":"249746236008169473","github_username":"rauenzi","twitter_username":"ZackRauen"}],"version":"1.2.7","description":"Gives other plugins utility functions and the ability to emulate v2.","github":"https://github.com/rauenzi/BDPluginLibrary","github_raw":"https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"},"changelog":[{"title":"Bugs Squashed","type":"fixed","items":["Toasts toast once more.","Channel list classes grabbed from new internals.","Updated classes for dividers and account details.","Settings don't break everything now."]}],"main":"plugin.js"};
+module.exports = {"info":{"name":"ZeresPluginLibrary","authors":[{"name":"Zerebos","discord_id":"249746236008169473","github_username":"rauenzi","twitter_username":"ZackRauen"}],"version":"1.2.8","description":"Gives other plugins utility functions and the ability to emulate v2.","github":"https://github.com/rauenzi/BDPluginLibrary","github_raw":"https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"},"changelog":[{"title":"Bugs Squashed","type":"fixed","items":["Tooltips are no longer positioned incorrectly"]}],"main":"plugin.js"};
 
 /***/ }),
 
@@ -480,6 +480,7 @@ __webpack_require__.r(__webpack_exports__);
  * @version 0.0.2
  */
 /* harmony default export */ __webpack_exports__["default"] = (_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].memoizeObject({
+	get AppMount() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("appMount");},
 	get ContextMenu() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("itemToggle");},
 	get Scrollers() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("scrollerWrap", "scrollerThemed", "scrollerTrack");},
 	get AccountDetails() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("container", "avatar", "hasBuildOverride");},
@@ -941,9 +942,9 @@ class DOMTools {
      * @returns {Element} - `element` to allow for chaining
      */
     static addClass(element, ...classes) {
-        classes = classes.flat().filter(c => c);
+        classes = classes.flat(10).filter(c => c);
         for (let c = 0; c < classes.length; c++) classes[c] = classes[c].toString().split(" ");
-        classes = classes.flat().filter(c => c);
+        classes = classes.flat(10).filter(c => c);
         element.classList.add(...classes);
         return element;
     }
@@ -956,7 +957,7 @@ class DOMTools {
      */
     static removeClass(element, ...classes) {
         for (let c = 0; c < classes.length; c++) classes[c] = classes[c].toString().split(" ");
-        classes = classes.flat().filter(c => c);
+        classes = classes.flat(10).filter(c => c);
         element.classList.remove(...classes);
         return element;
     }
@@ -6563,7 +6564,7 @@ class Menu {
 		this.scroll = scroll;
 		if (!scroll) return;
 		this.scroller = _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].Scrollers.scroller} ${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.scroller}"></div>`);
-		this.scrollerWrap = _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].Scrollers.scrollerWrap} ${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].Scrollers.scrollerThemed} ${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].Scrollers.themeGhostHairline}"></div>`);
+		this.scrollerWrap = _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].Scrollers.scrollerWrap} ${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].Scrollers.scrollerThemed} ${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].Scrollers.scrollerthemeghosthairline}"></div>`);
 		this.scrollerWrap.append(this.scroller);
 		this.element.append(this.scrollerWrap);
 	}
@@ -6926,7 +6927,7 @@ class EmulatedTooltip {
     }
     
     /** Container where the tooltip will be appended. */
-    get container() { return document.querySelector(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordSelectors"].TooltipLayers.layerContainer); }
+    get container() { return document.querySelector(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordSelectors"].AppMount.appMount + " > * > " + modules__WEBPACK_IMPORTED_MODULE_0__["DiscordSelectors"].TooltipLayers.layerContainer); }
     /** Boolean representing if the tooltip will fit on screen above the element */
     get canShowAbove() { return this.node.offset().top - this.element.outerHeight() >= 0; }
     /** Boolean representing if the tooltip will fit on screen below the element */
