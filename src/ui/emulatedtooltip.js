@@ -1,11 +1,11 @@
-/** 
+/**
  * Tooltip that automatically show and hide themselves on mouseenter and mouseleave events.
  * Will also remove themselves if the node to watch is removed from DOM through
  * a MutationObserver.
- * 
- * Note this is not using Discord's internals but normal DOM manipulation and emulates 
+ *
+ * Note this is not using Discord's internals but normal DOM manipulation and emulates
  * Discord's own tooltips as closely as possible.
- * 
+ *
  * @module EmulatedTooltip
  * @version 0.0.1
  */
@@ -37,7 +37,7 @@ const toPx = function(value) {
 
 export default class EmulatedTooltip {
 	/**
-	 * 
+	 *
 	 * @constructor
 	 * @param {(HTMLElement|jQuery)} node - DOM node to monitor and show the tooltip on
 	 * @param {string} tip - string to show in the tooltip
@@ -63,12 +63,12 @@ export default class EmulatedTooltip {
         this.tooltipElement = DOMTools.createElement(`<div class="${DiscordClasses.Tooltips.tooltip} ${getClass(this.style)}"><div class="${DiscordClasses.Tooltips.tooltipPointer}"></div>${this.label}</div>`);
         this.labelElement = this.tooltipElement.childNodes[1];
         this.element.append(this.tooltipElement);
-        
+
 
 		this.node.addEventListener("mouseenter", () => {
             if (this.disabled) return;
             this.show();
-			
+
 			const observer = new MutationObserver((mutations) => {
 				mutations.forEach((mutation) => {
 					const nodes = Array.from(mutation.removedNodes);
@@ -88,9 +88,9 @@ export default class EmulatedTooltip {
 			this.hide();
 		});
     }
-    
+
     /** Container where the tooltip will be appended. */
-    get container() { return document.querySelector(DiscordSelectors.TooltipLayers.layerContainer); }
+    get container() { return document.querySelector(DiscordSelectors.Popouts.popouts.sibling(DiscordSelectors.TooltipLayers.layerContainer)); }
     /** Boolean representing if the tooltip will fit on screen above the element */
     get canShowAbove() { return this.node.offset().top - this.element.outerHeight() >= 0; }
     /** Boolean representing if the tooltip will fit on screen below the element */

@@ -24,11 +24,12 @@ export function updateDiscordMenu(menu) {
 /** Main menu class for creating custom context menus. */
 export class Menu {
     /**
-     * 
+     *
      * @param {boolean} [scroll=false] - should this menu be a scrolling menu (usually only used for submenus)
      */
-	constructor(scroll = false) {
+	constructor(submenu = false, scroll = false) {
 		this.theme = DiscordModules.UserSettingsStore.theme == "dark" ? "theme-dark" : "theme-light";
+		this.isSubmenu = submenu;
 		this.element = DOMTools.createElement(`<div class="${DiscordClasses.ContextMenu.contextMenu} plugin-context-menu ${this.theme}"></div>`);
 		this.scroll = scroll;
 		if (!scroll) return;
@@ -37,7 +38,7 @@ export class Menu {
 		this.scrollerWrap.append(this.scroller);
 		this.element.append(this.scrollerWrap);
 	}
-    
+
     /**
      * Adds an item group to the menu. The group should already be populated.
      * @param {module:ContextMenu.ItemGroup} contextGroup - group to add to the menu
@@ -48,9 +49,9 @@ export class Menu {
 		else this.element.append(contextGroup.getElement());
 		return this;
 	}
-    
+
     /**
-     * Adds items to the context menu directly. It is recommended to add to a group and use 
+     * Adds items to the context menu directly. It is recommended to add to a group and use
      * {@link module:ContextMenu.Menu.addGroup} instead to behave as natively as possible.
      * @param {module:ContextMenu.MenuItem} contextItems - list of items to add to the context menu
      * @returns {module:ContextMenu.Menu} returns self for chaining
@@ -62,7 +63,7 @@ export class Menu {
 		}
 		return this;
 	}
-    
+
     /**
      * Shows the menu at a specific x and y position. This generally comes from the
      * pointer position on a right click event.
@@ -72,20 +73,30 @@ export class Menu {
 	show(x, y) {
 		const mouseX = x;
 		const mouseY = y;
-		
+
 		const parents = this.element.parents(this.parentSelector);
 		const depth = parents.length;
-		if (depth == 0) this.element.appendTo("#app-mount");
+		// if (depth == 0) {
+			const layer = DOMTools.createElement(`<div class="${DiscordClasses.TooltipLayers.layer}"></div>`);
+			let elementToAdd = this.element;
+			if (this.isSubmenu) {
+				const submenu = DOMTools.createElement(`<div class="${DiscordClasses.ContextMenu.subMenuContext}"></div>`);
+				submenu.append(this.element);
+				elementToAdd = submenu;
+			}
+			layer.append(elementToAdd);
+			layer.appendTo(DiscordSelectors.Popouts.popouts.sibling(DiscordSelectors.TooltipLayers.layerContainer).toString());
+		// }
 		this.element.css("top", mouseY + "px").css("left", mouseX + "px");
-		
-		if (depth > 0) {
-			const top = parents[parents.length - 1];
-			const closest = parents[0];
-			const negate = closest.hasClass(DiscordClasses.ContextMenu.invertChildX) ? -1 : 1;
-			const value = negate * closest.find(DiscordSelectors.ContextMenu.item).outerWidth() + closest.offset().left - top.offset().left;
-			this.element.css("margin-left", `${value}px`);
-		}
-		
+
+		// if (depth > 0) {
+		// 	const top = parents[parents.length - 1];
+		// 	const closest = parents[0];
+		// 	const negate = closest.hasClass(DiscordClasses.ContextMenu.invertChildX) ? -1 : 1;
+		// 	const value = negate * closest.find(DiscordSelectors.ContextMenu.item).outerWidth() + closest.offset().left - top.offset().left;
+		// 	this.element.css("margin-left", `${value}px`);
+		// }
+
 		if (mouseY + this.element.outerHeight() >= Screen.height) {
 			this.element.addClass("invertY").addClass(DiscordClasses.ContextMenu.invertY);
 			this.element.css("top", `${mouseY - this.element.outerHeight()}px`);
@@ -104,15 +115,15 @@ export class Menu {
 		DOMTools.on(document, "click.zctx", (e) => { if (this.element.contains(e.target)) this.removeMenu(); });
 		DOMTools.on(document, "keyup.zctx", (e) => { if (e.keyCode === 27) this.removeMenu(); });
 	}
-    
+
     /** Allows you to remove the menu. */
 	removeMenu() {
-		this.element.remove();
+		this.element.parents(DiscordSelectors.TooltipLayers.layer.toString())[0].remove();
 		const childs = this.element.findAll(this.parentSelector);
 		if (childs) childs.forEach(c => c.remove());
 		DOMTools.off(document, ".zctx");
 	}
-    
+
     /**
      * Used to attach a menu to a menu item. This is how to create a submenu.
      * If using {@link module:ContextMenu.SubMenuItem} then you do not need
@@ -124,11 +135,12 @@ export class Menu {
 	attachTo(menuItem) {
 		this.menuItem = $(menuItem);
 		menuItem.on("mouseenter", () => {
-			this.element.appendTo(menuItem);
-			const left = this.element.parents(this.parentSelector)[0].css("left");
-			this.show(parseInt(left.replace("px", "")), menuItem.offset().top);
+			// this.element.appendTo(DiscordSelectors.Popouts.popouts.sibling(DiscordSelectors.TooltipLayers.layerContainer).toString());
+			// const left = this.element.parents(this.parentSelector)[0].css("left");
+			console.log(parseInt(menuItem.offset().left), parseInt(menuItem.offset().top));
+			this.show(parseInt(menuItem.offset().right), parseInt(menuItem.offset().top));
 		});
-		menuItem.on("mouseleave", () => { this.element.remove(); });
+		menuItem.on("mouseleave", () => { this.element.parents(DiscordSelectors.TooltipLayers.layer.toString())[0].remove(); });
 	}
 
 	get parentSelector() {return this.element.parents(".plugin-context-menu").length > this.element.parents(DiscordSelectors.ContextMenu.contextMenu).length ? ".plugin-context-menu" : DiscordSelectors.ContextMenu.contextMenu;}
@@ -140,7 +152,7 @@ export class ItemGroup {
 	constructor() {
 		this.element = DOMTools.createElement(`<div class="${DiscordClasses.ContextMenu.itemGroup}"></div>`);
 	}
-    
+
     /**
      * This is the method of adding menu items to a menu group.
      * @param {module:ContextMenu.MenuItem} contextItems - list of context menu items to add to this group
@@ -152,7 +164,7 @@ export class ItemGroup {
 		}
 		return this;
 	}
-    
+
     /** @returns {HTMLElement} returns the DOM node for the group */
 	getElement() { return this.element; }
 }
@@ -191,7 +203,7 @@ export class MenuItem {
 	getElement() { return this.element;}
 }
 
-/** 
+/**
  * Creates a text menu item that can have a hint.
  * @extends module:ContextMenu.MenuItem
  */
@@ -211,7 +223,7 @@ export class TextItem extends MenuItem {
 	}
 }
 
-/** 
+/**
  * Creates an image menu item that can have an image.
  * @extends module:ContextMenu.MenuItem
  */
@@ -232,7 +244,7 @@ export class ImageItem extends MenuItem {
 	}
 }
 
-/** 
+/**
  * Creates a menu item with an attached submenu.
  * @extends module:ContextMenu.MenuItem
  */
@@ -248,13 +260,15 @@ export class SubMenuItem extends MenuItem {
 	constructor(label, subMenu, options = {}) {
 		// if (!(subMenu instanceof ContextSubMenu)) throw "subMenu must be of ContextSubMenu type.";
 		super(label, options);
-		this.element.addClass(DiscordClasses.ContextMenu.itemSubMenu).text(label);
+		this.element.addClass(DiscordClasses.ContextMenu.itemSubMenu);
+		this.element.append(DOMTools.createElement(`<div class="${DiscordClasses.ContextMenu.label}">${label}</div>`));
+		this.element.append(DOMTools.createElement(`<svg class="caret-UIZBlm da-caret" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M16.59 8.59004L12 13.17L7.41 8.59004L6 10L12 16L18 10L16.59 8.59004Z"></path></svg>`));
 		this.subMenu = subMenu;
 		this.subMenu.attachTo(this.getElement());
 	}
 }
 
-/** 
+/**
  * Creates a menu item with a checkbox.
  * @extends module:ContextMenu.MenuItem
  */

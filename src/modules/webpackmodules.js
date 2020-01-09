@@ -131,6 +131,29 @@ export default class WebpackModules {
     }
 
     /**
+     * Finds a module using a filter function.
+     * @param {Function} filter A function to use to filter modules
+     * @param {Boolean} first Whether to return only the first matching module
+     * @return {Any}
+     */
+    static getIndex(filter) {
+        const modules = this.getAllModules();
+        for (const index in modules) {
+            if (!modules.hasOwnProperty(index)) continue;
+            const module = modules[index];
+            const {exports} = module;
+            let foundModule = null;
+
+            if (!exports) continue;
+            if (exports.__esModule && exports.default && filter(exports.default)) foundModule = exports.default;
+            if (filter(exports)) foundModule = exports;
+            if (!foundModule) continue;
+            return index;
+        }
+        return null;
+    }
+
+    /**
      * Finds all modules matching a filter function.
      * @param {Function} filter A function to use to filter modules
      */
