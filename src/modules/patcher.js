@@ -1,9 +1,9 @@
-/** 
+/**
  * Patcher that can patch other functions allowing you to run code before, after or
  * instead of the original function. Can also alter arguments and return values.
- * 
+ *
  * This is a modified version of what we have been working on in BDv2. {@link https://github.com/JsSucks/BetterDiscordApp/blob/master/client/src/modules/patcher.js}
- * 
+ *
  * @module Patcher
  * @version 0.0.2
  */
@@ -11,7 +11,7 @@
 import Logger from "./logger";
 import DiscordModules from "./discordmodules";
 import WebpackModules from "./webpackmodules";
- 
+
 export default class Patcher {
 
     static get patches() { return this._patches || (this._patches = []); }
@@ -44,7 +44,7 @@ export default class Patcher {
 			patch.unpatch();
         }
 	}
-	
+
 	static resolveModule(module) {
         if (module instanceof Function || (module instanceof Object && !(module instanceof Array))) return module;
         if (typeof module === "string") return DiscordModules[module];
@@ -112,6 +112,9 @@ export default class Patcher {
             children: []
         };
         patch.proxyFunction = module[functionName] = this.makeOverride(patch);
+        Object.assign(module[functionName], patch.originalFunction);
+        module[functionName].__originalFunction = patch.originalFunction;
+        module[functionName].toString = () => patch.originalFunction.toString();
         return this.patches.push(patch), patch;
     }
 
@@ -122,9 +125,9 @@ export default class Patcher {
 
     /**
      * A callback that modifies method logic. This callback is called on each call of the original method and is provided all data about original call. Any of the data can be modified if necessary, but do so wisely.
-     * 
+     *
      * The third argument for the callback will be `undefined` for `before` patches. `originalFunction` for `instead` patches and `returnValue` for `after` patches.
-     * 
+     *
      * @callback module:Patcher~patchCallback
      * @param {object} thisObject - `this` in the context of the original function.
      * @param {arguments} arguments - The original arguments of the original function.
@@ -135,7 +138,7 @@ export default class Patcher {
     /**
      * This method patches onto another function, allowing your code to run beforehand.
      * Using this, you are also able to modify the incoming arguments before the original method is run.
-     * 
+     *
      * @param {string} caller - Name of the caller of the patch function. Using this you can undo all patches with the same name using {@link module:Patcher.unpatchAll}. Use `""` if you don't care.
      * @param {object} moduleToPatch - Object with the function to be patched. Can also patch an object's prototype.
      * @param {string} functionName - Name of the method to be patched
@@ -146,11 +149,11 @@ export default class Patcher {
      * @return {module:Patcher~unpatch} Function with no arguments and no return value that should be called to cancel (unpatch) this patch. You should save and run it when your plugin is stopped.
      */
     static before(caller, moduleToPatch, functionName, callback, options = {}) { return this.pushChildPatch(caller, moduleToPatch, functionName, callback, Object.assign(options, {type: "before"})); }
-    
+
     /**
      * This method patches onto another function, allowing your code to run after.
      * Using this, you are also able to modify the return value, using the return of your code instead.
-     * 
+     *
      * @param {string} caller - Name of the caller of the patch function. Using this you can undo all patches with the same name using {@link module:Patcher.unpatchAll}. Use `""` if you don't care.
      * @param {object} moduleToPatch - Object with the function to be patched. Can also patch an object's prototype.
      * @param {string} functionName - Name of the method to be patched
@@ -161,11 +164,11 @@ export default class Patcher {
      * @return {module:Patcher~unpatch} Function with no arguments and no return value that should be called to cancel (unpatch) this patch. You should save and run it when your plugin is stopped.
      */
     static after(caller, moduleToPatch, functionName, callback, options = {}) { return this.pushChildPatch(caller, moduleToPatch, functionName, callback, Object.assign(options, {type: "after"})); }
-    
+
     /**
      * This method patches onto another function, allowing your code to run instead.
      * Using this, you are also able to modify the return value, using the return of your code instead.
-     * 
+     *
      * @param {string} caller - Name of the caller of the patch function. Using this you can undo all patches with the same name using {@link module:Patcher.unpatchAll}. Use `""` if you don't care.
      * @param {object} moduleToPatch - Object with the function to be patched. Can also patch an object's prototype.
      * @param {string} functionName - Name of the method to be patched
@@ -181,7 +184,7 @@ export default class Patcher {
      * This method patches onto another function, allowing your code to run before, instead or after the original function.
      * Using this you are able to modify the incoming arguments before the original function is run as well as the return
      * value before the original function actually returns.
-     * 
+     *
      * @param {string} caller - Name of the caller of the patch function. Using this you can undo all patches with the same name using {@link module:Patcher.unpatchAll}. Use `""` if you don't care.
      * @param {object} moduleToPatch - Object with the function to be patched. Can also patch an object's prototype.
      * @param {string} functionName - Name of the method to be patched
@@ -198,7 +201,7 @@ export default class Patcher {
 		if (!module) return null;
 		if (!module[functionName] && forcePatch) module[functionName] = function() {};
 		if (!(module[functionName] instanceof Function)) return null;
-		
+
 		if (typeof moduleToPatch === "string") options.displayName = moduleToPatch;
         const displayName = options.displayName || module.displayName || module.name || module.constructor.displayName || module.constructor.name;
 
@@ -213,7 +216,7 @@ export default class Patcher {
             unpatch: () => {
                 patch.children.splice(patch.children.findIndex(cpatch => cpatch.id === child.id && cpatch.type === type), 1);
                 if (patch.children.length <= 0) {
-					let patchNum = this.patches.findIndex(p => p.module == module && p.functionName == functionName);
+					const patchNum = this.patches.findIndex(p => p.module == module && p.functionName == functionName);
 					this.patches[patchNum].revert();
 					this.patches.splice(patchNum, 1);
 				}

@@ -131,10 +131,22 @@ export default class WebpackModules {
     }
 
     /**
-     * Finds a module using a filter function.
-     * @param {Function} filter A function to use to filter modules
-     * @param {Boolean} first Whether to return only the first matching module
+     * Gets a specific module by index of the webpack require cache.
+     * Best used in combination with getIndex in order to patch a
+     * specific function.
+     *
+     * Note: this gives the **raw** module, meaning the actual module
+     * is in returnValue.exports. This is done in order to be able
+     * to patch modules which export a single function directly.
+     * @param {Number} index Index into the webpack require cache
      * @return {Any}
+     */
+
+    /**
+     * Gets the index in the webpack require cache of a specific
+     * module using a filter.
+     * @param {Function} filter A function to use to filter modules
+     * @return {Number|null}
      */
     static getIndex(filter) {
         const modules = this.getAllModules();
@@ -151,6 +163,16 @@ export default class WebpackModules {
             return index;
         }
         return null;
+    }
+
+    /**
+     * Gets the index in the webpack require cache of a specific
+     * module that was already found.
+     * @param {Any} module An already acquired module
+     * @return {Number|null}
+     */
+    static getIndexByModule(module) {
+        return this.getIndex(m => m == module);
     }
 
     /**
@@ -243,6 +265,17 @@ export default class WebpackModules {
      */
     static getAllByString(...strings) {
         return this.getModule(Filters.byString(...strings), false);
+    }
+
+    /**
+     * Gets a specific module by index of the webpack require cache.
+     * Best used in combination with getIndex in order to patch a
+     * specific function.
+     * @param {Number} index Index into the webpack require cache
+     * @return {Any}
+     */
+    static getByIndex(index) {
+        return WebpackModules.require.c[index].exports;
     }
 
     /**
