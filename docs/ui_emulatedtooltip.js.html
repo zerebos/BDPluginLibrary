@@ -1,9 +1,10 @@
+<!-- start:source.tmpl.hbs -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-		<title>ContextMenu.ImageItem</title>
+		<title>ui/emulatedtooltip.js</title>
 		<!--[if lt IE 9]>
 		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
@@ -13,7 +14,7 @@
 		<link type="text/css" rel="stylesheet" href="css/template.min.css">
 		<script type="text/javascript">
 			window.TEMPLATE_OPTIONS = {"includeDate":true,"dateFormat":"MMMM Do YYYY, h:mm:ss a","systemName":"Zere's Plugin Library","systemSummary":"A set of helpful utilities and tools for BD plugins.","systemLogo":"","systemColor":"","navMembers":[{"kind":"class","title":"Classes","summary":"All documented classes."},{"kind":"external","title":"Externals","summary":"All documented external members."},{"kind":"global","title":"Globals","summary":"All documented globals."},{"kind":"mixin","title":"Mixins","summary":"All documented mixins."},{"kind":"interface","title":"Interfaces","summary":"All documented interfaces."},{"kind":"module","title":"Modules","summary":"All documented modules."},{"kind":"namespace","title":"Namespaces","summary":"All documented namespaces."},{"kind":"tutorial","title":"Tutorials","summary":"All available tutorials."}],"footer":"","copyright":"Copyright © 2018 Zack Rauen","linenums":true,"collapseSymbols":true,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":false,"showTableOfContents":true,"showAccessFilter":true,"analytics":null,"methodHeadingReturns":true,"sort":"linenum, longname, version, since","search":true,"favicon":null,"stylesheets":[],"scripts":[],"monospaceLinks":false,"cleverLinks":false,"default":{"outputSourceFiles":true},"path":"ink-docstrap","theme":"cerulean","navType":"vertical"};
-			window.DOCLET_TOC_ENABLED = true;
+			window.DOCLET_TOC_ENABLED = false;
 			window.DOCLET_AFILTER_ENABLED = false;
 		</script>
 </head>
@@ -125,146 +126,190 @@
 	</header>
 	<!-- end:navbar.hbs -->		<div class="page-header">
 			<div class="container">
-				<span class="kind">class</span>
-				<h1><span class="ancestors"><a href="module-ContextMenu.html">ContextMenu</a>.</span><span class="name">ImageItem</span></h1>
+				<span class="kind">source</span>
+				<h1><span class="name">ui/emulatedtooltip.js</span></h1>
 			</div>
 		</div>
 	<div class="container content">
 		<div class="row">
-			<div class="col-md-9 main-content">
-						<ol class="breadcrumb">
-							<li><a href="index.html">Home</a></li>
-							<li><a href="list_class.html">Classes</a></li>
-							<li class="active"><a href="module-ContextMenu.html">ContextMenu</a>.ImageItem</li>
-						</ol>
-					<section>
-							<dl class="symbol primary">
-								<dt class="symbol-title class collapsible-symbol expanded">
-			<h2 class="class"><span class="signature-new">new&nbsp;</span><span class="name">ImageItem</span><span class="signature-params">( <span class="signature-param">label</span>, <span class="signature-param">imageSrc</span>, <span class="signature-param">options</span>&nbsp;)</span><span class="signature-type"></span></h2>
-</dt>
-<dd class="symbol-details class  collapsible-symbol expanded" style="max-height: 9999px;">
-	<div class="symbol-details-inner">
-			<div class="callout callout-primary"><h5>Description</h5>		<div class="description classdesc"><p>Creates an image menu item that can have an image.</p></div>
-			</div>			<div class="callout callout-info">
-				<h5>Parameters</h5>
-				<table class="params table table-striped">
-					<thead>
-					<tr>
-							<th>Name</th>
-						<th>Type</th>
-						<th class="last">Description</th>
-					</tr>
-					</thead>
-					<tbody>
-						<tr>
-								<td><code>label</code></td>
-							<td><span class="param-type">string</span></td>
-							<td class="last">
-									<p>label to show on the menu item</p>
-							</td>
-						</tr>
-						<tr>
-								<td><code>imageSrc</code></td>
-							<td><span class="param-type">string</span></td>
-							<td class="last">
-									<p>link to the image to embed</p>
-							</td>
-						</tr>
-						<tr>
-								<td><code>options</code></td>
-							<td><span class="param-type">object</span></td>
-							<td class="last">
-									<p>additional options for the item</p>
-										<table class="params table table-striped">
-											<thead>
-											<tr>
-													<th>Name</th>
-												<th>Type</th>
-													<th>Attributes</th>
-													<th>Default</th>
-												<th class="last">Description</th>
-											</tr>
-											</thead>
-											<tbody>
-												<tr>
-														<td><code>hint</code></td>
-													<td><span class="param-type">string</span></td>
-														<td class="attributes">&lt;optional&gt;<br/></td>
-														<td>&quot;&quot;</td>
-													<td class="last">
-															<p>hint to show on the item (usually used for key combos)</p>
-													</td>
-												</tr>
-												<tr>
-														<td><code>danger</code></td>
-													<td><span class="param-type">boolean</span></td>
-														<td class="attributes">&lt;optional&gt;<br/></td>
-														<td>false</td>
-													<td class="last">
-															<p>should the item show as danger</p>
-													</td>
-												</tr>
-												<tr>
-														<td><code>callback</code></td>
-													<td><span class="param-type"><a href="module-ContextMenu.html#~clickEvent">module:ContextMenu~clickEvent</a></span></td>
-														<td class="attributes">&lt;optional&gt;<br/></td>
-														<td></td>
-													<td class="last">
-															<p>callback for when it is clicked</p>
-													</td>
-												</tr>
-											</tbody>
-										</table>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+			<div class="col-md-12 main-content">
+		<section class="source-section">
+			<article></article>
+			<pre class="prettyprint source language-javascript line-numbers"><code class="language-javascript">/**
+ * Tooltip that automatically show and hide themselves on mouseenter and mouseleave events.
+ * Will also remove themselves if the node to watch is removed from DOM through
+ * a MutationObserver.
+ *
+ * Note this is not using Discord's internals but normal DOM manipulation and emulates
+ * Discord's own tooltips as closely as possible.
+ *
+ * @module EmulatedTooltip
+ * @version 0.0.1
+ */
+
+import {DOMTools, DiscordClasses, DiscordSelectors, Logger} from "modules";
+import Screen from "../structs/screen";
+
+const getClass = function(sideOrColor) {
+    const upperCase = sideOrColor[0].toUpperCase() + sideOrColor.slice(1);
+    const tooltipClass = DiscordClasses.Tooltips[`tooltip${upperCase}`];
+    if (tooltipClass) return tooltipClass;
+    return null;
+};
+
+const classExists = function(sideOrColor) {
+    return getClass(sideOrColor) ? true : false;
+};
+
+const toPx = function(value) {
+    return `${value}px`;
+};
+
+/* &lt;div class="layer-v9HyYc da-layer" style="left: 234.5px; bottom: 51px;">
+    &lt;div class="tooltip-2QfLtc da-tooltip tooltipTop-XDDSxx tooltipBlack-PPG47z">
+        &lt;div class="tooltipPointer-3ZfirK da-tooltipPointer">&lt;/div>
+        User Settings
+    &lt;/div>
+&lt;/div> */
+
+export default class EmulatedTooltip {
+	/**
+	 *
+	 * @constructor
+	 * @param {(HTMLElement|jQuery)} node - DOM node to monitor and show the tooltip on
+	 * @param {string} tip - string to show in the tooltip
+	 * @param {object} options - additional options for the tooltip
+	 * @param {string} [options.style=black] - correlates to the discord styling/colors (black, brand, green, grey, red, yellow)
+	 * @param {string} [options.side=top] - can be any of top, right, bottom, left
+	 * @param {boolean} [options.preventFlip=false] - prevents moving the tooltip to the opposite side if it is too big or goes offscreen
+     * @param {boolean} [options.disabled=false] - whether the tooltip should be disabled from showing on hover
+	 */
+	constructor(node, text, options = {}) {
+		const {style = "black", side = "top", preventFlip = false, disabled = false} = options;
+		this.node = node instanceof jQuery ? node[0] : node;
+        this.label = text;
+        this.style = style.toLowerCase();
+		this.side = side.toLowerCase();
+        this.preventFlip = preventFlip;
+        this.disabled = disabled;
+
+        if (!classExists(this.side)) return Logger.err("EmulatedTooltip", `Side ${this.side} does not exist.`);
+        if (!classExists(this.style)) return Logger.err("EmulatedTooltip", `Style ${this.style} does not exist.`);
+
+        this.element = DOMTools.createElement(`&lt;div class="${DiscordClasses.TooltipLayers.layer}">`);
+        this.tooltipElement = DOMTools.createElement(`&lt;div class="${DiscordClasses.Tooltips.tooltip} ${getClass(this.style)}">&lt;div class="${DiscordClasses.Tooltips.tooltipPointer}">&lt;/div>${this.label}&lt;/div>`);
+        this.labelElement = this.tooltipElement.childNodes[1];
+        this.element.append(this.tooltipElement);
+
+
+		this.node.addEventListener("mouseenter", () => {
+            if (this.disabled) return;
+            this.show();
+
+			const observer = new MutationObserver((mutations) => {
+				mutations.forEach((mutation) => {
+					const nodes = Array.from(mutation.removedNodes);
+					const directMatch = nodes.indexOf(this.node) > -1;
+					const parentMatch = nodes.some(parent => parent.contains(this.node));
+					if (directMatch || parentMatch) {
+						this.hide();
+						observer.disconnect();
+					}
+				});
+			});
+
+			observer.observe(document.body, {subtree: true, childList: true});
+		});
+
+		this.node.addEventListener("mouseleave", () => {
+			this.hide();
+		});
+    }
+
+    /** Container where the tooltip will be appended. */
+    get container() { return document.querySelector(DiscordSelectors.Popouts.popouts.sibling(DiscordSelectors.TooltipLayers.layerContainer)); }
+    /** Boolean representing if the tooltip will fit on screen above the element */
+    get canShowAbove() { return this.node.offset().top - this.element.outerHeight() >= 0; }
+    /** Boolean representing if the tooltip will fit on screen below the element */
+    get canShowBelow() { return this.node.offset().top + this.node.outerHeight() + this.element.outerHeight() &lt;= Screen.height; }
+    /** Boolean representing if the tooltip will fit on screen to the left of the element */
+    get canShowLeft() { return this.node.offset().left - this.element.outerWidth() >= 0; }
+    /** Boolean representing if the tooltip will fit on screen to the right of the element */
+	get canShowRight() { return this.node.offset().left + this.node.outerWidth() + this.element.outerWidth() &lt;= Screen.width; }
+
+    /** Hides the tooltip. Automatically called on mouseleave. */
+	hide() {
+        this.element.remove();
+        this.tooltipElement.className = this._className;
+	}
+
+    /** Shows the tooltip. Automatically called on mouseenter. Will attempt to flip if position was wrong. */
+	show() {
+        this.tooltipElement.className = `${DiscordClasses.Tooltips.tooltip} ${getClass(this.style)}`;
+        this.labelElement.textContent = this.label;
+		this.element.appendTo(this.container);
+
+		if (this.side == "top") {
+			if (this.canShowAbove || (!this.canShowAbove &amp;&amp; this.preventFlip)) this.showAbove();
+			else this.showBelow();
+		}
+
+		if (this.side == "bottom") {
+			if (this.canShowBelow || (!this.canShowBelow &amp;&amp; this.preventFlip)) this.showBelow();
+			else this.showAbove();
+		}
+
+		if (this.side == "left") {
+			if (this.canShowLeft || (!this.canShowLeft &amp;&amp; this.preventFlip)) this.showLeft();
+			else this.showRight();
+		}
+
+		if (this.side == "right") {
+			if (this.canShowRight || (!this.canShowRight &amp;&amp; this.preventFlip)) this.showRight();
+			else this.showLeft();
+		}
+	}
+
+    /** Force showing the tooltip above the node. */
+	showAbove() {
+		this.tooltipElement.addClass(getClass("top"));
+		this.element.css("top", toPx(this.node.offset().top - this.element.outerHeight() - 10));
+		this.centerHorizontally();
+	}
+
+    /** Force showing the tooltip below the node. */
+	showBelow() {
+		this.tooltipElement.addClass(getClass("bottom"));
+		this.element.css("top", toPx(this.node.offset().top + this.node.outerHeight() + 10));
+		this.centerHorizontally();
+	}
+
+    /** Force showing the tooltip to the left of the node. */
+	showLeft() {
+		this.tooltipElement.addClass(getClass("left"));
+		this.element.css("left", toPx(this.node.offset().left - this.element.outerWidth() - 10));
+		this.centerVertically();
+	}
+
+    /** Force showing the tooltip to the right of the node. */
+	showRight() {
+		this.tooltipElement.addClass(getClass("right"));
+		this.element.css("left", toPx(this.node.offset().left + this.node.outerWidth() + 10));
+		this.centerVertically();
+	}
+
+	centerHorizontally() {
+		const nodecenter = this.node.offset().left + (this.node.outerWidth() / 2);
+		this.element.css("left", toPx(nodecenter - (this.element.outerWidth() / 2)));
+	}
+
+	centerVertically() {
+		const nodecenter = this.node.offset().top + (this.node.outerHeight() / 2);
+		this.element.css("top", toPx(nodecenter - (this.element.outerHeight() / 2)));
+	}
+}</code></pre>
+		</section>
 			</div>
-			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
-			
-			
-			
-							<!-- augments -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Augments</label>
-								<div class="col-sm-9">
-										<p class="form-control-static"><a href="module-ContextMenu.MenuItem.html">ContextMenu.MenuItem</a></p>
-								</div>
-							</div>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-							<!-- source -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Source</label>
-								<div class="col-sm-9">
-									<p class="form-control-static"><a href="ui_contextmenu.js.html">ui/contextmenu.js</a>, <a href="ui_contextmenu.js.html#line-239">line 239</a></p>
-								</div>
-							</div>
-			
-			
-			
-			
-					</form>
-			</div>	</div>
-</dd>
-							</dl>
-							<article class="secondary">
-							</article>
-					</section>
-			</div>
-				<div class="col-md-3 side-content">
-					<nav class="toc hidden-print hidden-sm hidden-xs"></nav>
-				</div>
 		</div>
 	</div>
 	<footer>
@@ -296,3 +341,4 @@
 	
 </body>
 </html>
+<!-- end:source.tmpl.hbs -->

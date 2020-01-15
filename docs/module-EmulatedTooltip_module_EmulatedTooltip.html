@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-		<title>Settings~FilePicker</title>
+		<title>EmulatedTooltip(require(&amp;quot;EmulatedTooltip&amp;quot;))</title>
 		<!--[if lt IE 9]>
 		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
@@ -14,7 +14,7 @@
 		<script type="text/javascript">
 			window.TEMPLATE_OPTIONS = {"includeDate":true,"dateFormat":"MMMM Do YYYY, h:mm:ss a","systemName":"Zere's Plugin Library","systemSummary":"A set of helpful utilities and tools for BD plugins.","systemLogo":"","systemColor":"","navMembers":[{"kind":"class","title":"Classes","summary":"All documented classes."},{"kind":"external","title":"Externals","summary":"All documented external members."},{"kind":"global","title":"Globals","summary":"All documented globals."},{"kind":"mixin","title":"Mixins","summary":"All documented mixins."},{"kind":"interface","title":"Interfaces","summary":"All documented interfaces."},{"kind":"module","title":"Modules","summary":"All documented modules."},{"kind":"namespace","title":"Namespaces","summary":"All documented namespaces."},{"kind":"tutorial","title":"Tutorials","summary":"All available tutorials."}],"footer":"","copyright":"Copyright © 2018 Zack Rauen","linenums":true,"collapseSymbols":true,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":false,"showTableOfContents":true,"showAccessFilter":true,"analytics":null,"methodHeadingReturns":true,"sort":"linenum, longname, version, since","search":true,"favicon":null,"stylesheets":[],"scripts":[],"monospaceLinks":false,"cleverLinks":false,"default":{"outputSourceFiles":true},"path":"ink-docstrap","theme":"cerulean","navType":"vertical"};
 			window.DOCLET_TOC_ENABLED = true;
-			window.DOCLET_AFILTER_ENABLED = true;
+			window.DOCLET_AFILTER_ENABLED = false;
 		</script>
 </head>
 <body>
@@ -126,7 +126,7 @@
 	<!-- end:navbar.hbs -->		<div class="page-header">
 			<div class="container">
 				<span class="kind">class</span>
-				<h1><span class="ancestors"><a href="module-Settings.html">Settings</a>~</span><span class="name">FilePicker</span></h1>
+				<h1><span class="ancestors"><a href="module-EmulatedTooltip.html">EmulatedTooltip</a></span><span class="name"><span class="name-signature">(<span class="name-require">require</span>(<span class="name-string">"EmulatedTooltip"</span>))</span></span></h1>
 			</div>
 		</div>
 	<div class="container content">
@@ -135,27 +135,16 @@
 						<ol class="breadcrumb">
 							<li><a href="index.html">Home</a></li>
 							<li><a href="list_class.html">Classes</a></li>
-							<li class="active"><a href="module-Settings.html">Settings</a>~FilePicker</li>
+							<li class="active"><a href="module-EmulatedTooltip.html">EmulatedTooltip</a>module:EmulatedTooltip</li>
 						</ol>
-						<div class="access-filter">
-								<label class="checkbox-inline">
-									<input class="toggle-inherited" type="checkbox" value="" checked>
-									Inherited
-								</label>
-								<label class="checkbox-inline">
-									<input class="toggle-public" type="checkbox" value="" checked>
-									Public
-								</label>
-						</div>
 					<section>
 							<dl class="symbol primary">
 								<dt class="symbol-title class collapsible-symbol expanded">
-			<h2 class="class"><span class="signature-new">new&nbsp;</span><span class="name">FilePicker</span><span class="signature-params">( <span class="signature-param">name</span>, <span class="signature-param">note</span>, <span class="signature-param">onChange</span>&nbsp;)</span><span class="signature-type"></span></h2>
+			<h2 class="class"><span class="signature-new">new&nbsp;</span><span class="name">module:EmulatedTooltip</span><span class="signature-params">( <span class="signature-param">node</span>, <span class="signature-param">tip</span>, <span class="signature-param">options</span>&nbsp;)</span><span class="signature-type"></span></h2>
 </dt>
 <dd class="symbol-details class  collapsible-symbol expanded" style="max-height: 9999px;">
 	<div class="symbol-details-inner">
-			<div class="callout callout-primary"><h5>Description</h5>		<div class="description classdesc"><p>Creates a file picker using chromium's default.</p></div>
-			</div>			<div class="callout callout-info">
+			<div class="callout callout-info">
 				<h5>Parameters</h5>
 				<table class="params table table-striped">
 					<thead>
@@ -167,24 +156,73 @@
 					</thead>
 					<tbody>
 						<tr>
-								<td><code>name</code></td>
-							<td><span class="param-type">string</span></td>
+								<td><code>node</code></td>
+							<td><span class="param-type">HTMLElement</span> | <span class="param-type">jQuery</span></td>
 							<td class="last">
-									<p>name label of the setting</p>
+									<p>DOM node to monitor and show the tooltip on</p>
 							</td>
 						</tr>
 						<tr>
-								<td><code>note</code></td>
+								<td><code>tip</code></td>
 							<td><span class="param-type">string</span></td>
 							<td class="last">
-									<p>help/note to show underneath or above the setting</p>
+									<p>string to show in the tooltip</p>
 							</td>
 						</tr>
 						<tr>
-								<td><code>onChange</code></td>
-							<td><span class="param-type">callable</span></td>
+								<td><code>options</code></td>
+							<td><span class="param-type">object</span></td>
 							<td class="last">
-									<p>callback to perform on setting change, callback receives File object</p>
+									<p>additional options for the tooltip</p>
+										<table class="params table table-striped">
+											<thead>
+											<tr>
+													<th>Name</th>
+												<th>Type</th>
+													<th>Attributes</th>
+													<th>Default</th>
+												<th class="last">Description</th>
+											</tr>
+											</thead>
+											<tbody>
+												<tr>
+														<td><code>style</code></td>
+													<td><span class="param-type">string</span></td>
+														<td class="attributes">&lt;optional&gt;<br/></td>
+														<td>black</td>
+													<td class="last">
+															<p>correlates to the discord styling/colors (black, brand, green, grey, red, yellow)</p>
+													</td>
+												</tr>
+												<tr>
+														<td><code>side</code></td>
+													<td><span class="param-type">string</span></td>
+														<td class="attributes">&lt;optional&gt;<br/></td>
+														<td>top</td>
+													<td class="last">
+															<p>can be any of top, right, bottom, left</p>
+													</td>
+												</tr>
+												<tr>
+														<td><code>preventFlip</code></td>
+													<td><span class="param-type">boolean</span></td>
+														<td class="attributes">&lt;optional&gt;<br/></td>
+														<td>false</td>
+													<td class="last">
+															<p>prevents moving the tooltip to the opposite side if it is too big or goes offscreen</p>
+													</td>
+												</tr>
+												<tr>
+														<td><code>disabled</code></td>
+													<td><span class="param-type">boolean</span></td>
+														<td class="attributes">&lt;optional&gt;<br/></td>
+														<td>false</td>
+													<td class="last">
+															<p>whether the tooltip should be disabled from showing on hover</p>
+													</td>
+												</tr>
+											</tbody>
+										</table>
 							</td>
 						</tr>
 					</tbody>
@@ -194,21 +232,7 @@
 			
 			
 			
-							<!-- augments -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Augments</label>
-								<div class="col-sm-9">
-										<p class="form-control-static"><a href="module-Settings.SettingField.html">Settings.SettingField</a></p>
-								</div>
-							</div>
 			
-							<!-- version -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Version</label>
-								<div class="col-sm-9">
-									<p class="form-control-static">0.0.1</p>
-								</div>
-							</div>
 			
 			
 			
@@ -224,7 +248,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="ui_settings_types_file.js.html">ui/settings/types/file.js</a>, <a href="ui_settings_types_file.js.html#line-16">line 16</a></p>
+									<p class="form-control-static"><a href="ui_emulatedtooltip.js.html">ui/emulatedtooltip.js</a>, <a href="ui_emulatedtooltip.js.html#line-50">line 50</a></p>
 								</div>
 							</div>
 			
@@ -236,222 +260,6 @@
 </dd>
 							</dl>
 							<article class="secondary">
-									<h3>Methods</h3>
-									<dl class="symbol">
-											<hr/>
-											<dt class="symbol-title function public inherited collapsible-symbol">
-			<h4 id="getElement" class="function public inherited"><span class="name">getElement</span><span class="signature-params">()</span><span class="signature-type"> &rarr;&nbsp;{HTMLElement}</span></h4>
-		</dt>
-<dd class="symbol-details function public inherited  collapsible-symbol">
-	<div class="symbol-details-inner">
-			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
-							<div class="form-group">
-								<label class="col-sm-3 control-label returns-type"><span class="param-type">HTMLElement</span></label>
-								<div class="col-sm-9">
-									<div class="form-control-static returns-description"><ul>
-			<li>root element for setting</li>
-			</ul></div>
-								</div>
-							</div>
-					</form>
-			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
-			
-			
-			
-			
-			
-			
-							<!-- inherits -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Inherited From</label>
-								<div class="col-sm-9">
-									<p class="form-control-static"><a href="module-Settings.SettingField.html#getElement">module:Settings.SettingField#getElement</a></p>
-								</div>
-							</div>
-			
-							<!-- overrides -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Overrides</label>
-								<div class="col-sm-9">
-									<p class="form-control-static"><a href="module-Settings.SettingField.html#getElement">module:Settings.SettingField#getElement</a></p>
-								</div>
-							</div>
-			
-			
-			
-			
-			
-			
-			
-			
-							<!-- source -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Source</label>
-								<div class="col-sm-9">
-									<p class="form-control-static"><a href="ui_settings_settingfield.js.html">ui/settings/settingfield.js</a>, <a href="ui_settings_settingfield.js.html#line-31">line 31</a></p>
-								</div>
-							</div>
-			
-			
-			
-			
-					</form>
-			</div>	</div>
-</dd>
-											<hr/>
-											<dt class="symbol-title function public inherited collapsible-symbol">
-			<h4 id="onChange" class="function public inherited"><span class="name">onChange</span><span class="signature-params">()</span><span class="signature-type"></span></h4>
-		</dt>
-<dd class="symbol-details function public inherited  collapsible-symbol">
-	<div class="symbol-details-inner">
-			<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>Fires onchange to listeners</p></div>
-			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
-			
-			
-			
-			
-			
-			
-							<!-- inherits -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Inherited From</label>
-								<div class="col-sm-9">
-									<p class="form-control-static"><a href="module-Settings.SettingField.html#onChange">module:Settings.SettingField#onChange</a></p>
-								</div>
-							</div>
-			
-							<!-- overrides -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Overrides</label>
-								<div class="col-sm-9">
-									<p class="form-control-static"><a href="module-Settings.SettingField.html#onChange">module:Settings.SettingField#onChange</a></p>
-								</div>
-							</div>
-			
-			
-			
-			
-			
-			
-			
-			
-							<!-- source -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Source</label>
-								<div class="col-sm-9">
-									<p class="form-control-static"><a href="ui_settings_settingfield.js.html">ui/settings/settingfield.js</a>, <a href="ui_settings_settingfield.js.html#line-34">line 34</a></p>
-								</div>
-							</div>
-			
-			
-			
-			
-					</form>
-			</div>	</div>
-</dd>
-											<hr/>
-											<dt class="symbol-title function public inherited collapsible-symbol">
-			<h4 id="onAdded" class="function public inherited"><span class="name">onAdded</span><span class="signature-params">()</span><span class="signature-type"></span></h4>
-		</dt>
-<dd class="symbol-details function public inherited  collapsible-symbol">
-	<div class="symbol-details-inner">
-			<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>Fired when root node added to DOM</p></div>
-			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
-			
-			
-			
-			
-			
-			
-							<!-- inherits -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Inherited From</label>
-								<div class="col-sm-9">
-									<p class="form-control-static"><a href="module-Settings.SettingField.html#onAdded">module:Settings.SettingField#onAdded</a></p>
-								</div>
-							</div>
-			
-							<!-- overrides -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Overrides</label>
-								<div class="col-sm-9">
-									<p class="form-control-static"><a href="module-Settings.SettingField.html#onAdded">module:Settings.SettingField#onAdded</a></p>
-								</div>
-							</div>
-			
-			
-			
-			
-			
-			
-			
-			
-							<!-- source -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Source</label>
-								<div class="col-sm-9">
-									<p class="form-control-static"><a href="ui_settings_settingfield.js.html">ui/settings/settingfield.js</a>, <a href="ui_settings_settingfield.js.html#line-39">line 39</a></p>
-								</div>
-							</div>
-			
-			
-			
-			
-					</form>
-			</div>	</div>
-</dd>
-											<hr/>
-											<dt class="symbol-title function public inherited collapsible-symbol">
-			<h4 id="onRemoved" class="function public inherited"><span class="name">onRemoved</span><span class="signature-params">()</span><span class="signature-type"></span></h4>
-		</dt>
-<dd class="symbol-details function public inherited  collapsible-symbol">
-	<div class="symbol-details-inner">
-			<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>Fired when root node removed from DOM</p></div>
-			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
-			
-			
-			
-			
-			
-			
-							<!-- inherits -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Inherited From</label>
-								<div class="col-sm-9">
-									<p class="form-control-static"><a href="module-Settings.SettingField.html#onRemoved">module:Settings.SettingField#onRemoved</a></p>
-								</div>
-							</div>
-			
-							<!-- overrides -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Overrides</label>
-								<div class="col-sm-9">
-									<p class="form-control-static"><a href="module-Settings.SettingField.html#onRemoved">module:Settings.SettingField#onRemoved</a></p>
-								</div>
-							</div>
-			
-			
-			
-			
-			
-			
-			
-			
-							<!-- source -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Source</label>
-								<div class="col-sm-9">
-									<p class="form-control-static"><a href="ui_settings_settingfield.js.html">ui/settings/settingfield.js</a>, <a href="ui_settings_settingfield.js.html#line-51">line 51</a></p>
-								</div>
-							</div>
-			
-			
-			
-			
-					</form>
-			</div>	</div>
-</dd>
-									</dl>
 							</article>
 					</section>
 			</div>

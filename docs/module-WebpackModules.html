@@ -55,6 +55,7 @@
 											<li><a href="module-DOMTools.ClassName.html">DOMTools.ClassName</a></li>
 											<li><a href="module-DOMTools.DOMObserver.html">DOMTools.DOMObserver</a></li>
 											<li><a href="module-DOMTools.Selector.html">DOMTools.Selector</a></li>
+											<li><a href="module-EmulatedTooltip_module_EmulatedTooltip.html">EmulatedTooltip>module:EmulatedTooltip</a></li>
 											<li><a href="module-Settings.ColorPicker.html">Settings.ColorPicker</a></li>
 											<li><a href="module-Settings.Dropdown.html">Settings.Dropdown</a></li>
 											<li><a href="module-Settings.FilePicker.html">Settings.FilePicker</a></li>
@@ -91,6 +92,7 @@
 											<li><a href="module-DiscordModules.html">DiscordModules</a></li>
 											<li><a href="module-DiscordSelectors.html">DiscordSelectors</a></li>
 											<li><a href="module-DOMTools.html">DOMTools</a></li>
+											<li><a href="module-EmulatedTooltip.html">EmulatedTooltip</a></li>
 											<li><a href="module-Logger.html">Logger</a></li>
 											<li><a href="module-Modals.html">Modals</a></li>
 											<li><a href="module-Patcher.html">Patcher</a></li>
@@ -220,7 +222,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="modules_webpackmodules.js.html">modules/webpackmodules.js</a>, <a href="modules_webpackmodules.js.html#line-228">line 228</a></p>
+									<p class="form-control-static"><a href="modules_webpackmodules.js.html">modules/webpackmodules.js</a>, <a href="modules_webpackmodules.js.html#line-284">line 284</a></p>
 								</div>
 							</div>
 			
@@ -311,6 +313,140 @@
 </dd>
 											<hr/>
 											<dt class="symbol-title function public collapsible-symbol">
+			<h4 id=".getIndex" class="function public"><span class="signature-attribs">&lt;static> </span><span class="name">getIndex</span><span class="signature-params">( <span class="signature-param">filter</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Number|null}</span></h4>
+		</dt>
+<dd class="symbol-details function public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>Gets the index in the webpack require cache of a specific
+			module using a filter.</p></div>
+			</div>			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>filter</code></td>
+							<td><span class="param-type">function</span></td>
+							<td class="last">
+									<p>A function to use to filter modules</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">Number</span> | <span class="param-type">null</span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description"></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="modules_webpackmodules.js.html">modules/webpackmodules.js</a>, <a href="modules_webpackmodules.js.html#line-151">line 151</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function public collapsible-symbol">
+			<h4 id=".getIndexByModule" class="function public"><span class="signature-attribs">&lt;static> </span><span class="name">getIndexByModule</span><span class="signature-params">( <span class="signature-param">module</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Number|null}</span></h4>
+		</dt>
+<dd class="symbol-details function public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>Gets the index in the webpack require cache of a specific
+			module that was already found.</p></div>
+			</div>			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>module</code></td>
+							<td><span class="param-type">Any</span></td>
+							<td class="last">
+									<p>An already acquired module</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">Number</span> | <span class="param-type">null</span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description"></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="modules_webpackmodules.js.html">modules/webpackmodules.js</a>, <a href="modules_webpackmodules.js.html#line-174">line 174</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function public collapsible-symbol">
 			<h4 id=".getModules" class="function public"><span class="signature-attribs">&lt;static> </span><span class="name">getModules</span><span class="signature-params">( <span class="signature-param">filter</span>&nbsp;)</span><span class="signature-type"></span></h4>
 		</dt>
 <dd class="symbol-details function public  collapsible-symbol">
@@ -357,7 +493,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="modules_webpackmodules.js.html">modules/webpackmodules.js</a>, <a href="modules_webpackmodules.js.html#line-137">line 137</a></p>
+									<p class="form-control-static"><a href="modules_webpackmodules.js.html">modules/webpackmodules.js</a>, <a href="modules_webpackmodules.js.html#line-182">line 182</a></p>
 								</div>
 							</div>
 			
@@ -430,7 +566,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="modules_webpackmodules.js.html">modules/webpackmodules.js</a>, <a href="modules_webpackmodules.js.html#line-145">line 145</a></p>
+									<p class="form-control-static"><a href="modules_webpackmodules.js.html">modules/webpackmodules.js</a>, <a href="modules_webpackmodules.js.html#line-190">line 190</a></p>
 								</div>
 							</div>
 			
@@ -496,7 +632,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="modules_webpackmodules.js.html">modules/webpackmodules.js</a>, <a href="modules_webpackmodules.js.html#line-157">line 157</a></p>
+									<p class="form-control-static"><a href="modules_webpackmodules.js.html">modules/webpackmodules.js</a>, <a href="modules_webpackmodules.js.html#line-202">line 202</a></p>
 								</div>
 							</div>
 			
@@ -572,7 +708,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="modules_webpackmodules.js.html">modules/webpackmodules.js</a>, <a href="modules_webpackmodules.js.html#line-167">line 167</a></p>
+									<p class="form-control-static"><a href="modules_webpackmodules.js.html">modules/webpackmodules.js</a>, <a href="modules_webpackmodules.js.html#line-212">line 212</a></p>
 								</div>
 							</div>
 			
@@ -640,7 +776,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="modules_webpackmodules.js.html">modules/webpackmodules.js</a>, <a href="modules_webpackmodules.js.html#line-176">line 176</a></p>
+									<p class="form-control-static"><a href="modules_webpackmodules.js.html">modules/webpackmodules.js</a>, <a href="modules_webpackmodules.js.html#line-221">line 221</a></p>
 								</div>
 							</div>
 			
@@ -708,7 +844,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="modules_webpackmodules.js.html">modules/webpackmodules.js</a>, <a href="modules_webpackmodules.js.html#line-185">line 185</a></p>
+									<p class="form-control-static"><a href="modules_webpackmodules.js.html">modules/webpackmodules.js</a>, <a href="modules_webpackmodules.js.html#line-230">line 230</a></p>
 								</div>
 							</div>
 			
@@ -776,7 +912,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="modules_webpackmodules.js.html">modules/webpackmodules.js</a>, <a href="modules_webpackmodules.js.html#line-194">line 194</a></p>
+									<p class="form-control-static"><a href="modules_webpackmodules.js.html">modules/webpackmodules.js</a>, <a href="modules_webpackmodules.js.html#line-239">line 239</a></p>
 								</div>
 							</div>
 			
@@ -844,7 +980,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="modules_webpackmodules.js.html">modules/webpackmodules.js</a>, <a href="modules_webpackmodules.js.html#line-203">line 203</a></p>
+									<p class="form-control-static"><a href="modules_webpackmodules.js.html">modules/webpackmodules.js</a>, <a href="modules_webpackmodules.js.html#line-248">line 248</a></p>
 								</div>
 							</div>
 			
@@ -912,7 +1048,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="modules_webpackmodules.js.html">modules/webpackmodules.js</a>, <a href="modules_webpackmodules.js.html#line-212">line 212</a></p>
+									<p class="form-control-static"><a href="modules_webpackmodules.js.html">modules/webpackmodules.js</a>, <a href="modules_webpackmodules.js.html#line-257">line 257</a></p>
 								</div>
 							</div>
 			
@@ -980,7 +1116,75 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="modules_webpackmodules.js.html">modules/webpackmodules.js</a>, <a href="modules_webpackmodules.js.html#line-221">line 221</a></p>
+									<p class="form-control-static"><a href="modules_webpackmodules.js.html">modules/webpackmodules.js</a>, <a href="modules_webpackmodules.js.html#line-266">line 266</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function public collapsible-symbol">
+			<h4 id=".getByIndex" class="function public"><span class="signature-attribs">&lt;static> </span><span class="name">getByIndex</span><span class="signature-params">( <span class="signature-param">index</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Any}</span></h4>
+		</dt>
+<dd class="symbol-details function public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>Gets a specific module by index of the webpack require cache.
+			Best used in combination with getIndex in order to patch a
+			specific function.</p></div>
+			</div>			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>index</code></td>
+							<td><span class="param-type">Number</span></td>
+							<td class="last">
+									<p>Index into the webpack require cache</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">Any</span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description"></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="modules_webpackmodules.js.html">modules/webpackmodules.js</a>, <a href="modules_webpackmodules.js.html#line-277">line 277</a></p>
 								</div>
 							</div>
 			
@@ -1025,7 +1229,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="modules_webpackmodules.js.html">modules/webpackmodules.js</a>, <a href="modules_webpackmodules.js.html#line-245">line 245</a></p>
+									<p class="form-control-static"><a href="modules_webpackmodules.js.html">modules/webpackmodules.js</a>, <a href="modules_webpackmodules.js.html#line-301">line 301</a></p>
 								</div>
 							</div>
 			
@@ -1046,7 +1250,7 @@
 	</div>
 	<footer>
 				<div class="copyright">Copyright © 2018 Zack Rauen</div>
-			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on March 25th 2019, 2:31:22 am using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
+			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on January 15th 2020, 11:40:36 am using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
 	</footer>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>

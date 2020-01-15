@@ -175,7 +175,7 @@ window.lunrData = {
         "module-DiscordAPI.Channel.html": [
           "channel",
           "class",
-          "discordapi.channel",
+          "discordapi~channel",
           "module:discordapi.channel"
         ],
         "module-DiscordAPI.Channel.html#messages": [
@@ -266,7 +266,7 @@ window.lunrData = {
         ],
         "module-DiscordAPI.Guild.html": [
           "class",
-          "discordapi.guild",
+          "discordapi~guild",
           "guild",
           "module:discordapi.guild"
         ],
@@ -649,7 +649,7 @@ window.lunrData = {
         ],
         "module-DiscordAPI.Message.html": [
           "class",
-          "discordapi.messag",
+          "discordapi~messag",
           "messag",
           "module:discordapi.messag"
         ],
@@ -671,7 +671,7 @@ window.lunrData = {
         ],
         "module-DiscordAPI.User.html": [
           "class",
-          "discordapi.us",
+          "discordapi~us",
           "module:discordapi.us",
           "user"
         ],
@@ -1083,7 +1083,7 @@ window.lunrData = {
         "module-DOMTools.ClassName.html": [
           "class",
           "classnam",
-          "domtools.classnam",
+          "domtools~classnam",
           "module:domtools.classnam",
           "name",
           "represent"
@@ -1142,7 +1142,7 @@ window.lunrData = {
         "module-DOMTools.DOMObserver.html": [
           "class",
           "domobserv",
-          "domtools.domobserv",
+          "domtools~domobserv",
           "help",
           "module:domtools.domobserv",
           "mutationobserv",
@@ -1222,7 +1222,7 @@ window.lunrData = {
         ],
         "module-DOMTools.Selector.html": [
           "class",
-          "domtools.selector",
+          "domtools~selector",
           "module:domtools.selector",
           "represent",
           "selector"
@@ -1313,7 +1313,7 @@ window.lunrData = {
         ],
         "module-DiscordAPI.InsufficientPermissions.html": [
           "class",
-          "discordapi.insufficientpermiss",
+          "discordapi~insufficientpermiss",
           "insufficientpermiss",
           "module:discordapi.insufficientpermiss"
         ],
@@ -1571,6 +1571,12 @@ window.lunrData = {
           "module:contextmenu.toggleitem",
           "toggleitem"
         ],
+        "module-EmulatedTooltip_module_EmulatedTooltip.html": [
+          "class",
+          "emulatedtooltip(require(&quot;emulatedtooltip&quot",
+          "module:emulatedtooltip",
+          "module:emulatedtooltip>module:emulatedtooltip"
+        ],
         "module-Settings.SettingField.html": [
           "class",
           "creat",
@@ -1580,7 +1586,7 @@ window.lunrData = {
           "new",
           "set",
           "settingfield",
-          "settings.settingfield"
+          "settings~settingfield"
         ],
         "module-Settings.SettingField.html#getElement": [
           "function",
@@ -1629,7 +1635,7 @@ window.lunrData = {
           "panel",
           "set",
           "settinggroup",
-          "settings.settinggroup"
+          "settings~settinggroup"
         ],
         "module-Settings.SettingGroup.html#getElement": [
           "function",
@@ -1677,7 +1683,7 @@ window.lunrData = {
           "panel",
           "set",
           "settingpanel",
-          "settings.settingpanel"
+          "settings~settingpanel"
         ],
         "module-Settings.SettingPanel.html#.build": [
           "build",
@@ -1732,7 +1738,7 @@ window.lunrData = {
           "module:settings.colorpick",
           "output",
           "picker",
-          "settings.colorpick",
+          "settings~colorpick",
           "string",
           "us"
         ],
@@ -1790,7 +1796,7 @@ window.lunrData = {
           "discord'",
           "dropdown",
           "module:settings.dropdown",
-          "settings.dropdown",
+          "settings~dropdown",
           "us"
         ],
         "module-Settings.Dropdown.html#getElement": [
@@ -1839,7 +1845,7 @@ window.lunrData = {
           "filepick",
           "module:settings.filepick",
           "picker",
-          "settings.filepick",
+          "settings~filepick",
           "us"
         ],
         "module-Settings.FilePicker.html#getElement": [
@@ -1888,7 +1894,7 @@ window.lunrData = {
           "module:settings.keybind",
           "record",
           "set",
-          "settings.keybind",
+          "settings~keybind",
           "us"
         ],
         "module-Settings.Keybind.html#getElement": [
@@ -1937,7 +1943,7 @@ window.lunrData = {
           "module:settings.radiogroup",
           "radio",
           "radiogroup",
-          "settings.radiogroup",
+          "settings~radiogroup",
           "us"
         ],
         "module-Settings.RadioGroup.html#getElement": [
@@ -1983,7 +1989,7 @@ window.lunrData = {
           "creat",
           "discord'",
           "module:settings.slid",
-          "settings.slid",
+          "settings~slid",
           "slider",
           "slider/rang",
           "us"
@@ -2031,7 +2037,7 @@ window.lunrData = {
           "creat",
           "discord'",
           "module:settings.switch",
-          "settings.switch",
+          "settings~switch",
           "switch",
           "us"
         ],
@@ -2078,7 +2084,7 @@ window.lunrData = {
           "creat",
           "discord'",
           "module:settings.textbox",
-          "settings.textbox",
+          "settings~textbox",
           "textbox",
           "us"
         ],
@@ -2396,6 +2402,34 @@ window.lunrData = {
           "module:contextmenu",
           "self"
         ],
+        "module-EmulatedTooltip.html": [
+          "automat",
+          "close",
+          "discord'",
+          "dom",
+          "emul",
+          "emulatedtooltip",
+          "event",
+          "hide",
+          "intern",
+          "manipul",
+          "modul",
+          "module:emulatedtooltip",
+          "mouseent",
+          "mouseleav",
+          "mutationobserv",
+          "node",
+          "normal",
+          "note",
+          "possibl",
+          "remov",
+          "show",
+          "themselv",
+          "through",
+          "tooltip",
+          "us",
+          "watch"
+        ],
         "module-Modals.html": [
           "allow",
           "creat",
@@ -2478,7 +2512,7 @@ window.lunrData = {
           "settings~radioitem"
         ]
       },
-      "length": 209
+      "length": 211
     },
     "tokenStore": {
       "root": {
@@ -3405,6 +3439,10 @@ window.lunrData = {
               "docs": {},
               "e": {
                 "docs": {
+                  "module-EmulatedTooltip.html": {
+                    "ref": "module-EmulatedTooltip.html",
+                    "tf": 1.7857142857142856
+                  },
                   "module-Tooltip.html": {
                     "ref": "module-Tooltip.html",
                     "tf": 3.125
@@ -3489,6 +3527,10 @@ window.lunrData = {
                       "module-DiscordSelectors.html": {
                         "ref": "module-DiscordSelectors.html",
                         "tf": 1.7241379310344827
+                      },
+                      "module-EmulatedTooltip.html": {
+                        "ref": "module-EmulatedTooltip.html",
+                        "tf": 1.7857142857142856
                       }
                     }
                   },
@@ -5663,6 +5705,10 @@ window.lunrData = {
                         "module-ContextMenu.Menu.html#addItems": {
                           "ref": "module-ContextMenu.Menu.html#addItems",
                           "tf": 3.571428571428571
+                        },
+                        "module-EmulatedTooltip.html": {
+                          "ref": "module-EmulatedTooltip.html",
+                          "tf": 1.7857142857142856
                         }
                       }
                     }
@@ -6105,6 +6151,10 @@ window.lunrData = {
                     "module-Settings.Textbox.html#onRemoved": {
                       "ref": "module-Settings.Textbox.html#onRemoved",
                       "tf": 10
+                    },
+                    "module-EmulatedTooltip.html": {
+                      "ref": "module-EmulatedTooltip.html",
+                      "tf": 3.571428571428571
                     },
                     "module-Tooltip.html": {
                       "ref": "module-Tooltip.html",
@@ -6685,7 +6735,7 @@ window.lunrData = {
                       },
                       "s": {
                         "docs": {},
-                        ".": {
+                        "~": {
                           "docs": {},
                           "s": {
                             "docs": {},
@@ -6854,6 +6904,23 @@ window.lunrData = {
                                               "ref": "module-Settings.Dropdown.html",
                                               "tf": 100
                                             }
+                                          },
+                                          "i": {
+                                            "docs": {},
+                                            "t": {
+                                              "docs": {},
+                                              "e": {
+                                                "docs": {},
+                                                "m": {
+                                                  "docs": {
+                                                    "module-Settings-DropdownItem.html": {
+                                                      "ref": "module-Settings-DropdownItem.html",
+                                                      "tf": 100
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
                                           }
                                         }
                                       }
@@ -6947,6 +7014,23 @@ window.lunrData = {
                                           }
                                         }
                                       }
+                                    },
+                                    "i": {
+                                      "docs": {},
+                                      "t": {
+                                        "docs": {},
+                                        "e": {
+                                          "docs": {},
+                                          "m": {
+                                            "docs": {
+                                              "module-Settings-RadioItem.html": {
+                                                "ref": "module-Settings-RadioItem.html",
+                                                "tf": 100
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
                                     }
                                   }
                                 }
@@ -6970,82 +7054,6 @@ window.lunrData = {
                                           "module-Settings.Textbox.html": {
                                             "ref": "module-Settings.Textbox.html",
                                             "tf": 100
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        },
-                        "~": {
-                          "docs": {},
-                          "d": {
-                            "docs": {},
-                            "r": {
-                              "docs": {},
-                              "o": {
-                                "docs": {},
-                                "p": {
-                                  "docs": {},
-                                  "d": {
-                                    "docs": {},
-                                    "o": {
-                                      "docs": {},
-                                      "w": {
-                                        "docs": {},
-                                        "n": {
-                                          "docs": {},
-                                          "i": {
-                                            "docs": {},
-                                            "t": {
-                                              "docs": {},
-                                              "e": {
-                                                "docs": {},
-                                                "m": {
-                                                  "docs": {
-                                                    "module-Settings-DropdownItem.html": {
-                                                      "ref": "module-Settings-DropdownItem.html",
-                                                      "tf": 100
-                                                    }
-                                                  }
-                                                }
-                                              }
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          },
-                          "r": {
-                            "docs": {},
-                            "a": {
-                              "docs": {},
-                              "d": {
-                                "docs": {},
-                                "i": {
-                                  "docs": {},
-                                  "o": {
-                                    "docs": {},
-                                    "i": {
-                                      "docs": {},
-                                      "t": {
-                                        "docs": {},
-                                        "e": {
-                                          "docs": {},
-                                          "m": {
-                                            "docs": {
-                                              "module-Settings-RadioItem.html": {
-                                                "ref": "module-Settings-RadioItem.html",
-                                                "tf": 100
-                                              }
-                                            }
                                           }
                                         }
                                       }
@@ -8056,6 +8064,10 @@ window.lunrData = {
                     "ref": "module-ContextMenu.Menu.html#show",
                     "tf": 637.1794871794872
                   },
+                  "module-EmulatedTooltip.html": {
+                    "ref": "module-EmulatedTooltip.html",
+                    "tf": 1.7857142857142856
+                  },
                   "module-Modals.html": {
                     "ref": "module-Modals.html",
                     "tf": 8.333333333333332
@@ -8664,6 +8676,10 @@ window.lunrData = {
                     "docs": {},
                     "p": {
                       "docs": {
+                        "module-EmulatedTooltip.html": {
+                          "ref": "module-EmulatedTooltip.html",
+                          "tf": 3.571428571428571
+                        },
                         "module-Tooltip.html": {
                           "ref": "module-Tooltip.html",
                           "tf": 603.125
@@ -9165,6 +9181,10 @@ window.lunrData = {
                       "docs": {},
                       "v": {
                         "docs": {
+                          "module-EmulatedTooltip.html": {
+                            "ref": "module-EmulatedTooltip.html",
+                            "tf": 3.571428571428571
+                          },
                           "module-Tooltip.html": {
                             "ref": "module-Tooltip.html",
                             "tf": 6.25
@@ -9200,6 +9220,10 @@ window.lunrData = {
                     "docs": {},
                     "h": {
                       "docs": {
+                        "module-EmulatedTooltip.html": {
+                          "ref": "module-EmulatedTooltip.html",
+                          "tf": 1.7857142857142856
+                        },
                         "module-Tooltip.html": {
                           "ref": "module-Tooltip.html",
                           "tf": 3.125
@@ -9359,6 +9383,10 @@ window.lunrData = {
               "module-PluginUtilities.html": {
                 "ref": "module-PluginUtilities.html",
                 "tf": 10
+              },
+              "module-EmulatedTooltip.html": {
+                "ref": "module-EmulatedTooltip.html",
+                "tf": 1.7857142857142856
               }
             },
             "e": {
@@ -11316,6 +11344,10 @@ window.lunrData = {
                   "ref": "module-ReactTools.html",
                   "tf": 6.25
                 },
+                "module-EmulatedTooltip.html": {
+                  "ref": "module-EmulatedTooltip.html",
+                  "tf": 3.571428571428571
+                },
                 "module-Tooltip.html": {
                   "ref": "module-Tooltip.html",
                   "tf": 3.125
@@ -11336,7 +11368,7 @@ window.lunrData = {
                       },
                       "s": {
                         "docs": {},
-                        ".": {
+                        "~": {
                           "docs": {},
                           "c": {
                             "docs": {},
@@ -11418,7 +11450,58 @@ window.lunrData = {
                                             "module-DOMTools.Selector.html": {
                                               "ref": "module-DOMTools.Selector.html",
                                               "tf": 100
-                                            },
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "o": {
+                            "docs": {},
+                            "f": {
+                              "docs": {},
+                              "f": {
+                                "docs": {},
+                                "s": {
+                                  "docs": {},
+                                  "e": {
+                                    "docs": {},
+                                    "t": {
+                                      "docs": {
+                                        "module-DOMTools-Offset.html": {
+                                          "ref": "module-DOMTools-Offset.html",
+                                          "tf": 100
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        ".": {
+                          "docs": {},
+                          "s": {
+                            "docs": {},
+                            "e": {
+                              "docs": {},
+                              "l": {
+                                "docs": {},
+                                "e": {
+                                  "docs": {},
+                                  "c": {
+                                    "docs": {},
+                                    "t": {
+                                      "docs": {},
+                                      "o": {
+                                        "docs": {},
+                                        "r": {
+                                          "docs": {
                                             "module-DOMTools.Selector.html#child": {
                                               "ref": "module-DOMTools.Selector.html#child",
                                               "tf": 50
@@ -11440,32 +11523,6 @@ window.lunrData = {
                                               "tf": 100
                                             }
                                           }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        },
-                        "~": {
-                          "docs": {},
-                          "o": {
-                            "docs": {},
-                            "f": {
-                              "docs": {},
-                              "f": {
-                                "docs": {},
-                                "s": {
-                                  "docs": {},
-                                  "e": {
-                                    "docs": {},
-                                    "t": {
-                                      "docs": {
-                                        "module-DOMTools-Offset.html": {
-                                          "ref": "module-DOMTools-Offset.html",
-                                          "tf": 100
                                         }
                                       }
                                     }
@@ -11760,7 +11817,7 @@ window.lunrData = {
                                 "tf": 600
                               }
                             },
-                            ".": {
+                            "~": {
                               "docs": {},
                               "c": {
                                 "docs": {},
@@ -11839,26 +11896,6 @@ window.lunrData = {
                                       "ref": "module-DiscordAPI.User.html",
                                       "tf": 100
                                     }
-                                  },
-                                  "e": {
-                                    "docs": {},
-                                    "r": {
-                                      "docs": {},
-                                      "s": {
-                                        "docs": {},
-                                        "e": {
-                                          "docs": {},
-                                          "t": {
-                                            "docs": {
-                                              "module-DiscordAPI.UserSettings.html": {
-                                                "ref": "module-DiscordAPI.UserSettings.html",
-                                                "tf": 100
-                                              }
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
                                   }
                                 }
                               },
@@ -11924,6 +11961,35 @@ window.lunrData = {
                                   }
                                 }
                               }
+                            },
+                            ".": {
+                              "docs": {},
+                              "u": {
+                                "docs": {},
+                                "s": {
+                                  "docs": {},
+                                  "e": {
+                                    "docs": {},
+                                    "r": {
+                                      "docs": {},
+                                      "s": {
+                                        "docs": {},
+                                        "e": {
+                                          "docs": {},
+                                          "t": {
+                                            "docs": {
+                                              "module-DiscordAPI.UserSettings.html": {
+                                                "ref": "module-DiscordAPI.UserSettings.html",
+                                                "tf": 100
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
                             }
                           }
                         }
@@ -11965,6 +12031,10 @@ window.lunrData = {
                           "module-ContextMenu.html": {
                             "ref": "module-ContextMenu.html",
                             "tf": 6.25
+                          },
+                          "module-EmulatedTooltip.html": {
+                            "ref": "module-EmulatedTooltip.html",
+                            "tf": 3.571428571428571
                           }
                         }
                       },
@@ -14280,6 +14350,10 @@ window.lunrData = {
                       "ref": "module-ContextMenu.ToggleItem.html",
                       "tf": 110
                     },
+                    "module-EmulatedTooltip_module_EmulatedTooltip.html": {
+                      "ref": "module-EmulatedTooltip_module_EmulatedTooltip.html",
+                      "tf": 110
+                    },
                     "module-Settings.SettingField.html": {
                       "ref": "module-Settings.SettingField.html",
                       "tf": 110
@@ -14470,6 +14544,17 @@ window.lunrData = {
                     "module-DiscordAPI.Guild.html#openCreateChannelModal": {
                       "ref": "module-DiscordAPI.Guild.html#openCreateChannelModal",
                       "tf": 25
+                    }
+                  }
+                }
+              },
+              "s": {
+                "docs": {},
+                "e": {
+                  "docs": {
+                    "module-EmulatedTooltip.html": {
+                      "ref": "module-EmulatedTooltip.html",
+                      "tf": 1.7857142857142856
                     }
                   }
                 }
@@ -16202,6 +16287,10 @@ window.lunrData = {
                     },
                     "module-ContextMenu.html": {
                       "ref": "module-ContextMenu.html",
+                      "tf": 110
+                    },
+                    "module-EmulatedTooltip.html": {
+                      "ref": "module-EmulatedTooltip.html",
                       "tf": 110
                     },
                     "module-Modals.html": {
@@ -20227,6 +20316,134 @@ window.lunrData = {
                           }
                         }
                       },
+                      "e": {
+                        "docs": {},
+                        "m": {
+                          "docs": {},
+                          "u": {
+                            "docs": {},
+                            "l": {
+                              "docs": {},
+                              "a": {
+                                "docs": {},
+                                "t": {
+                                  "docs": {},
+                                  "e": {
+                                    "docs": {},
+                                    "d": {
+                                      "docs": {},
+                                      "t": {
+                                        "docs": {},
+                                        "o": {
+                                          "docs": {},
+                                          "o": {
+                                            "docs": {},
+                                            "l": {
+                                              "docs": {},
+                                              "t": {
+                                                "docs": {},
+                                                "i": {
+                                                  "docs": {},
+                                                  "p": {
+                                                    "docs": {
+                                                      "module-EmulatedTooltip_module_EmulatedTooltip.html": {
+                                                        "ref": "module-EmulatedTooltip_module_EmulatedTooltip.html",
+                                                        "tf": 500
+                                                      },
+                                                      "module-EmulatedTooltip.html": {
+                                                        "ref": "module-EmulatedTooltip.html",
+                                                        "tf": 1300
+                                                      }
+                                                    },
+                                                    ">": {
+                                                      "docs": {},
+                                                      "m": {
+                                                        "docs": {},
+                                                        "o": {
+                                                          "docs": {},
+                                                          "d": {
+                                                            "docs": {},
+                                                            "u": {
+                                                              "docs": {},
+                                                              "l": {
+                                                                "docs": {},
+                                                                "e": {
+                                                                  "docs": {},
+                                                                  ":": {
+                                                                    "docs": {},
+                                                                    "e": {
+                                                                      "docs": {},
+                                                                      "m": {
+                                                                        "docs": {},
+                                                                        "u": {
+                                                                          "docs": {},
+                                                                          "l": {
+                                                                            "docs": {},
+                                                                            "a": {
+                                                                              "docs": {},
+                                                                              "t": {
+                                                                                "docs": {},
+                                                                                "e": {
+                                                                                  "docs": {},
+                                                                                  "d": {
+                                                                                    "docs": {},
+                                                                                    "t": {
+                                                                                      "docs": {},
+                                                                                      "o": {
+                                                                                        "docs": {},
+                                                                                        "o": {
+                                                                                          "docs": {},
+                                                                                          "l": {
+                                                                                            "docs": {},
+                                                                                            "t": {
+                                                                                              "docs": {},
+                                                                                              "i": {
+                                                                                                "docs": {},
+                                                                                                "p": {
+                                                                                                  "docs": {
+                                                                                                    "module-EmulatedTooltip_module_EmulatedTooltip.html": {
+                                                                                                      "ref": "module-EmulatedTooltip_module_EmulatedTooltip.html",
+                                                                                                      "tf": 1300
+                                                                                                    }
+                                                                                                  }
+                                                                                                }
+                                                                                              }
+                                                                                            }
+                                                                                          }
+                                                                                        }
+                                                                                      }
+                                                                                    }
+                                                                                  }
+                                                                                }
+                                                                              }
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
                       "s": {
                         "docs": {},
                         "e": {
@@ -22045,6 +22262,10 @@ window.lunrData = {
                       "docs": {},
                       "t": {
                         "docs": {
+                          "module-EmulatedTooltip.html": {
+                            "ref": "module-EmulatedTooltip.html",
+                            "tf": 1.7857142857142856
+                          },
                           "module-Tooltip.html": {
                             "ref": "module-Tooltip.html",
                             "tf": 3.125
@@ -22061,6 +22282,10 @@ window.lunrData = {
                         "docs": {},
                         "v": {
                           "docs": {
+                            "module-EmulatedTooltip.html": {
+                              "ref": "module-EmulatedTooltip.html",
+                              "tf": 1.7857142857142856
+                            },
                             "module-Tooltip.html": {
                               "ref": "module-Tooltip.html",
                               "tf": 3.125
@@ -22207,6 +22432,23 @@ window.lunrData = {
                     "module-Settings.SettingPanel.html": {
                       "ref": "module-Settings.SettingPanel.html",
                       "tf": 8.333333333333332
+                    }
+                  }
+                }
+              },
+              "i": {
+                "docs": {},
+                "p": {
+                  "docs": {},
+                  "u": {
+                    "docs": {},
+                    "l": {
+                      "docs": {
+                        "module-EmulatedTooltip.html": {
+                          "ref": "module-EmulatedTooltip.html",
+                          "tf": 1.7857142857142856
+                        }
+                      }
                     }
                   }
                 }
@@ -22858,6 +23100,10 @@ window.lunrData = {
                                         "ref": "module-DOMTools.DOMObserver.html",
                                         "tf": 12.5
                                       },
+                                      "module-EmulatedTooltip.html": {
+                                        "ref": "module-EmulatedTooltip.html",
+                                        "tf": 1.7857142857142856
+                                      },
                                       "module-Tooltip.html": {
                                         "ref": "module-Tooltip.html",
                                         "tf": 3.125
@@ -23028,6 +23274,158 @@ window.lunrData = {
                   "module-ContextMenu.html": {
                     "ref": "module-ContextMenu.html",
                     "tf": 6.25
+                  },
+                  "module-EmulatedTooltip.html": {
+                    "ref": "module-EmulatedTooltip.html",
+                    "tf": 1.7857142857142856
+                  }
+                },
+                "a": {
+                  "docs": {},
+                  "t": {
+                    "docs": {},
+                    "e": {
+                      "docs": {},
+                      "d": {
+                        "docs": {},
+                        "t": {
+                          "docs": {},
+                          "o": {
+                            "docs": {},
+                            "o": {
+                              "docs": {},
+                              "l": {
+                                "docs": {},
+                                "t": {
+                                  "docs": {},
+                                  "i": {
+                                    "docs": {},
+                                    "p": {
+                                      "docs": {
+                                        "module-EmulatedTooltip.html": {
+                                          "ref": "module-EmulatedTooltip.html",
+                                          "tf": 600
+                                        }
+                                      },
+                                      "(": {
+                                        "docs": {},
+                                        "r": {
+                                          "docs": {},
+                                          "e": {
+                                            "docs": {},
+                                            "q": {
+                                              "docs": {},
+                                              "u": {
+                                                "docs": {},
+                                                "i": {
+                                                  "docs": {},
+                                                  "r": {
+                                                    "docs": {},
+                                                    "e": {
+                                                      "docs": {},
+                                                      "(": {
+                                                        "docs": {},
+                                                        "&": {
+                                                          "docs": {},
+                                                          "q": {
+                                                            "docs": {},
+                                                            "u": {
+                                                              "docs": {},
+                                                              "o": {
+                                                                "docs": {},
+                                                                "t": {
+                                                                  "docs": {},
+                                                                  ";": {
+                                                                    "docs": {},
+                                                                    "e": {
+                                                                      "docs": {},
+                                                                      "m": {
+                                                                        "docs": {},
+                                                                        "u": {
+                                                                          "docs": {},
+                                                                          "l": {
+                                                                            "docs": {},
+                                                                            "a": {
+                                                                              "docs": {},
+                                                                              "t": {
+                                                                                "docs": {},
+                                                                                "e": {
+                                                                                  "docs": {},
+                                                                                  "d": {
+                                                                                    "docs": {},
+                                                                                    "t": {
+                                                                                      "docs": {},
+                                                                                      "o": {
+                                                                                        "docs": {},
+                                                                                        "o": {
+                                                                                          "docs": {},
+                                                                                          "l": {
+                                                                                            "docs": {},
+                                                                                            "t": {
+                                                                                              "docs": {},
+                                                                                              "i": {
+                                                                                                "docs": {},
+                                                                                                "p": {
+                                                                                                  "docs": {},
+                                                                                                  "&": {
+                                                                                                    "docs": {},
+                                                                                                    "q": {
+                                                                                                      "docs": {},
+                                                                                                      "u": {
+                                                                                                        "docs": {},
+                                                                                                        "o": {
+                                                                                                          "docs": {},
+                                                                                                          "t": {
+                                                                                                            "docs": {
+                                                                                                              "module-EmulatedTooltip_module_EmulatedTooltip.html": {
+                                                                                                                "ref": "module-EmulatedTooltip_module_EmulatedTooltip.html",
+                                                                                                                "tf": 100
+                                                                                                              }
+                                                                                                            }
+                                                                                                          }
+                                                                                                        }
+                                                                                                      }
+                                                                                                    }
+                                                                                                  }
+                                                                                                }
+                                                                                              }
+                                                                                            }
+                                                                                          }
+                                                                                        }
+                                                                                      }
+                                                                                    }
+                                                                                  }
+                                                                                }
+                                                                              }
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               }
@@ -23205,6 +23603,10 @@ window.lunrData = {
                     "module-ContextMenu.Menu.html#show": {
                       "ref": "module-ContextMenu.Menu.html#show",
                       "tf": 3.8461538461538463
+                    },
+                    "module-EmulatedTooltip.html": {
+                      "ref": "module-EmulatedTooltip.html",
+                      "tf": 1.7857142857142856
                     },
                     "module-Tooltip.html": {
                       "ref": "module-Tooltip.html",
@@ -24744,6 +25146,10 @@ window.lunrData = {
                 "docs": {},
                 "h": {
                   "docs": {
+                    "module-EmulatedTooltip.html": {
+                      "ref": "module-EmulatedTooltip.html",
+                      "tf": 1.7857142857142856
+                    },
                     "module-Tooltip.html": {
                       "ref": "module-Tooltip.html",
                       "tf": 3.125
@@ -25736,6 +26142,10 @@ window.lunrData = {
                   "module-DiscordAPI.User.html#updateNote": {
                     "ref": "module-DiscordAPI.User.html#updateNote",
                     "tf": 49.99999999999999
+                  },
+                  "module-EmulatedTooltip.html": {
+                    "ref": "module-EmulatedTooltip.html",
+                    "tf": 1.7857142857142856
                   }
                 }
               }
@@ -25843,9 +26253,30 @@ window.lunrData = {
                     "ref": "module-Settings.Textbox.html#onRemoved",
                     "tf": 10
                   },
+                  "module-EmulatedTooltip.html": {
+                    "ref": "module-EmulatedTooltip.html",
+                    "tf": 1.7857142857142856
+                  },
                   "module-Tooltip.html": {
                     "ref": "module-Tooltip.html",
                     "tf": 3.125
+                  }
+                }
+              }
+            },
+            "r": {
+              "docs": {},
+              "m": {
+                "docs": {},
+                "a": {
+                  "docs": {},
+                  "l": {
+                    "docs": {
+                      "module-EmulatedTooltip.html": {
+                        "ref": "module-EmulatedTooltip.html",
+                        "tf": 1.7857142857142856
+                      }
+                    }
                   }
                 }
               }
@@ -26738,6 +27169,10 @@ window.lunrData = {
                           "ref": "module-ContextMenu.Menu.html#attachTo",
                           "tf": 2.1739130434782608
                         },
+                        "module-EmulatedTooltip.html": {
+                          "ref": "module-EmulatedTooltip.html",
+                          "tf": 1.7857142857142856
+                        },
                         "module-Tooltip.html": {
                           "ref": "module-Tooltip.html",
                           "tf": 3.125
@@ -27583,7 +28018,7 @@ window.lunrData = {
           }
         }
       },
-      "length": 2020
+      "length": 2050
     },
     "corpusTokens": [
       "0",
@@ -27678,6 +28113,7 @@ window.lunrData = {
       "classname#valueof",
       "click",
       "clone",
+      "close",
       "code",
       "color",
       "colorconvert",
@@ -27738,12 +28174,12 @@ window.lunrData = {
       "discord",
       "discord'",
       "discordapi",
-      "discordapi.channel",
-      "discordapi.guild",
-      "discordapi.insufficientpermiss",
-      "discordapi.messag",
-      "discordapi.us",
       "discordapi.userset",
+      "discordapi~channel",
+      "discordapi~guild",
+      "discordapi~insufficientpermiss",
+      "discordapi~messag",
+      "discordapi~us",
       "discordclass",
       "discordclassmodul",
       "discordmodul",
@@ -27761,10 +28197,11 @@ window.lunrData = {
       "domobserver#subscribetoqueryselector",
       "domobserver#unsubscrib",
       "domtool",
-      "domtools.classnam",
-      "domtools.domobserv",
       "domtools.selector",
+      "domtools~classnam",
+      "domtools~domobserv",
       "domtools~offset",
+      "domtools~selector",
       "don't",
       "done",
       "down",
@@ -27783,6 +28220,8 @@ window.lunrData = {
       "emoji",
       "emoticon",
       "emul",
+      "emulatedtooltip",
+      "emulatedtooltip(require(&quot;emulatedtooltip&quot",
       "enabl",
       "error",
       "event",
@@ -27939,6 +28378,7 @@ window.lunrData = {
       "make",
       "maker",
       "manag",
+      "manipul",
       "manual",
       "mark",
       "markasread",
@@ -28078,6 +28518,8 @@ window.lunrData = {
       "module:domtools.selector#tostr",
       "module:domtools.selector#valueof",
       "module:domtools~offset",
+      "module:emulatedtooltip",
+      "module:emulatedtooltip>module:emulatedtooltip",
       "module:logg",
       "module:mod",
       "module:modals~changelog",
@@ -28175,6 +28617,7 @@ window.lunrData = {
       "new",
       "node",
       "none",
+      "normal",
       "note",
       "notif",
       "number",
@@ -28328,19 +28771,19 @@ window.lunrData = {
       "settingpanel#getel",
       "settingpanel#onchang",
       "settingpanel.build",
-      "settings.colorpick",
-      "settings.dropdown",
-      "settings.filepick",
-      "settings.keybind",
-      "settings.radiogroup",
-      "settings.settingfield",
-      "settings.settinggroup",
-      "settings.settingpanel",
-      "settings.slid",
-      "settings.switch",
-      "settings.textbox",
+      "settings~colorpick",
+      "settings~dropdown",
       "settings~dropdownitem",
+      "settings~filepick",
+      "settings~keybind",
+      "settings~radiogroup",
       "settings~radioitem",
+      "settings~settingfield",
+      "settings~settinggroup",
+      "settings~settingpanel",
+      "settings~slid",
+      "settings~switch",
+      "settings~textbox",
       "show",
       "showcurrentgam",
       "showemb",
@@ -28630,7 +29073,7 @@ window.lunrData = {
     "module-DiscordAPI.Channel.html": {
       "id": "module-DiscordAPI.Channel.html",
       "kind": "class",
-      "title": "DiscordAPI.Channel",
+      "title": "DiscordAPI~Channel",
       "longname": "module:DiscordAPI.Channel",
       "name": "Channel",
       "tags": "module:DiscordAPI.Channel Channel",
@@ -28721,7 +29164,7 @@ window.lunrData = {
     "module-DiscordAPI.Guild.html": {
       "id": "module-DiscordAPI.Guild.html",
       "kind": "class",
-      "title": "DiscordAPI.Guild",
+      "title": "DiscordAPI~Guild",
       "longname": "module:DiscordAPI.Guild",
       "name": "Guild",
       "tags": "module:DiscordAPI.Guild Guild",
@@ -29052,7 +29495,7 @@ window.lunrData = {
     "module-DiscordAPI.Message.html": {
       "id": "module-DiscordAPI.Message.html",
       "kind": "class",
-      "title": "DiscordAPI.Message",
+      "title": "DiscordAPI~Message",
       "longname": "module:DiscordAPI.Message",
       "name": "Message",
       "tags": "module:DiscordAPI.Message Message",
@@ -29083,7 +29526,7 @@ window.lunrData = {
     "module-DiscordAPI.User.html": {
       "id": "module-DiscordAPI.User.html",
       "kind": "class",
-      "title": "DiscordAPI.User",
+      "title": "DiscordAPI~User",
       "longname": "module:DiscordAPI.User",
       "name": "User",
       "tags": "module:DiscordAPI.User User",
@@ -29345,7 +29788,7 @@ window.lunrData = {
     "module-DOMTools.ClassName.html": {
       "id": "module-DOMTools.ClassName.html",
       "kind": "class",
-      "title": "DOMTools.ClassName",
+      "title": "DOMTools~ClassName",
       "longname": "module:DOMTools.ClassName",
       "name": "ClassName",
       "tags": "module:DOMTools.ClassName ClassName",
@@ -29396,7 +29839,7 @@ window.lunrData = {
     "module-DOMTools.DOMObserver.html": {
       "id": "module-DOMTools.DOMObserver.html",
       "kind": "class",
-      "title": "DOMTools.DOMObserver",
+      "title": "DOMTools~DOMObserver",
       "longname": "module:DOMTools.DOMObserver",
       "name": "DOMObserver",
       "tags": "module:DOMTools.DOMObserver DOMObserver",
@@ -29457,7 +29900,7 @@ window.lunrData = {
     "module-DOMTools.Selector.html": {
       "id": "module-DOMTools.Selector.html",
       "kind": "class",
-      "title": "DOMTools.Selector",
+      "title": "DOMTools~Selector",
       "longname": "module:DOMTools.Selector",
       "name": "Selector",
       "tags": "module:DOMTools.Selector Selector",
@@ -29538,7 +29981,7 @@ window.lunrData = {
     "module-DiscordAPI.InsufficientPermissions.html": {
       "id": "module-DiscordAPI.InsufficientPermissions.html",
       "kind": "class",
-      "title": "DiscordAPI.InsufficientPermissions",
+      "title": "DiscordAPI~InsufficientPermissions",
       "longname": "module:DiscordAPI.InsufficientPermissions",
       "name": "InsufficientPermissions",
       "tags": "module:DiscordAPI.InsufficientPermissions InsufficientPermissions",
@@ -29786,10 +30229,21 @@ window.lunrData = {
       "description": "Creates a menu item with a checkbox.",
       "body": ""
     },
+    "module-EmulatedTooltip_module_EmulatedTooltip.html": {
+      "id": "module-EmulatedTooltip_module_EmulatedTooltip.html",
+      "kind": "class",
+      "title": "EmulatedTooltip(require(&quot;EmulatedTooltip&quot;))",
+      "longname": "module:EmulatedTooltip>module:EmulatedTooltip",
+      "name": "module:EmulatedTooltip",
+      "tags": "module:EmulatedTooltip>module:EmulatedTooltip",
+      "summary": "",
+      "description": "",
+      "body": ""
+    },
     "module-Settings.SettingField.html": {
       "id": "module-Settings.SettingField.html",
       "kind": "class",
-      "title": "Settings.SettingField",
+      "title": "Settings~SettingField",
       "longname": "module:Settings.SettingField",
       "name": "SettingField",
       "tags": "module:Settings.SettingField SettingField",
@@ -29840,7 +30294,7 @@ window.lunrData = {
     "module-Settings.SettingGroup.html": {
       "id": "module-Settings.SettingGroup.html",
       "kind": "class",
-      "title": "Settings.SettingGroup",
+      "title": "Settings~SettingGroup",
       "longname": "module:Settings.SettingGroup",
       "name": "SettingGroup",
       "tags": "module:Settings.SettingGroup SettingGroup",
@@ -29891,7 +30345,7 @@ window.lunrData = {
     "module-Settings.SettingPanel.html": {
       "id": "module-Settings.SettingPanel.html",
       "kind": "class",
-      "title": "Settings.SettingPanel",
+      "title": "Settings~SettingPanel",
       "longname": "module:Settings.SettingPanel",
       "name": "SettingPanel",
       "tags": "module:Settings.SettingPanel SettingPanel",
@@ -29942,7 +30396,7 @@ window.lunrData = {
     "module-Settings.ColorPicker.html": {
       "id": "module-Settings.ColorPicker.html",
       "kind": "class",
-      "title": "Settings.ColorPicker",
+      "title": "Settings~ColorPicker",
       "longname": "module:Settings.ColorPicker",
       "name": "ColorPicker",
       "tags": "module:Settings.ColorPicker ColorPicker",
@@ -30003,7 +30457,7 @@ window.lunrData = {
     "module-Settings.Dropdown.html": {
       "id": "module-Settings.Dropdown.html",
       "kind": "class",
-      "title": "Settings.Dropdown",
+      "title": "Settings~Dropdown",
       "longname": "module:Settings.Dropdown",
       "name": "Dropdown",
       "tags": "module:Settings.Dropdown Dropdown",
@@ -30054,7 +30508,7 @@ window.lunrData = {
     "module-Settings.FilePicker.html": {
       "id": "module-Settings.FilePicker.html",
       "kind": "class",
-      "title": "Settings.FilePicker",
+      "title": "Settings~FilePicker",
       "longname": "module:Settings.FilePicker",
       "name": "FilePicker",
       "tags": "module:Settings.FilePicker FilePicker",
@@ -30105,7 +30559,7 @@ window.lunrData = {
     "module-Settings.Keybind.html": {
       "id": "module-Settings.Keybind.html",
       "kind": "class",
-      "title": "Settings.Keybind",
+      "title": "Settings~Keybind",
       "longname": "module:Settings.Keybind",
       "name": "Keybind",
       "tags": "module:Settings.Keybind Keybind",
@@ -30156,7 +30610,7 @@ window.lunrData = {
     "module-Settings.RadioGroup.html": {
       "id": "module-Settings.RadioGroup.html",
       "kind": "class",
-      "title": "Settings.RadioGroup",
+      "title": "Settings~RadioGroup",
       "longname": "module:Settings.RadioGroup",
       "name": "RadioGroup",
       "tags": "module:Settings.RadioGroup RadioGroup",
@@ -30207,7 +30661,7 @@ window.lunrData = {
     "module-Settings.Slider.html": {
       "id": "module-Settings.Slider.html",
       "kind": "class",
-      "title": "Settings.Slider",
+      "title": "Settings~Slider",
       "longname": "module:Settings.Slider",
       "name": "Slider",
       "tags": "module:Settings.Slider Slider",
@@ -30258,7 +30712,7 @@ window.lunrData = {
     "module-Settings.Switch.html": {
       "id": "module-Settings.Switch.html",
       "kind": "class",
-      "title": "Settings.Switch",
+      "title": "Settings~Switch",
       "longname": "module:Settings.Switch",
       "name": "Switch",
       "tags": "module:Settings.Switch Switch",
@@ -30309,7 +30763,7 @@ window.lunrData = {
     "module-Settings.Textbox.html": {
       "id": "module-Settings.Textbox.html",
       "kind": "class",
-      "title": "Settings.Textbox",
+      "title": "Settings~Textbox",
       "longname": "module:Settings.Textbox",
       "name": "Textbox",
       "tags": "module:Settings.Textbox Textbox",
@@ -30542,6 +30996,17 @@ window.lunrData = {
       "tags": "module:ContextMenu",
       "summary": "",
       "description": "Self-made context menus that emulate Discord's own context menus.",
+      "body": ""
+    },
+    "module-EmulatedTooltip.html": {
+      "id": "module-EmulatedTooltip.html",
+      "kind": "module",
+      "title": "EmulatedTooltip",
+      "longname": "module:EmulatedTooltip",
+      "name": "EmulatedTooltip",
+      "tags": "module:EmulatedTooltip",
+      "summary": "",
+      "description": "Tooltip that automatically show and hide themselves on mouseenter and mouseleave events. Will also remove themselves if the node to watch is removed from DOM through a MutationObserver. Note this is not using Discord's internals but normal DOM manipulation and emulates Discord's own tooltips as closely as possible.",
       "body": ""
     },
     "module-Modals.html": {
