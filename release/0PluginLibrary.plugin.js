@@ -119,7 +119,7 @@ var ZeresPluginLibrary =
 /*! exports provided: info, changelog, main, default */
 /***/ (function(module) {
 
-module.exports = {"info":{"name":"ZeresPluginLibrary","authors":[{"name":"Zerebos","discord_id":"249746236008169473","github_username":"rauenzi","twitter_username":"ZackRauen"}],"version":"1.2.8","description":"Gives other plugins utility functions and the ability to emulate v2.","github":"https://github.com/rauenzi/BDPluginLibrary","github_raw":"https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"},"changelog":[{"title":"Bugs Squashed","type":"fixed","items":["Tooltips are no longer positioned incorrectly"]}],"main":"plugin.js"};
+module.exports = {"info":{"name":"ZeresPluginLibrary","authors":[{"name":"Zerebos","discord_id":"249746236008169473","github_username":"rauenzi","twitter_username":"ZackRauen"}],"version":"1.2.9","description":"Gives other plugins utility functions and the ability to emulate v2.","github":"https://github.com/rauenzi/BDPluginLibrary","github_raw":"https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"},"changelog":[{"title":"New Stuff","items":["PluginUtilities for grabbing context menus."]},{"title":"Improvements","type":"improved","items":["WebpackModules improvements for new APIs.","Patcher now adds an __originalFunction member."]},{"title":"Bugs Squashed","type":"fixed","items":["Bugfix for patcher regarding manual unpatching."]}],"main":"plugin.js"};
 
 /***/ }),
 
@@ -480,7 +480,6 @@ __webpack_require__.r(__webpack_exports__);
  * @version 0.0.2
  */
 /* harmony default export */ __webpack_exports__["default"] = (_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].memoizeObject({
-	get AppMount() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("appMount");},
 	get ContextMenu() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("itemToggle");},
 	get Scrollers() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("scrollerWrap", "scrollerThemed", "scrollerTrack");},
 	get AccountDetails() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("container", "avatar", "hasBuildOverride");},
@@ -942,9 +941,9 @@ class DOMTools {
      * @returns {Element} - `element` to allow for chaining
      */
     static addClass(element, ...classes) {
-        classes = classes.flat(10).filter(c => c);
+        classes = classes.flat().filter(c => c);
         for (let c = 0; c < classes.length; c++) classes[c] = classes[c].toString().split(" ");
-        classes = classes.flat(10).filter(c => c);
+        classes = classes.flat().filter(c => c);
         element.classList.add(...classes);
         return element;
     }
@@ -957,7 +956,7 @@ class DOMTools {
      */
     static removeClass(element, ...classes) {
         for (let c = 0; c < classes.length; c++) classes[c] = classes[c].toString().split(" ");
-        classes = classes.flat(10).filter(c => c);
+        classes = classes.flat().filter(c => c);
         element.classList.remove(...classes);
         return element;
     }
@@ -1720,6 +1719,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+// export {default as DiscordComponents} from "./discordcomponents";
 
 
 
@@ -1750,12 +1750,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _logger__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./logger */ "./src/modules/logger.js");
 /* harmony import */ var _discordmodules__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./discordmodules */ "./src/modules/discordmodules.js");
 /* harmony import */ var _webpackmodules__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./webpackmodules */ "./src/modules/webpackmodules.js");
-/** 
+/**
  * Patcher that can patch other functions allowing you to run code before, after or
  * instead of the original function. Can also alter arguments and return values.
- * 
+ *
  * This is a modified version of what we have been working on in BDv2. {@link https://github.com/JsSucks/BetterDiscordApp/blob/master/client/src/modules/patcher.js}
- * 
+ *
  * @module Patcher
  * @version 0.0.2
  */
@@ -1763,7 +1763,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
- 
+
 class Patcher {
 
     static get patches() { return this._patches || (this._patches = []); }
@@ -1796,7 +1796,7 @@ class Patcher {
 			patch.unpatch();
         }
 	}
-	
+
 	static resolveModule(module) {
         if (module instanceof Function || (module instanceof Object && !(module instanceof Array))) return module;
         if (typeof module === "string") return _discordmodules__WEBPACK_IMPORTED_MODULE_1__["default"][module];
@@ -1864,6 +1864,9 @@ class Patcher {
             children: []
         };
         patch.proxyFunction = module[functionName] = this.makeOverride(patch);
+        Object.assign(module[functionName], patch.originalFunction);
+        module[functionName].__originalFunction = patch.originalFunction;
+        module[functionName].toString = () => patch.originalFunction.toString();
         return this.patches.push(patch), patch;
     }
 
@@ -1874,9 +1877,9 @@ class Patcher {
 
     /**
      * A callback that modifies method logic. This callback is called on each call of the original method and is provided all data about original call. Any of the data can be modified if necessary, but do so wisely.
-     * 
+     *
      * The third argument for the callback will be `undefined` for `before` patches. `originalFunction` for `instead` patches and `returnValue` for `after` patches.
-     * 
+     *
      * @callback module:Patcher~patchCallback
      * @param {object} thisObject - `this` in the context of the original function.
      * @param {arguments} arguments - The original arguments of the original function.
@@ -1887,7 +1890,7 @@ class Patcher {
     /**
      * This method patches onto another function, allowing your code to run beforehand.
      * Using this, you are also able to modify the incoming arguments before the original method is run.
-     * 
+     *
      * @param {string} caller - Name of the caller of the patch function. Using this you can undo all patches with the same name using {@link module:Patcher.unpatchAll}. Use `""` if you don't care.
      * @param {object} moduleToPatch - Object with the function to be patched. Can also patch an object's prototype.
      * @param {string} functionName - Name of the method to be patched
@@ -1898,11 +1901,11 @@ class Patcher {
      * @return {module:Patcher~unpatch} Function with no arguments and no return value that should be called to cancel (unpatch) this patch. You should save and run it when your plugin is stopped.
      */
     static before(caller, moduleToPatch, functionName, callback, options = {}) { return this.pushChildPatch(caller, moduleToPatch, functionName, callback, Object.assign(options, {type: "before"})); }
-    
+
     /**
      * This method patches onto another function, allowing your code to run after.
      * Using this, you are also able to modify the return value, using the return of your code instead.
-     * 
+     *
      * @param {string} caller - Name of the caller of the patch function. Using this you can undo all patches with the same name using {@link module:Patcher.unpatchAll}. Use `""` if you don't care.
      * @param {object} moduleToPatch - Object with the function to be patched. Can also patch an object's prototype.
      * @param {string} functionName - Name of the method to be patched
@@ -1913,11 +1916,11 @@ class Patcher {
      * @return {module:Patcher~unpatch} Function with no arguments and no return value that should be called to cancel (unpatch) this patch. You should save and run it when your plugin is stopped.
      */
     static after(caller, moduleToPatch, functionName, callback, options = {}) { return this.pushChildPatch(caller, moduleToPatch, functionName, callback, Object.assign(options, {type: "after"})); }
-    
+
     /**
      * This method patches onto another function, allowing your code to run instead.
      * Using this, you are also able to modify the return value, using the return of your code instead.
-     * 
+     *
      * @param {string} caller - Name of the caller of the patch function. Using this you can undo all patches with the same name using {@link module:Patcher.unpatchAll}. Use `""` if you don't care.
      * @param {object} moduleToPatch - Object with the function to be patched. Can also patch an object's prototype.
      * @param {string} functionName - Name of the method to be patched
@@ -1933,7 +1936,7 @@ class Patcher {
      * This method patches onto another function, allowing your code to run before, instead or after the original function.
      * Using this you are able to modify the incoming arguments before the original function is run as well as the return
      * value before the original function actually returns.
-     * 
+     *
      * @param {string} caller - Name of the caller of the patch function. Using this you can undo all patches with the same name using {@link module:Patcher.unpatchAll}. Use `""` if you don't care.
      * @param {object} moduleToPatch - Object with the function to be patched. Can also patch an object's prototype.
      * @param {string} functionName - Name of the method to be patched
@@ -1950,7 +1953,7 @@ class Patcher {
 		if (!module) return null;
 		if (!module[functionName] && forcePatch) module[functionName] = function() {};
 		if (!(module[functionName] instanceof Function)) return null;
-		
+
 		if (typeof moduleToPatch === "string") options.displayName = moduleToPatch;
         const displayName = options.displayName || module.displayName || module.name || module.constructor.displayName || module.constructor.name;
 
@@ -1965,7 +1968,8 @@ class Patcher {
             unpatch: () => {
                 patch.children.splice(patch.children.findIndex(cpatch => cpatch.id === child.id && cpatch.type === type), 1);
                 if (patch.children.length <= 0) {
-					let patchNum = this.patches.findIndex(p => p.module == module && p.functionName == functionName);
+                    const patchNum = this.patches.findIndex(p => p.module == module && p.functionName == functionName);
+                    if (patchNum < 0) return;
 					this.patches[patchNum].revert();
 					this.patches.splice(patchNum, 1);
 				}
@@ -2267,6 +2271,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _logger__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./logger */ "./src/modules/logger.js");
 /* harmony import */ var _utilities__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utilities */ "./src/modules/utilities.js");
 /* harmony import */ var _domtools__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./domtools */ "./src/modules/domtools.js");
+/* harmony import */ var _patcher__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./patcher */ "./src/modules/patcher.js");
+/* harmony import */ var _discordmodules__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./discordmodules */ "./src/modules/discordmodules.js");
+/* harmony import */ var _discordselectors__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./discordselectors */ "./src/modules/discordselectors.js");
+/* harmony import */ var _webpackmodules__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./webpackmodules */ "./src/modules/webpackmodules.js");
+/* harmony import */ var _reacttools__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./reacttools */ "./src/modules/reacttools.js");
+
+
+
+
+
 
 
 
@@ -2280,7 +2294,7 @@ __webpack_require__.r(__webpack_exports__);
 
  class PluginUtilities {
 
-	/** 
+	/**
 	 * Loads data through BetterDiscord's API.
 	 * @param {string} name - name for the file (usually plugin name)
 	 * @param {string} key - which key the data is saved under
@@ -2292,7 +2306,7 @@ __webpack_require__.r(__webpack_exports__);
 		catch (err) { _logger__WEBPACK_IMPORTED_MODULE_0__["default"].err(name, "Unable to load data: ", err); }
 	}
 
-	/** 
+	/**
 	 * Saves data through BetterDiscord's API.
 	 * @param {string} name - name for the file (usually plugin name)
 	 * @param {string} key - which key the data should be saved under
@@ -2303,7 +2317,7 @@ __webpack_require__.r(__webpack_exports__);
 		catch (err) { _logger__WEBPACK_IMPORTED_MODULE_0__["default"].err(name, "Unable to save data: ", err); }
 	}
 
-	/** 
+	/**
 	 * Loads settings through BetterDiscord's API.
 	 * @param {string} name - name for the file (usually plugin name)
 	 * @param {object} defaultData - default data to populate the object with
@@ -2313,7 +2327,7 @@ __webpack_require__.r(__webpack_exports__);
 		return this.loadData(name, "settings", defaultSettings);
 	}
 
-	/** 
+	/**
 	 * Saves settings through BetterDiscord's API.
 	 * @param {string} name - name for the file (usually plugin name)
 	 * @param {object} data - settings to save
@@ -2414,6 +2428,28 @@ __webpack_require__.r(__webpack_exports__);
 	static removeScript(id) {
 		const element = document.getElementById(id);
 		if (element) element.remove();
+	}
+
+	static async getContextMenu(type) {
+		return new Promise(resolve => {
+			const cancel = _patcher__WEBPACK_IMPORTED_MODULE_3__["default"].after("ZeresLibrary.PluginUtilities", _discordmodules__WEBPACK_IMPORTED_MODULE_4__["default"].ContextMenuActions, "openContextMenu", (_, [, component]) => {
+				const rendered = component();
+				const menuType = rendered.props && rendered.props.type || (rendered.type && rendered.type.displayName);
+				if (!menuType || typeof(menuType) != "string" || !menuType.includes(type)) return;
+				cancel();
+				return resolve(_webpackmodules__WEBPACK_IMPORTED_MODULE_6__["default"].getModule(m => m.default == rendered.type));
+			});
+		});
+	}
+
+	static forceUpdateContextMenus() {
+		const menus = document.querySelectorAll(_discordselectors__WEBPACK_IMPORTED_MODULE_5__["default"].ContextMenu.contextMenu);
+		for (const menu of menus) {
+			const stateNode = _utilities__WEBPACK_IMPORTED_MODULE_1__["default"].findInTree(_reacttools__WEBPACK_IMPORTED_MODULE_7__["default"].getReactInstance(menu), m=>m && m.forceUpdate && m.updatePosition, {walkable: ["return", "stateNode"]});
+			if (!stateNode) continue;
+			stateNode.forceUpdate();
+			stateNode.updatePosition();
+		}
 	}
 }
 
@@ -2690,7 +2726,7 @@ class ReactComponents {
                     component = filter ? reflect.components.find(filter) : reflect.component;
                     if (component) break;
                 }
-                
+
                 if (!component && filter) return;// Logger.log("ReactComponents", ["Found elements matching the query selector but no components passed the filter"]);
 
                 _domtools__WEBPACK_IMPORTED_MODULE_4__["default"].observer.unsubscribe(observerSubscription);
@@ -3684,6 +3720,51 @@ class WebpackModules {
     }
 
     /**
+     * Gets a specific module by index of the webpack require cache.
+     * Best used in combination with getIndex in order to patch a
+     * specific function.
+     *
+     * Note: this gives the **raw** module, meaning the actual module
+     * is in returnValue.exports. This is done in order to be able
+     * to patch modules which export a single function directly.
+     * @param {Number} index Index into the webpack require cache
+     * @return {Any}
+     */
+
+    /**
+     * Gets the index in the webpack require cache of a specific
+     * module using a filter.
+     * @param {Function} filter A function to use to filter modules
+     * @return {Number|null}
+     */
+    static getIndex(filter) {
+        const modules = this.getAllModules();
+        for (const index in modules) {
+            if (!modules.hasOwnProperty(index)) continue;
+            const module = modules[index];
+            const {exports} = module;
+            let foundModule = null;
+
+            if (!exports) continue;
+            if (exports.__esModule && exports.default && filter(exports.default)) foundModule = exports.default;
+            if (filter(exports)) foundModule = exports;
+            if (!foundModule) continue;
+            return index;
+        }
+        return null;
+    }
+
+    /**
+     * Gets the index in the webpack require cache of a specific
+     * module that was already found.
+     * @param {Any} module An already acquired module
+     * @return {Number|null}
+     */
+    static getIndexByModule(module) {
+        return this.getIndex(m => m == module);
+    }
+
+    /**
      * Finds all modules matching a filter function.
      * @param {Function} filter A function to use to filter modules
      */
@@ -3773,6 +3854,17 @@ class WebpackModules {
      */
     static getAllByString(...strings) {
         return this.getModule(Filters.byString(...strings), false);
+    }
+
+    /**
+     * Gets a specific module by index of the webpack require cache.
+     * Best used in combination with getIndex in order to patch a
+     * specific function.
+     * @param {Number} index Index into the webpack require cache
+     * @return {Any}
+     */
+    static getByIndex(index) {
+        return WebpackModules.require.c[index].exports;
     }
 
     /**
@@ -6480,7 +6572,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".plugin-input-group {\r\n    margin-top: 5px;\r\n}\r\n\r\n.plugin-input-group .button-collapse {\r\n    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxOS4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iQ2FscXVlXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSItOTUwIDUzMiAxOCAxOCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAtOTUwIDUzMiAxOCAxODsiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4NCgkuc3Qwe2ZpbGw6bm9uZTt9DQoJLnN0MXtmaWxsOm5vbmU7c3Ryb2tlOiNGRkZGRkY7c3Ryb2tlLXdpZHRoOjEuNTtzdHJva2UtbWl0ZXJsaW1pdDoxMDt9DQo8L3N0eWxlPg0KPHBhdGggY2xhc3M9InN0MCIgZD0iTS05MzIsNTMydjE4aC0xOHYtMThILTkzMnoiLz4NCjxwb2x5bGluZSBjbGFzcz0ic3QxIiBwb2ludHM9Ii05MzYuNiw1MzguOCAtOTQxLDU0My4yIC05NDUuNCw1MzguOCAiLz4NCjwvc3ZnPg0K);\r\n    height: 16px;\r\n    width: 16px;\r\n    display: inline-block;\r\n    vertical-align: bottom;\r\n    transition: transform .3s ease;\r\n    transform: rotate(0);\r\n}\r\n\r\n.plugin-input-group .button-collapse.collapsed {\r\n    transition: transform .3s ease;\r\n    transform: rotate(-90deg);\r\n}\r\n\r\n.plugin-input-group h2 {\r\n    font-size: 14px;\r\n}\r\n\r\n.plugin-input-group .plugin-input-group h2 {\r\n    margin-left: 16px;\r\n}\r\n\r\n.plugin-inputs {\r\n    height: auto;\r\n    overflow: hidden;\r\n    transition: height 300ms cubic-bezier(0.47, 0, 0.745, 0.715);\r\n}\r\n\r\n.plugin-inputs.collapsed {\r\n    height: 0px;\r\n}\r\n\r\n.file-input {\r\n\r\n}\r\n\r\n.file-input::-webkit-file-upload-button {\r\n\tcolor: white;\r\n\tbackground: #7289DA;\r\n\toutline: 0;\r\n\tborder: 0;\r\n\tpadding: 10px;\r\n\tvertical-align: top;\r\n\tmargin-top: -10px;\r\n\tmargin-left: -10px;\r\n\tborder-radius: 3px 0 0 3px;\r\n\tfont-size: 14px;\r\n    font-weight: 500;\r\n\tfont-family: Whitney,Helvetica Neue,Helvetica,Arial,sans-serif;\r\n\tcursor: pointer;\r\n}\r\n"
+module.exports = ".plugin-input-group {\n    margin-top: 5px;\n}\n\n.plugin-input-group .button-collapse {\n    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxOS4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iQ2FscXVlXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSItOTUwIDUzMiAxOCAxOCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAtOTUwIDUzMiAxOCAxODsiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4NCgkuc3Qwe2ZpbGw6bm9uZTt9DQoJLnN0MXtmaWxsOm5vbmU7c3Ryb2tlOiNGRkZGRkY7c3Ryb2tlLXdpZHRoOjEuNTtzdHJva2UtbWl0ZXJsaW1pdDoxMDt9DQo8L3N0eWxlPg0KPHBhdGggY2xhc3M9InN0MCIgZD0iTS05MzIsNTMydjE4aC0xOHYtMThILTkzMnoiLz4NCjxwb2x5bGluZSBjbGFzcz0ic3QxIiBwb2ludHM9Ii05MzYuNiw1MzguOCAtOTQxLDU0My4yIC05NDUuNCw1MzguOCAiLz4NCjwvc3ZnPg0K);\n    height: 16px;\n    width: 16px;\n    display: inline-block;\n    vertical-align: bottom;\n    transition: transform .3s ease;\n    transform: rotate(0);\n}\n\n.plugin-input-group .button-collapse.collapsed {\n    transition: transform .3s ease;\n    transform: rotate(-90deg);\n}\n\n.plugin-input-group h2 {\n    font-size: 14px;\n}\n\n.plugin-input-group .plugin-input-group h2 {\n    margin-left: 16px;\n}\n\n.plugin-inputs {\n    height: auto;\n    overflow: hidden;\n    transition: height 300ms cubic-bezier(0.47, 0, 0.745, 0.715);\n}\n\n.plugin-inputs.collapsed {\n    height: 0px;\n}\n\n.file-input {\n\n}\n\n.file-input::-webkit-file-upload-button {\n\tcolor: white;\n\tbackground: #7289DA;\n\toutline: 0;\n\tborder: 0;\n\tpadding: 10px;\n\tvertical-align: top;\n\tmargin-top: -10px;\n\tmargin-left: -10px;\n\tborder-radius: 3px 0 0 3px;\n\tfont-size: 14px;\n    font-weight: 500;\n\tfont-family: Whitney,Helvetica Neue,Helvetica,Arial,sans-serif;\n\tcursor: pointer;\n}\n"
 
 /***/ }),
 
@@ -6491,7 +6583,7 @@ module.exports = ".plugin-input-group {\r\n    margin-top: 5px;\r\n}\r\n\r\n.plu
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".toasts {\r\n    position: fixed;\r\n    display: flex;\r\n    top: 0;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    justify-content: flex-end;\r\n    pointer-events: none;\r\n    z-index: 4000;\r\n}\r\n\r\n@keyframes toast-up {\r\n    from {\r\n        transform: translateY(0);\r\n        opacity: 0;\r\n    }\r\n}\r\n\r\n.toast {\r\n    animation: toast-up 300ms ease;\r\n    transform: translateY(-10px);\r\n    background: #36393F;\r\n    padding: 10px;\r\n    border-radius: 5px;\r\n    box-shadow: 0 0 0 1px rgba(32,34,37,.6), 0 2px 10px 0 rgba(0,0,0,.2);\r\n    font-weight: 500;\r\n    color: #fff;\r\n    user-select: text;\r\n    font-size: 14px;\r\n    opacity: 1;\r\n    margin-top: 10px;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n}\r\n\r\n@keyframes toast-down {\r\n    to {\r\n        transform: translateY(0px);\r\n        opacity: 0;\r\n    }\r\n}\r\n\r\n.toast.closing {\r\n    animation: toast-down 200ms ease;\r\n    animation-fill-mode: forwards;\r\n    opacity: 1;\r\n    transform: translateY(-10px);\r\n}\r\n\r\n.toast.toast-info {\r\n    background-color: #4a90e2;\r\n}\r\n\r\n.toast.toast-success {\r\n    background-color: #43b581;\r\n}\r\n\r\n.toast.toast-danger,\r\n.toast.toast-error {\r\n    background-color: #f04747;\r\n}\r\n\r\n.toast.toast-warning,\r\n.toast.toast-warn {\r\n    background-color: #FFA600;\r\n}\r\n\r\n.toast-icon {\r\n    margin-right: 5px;\r\n    fill: white;\r\n    border-radius: 50%;\r\n    overflow: hidden;\r\n    height: 20px;\r\n    width: 20px;\r\n}\r\n\r\n.toast-text {\r\n    line-height: 20px;\r\n}"
+module.exports = ".toasts {\n    position: fixed;\n    display: flex;\n    top: 0;\n    flex-direction: column;\n    align-items: center;\n    justify-content: flex-end;\n    pointer-events: none;\n    z-index: 4000;\n}\n\n@keyframes toast-up {\n    from {\n        transform: translateY(0);\n        opacity: 0;\n    }\n}\n\n.toast {\n    animation: toast-up 300ms ease;\n    transform: translateY(-10px);\n    background: #36393F;\n    padding: 10px;\n    border-radius: 5px;\n    box-shadow: 0 0 0 1px rgba(32,34,37,.6), 0 2px 10px 0 rgba(0,0,0,.2);\n    font-weight: 500;\n    color: #fff;\n    user-select: text;\n    font-size: 14px;\n    opacity: 1;\n    margin-top: 10px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n\n@keyframes toast-down {\n    to {\n        transform: translateY(0px);\n        opacity: 0;\n    }\n}\n\n.toast.closing {\n    animation: toast-down 200ms ease;\n    animation-fill-mode: forwards;\n    opacity: 1;\n    transform: translateY(-10px);\n}\n\n.toast.toast-info {\n    background-color: #4a90e2;\n}\n\n.toast.toast-success {\n    background-color: #43b581;\n}\n\n.toast.toast-danger,\n.toast.toast-error {\n    background-color: #f04747;\n}\n\n.toast.toast-warning,\n.toast.toast-warn {\n    background-color: #FFA600;\n}\n\n.toast-icon {\n    margin-right: 5px;\n    fill: white;\n    border-radius: 50%;\n    overflow: hidden;\n    height: 20px;\n    width: 20px;\n}\n\n.toast-text {\n    line-height: 20px;\n}"
 
 /***/ }),
 
@@ -6502,7 +6594,7 @@ module.exports = ".toasts {\r\n    position: fixed;\r\n    display: flex;\r\n   
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#pluginNotice {\r\n    -webkit-app-region: drag;\r\n    border-radius: 0;\r\n    overflow: hidden;\r\n    height: 36px;\r\n    animation: open-updates 400ms ease;\r\n}\r\n\r\n@keyframes open-updates {\r\n    from { height: 0; }\r\n}\r\n\r\n#pluginNotice.closing {\r\n    transition: height 400ms ease;\r\n    height: 0;\r\n}\r\n\r\n#outdatedPlugins {\r\n    font-weight: 700;\r\n}\r\n\r\n#outdatedPlugins>span {\r\n    -webkit-app-region: no-drag;\r\n    color: #fff;\r\n    cursor: pointer;\r\n}\r\n\r\n#outdatedPlugins>span:hover {\r\n    text-decoration: underline;\r\n}"
+module.exports = "#pluginNotice {\n    -webkit-app-region: drag;\n    border-radius: 0;\n    overflow: hidden;\n    height: 36px;\n    animation: open-updates 400ms ease;\n}\n\n@keyframes open-updates {\n    from { height: 0; }\n}\n\n#pluginNotice.closing {\n    transition: height 400ms ease;\n    height: 0;\n}\n\n#outdatedPlugins {\n    font-weight: 700;\n}\n\n#outdatedPlugins>span {\n    -webkit-app-region: no-drag;\n    color: #fff;\n    cursor: pointer;\n}\n\n#outdatedPlugins>span:hover {\n    text-decoration: underline;\n}"
 
 /***/ }),
 
@@ -6548,27 +6640,28 @@ __webpack_require__.r(__webpack_exports__);
  */
 function updateDiscordMenu(menu) {
 	if (!(menu instanceof window.jQuery) && !(menu instanceof Element)) return;
-	const updateHeight = _modules_reacttools__WEBPACK_IMPORTED_MODULE_2__["default"].getReactProperty(menu, "return.stateNode.props.onHeightUpdate");
+	const updateHeight = _modules_reacttools__WEBPACK_IMPORTED_MODULE_2__["default"].getReactProperty(menu, "return.return.return.stateNode.updatePosition");
 	if (updateHeight) updateHeight();
 }
 
 /** Main menu class for creating custom context menus. */
 class Menu {
     /**
-     * 
+     *
      * @param {boolean} [scroll=false] - should this menu be a scrolling menu (usually only used for submenus)
      */
-	constructor(scroll = false) {
+	constructor(submenu = false, scroll = false) {
 		this.theme = _modules_discordmodules__WEBPACK_IMPORTED_MODULE_3__["default"].UserSettingsStore.theme == "dark" ? "theme-dark" : "theme-light";
+		this.isSubmenu = submenu;
 		this.element = _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.contextMenu} plugin-context-menu ${this.theme}"></div>`);
 		this.scroll = scroll;
 		if (!scroll) return;
 		this.scroller = _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].Scrollers.scroller} ${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.scroller}"></div>`);
-		this.scrollerWrap = _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].Scrollers.scrollerWrap} ${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].Scrollers.scrollerThemed} ${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].Scrollers.scrollerthemeghosthairline}"></div>`);
+		this.scrollerWrap = _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].Scrollers.scrollerWrap} ${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].Scrollers.scrollerThemed} ${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].Scrollers.themeGhostHairline}"></div>`);
 		this.scrollerWrap.append(this.scroller);
 		this.element.append(this.scrollerWrap);
 	}
-    
+
     /**
      * Adds an item group to the menu. The group should already be populated.
      * @param {module:ContextMenu.ItemGroup} contextGroup - group to add to the menu
@@ -6579,9 +6672,9 @@ class Menu {
 		else this.element.append(contextGroup.getElement());
 		return this;
 	}
-    
+
     /**
-     * Adds items to the context menu directly. It is recommended to add to a group and use 
+     * Adds items to the context menu directly. It is recommended to add to a group and use
      * {@link module:ContextMenu.Menu.addGroup} instead to behave as natively as possible.
      * @param {module:ContextMenu.MenuItem} contextItems - list of items to add to the context menu
      * @returns {module:ContextMenu.Menu} returns self for chaining
@@ -6593,7 +6686,7 @@ class Menu {
 		}
 		return this;
 	}
-    
+
     /**
      * Shows the menu at a specific x and y position. This generally comes from the
      * pointer position on a right click event.
@@ -6603,20 +6696,30 @@ class Menu {
 	show(x, y) {
 		const mouseX = x;
 		const mouseY = y;
-		
+
 		const parents = this.element.parents(this.parentSelector);
 		const depth = parents.length;
-		if (depth == 0) this.element.appendTo("#app-mount");
+		// if (depth == 0) {
+			const layer = _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].TooltipLayers.layer}"></div>`);
+			let elementToAdd = this.element;
+			if (this.isSubmenu) {
+				const submenu = _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.subMenuContext}"></div>`);
+				submenu.append(this.element);
+				elementToAdd = submenu;
+			}
+			layer.append(elementToAdd);
+			layer.appendTo(_modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].Popouts.popouts.sibling(_modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].TooltipLayers.layerContainer).toString());
+		// }
 		this.element.css("top", mouseY + "px").css("left", mouseX + "px");
-		
-		if (depth > 0) {
-			const top = parents[parents.length - 1];
-			const closest = parents[0];
-			const negate = closest.hasClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.invertChildX) ? -1 : 1;
-			const value = negate * closest.find(_modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].ContextMenu.item).outerWidth() + closest.offset().left - top.offset().left;
-			this.element.css("margin-left", `${value}px`);
-		}
-		
+
+		// if (depth > 0) {
+		// 	const top = parents[parents.length - 1];
+		// 	const closest = parents[0];
+		// 	const negate = closest.hasClass(DiscordClasses.ContextMenu.invertChildX) ? -1 : 1;
+		// 	const value = negate * closest.find(DiscordSelectors.ContextMenu.item).outerWidth() + closest.offset().left - top.offset().left;
+		// 	this.element.css("margin-left", `${value}px`);
+		// }
+
 		if (mouseY + this.element.outerHeight() >= _structs_screen__WEBPACK_IMPORTED_MODULE_5__["default"].height) {
 			this.element.addClass("invertY").addClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.invertY);
 			this.element.css("top", `${mouseY - this.element.outerHeight()}px`);
@@ -6635,15 +6738,15 @@ class Menu {
 		_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].on(document, "click.zctx", (e) => { if (this.element.contains(e.target)) this.removeMenu(); });
 		_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].on(document, "keyup.zctx", (e) => { if (e.keyCode === 27) this.removeMenu(); });
 	}
-    
+
     /** Allows you to remove the menu. */
 	removeMenu() {
-		this.element.remove();
+		this.element.parents(_modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].TooltipLayers.layer.toString())[0].remove();
 		const childs = this.element.findAll(this.parentSelector);
 		if (childs) childs.forEach(c => c.remove());
 		_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].off(document, ".zctx");
 	}
-    
+
     /**
      * Used to attach a menu to a menu item. This is how to create a submenu.
      * If using {@link module:ContextMenu.SubMenuItem} then you do not need
@@ -6655,11 +6758,12 @@ class Menu {
 	attachTo(menuItem) {
 		this.menuItem = $(menuItem);
 		menuItem.on("mouseenter", () => {
-			this.element.appendTo(menuItem);
-			const left = this.element.parents(this.parentSelector)[0].css("left");
-			this.show(parseInt(left.replace("px", "")), menuItem.offset().top);
+			// this.element.appendTo(DiscordSelectors.Popouts.popouts.sibling(DiscordSelectors.TooltipLayers.layerContainer).toString());
+			// const left = this.element.parents(this.parentSelector)[0].css("left");
+			console.log(parseInt(menuItem.offset().left), parseInt(menuItem.offset().top));
+			this.show(parseInt(menuItem.offset().right), parseInt(menuItem.offset().top));
 		});
-		menuItem.on("mouseleave", () => { this.element.remove(); });
+		menuItem.on("mouseleave", () => { this.element.parents(_modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].TooltipLayers.layer.toString())[0].remove(); });
 	}
 
 	get parentSelector() {return this.element.parents(".plugin-context-menu").length > this.element.parents(_modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].ContextMenu.contextMenu).length ? ".plugin-context-menu" : _modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].ContextMenu.contextMenu;}
@@ -6671,7 +6775,7 @@ class ItemGroup {
 	constructor() {
 		this.element = _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.itemGroup}"></div>`);
 	}
-    
+
     /**
      * This is the method of adding menu items to a menu group.
      * @param {module:ContextMenu.MenuItem} contextItems - list of context menu items to add to this group
@@ -6683,7 +6787,7 @@ class ItemGroup {
 		}
 		return this;
 	}
-    
+
     /** @returns {HTMLElement} returns the DOM node for the group */
 	getElement() { return this.element; }
 }
@@ -6722,7 +6826,7 @@ class MenuItem {
 	getElement() { return this.element;}
 }
 
-/** 
+/**
  * Creates a text menu item that can have a hint.
  * @extends module:ContextMenu.MenuItem
  */
@@ -6742,7 +6846,7 @@ class TextItem extends MenuItem {
 	}
 }
 
-/** 
+/**
  * Creates an image menu item that can have an image.
  * @extends module:ContextMenu.MenuItem
  */
@@ -6763,7 +6867,7 @@ class ImageItem extends MenuItem {
 	}
 }
 
-/** 
+/**
  * Creates a menu item with an attached submenu.
  * @extends module:ContextMenu.MenuItem
  */
@@ -6779,13 +6883,15 @@ class SubMenuItem extends MenuItem {
 	constructor(label, subMenu, options = {}) {
 		// if (!(subMenu instanceof ContextSubMenu)) throw "subMenu must be of ContextSubMenu type.";
 		super(label, options);
-		this.element.addClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.itemSubMenu).text(label);
+		this.element.addClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.itemSubMenu);
+		this.element.append(_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.label}">${label}</div>`));
+		this.element.append(_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<svg class="caret-UIZBlm da-caret" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M16.59 8.59004L12 13.17L7.41 8.59004L6 10L12 16L18 10L16.59 8.59004Z"></path></svg>`));
 		this.subMenu = subMenu;
 		this.subMenu.attachTo(this.getElement());
 	}
 }
 
-/** 
+/**
  * Creates a menu item with a checkbox.
  * @extends module:ContextMenu.MenuItem
  */
@@ -6835,14 +6941,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return EmulatedTooltip; });
 /* harmony import */ var modules__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! modules */ "./src/modules/modules.js");
 /* harmony import */ var _structs_screen__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../structs/screen */ "./src/structs/screen.js");
-/** 
+/**
  * Tooltip that automatically show and hide themselves on mouseenter and mouseleave events.
  * Will also remove themselves if the node to watch is removed from DOM through
  * a MutationObserver.
- * 
- * Note this is not using Discord's internals but normal DOM manipulation and emulates 
+ *
+ * Note this is not using Discord's internals but normal DOM manipulation and emulates
  * Discord's own tooltips as closely as possible.
- * 
+ *
  * @module EmulatedTooltip
  * @version 0.0.1
  */
@@ -6874,7 +6980,7 @@ const toPx = function(value) {
 
 class EmulatedTooltip {
 	/**
-	 * 
+	 *
 	 * @constructor
 	 * @param {(HTMLElement|jQuery)} node - DOM node to monitor and show the tooltip on
 	 * @param {string} tip - string to show in the tooltip
@@ -6900,12 +7006,12 @@ class EmulatedTooltip {
         this.tooltipElement = modules__WEBPACK_IMPORTED_MODULE_0__["DOMTools"].createElement(`<div class="${modules__WEBPACK_IMPORTED_MODULE_0__["DiscordClasses"].Tooltips.tooltip} ${getClass(this.style)}"><div class="${modules__WEBPACK_IMPORTED_MODULE_0__["DiscordClasses"].Tooltips.tooltipPointer}"></div>${this.label}</div>`);
         this.labelElement = this.tooltipElement.childNodes[1];
         this.element.append(this.tooltipElement);
-        
+
 
 		this.node.addEventListener("mouseenter", () => {
             if (this.disabled) return;
             this.show();
-			
+
 			const observer = new MutationObserver((mutations) => {
 				mutations.forEach((mutation) => {
 					const nodes = Array.from(mutation.removedNodes);
@@ -6925,9 +7031,9 @@ class EmulatedTooltip {
 			this.hide();
 		});
     }
-    
+
     /** Container where the tooltip will be appended. */
-    get container() { return document.querySelector(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordSelectors"].AppMount.appMount + " > * > " + modules__WEBPACK_IMPORTED_MODULE_0__["DiscordSelectors"].TooltipLayers.layerContainer); }
+    get container() { return document.querySelector(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordSelectors"].Popouts.popouts.sibling(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordSelectors"].TooltipLayers.layerContainer)); }
     /** Boolean representing if the tooltip will fit on screen above the element */
     get canShowAbove() { return this.node.offset().top - this.element.outerHeight() >= 0; }
     /** Boolean representing if the tooltip will fit on screen below the element */

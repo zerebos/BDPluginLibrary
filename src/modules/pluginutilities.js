@@ -1,6 +1,11 @@
 import Logger from "./logger";
 import Utilities from "./utilities";
 import DOMTools from "./domtools";
+import Patcher from "./patcher";
+import DiscordModules from "./discordmodules";
+import DiscordSelectors from "./discordselectors";
+import WebpackModules from "./webpackmodules";
+import ReactTools from "./reacttools"
 
 /**
  * A series of useful functions for BetterDiscord plugins.
@@ -11,7 +16,7 @@ import DOMTools from "./domtools";
 
  export default class PluginUtilities {
 
-	/** 
+	/**
 	 * Loads data through BetterDiscord's API.
 	 * @param {string} name - name for the file (usually plugin name)
 	 * @param {string} key - which key the data is saved under
@@ -23,7 +28,7 @@ import DOMTools from "./domtools";
 		catch (err) { Logger.err(name, "Unable to load data: ", err); }
 	}
 
-	/** 
+	/**
 	 * Saves data through BetterDiscord's API.
 	 * @param {string} name - name for the file (usually plugin name)
 	 * @param {string} key - which key the data should be saved under
@@ -34,7 +39,7 @@ import DOMTools from "./domtools";
 		catch (err) { Logger.err(name, "Unable to save data: ", err); }
 	}
 
-	/** 
+	/**
 	 * Loads settings through BetterDiscord's API.
 	 * @param {string} name - name for the file (usually plugin name)
 	 * @param {object} defaultData - default data to populate the object with
@@ -44,7 +49,7 @@ import DOMTools from "./domtools";
 		return this.loadData(name, "settings", defaultSettings);
 	}
 
-	/** 
+	/**
 	 * Saves settings through BetterDiscord's API.
 	 * @param {string} name - name for the file (usually plugin name)
 	 * @param {object} data - settings to save
@@ -145,6 +150,28 @@ import DOMTools from "./domtools";
 	static removeScript(id) {
 		const element = document.getElementById(id);
 		if (element) element.remove();
+	}
+
+	static async getContextMenu(type) {
+		return new Promise(resolve => {
+			const cancel = Patcher.after("ZeresLibrary.PluginUtilities", DiscordModules.ContextMenuActions, "openContextMenu", (_, [, component]) => {
+				const rendered = component();
+				const menuType = rendered.props && rendered.props.type || (rendered.type && rendered.type.displayName);
+				if (!menuType || typeof(menuType) != "string" || !menuType.includes(type)) return;
+				cancel();
+				return resolve(WebpackModules.getModule(m => m.default == rendered.type));
+			});
+		});
+	}
+
+	static forceUpdateContextMenus() {
+		const menus = document.querySelectorAll(DiscordSelectors.ContextMenu.contextMenu);
+		for (const menu of menus) {
+			const stateNode = Utilities.findInTree(ReactTools.getReactInstance(menu), m=>m && m.forceUpdate && m.updatePosition, {walkable: ["return", "stateNode"]});
+			if (!stateNode) continue;
+			stateNode.forceUpdate();
+			stateNode.updatePosition();
+		}
 	}
 }
 

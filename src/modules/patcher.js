@@ -216,7 +216,8 @@ export default class Patcher {
             unpatch: () => {
                 patch.children.splice(patch.children.findIndex(cpatch => cpatch.id === child.id && cpatch.type === type), 1);
                 if (patch.children.length <= 0) {
-					const patchNum = this.patches.findIndex(p => p.module == module && p.functionName == functionName);
+                    const patchNum = this.patches.findIndex(p => p.module == module && p.functionName == functionName);
+                    if (patchNum < 0) return;
 					this.patches[patchNum].revert();
 					this.patches.splice(patchNum, 1);
 				}

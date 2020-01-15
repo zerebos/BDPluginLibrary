@@ -17,7 +17,7 @@ import Screen from "../structs/screen";
  */
 export function updateDiscordMenu(menu) {
 	if (!(menu instanceof window.jQuery) && !(menu instanceof Element)) return;
-	const updateHeight = ReactTools.getReactProperty(menu, "return.stateNode.props.onHeightUpdate");
+	const updateHeight = ReactTools.getReactProperty(menu, "return.return.return.stateNode.updatePosition");
 	if (updateHeight) updateHeight();
 }
 

@@ -249,7 +249,7 @@ export default class ReactComponents {
                     component = filter ? reflect.components.find(filter) : reflect.component;
                     if (component) break;
                 }
-                
+
                 if (!component && filter) return;// Logger.log("ReactComponents", ["Found elements matching the query selector but no components passed the filter"]);
 
                 DOMTools.observer.unsubscribe(observerSubscription);
