@@ -28,7 +28,7 @@ class Slider extends SettingField {
 	constructor(name, note, min, max, value, onChange, options = {}) {
 		const props =  {
 			onChange: _ => _,
-			defaultValue: value,
+			initialValue: value,
 			disabled: options.disabled ? true : false,
 			minValue: min,
 			maxValue: max,
