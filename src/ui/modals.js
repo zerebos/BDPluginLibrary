@@ -27,7 +27,7 @@ export default class Modals {
      * @see module:Modals.showModal
      */
     static showConfirmationModal(title, content, options = {}) {
-        this.showModal(title, DiscordModules.TextElement.default({color: DiscordModules.TextElement.Colors.PRIMARY, children: [content]}), options);
+        this.showModal(title, DiscordModules.React.createElement(DiscordModules.TextElement.default, {color: DiscordModules.TextElement.Colors.PRIMARY, children: [content]}), options);
     }
 
     /**

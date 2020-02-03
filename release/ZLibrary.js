@@ -1624,6 +1624,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+// export {default as DiscordComponents} from "./discordcomponents";
 
 
 
@@ -1654,12 +1655,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _logger__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./logger */ "./src/modules/logger.js");
 /* harmony import */ var _discordmodules__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./discordmodules */ "./src/modules/discordmodules.js");
 /* harmony import */ var _webpackmodules__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./webpackmodules */ "./src/modules/webpackmodules.js");
-/** 
+/**
  * Patcher that can patch other functions allowing you to run code before, after or
  * instead of the original function. Can also alter arguments and return values.
- * 
+ *
  * This is a modified version of what we have been working on in BDv2. {@link https://github.com/JsSucks/BetterDiscordApp/blob/master/client/src/modules/patcher.js}
- * 
+ *
  * @module Patcher
  * @version 0.0.2
  */
@@ -1667,7 +1668,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
- 
+
 class Patcher {
 
     static get patches() { return this._patches || (this._patches = []); }
@@ -1700,7 +1701,7 @@ class Patcher {
 			patch.unpatch();
         }
 	}
-	
+
 	static resolveModule(module) {
         if (module instanceof Function || (module instanceof Object && !(module instanceof Array))) return module;
         if (typeof module === "string") return _discordmodules__WEBPACK_IMPORTED_MODULE_1__["default"][module];
@@ -1768,6 +1769,9 @@ class Patcher {
             children: []
         };
         patch.proxyFunction = module[functionName] = this.makeOverride(patch);
+        Object.assign(module[functionName], patch.originalFunction);
+        module[functionName].__originalFunction = patch.originalFunction;
+        module[functionName].toString = () => patch.originalFunction.toString();
         return this.patches.push(patch), patch;
     }
 
@@ -1778,9 +1782,9 @@ class Patcher {
 
     /**
      * A callback that modifies method logic. This callback is called on each call of the original method and is provided all data about original call. Any of the data can be modified if necessary, but do so wisely.
-     * 
+     *
      * The third argument for the callback will be `undefined` for `before` patches. `originalFunction` for `instead` patches and `returnValue` for `after` patches.
-     * 
+     *
      * @callback module:Patcher~patchCallback
      * @param {object} thisObject - `this` in the context of the original function.
      * @param {arguments} arguments - The original arguments of the original function.
@@ -1791,7 +1795,7 @@ class Patcher {
     /**
      * This method patches onto another function, allowing your code to run beforehand.
      * Using this, you are also able to modify the incoming arguments before the original method is run.
-     * 
+     *
      * @param {string} caller - Name of the caller of the patch function. Using this you can undo all patches with the same name using {@link module:Patcher.unpatchAll}. Use `""` if you don't care.
      * @param {object} moduleToPatch - Object with the function to be patched. Can also patch an object's prototype.
      * @param {string} functionName - Name of the method to be patched
@@ -1802,11 +1806,11 @@ class Patcher {
      * @return {module:Patcher~unpatch} Function with no arguments and no return value that should be called to cancel (unpatch) this patch. You should save and run it when your plugin is stopped.
      */
     static before(caller, moduleToPatch, functionName, callback, options = {}) { return this.pushChildPatch(caller, moduleToPatch, functionName, callback, Object.assign(options, {type: "before"})); }
-    
+
     /**
      * This method patches onto another function, allowing your code to run after.
      * Using this, you are also able to modify the return value, using the return of your code instead.
-     * 
+     *
      * @param {string} caller - Name of the caller of the patch function. Using this you can undo all patches with the same name using {@link module:Patcher.unpatchAll}. Use `""` if you don't care.
      * @param {object} moduleToPatch - Object with the function to be patched. Can also patch an object's prototype.
      * @param {string} functionName - Name of the method to be patched
@@ -1817,11 +1821,11 @@ class Patcher {
      * @return {module:Patcher~unpatch} Function with no arguments and no return value that should be called to cancel (unpatch) this patch. You should save and run it when your plugin is stopped.
      */
     static after(caller, moduleToPatch, functionName, callback, options = {}) { return this.pushChildPatch(caller, moduleToPatch, functionName, callback, Object.assign(options, {type: "after"})); }
-    
+
     /**
      * This method patches onto another function, allowing your code to run instead.
      * Using this, you are also able to modify the return value, using the return of your code instead.
-     * 
+     *
      * @param {string} caller - Name of the caller of the patch function. Using this you can undo all patches with the same name using {@link module:Patcher.unpatchAll}. Use `""` if you don't care.
      * @param {object} moduleToPatch - Object with the function to be patched. Can also patch an object's prototype.
      * @param {string} functionName - Name of the method to be patched
@@ -1837,7 +1841,7 @@ class Patcher {
      * This method patches onto another function, allowing your code to run before, instead or after the original function.
      * Using this you are able to modify the incoming arguments before the original function is run as well as the return
      * value before the original function actually returns.
-     * 
+     *
      * @param {string} caller - Name of the caller of the patch function. Using this you can undo all patches with the same name using {@link module:Patcher.unpatchAll}. Use `""` if you don't care.
      * @param {object} moduleToPatch - Object with the function to be patched. Can also patch an object's prototype.
      * @param {string} functionName - Name of the method to be patched
@@ -1854,7 +1858,7 @@ class Patcher {
 		if (!module) return null;
 		if (!module[functionName] && forcePatch) module[functionName] = function() {};
 		if (!(module[functionName] instanceof Function)) return null;
-		
+
 		if (typeof moduleToPatch === "string") options.displayName = moduleToPatch;
         const displayName = options.displayName || module.displayName || module.name || module.constructor.displayName || module.constructor.name;
 
@@ -1869,7 +1873,8 @@ class Patcher {
             unpatch: () => {
                 patch.children.splice(patch.children.findIndex(cpatch => cpatch.id === child.id && cpatch.type === type), 1);
                 if (patch.children.length <= 0) {
-					let patchNum = this.patches.findIndex(p => p.module == module && p.functionName == functionName);
+                    const patchNum = this.patches.findIndex(p => p.module == module && p.functionName == functionName);
+                    if (patchNum < 0) return;
 					this.patches[patchNum].revert();
 					this.patches.splice(patchNum, 1);
 				}
@@ -2171,6 +2176,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _logger__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./logger */ "./src/modules/logger.js");
 /* harmony import */ var _utilities__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utilities */ "./src/modules/utilities.js");
 /* harmony import */ var _domtools__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./domtools */ "./src/modules/domtools.js");
+/* harmony import */ var _patcher__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./patcher */ "./src/modules/patcher.js");
+/* harmony import */ var _discordmodules__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./discordmodules */ "./src/modules/discordmodules.js");
+/* harmony import */ var _discordselectors__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./discordselectors */ "./src/modules/discordselectors.js");
+/* harmony import */ var _webpackmodules__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./webpackmodules */ "./src/modules/webpackmodules.js");
+/* harmony import */ var _reacttools__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./reacttools */ "./src/modules/reacttools.js");
+
+
+
+
+
 
 
 
@@ -2184,7 +2199,7 @@ __webpack_require__.r(__webpack_exports__);
 
  class PluginUtilities {
 
-	/** 
+	/**
 	 * Loads data through BetterDiscord's API.
 	 * @param {string} name - name for the file (usually plugin name)
 	 * @param {string} key - which key the data is saved under
@@ -2196,7 +2211,7 @@ __webpack_require__.r(__webpack_exports__);
 		catch (err) { _logger__WEBPACK_IMPORTED_MODULE_0__["default"].err(name, "Unable to load data: ", err); }
 	}
 
-	/** 
+	/**
 	 * Saves data through BetterDiscord's API.
 	 * @param {string} name - name for the file (usually plugin name)
 	 * @param {string} key - which key the data should be saved under
@@ -2207,7 +2222,7 @@ __webpack_require__.r(__webpack_exports__);
 		catch (err) { _logger__WEBPACK_IMPORTED_MODULE_0__["default"].err(name, "Unable to save data: ", err); }
 	}
 
-	/** 
+	/**
 	 * Loads settings through BetterDiscord's API.
 	 * @param {string} name - name for the file (usually plugin name)
 	 * @param {object} defaultData - default data to populate the object with
@@ -2217,7 +2232,7 @@ __webpack_require__.r(__webpack_exports__);
 		return this.loadData(name, "settings", defaultSettings);
 	}
 
-	/** 
+	/**
 	 * Saves settings through BetterDiscord's API.
 	 * @param {string} name - name for the file (usually plugin name)
 	 * @param {object} data - settings to save
@@ -2318,6 +2333,28 @@ __webpack_require__.r(__webpack_exports__);
 	static removeScript(id) {
 		const element = document.getElementById(id);
 		if (element) element.remove();
+	}
+
+	static async getContextMenu(type) {
+		return new Promise(resolve => {
+			const cancel = _patcher__WEBPACK_IMPORTED_MODULE_3__["default"].after("ZeresLibrary.PluginUtilities", _discordmodules__WEBPACK_IMPORTED_MODULE_4__["default"].ContextMenuActions, "openContextMenu", (_, [, component]) => {
+				const rendered = component();
+				const menuType = rendered.props && rendered.props.type || (rendered.type && rendered.type.displayName);
+				if (!menuType || typeof(menuType) != "string" || !menuType.includes(type)) return;
+				cancel();
+				return resolve(_webpackmodules__WEBPACK_IMPORTED_MODULE_6__["default"].getModule(m => m.default == rendered.type));
+			});
+		});
+	}
+
+	static forceUpdateContextMenus() {
+		const menus = document.querySelectorAll(_discordselectors__WEBPACK_IMPORTED_MODULE_5__["default"].ContextMenu.contextMenu);
+		for (const menu of menus) {
+			const stateNode = _utilities__WEBPACK_IMPORTED_MODULE_1__["default"].findInTree(_reacttools__WEBPACK_IMPORTED_MODULE_7__["default"].getReactInstance(menu), m=>m && m.forceUpdate && m.updatePosition, {walkable: ["return", "stateNode"]});
+			if (!stateNode) continue;
+			stateNode.forceUpdate();
+			stateNode.updatePosition();
+		}
 	}
 }
 
@@ -2594,7 +2631,7 @@ class ReactComponents {
                     component = filter ? reflect.components.find(filter) : reflect.component;
                     if (component) break;
                 }
-                
+
                 if (!component && filter) return;// Logger.log("ReactComponents", ["Found elements matching the query selector but no components passed the filter"]);
 
                 _domtools__WEBPACK_IMPORTED_MODULE_4__["default"].observer.unsubscribe(observerSubscription);
@@ -3588,6 +3625,51 @@ class WebpackModules {
     }
 
     /**
+     * Gets a specific module by index of the webpack require cache.
+     * Best used in combination with getIndex in order to patch a
+     * specific function.
+     *
+     * Note: this gives the **raw** module, meaning the actual module
+     * is in returnValue.exports. This is done in order to be able
+     * to patch modules which export a single function directly.
+     * @param {Number} index Index into the webpack require cache
+     * @return {Any}
+     */
+
+    /**
+     * Gets the index in the webpack require cache of a specific
+     * module using a filter.
+     * @param {Function} filter A function to use to filter modules
+     * @return {Number|null}
+     */
+    static getIndex(filter) {
+        const modules = this.getAllModules();
+        for (const index in modules) {
+            if (!modules.hasOwnProperty(index)) continue;
+            const module = modules[index];
+            const {exports} = module;
+            let foundModule = null;
+
+            if (!exports) continue;
+            if (exports.__esModule && exports.default && filter(exports.default)) foundModule = exports.default;
+            if (filter(exports)) foundModule = exports;
+            if (!foundModule) continue;
+            return index;
+        }
+        return null;
+    }
+
+    /**
+     * Gets the index in the webpack require cache of a specific
+     * module that was already found.
+     * @param {Any} module An already acquired module
+     * @return {Number|null}
+     */
+    static getIndexByModule(module) {
+        return this.getIndex(m => m == module);
+    }
+
+    /**
      * Finds all modules matching a filter function.
      * @param {Function} filter A function to use to filter modules
      */
@@ -3677,6 +3759,17 @@ class WebpackModules {
      */
     static getAllByString(...strings) {
         return this.getModule(Filters.byString(...strings), false);
+    }
+
+    /**
+     * Gets a specific module by index of the webpack require cache.
+     * Best used in combination with getIndex in order to patch a
+     * specific function.
+     * @param {Number} index Index into the webpack require cache
+     * @return {Any}
+     */
+    static getByIndex(index) {
+        return WebpackModules.require.c[index].exports;
     }
 
     /**
@@ -6442,18 +6535,19 @@ __webpack_require__.r(__webpack_exports__);
  */
 function updateDiscordMenu(menu) {
 	if (!(menu instanceof window.jQuery) && !(menu instanceof Element)) return;
-	const updateHeight = _modules_reacttools__WEBPACK_IMPORTED_MODULE_2__["default"].getReactProperty(menu, "return.stateNode.props.onHeightUpdate");
+	const updateHeight = _modules_reacttools__WEBPACK_IMPORTED_MODULE_2__["default"].getReactProperty(menu, "return.return.return.stateNode.updatePosition");
 	if (updateHeight) updateHeight();
 }
 
 /** Main menu class for creating custom context menus. */
 class Menu {
     /**
-     * 
+     *
      * @param {boolean} [scroll=false] - should this menu be a scrolling menu (usually only used for submenus)
      */
-	constructor(scroll = false) {
+	constructor(submenu = false, scroll = false) {
 		this.theme = _modules_discordmodules__WEBPACK_IMPORTED_MODULE_3__["default"].UserSettingsStore.theme == "dark" ? "theme-dark" : "theme-light";
+		this.isSubmenu = submenu;
 		this.element = _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.contextMenu} plugin-context-menu ${this.theme}"></div>`);
 		this.scroll = scroll;
 		if (!scroll) return;
@@ -6462,7 +6556,7 @@ class Menu {
 		this.scrollerWrap.append(this.scroller);
 		this.element.append(this.scrollerWrap);
 	}
-    
+
     /**
      * Adds an item group to the menu. The group should already be populated.
      * @param {module:ContextMenu.ItemGroup} contextGroup - group to add to the menu
@@ -6473,9 +6567,9 @@ class Menu {
 		else this.element.append(contextGroup.getElement());
 		return this;
 	}
-    
+
     /**
-     * Adds items to the context menu directly. It is recommended to add to a group and use 
+     * Adds items to the context menu directly. It is recommended to add to a group and use
      * {@link module:ContextMenu.Menu.addGroup} instead to behave as natively as possible.
      * @param {module:ContextMenu.MenuItem} contextItems - list of items to add to the context menu
      * @returns {module:ContextMenu.Menu} returns self for chaining
@@ -6487,7 +6581,7 @@ class Menu {
 		}
 		return this;
 	}
-    
+
     /**
      * Shows the menu at a specific x and y position. This generally comes from the
      * pointer position on a right click event.
@@ -6497,20 +6591,30 @@ class Menu {
 	show(x, y) {
 		const mouseX = x;
 		const mouseY = y;
-		
+
 		const parents = this.element.parents(this.parentSelector);
 		const depth = parents.length;
-		if (depth == 0) this.element.appendTo("#app-mount");
+		// if (depth == 0) {
+			const layer = _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].TooltipLayers.layer}"></div>`);
+			let elementToAdd = this.element;
+			if (this.isSubmenu) {
+				const submenu = _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.subMenuContext}"></div>`);
+				submenu.append(this.element);
+				elementToAdd = submenu;
+			}
+			layer.append(elementToAdd);
+			layer.appendTo(_modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].Popouts.popouts.sibling(_modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].TooltipLayers.layerContainer).toString());
+		// }
 		this.element.css("top", mouseY + "px").css("left", mouseX + "px");
-		
-		if (depth > 0) {
-			const top = parents[parents.length - 1];
-			const closest = parents[0];
-			const negate = closest.hasClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.invertChildX) ? -1 : 1;
-			const value = negate * closest.find(_modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].ContextMenu.item).outerWidth() + closest.offset().left - top.offset().left;
-			this.element.css("margin-left", `${value}px`);
-		}
-		
+
+		// if (depth > 0) {
+		// 	const top = parents[parents.length - 1];
+		// 	const closest = parents[0];
+		// 	const negate = closest.hasClass(DiscordClasses.ContextMenu.invertChildX) ? -1 : 1;
+		// 	const value = negate * closest.find(DiscordSelectors.ContextMenu.item).outerWidth() + closest.offset().left - top.offset().left;
+		// 	this.element.css("margin-left", `${value}px`);
+		// }
+
 		if (mouseY + this.element.outerHeight() >= _structs_screen__WEBPACK_IMPORTED_MODULE_5__["default"].height) {
 			this.element.addClass("invertY").addClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.invertY);
 			this.element.css("top", `${mouseY - this.element.outerHeight()}px`);
@@ -6529,15 +6633,15 @@ class Menu {
 		_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].on(document, "click.zctx", (e) => { if (this.element.contains(e.target)) this.removeMenu(); });
 		_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].on(document, "keyup.zctx", (e) => { if (e.keyCode === 27) this.removeMenu(); });
 	}
-    
+
     /** Allows you to remove the menu. */
 	removeMenu() {
-		this.element.remove();
+		this.element.parents(_modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].TooltipLayers.layer.toString())[0].remove();
 		const childs = this.element.findAll(this.parentSelector);
 		if (childs) childs.forEach(c => c.remove());
 		_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].off(document, ".zctx");
 	}
-    
+
     /**
      * Used to attach a menu to a menu item. This is how to create a submenu.
      * If using {@link module:ContextMenu.SubMenuItem} then you do not need
@@ -6549,11 +6653,12 @@ class Menu {
 	attachTo(menuItem) {
 		this.menuItem = $(menuItem);
 		menuItem.on("mouseenter", () => {
-			this.element.appendTo(menuItem);
-			const left = this.element.parents(this.parentSelector)[0].css("left");
-			this.show(parseInt(left.replace("px", "")), menuItem.offset().top);
+			// this.element.appendTo(DiscordSelectors.Popouts.popouts.sibling(DiscordSelectors.TooltipLayers.layerContainer).toString());
+			// const left = this.element.parents(this.parentSelector)[0].css("left");
+			console.log(parseInt(menuItem.offset().left), parseInt(menuItem.offset().top));
+			this.show(parseInt(menuItem.offset().right), parseInt(menuItem.offset().top));
 		});
-		menuItem.on("mouseleave", () => { this.element.remove(); });
+		menuItem.on("mouseleave", () => { this.element.parents(_modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].TooltipLayers.layer.toString())[0].remove(); });
 	}
 
 	get parentSelector() {return this.element.parents(".plugin-context-menu").length > this.element.parents(_modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].ContextMenu.contextMenu).length ? ".plugin-context-menu" : _modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].ContextMenu.contextMenu;}
@@ -6565,7 +6670,7 @@ class ItemGroup {
 	constructor() {
 		this.element = _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.itemGroup}"></div>`);
 	}
-    
+
     /**
      * This is the method of adding menu items to a menu group.
      * @param {module:ContextMenu.MenuItem} contextItems - list of context menu items to add to this group
@@ -6577,7 +6682,7 @@ class ItemGroup {
 		}
 		return this;
 	}
-    
+
     /** @returns {HTMLElement} returns the DOM node for the group */
 	getElement() { return this.element; }
 }
@@ -6616,7 +6721,7 @@ class MenuItem {
 	getElement() { return this.element;}
 }
 
-/** 
+/**
  * Creates a text menu item that can have a hint.
  * @extends module:ContextMenu.MenuItem
  */
@@ -6636,7 +6741,7 @@ class TextItem extends MenuItem {
 	}
 }
 
-/** 
+/**
  * Creates an image menu item that can have an image.
  * @extends module:ContextMenu.MenuItem
  */
@@ -6657,7 +6762,7 @@ class ImageItem extends MenuItem {
 	}
 }
 
-/** 
+/**
  * Creates a menu item with an attached submenu.
  * @extends module:ContextMenu.MenuItem
  */
@@ -6673,13 +6778,15 @@ class SubMenuItem extends MenuItem {
 	constructor(label, subMenu, options = {}) {
 		// if (!(subMenu instanceof ContextSubMenu)) throw "subMenu must be of ContextSubMenu type.";
 		super(label, options);
-		this.element.addClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.itemSubMenu).text(label);
+		this.element.addClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.itemSubMenu);
+		this.element.append(_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.label}">${label}</div>`));
+		this.element.append(_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<svg class="caret-UIZBlm da-caret" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M16.59 8.59004L12 13.17L7.41 8.59004L6 10L12 16L18 10L16.59 8.59004Z"></path></svg>`));
 		this.subMenu = subMenu;
 		this.subMenu.attachTo(this.getElement());
 	}
 }
 
-/** 
+/**
  * Creates a menu item with a checkbox.
  * @extends module:ContextMenu.MenuItem
  */
@@ -6729,14 +6836,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return EmulatedTooltip; });
 /* harmony import */ var modules__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! modules */ "./src/modules/modules.js");
 /* harmony import */ var _structs_screen__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../structs/screen */ "./src/structs/screen.js");
-/** 
+/**
  * Tooltip that automatically show and hide themselves on mouseenter and mouseleave events.
  * Will also remove themselves if the node to watch is removed from DOM through
  * a MutationObserver.
- * 
- * Note this is not using Discord's internals but normal DOM manipulation and emulates 
+ *
+ * Note this is not using Discord's internals but normal DOM manipulation and emulates
  * Discord's own tooltips as closely as possible.
- * 
+ *
  * @module EmulatedTooltip
  * @version 0.0.1
  */
@@ -6768,7 +6875,7 @@ const toPx = function(value) {
 
 class EmulatedTooltip {
 	/**
-	 * 
+	 *
 	 * @constructor
 	 * @param {(HTMLElement|jQuery)} node - DOM node to monitor and show the tooltip on
 	 * @param {string} tip - string to show in the tooltip
@@ -6794,12 +6901,12 @@ class EmulatedTooltip {
         this.tooltipElement = modules__WEBPACK_IMPORTED_MODULE_0__["DOMTools"].createElement(`<div class="${modules__WEBPACK_IMPORTED_MODULE_0__["DiscordClasses"].Tooltips.tooltip} ${getClass(this.style)}"><div class="${modules__WEBPACK_IMPORTED_MODULE_0__["DiscordClasses"].Tooltips.tooltipPointer}"></div>${this.label}</div>`);
         this.labelElement = this.tooltipElement.childNodes[1];
         this.element.append(this.tooltipElement);
-        
+
 
 		this.node.addEventListener("mouseenter", () => {
             if (this.disabled) return;
             this.show();
-			
+
 			const observer = new MutationObserver((mutations) => {
 				mutations.forEach((mutation) => {
 					const nodes = Array.from(mutation.removedNodes);
@@ -6819,9 +6926,9 @@ class EmulatedTooltip {
 			this.hide();
 		});
     }
-    
+
     /** Container where the tooltip will be appended. */
-    get container() { return document.querySelector(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordSelectors"].TooltipLayers.layerContainer); }
+    get container() { return document.querySelector(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordSelectors"].Popouts.popouts.sibling(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordSelectors"].TooltipLayers.layerContainer)); }
     /** Boolean representing if the tooltip will fit on screen above the element */
     get canShowAbove() { return this.node.offset().top - this.element.outerHeight() >= 0; }
     /** Boolean representing if the tooltip will fit on screen below the element */
@@ -7060,7 +7167,7 @@ class Modals {
      * @see module:Modals.showModal
      */
     static showConfirmationModal(title, content, options = {}) {
-        this.showModal(title, modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].TextElement.default({color: modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].TextElement.Colors.PRIMARY, children: [content]}), options);
+        this.showModal(title, modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].React.createElement(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].TextElement.default, {color: modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].TextElement.Colors.PRIMARY, children: [content]}), options);
     }
 
     /**
@@ -7892,7 +7999,7 @@ class Slider extends _settingfield__WEBPACK_IMPORTED_MODULE_0__["default"] {
 	constructor(name, note, min, max, value, onChange, options = {}) {
 		const props =  {
 			onChange: _ => _,
-			defaultValue: value,
+			initialValue: value,
 			disabled: options.disabled ? true : false,
 			minValue: min,
 			maxValue: max,
