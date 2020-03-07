@@ -13,9 +13,13 @@ class Keybind extends SettingField {
 	 * @param {string} note - help/note to show underneath or above the setting
 	 * @param {Array<number>} value - array of keycodes
 	 * @param {callable} onChange - callback to perform on setting change, callback receives array of keycodes
+	 * @param {object} [options] - object of options to give to the setting
+	 * @param {boolean} [options.disabled=false] - should the setting be disabled
 	 */    
-    constructor(label, help, value, onChange) {
-		super(label, help, onChange, DiscordModules.Keybind, {
+    constructor(label, help, value, onChange, options = {}) {
+        const {disabled=false} = options;
+        super(label, help, onChange, DiscordModules.Keybind, {
+            disabled: disabled,
             defaultValue: value.map(a => [0, a]),
             onChange: element => value => {
                 if (!Array.isArray(value)) return;
@@ -23,7 +27,7 @@ class Keybind extends SettingField {
                 this.onChange(value.map(a => a[1]));
             }
         });
-	}
+    }
 }
 
 export default Keybind;

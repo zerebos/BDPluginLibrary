@@ -24,12 +24,14 @@ class Dropdown extends SettingField {
 	 * @param {object} [options] - object of options to give to the setting
 	 * @param {boolean} [options.clearable=false] - should be able to empty the field value
 	 * @param {boolean} [options.searchable=false] - should user be able to search the dropdown
+	 * @param {boolean} [options.disabled=false] - should the setting be disabled
 	 */
 	constructor(name, note, defaultValue, values, onChange, options = {}) {
-		const {clearable = false, searchable = false} = options;
+		const {clearable = false, searchable = false, disabled = false} = options;
 		super(name, note, onChange, DiscordModules.Dropdown, {
 			clearable: clearable,
 			searchable: searchable,
+			disabled: disabled,
 			options: values,
 			onChange: dropdown => opt => {
 				dropdown.props.value = opt.value;

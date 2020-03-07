@@ -17,18 +17,21 @@ class Textbox extends SettingField {
 	 * @param {callable} onChange - callback to perform on setting change, callback receives text
 	 * @param {object} [options] - object of options to give to the setting
 	 * @param {string} [options.placeholder=""] - placeholder for when textbox is empty
+	 * @param {boolean} [options.disabled=false] - should the setting be disabled
 	 */
     constructor(name, note, value, onChange, options = {}) {
-		super(name, note, onChange, DiscordModules.Textbox, {
+        const {placeholder = "", disabled=false} = options;
+        super(name, note, onChange, DiscordModules.Textbox, {
             onChange: textbox => value => {
                 textbox.props.value = value;
                 textbox.forceUpdate();
                 this.onChange(value);
             },
             value: value,
-            placeholder: options.placeholder ? options.placeholder : ""
+            disabled: disabled,
+            placeholder: placeholder || ""
         });
-	}
+    }
 }
 
 export default Textbox;
