@@ -1,0 +1,258 @@
+<!-- start:source.tmpl.hbs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+		<title>ui/contextmenu/menuitem.js</title>
+		<!--[if lt IE 9]>
+		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<link href="https://fonts.googleapis.com/css?family=PT+Mono" rel="stylesheet">
+		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
+		<link type="text/css" rel="stylesheet" href="css/prism.min.css">
+		<link type="text/css" rel="stylesheet" href="css/template.min.css">
+		<script type="text/javascript">
+			window.TEMPLATE_OPTIONS = {"includeDate":false,"dateFormat":"","systemName":"Zere's Plugin Library","systemSummary":"A set of helpful utilities and tools for BD plugins.","systemLogo":"","systemColor":"","navMembers":[{"kind":"class","title":"Classes","summary":"All documented classes."},{"kind":"external","title":"Externals","summary":"All documented external members."},{"kind":"global","title":"Globals","summary":"All documented globals."},{"kind":"mixin","title":"Mixins","summary":"All documented mixins."},{"kind":"interface","title":"Interfaces","summary":"All documented interfaces."},{"kind":"module","title":"Modules","summary":"All documented modules."},{"kind":"namespace","title":"Namespaces","summary":"All documented namespaces."},{"kind":"tutorial","title":"Tutorials","summary":"All available tutorials."}],"footer":"","copyright":"Copyright © 2018-2020 Zack Rauen","linenums":true,"collapseSymbols":true,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":false,"showTableOfContents":true,"showAccessFilter":true,"analytics":null,"methodHeadingReturns":true,"sort":"linenum, longname, version, since","search":true,"favicon":null,"stylesheets":[],"scripts":[],"monospaceLinks":false,"cleverLinks":false,"default":{"outputSourceFiles":true},"path":"ink-docstrap","theme":"cerulean","navType":"vertical"};
+			window.DOCLET_TOC_ENABLED = false;
+			window.DOCLET_AFILTER_ENABLED = false;
+		</script>
+</head>
+<body>
+	<!-- start:navbar.hbs -->
+	<header class="navbar navbar-default navbar-fixed-top navbar-inverse">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="index.html">
+					Zere&#x27;s Plugin Library
+				</a>
+				<!-- displayed on small devices -->
+				<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="navbar-collapse collapse" id="topNavigation">
+				<ul class="nav navbar-nav">
+								<li class="dropdown">
+									<a href="list_class.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="List.html">List</a></li>
+											<li><a href="Listenable.html">Listenable</a></li>
+											<li><a href="module-ContextMenu.ImageItem.html">ContextMenu.ImageItem</a></li>
+											<li><a href="module-ContextMenu.ItemGroup.html">ContextMenu.ItemGroup</a></li>
+											<li><a href="module-ContextMenu.Menu.html">ContextMenu.Menu</a></li>
+											<li><a href="module-ContextMenu.MenuItem.html">ContextMenu.MenuItem</a></li>
+											<li><a href="module-ContextMenu.SubMenuItem.html">ContextMenu.SubMenuItem</a></li>
+											<li><a href="module-ContextMenu.TextItem.html">ContextMenu.TextItem</a></li>
+											<li><a href="module-ContextMenu.ToggleItem.html">ContextMenu.ToggleItem</a></li>
+											<li><a href="module-DiscordAPI.Channel.html">DiscordAPI.Channel</a></li>
+											<li><a href="module-DiscordAPI.Guild.html">DiscordAPI.Guild</a></li>
+											<li><a href="module-DiscordAPI.InsufficientPermissions.html">DiscordAPI.InsufficientPermissions</a></li>
+											<li><a href="module-DiscordAPI.Message.html">DiscordAPI.Message</a></li>
+											<li><a href="module-DiscordAPI.User.html">DiscordAPI.User</a></li>
+											<li><a href="module-DiscordAPI.UserSettings.html">DiscordAPI.UserSettings</a></li>
+											<li><a href="module-DiscordContextMenu.ContextMenu.html">DiscordContextMenu.ContextMenu</a></li>
+											<li><a href="module-DiscordContextMenu.ImageMenuItem.html">DiscordContextMenu.ImageMenuItem</a></li>
+											<li><a href="module-DiscordContextMenu.ItemGroup.html">DiscordContextMenu.ItemGroup</a></li>
+											<li><a href="module-DiscordContextMenu.MenuItem.html">DiscordContextMenu.MenuItem</a></li>
+											<li><a href="module-DiscordContextMenu.SliderMenuItem.html">DiscordContextMenu.SliderMenuItem</a></li>
+											<li><a href="module-DiscordContextMenu.SubMenuItem.html">DiscordContextMenu.SubMenuItem</a></li>
+											<li><a href="module-DiscordContextMenu.ToggleMenuItem.html">DiscordContextMenu.ToggleMenuItem</a></li>
+											<li><a href="module-DOMTools.ClassName.html">DOMTools.ClassName</a></li>
+											<li><a href="module-DOMTools.DOMObserver.html">DOMTools.DOMObserver</a></li>
+											<li><a href="module-DOMTools.Selector.html">DOMTools.Selector</a></li>
+											<li><a href="module-EmulatedTooltip_module_EmulatedTooltip.html">EmulatedTooltip>module:EmulatedTooltip</a></li>
+											<li><a href="module-Settings.ColorPicker.html">Settings.ColorPicker</a></li>
+											<li><a href="module-Settings.Dropdown.html">Settings.Dropdown</a></li>
+											<li><a href="module-Settings.FilePicker.html">Settings.FilePicker</a></li>
+											<li><a href="module-Settings.Keybind.html">Settings.Keybind</a></li>
+											<li><a href="module-Settings.RadioGroup.html">Settings.RadioGroup</a></li>
+											<li><a href="module-Settings.SettingField.html">Settings.SettingField</a></li>
+											<li><a href="module-Settings.SettingGroup.html">Settings.SettingGroup</a></li>
+											<li><a href="module-Settings.SettingPanel.html">Settings.SettingPanel</a></li>
+											<li><a href="module-Settings.Slider.html">Settings.Slider</a></li>
+											<li><a href="module-Settings.Switch.html">Settings.Switch</a></li>
+											<li><a href="module-Settings.Textbox.html">Settings.Textbox</a></li>
+											<li><a href="module-Tooltip_module_Tooltip.html">Tooltip>module:Tooltip</a></li>
+											<li><a href="module-WebpackModules.Filters.html">WebpackModules.Filters</a></li>
+											<li><a href="Screen.html">Screen</a></li>
+									</ul>
+								</li>
+								<li class="dropdown">
+									<a href="list_interface.html" class="dropdown-toggle" data-toggle="dropdown">Interfaces<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="module-DOMTools-Offset.html">DOMTools~Offset</a></li>
+											<li><a href="module-Modals-Changelog.html">Modals~Changelog</a></li>
+											<li><a href="module-Settings-DropdownItem.html">Settings~DropdownItem</a></li>
+											<li><a href="module-Settings-RadioItem.html">Settings~RadioItem</a></li>
+									</ul>
+								</li>
+								<li class="dropdown">
+									<a href="list_module.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="module-ColorConverter.html">ColorConverter</a></li>
+											<li><a href="module-ContextMenu.html">ContextMenu</a></li>
+											<li><a href="module-DiscordAPI.html">DiscordAPI</a></li>
+											<li><a href="module-DiscordClasses.html">DiscordClasses</a></li>
+											<li><a href="module-DiscordClassModules.html">DiscordClassModules</a></li>
+											<li><a href="module-DiscordContextMenu.html">DiscordContextMenu</a></li>
+											<li><a href="module-DiscordModules.html">DiscordModules</a></li>
+											<li><a href="module-DiscordSelectors.html">DiscordSelectors</a></li>
+											<li><a href="module-DOMTools.html">DOMTools</a></li>
+											<li><a href="module-EmulatedTooltip.html">EmulatedTooltip</a></li>
+											<li><a href="module-Logger.html">Logger</a></li>
+											<li><a href="module-Modals.html">Modals</a></li>
+											<li><a href="module-Patcher.html">Patcher</a></li>
+											<li><a href="module-PluginUpdater.html">PluginUpdater</a></li>
+											<li><a href="module-PluginUtilities.html">PluginUtilities</a></li>
+											<li><a href="module-Popouts.html">Popouts</a></li>
+											<li><a href="module-ReactComponents.html">ReactComponents</a></li>
+											<li><a href="module-ReactTools.html">ReactTools</a></li>
+											<li><a href="module-Settings.html">Settings</a></li>
+											<li><a href="module-Toasts.html">Toasts</a></li>
+											<li><a href="module-Tooltip.html">Tooltip</a></li>
+											<li><a href="module-Utilities.html">Utilities</a></li>
+											<li><a href="module-WebpackModules.html">WebpackModules</a></li>
+									</ul>
+								</li>
+				</ul>
+					<!-- start:lunr-search-navbar.hbs -->
+					<form class="navbar-form navbar-right" role="search">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Search" id="lunr-search-input">
+							<div class="input-group-btn">
+								<button class="btn btn-default" id="lunr-search-submit">
+									<i class="glyphicon glyphicon-search"></i>
+								</button>
+							</div>
+						</div>
+					</form>
+					<!-- start:lunr-search-navbar.hbs -->		</div>
+		</div>
+	</header>
+	<!-- end:navbar.hbs -->		<div class="page-header">
+			<div class="container">
+				<span class="kind">source</span>
+				<h1><span class="name">ui/contextmenu/menuitem.js</span></h1>
+			</div>
+		</div>
+	<div class="container content">
+		<div class="row">
+			<div class="col-md-12 main-content">
+		<section class="source-section">
+			<article></article>
+			<pre class="prettyprint source language-javascript line-numbers"><code class="language-javascript">import DiscordModules from "../../modules/discordmodules";
+import WebpackModules from "../../modules/webpackmodules";
+
+import {WrapBoundary} from "../errorboundary";
+
+const React = DiscordModules.React;
+const ContextMenuActions = DiscordModules.ContextMenuActions;
+const DiscordComponent = WebpackModules.getByRegex(/\.label\b.*\.hint\b.*\.action\b/);
+
+/**
+ * Fires when the item is clicked.
+ * @param {MouseEvent} event - event object invoked on click
+ * @callback module:DiscordContextMenu~MenuItemOnClick
+ */
+
+/**
+ * This creates a basic menu item with a lot of options.
+ * 
+ * @param {object} props - props to pass to the react renderer
+ * @param {string} props.label - label to show on the menu item
+ * @param {string} [props.hint] - hint to show on the right hand side (usually keyboard combo)
+ * @param {string} [props.className] - additional class name for this item
+ * @param {string} [props.tooltip] - text to show on hover
+ * @param {Array&lt;object>} [props.children] - array of children to render underneath
+ * @param {module:DiscordContextMenu~MenuItemOnClick} [props.action] - function to perform on click
+ * @param {module:DiscordContextMenu~MenuItemOnClick} [props.onClick] - function to perform on click (alias of `action`)
+ * @param {boolean} [props.closeOnClick=false] - should the context menu close after clicing this item
+ * @param {boolean} [props.danger=false] - should the item show as danger (red)
+ * @param {boolean} [props.brand=false] - should the item be blurple (branded)
+ * @param {boolean} [props.disabled=false] - should the item be disabled/unclickable
+ * 
+ * @memberof module:DiscordContextMenu
+ */
+class MenuItem extends React.Component {
+    handleClick(event) {
+        if (this.props.onClick) this.props.onClick(event);
+        if (this.props.action) this.props.action(event);
+        if (this.props.closeOnClick) ContextMenuActions.closeContextMenu();
+    }
+    render() {
+        const Component = DiscordComponent ? DiscordComponent.default || DiscordComponent : null;
+        return React.createElement(Component, Object.assign({}, this.props, {action: this.handleClick.bind(this)}));
+    }
+}
+
+export default WrapBoundary(MenuItem);
+
+// Discord's implementation for reference
+// var c = function (e) {
+//     var t, n = e.style,
+//         r = e.label,
+//         s = e.hint,
+//         c = e.action,
+//         f = e.danger,
+//         p = void 0 !== f &amp;&amp; f,
+//         v = e.disabled,
+//         h = void 0 !== v &amp;&amp; v,
+//         _ = e.brand,
+//         m = void 0 !== _ &amp;&amp; _,
+//         y = e.children,
+//         g = e.className,
+//         E = e.tooltip,
+//         S = d(i.default, {
+//             className: (0, o.default)(u.default.item, (t = {}, t[u.default.clickable] = !h, t[u.default.danger] = p, t[u.default.disabled] = h, t[u.default.brand] = m, t), g),
+//             style: n,
+//             role: "menuitem",
+//             onClick: h ? void 0 : c
+//         }, void 0, d("div", {
+//             className: u.default.label
+//         }, void 0, r), d("div", {
+//             className: u.default.hint
+//         }, void 0, s), y);
+//     return null != E ? d(l.default, {
+//         text: E
+//     }, void 0, function (e) {
+//         return a.createElement("div", e, S)
+//     }) : S
+// };
+// t.default = c</code></pre>
+		</section>
+			</div>
+		</div>
+	</div>
+	<footer>
+				<div class="copyright">Copyright © 2018-2020 Zack Rauen</div>
+			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
+	</footer>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/clipboard.min.js"></script>
+	<script src="js/prism.min.js"></script>
+	<script src="js/template.min.js"></script>
+		<!-- start:lunr-search-modal.hbs -->
+		<div class="modal fade" id="lunr-search-modal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">Search results</h4>
+					</div>
+					<div class="modal-body" id="lunr-search-body">
+					</div>
+					<div class="modal-footer" id="lunr-search-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div>
+		<!-- end:lunr-search-modal.hbs -->		<script src="js/lunr.min.js"></script>
+	
+</body>
+</html>
+<!-- end:source.tmpl.hbs -->

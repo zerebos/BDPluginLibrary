@@ -36,10 +36,38 @@ export default class DiscordContextMenu {
     static get SliderMenuItem() {return SliderMenuItem;}
 
     /**
-     * Builds a single menu item
+     * Builds a single menu item. The only prop shown here is the type, the rest should
+     * match the actual component being built. View those to see what options exist
+     * for each, they often have less in common than you might think. See {@link module:DiscordContextMenu.MenuItem}
+     * for the majority of props commonly available. Check the documentation for the
+     * rest of the components.
+     * 
      * @param {object} props - props used to build the item
      * @param {string} [props.type="text"] - type of the item, options: text, image, submenu, toggle, slider
      * @returns {object} the created component
+     * 
+     * @see {@link module:DiscordContextMenu.MenuItem}
+     * @see {@link module:DiscordContextMenu.ToggleMenuItem}
+     * @see {@link module:DiscordContextMenu.SubMenuItem}
+     * @see {@link module:DiscordContextMenu.ImageMenuItem}
+     * @see {@link module:DiscordContextMenu.SliderMenuItem}
+     * 
+     * @example
+     * // Creates a single menu item that prints "MENU ITEM" on click
+     * DiscordContextMenu.buildMenuItem({
+     *      label: "Menu Item",
+     *      action: () => {console.log("MENU ITEM");}
+     * });
+     * 
+     * @example
+     * // Creates a single toggle item that starts unchecked
+     * // and print the new value on every toggle
+     * DiscordContextMenu.buildMenuItem({
+     *      type: "toggle",
+     *      label: "Item Toggle",
+     *      active: false,
+     *      action: (newValue) => {console.log(newValue);}
+     * });
      */
     static buildMenuItem(props) {
         const {type} = props;
@@ -64,8 +92,44 @@ export default class DiscordContextMenu {
      * Creates the all the items **and groups** of a context menu recursively.
      * There is no hard limit to the number of groups within groups or number
      * of items in a menu.
-     * @param {Array<object>} setup - array of item props used to build items. See {@link module:DiscordContextMenu#buildMenuItem}
+     * @param {Array<object>} setup - array of item props used to build items. See {@link module:DiscordContextMenu.buildMenuItem}
      * @returns {Array<object>} array of the created component
+     * 
+     * @example
+     * // Creates a single item group item with a toggle item
+     * DiscordContextMenu.buildMenuChildren([{
+     *      type: "group",
+     *      items: [{
+     *          type: "toggle",
+     *          label: "Item Toggle",
+     *          active: false,
+     *          action: (newValue) => {console.log(newValue);}
+     *      }]
+     * }]);
+     * 
+     * @example
+     * // Creates two item groups with a single toggle item each
+     * DiscordContextMenu.buildMenuChildren([{
+     *     type: "group",
+     *     items: [{
+     *         type: "toggle",
+     *         label: "Item Toggle",
+     *         active: false,
+     *         action: (newValue) => {
+     *             console.log(newValue);
+     *         }
+     *     }]
+     * }, {
+     *     type: "group",
+     *     items: [{
+     *         type: "toggle",
+     *         label: "Item Toggle",
+     *         active: false,
+     *         action: (newValue) => {
+     *             console.log(newValue);
+     *         }
+     *     }]
+     * }]);
      */
     static buildMenuChildren(setup) {
         const mapper = s => {
@@ -81,9 +145,9 @@ export default class DiscordContextMenu {
 
     /**
      * Creates the menu *component* including the wrapping `ContextMenu`.
-     * Calls {@link module:DiscordContextMenu#buildMenuChildren} under the covers.
-     * Used to call in combination with {@link module:DiscordContextMenu#openContextMenu}.
-     * @param {Array<object>} setup - array of item props used to build items. See {@link module:DiscordContextMenu#buildMenuChildren}
+     * Calls {@link module:DiscordContextMenu.buildMenuChildren} under the covers.
+     * Used to call in combination with {@link module:DiscordContextMenu.openContextMenu}.
+     * @param {Array<object>} setup - array of item props used to build items. See {@link module:DiscordContextMenu.buildMenuChildren}
      * @returns {function} the unique context menu component
      */
     static buildMenu(setup) {
@@ -93,7 +157,7 @@ export default class DiscordContextMenu {
     /**
      * 
      * @param {MouseEvent} event - The context menu event. This can be emulated, requires target, and all X, Y locations.
-     * @param {function} menuComponent - Component to render. This can be any react component or output of {@link module:DiscordContextMenu#buildMenu}
+     * @param {function} menuComponent - Component to render. This can be any react component or output of {@link module:DiscordContextMenu.buildMenu}
      * @param {object} config - configuration/props for the context menu
      * @param {string} [config.position="right"] - default position for the menu, options: "left", "right"
      * @param {string} [config.align="top"] - default alignment for the menu, options: "bottom", "top"

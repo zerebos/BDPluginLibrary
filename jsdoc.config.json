@@ -14,17 +14,16 @@
     "cleverLinks": false,
     "monospaceLinks": false,
     "default": {
-      "outputSourceFiles": true,
-      "includeDate": false
+      "outputSourceFiles": true
     },
+    "includeDate": false,
     "path": "ink-docstrap",
     "theme": "cerulean",
     "navType": "vertical",
     "linenums": true,
-    "dateFormat": "MMMM Do YYYY, h:mm:ss a",
 	"systemName": "Zere's Plugin Library",
     "systemSummary": "A set of helpful utilities and tools for BD plugins.",
-    "copyright": "Copyright © 2018 Zack Rauen"
+    "copyright": "Copyright © 2018-2020 Zack Rauen"
   },
   "source": {
     "includePattern": ".+.js(doc)?$",

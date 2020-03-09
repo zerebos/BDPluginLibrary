@@ -1396,6 +1396,87 @@
           "member",
           "screen.height"
         ],
+        "module-DiscordContextMenu.ContextMenu.html": [
+          "class",
+          "context",
+          "contextmenu",
+          "creat",
+          "discordcontextmenu.contextmenu",
+          "main",
+          "menu",
+          "module:discordcontextmenu.contextmenu"
+        ],
+        "module-DiscordContextMenu.ImageMenuItem.html": [
+          "class",
+          "creat",
+          "custom",
+          "discordcontextmenu.imagemenuitem",
+          "icon",
+          "imag",
+          "imagemenuitem",
+          "item",
+          "menu",
+          "module:discordcontextmenu.imagemenuitem",
+          "side"
+        ],
+        "module-DiscordContextMenu.ItemGroup.html": [
+          "class",
+          "discordcontextmenu.itemgroup",
+          "group",
+          "hold",
+          "item",
+          "itemgroup",
+          "module:discordcontextmenu.itemgroup",
+          "togeth"
+        ],
+        "module-DiscordContextMenu.MenuItem.html": [
+          "basic",
+          "class",
+          "creat",
+          "discordcontextmenu.menuitem",
+          "item",
+          "lot",
+          "menu",
+          "menuitem",
+          "module:discordcontextmenu.menuitem",
+          "option"
+        ],
+        "module-DiscordContextMenu.SliderMenuItem.html": [
+          "class",
+          "creat",
+          "discordcontextmenu.slidermenuitem",
+          "insid",
+          "item",
+          "menu",
+          "module:discordcontextmenu.slidermenuitem",
+          "set",
+          "slider",
+          "slidermenuitem",
+          "style"
+        ],
+        "module-DiscordContextMenu.SubMenuItem.html": [
+          "class",
+          "creat",
+          "discordcontextmenu.submenuitem",
+          "hover",
+          "item",
+          "menu",
+          "module:discordcontextmenu.submenuitem",
+          "show",
+          "submenu",
+          "submenuitem"
+        ],
+        "module-DiscordContextMenu.ToggleMenuItem.html": [
+          "checkbox",
+          "class",
+          "creat",
+          "discordcontextmenu.togglemenuitem",
+          "item",
+          "menu",
+          "module:discordcontextmenu.togglemenuitem",
+          "toggl",
+          "togglemenuitem"
+        ],
         "module-ContextMenu.Menu.html": [
           "class",
           "context",
@@ -2402,6 +2483,16 @@
           "module:contextmenu",
           "self"
         ],
+        "module-DiscordContextMenu.html": [
+          "build",
+          "discord'",
+          "discordcontextmenu",
+          "menu",
+          "modul",
+          "module:discordcontextmenu",
+          "render",
+          "util"
+        ],
         "module-EmulatedTooltip.html": [
           "automat",
           "close",
@@ -2512,7 +2603,7 @@
           "settings~radioitem"
         ]
       },
-      "length": 211
+      "length": 219
     },
     "tokenStore": {
       "root": {
@@ -2895,6 +2986,17 @@
             "docs": {},
             "s": {
               "docs": {},
+              "i": {
+                "docs": {},
+                "c": {
+                  "docs": {
+                    "module-DiscordContextMenu.MenuItem.html": {
+                      "ref": "module-DiscordContextMenu.MenuItem.html",
+                      "tf": 8.333333333333332
+                    }
+                  }
+                }
+              },
               "e": {
                 "docs": {
                   "module-ContextMenu.MenuItem.html": {
@@ -2920,6 +3022,10 @@
                     "module-Settings.SettingPanel.html#.build": {
                       "ref": "module-Settings.SettingPanel.html#.build",
                       "tf": 620
+                    },
+                    "module-DiscordContextMenu.html": {
+                      "ref": "module-DiscordContextMenu.html",
+                      "tf": 10
                     }
                   }
                 },
@@ -3059,6 +3165,10 @@
                     "module-DiscordAPI.UserSettings.html#.autoplayGifs": {
                       "ref": "module-DiscordAPI.UserSettings.html#.autoplayGifs",
                       "tf": 2.941176470588235
+                    },
+                    "module-DiscordContextMenu.SubMenuItem.html": {
+                      "ref": "module-DiscordContextMenu.SubMenuItem.html",
+                      "tf": 8.333333333333332
                     }
                   }
                 }
@@ -3071,6 +3181,17 @@
                   "module-DiscordAPI.UserSettings.html#.timezoneOffset": {
                     "ref": "module-DiscordAPI.UserSettings.html#.timezoneOffset",
                     "tf": 10
+                  }
+                }
+              }
+            },
+            "l": {
+              "docs": {},
+              "d": {
+                "docs": {
+                  "module-DiscordContextMenu.ItemGroup.html": {
+                    "ref": "module-DiscordContextMenu.ItemGroup.html",
+                    "tf": 12.5
                   }
                 }
               }
@@ -3756,6 +3877,17 @@
                     }
                   }
                 }
+              },
+              "i": {
+                "docs": {},
+                "d": {
+                  "docs": {
+                    "module-DiscordContextMenu.SliderMenuItem.html": {
+                      "ref": "module-DiscordContextMenu.SliderMenuItem.html",
+                      "tf": 7.142857142857142
+                    }
+                  }
+                }
               }
             },
             "p": {
@@ -3846,6 +3978,10 @@
                   "module-DiscordAPI.Guild.html#updateSplash": {
                     "ref": "module-DiscordAPI.Guild.html#updateSplash",
                     "tf": 33.33333333333333
+                  },
+                  "module-DiscordContextMenu.ImageMenuItem.html": {
+                    "ref": "module-DiscordContextMenu.ImageMenuItem.html",
+                    "tf": 7.142857142857142
                   }
                 },
                 "_": {
@@ -3917,6 +4053,10 @@
                     "ref": "module-DiscordAPI.UserSettings.html#.allowTts",
                     "tf": 5
                   },
+                  "module-DiscordContextMenu.ImageMenuItem.html": {
+                    "ref": "module-DiscordContextMenu.ImageMenuItem.html",
+                    "tf": 7.142857142857142
+                  },
                   "module-ContextMenu.ImageItem.html": {
                     "ref": "module-ContextMenu.ImageItem.html",
                     "tf": 20
@@ -3924,6 +4064,35 @@
                 },
                 "e": {
                   "docs": {},
+                  "m": {
+                    "docs": {},
+                    "e": {
+                      "docs": {},
+                      "n": {
+                        "docs": {},
+                        "u": {
+                          "docs": {},
+                          "i": {
+                            "docs": {},
+                            "t": {
+                              "docs": {},
+                              "e": {
+                                "docs": {},
+                                "m": {
+                                  "docs": {
+                                    "module-DiscordContextMenu.ImageMenuItem.html": {
+                                      "ref": "module-DiscordContextMenu.ImageMenuItem.html",
+                                      "tf": 650
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
                   "i": {
                     "docs": {},
                     "t": {
@@ -3962,6 +4131,30 @@
                   "module-DiscordAPI.UserSettings.html#.friendSourceFlags": {
                     "ref": "module-DiscordAPI.UserSettings.html#.friendSourceFlags",
                     "tf": 2.380952380952381
+                  },
+                  "module-DiscordContextMenu.ImageMenuItem.html": {
+                    "ref": "module-DiscordContextMenu.ImageMenuItem.html",
+                    "tf": 7.142857142857142
+                  },
+                  "module-DiscordContextMenu.ItemGroup.html": {
+                    "ref": "module-DiscordContextMenu.ItemGroup.html",
+                    "tf": 12.5
+                  },
+                  "module-DiscordContextMenu.MenuItem.html": {
+                    "ref": "module-DiscordContextMenu.MenuItem.html",
+                    "tf": 8.333333333333332
+                  },
+                  "module-DiscordContextMenu.SliderMenuItem.html": {
+                    "ref": "module-DiscordContextMenu.SliderMenuItem.html",
+                    "tf": 7.142857142857142
+                  },
+                  "module-DiscordContextMenu.SubMenuItem.html": {
+                    "ref": "module-DiscordContextMenu.SubMenuItem.html",
+                    "tf": 8.333333333333332
+                  },
+                  "module-DiscordContextMenu.ToggleMenuItem.html": {
+                    "ref": "module-DiscordContextMenu.ToggleMenuItem.html",
+                    "tf": 10
                   },
                   "module-ContextMenu.Menu.html#addGroup": {
                     "ref": "module-ContextMenu.Menu.html#addGroup",
@@ -4014,6 +4207,10 @@
                         "docs": {},
                         "p": {
                           "docs": {
+                            "module-DiscordContextMenu.ItemGroup.html": {
+                              "ref": "module-DiscordContextMenu.ItemGroup.html",
+                              "tf": 650
+                            },
                             "module-ContextMenu.ItemGroup.html": {
                               "ref": "module-ContextMenu.ItemGroup.html",
                               "tf": 650
@@ -4869,6 +5066,14 @@
                       "tf": 650
                     }
                   }
+                }
+              }
+            },
+            "t": {
+              "docs": {
+                "module-DiscordContextMenu.MenuItem.html": {
+                  "ref": "module-DiscordContextMenu.MenuItem.html",
+                  "tf": 8.333333333333332
                 }
               }
             },
@@ -6243,6 +6448,23 @@
                   }
                 }
               }
+            },
+            "n": {
+              "docs": {},
+              "d": {
+                "docs": {},
+                "e": {
+                  "docs": {},
+                  "r": {
+                    "docs": {
+                      "module-DiscordContextMenu.html": {
+                        "ref": "module-DiscordContextMenu.html",
+                        "tf": 10
+                      }
+                    }
+                  }
+                }
+              }
             }
           },
           "o": {
@@ -6587,6 +6809,10 @@
                 "module-DiscordAPI.UserSettings.html#.open": {
                   "ref": "module-DiscordAPI.UserSettings.html#.open",
                   "tf": 12.5
+                },
+                "module-DiscordContextMenu.SliderMenuItem.html": {
+                  "ref": "module-DiscordContextMenu.SliderMenuItem.html",
+                  "tf": 7.142857142857142
                 },
                 "module-Settings.SettingField.html": {
                   "ref": "module-Settings.SettingField.html",
@@ -7824,6 +8050,20 @@
                 }
               }
             },
+            "y": {
+              "docs": {},
+              "l": {
+                "docs": {},
+                "e": {
+                  "docs": {
+                    "module-DiscordContextMenu.SliderMenuItem.html": {
+                      "ref": "module-DiscordContextMenu.SliderMenuItem.html",
+                      "tf": 7.142857142857142
+                    }
+                  }
+                }
+              }
+            },
             "i": {
               "docs": {},
               "l": {
@@ -8060,6 +8300,10 @@
                     "ref": "module-DiscordAPI.UserSettings.html#.showReactions",
                     "tf": 6.25
                   },
+                  "module-DiscordContextMenu.SubMenuItem.html": {
+                    "ref": "module-DiscordContextMenu.SubMenuItem.html",
+                    "tf": 8.333333333333332
+                  },
                   "module-ContextMenu.Menu.html#show": {
                     "ref": "module-ContextMenu.Menu.html#show",
                     "tf": 637.1794871794872
@@ -8253,6 +8497,10 @@
                     "docs": {},
                     "u": {
                       "docs": {
+                        "module-DiscordContextMenu.SubMenuItem.html": {
+                          "ref": "module-DiscordContextMenu.SubMenuItem.html",
+                          "tf": 8.333333333333332
+                        },
                         "module-ContextMenu.Menu.html#attachTo": {
                           "ref": "module-ContextMenu.Menu.html#attachTo",
                           "tf": 4.3478260869565215
@@ -8270,6 +8518,10 @@
                             "docs": {},
                             "m": {
                               "docs": {
+                                "module-DiscordContextMenu.SubMenuItem.html": {
+                                  "ref": "module-DiscordContextMenu.SubMenuItem.html",
+                                  "tf": 650
+                                },
                                 "module-ContextMenu.SubMenuItem.html": {
                                   "ref": "module-ContextMenu.SubMenuItem.html",
                                   "tf": 650
@@ -8344,6 +8596,17 @@
                         }
                       }
                     }
+                  }
+                }
+              }
+            },
+            "d": {
+              "docs": {},
+              "e": {
+                "docs": {
+                  "module-DiscordContextMenu.ImageMenuItem.html": {
+                    "ref": "module-DiscordContextMenu.ImageMenuItem.html",
+                    "tf": 7.142857142857142
                   }
                 }
               }
@@ -8425,9 +8688,42 @@
                   "docs": {},
                   "r": {
                     "docs": {
+                      "module-DiscordContextMenu.SliderMenuItem.html": {
+                        "ref": "module-DiscordContextMenu.SliderMenuItem.html",
+                        "tf": 7.142857142857142
+                      },
                       "module-Settings.Slider.html": {
                         "ref": "module-Settings.Slider.html",
                         "tf": 658.3333333333334
+                      }
+                    },
+                    "m": {
+                      "docs": {},
+                      "e": {
+                        "docs": {},
+                        "n": {
+                          "docs": {},
+                          "u": {
+                            "docs": {},
+                            "i": {
+                              "docs": {},
+                              "t": {
+                                "docs": {},
+                                "e": {
+                                  "docs": {},
+                                  "m": {
+                                    "docs": {
+                                      "module-DiscordContextMenu.SliderMenuItem.html": {
+                                        "ref": "module-DiscordContextMenu.SliderMenuItem.html",
+                                        "tf": 650
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
                       }
                     },
                     "/": {
@@ -8825,12 +9121,60 @@
             },
             "g": {
               "docs": {},
+              "e": {
+                "docs": {},
+                "t": {
+                  "docs": {},
+                  "h": {
+                    "docs": {
+                      "module-DiscordContextMenu.ItemGroup.html": {
+                        "ref": "module-DiscordContextMenu.ItemGroup.html",
+                        "tf": 12.5
+                      }
+                    }
+                  }
+                }
+              },
               "g": {
                 "docs": {},
                 "l": {
-                  "docs": {},
+                  "docs": {
+                    "module-DiscordContextMenu.ToggleMenuItem.html": {
+                      "ref": "module-DiscordContextMenu.ToggleMenuItem.html",
+                      "tf": 10
+                    }
+                  },
                   "e": {
                     "docs": {},
+                    "m": {
+                      "docs": {},
+                      "e": {
+                        "docs": {},
+                        "n": {
+                          "docs": {},
+                          "u": {
+                            "docs": {},
+                            "i": {
+                              "docs": {},
+                              "t": {
+                                "docs": {},
+                                "e": {
+                                  "docs": {},
+                                  "m": {
+                                    "docs": {
+                                      "module-DiscordContextMenu.ToggleMenuItem.html": {
+                                        "ref": "module-DiscordContextMenu.ToggleMenuItem.html",
+                                        "tf": 650
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
                     "i": {
                       "docs": {},
                       "t": {
@@ -9289,6 +9633,10 @@
                   "module-WebpackModules.html": {
                     "ref": "module-WebpackModules.html",
                     "tf": 8.333333333333332
+                  },
+                  "module-DiscordContextMenu.html": {
+                    "ref": "module-DiscordContextMenu.html",
+                    "tf": 10
                   }
                 }
               }
@@ -12032,6 +12380,10 @@
                             "ref": "module-ContextMenu.html",
                             "tf": 6.25
                           },
+                          "module-DiscordContextMenu.html": {
+                            "ref": "module-DiscordContextMenu.html",
+                            "tf": 10
+                          },
                           "module-EmulatedTooltip.html": {
                             "ref": "module-EmulatedTooltip.html",
                             "tf": 3.571428571428571
@@ -12040,6 +12392,313 @@
                       },
                       "c": {
                         "docs": {},
+                        "o": {
+                          "docs": {},
+                          "n": {
+                            "docs": {},
+                            "t": {
+                              "docs": {},
+                              "e": {
+                                "docs": {},
+                                "x": {
+                                  "docs": {},
+                                  "t": {
+                                    "docs": {},
+                                    "m": {
+                                      "docs": {},
+                                      "e": {
+                                        "docs": {},
+                                        "n": {
+                                          "docs": {},
+                                          "u": {
+                                            "docs": {
+                                              "module-DiscordContextMenu.html": {
+                                                "ref": "module-DiscordContextMenu.html",
+                                                "tf": 600
+                                              }
+                                            },
+                                            ".": {
+                                              "docs": {},
+                                              "c": {
+                                                "docs": {},
+                                                "o": {
+                                                  "docs": {},
+                                                  "n": {
+                                                    "docs": {},
+                                                    "t": {
+                                                      "docs": {},
+                                                      "e": {
+                                                        "docs": {},
+                                                        "x": {
+                                                          "docs": {},
+                                                          "t": {
+                                                            "docs": {},
+                                                            "m": {
+                                                              "docs": {},
+                                                              "e": {
+                                                                "docs": {},
+                                                                "n": {
+                                                                  "docs": {},
+                                                                  "u": {
+                                                                    "docs": {
+                                                                      "module-DiscordContextMenu.ContextMenu.html": {
+                                                                        "ref": "module-DiscordContextMenu.ContextMenu.html",
+                                                                        "tf": 100
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              "i": {
+                                                "docs": {},
+                                                "m": {
+                                                  "docs": {},
+                                                  "a": {
+                                                    "docs": {},
+                                                    "g": {
+                                                      "docs": {},
+                                                      "e": {
+                                                        "docs": {},
+                                                        "m": {
+                                                          "docs": {},
+                                                          "e": {
+                                                            "docs": {},
+                                                            "n": {
+                                                              "docs": {},
+                                                              "u": {
+                                                                "docs": {},
+                                                                "i": {
+                                                                  "docs": {},
+                                                                  "t": {
+                                                                    "docs": {},
+                                                                    "e": {
+                                                                      "docs": {},
+                                                                      "m": {
+                                                                        "docs": {
+                                                                          "module-DiscordContextMenu.ImageMenuItem.html": {
+                                                                            "ref": "module-DiscordContextMenu.ImageMenuItem.html",
+                                                                            "tf": 100
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                },
+                                                "t": {
+                                                  "docs": {},
+                                                  "e": {
+                                                    "docs": {},
+                                                    "m": {
+                                                      "docs": {},
+                                                      "g": {
+                                                        "docs": {},
+                                                        "r": {
+                                                          "docs": {},
+                                                          "o": {
+                                                            "docs": {},
+                                                            "u": {
+                                                              "docs": {},
+                                                              "p": {
+                                                                "docs": {
+                                                                  "module-DiscordContextMenu.ItemGroup.html": {
+                                                                    "ref": "module-DiscordContextMenu.ItemGroup.html",
+                                                                    "tf": 100
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              "m": {
+                                                "docs": {},
+                                                "e": {
+                                                  "docs": {},
+                                                  "n": {
+                                                    "docs": {},
+                                                    "u": {
+                                                      "docs": {},
+                                                      "i": {
+                                                        "docs": {},
+                                                        "t": {
+                                                          "docs": {},
+                                                          "e": {
+                                                            "docs": {},
+                                                            "m": {
+                                                              "docs": {
+                                                                "module-DiscordContextMenu.MenuItem.html": {
+                                                                  "ref": "module-DiscordContextMenu.MenuItem.html",
+                                                                  "tf": 100
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              "s": {
+                                                "docs": {},
+                                                "l": {
+                                                  "docs": {},
+                                                  "i": {
+                                                    "docs": {},
+                                                    "d": {
+                                                      "docs": {},
+                                                      "e": {
+                                                        "docs": {},
+                                                        "r": {
+                                                          "docs": {},
+                                                          "m": {
+                                                            "docs": {},
+                                                            "e": {
+                                                              "docs": {},
+                                                              "n": {
+                                                                "docs": {},
+                                                                "u": {
+                                                                  "docs": {},
+                                                                  "i": {
+                                                                    "docs": {},
+                                                                    "t": {
+                                                                      "docs": {},
+                                                                      "e": {
+                                                                        "docs": {},
+                                                                        "m": {
+                                                                          "docs": {
+                                                                            "module-DiscordContextMenu.SliderMenuItem.html": {
+                                                                              "ref": "module-DiscordContextMenu.SliderMenuItem.html",
+                                                                              "tf": 100
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                },
+                                                "u": {
+                                                  "docs": {},
+                                                  "b": {
+                                                    "docs": {},
+                                                    "m": {
+                                                      "docs": {},
+                                                      "e": {
+                                                        "docs": {},
+                                                        "n": {
+                                                          "docs": {},
+                                                          "u": {
+                                                            "docs": {},
+                                                            "i": {
+                                                              "docs": {},
+                                                              "t": {
+                                                                "docs": {},
+                                                                "e": {
+                                                                  "docs": {},
+                                                                  "m": {
+                                                                    "docs": {
+                                                                      "module-DiscordContextMenu.SubMenuItem.html": {
+                                                                        "ref": "module-DiscordContextMenu.SubMenuItem.html",
+                                                                        "tf": 100
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              "t": {
+                                                "docs": {},
+                                                "o": {
+                                                  "docs": {},
+                                                  "g": {
+                                                    "docs": {},
+                                                    "g": {
+                                                      "docs": {},
+                                                      "l": {
+                                                        "docs": {},
+                                                        "e": {
+                                                          "docs": {},
+                                                          "m": {
+                                                            "docs": {},
+                                                            "e": {
+                                                              "docs": {},
+                                                              "n": {
+                                                                "docs": {},
+                                                                "u": {
+                                                                  "docs": {},
+                                                                  "i": {
+                                                                    "docs": {},
+                                                                    "t": {
+                                                                      "docs": {},
+                                                                      "e": {
+                                                                        "docs": {},
+                                                                        "m": {
+                                                                          "docs": {
+                                                                            "module-DiscordContextMenu.ToggleMenuItem.html": {
+                                                                              "ref": "module-DiscordContextMenu.ToggleMenuItem.html",
+                                                                              "tf": 100
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
                         "l": {
                           "docs": {},
                           "a": {
@@ -14198,6 +14857,10 @@
                       "ref": "module-DOMTools.DOMObserver.html#subscribeToQuerySelector",
                       "tf": 16.666666666666664
                     },
+                    "module-DiscordContextMenu.ItemGroup.html": {
+                      "ref": "module-DiscordContextMenu.ItemGroup.html",
+                      "tf": 12.5
+                    },
                     "module-ContextMenu.Menu.html#addGroup": {
                       "ref": "module-ContextMenu.Menu.html#addGroup",
                       "tf": 14.285714285714285
@@ -14320,6 +14983,34 @@
                     },
                     "Screen.html": {
                       "ref": "Screen.html",
+                      "tf": 110
+                    },
+                    "module-DiscordContextMenu.ContextMenu.html": {
+                      "ref": "module-DiscordContextMenu.ContextMenu.html",
+                      "tf": 110
+                    },
+                    "module-DiscordContextMenu.ImageMenuItem.html": {
+                      "ref": "module-DiscordContextMenu.ImageMenuItem.html",
+                      "tf": 110
+                    },
+                    "module-DiscordContextMenu.ItemGroup.html": {
+                      "ref": "module-DiscordContextMenu.ItemGroup.html",
+                      "tf": 110
+                    },
+                    "module-DiscordContextMenu.MenuItem.html": {
+                      "ref": "module-DiscordContextMenu.MenuItem.html",
+                      "tf": 110
+                    },
+                    "module-DiscordContextMenu.SliderMenuItem.html": {
+                      "ref": "module-DiscordContextMenu.SliderMenuItem.html",
+                      "tf": 110
+                    },
+                    "module-DiscordContextMenu.SubMenuItem.html": {
+                      "ref": "module-DiscordContextMenu.SubMenuItem.html",
+                      "tf": 110
+                    },
+                    "module-DiscordContextMenu.ToggleMenuItem.html": {
+                      "ref": "module-DiscordContextMenu.ToggleMenuItem.html",
                       "tf": 110
                     },
                     "module-ContextMenu.Menu.html": {
@@ -14694,6 +15385,10 @@
                           "ref": "module-DiscordAPI.UserSettings.html#.developerMode",
                           "tf": 2.7777777777777777
                         },
+                        "module-DiscordContextMenu.ContextMenu.html": {
+                          "ref": "module-DiscordContextMenu.ContextMenu.html",
+                          "tf": 12.5
+                        },
                         "module-ContextMenu.Menu.html": {
                           "ref": "module-ContextMenu.Menu.html",
                           "tf": 7.142857142857142
@@ -14719,6 +15414,10 @@
                             "docs": {},
                             "u": {
                               "docs": {
+                                "module-DiscordContextMenu.ContextMenu.html": {
+                                  "ref": "module-DiscordContextMenu.ContextMenu.html",
+                                  "tf": 650
+                                },
                                 "module-ContextMenu.html": {
                                   "ref": "module-ContextMenu.html",
                                   "tf": 600
@@ -15448,6 +16147,10 @@
                       "docs": {},
                       "x": {
                         "docs": {
+                          "module-DiscordContextMenu.ToggleMenuItem.html": {
+                            "ref": "module-DiscordContextMenu.ToggleMenuItem.html",
+                            "tf": 10
+                          },
                           "module-ContextMenu.ToggleItem.html": {
                             "ref": "module-ContextMenu.ToggleItem.html",
                             "tf": 12.5
@@ -15970,6 +16673,10 @@
                         "ref": "module-DiscordAPI.Guild.html#emojis",
                         "tf": 12.5
                       },
+                      "module-DiscordContextMenu.ImageMenuItem.html": {
+                        "ref": "module-DiscordContextMenu.ImageMenuItem.html",
+                        "tf": 7.142857142857142
+                      },
                       "module-ContextMenu.Menu.html": {
                         "ref": "module-ContextMenu.Menu.html",
                         "tf": 7.142857142857142
@@ -16099,6 +16806,30 @@
                     "module-DiscordAPI.Guild.html#createChannel": {
                       "ref": "module-DiscordAPI.Guild.html#createChannel",
                       "tf": 16.666666666666664
+                    },
+                    "module-DiscordContextMenu.ContextMenu.html": {
+                      "ref": "module-DiscordContextMenu.ContextMenu.html",
+                      "tf": 12.5
+                    },
+                    "module-DiscordContextMenu.ImageMenuItem.html": {
+                      "ref": "module-DiscordContextMenu.ImageMenuItem.html",
+                      "tf": 7.142857142857142
+                    },
+                    "module-DiscordContextMenu.MenuItem.html": {
+                      "ref": "module-DiscordContextMenu.MenuItem.html",
+                      "tf": 8.333333333333332
+                    },
+                    "module-DiscordContextMenu.SliderMenuItem.html": {
+                      "ref": "module-DiscordContextMenu.SliderMenuItem.html",
+                      "tf": 7.142857142857142
+                    },
+                    "module-DiscordContextMenu.SubMenuItem.html": {
+                      "ref": "module-DiscordContextMenu.SubMenuItem.html",
+                      "tf": 8.333333333333332
+                    },
+                    "module-DiscordContextMenu.ToggleMenuItem.html": {
+                      "ref": "module-DiscordContextMenu.ToggleMenuItem.html",
+                      "tf": 10
                     },
                     "module-ContextMenu.Menu.html": {
                       "ref": "module-ContextMenu.Menu.html",
@@ -16287,6 +17018,10 @@
                     },
                     "module-ContextMenu.html": {
                       "ref": "module-ContextMenu.html",
+                      "tf": 110
+                    },
+                    "module-DiscordContextMenu.html": {
+                      "ref": "module-DiscordContextMenu.html",
                       "tf": 110
                     },
                     "module-EmulatedTooltip.html": {
@@ -19142,6 +19877,313 @@
                                     },
                                     "c": {
                                       "docs": {},
+                                      "o": {
+                                        "docs": {},
+                                        "n": {
+                                          "docs": {},
+                                          "t": {
+                                            "docs": {},
+                                            "e": {
+                                              "docs": {},
+                                              "x": {
+                                                "docs": {},
+                                                "t": {
+                                                  "docs": {},
+                                                  "m": {
+                                                    "docs": {},
+                                                    "e": {
+                                                      "docs": {},
+                                                      "n": {
+                                                        "docs": {},
+                                                        "u": {
+                                                          "docs": {
+                                                            "module-DiscordContextMenu.html": {
+                                                              "ref": "module-DiscordContextMenu.html",
+                                                              "tf": 1300
+                                                            }
+                                                          },
+                                                          ".": {
+                                                            "docs": {},
+                                                            "c": {
+                                                              "docs": {},
+                                                              "o": {
+                                                                "docs": {},
+                                                                "n": {
+                                                                  "docs": {},
+                                                                  "t": {
+                                                                    "docs": {},
+                                                                    "e": {
+                                                                      "docs": {},
+                                                                      "x": {
+                                                                        "docs": {},
+                                                                        "t": {
+                                                                          "docs": {},
+                                                                          "m": {
+                                                                            "docs": {},
+                                                                            "e": {
+                                                                              "docs": {},
+                                                                              "n": {
+                                                                                "docs": {},
+                                                                                "u": {
+                                                                                  "docs": {
+                                                                                    "module-DiscordContextMenu.ContextMenu.html": {
+                                                                                      "ref": "module-DiscordContextMenu.ContextMenu.html",
+                                                                                      "tf": 1150
+                                                                                    }
+                                                                                  }
+                                                                                }
+                                                                              }
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            },
+                                                            "i": {
+                                                              "docs": {},
+                                                              "m": {
+                                                                "docs": {},
+                                                                "a": {
+                                                                  "docs": {},
+                                                                  "g": {
+                                                                    "docs": {},
+                                                                    "e": {
+                                                                      "docs": {},
+                                                                      "m": {
+                                                                        "docs": {},
+                                                                        "e": {
+                                                                          "docs": {},
+                                                                          "n": {
+                                                                            "docs": {},
+                                                                            "u": {
+                                                                              "docs": {},
+                                                                              "i": {
+                                                                                "docs": {},
+                                                                                "t": {
+                                                                                  "docs": {},
+                                                                                  "e": {
+                                                                                    "docs": {},
+                                                                                    "m": {
+                                                                                      "docs": {
+                                                                                        "module-DiscordContextMenu.ImageMenuItem.html": {
+                                                                                          "ref": "module-DiscordContextMenu.ImageMenuItem.html",
+                                                                                          "tf": 1150
+                                                                                        }
+                                                                                      }
+                                                                                    }
+                                                                                  }
+                                                                                }
+                                                                              }
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              },
+                                                              "t": {
+                                                                "docs": {},
+                                                                "e": {
+                                                                  "docs": {},
+                                                                  "m": {
+                                                                    "docs": {},
+                                                                    "g": {
+                                                                      "docs": {},
+                                                                      "r": {
+                                                                        "docs": {},
+                                                                        "o": {
+                                                                          "docs": {},
+                                                                          "u": {
+                                                                            "docs": {},
+                                                                            "p": {
+                                                                              "docs": {
+                                                                                "module-DiscordContextMenu.ItemGroup.html": {
+                                                                                  "ref": "module-DiscordContextMenu.ItemGroup.html",
+                                                                                  "tf": 1150
+                                                                                }
+                                                                              }
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            },
+                                                            "m": {
+                                                              "docs": {},
+                                                              "e": {
+                                                                "docs": {},
+                                                                "n": {
+                                                                  "docs": {},
+                                                                  "u": {
+                                                                    "docs": {},
+                                                                    "i": {
+                                                                      "docs": {},
+                                                                      "t": {
+                                                                        "docs": {},
+                                                                        "e": {
+                                                                          "docs": {},
+                                                                          "m": {
+                                                                            "docs": {
+                                                                              "module-DiscordContextMenu.MenuItem.html": {
+                                                                                "ref": "module-DiscordContextMenu.MenuItem.html",
+                                                                                "tf": 1150
+                                                                              }
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            },
+                                                            "s": {
+                                                              "docs": {},
+                                                              "l": {
+                                                                "docs": {},
+                                                                "i": {
+                                                                  "docs": {},
+                                                                  "d": {
+                                                                    "docs": {},
+                                                                    "e": {
+                                                                      "docs": {},
+                                                                      "r": {
+                                                                        "docs": {},
+                                                                        "m": {
+                                                                          "docs": {},
+                                                                          "e": {
+                                                                            "docs": {},
+                                                                            "n": {
+                                                                              "docs": {},
+                                                                              "u": {
+                                                                                "docs": {},
+                                                                                "i": {
+                                                                                  "docs": {},
+                                                                                  "t": {
+                                                                                    "docs": {},
+                                                                                    "e": {
+                                                                                      "docs": {},
+                                                                                      "m": {
+                                                                                        "docs": {
+                                                                                          "module-DiscordContextMenu.SliderMenuItem.html": {
+                                                                                            "ref": "module-DiscordContextMenu.SliderMenuItem.html",
+                                                                                            "tf": 1150
+                                                                                          }
+                                                                                        }
+                                                                                      }
+                                                                                    }
+                                                                                  }
+                                                                                }
+                                                                              }
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              },
+                                                              "u": {
+                                                                "docs": {},
+                                                                "b": {
+                                                                  "docs": {},
+                                                                  "m": {
+                                                                    "docs": {},
+                                                                    "e": {
+                                                                      "docs": {},
+                                                                      "n": {
+                                                                        "docs": {},
+                                                                        "u": {
+                                                                          "docs": {},
+                                                                          "i": {
+                                                                            "docs": {},
+                                                                            "t": {
+                                                                              "docs": {},
+                                                                              "e": {
+                                                                                "docs": {},
+                                                                                "m": {
+                                                                                  "docs": {
+                                                                                    "module-DiscordContextMenu.SubMenuItem.html": {
+                                                                                      "ref": "module-DiscordContextMenu.SubMenuItem.html",
+                                                                                      "tf": 1150
+                                                                                    }
+                                                                                  }
+                                                                                }
+                                                                              }
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            },
+                                                            "t": {
+                                                              "docs": {},
+                                                              "o": {
+                                                                "docs": {},
+                                                                "g": {
+                                                                  "docs": {},
+                                                                  "g": {
+                                                                    "docs": {},
+                                                                    "l": {
+                                                                      "docs": {},
+                                                                      "e": {
+                                                                        "docs": {},
+                                                                        "m": {
+                                                                          "docs": {},
+                                                                          "e": {
+                                                                            "docs": {},
+                                                                            "n": {
+                                                                              "docs": {},
+                                                                              "u": {
+                                                                                "docs": {},
+                                                                                "i": {
+                                                                                  "docs": {},
+                                                                                  "t": {
+                                                                                    "docs": {},
+                                                                                    "e": {
+                                                                                      "docs": {},
+                                                                                      "m": {
+                                                                                        "docs": {
+                                                                                          "module-DiscordContextMenu.ToggleMenuItem.html": {
+                                                                                            "ref": "module-DiscordContextMenu.ToggleMenuItem.html",
+                                                                                            "tf": 1150
+                                                                                          }
+                                                                                        }
+                                                                                      }
+                                                                                    }
+                                                                                  }
+                                                                                }
+                                                                              }
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
                                       "l": {
                                         "docs": {},
                                         "a": {
@@ -22338,6 +23380,10 @@
               "docs": {},
               "n": {
                 "docs": {
+                  "module-DiscordContextMenu.ContextMenu.html": {
+                    "ref": "module-DiscordContextMenu.ContextMenu.html",
+                    "tf": 12.5
+                  },
                   "module-ContextMenu.Menu.html": {
                     "ref": "module-ContextMenu.Menu.html",
                     "tf": 7.142857142857142
@@ -22814,6 +23860,30 @@
                     "ref": "module-DiscordAPI.UserSettings.html#.developerMode",
                     "tf": 2.7777777777777777
                   },
+                  "module-DiscordContextMenu.ContextMenu.html": {
+                    "ref": "module-DiscordContextMenu.ContextMenu.html",
+                    "tf": 12.5
+                  },
+                  "module-DiscordContextMenu.ImageMenuItem.html": {
+                    "ref": "module-DiscordContextMenu.ImageMenuItem.html",
+                    "tf": 7.142857142857142
+                  },
+                  "module-DiscordContextMenu.MenuItem.html": {
+                    "ref": "module-DiscordContextMenu.MenuItem.html",
+                    "tf": 8.333333333333332
+                  },
+                  "module-DiscordContextMenu.SliderMenuItem.html": {
+                    "ref": "module-DiscordContextMenu.SliderMenuItem.html",
+                    "tf": 7.142857142857142
+                  },
+                  "module-DiscordContextMenu.SubMenuItem.html": {
+                    "ref": "module-DiscordContextMenu.SubMenuItem.html",
+                    "tf": 8.333333333333332
+                  },
+                  "module-DiscordContextMenu.ToggleMenuItem.html": {
+                    "ref": "module-DiscordContextMenu.ToggleMenuItem.html",
+                    "tf": 10
+                  },
                   "module-ContextMenu.Menu.html": {
                     "ref": "module-ContextMenu.Menu.html",
                     "tf": 664.2857142857143
@@ -22869,6 +23939,35 @@
                   "module-ContextMenu.html": {
                     "ref": "module-ContextMenu.html",
                     "tf": 12.5
+                  },
+                  "module-DiscordContextMenu.html": {
+                    "ref": "module-DiscordContextMenu.html",
+                    "tf": 10
+                  }
+                },
+                "i": {
+                  "docs": {},
+                  "t": {
+                    "docs": {},
+                    "e": {
+                      "docs": {},
+                      "m": {
+                        "docs": {
+                          "module-DiscordContextMenu.MenuItem.html": {
+                            "ref": "module-DiscordContextMenu.MenuItem.html",
+                            "tf": 650
+                          },
+                          "module-ContextMenu.Menu.html#attachTo": {
+                            "ref": "module-ContextMenu.Menu.html#attachTo",
+                            "tf": 50
+                          },
+                          "module-ContextMenu.MenuItem.html": {
+                            "ref": "module-ContextMenu.MenuItem.html",
+                            "tf": 650
+                          }
+                        }
+                      }
+                    }
                   }
                 },
                 "#": {
@@ -22992,27 +24091,6 @@
                                 }
                               }
                             }
-                          }
-                        }
-                      }
-                    }
-                  }
-                },
-                "i": {
-                  "docs": {},
-                  "t": {
-                    "docs": {},
-                    "e": {
-                      "docs": {},
-                      "m": {
-                        "docs": {
-                          "module-ContextMenu.Menu.html#attachTo": {
-                            "ref": "module-ContextMenu.Menu.html#attachTo",
-                            "tf": 50
-                          },
-                          "module-ContextMenu.MenuItem.html": {
-                            "ref": "module-ContextMenu.MenuItem.html",
-                            "tf": 650
                           }
                         }
                       }
@@ -25624,6 +26702,10 @@
                       "Listenable.html#alertListeners": {
                         "ref": "Listenable.html#alertListeners",
                         "tf": 7.142857142857142
+                      },
+                      "module-DiscordContextMenu.MenuItem.html": {
+                        "ref": "module-DiscordContextMenu.MenuItem.html",
+                        "tf": 8.333333333333332
                       }
                     }
                   }
@@ -28018,7 +29100,7 @@
           }
         }
       },
-      "length": 2050
+      "length": 2125
     },
     "corpusTokens": [
       "0",
@@ -28065,6 +29147,7 @@
       "autoplaygif",
       "avail",
       "base",
+      "basic",
       "bd",
       "bdv2",
       "be",
@@ -28182,6 +29265,14 @@
       "discordapi~us",
       "discordclass",
       "discordclassmodul",
+      "discordcontextmenu",
+      "discordcontextmenu.contextmenu",
+      "discordcontextmenu.imagemenuitem",
+      "discordcontextmenu.itemgroup",
+      "discordcontextmenu.menuitem",
+      "discordcontextmenu.slidermenuitem",
+      "discordcontextmenu.submenuitem",
+      "discordcontextmenu.togglemenuitem",
       "discordmodul",
       "discordselector",
       "display",
@@ -28309,6 +29400,7 @@
       "hex",
       "hide",
       "hint",
+      "hold",
       "hour",
       "hover",
       "htmlelement",
@@ -28319,12 +29411,14 @@
       "id&quot",
       "imag",
       "imageitem",
+      "imagemenuitem",
       "index",
       "info",
       "inform",
       "inlineattachmentmedia",
       "inlineembedmedia",
       "input",
+      "insid",
       "instal",
       "instead",
       "insufficientpermiss",
@@ -28370,6 +29464,7 @@
       "listenable#removelisten",
       "local",
       "logger",
+      "lot",
       "lt;async&gt",
       "lt;static&gt",
       "made",
@@ -28495,6 +29590,14 @@
       "module:discordapi.usersettings.timezoneoffset",
       "module:discordclass",
       "module:discordclassmodul",
+      "module:discordcontextmenu",
+      "module:discordcontextmenu.contextmenu",
+      "module:discordcontextmenu.imagemenuitem",
+      "module:discordcontextmenu.itemgroup",
+      "module:discordcontextmenu.menuitem",
+      "module:discordcontextmenu.slidermenuitem",
+      "module:discordcontextmenu.submenuitem",
+      "module:discordcontextmenu.togglemenuitem",
       "module:discordmodul",
       "module:discordselector",
       "module:domtool",
@@ -28716,6 +29819,7 @@
       "remov",
       "removelisten",
       "removemenu",
+      "render",
       "repres",
       "represent",
       "restrict",
@@ -28789,6 +29893,7 @@
       "showemb",
       "showreact",
       "sibl",
+      "side",
       "similar",
       "simpl",
       "slider",
@@ -28797,6 +29902,7 @@
       "slider#onchang",
       "slider#onremov",
       "slider/rang",
+      "slidermenuitem",
       "sourc",
       "space",
       "specif",
@@ -28809,6 +29915,7 @@
       "still",
       "stop",
       "string",
+      "style",
       "submenu",
       "submenuitem",
       "subscrib",
@@ -28840,7 +29947,10 @@
       "timezoneoffset",
       "toast",
       "todo",
+      "togeth",
+      "toggl",
       "toggleitem",
+      "togglemenuitem",
       "tool",
       "tooltip",
       "tooltip(require(&quot;tooltip&quot",
@@ -30082,6 +31192,83 @@
       "summary": "",
       "description": "Document/window height"
     },
+    "module-DiscordContextMenu.ContextMenu.html": {
+      "id": "module-DiscordContextMenu.ContextMenu.html",
+      "kind": "class",
+      "title": "DiscordContextMenu.ContextMenu",
+      "longname": "module:DiscordContextMenu.ContextMenu",
+      "name": "ContextMenu",
+      "tags": "module:DiscordContextMenu.ContextMenu ContextMenu",
+      "summary": "",
+      "description": "This creates the main context menu",
+      "body": ""
+    },
+    "module-DiscordContextMenu.ImageMenuItem.html": {
+      "id": "module-DiscordContextMenu.ImageMenuItem.html",
+      "kind": "class",
+      "title": "DiscordContextMenu.ImageMenuItem",
+      "longname": "module:DiscordContextMenu.ImageMenuItem",
+      "name": "ImageMenuItem",
+      "tags": "module:DiscordContextMenu.ImageMenuItem ImageMenuItem",
+      "summary": "",
+      "description": "This creates a menu item with an image or custom icon on the side.",
+      "body": ""
+    },
+    "module-DiscordContextMenu.ItemGroup.html": {
+      "id": "module-DiscordContextMenu.ItemGroup.html",
+      "kind": "class",
+      "title": "DiscordContextMenu.ItemGroup",
+      "longname": "module:DiscordContextMenu.ItemGroup",
+      "name": "ItemGroup",
+      "tags": "module:DiscordContextMenu.ItemGroup ItemGroup",
+      "summary": "",
+      "description": "This holds all the items together in a group.",
+      "body": ""
+    },
+    "module-DiscordContextMenu.MenuItem.html": {
+      "id": "module-DiscordContextMenu.MenuItem.html",
+      "kind": "class",
+      "title": "DiscordContextMenu.MenuItem",
+      "longname": "module:DiscordContextMenu.MenuItem",
+      "name": "MenuItem",
+      "tags": "module:DiscordContextMenu.MenuItem MenuItem",
+      "summary": "",
+      "description": "This creates a basic menu item with a lot of options.",
+      "body": ""
+    },
+    "module-DiscordContextMenu.SliderMenuItem.html": {
+      "id": "module-DiscordContextMenu.SliderMenuItem.html",
+      "kind": "class",
+      "title": "DiscordContextMenu.SliderMenuItem",
+      "longname": "module:DiscordContextMenu.SliderMenuItem",
+      "name": "SliderMenuItem",
+      "tags": "module:DiscordContextMenu.SliderMenuItem SliderMenuItem",
+      "summary": "",
+      "description": "This creates a setting style slider inside of a menu item.",
+      "body": ""
+    },
+    "module-DiscordContextMenu.SubMenuItem.html": {
+      "id": "module-DiscordContextMenu.SubMenuItem.html",
+      "kind": "class",
+      "title": "DiscordContextMenu.SubMenuItem",
+      "longname": "module:DiscordContextMenu.SubMenuItem",
+      "name": "SubMenuItem",
+      "tags": "module:DiscordContextMenu.SubMenuItem SubMenuItem",
+      "summary": "",
+      "description": "This creates a menu item that shows a submenu on hover.",
+      "body": ""
+    },
+    "module-DiscordContextMenu.ToggleMenuItem.html": {
+      "id": "module-DiscordContextMenu.ToggleMenuItem.html",
+      "kind": "class",
+      "title": "DiscordContextMenu.ToggleMenuItem",
+      "longname": "module:DiscordContextMenu.ToggleMenuItem",
+      "name": "ToggleMenuItem",
+      "tags": "module:DiscordContextMenu.ToggleMenuItem ToggleMenuItem",
+      "summary": "",
+      "description": "This creates a menu item with a checkbox toggle.",
+      "body": ""
+    },
     "module-ContextMenu.Menu.html": {
       "id": "module-ContextMenu.Menu.html",
       "kind": "class",
@@ -30996,6 +32183,17 @@
       "tags": "module:ContextMenu",
       "summary": "",
       "description": "Self-made context menus that emulate Discord's own context menus.",
+      "body": ""
+    },
+    "module-DiscordContextMenu.html": {
+      "id": "module-DiscordContextMenu.html",
+      "kind": "module",
+      "title": "DiscordContextMenu",
+      "longname": "module:DiscordContextMenu",
+      "name": "DiscordContextMenu",
+      "tags": "module:DiscordContextMenu",
+      "summary": "",
+      "description": "A utility for building and rendering Discord's own menus.",
       "body": ""
     },
     "module-EmulatedTooltip.html": {

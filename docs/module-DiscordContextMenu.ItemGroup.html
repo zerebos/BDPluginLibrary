@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+		<title>DiscordContextMenu.ItemGroup</title>
+		<!--[if lt IE 9]>
+		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<link href="https://fonts.googleapis.com/css?family=PT+Mono" rel="stylesheet">
+		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
+		<link type="text/css" rel="stylesheet" href="css/prism.min.css">
+		<link type="text/css" rel="stylesheet" href="css/template.min.css">
+		<script type="text/javascript">
+			window.TEMPLATE_OPTIONS = {"includeDate":false,"dateFormat":"","systemName":"Zere's Plugin Library","systemSummary":"A set of helpful utilities and tools for BD plugins.","systemLogo":"","systemColor":"","navMembers":[{"kind":"class","title":"Classes","summary":"All documented classes."},{"kind":"external","title":"Externals","summary":"All documented external members."},{"kind":"global","title":"Globals","summary":"All documented globals."},{"kind":"mixin","title":"Mixins","summary":"All documented mixins."},{"kind":"interface","title":"Interfaces","summary":"All documented interfaces."},{"kind":"module","title":"Modules","summary":"All documented modules."},{"kind":"namespace","title":"Namespaces","summary":"All documented namespaces."},{"kind":"tutorial","title":"Tutorials","summary":"All available tutorials."}],"footer":"","copyright":"Copyright © 2018-2020 Zack Rauen","linenums":true,"collapseSymbols":true,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":false,"showTableOfContents":true,"showAccessFilter":true,"analytics":null,"methodHeadingReturns":true,"sort":"linenum, longname, version, since","search":true,"favicon":null,"stylesheets":[],"scripts":[],"monospaceLinks":false,"cleverLinks":false,"default":{"outputSourceFiles":true},"path":"ink-docstrap","theme":"cerulean","navType":"vertical"};
+			window.DOCLET_TOC_ENABLED = true;
+			window.DOCLET_AFILTER_ENABLED = false;
+		</script>
+</head>
+<body>
+	<!-- start:navbar.hbs -->
+	<header class="navbar navbar-default navbar-fixed-top navbar-inverse">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="index.html">
+					Zere&#x27;s Plugin Library
+				</a>
+				<!-- displayed on small devices -->
+				<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="navbar-collapse collapse" id="topNavigation">
+				<ul class="nav navbar-nav">
+								<li class="dropdown">
+									<a href="list_class.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="List.html">List</a></li>
+											<li><a href="Listenable.html">Listenable</a></li>
+											<li><a href="module-ContextMenu.ImageItem.html">ContextMenu.ImageItem</a></li>
+											<li><a href="module-ContextMenu.ItemGroup.html">ContextMenu.ItemGroup</a></li>
+											<li><a href="module-ContextMenu.Menu.html">ContextMenu.Menu</a></li>
+											<li><a href="module-ContextMenu.MenuItem.html">ContextMenu.MenuItem</a></li>
+											<li><a href="module-ContextMenu.SubMenuItem.html">ContextMenu.SubMenuItem</a></li>
+											<li><a href="module-ContextMenu.TextItem.html">ContextMenu.TextItem</a></li>
+											<li><a href="module-ContextMenu.ToggleItem.html">ContextMenu.ToggleItem</a></li>
+											<li><a href="module-DiscordAPI.Channel.html">DiscordAPI.Channel</a></li>
+											<li><a href="module-DiscordAPI.Guild.html">DiscordAPI.Guild</a></li>
+											<li><a href="module-DiscordAPI.InsufficientPermissions.html">DiscordAPI.InsufficientPermissions</a></li>
+											<li><a href="module-DiscordAPI.Message.html">DiscordAPI.Message</a></li>
+											<li><a href="module-DiscordAPI.User.html">DiscordAPI.User</a></li>
+											<li><a href="module-DiscordAPI.UserSettings.html">DiscordAPI.UserSettings</a></li>
+											<li><a href="module-DiscordContextMenu.ContextMenu.html">DiscordContextMenu.ContextMenu</a></li>
+											<li><a href="module-DiscordContextMenu.ImageMenuItem.html">DiscordContextMenu.ImageMenuItem</a></li>
+											<li><a href="module-DiscordContextMenu.ItemGroup.html">DiscordContextMenu.ItemGroup</a></li>
+											<li><a href="module-DiscordContextMenu.MenuItem.html">DiscordContextMenu.MenuItem</a></li>
+											<li><a href="module-DiscordContextMenu.SliderMenuItem.html">DiscordContextMenu.SliderMenuItem</a></li>
+											<li><a href="module-DiscordContextMenu.SubMenuItem.html">DiscordContextMenu.SubMenuItem</a></li>
+											<li><a href="module-DiscordContextMenu.ToggleMenuItem.html">DiscordContextMenu.ToggleMenuItem</a></li>
+											<li><a href="module-DOMTools.ClassName.html">DOMTools.ClassName</a></li>
+											<li><a href="module-DOMTools.DOMObserver.html">DOMTools.DOMObserver</a></li>
+											<li><a href="module-DOMTools.Selector.html">DOMTools.Selector</a></li>
+											<li><a href="module-EmulatedTooltip_module_EmulatedTooltip.html">EmulatedTooltip>module:EmulatedTooltip</a></li>
+											<li><a href="module-Settings.ColorPicker.html">Settings.ColorPicker</a></li>
+											<li><a href="module-Settings.Dropdown.html">Settings.Dropdown</a></li>
+											<li><a href="module-Settings.FilePicker.html">Settings.FilePicker</a></li>
+											<li><a href="module-Settings.Keybind.html">Settings.Keybind</a></li>
+											<li><a href="module-Settings.RadioGroup.html">Settings.RadioGroup</a></li>
+											<li><a href="module-Settings.SettingField.html">Settings.SettingField</a></li>
+											<li><a href="module-Settings.SettingGroup.html">Settings.SettingGroup</a></li>
+											<li><a href="module-Settings.SettingPanel.html">Settings.SettingPanel</a></li>
+											<li><a href="module-Settings.Slider.html">Settings.Slider</a></li>
+											<li><a href="module-Settings.Switch.html">Settings.Switch</a></li>
+											<li><a href="module-Settings.Textbox.html">Settings.Textbox</a></li>
+											<li><a href="module-Tooltip_module_Tooltip.html">Tooltip>module:Tooltip</a></li>
+											<li><a href="module-WebpackModules.Filters.html">WebpackModules.Filters</a></li>
+											<li><a href="Screen.html">Screen</a></li>
+									</ul>
+								</li>
+								<li class="dropdown">
+									<a href="list_interface.html" class="dropdown-toggle" data-toggle="dropdown">Interfaces<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="module-DOMTools-Offset.html">DOMTools~Offset</a></li>
+											<li><a href="module-Modals-Changelog.html">Modals~Changelog</a></li>
+											<li><a href="module-Settings-DropdownItem.html">Settings~DropdownItem</a></li>
+											<li><a href="module-Settings-RadioItem.html">Settings~RadioItem</a></li>
+									</ul>
+								</li>
+								<li class="dropdown">
+									<a href="list_module.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="module-ColorConverter.html">ColorConverter</a></li>
+											<li><a href="module-ContextMenu.html">ContextMenu</a></li>
+											<li><a href="module-DiscordAPI.html">DiscordAPI</a></li>
+											<li><a href="module-DiscordClasses.html">DiscordClasses</a></li>
+											<li><a href="module-DiscordClassModules.html">DiscordClassModules</a></li>
+											<li><a href="module-DiscordContextMenu.html">DiscordContextMenu</a></li>
+											<li><a href="module-DiscordModules.html">DiscordModules</a></li>
+											<li><a href="module-DiscordSelectors.html">DiscordSelectors</a></li>
+											<li><a href="module-DOMTools.html">DOMTools</a></li>
+											<li><a href="module-EmulatedTooltip.html">EmulatedTooltip</a></li>
+											<li><a href="module-Logger.html">Logger</a></li>
+											<li><a href="module-Modals.html">Modals</a></li>
+											<li><a href="module-Patcher.html">Patcher</a></li>
+											<li><a href="module-PluginUpdater.html">PluginUpdater</a></li>
+											<li><a href="module-PluginUtilities.html">PluginUtilities</a></li>
+											<li><a href="module-Popouts.html">Popouts</a></li>
+											<li><a href="module-ReactComponents.html">ReactComponents</a></li>
+											<li><a href="module-ReactTools.html">ReactTools</a></li>
+											<li><a href="module-Settings.html">Settings</a></li>
+											<li><a href="module-Toasts.html">Toasts</a></li>
+											<li><a href="module-Tooltip.html">Tooltip</a></li>
+											<li><a href="module-Utilities.html">Utilities</a></li>
+											<li><a href="module-WebpackModules.html">WebpackModules</a></li>
+									</ul>
+								</li>
+				</ul>
+					<!-- start:lunr-search-navbar.hbs -->
+					<form class="navbar-form navbar-right" role="search">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Search" id="lunr-search-input">
+							<div class="input-group-btn">
+								<button class="btn btn-default" id="lunr-search-submit">
+									<i class="glyphicon glyphicon-search"></i>
+								</button>
+							</div>
+						</div>
+					</form>
+					<!-- start:lunr-search-navbar.hbs -->		</div>
+		</div>
+	</header>
+	<!-- end:navbar.hbs -->		<div class="page-header">
+			<div class="container">
+				<span class="kind">class</span>
+				<h1><span class="ancestors"><a href="module-DiscordContextMenu.html">DiscordContextMenu</a>.</span><span class="name">ItemGroup</span></h1>
+			</div>
+		</div>
+	<div class="container content">
+		<div class="row">
+			<div class="col-md-9 main-content">
+						<ol class="breadcrumb">
+							<li><a href="index.html">Home</a></li>
+							<li><a href="list_class.html">Classes</a></li>
+							<li class="active"><a href="module-DiscordContextMenu.html">DiscordContextMenu</a>.ItemGroup</li>
+						</ol>
+					<section>
+							<dl class="symbol primary">
+								<dt class="symbol-title class collapsible-symbol expanded">
+			<h2 class="class"><span class="signature-new">new&nbsp;</span><span class="name">ItemGroup</span><span class="signature-params">( <span class="signature-param">props</span>&nbsp;)</span><span class="signature-type"></span></h2>
+</dt>
+<dd class="symbol-details class  collapsible-symbol expanded" style="max-height: 9999px;">
+	<div class="symbol-details-inner">
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description classdesc"><p>This holds all the items together in a group.</p></div>
+			</div>			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>props</code></td>
+							<td><span class="param-type">object</span></td>
+							<td class="last">
+									<p>props to pass to the react renderer</p>
+										<table class="params table table-striped">
+											<thead>
+											<tr>
+													<th>Name</th>
+												<th>Type</th>
+													<th>Attributes</th>
+												<th class="last">Description</th>
+											</tr>
+											</thead>
+											<tbody>
+												<tr>
+														<td><code>children</code></td>
+													<td><span class="param-type">Array.&lt;object></span></td>
+														<td class="attributes">&lt;optional&gt;<br/></td>
+													<td class="last">
+															<p>items to contain in this group</p>
+													</td>
+												</tr>
+												<tr>
+														<td><code>items</code></td>
+													<td><span class="param-type">Array.&lt;object></span></td>
+														<td class="attributes">&lt;optional&gt;<br/></td>
+													<td class="last">
+															<p>alias for <code>children</code></p>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="ui_contextmenu_itemgroup.js.html">ui/contextmenu/itemgroup.js</a>, <a href="ui_contextmenu_itemgroup.js.html#line-18">line 18</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+							</dl>
+							<article class="secondary">
+							</article>
+					</section>
+			</div>
+				<div class="col-md-3 side-content">
+					<nav class="toc hidden-print hidden-sm hidden-xs"></nav>
+				</div>
+		</div>
+	</div>
+	<footer>
+				<div class="copyright">Copyright © 2018-2020 Zack Rauen</div>
+			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
+	</footer>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/clipboard.min.js"></script>
+	<script src="js/prism.min.js"></script>
+	<script src="js/template.min.js"></script>
+		<!-- start:lunr-search-modal.hbs -->
+		<div class="modal fade" id="lunr-search-modal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">Search results</h4>
+					</div>
+					<div class="modal-body" id="lunr-search-body">
+					</div>
+					<div class="modal-footer" id="lunr-search-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div>
+		<!-- end:lunr-search-modal.hbs -->		<script src="js/lunr.min.js"></script>
+	
+</body>
+</html>

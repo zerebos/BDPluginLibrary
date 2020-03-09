@@ -61,43 +61,6 @@ class ExampleLibraryPlugin {
 }
 ```
 
-#### ~~Using Remote Library~~ THIS IS DEPRECATED
-
-Here's what the skeleton for a V1 plugin using the remote library would look like:
-```js
-//META{"name":"ExampleLibraryPlugin"}*//
-
-class ExampleLibraryPlugin {
-    getName() {return "ExampleLibraryPlugin";}
-    getDescription() {return "Does things with the library";}
-    getVersion() {return "0.0.1";}
-    getAuthor() {return "Myself";}
-
-    start() {
-        let libraryScript = document.getElementById("ZLibraryScript");
-		if (!window.ZLibrary && !libraryScript) {
-			if (libraryScript) libraryScript.parentElement.removeChild(libraryScript);
-			libraryScript = document.createElement("script");
-			libraryScript.setAttribute("type", "text/javascript");
-			libraryScript.setAttribute("src", "https://rauenzi.github.io/BDPluginLibrary/release/ZLibrary.js");
-			libraryScript.setAttribute("id", "ZLibraryScript");
-            document.head.appendChild(libraryScript);
-		}
-
-		if (window.ZLibrary) this.initialize();
-		else libraryScript.addEventListener("load", () => { this.initialize(); });
-	}
-
-	initialize() {
-        ZLibrary.PluginUpdater.checkForUpdate(this.getName(), this.getVersion(), "LINK_TO_RAW_CODE");
-	}
-
-    stop() {
-
-	}
-}
-```
-
 
 ### Creating BDv2 Style Plugins
 
@@ -159,10 +122,6 @@ module.exports = (Plugin, Library) => {
 #### Using Library Plugin
 
 To build all plugins in `plugins` folder, run `npm run build_plugin`. To build a single plugin run `npm run build_plugin PluginName`. This will yield `PluginName.plugin.js` in the `releases` folder with the same meta as outlined in the template. The resulting file will automatically check if the plugin library exists, and alert the user if it does not giving them a link to download it.
-
-#### ~~Using Remote Library~~ THIS IS DEPRECATED
-
-To build all plugins in `plugins` folder, run `npm run build_plugin_remote`. To build a single plugin run `npm run build_plugin_remote PluginName`. This will yield `PluginName.plugin.js` in the `releases` folder with the same meta as outlined in the template. The resulting file will automatically load the library from a remote source (on this repo) if it is not found.
 
 #### Building Library Into Plugins (larger file sizes)
 
