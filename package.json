@@ -20,12 +20,9 @@
   "scripts": {
     "test": "mocha --require @babel/register --recursive \"./tests/*.js\"",
     "build_plugin": "node ./scripts/build.js local",
-    "build_plugin_remote": "node ./scripts/build.js remote",
     "build_plugin_packed": "node ./scripts/pack.js development",
     "build_lib": "node ./scripts/pack.js development 0PluginLibrary",
     "build_lib_prod": "node ./scripts/pack.js production 0PluginLibrary",
-    "build_lib_remote": "npm run webpack -- ZLibrary=./src/remote.js --output-library ZLibrary -o release/ZLibrary.js --devtool none --config webpack.config.js --progress --colors",
-    "build_lib_remote_prod": "npm run webpack -- ZLibrary=./src/remote.js --output-library ZLibrary -o release/ZLibrary.js --devtool none --config webpack.config.js --progress --colors --mode production",
     "build_docs": "jsdoc -r src -c jsdoc.config.json",
     "webpack": "webpack"
   },

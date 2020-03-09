@@ -4,7 +4,11 @@
  * @version 0.0.1
  */
 
-import {DiscordModules, DOMTools, DiscordClasses, ReactTools} from "modules";
+import {DiscordModules, DiscordClasses, WebpackModules} from "modules";
+
+const React = DiscordModules.React;
+const ce = React.createElement;
+const Markdown = WebpackModules.getByDisplayName("Markdown");
 
 export default class Modals {
 
@@ -22,12 +26,12 @@ export default class Modals {
     /**
      * Acts as a wrapper for {@link module:Modals.showModal} where the `children` is a text element.
      * @param {string} title - title of the modal
-     * @param {string} content - text to show inside the modal
+     * @param {string} content - text to show inside the modal. Can be markdown.
      * @param {object} [options] - see {@link module:Modals.showModal}
      * @see module:Modals.showModal
      */
     static showConfirmationModal(title, content, options = {}) {
-        this.showModal(title, DiscordModules.React.createElement(DiscordModules.TextElement.default, {color: DiscordModules.TextElement.Colors.PRIMARY, children: [content]}), options);
+        this.showModal(title, ce(Markdown, null, content), options);
     }
 
     /**
@@ -37,7 +41,7 @@ export default class Modals {
      */
     static showAlertModal(title, body) {
 		DiscordModules.ModalStack.push(function(props) {
-			return DiscordModules.React.createElement(DiscordModules.AlertModal, Object.assign({
+			return ce(DiscordModules.AlertModal, Object.assign({
 				title: title,
 				body: body,
 			}, props));
@@ -59,7 +63,7 @@ export default class Modals {
     static showModal(title, children, options = {}) {
         const {danger = false, confirmText = "Okay", cancelText = "Cancel", onConfirm = () => {}, onCancel = () => {}, size = this.ModalSizes.SMALL} = options;
         DiscordModules.ModalStack.push(function(props) {
-            return DiscordModules.React.createElement(DiscordModules.ConfirmationModal, Object.assign({
+            return ce(DiscordModules.ConfirmationModal, Object.assign({
                 header: title,
                 red: danger,
                 size: size,
@@ -77,7 +81,7 @@ export default class Modals {
      * @name module:Modals~Changelog
      * @property {string} title - title of the changelog section
      * @property {string} [type=added] - type information of the section. Options: added, improved, fixed, progress.
-     * @property {(Array<HTMLElement>|Array<string>)} items - itemized list of items to show in that section. Can be elements, strings, domstrings, or a mix of those.
+     * @property {Array<string>} items - itemized list of items to show in that section. Can use markdown.
      */
 
     /**
@@ -85,49 +89,40 @@ export default class Modals {
      * @param {string} title - title of the modal
      * @param {string} version - subtitle (usually version or date) of the modal
      * @param {module:Modals~Changelog} changelog - changelog to show inside the modal
-     * @param {(HTMLElement|string)} footer - either an html element or text to show in the footer of the modal
+     * @param {string} footer - either an html element or text to show in the footer of the modal. Can use markdown.
      */
     static showChangelogModal(title, version, changelog, footer) {
+        const TextElement = DiscordModules.TextElement;
         const changelogItems = [];
         for (let c = 0; c < changelog.length; c++) {
             const entry = changelog[c];
             const type = DiscordClasses.Changelog[entry.type] ? DiscordClasses.Changelog[entry.type] : DiscordClasses.Changelog.added;
             const margin = c == 0 ? DiscordClasses.Changelog.marginTop : "";
-            changelogItems.push(DOMTools.parseHTML(`<h1 class="${type} ${margin}">${entry.title}</h1>`));
-            const list = DOMTools.parseHTML(`<ul></ul>`);
-            for (let i = 0; i < entry.items.length; i++) {
-                const listElem = DOMTools.parseHTML(`<li></li>`);
-                if (entry.items[i] instanceof Element) listElem.append(entry.items[i]);
-                else listElem.append(DOMTools.parseHTML(entry.items[i]));
-                list.append(listElem);
-            }
+            changelogItems.push(ce("h1", {className: `${type} ${margin}`,}, entry.title));
+            const list = ce("ul", null, entry.items.map(i => ce("li", null, ce(Markdown, null, i))));
             changelogItems.push(list);
         }
         const renderHeader = function() {
-            return DiscordModules.React.createElement(DiscordModules.FlexChild.Child,
-                {grow: 1, shrink: 1},
-                DiscordModules.React.createElement(DiscordModules.Titles.default, {tag: DiscordModules.Titles.Tags.H4}, title),
-                DiscordModules.React.createElement(DiscordModules.TextElement.default,
-                    {size: DiscordModules.TextElement.Sizes.SMALL, color: DiscordModules.TextElement.Colors.PRIMARY, className: DiscordClasses.Changelog.date.toString()},
+            return ce(DiscordModules.FlexChild.Child, {grow: 1, shrink: 1},
+                ce(DiscordModules.Titles.default, {tag: DiscordModules.Titles.Tags.H4}, title),
+                ce(TextElement.default,
+                    {size: TextElement.Sizes.SMALL, color: TextElement.Colors.PRIMARY, className: DiscordClasses.Changelog.date.toString()},
                     "Version " + version
                 )
             );
         };
         const renderFooter = footer ? function() {
-            return DiscordModules.React.createElement(DiscordModules.TextElement.default,
-                {size: DiscordModules.TextElement.Sizes.SMALL, color: DiscordModules.TextElement.Colors.PRIMARY},
-                ReactTools.wrapElement(changelogItems)
-            );
+            return ce(Markdown, null, footer);
         } : null;
         DiscordModules.ModalStack.push(function(props) {
-            return DiscordModules.React.createElement(DiscordModules.Changelog, Object.assign({
+            return ce(DiscordModules.Changelog, Object.assign({
                 className: DiscordClasses.Changelog.container.toString(),
                 selectable: true,
                 onScroll: _ => _,
                 onClose: _ => _,
                 renderHeader: renderHeader,
                 renderFooter: renderFooter,
-                children: [ReactTools.createWrappedElement(changelogItems)]
+                children: changelogItems
             }, props));
         });
     }

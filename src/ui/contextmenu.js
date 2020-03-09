@@ -137,7 +137,7 @@ export class Menu {
 		menuItem.on("mouseenter", () => {
 			// this.element.appendTo(DiscordSelectors.Popouts.popouts.sibling(DiscordSelectors.TooltipLayers.layerContainer).toString());
 			// const left = this.element.parents(this.parentSelector)[0].css("left");
-			console.log(parseInt(menuItem.offset().left), parseInt(menuItem.offset().top));
+			//console.log(parseInt(menuItem.offset().left), parseInt(menuItem.offset().top));
 			this.show(parseInt(menuItem.offset().right), parseInt(menuItem.offset().top));
 		});
 		menuItem.on("mouseleave", () => { this.element.parents(DiscordSelectors.TooltipLayers.layer.toString())[0].remove(); });

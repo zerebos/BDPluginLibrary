@@ -1,0 +1,383 @@
+<!-- start:source.tmpl.hbs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+		<title>ui/discordcontextmenu.js</title>
+		<!--[if lt IE 9]>
+		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<link href="https://fonts.googleapis.com/css?family=PT+Mono" rel="stylesheet">
+		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
+		<link type="text/css" rel="stylesheet" href="css/prism.min.css">
+		<link type="text/css" rel="stylesheet" href="css/template.min.css">
+		<script type="text/javascript">
+			window.TEMPLATE_OPTIONS = {"includeDate":false,"dateFormat":"","systemName":"Zere's Plugin Library","systemSummary":"A set of helpful utilities and tools for BD plugins.","systemLogo":"","systemColor":"","navMembers":[{"kind":"class","title":"Classes","summary":"All documented classes."},{"kind":"external","title":"Externals","summary":"All documented external members."},{"kind":"global","title":"Globals","summary":"All documented globals."},{"kind":"mixin","title":"Mixins","summary":"All documented mixins."},{"kind":"interface","title":"Interfaces","summary":"All documented interfaces."},{"kind":"module","title":"Modules","summary":"All documented modules."},{"kind":"namespace","title":"Namespaces","summary":"All documented namespaces."},{"kind":"tutorial","title":"Tutorials","summary":"All available tutorials."}],"footer":"","copyright":"Copyright © 2018-2020 Zack Rauen","linenums":true,"collapseSymbols":true,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":false,"showTableOfContents":true,"showAccessFilter":true,"analytics":null,"methodHeadingReturns":true,"sort":"linenum, longname, version, since","search":true,"favicon":null,"stylesheets":[],"scripts":[],"monospaceLinks":false,"cleverLinks":false,"default":{"outputSourceFiles":true},"path":"ink-docstrap","theme":"cerulean","navType":"vertical"};
+			window.DOCLET_TOC_ENABLED = false;
+			window.DOCLET_AFILTER_ENABLED = false;
+		</script>
+</head>
+<body>
+	<!-- start:navbar.hbs -->
+	<header class="navbar navbar-default navbar-fixed-top navbar-inverse">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="index.html">
+					Zere&#x27;s Plugin Library
+				</a>
+				<!-- displayed on small devices -->
+				<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="navbar-collapse collapse" id="topNavigation">
+				<ul class="nav navbar-nav">
+								<li class="dropdown">
+									<a href="list_class.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="List.html">List</a></li>
+											<li><a href="Listenable.html">Listenable</a></li>
+											<li><a href="module-ContextMenu.ImageItem.html">ContextMenu.ImageItem</a></li>
+											<li><a href="module-ContextMenu.ItemGroup.html">ContextMenu.ItemGroup</a></li>
+											<li><a href="module-ContextMenu.Menu.html">ContextMenu.Menu</a></li>
+											<li><a href="module-ContextMenu.MenuItem.html">ContextMenu.MenuItem</a></li>
+											<li><a href="module-ContextMenu.SubMenuItem.html">ContextMenu.SubMenuItem</a></li>
+											<li><a href="module-ContextMenu.TextItem.html">ContextMenu.TextItem</a></li>
+											<li><a href="module-ContextMenu.ToggleItem.html">ContextMenu.ToggleItem</a></li>
+											<li><a href="module-DiscordAPI.Channel.html">DiscordAPI.Channel</a></li>
+											<li><a href="module-DiscordAPI.Guild.html">DiscordAPI.Guild</a></li>
+											<li><a href="module-DiscordAPI.InsufficientPermissions.html">DiscordAPI.InsufficientPermissions</a></li>
+											<li><a href="module-DiscordAPI.Message.html">DiscordAPI.Message</a></li>
+											<li><a href="module-DiscordAPI.User.html">DiscordAPI.User</a></li>
+											<li><a href="module-DiscordAPI.UserSettings.html">DiscordAPI.UserSettings</a></li>
+											<li><a href="module-DiscordContextMenu.ContextMenu.html">DiscordContextMenu.ContextMenu</a></li>
+											<li><a href="module-DiscordContextMenu.ImageMenuItem.html">DiscordContextMenu.ImageMenuItem</a></li>
+											<li><a href="module-DiscordContextMenu.ItemGroup.html">DiscordContextMenu.ItemGroup</a></li>
+											<li><a href="module-DiscordContextMenu.MenuItem.html">DiscordContextMenu.MenuItem</a></li>
+											<li><a href="module-DiscordContextMenu.SliderMenuItem.html">DiscordContextMenu.SliderMenuItem</a></li>
+											<li><a href="module-DiscordContextMenu.SubMenuItem.html">DiscordContextMenu.SubMenuItem</a></li>
+											<li><a href="module-DiscordContextMenu.ToggleMenuItem.html">DiscordContextMenu.ToggleMenuItem</a></li>
+											<li><a href="module-DOMTools.ClassName.html">DOMTools.ClassName</a></li>
+											<li><a href="module-DOMTools.DOMObserver.html">DOMTools.DOMObserver</a></li>
+											<li><a href="module-DOMTools.Selector.html">DOMTools.Selector</a></li>
+											<li><a href="module-EmulatedTooltip_module_EmulatedTooltip.html">EmulatedTooltip>module:EmulatedTooltip</a></li>
+											<li><a href="module-Settings.ColorPicker.html">Settings.ColorPicker</a></li>
+											<li><a href="module-Settings.Dropdown.html">Settings.Dropdown</a></li>
+											<li><a href="module-Settings.FilePicker.html">Settings.FilePicker</a></li>
+											<li><a href="module-Settings.Keybind.html">Settings.Keybind</a></li>
+											<li><a href="module-Settings.RadioGroup.html">Settings.RadioGroup</a></li>
+											<li><a href="module-Settings.SettingField.html">Settings.SettingField</a></li>
+											<li><a href="module-Settings.SettingGroup.html">Settings.SettingGroup</a></li>
+											<li><a href="module-Settings.SettingPanel.html">Settings.SettingPanel</a></li>
+											<li><a href="module-Settings.Slider.html">Settings.Slider</a></li>
+											<li><a href="module-Settings.Switch.html">Settings.Switch</a></li>
+											<li><a href="module-Settings.Textbox.html">Settings.Textbox</a></li>
+											<li><a href="module-Tooltip_module_Tooltip.html">Tooltip>module:Tooltip</a></li>
+											<li><a href="module-WebpackModules.Filters.html">WebpackModules.Filters</a></li>
+											<li><a href="Screen.html">Screen</a></li>
+									</ul>
+								</li>
+								<li class="dropdown">
+									<a href="list_interface.html" class="dropdown-toggle" data-toggle="dropdown">Interfaces<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="module-DOMTools-Offset.html">DOMTools~Offset</a></li>
+											<li><a href="module-Modals-Changelog.html">Modals~Changelog</a></li>
+											<li><a href="module-Settings-DropdownItem.html">Settings~DropdownItem</a></li>
+											<li><a href="module-Settings-RadioItem.html">Settings~RadioItem</a></li>
+									</ul>
+								</li>
+								<li class="dropdown">
+									<a href="list_module.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="module-ColorConverter.html">ColorConverter</a></li>
+											<li><a href="module-ContextMenu.html">ContextMenu</a></li>
+											<li><a href="module-DiscordAPI.html">DiscordAPI</a></li>
+											<li><a href="module-DiscordClasses.html">DiscordClasses</a></li>
+											<li><a href="module-DiscordClassModules.html">DiscordClassModules</a></li>
+											<li><a href="module-DiscordContextMenu.html">DiscordContextMenu</a></li>
+											<li><a href="module-DiscordModules.html">DiscordModules</a></li>
+											<li><a href="module-DiscordSelectors.html">DiscordSelectors</a></li>
+											<li><a href="module-DOMTools.html">DOMTools</a></li>
+											<li><a href="module-EmulatedTooltip.html">EmulatedTooltip</a></li>
+											<li><a href="module-Logger.html">Logger</a></li>
+											<li><a href="module-Modals.html">Modals</a></li>
+											<li><a href="module-Patcher.html">Patcher</a></li>
+											<li><a href="module-PluginUpdater.html">PluginUpdater</a></li>
+											<li><a href="module-PluginUtilities.html">PluginUtilities</a></li>
+											<li><a href="module-Popouts.html">Popouts</a></li>
+											<li><a href="module-ReactComponents.html">ReactComponents</a></li>
+											<li><a href="module-ReactTools.html">ReactTools</a></li>
+											<li><a href="module-Settings.html">Settings</a></li>
+											<li><a href="module-Toasts.html">Toasts</a></li>
+											<li><a href="module-Tooltip.html">Tooltip</a></li>
+											<li><a href="module-Utilities.html">Utilities</a></li>
+											<li><a href="module-WebpackModules.html">WebpackModules</a></li>
+									</ul>
+								</li>
+				</ul>
+					<!-- start:lunr-search-navbar.hbs -->
+					<form class="navbar-form navbar-right" role="search">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Search" id="lunr-search-input">
+							<div class="input-group-btn">
+								<button class="btn btn-default" id="lunr-search-submit">
+									<i class="glyphicon glyphicon-search"></i>
+								</button>
+							</div>
+						</div>
+					</form>
+					<!-- start:lunr-search-navbar.hbs -->		</div>
+		</div>
+	</header>
+	<!-- end:navbar.hbs -->		<div class="page-header">
+			<div class="container">
+				<span class="kind">source</span>
+				<h1><span class="name">ui/discordcontextmenu.js</span></h1>
+			</div>
+		</div>
+	<div class="container content">
+		<div class="row">
+			<div class="col-md-12 main-content">
+		<section class="source-section">
+			<article></article>
+			<pre class="prettyprint source language-javascript line-numbers"><code class="language-javascript">import DiscordModules from "../modules/discordmodules";
+import WebpackModules from "../modules/webpackmodules";
+import ReactTools from "../modules/reacttools";
+import Patcher from "../modules/patcher";
+import Utilities from "../modules/utilities";
+import DiscordSelectors from "../modules/discordselectors";
+
+import ContextMenu from "./contextmenu/contextmenu";
+
+import ItemGroup from "./contextmenu/itemgroup";
+
+import MenuItem from "./contextmenu/menuitem";
+import ImageMenuItem from "./contextmenu/imageitem";
+import ToggleMenuItem from "./contextmenu/toggleitem";
+import SubMenuItem from "./contextmenu/submenuitem";
+import SliderMenuItem from "./contextmenu/slideritem";
+
+const React = DiscordModules.React;
+const ContextMenuActions = DiscordModules.ContextMenuActions;
+
+const ce = React.createElement;
+
+/**
+ * A utility for building and rendering Discord's own menus.
+ * @module DiscordContextMenu
+ * @version 0.0.1
+ */
+export default class DiscordContextMenu {
+
+    static get ContextMenu() {return ContextMenu;}
+    static get ItemGroup() {return ItemGroup;}
+    static get MenuItem() {return MenuItem;}
+    static get ToggleMenuItem() {return ToggleMenuItem;}
+    static get SubMenuItem() {return SubMenuItem;}
+    static get ImageMenuItem() {return ImageMenuItem;}
+    static get SliderMenuItem() {return SliderMenuItem;}
+
+    /**
+     * Builds a single menu item. The only prop shown here is the type, the rest should
+     * match the actual component being built. View those to see what options exist
+     * for each, they often have less in common than you might think. See {@link module:DiscordContextMenu.MenuItem}
+     * for the majority of props commonly available. Check the documentation for the
+     * rest of the components.
+     * 
+     * @param {object} props - props used to build the item
+     * @param {string} [props.type="text"] - type of the item, options: text, image, submenu, toggle, slider
+     * @returns {object} the created component
+     * 
+     * @see {@link module:DiscordContextMenu.MenuItem}
+     * @see {@link module:DiscordContextMenu.ToggleMenuItem}
+     * @see {@link module:DiscordContextMenu.SubMenuItem}
+     * @see {@link module:DiscordContextMenu.ImageMenuItem}
+     * @see {@link module:DiscordContextMenu.SliderMenuItem}
+     * 
+     * @example
+     * // Creates a single menu item that prints "MENU ITEM" on click
+     * DiscordContextMenu.buildMenuItem({
+     *      label: "Menu Item",
+     *      action: () => {console.log("MENU ITEM");}
+     * });
+     * 
+     * @example
+     * // Creates a single toggle item that starts unchecked
+     * // and print the new value on every toggle
+     * DiscordContextMenu.buildMenuItem({
+     *      type: "toggle",
+     *      label: "Item Toggle",
+     *      active: false,
+     *      action: (newValue) => {console.log(newValue);}
+     * });
+     */
+    static buildMenuItem(props) {
+        const {type} = props;
+        let Component = MenuItem;
+        if (type === "image") {
+            Component = ImageMenuItem;
+        }
+        else if (type === "submenu") {
+            Component = SubMenuItem;
+            if (!props.render) props.render = this.buildMenuChildren(props.render || props.items);
+        }
+        else if (type === "toggle") {
+            Component = ToggleMenuItem;
+        }
+        else if (type === "slider") {
+            Component = SliderMenuItem;
+        }
+        return ce(Component, props);
+    }
+
+    /**
+     * Creates the all the items **and groups** of a context menu recursively.
+     * There is no hard limit to the number of groups within groups or number
+     * of items in a menu.
+     * @param {Array&lt;object>} setup - array of item props used to build items. See {@link module:DiscordContextMenu.buildMenuItem}
+     * @returns {Array&lt;object>} array of the created component
+     * 
+     * @example
+     * // Creates a single item group item with a toggle item
+     * DiscordContextMenu.buildMenuChildren([{
+     *      type: "group",
+     *      items: [{
+     *          type: "toggle",
+     *          label: "Item Toggle",
+     *          active: false,
+     *          action: (newValue) => {console.log(newValue);}
+     *      }]
+     * }]);
+     * 
+     * @example
+     * // Creates two item groups with a single toggle item each
+     * DiscordContextMenu.buildMenuChildren([{
+     *     type: "group",
+     *     items: [{
+     *         type: "toggle",
+     *         label: "Item Toggle",
+     *         active: false,
+     *         action: (newValue) => {
+     *             console.log(newValue);
+     *         }
+     *     }]
+     * }, {
+     *     type: "group",
+     *     items: [{
+     *         type: "toggle",
+     *         label: "Item Toggle",
+     *         active: false,
+     *         action: (newValue) => {
+     *             console.log(newValue);
+     *         }
+     *     }]
+     * }]);
+     */
+    static buildMenuChildren(setup) {
+        const mapper = s => {
+            if (s.type === "group") return buildGroup(s);
+            return this.buildMenuItem(s);
+        };
+        const buildGroup = function(group) {
+            const items = group.items.map(mapper).filter(i => i);
+            return ce(ItemGroup, null, items);
+        };
+        return setup.map(mapper).filter(i => i);
+    }
+
+    /**
+     * Creates the menu *component* including the wrapping `ContextMenu`.
+     * Calls {@link module:DiscordContextMenu.buildMenuChildren} under the covers.
+     * Used to call in combination with {@link module:DiscordContextMenu.openContextMenu}.
+     * @param {Array&lt;object>} setup - array of item props used to build items. See {@link module:DiscordContextMenu.buildMenuChildren}
+     * @returns {function} the unique context menu component
+     */
+    static buildMenu(setup) {
+        return (props) => {return ce(ContextMenu, props, this.buildMenuChildren(setup));};
+    }
+
+    /**
+     * 
+     * @param {MouseEvent} event - The context menu event. This can be emulated, requires target, and all X, Y locations.
+     * @param {function} menuComponent - Component to render. This can be any react component or output of {@link module:DiscordContextMenu.buildMenu}
+     * @param {object} config - configuration/props for the context menu
+     * @param {string} [config.position="right"] - default position for the menu, options: "left", "right"
+     * @param {string} [config.align="top"] - default alignment for the menu, options: "bottom", "top"
+     * @param {function} [config.onClose] - function to run when the menu is closed
+     * @param {boolean} [config.noBlurEvent=false] - No clue
+     */
+    static openContextMenu(event, menuComponent, config) {
+        return ContextMenuActions.openContextMenu(event, function(e) {
+            return ce(menuComponent, e);
+        }, config);
+    }
+
+    /**
+     * Attempts to find and return a specific context menu type's module. Useful
+     * when patching the render of these menus.
+     * @param {string} type - name of the context menu type
+     * @returns {Promise&lt;object>} the webpack module the menu was found in
+     */
+    static async getDiscordMenu(type) {
+		return new Promise(resolve => {
+			const cancel = Patcher.after("ZeresLibrary.DiscordContextMenu", ContextMenuActions, "openContextMenu", (_, [, component]) => {
+				const rendered = component();
+				const menuType = rendered.props &amp;&amp; rendered.props.type || (rendered.type &amp;&amp; rendered.type.displayName);
+				if (!menuType || typeof(menuType) != "string" || !menuType.includes(type)) return;
+				cancel();
+				return resolve(WebpackModules.getModule(m => m.default == rendered.type));
+			});
+		});
+	}
+
+    /**
+     * Calls `forceUpdate()` on all context menus it can find. Useful for
+     * after patching a menu.
+     */
+	static forceUpdateMenus() {
+		const menus = document.querySelectorAll(DiscordSelectors.ContextMenu.contextMenu);
+		for (const menu of menus) {
+			const stateNode = Utilities.findInTree(ReactTools.getReactInstance(menu), m=>m &amp;&amp; m.forceUpdate &amp;&amp; m.updatePosition, {walkable: ["return", "stateNode"]});
+			if (!stateNode) continue;
+			stateNode.forceUpdate();
+			stateNode.updatePosition();
+		}
+    }
+}</code></pre>
+		</section>
+			</div>
+		</div>
+	</div>
+	<footer>
+				<div class="copyright">Copyright © 2018-2020 Zack Rauen</div>
+			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
+	</footer>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/clipboard.min.js"></script>
+	<script src="js/prism.min.js"></script>
+	<script src="js/template.min.js"></script>
+		<!-- start:lunr-search-modal.hbs -->
+		<div class="modal fade" id="lunr-search-modal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">Search results</h4>
+					</div>
+					<div class="modal-body" id="lunr-search-body">
+					</div>
+					<div class="modal-footer" id="lunr-search-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div>
+		<!-- end:lunr-search-modal.hbs -->		<script src="js/lunr.min.js"></script>
+	
+</body>
+</html>
+<!-- end:source.tmpl.hbs -->
