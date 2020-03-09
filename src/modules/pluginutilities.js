@@ -1,11 +1,8 @@
 import Logger from "./logger";
 import Utilities from "./utilities";
 import DOMTools from "./domtools";
-import Patcher from "./patcher";
-import DiscordModules from "./discordmodules";
-import DiscordSelectors from "./discordselectors";
-import WebpackModules from "./webpackmodules";
-import ReactTools from "./reacttools"
+
+import DCM from "../ui/discordcontextmenu";
 
 /**
  * A series of useful functions for BetterDiscord plugins.
@@ -153,25 +150,11 @@ import ReactTools from "./reacttools"
 	}
 
 	static async getContextMenu(type) {
-		return new Promise(resolve => {
-			const cancel = Patcher.after("ZeresLibrary.PluginUtilities", DiscordModules.ContextMenuActions, "openContextMenu", (_, [, component]) => {
-				const rendered = component();
-				const menuType = rendered.props && rendered.props.type || (rendered.type && rendered.type.displayName);
-				if (!menuType || typeof(menuType) != "string" || !menuType.includes(type)) return;
-				cancel();
-				return resolve(WebpackModules.getModule(m => m.default == rendered.type));
-			});
-		});
+		return DCM.getDiscordMenu(type);
 	}
 
 	static forceUpdateContextMenus() {
-		const menus = document.querySelectorAll(DiscordSelectors.ContextMenu.contextMenu);
-		for (const menu of menus) {
-			const stateNode = Utilities.findInTree(ReactTools.getReactInstance(menu), m=>m && m.forceUpdate && m.updatePosition, {walkable: ["return", "stateNode"]});
-			if (!stateNode) continue;
-			stateNode.forceUpdate();
-			stateNode.updatePosition();
-		}
+		return DCM.forceUpdateMenus();
 	}
 }
 

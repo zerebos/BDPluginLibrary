@@ -29,7 +29,7 @@ class DOMObserver {
     }
 
     observerCallback(mutations) {
-        for (const sub of this.subscriptions) {
+        for (const sub of Array.from(this.subscriptions)) {
             try {
                 const filteredMutations = sub.filter ? mutations.filter(sub.filter) : mutations;
 

@@ -7,13 +7,15 @@
             "github_username": "rauenzi",
             "twitter_username": "ZackRauen"
         }],
-        "version": "1.2.10",
+        "version": "1.2.11",
         "description": "Gives other plugins utility functions and the ability to emulate v2.",
         "github": "https://github.com/rauenzi/BDPluginLibrary",
         "github_raw": "https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"
     },
     "changelog": [
-        {"title": "Bugs Squashed", "type": "fixed", "items": ["Some under the cover fixes to keep things from crashing."]}
+        {"title": "New Stuff", "items": ["**DiscordContextMenu API** is here for the developers. This should allow developers to easily create and add to context menus."]},
+        {"title": "Improvements", "type": "improved", "items": ["**__Markdown__** is now supported in changelog and some other modals.", "**Initialization sequence** is now more consistent and better at reloading plugins."]},
+        {"title": "Bugs Squashed", "type": "fixed", "items": ["**Leak Plugged.** Fixed some React leakage. (Thanks Lighty)", "**Patch patched.** I patched the Patch where the Patch patched too much.", "**Better Settings.** Fixed extend function not working properly for arrays."]}
     ],
     "main": "plugin.js"
 }

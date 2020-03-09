@@ -241,7 +241,9 @@ export default class Utilities {
         for (let i = 0; i < extenders.length; i++) {
             for (const key in extenders[i]) {
                 if (extenders[i].hasOwnProperty(key)) {
-                    if (typeof extendee[key] === "object" && typeof extenders[i][key] === "object") this.extend(extendee[key], extenders[i][key]);
+                    if (Array.isArray(extendee[key]) && Array.isArray(extenders[i][key])) this.extend(extendee[key], extenders[i][key]);
+                    else if (typeof extendee[key] === "object" && typeof extenders[i][key] === "object") this.extend(extendee[key], extenders[i][key]);
+                    else if (Array.isArray(extenders[i][key])) extendee[key] = [], this.extend(extendee[key], extenders[i][key]);
                     else if (typeof extenders[i][key] === "object") extendee[key] = {}, this.extend(extendee[key], extenders[i][key]);
                     else extendee[key] = extenders[i][key];
                 }

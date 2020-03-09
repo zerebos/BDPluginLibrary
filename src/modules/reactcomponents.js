@@ -332,10 +332,15 @@ class ReactAutoPatcher {
      * Also patches some known components.
      */
     static async autoPatch() {
-        this.unpatchCreateElement = Patcher.before("ReactComponents", Modules.React, "createElement", (react, [component]) => ReactComponents.push(component));
-        this.unpatchCreateElement = Patcher.instead("ReactComponents", Modules.React.Component.prototype, "UNSAFE_componentWillMount", (component) => ReactComponents.push(component));
-        this.unpatchCreateElement = Patcher.instead("ReactComponents", Modules.React.Component.prototype, "componentWillMount", (component) => ReactComponents.push(component));
+        this.autoUnpatch();
+        Patcher.before("ReactComponents", Modules.React, "createElement", (react, [component]) => ReactComponents.push(component));
+        Patcher.instead("ReactComponents", Modules.React.Component.prototype, "UNSAFE_componentWillMount", (component) => ReactComponents.push(component));
+        Patcher.instead("ReactComponents", Modules.React.Component.prototype, "componentWillMount", (component) => ReactComponents.push(component));
         // this.patchComponents();
+    }
+
+    static async autoUnpatch() {
+        Patcher.unpatchAll("ReactComponents");
     }
 
     /**

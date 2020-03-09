@@ -1,7 +1,9 @@
 import * as Modules from "modules";
-import {Settings, ContextMenu, Tooltip, EmulatedTooltip, Toasts, Popouts, Modals} from "ui";
+import {Settings, ContextMenu, Tooltip, EmulatedTooltip, Toasts, Popouts, Modals, DiscordContextMenu} from "ui";
 
 const Library = {};
+Library.DiscordContextMenu = DiscordContextMenu;
+Library.DCM = DiscordContextMenu;
 Library.ContextMenu = ContextMenu;
 Library.Tooltip = Tooltip;
 Library.EmulatedTooltip = EmulatedTooltip;

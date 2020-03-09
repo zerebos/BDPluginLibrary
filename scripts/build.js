@@ -10,9 +10,7 @@ const releasePath = path.isAbsolute(libConfig.releaseFolder) ? libConfig.release
 const bdFolder = (process.platform == "win32" ? process.env.APPDATA : process.platform == "darwin" ? process.env.HOME + "/Library/Preferences" :  process.env.XDG_CONFIG_HOME ? process.env.XDG_CONFIG_HOME : process.env.HOME + "/.config") + "/BetterDiscord/";
 
 const formatString = function(string, values) {
-    for (const val in values) {
-        string = string.replace(new RegExp(`{{${val}}}`, "g"), () => values[val]);
-    }
+    for (const val in values) string = string.replace(new RegExp(`{{${val}}}`, "g"), () => values[val]);
     return string;
 };
 
@@ -38,8 +36,9 @@ console.log(`Building ${list.length} plugin${list.length > 1 ? "s" : ""}`);
 console.time("Build took");
 for (let f = 0; f < list.length; f++) {
     const pluginName = list[f];
-    console.log(`Building ${pluginName}`);
     const configPath = path.join(pluginsPath, pluginName, "config.json");
+    console.log(`Building ${pluginName} from ${configPath}`);
+    
     if (!fs.existsSync(configPath)) {
         console.error(`Could not find "${configPath}". Skipping...`);
         continue;
@@ -57,11 +56,13 @@ for (let f = 0; f < list.length; f++) {
         INSTALL_SCRIPT: libConfig.addInstallScript ? require(path.join(__dirname, "installscript.js")) : ""
     });
     if (libConfig.addInstallScript) result = result + "\n/*@end@*/";
-    fs.writeFileSync(path.join(releasePath, pluginName + ".plugin.js"), result);
+    const buildFile = path.join(formatString(releasePath, {PLUGIN_NAME: pluginName}), pluginName + ".plugin.js");
+    fs.writeFileSync(buildFile, result);
     if (libConfig.copyToBD) {
         console.log(`Copying ${pluginName} to BD folder`);
         fs.writeFileSync(path.join(bdFolder, "plugins", pluginName + ".plugin.js"), result);
     }
     console.log(`${pluginName} built successfully`);
+    console.log(`${pluginName} saved as ${buildFile}`);
 }
 console.timeEnd("Build took");

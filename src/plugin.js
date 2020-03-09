@@ -5,17 +5,35 @@ export default (BasePlugin, Library) => {
         
         load() {
             super.load();
-            const exists = document.getElementById("ZLibraryCSS");
+            const wasLibLoaded = !!document.getElementById("ZLibraryCSS");
+            const isBBDLoading = document.getElementsByClassName("bd-loaderv2").length;
             PluginUtilities.removeStyle("ZLibraryCSS");
             PluginUtilities.addStyle("ZLibraryCSS", Settings.CSS + Toasts.CSS + PluginUpdater.CSS);
-            if (!exists) return; // This is first load, no need to reload dependent plugins
+            ReactComponents.AutoPatcher.processAll();
+            ReactComponents.AutoPatcher.autoPatch();
+            
+            /**
+             * Checking if this is the library first being loaded during init
+             * This means that subsequent loads will cause dependents to reload
+             * This also means first load when installing for the first time 
+             * will automatically reload the dependent plugins. This is needed
+             * for those plugins that prompt to download and install the lib.
+             */
+
+            if (!wasLibLoaded && isBBDLoading) return; // If the this is the lib's first load AND this is BD's initialization
+
+            /**
+             * Now we can go ahead and reload any dependent plugins by checking
+             * for any with instance._config. Both plugins using buildPlugin()
+             * and plugin skeletons that prompt for download should have this
+             * instance property.
+             */
+
             const prev = window.settingsCookie["fork-ps-2"];
             window.settingsCookie["fork-ps-2"] = false;
             const list = Object.keys(window.bdplugins).filter(k => window.bdplugins[k].plugin._config && k != "ZeresPluginLibrary");
             for (let p = 0; p < list.length; p++) window.pluginModule.reloadPlugin(list[p]);
             window.settingsCookie["fork-ps-2"] = prev;
-            ReactComponents.AutoPatcher.processAll();
-            ReactComponents.AutoPatcher.autoPatch();
         }
 
         static buildPlugin(config) {
