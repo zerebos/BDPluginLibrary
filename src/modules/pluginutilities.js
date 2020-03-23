@@ -21,8 +21,10 @@ import DCM from "../ui/discordcontextmenu";
 	 * @returns {object} the combined saved and default data
 	*/
 	static loadData(name, key, defaultData) {
-		try { return Utilities.extend(defaultData ? defaultData : {}, BdApi.getData(name, key)); }
+		const defaults = Utilities.deepclone(defaultData);
+		try { return Utilities.extend(defaults ? defaults : {}, BdApi.getData(name, key)); }
 		catch (err) { Logger.err(name, "Unable to load data: ", err); }
+		return defaults;
 	}
 
 	/**

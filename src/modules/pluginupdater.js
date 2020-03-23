@@ -51,13 +51,15 @@ export default class PluginUpdater {
 		if (typeof window.PluginUpdates === "undefined") {
 			window.PluginUpdates = {
 				plugins: {},
-				checkAll: function() {
+				checkAll: async function() {
+					Toasts.info("Plugin update check in progress.");
 					for (const key in this.plugins) {
 						const plugin = this.plugins[key];
 						if (!plugin.versioner) plugin.versioner = PluginUpdater.defaultVersioner;
 						if (!plugin.comparator) plugin.comparator = PluginUpdater.defaultComparator;
-						PluginUpdater.processUpdateCheck(plugin.name, plugin.raw);
+						await PluginUpdater.processUpdateCheck(plugin.name, plugin.raw);
 					}
+					Toasts.success("Plugin update check complete.");
 				},
 				interval: setInterval(() => {
 					window.PluginUpdates.checkAll();
@@ -77,14 +79,16 @@ export default class PluginUpdater {
 	 * @param {string} pluginName - name of the plugin to check
 	 * @param {string} updateLink - link to the raw text version of the plugin
 	 */
-	static processUpdateCheck(pluginName, updateLink) {
-		const request = require("request");
-		request(updateLink, (error, response, result) => {
-			if (error) return;
-			const remoteVersion = window.PluginUpdates.plugins[updateLink].versioner(result);
-			const hasUpdate = window.PluginUpdates.plugins[updateLink].comparator(window.PluginUpdates.plugins[updateLink].version, remoteVersion);
-			if (hasUpdate) this.showUpdateNotice(pluginName, updateLink);
-			else this.removeUpdateNotice(pluginName);
+	static async processUpdateCheck(pluginName, updateLink) {
+		return new Promise(resolve => {
+			const request = require("request");
+			request(updateLink, (error, response, result) => {
+				if (error) return;
+				const remoteVersion = window.PluginUpdates.plugins[updateLink].versioner(result);
+				const hasUpdate = window.PluginUpdates.plugins[updateLink].comparator(window.PluginUpdates.plugins[updateLink].version, remoteVersion);
+				if (hasUpdate) resolve(this.showUpdateNotice(pluginName, updateLink));
+				else resolve(this.removeUpdateNotice(pluginName));
+			});
 		});
 	}
 
@@ -120,20 +124,26 @@ export default class PluginUpdater {
 
 	static patchPluginList() {
 		try {
-			V2C_ContentColumn.prototype;
-		}
-		catch (e) {return;}
-		Patcher.after("ZeresLibrary", V2C_ContentColumn.prototype, "componentDidMount", (self) => {
-			if (self._reactInternalFiber.key != "pcolumn") return;
-			const column = DiscordModules.ReactDOM.findDOMNode(self);
-			if (!column) return;
-			const button = column.getElementsByClassName("bd-pfbtn")[0];
-			if (!button || button.nextElementSibling.classList.contains("bd-updatebtn")) return;
+			Patcher.after("ZeresLibrary", V2C_ContentColumn.prototype, "componentDidMount", (self) => {
+				if (self._reactInternalFiber.key != "pcolumn") return;
+				const column = DiscordModules.ReactDOM.findDOMNode(self);
+				if (!column) return;
+				const button = column.getElementsByClassName("bd-pfbtn")[0];
+				if (!button || button.nextElementSibling.classList.contains("bd-updatebtn")) return;
+				button.after(PluginUpdater.createUpdateButton());
+			});
+			const button = document.getElementsByClassName("bd-pfbtn")[0];
+			if (!button || !button.textContent.toLowerCase().includes("plugin") || button.nextElementSibling.classList.contains("bd-updatebtn")) return;
 			button.after(PluginUpdater.createUpdateButton());
-		});
-		const button = document.getElementsByClassName("bd-pfbtn")[0];
-		if (!button || !button.textContent.toLowerCase().includes("plugin") || button.nextElementSibling.classList.contains("bd-updatebtn")) return;
-		button.after(PluginUpdater.createUpdateButton());
+		}
+		catch (e) {
+			DOMTools.observer.subscribeToQuerySelector(mutation => {
+				if (!mutation.addedNodes || !mutation.mutation.addedNodes.length) return;
+				const button = document.getElementsByClassName("bd-pfbtn")[0];
+				if (!button || !button.textContent.toLowerCase().includes("plugin") || button.nextElementSibling.classList.contains("bd-updatebtn")) return;
+				button.after(PluginUpdater.createUpdateButton());
+			}, "#bd-settingspane-container");
+		}
 	}
 
 	/**

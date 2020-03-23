@@ -85,6 +85,7 @@ export default function(config) {
         }
 
         loadSettings(defaultSettings) {
+            // loadSettings -> loadData -> defaultSettings gets deep cloned
             return PluginUtilities.loadSettings(this.getName(), this.defaultSettings ? this.defaultSettings : defaultSettings);
         }
 

@@ -230,7 +230,11 @@ export default class ReactComponents {
      */
     static async getComponent(name, selector, filter) {
         const have = this.components.find(c => c.id === name);
-        if (have) return have;
+        if (have) {
+            if (!have.selector) have.selector = selector;
+            if (!have.filter) have.filter = filter;
+            return have;
+        }
 
         if (selector) {
             const callback = () => {

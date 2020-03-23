@@ -7,15 +7,14 @@
             "github_username": "rauenzi",
             "twitter_username": "ZackRauen"
         }],
-        "version": "1.2.11",
+        "version": "1.2.12",
         "description": "Gives other plugins utility functions and the ability to emulate v2.",
         "github": "https://github.com/rauenzi/BDPluginLibrary",
         "github_raw": "https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"
     },
     "changelog": [
-        {"title": "New Stuff", "items": ["**DiscordContextMenu API** is here for the developers. This should allow developers to easily create and add to context menus."]},
-        {"title": "Improvements", "type": "improved", "items": ["**__Markdown__** is now supported in changelog and some other modals.", "**Initialization sequence** is now more consistent and better at reloading plugins."]},
-        {"title": "Bugs Squashed", "type": "fixed", "items": ["**Leak Plugged.** Fixed some React leakage. (Thanks Lighty)", "**Patch patched.** I patched the Patch where the Patch patched too much.", "**Better Settings.** Fixed extend function not working properly for arrays."]}
+        {"title": "Improvements", "type": "improved", "items": ["**Color Picker** is no longer entirely broken. It isn't as pretty as it once was, but it is functional, and that matters.", "**Internal changes** to match some upcoming changes in BBD including changes in `BdApi`.", "**Failsafe** added for when the lib can't patch `V2C_ContentColumn`.", "**Update check** now has toasts so people don't think the button press does nothing."]},
+        {"title": "Bugs Squashed", "type": "fixed", "items": ["**Cloned Object.** Changes `loadSettings` to use a clone of the default instead just the reference to the default.", "`ReactComponents` will now add the selector to the internal representation if it wasn't there before.", "`DiscordModules` has been cleaned up, some modules in the list have been removed, and others have been updated to match Discord."]}
     ],
     "main": "plugin.js"
 }

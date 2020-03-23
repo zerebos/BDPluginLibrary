@@ -32,7 +32,7 @@
     "scripts/template*"
   ],
   "defaultConfig": {
-    "pluginsFolder": "./plugins",
+    "pluginsFolder": "./examples",
     "releaseFolder": "./release",
     "copyToBD": true,
     "addInstallScript": true

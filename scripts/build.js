@@ -52,7 +52,10 @@ for (let f = 0; f < list.length; f++) {
         INNER: content,
         WEBSITE: config.info.github,
         SOURCE: config.info.github_raw,
-        DISPLAY_NAME: config.info.name,
+        PATREON: config.info.patreonLink,
+        PAYPAL: config.info.paypalLink,
+        AUTHOR_LINK: config.info.authorLink,
+        INVITE_CODE: config.info.inviteCode,
         INSTALL_SCRIPT: libConfig.addInstallScript ? require(path.join(__dirname, "installscript.js")) : ""
     });
     if (libConfig.addInstallScript) result = result + "\n/*@end@*/";

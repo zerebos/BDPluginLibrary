@@ -1,5 +1,5 @@
 import Listenable from "../../structs/listenable";
-import {DiscordModules, DOMTools, DiscordClasses, ReactTools} from "modules";
+import {DiscordModules, DOMTools, DiscordClasses, ReactTools, WebpackModules} from "modules";
 
 /** 
  * Setting field to extend to create new settings
@@ -68,8 +68,24 @@ class ReactSetting extends DiscordModules.React.Component {
     get dividerElement() { return DiscordModules.React.createElement("div", {className: DiscordClasses.Dividers.divider.add(DiscordClasses.Dividers.dividerDefault).toString()}); }
 
     render() {
-        const SettingElement = DiscordModules.React.createElement(this.props.type, this.props);
-        return DiscordModules.React.createElement(DiscordModules.SettingsWrapper, {
+		const ce = DiscordModules.React.createElement;
+		const SettingElement = ce(this.props.type, this.props);
+		if (this.props.inline) {
+			const Flex = DiscordModules.FlexChild;
+			const titleDefault = WebpackModules.getByProps("titleDefault") ? WebpackModules.getByProps("titleDefault").titleDefault : "titleDefault-a8-ZSr title-31JmR4 da-titleDefault da-title";
+			return ce(Flex, {direction: Flex.Direction.VERTICAL},
+			ce(Flex, {align: Flex.Align.START}, 
+				ce(Flex.Child, {wrap: !0},
+					ce("div", {className: titleDefault}, this.props.title)
+				),
+				ce(Flex.Child, {grow: 0, shrink: 0}, SettingElement)
+			),
+			this.noteElement,
+			this.dividerElement
+			);
+		}
+        
+        return ce(DiscordModules.SettingsWrapper, {
 			className: DiscordClasses.Margins.marginBottom20.toString(),
 			title: this.props.title,
 			children: [

@@ -1,5 +1,5 @@
 import SettingField from "../settingfield";
-import {ColorConverter, DiscordModules} from "modules";
+import {/*ColorConverter, DiscordModules, */DOMTools, DiscordClasses} from "modules";
 
 
 const presetColors = [1752220, 3066993, 3447003, 10181046, 15277667, 15844367, 15105570, 15158332, 9807270, 6323595, 1146986, 2067276, 2123412, 7419530, 11342935, 12745742, 11027200, 10038562, 9936031, 5533306];
@@ -22,17 +22,26 @@ class ColorPicker extends SettingField {
 	 * @param {Array<number>} [options.colors=presetColors] - preset list of colors
 	 */
 	constructor(name, note, value, onChange, options = {}) {
-		super(name, note, onChange, DiscordModules.ColorPicker, {
-			disabled: options.disabled ? true : false,
-			onChange: reactElement => color => {
-				reactElement.props.value = color;
-				reactElement.forceUpdate();
-				this.onChange(ColorConverter.int2hex(color));
-			},
-			colors: Array.isArray(options.colors) ? options.colors : presetColors,
-			defaultColor: typeof(value) == "number" ? value : ColorConverter.hex2int(value),
-			value: 0
+		// super(name, note, onChange, DiscordModules.ColorPicker, {
+		// 	disabled: options.disabled ? true : false,
+		// 	onChange: reactElement => color => {
+		// 		reactElement.props.value = color;
+		// 		reactElement.forceUpdate();
+		// 		this.onChange(ColorConverter.int2hex(color));
+		// 	},
+		// 	colors: Array.isArray(options.colors) ? options.colors : presetColors,
+		// 	defaultColor: typeof(value) == "number" ? value : ColorConverter.hex2int(value),
+		// 	value: 0
+		// });
+		const classes = ["color-input"];
+		if (options.disabled) classes.push(DiscordClasses.BasicInputs.disabled);
+		const ReactColorPicker = DOMTools.parseHTML(`<input type="color" class="${classes.join(" ")}">`);
+		if (options.disabled) ReactColorPicker.setAttribute("disabled", "");
+		if (value) ReactColorPicker.setAttribute("value", value);
+		ReactColorPicker.addEventListener("change", (event) => {
+			this.onChange(event.target.value);
 		});
+		super(name, note, onChange, ReactColorPicker, {inline: true});
 	}
 
 	/** Default colors for ColorPicker */

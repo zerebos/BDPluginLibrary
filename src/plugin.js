@@ -29,11 +29,17 @@ export default (BasePlugin, Library) => {
              * instance property.
              */
 
-            const prev = window.settingsCookie["fork-ps-2"];
-            window.settingsCookie["fork-ps-2"] = false;
-            const list = Object.keys(window.bdplugins).filter(k => window.bdplugins[k].plugin._config && k != "ZeresPluginLibrary");
-            for (let p = 0; p < list.length; p++) window.pluginModule.reloadPlugin(list[p]);
-            window.settingsCookie["fork-ps-2"] = prev;
+            const wasEnabled = BdApi.isSettingEnabled("fork-ps-2");
+            if (wasEnabled) BdApi.disableSetting("fork-ps-2");
+            const list = BdApi.Plugins.getAll().reduce((acc, val) => {
+                if (val._config) return acc;
+                const name = val.getName();
+                if (name === "ZeresPluginLibrary") return acc;
+                acc.push(name);
+                return acc;
+            }, []);
+            for (let p = 0; p < list.length; p++) BdApi.Plugins.reload(list[p]);
+            if (wasEnabled) BdApi.enableSetting("fork-ps-2");
         }
 
         static buildPlugin(config) {

@@ -54,3 +54,13 @@
 	font-family: Whitney,Helvetica Neue,Helvetica,Arial,sans-serif;
 	cursor: pointer;
 }
+
+.color-input {
+    background: none;
+    padding: 0;
+    border: none;
+}
+
+.color-input:hover {
+    opacity: 0.8;
+}

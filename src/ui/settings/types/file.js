@@ -19,11 +19,11 @@ class FilePicker extends SettingField {
 	 */
 	constructor(name, note, onChange, options = {}) {
 		const classes = DiscordClasses.BasicInputs.inputDefault.add("file-input");
-		if(options.disabled) classes.add(DiscordClasses.BasicInputs.disabled);
+		if (options.disabled) classes.add(DiscordClasses.BasicInputs.disabled);
 		const ReactFilePicker = DOMTools.parseHTML(`<input type="file" class="${classes}">`);
-		if(options.disabled) ReactFilePicker.setAttribute("disabled", "");
-		if(options.multiple) ReactFilePicker.setAttribute("multiple", "");
-		if(options.accept) ReactFilePicker.setAttribute("accept", Array.isArray(options.accept) ? options.accept.join(",") : options.accept);
+		if (options.disabled) ReactFilePicker.setAttribute("disabled", "");
+		if (options.multiple) ReactFilePicker.setAttribute("multiple", "");
+		if (options.accept) ReactFilePicker.setAttribute("accept", Array.isArray(options.accept) ? options.accept.join(",") : options.accept);
 		ReactFilePicker.addEventListener("change", (event) => {
 			this.onChange(event.target.files[0]);
 		});
