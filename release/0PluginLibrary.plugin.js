@@ -2157,7 +2157,7 @@ class PluginUpdater {
 		}
 		catch (e) {
 			_domtools__WEBPACK_IMPORTED_MODULE_2__["default"].observer.subscribeToQuerySelector(mutation => {
-				if (!mutation.addedNodes || !mutation.mutation.addedNodes.length) return;
+				if (!mutation.addedNodes || !mutation.addedNodes.length) return;
 				const button = document.getElementsByClassName("bd-pfbtn")[0];
 				if (!button || !button.textContent.toLowerCase().includes("plugin") || button.nextElementSibling.classList.contains("bd-updatebtn")) return;
 				button.after(PluginUpdater.createUpdateButton());
