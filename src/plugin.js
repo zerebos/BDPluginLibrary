@@ -32,7 +32,7 @@ export default (BasePlugin, Library) => {
             const wasEnabled = BdApi.isSettingEnabled("fork-ps-2");
             if (wasEnabled) BdApi.disableSetting("fork-ps-2");
             const list = BdApi.Plugins.getAll().reduce((acc, val) => {
-                if (val._config) return acc;
+                if (!val._config) return acc;
                 const name = val.getName();
                 if (name === "ZeresPluginLibrary") return acc;
                 acc.push(name);

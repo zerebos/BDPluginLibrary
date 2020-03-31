@@ -119,7 +119,7 @@ var ZeresPluginLibrary =
 /*! exports provided: info, changelog, main, default */
 /***/ (function(module) {
 
-module.exports = {"info":{"name":"ZeresPluginLibrary","authors":[{"name":"Zerebos","discord_id":"249746236008169473","github_username":"rauenzi","twitter_username":"ZackRauen"}],"version":"1.2.12","description":"Gives other plugins utility functions and the ability to emulate v2.","github":"https://github.com/rauenzi/BDPluginLibrary","github_raw":"https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"},"changelog":[{"title":"Improvements","type":"improved","items":["**Color Picker** is no longer entirely broken. It isn't as pretty as it once was, but it is functional, and that matters.","**Internal changes** to match some upcoming changes in BBD including changes in `BdApi`.","**Failsafe** added for when the lib can't patch `V2C_ContentColumn`.","**Update check** now has toasts so people don't think the button press does nothing."]},{"title":"Bugs Squashed","type":"fixed","items":["**Cloned Object.** Changes `loadSettings` to use a clone of the default instead just the reference to the default.","`ReactComponents` will now add the selector to the internal representation if it wasn't there before.","`DiscordModules` has been cleaned up, some modules in the list have been removed, and others have been updated to match Discord."]}],"main":"plugin.js"};
+module.exports = {"info":{"name":"ZeresPluginLibrary","authors":[{"name":"Zerebos","discord_id":"249746236008169473","github_username":"rauenzi","twitter_username":"ZackRauen"}],"version":"1.2.13","description":"Gives other plugins utility functions and the ability to emulate v2.","github":"https://github.com/rauenzi/BDPluginLibrary","github_raw":"https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"},"changelog":[{"title":"Improvements","type":"improved","items":["**Internal changes** to stop using all BD globals outside of `BdApi`.","**jQuery** now no longer used in the library--not that there was much anyways.","There were also some various performance improvements."]},{"title":"Bugs Squashed","type":"fixed","items":["`ReactComponents` had some bugs with how it stored and searched components, this has been fixed.","There was a bug where the library reloaded the wrong plugins, it shouldn't do that anymore."]}],"main":"plugin.js"};
 
 /***/ }),
 
@@ -150,8 +150,8 @@ Library.Modals = ui__WEBPACK_IMPORTED_MODULE_1__["Modals"];
 for (const mod in modules__WEBPACK_IMPORTED_MODULE_0__) Library[mod] = modules__WEBPACK_IMPORTED_MODULE_0__[mod];
 
 const config = __webpack_require__(/*! ./src/config.json */ "./src/config.json");
-const pluginModule = __webpack_require__(/*! ./src/plugin.js */ "./src/plugin.js");
-const pluginFunction = pluginModule.default ? pluginModule.default : pluginModule;
+const baseModule = __webpack_require__(/*! ./src/plugin.js */ "./src/plugin.js");
+const pluginFunction = baseModule.default ? baseModule.default : baseModule;
 
 const getBoundLibrary = () => {
 	const name = config.info.name;
@@ -1814,9 +1814,9 @@ class Patcher {
 	}
 
 	static resolveModule(module) {
-        if (module instanceof Function || (module instanceof Object && !(module instanceof Array))) return module;
+        if (!module || typeof(module) === "function" || (typeof(module) === "object" && !Array.isArray(module))) return module;
         if (typeof module === "string") return _discordmodules__WEBPACK_IMPORTED_MODULE_1__["default"][module];
-        if (module instanceof Array) return _webpackmodules__WEBPACK_IMPORTED_MODULE_2__["default"].findByUniqueProperties(module);
+        if (Array.isArray(module)) return _webpackmodules__WEBPACK_IMPORTED_MODULE_2__["default"].findByUniqueProperties(module);
         return null;
 	}
 
@@ -2011,19 +2011,15 @@ class Patcher {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return PluginUpdater; });
 /* harmony import */ var _pluginutilities__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./pluginutilities */ "./src/modules/pluginutilities.js");
-/* harmony import */ var _patcher__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./patcher */ "./src/modules/patcher.js");
-/* harmony import */ var _domtools__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./domtools */ "./src/modules/domtools.js");
-/* harmony import */ var _logger__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./logger */ "./src/modules/logger.js");
-/* harmony import */ var _discordclasses__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./discordclasses */ "./src/modules/discordclasses.js");
-/* harmony import */ var _discordmodules__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./discordmodules */ "./src/modules/discordmodules.js");
-/* harmony import */ var ui__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ui */ "./src/ui/ui.js");
+/* harmony import */ var _domtools__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./domtools */ "./src/modules/domtools.js");
+/* harmony import */ var _logger__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./logger */ "./src/modules/logger.js");
+/* harmony import */ var _discordclasses__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./discordclasses */ "./src/modules/discordclasses.js");
+/* harmony import */ var ui__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ui */ "./src/ui/ui.js");
 /**
  * Functions that check for and update existing plugins.
  * @module PluginUpdater
  * @version 0.1.2
  */
-
-
 
 
 
@@ -2049,237 +2045,219 @@ __webpack_require__.r(__webpack_exports__);
 
 class PluginUpdater {
 
-	static get CSS() { return __webpack_require__(/*! ../styles/updates.css */ "./src/styles/updates.css");	}
+    static get CSS() { return __webpack_require__(/*! ../styles/updates.css */ "./src/styles/updates.css");	}
 
-	/**
-	 * Checks for updates for the specified plugin at the specified link. The final
-	 * parameter should link to the raw text of the plugin and will compare semantic
-	 * versions.
-	 * @param {string} pluginName - name of the plugin
-	 * @param {string} currentVersion - current version (semantic versioning only)
-	 * @param {string} updateURL - url to check for update
-	 * @param {module:PluginUpdater~versioner} [versioner] - versioner that finds the remote version. If not provided uses {@link module:PluginUpdater.defaultVersioner}.
-	 * @param {module:PluginUpdater~comparator} [comparator] - comparator that determines if there is an update. If not provided uses {@link module:PluginUpdater.defaultComparator}.
-	 */
-	static checkForUpdate(pluginName, currentVersion, updateURL, versioner, comparator) {
-		let updateLink = "https://raw.githubusercontent.com/rauenzi/BetterDiscordAddons/master/Plugins/" + pluginName + "/" + pluginName + ".plugin.js";
-		if (updateURL) updateLink = updateURL;
-		if (typeof(versioner) != "function") versioner = this.defaultVersioner;
-		if (typeof(comparator) != "function") comparator = this.defaultComparator;
+    /**
+     * Checks for updates for the specified plugin at the specified link. The final
+     * parameter should link to the raw text of the plugin and will compare semantic
+     * versions.
+     * @param {string} pluginName - name of the plugin
+     * @param {string} currentVersion - current version (semantic versioning only)
+     * @param {string} updateURL - url to check for update
+     * @param {module:PluginUpdater~versioner} [versioner] - versioner that finds the remote version. If not provided uses {@link module:PluginUpdater.defaultVersioner}.
+     * @param {module:PluginUpdater~comparator} [comparator] - comparator that determines if there is an update. If not provided uses {@link module:PluginUpdater.defaultComparator}.
+     */
+    static checkForUpdate(pluginName, currentVersion, updateURL, versioner, comparator) {
+        let updateLink = "https://raw.githubusercontent.com/rauenzi/BetterDiscordAddons/master/Plugins/" + pluginName + "/" + pluginName + ".plugin.js";
+        if (updateURL) updateLink = updateURL;
+        if (typeof(versioner) != "function") versioner = this.defaultVersioner;
+        if (typeof(comparator) != "function") comparator = this.defaultComparator;
 
-		if (typeof window.PluginUpdates === "undefined") {
-			window.PluginUpdates = {
-				plugins: {},
-				checkAll: async function() {
-					ui__WEBPACK_IMPORTED_MODULE_6__["Toasts"].info("Plugin update check in progress.");
-					for (const key in this.plugins) {
-						const plugin = this.plugins[key];
-						if (!plugin.versioner) plugin.versioner = PluginUpdater.defaultVersioner;
-						if (!plugin.comparator) plugin.comparator = PluginUpdater.defaultComparator;
-						await PluginUpdater.processUpdateCheck(plugin.name, plugin.raw);
-					}
-					ui__WEBPACK_IMPORTED_MODULE_6__["Toasts"].success("Plugin update check complete.");
-				},
-				interval: setInterval(() => {
-					window.PluginUpdates.checkAll();
-				}, 7200000)
-			};
-			this.patchPluginList();
-		}
+        if (typeof window.PluginUpdates === "undefined") {
+            window.PluginUpdates = {
+                plugins: {},
+                checkAll: async function() {
+                    ui__WEBPACK_IMPORTED_MODULE_4__["Toasts"].info("Plugin update check in progress.");
+                    for (const key in this.plugins) {
+                        const plugin = this.plugins[key];
+                        if (!plugin.versioner) plugin.versioner = PluginUpdater.defaultVersioner;
+                        if (!plugin.comparator) plugin.comparator = PluginUpdater.defaultComparator;
+                        await PluginUpdater.processUpdateCheck(plugin.name, plugin.raw);
+                    }
+                    ui__WEBPACK_IMPORTED_MODULE_4__["Toasts"].success("Plugin update check complete.");
+                },
+                interval: setInterval(() => {
+                    window.PluginUpdates.checkAll();
+                }, 7200000)
+            };
+            this.patchPluginList();
+        }
 
-		window.PluginUpdates.plugins[updateLink] = {name: pluginName, raw: updateLink, version: currentVersion, versioner: versioner, comparator: comparator};
-		PluginUpdater.processUpdateCheck(pluginName, updateLink);
-	}
+        window.PluginUpdates.plugins[updateLink] = {name: pluginName, raw: updateLink, version: currentVersion, versioner: versioner, comparator: comparator};
+        PluginUpdater.processUpdateCheck(pluginName, updateLink);
+    }
 
-	/**
-	 * Will check for updates and automatically show or remove the update notice
-	 * bar based on the internal result. Better not to call this directly and to
-	 * instead use {@link module:PluginUpdater.checkForUpdate}.
-	 * @param {string} pluginName - name of the plugin to check
-	 * @param {string} updateLink - link to the raw text version of the plugin
-	 */
-	static async processUpdateCheck(pluginName, updateLink) {
-		return new Promise(resolve => {
-			const request = __webpack_require__(/*! request */ "request");
-			request(updateLink, (error, response, result) => {
-				if (error) return;
-				const remoteVersion = window.PluginUpdates.plugins[updateLink].versioner(result);
-				const hasUpdate = window.PluginUpdates.plugins[updateLink].comparator(window.PluginUpdates.plugins[updateLink].version, remoteVersion);
-				if (hasUpdate) resolve(this.showUpdateNotice(pluginName, updateLink));
-				else resolve(this.removeUpdateNotice(pluginName));
-			});
-		});
-	}
+    /**
+     * Will check for updates and automatically show or remove the update notice
+     * bar based on the internal result. Better not to call this directly and to
+     * instead use {@link module:PluginUpdater.checkForUpdate}.
+     * @param {string} pluginName - name of the plugin to check
+     * @param {string} updateLink - link to the raw text version of the plugin
+     */
+    static async processUpdateCheck(pluginName, updateLink) {
+        return new Promise(resolve => {
+            const request = __webpack_require__(/*! request */ "request");
+            request(updateLink, (error, response, result) => {
+                if (error) return;
+                const remoteVersion = window.PluginUpdates.plugins[updateLink].versioner(result);
+                const hasUpdate = window.PluginUpdates.plugins[updateLink].comparator(window.PluginUpdates.plugins[updateLink].version, remoteVersion);
+                if (hasUpdate) resolve(this.showUpdateNotice(pluginName, updateLink));
+                else resolve(this.removeUpdateNotice(pluginName));
+            });
+        });
+    }
 
-	/**
-	 * The default versioner used as {@link module:PluginUpdater~versioner} for {@link module:PluginUpdater.checkForUpdate}.
-	 * This works on basic semantic versioning e.g. "1.0.0". You do not need to provide this as a versioner if your plugin adheres
-	 * to this style as this will be used as default.
-	 * @param {string} currentVersion
-	 * @param {string} content
-	 */
-	static defaultVersioner(content) {
-		const remoteVersion = content.match(/['"][0-9]+\.[0-9]+\.[0-9]+['"]/i);
-		if (!remoteVersion) return "0.0.0";
-		return remoteVersion.toString().replace(/['"]/g, "");
-	}
+    /**
+     * The default versioner used as {@link module:PluginUpdater~versioner} for {@link module:PluginUpdater.checkForUpdate}.
+     * This works on basic semantic versioning e.g. "1.0.0". You do not need to provide this as a versioner if your plugin adheres
+     * to this style as this will be used as default.
+     * @param {string} currentVersion
+     * @param {string} content
+     */
+    static defaultVersioner(content) {
+        const remoteVersion = content.match(/['"][0-9]+\.[0-9]+\.[0-9]+['"]/i);
+        if (!remoteVersion) return "0.0.0";
+        return remoteVersion.toString().replace(/['"]/g, "");
+    }
 
-	/**
-	 * The default comparator used as {@link module:PluginUpdater~comparator} for {@link module:PluginUpdater.checkForUpdate}.
-	 * This works on basic semantic versioning e.g. "1.0.0". You do not need to provide this as a comparator if your plugin adheres
-	 * to this style as this will be used as default.
-	 * @param {string} currentVersion
-	 * @param {string} content
-	 */
-	static defaultComparator(currentVersion, remoteVersion) {
-		currentVersion = currentVersion.split(".").map((e) => {return parseInt(e);});
-		remoteVersion = remoteVersion.split(".").map((e) => {return parseInt(e);});
+    /**
+     * The default comparator used as {@link module:PluginUpdater~comparator} for {@link module:PluginUpdater.checkForUpdate}.
+     * This works on basic semantic versioning e.g. "1.0.0". You do not need to provide this as a comparator if your plugin adheres
+     * to this style as this will be used as default.
+     * @param {string} currentVersion
+     * @param {string} content
+     */
+    static defaultComparator(currentVersion, remoteVersion) {
+        currentVersion = currentVersion.split(".").map((e) => {return parseInt(e);});
+        remoteVersion = remoteVersion.split(".").map((e) => {return parseInt(e);});
 
-		if (remoteVersion[0] > currentVersion[0]) return true;
-		else if (remoteVersion[0] == currentVersion[0] && remoteVersion[1] > currentVersion[1]) return true;
-		else if (remoteVersion[0] == currentVersion[0] && remoteVersion[1] == currentVersion[1] && remoteVersion[2] > currentVersion[2]) return true;
-		return false;
-	}
+        if (remoteVersion[0] > currentVersion[0]) return true;
+        else if (remoteVersion[0] == currentVersion[0] && remoteVersion[1] > currentVersion[1]) return true;
+        else if (remoteVersion[0] == currentVersion[0] && remoteVersion[1] == currentVersion[1] && remoteVersion[2] > currentVersion[2]) return true;
+        return false;
+    }
 
-	static patchPluginList() {
-		try {
-			_patcher__WEBPACK_IMPORTED_MODULE_1__["default"].after("ZeresLibrary", V2C_ContentColumn.prototype, "componentDidMount", (self) => {
-				if (self._reactInternalFiber.key != "pcolumn") return;
-				const column = _discordmodules__WEBPACK_IMPORTED_MODULE_5__["default"].ReactDOM.findDOMNode(self);
-				if (!column) return;
-				const button = column.getElementsByClassName("bd-pfbtn")[0];
-				if (!button || button.nextElementSibling.classList.contains("bd-updatebtn")) return;
-				button.after(PluginUpdater.createUpdateButton());
-			});
-			const button = document.getElementsByClassName("bd-pfbtn")[0];
-			if (!button || !button.textContent.toLowerCase().includes("plugin") || button.nextElementSibling.classList.contains("bd-updatebtn")) return;
-			button.after(PluginUpdater.createUpdateButton());
-		}
-		catch (e) {
-			_domtools__WEBPACK_IMPORTED_MODULE_2__["default"].observer.subscribeToQuerySelector(mutation => {
-				if (!mutation.addedNodes || !mutation.addedNodes.length) return;
-				const button = document.getElementsByClassName("bd-pfbtn")[0];
-				if (!button || !button.textContent.toLowerCase().includes("plugin") || button.nextElementSibling.classList.contains("bd-updatebtn")) return;
-				button.after(PluginUpdater.createUpdateButton());
-			}, "#bd-settingspane-container");
-		}
-	}
+    static patchPluginList() {
+        _domtools__WEBPACK_IMPORTED_MODULE_1__["default"].observer.subscribeToQuerySelector(mutation => {
+            if (!mutation.addedNodes || !mutation.addedNodes.length) return;
+            const button = document.getElementsByClassName("bd-pfbtn")[0];
+            if (!button || !button.textContent.toLowerCase().includes("plugin") || button.nextElementSibling.classList.contains("bd-updatebtn")) return;
+            button.after(PluginUpdater.createUpdateButton());
+        }, "#bd-settingspane-container");
+    }
 
-	/**
-	 * Creates the update button found in the plugins page of BetterDiscord
-	 * settings. Returned button will already have listeners to create the tooltip.
-	 * @returns {HTMLElement} check for update button
-	 */
-	static createUpdateButton() {
-		const updateButton = _domtools__WEBPACK_IMPORTED_MODULE_2__["default"].parseHTML(`<button class="bd-pfbtn bd-updatebtn" style="left: 220px;">Check for Updates</button>`);
-		updateButton.onclick = function () {
-			window.PluginUpdates.checkAll();
-		};
-		const tooltip = new ui__WEBPACK_IMPORTED_MODULE_6__["EmulatedTooltip"](updateButton, "Checks for updates of plugins that support this feature. Right-click for a list.");
-		updateButton.oncontextmenu = function () {
-			if (!window.PluginUpdates || !window.PluginUpdates.plugins) return;
-			tooltip.label = Object.values(window.PluginUpdates.plugins).map(p => p.name).join(", ");
-			tooltip.side = "bottom";
-			tooltip.show();
-			updateButton.onmouseout = function() {
-				tooltip.label = "Checks for updates of plugins that support this feature. Right-click for a list.";
-				tooltip.side = "top";
-			};
-		};
-		return updateButton;
-	}
+    /**
+     * Creates the update button found in the plugins page of BetterDiscord
+     * settings. Returned button will already have listeners to create the tooltip.
+     * @returns {HTMLElement} check for update button
+     */
+    static createUpdateButton() {
+        const updateButton = _domtools__WEBPACK_IMPORTED_MODULE_1__["default"].parseHTML(`<button class="bd-pfbtn bd-updatebtn" style="left: 220px;">Check for Updates</button>`);
+        updateButton.onclick = function () {
+            window.PluginUpdates.checkAll();
+        };
+        const tooltip = new ui__WEBPACK_IMPORTED_MODULE_4__["EmulatedTooltip"](updateButton, "Checks for updates of plugins that support this feature. Right-click for a list.");
+        updateButton.oncontextmenu = function () {
+            if (!window.PluginUpdates || !window.PluginUpdates.plugins) return;
+            tooltip.label = Object.values(window.PluginUpdates.plugins).map(p => p.name).join(", ");
+            tooltip.side = "bottom";
+            tooltip.show();
+            updateButton.onmouseout = function() {
+                tooltip.label = "Checks for updates of plugins that support this feature. Right-click for a list.";
+                tooltip.side = "top";
+            };
+        };
+        return updateButton;
+    }
 
-	/**
-	 * Will download the latest version and replace the the old plugin version.
-	 * Will also update the button in the update bar depending on if the user
-	 * is using RestartNoMore plugin by square {@link https://github.com/Inve1951/BetterDiscordStuff/blob/master/plugins/restartNoMore.plugin.js}
-	 * @param {string} pluginName - name of the plugin to download
-	 * @param {string} updateLink - link to the raw text version of the plugin
-	 */
-	static downloadPlugin(pluginName, updateLink) {
-		const request = __webpack_require__(/*! request */ "request");
-		const fileSystem = __webpack_require__(/*! fs */ "fs");
-		const path = __webpack_require__(/*! path */ "path");
-		request(updateLink, async (error, response, body) => {
-			if (error) return _logger__WEBPACK_IMPORTED_MODULE_3__["default"].warn("PluginUpdates", "Unable to get update for " + pluginName);
-			const remoteVersion = window.PluginUpdates.plugins[updateLink].versioner(body);
-			let filename = updateLink.split("/");
-			filename = filename[filename.length - 1];
-			const file = path.join(_pluginutilities__WEBPACK_IMPORTED_MODULE_0__["default"].getPluginsFolder(), filename);
-			await new Promise(r => fileSystem.writeFile(file, body, r));
-			ui__WEBPACK_IMPORTED_MODULE_6__["Toasts"].success(`${pluginName} ${window.PluginUpdates.plugins[updateLink].version} has been replaced by ${pluginName} ${remoteVersion}`);
-			this.removeUpdateNotice(pluginName);
+    /**
+     * Will download the latest version and replace the the old plugin version.
+     * Will also update the button in the update bar depending on if the user
+     * is using RestartNoMore plugin by square {@link https://github.com/Inve1951/BetterDiscordStuff/blob/master/plugins/restartNoMore.plugin.js}
+     * @param {string} pluginName - name of the plugin to download
+     * @param {string} updateLink - link to the raw text version of the plugin
+     */
+    static downloadPlugin(pluginName, updateLink) {
+        const request = __webpack_require__(/*! request */ "request");
+        const fileSystem = __webpack_require__(/*! fs */ "fs");
+        const path = __webpack_require__(/*! path */ "path");
+        request(updateLink, async (error, response, body) => {
+            if (error) return _logger__WEBPACK_IMPORTED_MODULE_2__["default"].warn("PluginUpdates", "Unable to get update for " + pluginName);
+            const remoteVersion = window.PluginUpdates.plugins[updateLink].versioner(body);
+            let filename = updateLink.split("/");
+            filename = filename[filename.length - 1];
+            const file = path.join(_pluginutilities__WEBPACK_IMPORTED_MODULE_0__["default"].getPluginsFolder(), filename);
+            await new Promise(r => fileSystem.writeFile(file, body, r));
+            ui__WEBPACK_IMPORTED_MODULE_4__["Toasts"].success(`${pluginName} ${window.PluginUpdates.plugins[updateLink].version} has been replaced by ${pluginName} ${remoteVersion}`);
+            this.removeUpdateNotice(pluginName);
 
-			const oldRNM = window.bdplugins["Restart-No-More"] && window.pluginCookie["Restart-No-More"];
-			const newRNM = window.bdplugins["Restart No More"] && window.pluginCookie["Restart No More"];
-			const BBDLoader = window.settingsCookie["fork-ps-5"];
-			if (oldRNM || newRNM || BBDLoader) return;
-			if (!window.PluginUpdates.downloaded) {
-				window.PluginUpdates.downloaded = [];
-				const button = _domtools__WEBPACK_IMPORTED_MODULE_2__["default"].parseHTML(`<button class="btn btn-reload ${_discordclasses__WEBPACK_IMPORTED_MODULE_4__["default"].Notices.btn} ${_discordclasses__WEBPACK_IMPORTED_MODULE_4__["default"].Notices.button}">Reload</button>`);
-				const tooltip = new ui__WEBPACK_IMPORTED_MODULE_6__["EmulatedTooltip"](button, window.PluginUpdates.downloaded.join(", "), {side: "top"});
-				button.addEventListener("click", (e) => {
-					e.preventDefault();
-					window.location.reload(false);
-				});
-				button.addEventListener("mouseenter", () => {
-					tooltip.label = window.PluginUpdates.downloaded.join(", ");
-				});
-				document.getElementById("pluginNotice").append(button);
-			}
-			window.PluginUpdates.plugins[updateLink].version = remoteVersion;
-			window.PluginUpdates.downloaded.push(pluginName);
-		});
-	}
+            if (BdApi.isSettingEnabled("fork-ps-5")) return;
+            if (!window.PluginUpdates.downloaded) {
+                window.PluginUpdates.downloaded = [];
+                const button = _domtools__WEBPACK_IMPORTED_MODULE_1__["default"].parseHTML(`<button class="btn btn-reload ${_discordclasses__WEBPACK_IMPORTED_MODULE_3__["default"].Notices.btn} ${_discordclasses__WEBPACK_IMPORTED_MODULE_3__["default"].Notices.button}">Reload</button>`);
+                const tooltip = new ui__WEBPACK_IMPORTED_MODULE_4__["EmulatedTooltip"](button, window.PluginUpdates.downloaded.join(", "), {side: "top"});
+                button.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    window.location.reload(false);
+                });
+                button.addEventListener("mouseenter", () => {
+                    tooltip.label = window.PluginUpdates.downloaded.join(", ");
+                });
+                document.getElementById("pluginNotice").append(button);
+            }
+            window.PluginUpdates.plugins[updateLink].version = remoteVersion;
+            window.PluginUpdates.downloaded.push(pluginName);
+        });
+    }
 
-	/**
-	 * Will show the update notice top bar seen in Discord. Better not to call
-	 * this directly and to instead use {@link module:PluginUpdater.checkForUpdate}.
-	 * @param {string} pluginName - name of the plugin
-	 * @param {string} updateLink - link to the raw text version of the plugin
-	 */
-	static showUpdateNotice(pluginName, updateLink) {
-		if (!document.getElementById("pluginNotice"))  {
-			const noticeElement = _domtools__WEBPACK_IMPORTED_MODULE_2__["default"].parseHTML(`<div class="${_discordclasses__WEBPACK_IMPORTED_MODULE_4__["default"].Notices.notice} ${_discordclasses__WEBPACK_IMPORTED_MODULE_4__["default"].Notices.noticeInfo}" id="pluginNotice">
-														<div class="${_discordclasses__WEBPACK_IMPORTED_MODULE_4__["default"].Notices.dismiss}" id="pluginNoticeDismiss"></div>
-														<span class="notice-message">The following plugins have updates:</span>&nbsp;&nbsp;<strong id="outdatedPlugins"></strong>
-													</div>`);
-			_domtools__WEBPACK_IMPORTED_MODULE_2__["default"].query("[class*='app-'] > [class*='app-']").prepend(noticeElement);
-			noticeElement.querySelector("#pluginNoticeDismiss").addEventListener("click", async () => {
-				noticeElement.classList.add("closing");
-				await new Promise(resolve => setTimeout(resolve, 400));
-				noticeElement.remove();
-			});
-		}
-		const pluginNoticeID = pluginName + "-notice";
-		if (document.getElementById(pluginNoticeID)) return;
-		const pluginNoticeElement = _domtools__WEBPACK_IMPORTED_MODULE_2__["default"].parseHTML(`<span id="${pluginNoticeID}">${pluginName}</span>`);
-		pluginNoticeElement.addEventListener("click", () => {
-			this.downloadPlugin(pluginName, updateLink);
-		});
-		if (document.getElementById("outdatedPlugins").querySelectorAll("span").length) document.getElementById("outdatedPlugins").append(_domtools__WEBPACK_IMPORTED_MODULE_2__["default"].createElement("<span class='separator'>, </span>"));
-		document.getElementById("outdatedPlugins").append(pluginNoticeElement);
-	}
+    /**
+     * Will show the update notice top bar seen in Discord. Better not to call
+     * this directly and to instead use {@link module:PluginUpdater.checkForUpdate}.
+     * @param {string} pluginName - name of the plugin
+     * @param {string} updateLink - link to the raw text version of the plugin
+     */
+    static showUpdateNotice(pluginName, updateLink) {
+        if (!document.getElementById("pluginNotice"))  {
+            const noticeElement = _domtools__WEBPACK_IMPORTED_MODULE_1__["default"].parseHTML(`<div class="${_discordclasses__WEBPACK_IMPORTED_MODULE_3__["default"].Notices.notice} ${_discordclasses__WEBPACK_IMPORTED_MODULE_3__["default"].Notices.noticeInfo}" id="pluginNotice">
+                                                        <div class="${_discordclasses__WEBPACK_IMPORTED_MODULE_3__["default"].Notices.dismiss}" id="pluginNoticeDismiss"></div>
+                                                        <span class="notice-message">The following plugins have updates:</span>&nbsp;&nbsp;<strong id="outdatedPlugins"></strong>
+                                                    </div>`);
+            _domtools__WEBPACK_IMPORTED_MODULE_1__["default"].query("[class*='app-'] > [class*='app-']").prepend(noticeElement);
+            noticeElement.querySelector("#pluginNoticeDismiss").addEventListener("click", async () => {
+                noticeElement.classList.add("closing");
+                await new Promise(resolve => setTimeout(resolve, 400));
+                noticeElement.remove();
+            });
+        }
+        const pluginNoticeID = pluginName + "-notice";
+        if (document.getElementById(pluginNoticeID)) return;
+        const pluginNoticeElement = _domtools__WEBPACK_IMPORTED_MODULE_1__["default"].parseHTML(`<span id="${pluginNoticeID}">${pluginName}</span>`);
+        pluginNoticeElement.addEventListener("click", () => {
+            this.downloadPlugin(pluginName, updateLink);
+        });
+        if (document.getElementById("outdatedPlugins").querySelectorAll("span").length) document.getElementById("outdatedPlugins").append(_domtools__WEBPACK_IMPORTED_MODULE_1__["default"].createElement("<span class='separator'>, </span>"));
+        document.getElementById("outdatedPlugins").append(pluginNoticeElement);
+    }
 
-	/**
-	 * Will remove the plugin from the update notice top bar seen in Discord.
-	 * Better not to call this directly and to instead use {@link module:PluginUpdater.checkForUpdate}.
-	 * @param {string} pluginName - name of the plugin
-	 */
-	static removeUpdateNotice(pluginName) {
-		if (!document.getElementById("outdatedPlugins")) return;
-		const notice = document.getElementById(pluginName + "-notice");
-		if (notice) {
-			if (notice.nextElementSibling && notice.nextElementSibling.matches(".separator")) notice.nextElementSibling.remove();
-			else if (notice.previousElementSibling && notice.previousElementSibling.matches(".separator")) notice.previousElementSibling.remove();
-			notice.remove();
-		}
+    /**
+     * Will remove the plugin from the update notice top bar seen in Discord.
+     * Better not to call this directly and to instead use {@link module:PluginUpdater.checkForUpdate}.
+     * @param {string} pluginName - name of the plugin
+     */
+    static removeUpdateNotice(pluginName) {
+        if (!document.getElementById("outdatedPlugins")) return;
+        const notice = document.getElementById(pluginName + "-notice");
+        if (notice) {
+            if (notice.nextElementSibling && notice.nextElementSibling.matches(".separator")) notice.nextElementSibling.remove();
+            else if (notice.previousElementSibling && notice.previousElementSibling.matches(".separator")) notice.previousElementSibling.remove();
+            notice.remove();
+        }
 
-		if (!document.getElementById("outdatedPlugins").querySelectorAll("span").length) {
-			if (document.querySelector("#pluginNotice .btn-reload")) document.querySelector("#pluginNotice .notice-message").textContent = "To finish updating you need to reload.";
-			else document.getElementById("pluginNoticeDismiss").click();
-		}
-	}
+        if (!document.getElementById("outdatedPlugins").querySelectorAll("span").length) {
+            if (document.querySelector("#pluginNotice .btn-reload")) document.querySelector("#pluginNotice .notice-message").textContent = "To finish updating you need to reload.";
+            else document.getElementById("pluginNoticeDismiss").click();
+        }
+    }
 }
 
 /***/ }),
@@ -2511,7 +2489,7 @@ class Helpers {
         let index = 0;
         function* innerCall(parent, key) {
             const item = parent[key];
-            if (item instanceof Array) {
+            if (Array.isArray(item)) {
                 for (const subKey of item.keys()) {
                     yield* innerCall(item, subKey);
                 }
@@ -2601,7 +2579,7 @@ class Helpers {
         if (obj.hasOwnProperty(what) && obj[what] === value) return obj;
         if (obj.props && !obj.children) return this.findByProp(obj.props, what, value);
         if (!obj.children) return null;
-        if (!(obj.children instanceof Array)) return this.findByProp(obj.children, what, value);
+        if (!Array.isArray(obj.children)) return this.findByProp(obj.children, what, value);
         for (const child of obj.children) {
             if (!child) continue;
             const findInChild = this.findByProp(child, what, value);
@@ -2614,7 +2592,7 @@ class Helpers {
         if (obj.hasOwnProperty(what)) return obj[what];
         if (obj.props && !obj.children) return this.findProp(obj.props, what);
         if (!obj.children) return null;
-        if (!(obj.children instanceof Array)) return this.findProp(obj.children, what);
+        if (!Array.isArray(obj.children)) return this.findProp(obj.children, what);
         for (const child of obj.children) {
             if (!child) continue;
             const findInChild = this.findProp(child, what);
@@ -2657,21 +2635,21 @@ class ReactComponent {
  * @version 0.0.1
  */
 class ReactComponents {
-    static get components() {return this._components || (this._components = []);}
-    static get unknownComponents() {return this._unknownComponents || (this._unknownComponents = []);}
-    static get listeners() {return this._listeners || (this._listeners = []);}
-    static get nameSetters() {return this._nameSetters || (this._nameSetters = []);}
+    static get components() {return this._components || (this._components = new Map());}
+    static get unknownComponents() {return this._unknownComponents || (this._unknownComponents = new Set());}
+    static get listeners() {return this._listeners || (this._listeners = new Map());}
+    static get nameSetters() {return this._nameSetters || (this._nameSetters = new Set());}
 
     static get ReactComponent() {return ReactComponent;}
     static get Helpers() {return Helpers;}
     static get AutoPatcher() {return ReactAutoPatcher;}
 
     static push(component, selector, filter) {
-        if (!(component instanceof Function)) return null;
+        if (typeof(component) !== "function") return null;
         const {displayName} = component;
         if (!displayName) return this.processUnknown(component);
 
-        const have = this.components.find(comp => comp.id === displayName);
+        const have = this.components.get(displayName);
         if (have) {
             if (!have.selector) have.selector = selector;
             if (!have.filter) have.filter = filter;
@@ -2679,13 +2657,13 @@ class ReactComponents {
         }
 
         const c = new ReactComponent(displayName, component, selector, filter);
-        this.components.push(c);
+        this.components.set(c.id, c);
         // if (!have) this.components.push(c);
 
-        const listener = this.listeners.find(listener => listener.id === displayName);
+        const listener = this.listeners.get(displayName);
         if (listener) {
-            for (const l of listener.listeners) l(c);
-            _utilities__WEBPACK_IMPORTED_MODULE_0__["default"].removeFromArray(this.listeners, listener);
+            for (const l of listener.children) l(c);
+            this.listeners.delete(listener);
         }
 
         // for (const listen of this.listeners) {
@@ -2713,7 +2691,7 @@ class ReactComponents {
      * @return {Promise<ReactComponent>}
      */
     static async getComponent(name, selector, filter) {
-        const have = this.components.find(c => c.id === name);
+        const have = this.components.get(name);
         if (have) {
             if (!have.selector) have.selector = selector;
             if (!have.filter) have.filter = filter;
@@ -2722,7 +2700,7 @@ class ReactComponents {
 
         if (selector) {
             const callback = () => {
-                if (this.components.find(c => c.id === name)) {
+                if (this.components.get(name)) {
                     // Logger.info("ReactComponents", `Important component ${name} already found`);
                     _domtools__WEBPACK_IMPORTED_MODULE_4__["default"].observer.unsubscribe(observerSubscription);
                     return;
@@ -2763,47 +2741,46 @@ class ReactComponents {
             setTimeout(callback, 0);
         }
 
-        let listener = this.listeners.find(l => l.id === name);
+        let listener = this.listeners.get(name);
         if (!listener) {
-            this.listeners.push(listener = {
+            listener = {
                 id: name,
-                listeners: [],
+                children: [],
                 filter
-            });
+            };
+            this.listeners.set(name, listener);
         }
 
 
         return new Promise(resolve => {
-            listener.listeners.push(resolve);
+            listener.children.push(resolve);
         });
     }
 
     static setName(name, filter) {
-        const have = this.components.find(c => c.id === name);
+        const have = this.components.get(name);
         if (have) return have;
 
-        for (const [rci, rc] of this.unknownComponents.entries()) {
-            if (filter(rc.component)) {
-                rc.component.displayName = name;
-                this.unknownComponents.splice(rci, 1);
-                return this.push(rc.component);
-            }
+        for (const component of this.unknownComponents.entries()) {
+            if (!filter(component)) continue;
+            component.displayName = name;
+            this.unknownComponents.delete(component);
+            return this.push(component);
         }
-        return this.nameSetters.push({name, filter});
+        return this.nameSetters.add({name, filter});
     }
 
     static processUnknown(component) {
-        const have = this.unknownComponents.find(c => c.component === component);
-        for (const [fi, filter] of this.nameSetters.entries()) {
-            if (filter.filter.filter(component)) {
-                // Logger.log("ReactComponents", "Filter match!");
-                component.displayName = filter.name;
-                this.nameSetters.splice(fi, 1);
+        const have = this.unknownComponents.has(component);
+        for (const setter of this.nameSetters.entries()) {
+            if (setter.filter.filter(component)) {
+                component.displayName = setter.name;
+                this.nameSetters.delete(setter);
                 return this.push(component);
             }
         }
         if (have) return have;
-        this.unknownComponents.push(component);
+        this.unknownComponents.add(component);
         return component;
     }
 
@@ -3047,8 +3024,8 @@ class Reflection {
     }
 
     static findPropIn(obj, prop) {
-        if (obj && !(obj instanceof Array) && obj instanceof Object && obj.hasOwnProperty(prop)) return obj[prop];
-        if (obj && obj instanceof Array) {
+        if (obj && !Array.isArray(obj) && obj instanceof Object && obj.hasOwnProperty(prop)) return obj[prop];
+        if (obj && Array.isArray(obj)) {
             const found = obj.find(mp => {
                 if (mp.props && mp.props.hasOwnProperty(prop)) return true;
             });
@@ -3371,7 +3348,7 @@ class Utilities {
         if (typeof tree !== "object" || tree == null) return undefined;
 
         let tempReturn = undefined;
-        if (tree instanceof Array) {
+        if (Array.isArray(tree)) {
             for (const value of tree) {
                 tempReturn = this.findInTree(value, searchFilter, {walkable, ignore});
                 if (typeof tempReturn != "undefined") return tempReturn;
@@ -3395,7 +3372,7 @@ class Utilities {
      * @param {string} path - representation of the property to obtain
      */
     static getNestedProp(obj, path) {
-        return path.split(/\s?\.\s?/).reduce(function(obj, prop) {
+        return path.split(".").reduce(function(obj, prop) {
             return obj && obj[prop];
         }, obj);
     }
@@ -3486,7 +3463,7 @@ class Utilities {
      */
     static deepclone(value) {
         if (typeof value === "object") {
-            if (value instanceof Array) return value.map(i => this.deepclone(i));
+            if (Array.isArray(value)) return value.map(i => this.deepclone(i));
 
             const clone = Object.assign({}, value);
 
@@ -3956,7 +3933,7 @@ __webpack_require__.r(__webpack_exports__);
             const wasEnabled = BdApi.isSettingEnabled("fork-ps-2");
             if (wasEnabled) BdApi.disableSetting("fork-ps-2");
             const list = BdApi.Plugins.getAll().reduce((acc, val) => {
-                if (val._config) return acc;
+                if (!val._config) return acc;
                 const name = val.getName();
                 if (name === "ZeresPluginLibrary") return acc;
                 acc.push(name);
@@ -6740,7 +6717,7 @@ class Menu {
 		const mouseX = x;
 		const mouseY = y;
 
-		const parents = this.element.parents(this.parentSelector);
+		const parents = this.element.closest(this.parentSelector);
 		const depth = parents.length;
 		// if (depth == 0) {
 			const layer = _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].TooltipLayers.layer}"></div>`);
@@ -6784,7 +6761,7 @@ class Menu {
 
     /** Allows you to remove the menu. */
 	removeMenu() {
-		this.element.parents(_modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].TooltipLayers.layer.toString())[0].remove();
+		this.element.closest(_modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].TooltipLayers.layer.toString())[0].remove();
 		const childs = this.element.findAll(this.parentSelector);
 		if (childs) childs.forEach(c => c.remove());
 		_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].off(document, ".zctx");
@@ -6799,17 +6776,17 @@ class Menu {
      * @param {(HTMLElement|jQuery)} menuItem - item to attach to
      */
 	attachTo(menuItem) {
-		this.menuItem = $(menuItem);
-		menuItem.on("mouseenter", () => {
+		this.menuItem = menuItem;
+		menuItem.addEventListener("mouseenter", () => {
 			// this.element.appendTo(DiscordSelectors.Popouts.popouts.sibling(DiscordSelectors.TooltipLayers.layerContainer).toString());
 			// const left = this.element.parents(this.parentSelector)[0].css("left");
 			//console.log(parseInt(menuItem.offset().left), parseInt(menuItem.offset().top));
 			this.show(parseInt(menuItem.offset().right), parseInt(menuItem.offset().top));
 		});
-		menuItem.on("mouseleave", () => { this.element.parents(_modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].TooltipLayers.layer.toString())[0].remove(); });
+		menuItem.addEventListener("mouseleave", () => { this.element.closest(_modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].TooltipLayers.layer.toString())[0].remove(); });
 	}
 
-	get parentSelector() {return this.element.parents(".plugin-context-menu").length > this.element.parents(_modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].ContextMenu.contextMenu).length ? ".plugin-context-menu" : _modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].ContextMenu.contextMenu;}
+	get parentSelector() {return this.element.closest(".plugin-context-menu").length > this.element.closest(_modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].ContextMenu.contextMenu).length ? ".plugin-context-menu" : _modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].ContextMenu.contextMenu;}
 }
 
 /** Class that represents a group of menu items. */

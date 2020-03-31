@@ -27,7 +27,7 @@ class Helpers {
         let index = 0;
         function* innerCall(parent, key) {
             const item = parent[key];
-            if (item instanceof Array) {
+            if (Array.isArray(item)) {
                 for (const subKey of item.keys()) {
                     yield* innerCall(item, subKey);
                 }
@@ -117,7 +117,7 @@ class Helpers {
         if (obj.hasOwnProperty(what) && obj[what] === value) return obj;
         if (obj.props && !obj.children) return this.findByProp(obj.props, what, value);
         if (!obj.children) return null;
-        if (!(obj.children instanceof Array)) return this.findByProp(obj.children, what, value);
+        if (!Array.isArray(obj.children)) return this.findByProp(obj.children, what, value);
         for (const child of obj.children) {
             if (!child) continue;
             const findInChild = this.findByProp(child, what, value);
@@ -130,7 +130,7 @@ class Helpers {
         if (obj.hasOwnProperty(what)) return obj[what];
         if (obj.props && !obj.children) return this.findProp(obj.props, what);
         if (!obj.children) return null;
-        if (!(obj.children instanceof Array)) return this.findProp(obj.children, what);
+        if (!Array.isArray(obj.children)) return this.findProp(obj.children, what);
         for (const child of obj.children) {
             if (!child) continue;
             const findInChild = this.findProp(child, what);
@@ -173,21 +173,21 @@ class ReactComponent {
  * @version 0.0.1
  */
 export default class ReactComponents {
-    static get components() {return this._components || (this._components = []);}
-    static get unknownComponents() {return this._unknownComponents || (this._unknownComponents = []);}
-    static get listeners() {return this._listeners || (this._listeners = []);}
-    static get nameSetters() {return this._nameSetters || (this._nameSetters = []);}
+    static get components() {return this._components || (this._components = new Map());}
+    static get unknownComponents() {return this._unknownComponents || (this._unknownComponents = new Set());}
+    static get listeners() {return this._listeners || (this._listeners = new Map());}
+    static get nameSetters() {return this._nameSetters || (this._nameSetters = new Set());}
 
     static get ReactComponent() {return ReactComponent;}
     static get Helpers() {return Helpers;}
     static get AutoPatcher() {return ReactAutoPatcher;}
 
     static push(component, selector, filter) {
-        if (!(component instanceof Function)) return null;
+        if (typeof(component) !== "function") return null;
         const {displayName} = component;
         if (!displayName) return this.processUnknown(component);
 
-        const have = this.components.find(comp => comp.id === displayName);
+        const have = this.components.get(displayName);
         if (have) {
             if (!have.selector) have.selector = selector;
             if (!have.filter) have.filter = filter;
@@ -195,13 +195,13 @@ export default class ReactComponents {
         }
 
         const c = new ReactComponent(displayName, component, selector, filter);
-        this.components.push(c);
+        this.components.set(c.id, c);
         // if (!have) this.components.push(c);
 
-        const listener = this.listeners.find(listener => listener.id === displayName);
+        const listener = this.listeners.get(displayName);
         if (listener) {
-            for (const l of listener.listeners) l(c);
-            Utilities.removeFromArray(this.listeners, listener);
+            for (const l of listener.children) l(c);
+            this.listeners.delete(listener);
         }
 
         // for (const listen of this.listeners) {
@@ -229,7 +229,7 @@ export default class ReactComponents {
      * @return {Promise<ReactComponent>}
      */
     static async getComponent(name, selector, filter) {
-        const have = this.components.find(c => c.id === name);
+        const have = this.components.get(name);
         if (have) {
             if (!have.selector) have.selector = selector;
             if (!have.filter) have.filter = filter;
@@ -238,7 +238,7 @@ export default class ReactComponents {
 
         if (selector) {
             const callback = () => {
-                if (this.components.find(c => c.id === name)) {
+                if (this.components.get(name)) {
                     // Logger.info("ReactComponents", `Important component ${name} already found`);
                     DOMTools.observer.unsubscribe(observerSubscription);
                     return;
@@ -279,47 +279,46 @@ export default class ReactComponents {
             setTimeout(callback, 0);
         }
 
-        let listener = this.listeners.find(l => l.id === name);
+        let listener = this.listeners.get(name);
         if (!listener) {
-            this.listeners.push(listener = {
+            listener = {
                 id: name,
-                listeners: [],
+                children: [],
                 filter
-            });
+            };
+            this.listeners.set(name, listener);
         }
 
 
         return new Promise(resolve => {
-            listener.listeners.push(resolve);
+            listener.children.push(resolve);
         });
     }
 
     static setName(name, filter) {
-        const have = this.components.find(c => c.id === name);
+        const have = this.components.get(name);
         if (have) return have;
 
-        for (const [rci, rc] of this.unknownComponents.entries()) {
-            if (filter(rc.component)) {
-                rc.component.displayName = name;
-                this.unknownComponents.splice(rci, 1);
-                return this.push(rc.component);
-            }
+        for (const component of this.unknownComponents.entries()) {
+            if (!filter(component)) continue;
+            component.displayName = name;
+            this.unknownComponents.delete(component);
+            return this.push(component);
         }
-        return this.nameSetters.push({name, filter});
+        return this.nameSetters.add({name, filter});
     }
 
     static processUnknown(component) {
-        const have = this.unknownComponents.find(c => c.component === component);
-        for (const [fi, filter] of this.nameSetters.entries()) {
-            if (filter.filter.filter(component)) {
-                // Logger.log("ReactComponents", "Filter match!");
-                component.displayName = filter.name;
-                this.nameSetters.splice(fi, 1);
+        const have = this.unknownComponents.has(component);
+        for (const setter of this.nameSetters.entries()) {
+            if (setter.filter.filter(component)) {
+                component.displayName = setter.name;
+                this.nameSetters.delete(setter);
                 return this.push(component);
             }
         }
         if (have) return have;
-        this.unknownComponents.push(component);
+        this.unknownComponents.add(component);
         return component;
     }
 

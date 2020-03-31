@@ -65,8 +65,8 @@ class Reflection {
     }
 
     static findPropIn(obj, prop) {
-        if (obj && !(obj instanceof Array) && obj instanceof Object && obj.hasOwnProperty(prop)) return obj[prop];
-        if (obj && obj instanceof Array) {
+        if (obj && !Array.isArray(obj) && obj instanceof Object && obj.hasOwnProperty(prop)) return obj[prop];
+        if (obj && Array.isArray(obj)) {
             const found = obj.find(mp => {
                 if (mp.props && mp.props.hasOwnProperty(prop)) return true;
             });

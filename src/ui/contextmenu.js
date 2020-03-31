@@ -74,7 +74,7 @@ export class Menu {
 		const mouseX = x;
 		const mouseY = y;
 
-		const parents = this.element.parents(this.parentSelector);
+		const parents = this.element.closest(this.parentSelector);
 		const depth = parents.length;
 		// if (depth == 0) {
 			const layer = DOMTools.createElement(`<div class="${DiscordClasses.TooltipLayers.layer}"></div>`);
@@ -118,7 +118,7 @@ export class Menu {
 
     /** Allows you to remove the menu. */
 	removeMenu() {
-		this.element.parents(DiscordSelectors.TooltipLayers.layer.toString())[0].remove();
+		this.element.closest(DiscordSelectors.TooltipLayers.layer.toString())[0].remove();
 		const childs = this.element.findAll(this.parentSelector);
 		if (childs) childs.forEach(c => c.remove());
 		DOMTools.off(document, ".zctx");
@@ -133,17 +133,17 @@ export class Menu {
      * @param {(HTMLElement|jQuery)} menuItem - item to attach to
      */
 	attachTo(menuItem) {
-		this.menuItem = $(menuItem);
-		menuItem.on("mouseenter", () => {
+		this.menuItem = menuItem;
+		menuItem.addEventListener("mouseenter", () => {
 			// this.element.appendTo(DiscordSelectors.Popouts.popouts.sibling(DiscordSelectors.TooltipLayers.layerContainer).toString());
 			// const left = this.element.parents(this.parentSelector)[0].css("left");
 			//console.log(parseInt(menuItem.offset().left), parseInt(menuItem.offset().top));
 			this.show(parseInt(menuItem.offset().right), parseInt(menuItem.offset().top));
 		});
-		menuItem.on("mouseleave", () => { this.element.parents(DiscordSelectors.TooltipLayers.layer.toString())[0].remove(); });
+		menuItem.addEventListener("mouseleave", () => { this.element.closest(DiscordSelectors.TooltipLayers.layer.toString())[0].remove(); });
 	}
 
-	get parentSelector() {return this.element.parents(".plugin-context-menu").length > this.element.parents(DiscordSelectors.ContextMenu.contextMenu).length ? ".plugin-context-menu" : DiscordSelectors.ContextMenu.contextMenu;}
+	get parentSelector() {return this.element.closest(".plugin-context-menu").length > this.element.closest(DiscordSelectors.ContextMenu.contextMenu).length ? ".plugin-context-menu" : DiscordSelectors.ContextMenu.contextMenu;}
 }
 
 /** Class that represents a group of menu items. */

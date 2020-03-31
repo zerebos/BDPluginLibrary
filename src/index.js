@@ -14,8 +14,8 @@ Library.Modals = Modals;
 for (const mod in Modules) Library[mod] = Modules[mod];
 
 const config = require(process.env.CONFIG_PATH);
-const pluginModule = require(process.env.PLUGIN_PATH);
-const pluginFunction = pluginModule.default ? pluginModule.default : pluginModule;
+const baseModule = require(process.env.PLUGIN_PATH);
+const pluginFunction = baseModule.default ? baseModule.default : baseModule;
 
 const getBoundLibrary = () => {
 	const name = config.info.name;

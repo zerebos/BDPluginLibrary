@@ -46,9 +46,9 @@ export default class Patcher {
 	}
 
 	static resolveModule(module) {
-        if (module instanceof Function || (module instanceof Object && !(module instanceof Array))) return module;
+        if (!module || typeof(module) === "function" || (typeof(module) === "object" && !Array.isArray(module))) return module;
         if (typeof module === "string") return DiscordModules[module];
-        if (module instanceof Array) return WebpackModules.findByUniqueProperties(module);
+        if (Array.isArray(module)) return WebpackModules.findByUniqueProperties(module);
         return null;
 	}
 

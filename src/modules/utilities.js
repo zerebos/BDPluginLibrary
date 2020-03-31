@@ -148,7 +148,7 @@ export default class Utilities {
         if (typeof tree !== "object" || tree == null) return undefined;
 
         let tempReturn = undefined;
-        if (tree instanceof Array) {
+        if (Array.isArray(tree)) {
             for (const value of tree) {
                 tempReturn = this.findInTree(value, searchFilter, {walkable, ignore});
                 if (typeof tempReturn != "undefined") return tempReturn;
@@ -172,7 +172,7 @@ export default class Utilities {
      * @param {string} path - representation of the property to obtain
      */
     static getNestedProp(obj, path) {
-        return path.split(/\s?\.\s?/).reduce(function(obj, prop) {
+        return path.split(".").reduce(function(obj, prop) {
             return obj && obj[prop];
         }, obj);
     }
@@ -263,7 +263,7 @@ export default class Utilities {
      */
     static deepclone(value) {
         if (typeof value === "object") {
-            if (value instanceof Array) return value.map(i => this.deepclone(i));
+            if (Array.isArray(value)) return value.map(i => this.deepclone(i));
 
             const clone = Object.assign({}, value);
 
