@@ -36,23 +36,23 @@ const toPx = function(value) {
 </div> */
 
 export default class EmulatedTooltip {
-	/**
-	 *
-	 * @constructor
-	 * @param {(HTMLElement|jQuery)} node - DOM node to monitor and show the tooltip on
-	 * @param {string} tip - string to show in the tooltip
-	 * @param {object} options - additional options for the tooltip
-	 * @param {string} [options.style=black] - correlates to the discord styling/colors (black, brand, green, grey, red, yellow)
-	 * @param {string} [options.side=top] - can be any of top, right, bottom, left
-	 * @param {boolean} [options.preventFlip=false] - prevents moving the tooltip to the opposite side if it is too big or goes offscreen
+    /**
+     *
+     * @constructor
+     * @param {(HTMLElement|jQuery)} node - DOM node to monitor and show the tooltip on
+     * @param {string} tip - string to show in the tooltip
+     * @param {object} options - additional options for the tooltip
+     * @param {string} [options.style=black] - correlates to the discord styling/colors (black, brand, green, grey, red, yellow)
+     * @param {string} [options.side=top] - can be any of top, right, bottom, left
+     * @param {boolean} [options.preventFlip=false] - prevents moving the tooltip to the opposite side if it is too big or goes offscreen
      * @param {boolean} [options.disabled=false] - whether the tooltip should be disabled from showing on hover
-	 */
-	constructor(node, text, options = {}) {
-		const {style = "black", side = "top", preventFlip = false, disabled = false} = options;
-		this.node = node instanceof jQuery ? node[0] : node;
+     */
+    constructor(node, text, options = {}) {
+        const {style = "black", side = "top", preventFlip = false, disabled = false} = options;
+        this.node = node instanceof jQuery ? node[0] : node;
         this.label = text;
         this.style = style.toLowerCase();
-		this.side = side.toLowerCase();
+        this.side = side.toLowerCase();
         this.preventFlip = preventFlip;
         this.disabled = disabled;
 
@@ -65,28 +65,28 @@ export default class EmulatedTooltip {
         this.element.append(this.tooltipElement);
 
 
-		this.node.addEventListener("mouseenter", () => {
+        this.node.addEventListener("mouseenter", () => {
             if (this.disabled) return;
             this.show();
 
-			const observer = new MutationObserver((mutations) => {
-				mutations.forEach((mutation) => {
-					const nodes = Array.from(mutation.removedNodes);
-					const directMatch = nodes.indexOf(this.node) > -1;
-					const parentMatch = nodes.some(parent => parent.contains(this.node));
-					if (directMatch || parentMatch) {
-						this.hide();
-						observer.disconnect();
-					}
-				});
-			});
+            const observer = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    const nodes = Array.from(mutation.removedNodes);
+                    const directMatch = nodes.indexOf(this.node) > -1;
+                    const parentMatch = nodes.some(parent => parent.contains(this.node));
+                    if (directMatch || parentMatch) {
+                        this.hide();
+                        observer.disconnect();
+                    }
+                });
+            });
 
-			observer.observe(document.body, {subtree: true, childList: true});
-		});
+            observer.observe(document.body, {subtree: true, childList: true});
+        });
 
-		this.node.addEventListener("mouseleave", () => {
-			this.hide();
-		});
+        this.node.addEventListener("mouseleave", () => {
+            this.hide();
+        });
     }
 
     /** Container where the tooltip will be appended. */
@@ -98,76 +98,76 @@ export default class EmulatedTooltip {
     /** Boolean representing if the tooltip will fit on screen to the left of the element */
     get canShowLeft() { return this.node.offset().left - this.element.outerWidth() >= 0; }
     /** Boolean representing if the tooltip will fit on screen to the right of the element */
-	get canShowRight() { return this.node.offset().left + this.node.outerWidth() + this.element.outerWidth() <= Screen.width; }
+    get canShowRight() { return this.node.offset().left + this.node.outerWidth() + this.element.outerWidth() <= Screen.width; }
 
     /** Hides the tooltip. Automatically called on mouseleave. */
-	hide() {
+    hide() {
         this.element.remove();
         this.tooltipElement.className = this._className;
-	}
+    }
 
     /** Shows the tooltip. Automatically called on mouseenter. Will attempt to flip if position was wrong. */
-	show() {
+    show() {
         this.tooltipElement.className = `${DiscordClasses.Tooltips.tooltip} ${getClass(this.style)}`;
         this.labelElement.textContent = this.label;
-		this.element.appendTo(this.container);
+        this.element.appendTo(this.container);
 
-		if (this.side == "top") {
-			if (this.canShowAbove || (!this.canShowAbove && this.preventFlip)) this.showAbove();
-			else this.showBelow();
-		}
+        if (this.side == "top") {
+            if (this.canShowAbove || (!this.canShowAbove && this.preventFlip)) this.showAbove();
+            else this.showBelow();
+        }
 
-		if (this.side == "bottom") {
-			if (this.canShowBelow || (!this.canShowBelow && this.preventFlip)) this.showBelow();
-			else this.showAbove();
-		}
+        if (this.side == "bottom") {
+            if (this.canShowBelow || (!this.canShowBelow && this.preventFlip)) this.showBelow();
+            else this.showAbove();
+        }
 
-		if (this.side == "left") {
-			if (this.canShowLeft || (!this.canShowLeft && this.preventFlip)) this.showLeft();
-			else this.showRight();
-		}
+        if (this.side == "left") {
+            if (this.canShowLeft || (!this.canShowLeft && this.preventFlip)) this.showLeft();
+            else this.showRight();
+        }
 
-		if (this.side == "right") {
-			if (this.canShowRight || (!this.canShowRight && this.preventFlip)) this.showRight();
-			else this.showLeft();
-		}
-	}
+        if (this.side == "right") {
+            if (this.canShowRight || (!this.canShowRight && this.preventFlip)) this.showRight();
+            else this.showLeft();
+        }
+    }
 
     /** Force showing the tooltip above the node. */
-	showAbove() {
-		this.tooltipElement.addClass(getClass("top"));
-		this.element.css("top", toPx(this.node.offset().top - this.element.outerHeight() - 10));
-		this.centerHorizontally();
-	}
+    showAbove() {
+        this.tooltipElement.addClass(getClass("top"));
+        this.element.css("top", toPx(this.node.offset().top - this.element.outerHeight() - 10));
+        this.centerHorizontally();
+    }
 
     /** Force showing the tooltip below the node. */
-	showBelow() {
-		this.tooltipElement.addClass(getClass("bottom"));
-		this.element.css("top", toPx(this.node.offset().top + this.node.outerHeight() + 10));
-		this.centerHorizontally();
-	}
+    showBelow() {
+        this.tooltipElement.addClass(getClass("bottom"));
+        this.element.css("top", toPx(this.node.offset().top + this.node.outerHeight() + 10));
+        this.centerHorizontally();
+    }
 
     /** Force showing the tooltip to the left of the node. */
-	showLeft() {
-		this.tooltipElement.addClass(getClass("left"));
-		this.element.css("left", toPx(this.node.offset().left - this.element.outerWidth() - 10));
-		this.centerVertically();
-	}
+    showLeft() {
+        this.tooltipElement.addClass(getClass("left"));
+        this.element.css("left", toPx(this.node.offset().left - this.element.outerWidth() - 10));
+        this.centerVertically();
+    }
 
     /** Force showing the tooltip to the right of the node. */
-	showRight() {
-		this.tooltipElement.addClass(getClass("right"));
-		this.element.css("left", toPx(this.node.offset().left + this.node.outerWidth() + 10));
-		this.centerVertically();
-	}
+    showRight() {
+        this.tooltipElement.addClass(getClass("right"));
+        this.element.css("left", toPx(this.node.offset().left + this.node.outerWidth() + 10));
+        this.centerVertically();
+    }
 
-	centerHorizontally() {
-		const nodecenter = this.node.offset().left + (this.node.outerWidth() / 2);
-		this.element.css("left", toPx(nodecenter - (this.element.outerWidth() / 2)));
-	}
+    centerHorizontally() {
+        const nodecenter = this.node.offset().left + (this.node.outerWidth() / 2);
+        this.element.css("left", toPx(nodecenter - (this.element.outerWidth() / 2)));
+    }
 
-	centerVertically() {
-		const nodecenter = this.node.offset().top + (this.node.outerHeight() / 2);
-		this.element.css("top", toPx(nodecenter - (this.element.outerHeight() / 2)));
-	}
+    centerVertically() {
+        const nodecenter = this.node.offset().top + (this.node.outerHeight() / 2);
+        this.element.css("top", toPx(nodecenter - (this.element.outerHeight() / 2)));
+    }
 }

@@ -40,19 +40,19 @@
 }
 
 .file-input::-webkit-file-upload-button {
-	color: white;
-	background: #7289DA;
-	outline: 0;
-	border: 0;
-	padding: 10px;
-	vertical-align: top;
-	margin-top: -10px;
-	margin-left: -10px;
-	border-radius: 3px 0 0 3px;
-	font-size: 14px;
+    color: white;
+    background: #7289DA;
+    outline: 0;
+    border: 0;
+    padding: 10px;
+    vertical-align: top;
+    margin-top: -10px;
+    margin-left: -10px;
+    border-radius: 3px 0 0 3px;
+    font-size: 14px;
     font-weight: 500;
-	font-family: Whitney,Helvetica Neue,Helvetica,Arial,sans-serif;
-	cursor: pointer;
+    font-family: Whitney,Helvetica Neue,Helvetica,Arial,sans-serif;
+    cursor: pointer;
 }
 
 .color-input {

@@ -7,10 +7,10 @@
  * https://github.com/JsSucks/BetterDiscordApp/blob/master/LICENSE
 */
 
-import { DiscordAPI, DiscordModules as Modules, Utilities } from "modules";
-import { List, InsufficientPermissions } from "structs";
-import { Guild } from "./guild";
-import { Channel } from "./channel";
+import {DiscordAPI, DiscordModules as Modules, Utilities} from "modules";
+import {List, InsufficientPermissions} from "structs";
+import {Guild} from "./guild";
+import {Channel} from "./channel";
 
 const users = new WeakMap();
 
@@ -74,6 +74,7 @@ class User {
     get note() {
         const note = Modules.UserNoteStore.getNote(this.id);
         if (note) return note;
+        return null;
     }
 
     /**
@@ -84,7 +85,7 @@ class User {
     updateNote(note) {
         return Modules.APIModule.put({
             url: `${Modules.DiscordConstants.Endpoints.NOTES}/${this.id}`,
-            body: { note }
+            body: {note}
         });
     }
 
@@ -93,8 +94,7 @@ class User {
     }
 
     async ensurePrivateChannel() {
-        if (DiscordAPI.currentUser === this)
-            throw new Error("Cannot create a direct message channel to the current user.");
+        if (DiscordAPI.currentUser === this) throw new Error("Cannot create a direct message channel to the current user.");
         return Channel.fromId(await Modules.PrivateChannelActions.ensurePrivateChannel(DiscordAPI.currentUser.id, this.id));
     }
 
@@ -189,8 +189,7 @@ export class GuildMember {
      * Opens the modal to change this user's nickname.
      */
     openChangeNicknameModal() {
-        if (DiscordAPI.currentUser === this.user)
-            this.assertPermissions("CHANGE_NICKNAME", Modules.DiscordPermissions.CHANGE_NICKNAME);
+        if (DiscordAPI.currentUser === this.user) this.assertPermissions("CHANGE_NICKNAME", Modules.DiscordPermissions.CHANGE_NICKNAME);
         else this.assertPermissions("MANAGE_NICKNAMES", Modules.DiscordPermissions.MANAGE_NICKNAMES);
 
         Modules.ChangeNicknameModal.open(this.guildId, this.userId);
@@ -202,13 +201,12 @@ export class GuildMember {
      * @return {Promise}
      */
     changeNickname(nick) {
-        if (DiscordAPI.currentUser === this.user)
-            this.assertPermissions("CHANGE_NICKNAME", Modules.DiscordPermissions.CHANGE_NICKNAME);
+        if (DiscordAPI.currentUser === this.user) this.assertPermissions("CHANGE_NICKNAME", Modules.DiscordPermissions.CHANGE_NICKNAME);
         else this.assertPermissions("MANAGE_NICKNAMES", Modules.DiscordPermissions.MANAGE_NICKNAMES);
 
         return Modules.APIModule.patch({
             url: `${Modules.DiscordConstants.Endpoints.GUILD_MEMBERS(this.guild_id)}/${DiscordAPI.currentUser === this.user ? "@me/nick" : this.userId}`,
-            body: { nick }
+            body: {nick}
         });
     }
 
@@ -289,7 +287,7 @@ export class GuildMember {
     addRole(...roles) {
         const newRoles = this.roleIds.concat([]);
         let changed = false;
-        for (let role of roles) {
+        for (const role of roles) {
             if (newRoles.includes(role.id || role)) continue;
             newRoles.push(role.id || role);
             changed = true;
@@ -306,7 +304,7 @@ export class GuildMember {
     removeRole(...roles) {
         const newRoles = this.roleIds.concat([]);
         let changed = false;
-        for (let role of roles) {
+        for (const role of roles) {
             if (!newRoles.includes(role.id || role)) continue;
             Utilities.removeFromArray(newRoles, role.id || role);
             changed = true;
@@ -324,7 +322,7 @@ export class GuildMember {
         roles = roles.map(r => r.id || r);
         return Modules.APIModule.patch({
             url: `${Modules.DiscordConstants.Endpoints.GUILD_MEMBERS(this.guildId)}/${this.userId}`,
-            body: { roles }
+            body: {roles}
         });
     }
 }

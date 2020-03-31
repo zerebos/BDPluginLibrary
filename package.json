@@ -24,7 +24,8 @@
     "build": "node ./scripts/pack.js development 0PluginLibrary",
     "build-prod": "node ./scripts/pack.js production 0PluginLibrary",
     "build-docs": "jsdoc -r src -c jsdoc.config.json",
-    "webpack": "webpack"
+    "webpack": "webpack",
+    "lint": "eslint --ext .js ./src/ --ignore-pattern '*.json'"
   },
   "author": "Zerebos",
   "license": "MIT",

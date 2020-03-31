@@ -15,12 +15,12 @@ Library.buildPlugin = function(config) {
     const BoundAPI = {
         Logger: {
             stacktrace: (message, error) => Library.Logger.stacktrace(name, message, error),
-			log: (...message) => Library.Logger.log(name, ...message),
-			error: (...message) => Library.Logger.err(name, ...message),
-			err: (...message) => Library.Logger.err(name, ...message),
-			warn: (...message) => Library.Logger.warn(name, ...message),
-			info: (...message) => Library.Logger.info(name, ...message),
-			debug: (...message) => Library.Logger.debug(name, ...message)
+            log: (...message) => Library.Logger.log(name, ...message),
+            error: (...message) => Library.Logger.err(name, ...message),
+            err: (...message) => Library.Logger.err(name, ...message),
+            warn: (...message) => Library.Logger.warn(name, ...message),
+            info: (...message) => Library.Logger.info(name, ...message),
+            debug: (...message) => Library.Logger.debug(name, ...message)
         },
         Patcher: {
             getPatchesByCaller: () => {return Library.Patcher.getPatchesByCaller(name);},
@@ -31,7 +31,7 @@ Library.buildPlugin = function(config) {
         }
     };
     
-    return [Library.Structs.Plugin(config), Object.assign({}, Library, BoundAPI)];		
+    return [Library.Structs.Plugin(config), Object.assign({}, Library, BoundAPI)];
 };
 
 if (document.getElementById("ZLibraryCSS")) document.getElementById("ZLibraryCSS").remove();

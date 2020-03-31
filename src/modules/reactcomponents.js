@@ -10,8 +10,6 @@
  * LICENSE file in the root directory of this source tree.
 */
 
-// import Logger from "./logger";
-import Utilities from "./utilities";
 import Patcher from "./patcher";
 import Reflection from "./reflection";
 import Modules from "./discordmodules";

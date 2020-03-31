@@ -7,10 +7,10 @@
  * https://github.com/JsSucks/BetterDiscordApp/blob/master/LICENSE
 */
 
-import { DiscordAPI, DiscordModules as Modules } from "modules";
-import { List, InsufficientPermissions } from "structs";
-import { Channel } from "./channel";
-import { User } from "./user";
+import {DiscordAPI, DiscordModules as Modules} from "modules";
+import {List, InsufficientPermissions} from "structs";
+import {Channel} from "./channel";
+import {User} from "./user";
 
 const reactions = new WeakMap();
 
@@ -39,10 +39,12 @@ export class Reaction {
 
     get message() {
         if (this.channel) return this.channel.messages.find(m => m.id === this.messageId);
+        return null;
     }
 
     get guild() {
         if (this.channel) return this.channel.guild;
+        return null;
     }
 }
 
@@ -78,10 +80,12 @@ export class Embed {
 
     get message() {
         if (this.channel) return this.channel.messages.find(m => m.id === this.messageId);
+        return null;
     }
 
     get guild() {
         if (this.channel) return this.channel.guild;
+        return null;
     }
 }
 
@@ -136,6 +140,7 @@ class Message {
 
     get author() {
         if (this.discordObject.author && !this.webhookId) return User.from(this.discordObject.author);
+        return null;
     }
 
     get channel() {
@@ -144,6 +149,7 @@ class Message {
 
     get guild() {
         if (this.channel) return this.channel.guild;
+        return null;
     }
 
     /**
@@ -196,6 +202,7 @@ export class DefaultMessage extends Message {
 
     get webhook() {
         if (this.webhookId) return this.discordObject.author;
+        return null;
     }
 
     get mentions() {

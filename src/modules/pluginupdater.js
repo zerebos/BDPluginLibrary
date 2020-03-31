@@ -28,7 +28,7 @@ import {EmulatedTooltip, Toasts} from "ui";
 
 export default class PluginUpdater {
 
-    static get CSS() { return require("../styles/updates.css");	}
+    static get CSS() { return require("../styles/updates.css");}
 
     /**
      * Checks for updates for the specified plugin at the specified link. The final

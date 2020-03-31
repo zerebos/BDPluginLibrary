@@ -154,30 +154,30 @@ const baseModule = __webpack_require__(/*! ./src/plugin.js */ "./src/plugin.js")
 const pluginFunction = baseModule.default ? baseModule.default : baseModule;
 
 const getBoundLibrary = () => {
-	const name = config.info.name;
-	const BoundAPI = {
-		Logger: {
-			stacktrace: (message, error) => Library.Logger.stacktrace(name, message, error),
-			log: (...message) => Library.Logger.log(name, ...message),
-			error: (...message) => Library.Logger.err(name, ...message),
-			err: (...message) => Library.Logger.err(name, ...message),
-			warn: (...message) => Library.Logger.warn(name, ...message),
-			info: (...message) => Library.Logger.info(name, ...message),
-			debug: (...message) => Library.Logger.debug(name, ...message)
-		},
-		Patcher: {
-			getPatchesByCaller: () => {return Library.Patcher.getPatchesByCaller(name);},
-			unpatchAll: () => {return Library.Patcher.unpatchAll(name);},
-			before: (moduleToPatch, functionName, callback, options = {}) => {return Library.Patcher.before(name, moduleToPatch, functionName, callback, options);},
-			instead: (moduleToPatch, functionName, callback, options = {}) => {return Library.Patcher.instead(name, moduleToPatch, functionName, callback, options);},
-			after: (moduleToPatch, functionName, callback, options = {}) => {return Library.Patcher.after(name, moduleToPatch, functionName, callback, options);}
-		}
-	};
+    const name = config.info.name;
+    const BoundAPI = {
+        Logger: {
+            stacktrace: (message, error) => Library.Logger.stacktrace(name, message, error),
+            log: (...message) => Library.Logger.log(name, ...message),
+            error: (...message) => Library.Logger.err(name, ...message),
+            err: (...message) => Library.Logger.err(name, ...message),
+            warn: (...message) => Library.Logger.warn(name, ...message),
+            info: (...message) => Library.Logger.info(name, ...message),
+            debug: (...message) => Library.Logger.debug(name, ...message)
+        },
+        Patcher: {
+            getPatchesByCaller: () => {return Library.Patcher.getPatchesByCaller(name);},
+            unpatchAll: () => {return Library.Patcher.unpatchAll(name);},
+            before: (moduleToPatch, functionName, callback, options = {}) => {return Library.Patcher.before(name, moduleToPatch, functionName, callback, options);},
+            instead: (moduleToPatch, functionName, callback, options = {}) => {return Library.Patcher.instead(name, moduleToPatch, functionName, callback, options);},
+            after: (moduleToPatch, functionName, callback, options = {}) => {return Library.Patcher.after(name, moduleToPatch, functionName, callback, options);}
+        }
+    };
 
-	const BoundLib = Object.assign({}, Library);
-	BoundLib.Logger = BoundAPI.Logger;
-	BoundLib.Patcher = BoundAPI.Patcher;
-	return BoundLib;
+    const BoundLib = Object.assign({}, Library);
+    BoundLib.Logger = BoundAPI.Logger;
+    BoundLib.Patcher = BoundAPI.Patcher;
+    return BoundLib;
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (pluginFunction(Library.Structs.Plugin(config),  false ? undefined : Library));
@@ -207,73 +207,73 @@ const DiscordColorUtils = _webpackmodules__WEBPACK_IMPORTED_MODULE_0__["default"
 
 class ColorConverter {
 
-	static getDarkness(color) {
-		return DiscordColorUtils.getDarkness(color);
-	}
+    static getDarkness(color) {
+        return DiscordColorUtils.getDarkness(color);
+    }
 
-	static hex2int(color) {return DiscordColorUtils.hex2int(color);}
+    static hex2int(color) {return DiscordColorUtils.hex2int(color);}
 
-	static hex2rgb(color) {return DiscordColorUtils.hex2rgb(color);}
-	
-	static int2hex(color) {return DiscordColorUtils.int2hex(color);}
+    static hex2rgb(color) {return DiscordColorUtils.hex2rgb(color);}
+    
+    static int2hex(color) {return DiscordColorUtils.int2hex(color);}
 
-	static int2rgba(color, alpha) {return DiscordColorUtils.int2rgba(color, alpha);}
+    static int2rgba(color, alpha) {return DiscordColorUtils.int2rgba(color, alpha);}
 
-	static isValidHex(color) {return DiscordColorUtils.isValidHex(color);}
+    static isValidHex(color) {return DiscordColorUtils.isValidHex(color);}
 
-	/**
-	 * Will get the red green and blue values of any color string.
-	 * @param {string} color - the color to obtain the red, green and blue values of. Can be in any of these formats: #fff, #ffffff, rgb, rgba
-	 * @returns {array} - array containing the red, green, and blue values
-	 */
-	static getRGB(color) {
-		let result = /rgb\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*\)/.exec(color);
-		if (result) return [parseInt(result[1]), parseInt(result[2]), parseInt(result[3])];
+    /**
+     * Will get the red green and blue values of any color string.
+     * @param {string} color - the color to obtain the red, green and blue values of. Can be in any of these formats: #fff, #ffffff, rgb, rgba
+     * @returns {array} - array containing the red, green, and blue values
+     */
+    static getRGB(color) {
+        let result = /rgb\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*\)/.exec(color);
+        if (result) return [parseInt(result[1]), parseInt(result[2]), parseInt(result[3])];
 
-		result = /rgb\(\s*([0-9]+(?:\.[0-9]+)?)%\s*,\s*([0-9]+(?:\.[0-9]+)?)%\s*,\s*([0-9]+(?:\.[0-9]+)?)%\s*\)/.exec(color);
-		if (result) return [parseFloat(result[1]) * 2.55, parseFloat(result[2]) * 2.55, parseFloat(result[3]) * 2.55];
+        result = /rgb\(\s*([0-9]+(?:\.[0-9]+)?)%\s*,\s*([0-9]+(?:\.[0-9]+)?)%\s*,\s*([0-9]+(?:\.[0-9]+)?)%\s*\)/.exec(color);
+        if (result) return [parseFloat(result[1]) * 2.55, parseFloat(result[2]) * 2.55, parseFloat(result[3]) * 2.55];
 
-		result = /#([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})/.exec(color);
-		if (result) return [parseInt(result[1], 16), parseInt(result[2], 16), parseInt(result[3], 16)];
-		
-		result = /#([a-fA-F0-9])([a-fA-F0-9])([a-fA-F0-9])/.exec(color);
-		if (result) return [parseInt(result[1] + result[1], 16), parseInt(result[2] + result[2], 16), parseInt(result[3] + result[3], 16)];
-	}
+        result = /#([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})/.exec(color);
+        if (result) return [parseInt(result[1], 16), parseInt(result[2], 16), parseInt(result[3], 16)];
+        
+        result = /#([a-fA-F0-9])([a-fA-F0-9])([a-fA-F0-9])/.exec(color);
+        if (result) return [parseInt(result[1] + result[1], 16), parseInt(result[2] + result[2], 16), parseInt(result[3] + result[3], 16)];
+    }
 
-	/**
-	 * Will get the darken the color by a certain percent
-	 * @param {string} color - Can be in any of these formats: #fff, #ffffff, rgb, rgba
-	 * @param {number} percent - percent to darken the color by (0-100)
-	 * @returns {string} - new color in rgb format
-	 */
-	static darkenColor(color, percent) {
-		const rgb = this.getRGB(color);
-		for (let i = 0; i < rgb.length; i++) rgb[i] = Math.round(Math.max(0, rgb[i] - rgb[i] * (percent / 100)));
-		return "rgb(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + ")";
-	}
+    /**
+     * Will get the darken the color by a certain percent
+     * @param {string} color - Can be in any of these formats: #fff, #ffffff, rgb, rgba
+     * @param {number} percent - percent to darken the color by (0-100)
+     * @returns {string} - new color in rgb format
+     */
+    static darkenColor(color, percent) {
+        const rgb = this.getRGB(color);
+        for (let i = 0; i < rgb.length; i++) rgb[i] = Math.round(Math.max(0, rgb[i] - rgb[i] * (percent / 100)));
+        return "rgb(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + ")";
+    }
 
-	/**
-	 * Will get the lighten the color by a certain percent
-	 * @param {string} color - Can be in any of these formats: #fff, #ffffff, rgb, rgba
-	 * @param {number} percent - percent to lighten the color by (0-100)
-	 * @returns {string} - new color in rgb format
-	 */
-	static lightenColor(color, percent) {
-		const rgb = this.getRGB(color);
-		for (let i = 0; i < rgb.length; i++) rgb[i] = Math.round(Math.min(255, rgb[i] + rgb[i] * (percent / 100)));
-		return "rgb(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + ")";
-	}
+    /**
+     * Will get the lighten the color by a certain percent
+     * @param {string} color - Can be in any of these formats: #fff, #ffffff, rgb, rgba
+     * @param {number} percent - percent to lighten the color by (0-100)
+     * @returns {string} - new color in rgb format
+     */
+    static lightenColor(color, percent) {
+        const rgb = this.getRGB(color);
+        for (let i = 0; i < rgb.length; i++) rgb[i] = Math.round(Math.min(255, rgb[i] + rgb[i] * (percent / 100)));
+        return "rgb(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + ")";
+    }
 
-	/**
-	 * Converts a color to rgba format string
-	 * @param {string} color - Can be in any of these formats: #fff, #ffffff, rgb, rgba
-	 * @param {number} alpha - alpha level for the new color
-	 * @returns {string} - new color in rgb format
-	 */
-	static rgbToAlpha(color, alpha) {
-		const rgb = this.getRGB(color);		
-		return "rgba(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + "," + alpha + ")";
-	}
+    /**
+     * Converts a color to rgba format string
+     * @param {string} color - Can be in any of these formats: #fff, #ffffff, rgb, rgba
+     * @param {number} alpha - alpha level for the new color
+     * @returns {string} - new color in rgb format
+     */
+    static rgbToAlpha(color, alpha) {
+        const rgb = this.getRGB(color);
+        return "rgba(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + "," + alpha + ")";
+    }
 
 }
 
@@ -415,13 +415,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const getRaw = function(prop) {
-	if (!this.hasOwnProperty(prop)) return "";
-	return this[prop];
+    if (!this.hasOwnProperty(prop)) return "";
+    return this[prop];
 };
 
 const getClass = function(prop) {
-	if (!this.hasOwnProperty(prop)) return "";
-	return this[prop].split(" ")[0];
+    if (!this.hasOwnProperty(prop)) return "";
+    return this[prop].split(" ")[0];
 };
 
 /**
@@ -437,18 +437,18 @@ const getClass = function(prop) {
  * @version 0.1.0
  */
 const DiscordModules = new Proxy(_discordclassmodules__WEBPACK_IMPORTED_MODULE_0__["default"], {
-	get: function(list, item) {
-		if (item == "getRaw" || item == "getClass") return (module, prop) => DiscordModules[module][item]([prop]);
-		if (list[item] === undefined) return new Proxy({}, {get: function() {return "";}});
-		return new Proxy(list[item], {
-			get: function(obj, prop) {
-				if (prop == "getRaw") return getRaw.bind(obj);
-				if (prop == "getClass") return getClass.bind(obj);
-				if (!obj.hasOwnProperty(prop)) return "";
-				return new _domtools__WEBPACK_IMPORTED_MODULE_1__["default"].ClassName(obj[prop]);
-			}
-		});
-	}
+    get: function(list, item) {
+        if (item == "getRaw" || item == "getClass") return (module, prop) => DiscordModules[module][item]([prop]);
+        if (list[item] === undefined) return new Proxy({}, {get: function() {return "";}});
+        return new Proxy(list[item], {
+            get: function(obj, prop) {
+                if (prop == "getRaw") return getRaw.bind(obj);
+                if (prop == "getClass") return getClass.bind(obj);
+                if (!obj.hasOwnProperty(prop)) return "";
+                return new _domtools__WEBPACK_IMPORTED_MODULE_1__["default"].ClassName(obj[prop]);
+            }
+        });
+    }
 });
 /* harmony default export */ __webpack_exports__["default"] = (DiscordModules);
 
@@ -482,37 +482,37 @@ __webpack_require__.r(__webpack_exports__);
  * @version 0.0.2
  */
 /* harmony default export */ __webpack_exports__["default"] = (_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].memoizeObject({
-	get ContextMenu() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("itemToggle");},
-	get Scrollers() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("scrollerWrap", "scrollerThemed", "scrollerTrack");},
-	get AccountDetails() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("container", "avatar", "hasBuildOverride");},
-	get Typing() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("typing", "text");},
-	get UserPopout() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("userPopout");},
-	get PopoutRoles() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("roleCircle");},
-	get UserModal() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("profileBadge");},
-	get Textarea() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("channelTextArea", "textArea");},
-	get Popouts() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("popouts");},
-	get Titles() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("defaultMarginh5");},
-	get Notices() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("noticeInfo");},
-	get Backdrop() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("backdrop");},
-	get Modals() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m.modal && m.inner && !m.header);},
-	get AuditLog() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("userHook");},
-	get ChannelList() {return Object.assign({}, _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("containerDefault"), _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("name", "unread"), _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("sidebar", "hasNotice"));},
-	get MemberList() {return Object.assign({}, _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("member", "memberInner"), _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("members", "membersWrap"));},
-	get TitleWrap() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("titleWrapper");},
-	get Titlebar() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("titleBar");},
-	get Embeds() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("embed", "embedAuthor");},
-	get Layers() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("layers", "layer");},
-	get TooltipLayers() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("layerContainer", "layer");},
-	get Margins() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => !m.title && m.marginBottom40 && m.marginTop40);},
-	get Dividers() {return Object.assign({}, _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("dividerDefault"), _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => Object.keys(m).length == 1 && m.divider));},
-	get Changelog() {return Object.assign({}, _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("container", "added"), _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("content", "modal", "size"));},
-	get BasicInputs() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("inputDefault");},
-	get Messages() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("message", "containerCozy");},
-	get Guilds() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("guildsWrapper");},
-	get EmojiPicker() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("emojiPicker", "emojiItem");},
-	get Reactions() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("reaction", "reactionInner");},
-	get Checkbox() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("checkbox", "checkboxInner");},
-	get Tooltips() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("tooltip", "tooltipBlack");}
+    get ContextMenu() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("itemToggle");},
+    get Scrollers() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("scrollerWrap", "scrollerThemed", "scrollerTrack");},
+    get AccountDetails() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("container", "avatar", "hasBuildOverride");},
+    get Typing() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("typing", "text");},
+    get UserPopout() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("userPopout");},
+    get PopoutRoles() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("roleCircle");},
+    get UserModal() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("profileBadge");},
+    get Textarea() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("channelTextArea", "textArea");},
+    get Popouts() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("popouts");},
+    get Titles() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("defaultMarginh5");},
+    get Notices() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("noticeInfo");},
+    get Backdrop() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("backdrop");},
+    get Modals() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m.modal && m.inner && !m.header);},
+    get AuditLog() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("userHook");},
+    get ChannelList() {return Object.assign({}, _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("containerDefault"), _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("name", "unread"), _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("sidebar", "hasNotice"));},
+    get MemberList() {return Object.assign({}, _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("member", "memberInner"), _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("members", "membersWrap"));},
+    get TitleWrap() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("titleWrapper");},
+    get Titlebar() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("titleBar");},
+    get Embeds() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("embed", "embedAuthor");},
+    get Layers() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("layers", "layer");},
+    get TooltipLayers() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("layerContainer", "layer");},
+    get Margins() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => !m.title && m.marginBottom40 && m.marginTop40);},
+    get Dividers() {return Object.assign({}, _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("dividerDefault"), _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => Object.keys(m).length == 1 && m.divider));},
+    get Changelog() {return Object.assign({}, _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("container", "added"), _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("content", "modal", "size"));},
+    get BasicInputs() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("inputDefault");},
+    get Messages() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("message", "containerCozy");},
+    get Guilds() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("guildsWrapper");},
+    get EmojiPicker() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("emojiPicker", "emojiItem");},
+    get Reactions() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("reaction", "reactionInner");},
+    get Checkbox() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("checkbox", "checkboxInner");},
+    get Tooltips() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("tooltip", "tooltipBlack");}
 }));
 
 
@@ -780,13 +780,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const getSelectorAll = function(prop) {
-	if (!this.hasOwnProperty(prop)) return "";
-	return `.${this[prop].split(" ").join(".")}`;
+    if (!this.hasOwnProperty(prop)) return "";
+    return `.${this[prop].split(" ").join(".")}`;
 };
 
 const getSelector = function(prop) {
-	if (!this.hasOwnProperty(prop)) return "";
-	return `.${this[prop].split(" ")[0]}`;
+    if (!this.hasOwnProperty(prop)) return "";
+    return `.${this[prop].split(" ")[0]}`;
 };
 
 /**
@@ -802,18 +802,18 @@ const getSelector = function(prop) {
  * @version 0.1.0
  */
 const DiscordSelectors = new Proxy(_discordclassmodules__WEBPACK_IMPORTED_MODULE_0__["default"], {
-	get: function(list, item) {
-		if (item == "getSelectorAll" || item == "getSelector") return (module, prop) => DiscordSelectors[module][item]([prop]);
-		if (list[item] === undefined) return new Proxy({}, {get: function() {return "";}});
-		return new Proxy(list[item], {
-			get: function(obj, prop) {
-				if (prop == "getSelectorAll") return getSelectorAll.bind(obj);
-				if (prop == "getSelector") return getSelector.bind(obj);
-				if (!obj.hasOwnProperty(prop)) return "";
-				return new _domtools__WEBPACK_IMPORTED_MODULE_1__["default"].Selector(obj[prop]);
-			}
-		});
-	}
+    get: function(list, item) {
+        if (item == "getSelectorAll" || item == "getSelector") return (module, prop) => DiscordSelectors[module][item]([prop]);
+        if (list[item] === undefined) return new Proxy({}, {get: function() {return "";}});
+        return new Proxy(list[item], {
+            get: function(obj, prop) {
+                if (prop == "getSelectorAll") return getSelectorAll.bind(obj);
+                if (prop == "getSelector") return getSelector.bind(obj);
+                if (!obj.hasOwnProperty(prop)) return "";
+                return new _domtools__WEBPACK_IMPORTED_MODULE_1__["default"].Selector(obj[prop]);
+            }
+        });
+    }
 });
 
 /* harmony default export */ __webpack_exports__["default"] = (DiscordSelectors);
@@ -867,7 +867,7 @@ class DOMTools {
     static get ClassName() {return structs__WEBPACK_IMPORTED_MODULE_1__["ClassName"];}
     static get DOMObserver() {return structs__WEBPACK_IMPORTED_MODULE_1__["DOMObserver"];}
 
-    /**	
+    /**
      * Default DOMObserver for global usage.
      * 
      * @see DOMObserver
@@ -1601,10 +1601,10 @@ class Logger {
      * 
      * @param {string} module - Name of the calling module.
      * @param {string} message - Message or error to have logged.
-	 * @param {Error} error - Error object to log with the message.
+     * @param {Error} error - Error object to log with the message.
      */
     static stacktrace(module, message, error) {
-		console.error(`%c[${module}]%c ${message}\n\n%c`, "color: #3a71c1; font-weight: 700;", "color: red; font-weight: 700;", "color: red;", error);
+        console.error(`%c[${module}]%c ${message}\n\n%c`, "color: #3a71c1; font-weight: 700;", "color: red; font-weight: 700;", "color: red;", error);
     }
 
     /**
@@ -1790,12 +1790,12 @@ class Patcher {
      * @method
      */
     static getPatchesByCaller(name) {
-		if (!name) return [];
+        if (!name) return [];
         const patches = [];
         for (const patch of this.patches) {
-			for (const childPatch of patch.children) {
-				if (childPatch.caller === name) patches.push(childPatch);
-			}
+            for (const childPatch of patch.children) {
+                if (childPatch.caller === name) patches.push(childPatch);
+            }
         }
         return patches;
     }
@@ -1809,16 +1809,16 @@ class Patcher {
         if (typeof patches === "string") patches = this.getPatchesByCaller(patches);
 
         for (const patch of patches) {
-			patch.unpatch();
+            patch.unpatch();
         }
-	}
+    }
 
-	static resolveModule(module) {
+    static resolveModule(module) {
         if (!module || typeof(module) === "function" || (typeof(module) === "object" && !Array.isArray(module))) return module;
         if (typeof module === "string") return _discordmodules__WEBPACK_IMPORTED_MODULE_1__["default"][module];
         if (Array.isArray(module)) return _webpackmodules__WEBPACK_IMPORTED_MODULE_2__["default"].findByUniqueProperties(module);
         return null;
-	}
+    }
 
     static makeOverride(patch) {
         return function () {
@@ -1838,7 +1838,7 @@ class Patcher {
             else {
                 for (const insteadPatch of insteads) {
                     try {
-						const tempReturn = insteadPatch.callback(this, arguments, patch.originalFunction.bind(this));
+                        const tempReturn = insteadPatch.callback(this, arguments, patch.originalFunction.bind(this));
                         if (typeof(tempReturn) !== "undefined") returnValue = tempReturn;
                     }
                     catch (err) {
@@ -1849,7 +1849,7 @@ class Patcher {
 
             for (const slavePatch of patch.children.filter(c => c.type === "after")) {
                 try {
-					const tempReturn = slavePatch.callback(this, arguments, returnValue);
+                    const tempReturn = slavePatch.callback(this, arguments, returnValue);
                     if (typeof(tempReturn) !== "undefined") returnValue = tempReturn;
                 }
                 catch (err) {
@@ -1866,7 +1866,7 @@ class Patcher {
 
     static makePatch(module, functionName, name) {
         const patch = {
-			name,
+            name,
             module,
             functionName,
             originalFunction: module[functionName],
@@ -1964,16 +1964,16 @@ class Patcher {
      * @return {module:Patcher~unpatch} Function with no arguments and no return value that should be called to cancel (unpatch) this patch. You should save and run it when your plugin is stopped.
      */
     static pushChildPatch(caller, moduleToPatch, functionName, callback, options = {}) {
-		const {type = "after", forcePatch = true} = options;
-		const module = this.resolveModule(moduleToPatch);
-		if (!module) return null;
-		if (!module[functionName] && forcePatch) module[functionName] = function() {};
-		if (!(module[functionName] instanceof Function)) return null;
+        const {type = "after", forcePatch = true} = options;
+        const module = this.resolveModule(moduleToPatch);
+        if (!module) return null;
+        if (!module[functionName] && forcePatch) module[functionName] = function() {};
+        if (!(module[functionName] instanceof Function)) return null;
 
-		if (typeof moduleToPatch === "string") options.displayName = moduleToPatch;
+        if (typeof moduleToPatch === "string") options.displayName = moduleToPatch;
         const displayName = options.displayName || module.displayName || module.name || module.constructor.displayName || module.constructor.name;
 
-		const patchId = `${displayName}.${functionName}`;
+        const patchId = `${displayName}.${functionName}`;
         const patch = this.patches.find(p => p.module == module && p.functionName == functionName) || this.makePatch(module, functionName, patchId);
         if (!patch.proxyFunction) this.rePatch(patch);
         const child = {
@@ -1986,9 +1986,9 @@ class Patcher {
                 if (patch.children.length <= 0) {
                     const patchNum = this.patches.findIndex(p => p.module == module && p.functionName == functionName);
                     if (patchNum < 0) return;
-					this.patches[patchNum].revert();
-					this.patches.splice(patchNum, 1);
-				}
+                    this.patches[patchNum].revert();
+                    this.patches.splice(patchNum, 1);
+                }
             }
         };
         patch.children.push(child);
@@ -2045,7 +2045,7 @@ __webpack_require__.r(__webpack_exports__);
 
 class PluginUpdater {
 
-    static get CSS() { return __webpack_require__(/*! ../styles/updates.css */ "./src/styles/updates.css");	}
+    static get CSS() { return __webpack_require__(/*! ../styles/updates.css */ "./src/styles/updates.css");}
 
     /**
      * Checks for updates for the specified plugin at the specified link. The final
@@ -2291,151 +2291,151 @@ __webpack_require__.r(__webpack_exports__);
 
  class PluginUtilities {
 
-	/**
-	 * Loads data through BetterDiscord's API.
-	 * @param {string} name - name for the file (usually plugin name)
-	 * @param {string} key - which key the data is saved under
-	 * @param {object} defaultData - default data to populate the object with
-	 * @returns {object} the combined saved and default data
-	*/
-	static loadData(name, key, defaultData) {
-		const defaults = _utilities__WEBPACK_IMPORTED_MODULE_1__["default"].deepclone(defaultData);
-		try { return _utilities__WEBPACK_IMPORTED_MODULE_1__["default"].extend(defaults ? defaults : {}, BdApi.getData(name, key)); }
-		catch (err) { _logger__WEBPACK_IMPORTED_MODULE_0__["default"].err(name, "Unable to load data: ", err); }
-		return defaults;
-	}
+    /**
+     * Loads data through BetterDiscord's API.
+     * @param {string} name - name for the file (usually plugin name)
+     * @param {string} key - which key the data is saved under
+     * @param {object} defaultData - default data to populate the object with
+     * @returns {object} the combined saved and default data
+    */
+    static loadData(name, key, defaultData) {
+        const defaults = _utilities__WEBPACK_IMPORTED_MODULE_1__["default"].deepclone(defaultData);
+        try { return _utilities__WEBPACK_IMPORTED_MODULE_1__["default"].extend(defaults ? defaults : {}, BdApi.getData(name, key)); }
+        catch (err) { _logger__WEBPACK_IMPORTED_MODULE_0__["default"].err(name, "Unable to load data: ", err); }
+        return defaults;
+    }
 
-	/**
-	 * Saves data through BetterDiscord's API.
-	 * @param {string} name - name for the file (usually plugin name)
-	 * @param {string} key - which key the data should be saved under
-	 * @param {object} data - data to save
-	*/
-	static saveData(name, key, data) {
-		try { BdApi.setData(name, key, data); }
-		catch (err) { _logger__WEBPACK_IMPORTED_MODULE_0__["default"].err(name, "Unable to save data: ", err); }
-	}
+    /**
+     * Saves data through BetterDiscord's API.
+     * @param {string} name - name for the file (usually plugin name)
+     * @param {string} key - which key the data should be saved under
+     * @param {object} data - data to save
+    */
+    static saveData(name, key, data) {
+        try { BdApi.setData(name, key, data); }
+        catch (err) { _logger__WEBPACK_IMPORTED_MODULE_0__["default"].err(name, "Unable to save data: ", err); }
+    }
 
-	/**
-	 * Loads settings through BetterDiscord's API.
-	 * @param {string} name - name for the file (usually plugin name)
-	 * @param {object} defaultData - default data to populate the object with
-	 * @returns {object} the combined saved and default settings
-	*/
-	static loadSettings(name, defaultSettings) {
-		return this.loadData(name, "settings", defaultSettings);
-	}
+    /**
+     * Loads settings through BetterDiscord's API.
+     * @param {string} name - name for the file (usually plugin name)
+     * @param {object} defaultData - default data to populate the object with
+     * @returns {object} the combined saved and default settings
+    */
+    static loadSettings(name, defaultSettings) {
+        return this.loadData(name, "settings", defaultSettings);
+    }
 
-	/**
-	 * Saves settings through BetterDiscord's API.
-	 * @param {string} name - name for the file (usually plugin name)
-	 * @param {object} data - settings to save
-	*/
-	static saveSettings(name, data) {
-		this.saveData(name, "settings", data);
-	}
+    /**
+     * Saves settings through BetterDiscord's API.
+     * @param {string} name - name for the file (usually plugin name)
+     * @param {object} data - settings to save
+    */
+    static saveSettings(name, data) {
+        this.saveData(name, "settings", data);
+    }
 
-	/**
-	 * Get the full path to the BetterDiscord folder.
-	 * @returns {string} full path to the BetterDiscord folder
-	 */
-	static getBDFolder(subtarget = "") {
-		const process = __webpack_require__(/*! process */ "process");
-		const path = __webpack_require__(/*! path */ "path");
-		if (process.env.injDir) return path.resolve(process.env.injDir, subtarget);
-		switch (process.platform) {
-			case "win32":
-				return path.resolve(process.env.appdata, "BetterDiscord/", subtarget);
-			case "darwin":
-				return path.resolve(process.env.HOME, "Library/Preferences/", "BetterDiscord/", subtarget);
-			default:
-				return path.resolve(process.env.XDG_CONFIG_HOME ? process.env.XDG_CONFIG_HOME : process.env.HOME + "/.config", "BetterDiscord/", subtarget);
-		}
-	}
+    /**
+     * Get the full path to the BetterDiscord folder.
+     * @returns {string} full path to the BetterDiscord folder
+     */
+    static getBDFolder(subtarget = "") {
+        const process = __webpack_require__(/*! process */ "process");
+        const path = __webpack_require__(/*! path */ "path");
+        if (process.env.injDir) return path.resolve(process.env.injDir, subtarget);
+        switch (process.platform) {
+            case "win32":
+                return path.resolve(process.env.appdata, "BetterDiscord/", subtarget);
+            case "darwin":
+                return path.resolve(process.env.HOME, "Library/Preferences/", "BetterDiscord/", subtarget);
+            default:
+                return path.resolve(process.env.XDG_CONFIG_HOME ? process.env.XDG_CONFIG_HOME : process.env.HOME + "/.config", "BetterDiscord/", subtarget);
+        }
+    }
 
-	/**
-	 * Get the full path to the plugins folder.
-	 * @returns {string} full path to the plugins folder
-	 */
-	static getPluginsFolder() {
-		return this.getBDFolder("plugins/");
-	}
+    /**
+     * Get the full path to the plugins folder.
+     * @returns {string} full path to the plugins folder
+     */
+    static getPluginsFolder() {
+        return this.getBDFolder("plugins/");
+    }
 
-	/**
-	 * Get the full path to the themes folder.
-	 * @returns {string} full path to the themes folder
-	 */
-	static getThemesFolder() {
-		return this.getBDFolder("themes/");
-	}
+    /**
+     * Get the full path to the themes folder.
+     * @returns {string} full path to the themes folder
+     */
+    static getThemesFolder() {
+        return this.getBDFolder("themes/");
+    }
 
-	/**
-	 * Adds a callback to a set of listeners for onSwitch.
-	 * @param {callable} callback - basic callback to happen on channel switch
-	 */
-	static addOnSwitchListener(callback) {
-		__webpack_require__(/*! electron */ "electron").remote.getCurrentWebContents().on("did-navigate-in-page", callback);
-	}
+    /**
+     * Adds a callback to a set of listeners for onSwitch.
+     * @param {callable} callback - basic callback to happen on channel switch
+     */
+    static addOnSwitchListener(callback) {
+        __webpack_require__(/*! electron */ "electron").remote.getCurrentWebContents().on("did-navigate-in-page", callback);
+    }
 
-	/**
-	 * Removes the listener added by {@link InternalUtilities.addOnSwitchListener}.
-	 * @param {callable} callback - callback to remove from the listener list
-	 */
-	static removeOnSwitchListener(callback) {
-		__webpack_require__(/*! electron */ "electron").remote.getCurrentWebContents().removeListener("did-navigate-in-page", callback);
-	}
+    /**
+     * Removes the listener added by {@link InternalUtilities.addOnSwitchListener}.
+     * @param {callable} callback - callback to remove from the listener list
+     */
+    static removeOnSwitchListener(callback) {
+        __webpack_require__(/*! electron */ "electron").remote.getCurrentWebContents().removeListener("did-navigate-in-page", callback);
+    }
 
-	/**
-	 * Adds a style to the document.
-	 * @param {string} id - identifier to use as the element id
-	 * @param {string} css - css to add to the document
-	 */
-	static addStyle(id, css) {
-		document.head.append(_domtools__WEBPACK_IMPORTED_MODULE_2__["default"].createElement(`<style id="${id}">${css}</style>`));
-	}
+    /**
+     * Adds a style to the document.
+     * @param {string} id - identifier to use as the element id
+     * @param {string} css - css to add to the document
+     */
+    static addStyle(id, css) {
+        document.head.append(_domtools__WEBPACK_IMPORTED_MODULE_2__["default"].createElement(`<style id="${id}">${css}</style>`));
+    }
 
-	/**
-	 * Removes a style from the document.
-	 * @param {string} id - original identifier used
-	 */
-	static removeStyle(id) {
-		const element = document.getElementById(id);
-		if (element) element.remove();
-	}
+    /**
+     * Removes a style from the document.
+     * @param {string} id - original identifier used
+     */
+    static removeStyle(id) {
+        const element = document.getElementById(id);
+        if (element) element.remove();
+    }
 
-	/**
-	 * Adds/requires a remote script to be loaded
-	 * @param {string} id - identifier to use for this script
-	 * @param {string} url - url from which to load the script
-	 * @returns {Promise} promise that resolves when the script is loaded
-	 */
-	static addScript(id, url) {
-		return new Promise(resolve => {
-			const script = document.createElement("script");
-			script.id = id;
-			script.src = url;
-			script.type = "text/javascript";
-			script.onload = resolve;
-			document.head.append(script);
-		});
-	}
+    /**
+     * Adds/requires a remote script to be loaded
+     * @param {string} id - identifier to use for this script
+     * @param {string} url - url from which to load the script
+     * @returns {Promise} promise that resolves when the script is loaded
+     */
+    static addScript(id, url) {
+        return new Promise(resolve => {
+            const script = document.createElement("script");
+            script.id = id;
+            script.src = url;
+            script.type = "text/javascript";
+            script.onload = resolve;
+            document.head.append(script);
+        });
+    }
 
-	/**
-	 * Removes a remote script from the document.
-	 * @param {string} id - original identifier used
-	 */
-	static removeScript(id) {
-		const element = document.getElementById(id);
-		if (element) element.remove();
-	}
+    /**
+     * Removes a remote script from the document.
+     * @param {string} id - original identifier used
+     */
+    static removeScript(id) {
+        const element = document.getElementById(id);
+        if (element) element.remove();
+    }
 
-	static async getContextMenu(type) {
-		return _ui_discordcontextmenu__WEBPACK_IMPORTED_MODULE_3__["default"].getDiscordMenu(type);
-	}
+    static async getContextMenu(type) {
+        return _ui_discordcontextmenu__WEBPACK_IMPORTED_MODULE_3__["default"].getDiscordMenu(type);
+    }
 
-	static forceUpdateContextMenus() {
-		return _ui_discordcontextmenu__WEBPACK_IMPORTED_MODULE_3__["default"].forceUpdateMenus();
-	}
+    static forceUpdateContextMenus() {
+        return _ui_discordcontextmenu__WEBPACK_IMPORTED_MODULE_3__["default"].forceUpdateMenus();
+    }
 }
 
 
@@ -2454,12 +2454,11 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ReactHelpers", function() { return Helpers; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ReactComponents; });
-/* harmony import */ var _utilities__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utilities */ "./src/modules/utilities.js");
-/* harmony import */ var _patcher__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./patcher */ "./src/modules/patcher.js");
-/* harmony import */ var _reflection__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./reflection */ "./src/modules/reflection.js");
-/* harmony import */ var _discordmodules__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./discordmodules */ "./src/modules/discordmodules.js");
-/* harmony import */ var _domtools__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./domtools */ "./src/modules/domtools.js");
-/* harmony import */ var _reacttools__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./reacttools */ "./src/modules/reacttools.js");
+/* harmony import */ var _patcher__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./patcher */ "./src/modules/patcher.js");
+/* harmony import */ var _reflection__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./reflection */ "./src/modules/reflection.js");
+/* harmony import */ var _discordmodules__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./discordmodules */ "./src/modules/discordmodules.js");
+/* harmony import */ var _domtools__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./domtools */ "./src/modules/domtools.js");
+/* harmony import */ var _reacttools__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./reacttools */ "./src/modules/reacttools.js");
 /**
  * BetterDiscord React Component Manipulations
  * Original concept and some code by samogot - https://github.com/samogot / https://github.com/samogot/betterdiscord-plugins/tree/master/v2/1Lib%20Discord%20Internals
@@ -2471,8 +2470,6 @@ __webpack_require__.r(__webpack_exports__);
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
 */
-
-// import Logger from "./logger";
 
 
 
@@ -2602,11 +2599,11 @@ class Helpers {
     }
 
     static get React() {
-        return _discordmodules__WEBPACK_IMPORTED_MODULE_3__["default"].React;
+        return _discordmodules__WEBPACK_IMPORTED_MODULE_2__["default"].React;
     }
 
     static get ReactDOM() {
-        return _discordmodules__WEBPACK_IMPORTED_MODULE_3__["default"].ReactDOM;
+        return _discordmodules__WEBPACK_IMPORTED_MODULE_2__["default"].ReactDOM;
     }
 }
 
@@ -2624,7 +2621,7 @@ class ReactComponent {
     forceUpdateAll() {
         if (!this.selector) return;
         for (const e of document.querySelectorAll(this.selector)) {
-            Object(_reflection__WEBPACK_IMPORTED_MODULE_2__["default"])(e).forceUpdate(this);
+            Object(_reflection__WEBPACK_IMPORTED_MODULE_1__["default"])(e).forceUpdate(this);
         }
     }
 }
@@ -2702,7 +2699,7 @@ class ReactComponents {
             const callback = () => {
                 if (this.components.get(name)) {
                     // Logger.info("ReactComponents", `Important component ${name} already found`);
-                    _domtools__WEBPACK_IMPORTED_MODULE_4__["default"].observer.unsubscribe(observerSubscription);
+                    _domtools__WEBPACK_IMPORTED_MODULE_3__["default"].observer.unsubscribe(observerSubscription);
                     return;
                 }
 
@@ -2711,14 +2708,14 @@ class ReactComponents {
 
                 let component, reflect;
                 for (const element of elements) {
-                    reflect = Object(_reflection__WEBPACK_IMPORTED_MODULE_2__["default"])(element);
+                    reflect = Object(_reflection__WEBPACK_IMPORTED_MODULE_1__["default"])(element);
                     component = filter ? reflect.components.find(filter) : reflect.component;
                     if (component) break;
                 }
 
                 if (!component && filter) return;// Logger.log("ReactComponents", ["Found elements matching the query selector but no components passed the filter"]);
 
-                _domtools__WEBPACK_IMPORTED_MODULE_4__["default"].observer.unsubscribe(observerSubscription);
+                _domtools__WEBPACK_IMPORTED_MODULE_3__["default"].observer.unsubscribe(observerSubscription);
 
                 if (!component) return;// Logger.err("ReactComponents", [`FAILED TO GET IMPORTANT COMPONENT ${name} WITH REFLECTION FROM`, elements]);
 
@@ -2737,7 +2734,7 @@ class ReactComponents {
                 this.push(component, selector, filter);
             };
 
-            const observerSubscription = _domtools__WEBPACK_IMPORTED_MODULE_4__["default"].observer.subscribeToQuerySelector(callback, selector, null, true);
+            const observerSubscription = _domtools__WEBPACK_IMPORTED_MODULE_3__["default"].observer.subscribeToQuerySelector(callback, selector, null, true);
             setTimeout(callback, 0);
         }
 
@@ -2784,7 +2781,7 @@ class ReactComponents {
         return component;
     }
 
-    static *recursiveComponents(internalInstance = _reacttools__WEBPACK_IMPORTED_MODULE_5__["default"].rootInstance) {
+    static *recursiveComponents(internalInstance = _reacttools__WEBPACK_IMPORTED_MODULE_4__["default"].rootInstance) {
         if (internalInstance.stateNode) yield internalInstance.stateNode;
         if (internalInstance.sibling) yield *this.recursiveComponents(internalInstance.sibling);
         if (internalInstance.child) yield *this.recursiveComponents(internalInstance.child);
@@ -2798,14 +2795,14 @@ class ReactAutoPatcher {
      */
     static async autoPatch() {
         this.autoUnpatch();
-        _patcher__WEBPACK_IMPORTED_MODULE_1__["default"].before("ReactComponents", _discordmodules__WEBPACK_IMPORTED_MODULE_3__["default"].React, "createElement", (react, [component]) => ReactComponents.push(component));
-        _patcher__WEBPACK_IMPORTED_MODULE_1__["default"].instead("ReactComponents", _discordmodules__WEBPACK_IMPORTED_MODULE_3__["default"].React.Component.prototype, "UNSAFE_componentWillMount", (component) => ReactComponents.push(component));
-        _patcher__WEBPACK_IMPORTED_MODULE_1__["default"].instead("ReactComponents", _discordmodules__WEBPACK_IMPORTED_MODULE_3__["default"].React.Component.prototype, "componentWillMount", (component) => ReactComponents.push(component));
+        _patcher__WEBPACK_IMPORTED_MODULE_0__["default"].before("ReactComponents", _discordmodules__WEBPACK_IMPORTED_MODULE_2__["default"].React, "createElement", (react, [component]) => ReactComponents.push(component));
+        _patcher__WEBPACK_IMPORTED_MODULE_0__["default"].instead("ReactComponents", _discordmodules__WEBPACK_IMPORTED_MODULE_2__["default"].React.Component.prototype, "UNSAFE_componentWillMount", (component) => ReactComponents.push(component));
+        _patcher__WEBPACK_IMPORTED_MODULE_0__["default"].instead("ReactComponents", _discordmodules__WEBPACK_IMPORTED_MODULE_2__["default"].React.Component.prototype, "componentWillMount", (component) => ReactComponents.push(component));
         // this.patchComponents();
     }
 
     static async autoUnpatch() {
-        _patcher__WEBPACK_IMPORTED_MODULE_1__["default"].unpatchAll("ReactComponents");
+        _patcher__WEBPACK_IMPORTED_MODULE_0__["default"].unpatchAll("ReactComponents");
     }
 
     /**
@@ -2848,99 +2845,99 @@ __webpack_require__.r(__webpack_exports__);
 
 class ReactTools {
 
-	/**
-	 * Performs reflection on a specific node.
-	 * @param {(HTMLElement|jQuery|Selector)} node - node or selector to reflect on.
-	 */
-	static Reflect(node) {
-		return Object(_reflection__WEBPACK_IMPORTED_MODULE_3__["default"])(node);
-	}
+    /**
+     * Performs reflection on a specific node.
+     * @param {(HTMLElement|jQuery|Selector)} node - node or selector to reflect on.
+     */
+    static Reflect(node) {
+        return Object(_reflection__WEBPACK_IMPORTED_MODULE_3__["default"])(node);
+    }
 
-	static get rootInstance() {return document.getElementById("app-mount")._reactRootContainer._internalRoot.current;}
+    static get rootInstance() {return document.getElementById("app-mount")._reactRootContainer._internalRoot.current;}
 
-	/**
-	 * Grabs the react internal instance of a specific node.
-	 * @param {(HTMLElement|jQuery)} node - node to obtain react instance of
-	 * @return {object} the internal react instance
-	 */
-	static getReactInstance(node) {
-		if (!(node instanceof window.jQuery) && !(node instanceof Element)) return undefined;
-		const domNode = node instanceof window.jQuery ? node[0] : node;
-		return domNode[Object.keys(domNode).find((key) => key.startsWith("__reactInternalInstance"))];
-	}
+    /**
+     * Grabs the react internal instance of a specific node.
+     * @param {(HTMLElement|jQuery)} node - node to obtain react instance of
+     * @return {object} the internal react instance
+     */
+    static getReactInstance(node) {
+        if (!(node instanceof window.jQuery) && !(node instanceof Element)) return undefined;
+        const domNode = node instanceof window.jQuery ? node[0] : node;
+        return domNode[Object.keys(domNode).find((key) => key.startsWith("__reactInternalInstance"))];
+    }
 
-	/**
-	 * Grabs a value from the react internal instance. Allows you to grab
-	 * long depth values safely without accessing no longer valid properties.
-	 * @param {(HTMLElement|jQuery)} node - node to obtain react instance of
-	 * @param {string} path - path to the requested value
-	 * @return {(*|undefined)} the value requested or undefined if not found.
-	 */
-	static getReactProperty(node, path) {
-		return _utilities__WEBPACK_IMPORTED_MODULE_2__["default"].getNestedProp(this.getReactInstance(node), path);
-	}
+    /**
+     * Grabs a value from the react internal instance. Allows you to grab
+     * long depth values safely without accessing no longer valid properties.
+     * @param {(HTMLElement|jQuery)} node - node to obtain react instance of
+     * @param {string} path - path to the requested value
+     * @return {(*|undefined)} the value requested or undefined if not found.
+     */
+    static getReactProperty(node, path) {
+        return _utilities__WEBPACK_IMPORTED_MODULE_2__["default"].getNestedProp(this.getReactInstance(node), path);
+    }
 
-	/**
-	 * Grabs a value from the react internal instance. Allows you to grab
-	 * long depth values safely without accessing no longer valid properties.
-	 * @param {(HTMLElement|jQuery)} node - node to obtain react instance of
-	 * @param {object} options - options for the search
-	 * @param {array} [options.include] - list of items to include from the search
-	 * @param {array} [options.exclude=["Popout", "Tooltip", "Scroller", "BackgroundFlash"]] - list of items to exclude from the search
-	 * @param {callable} [options.filter=_=>_] - filter to check the current instance with (should return a boolean)
-	 * @return {(*|null)} the owner instance or undefined if not found.
-	 */
-	static getOwnerInstance(node, {include, exclude = ["Popout", "Tooltip", "Scroller", "BackgroundFlash"], filter = _ => _} = {}) {
-		if (node === undefined) return undefined;
-		const excluding = include === undefined;
-		const nameFilter = excluding ? exclude : include;
-		function getDisplayName(owner) {
-			const type = owner.type;
-			if (!type) return null;
-			return type.displayName || type.name || null;
-		}
-		function classFilter(owner) {
-			const name = getDisplayName(owner);
-			return (name !== null && !!(nameFilter.includes(name) ^ excluding));
-		}
-		
-		let curr = this.getReactInstance(node);
-		for (curr = curr && curr.return; !_utilities__WEBPACK_IMPORTED_MODULE_2__["default"].isNil(curr); curr = curr.return) {
-			if (_utilities__WEBPACK_IMPORTED_MODULE_2__["default"].isNil(curr)) continue;
-			const owner = curr.stateNode;
-			if (!_utilities__WEBPACK_IMPORTED_MODULE_2__["default"].isNil(owner) && !(owner instanceof HTMLElement) && classFilter(curr) && filter(owner)) return owner;
-		}
-		
-		return null;
-	}
+    /**
+     * Grabs a value from the react internal instance. Allows you to grab
+     * long depth values safely without accessing no longer valid properties.
+     * @param {(HTMLElement|jQuery)} node - node to obtain react instance of
+     * @param {object} options - options for the search
+     * @param {array} [options.include] - list of items to include from the search
+     * @param {array} [options.exclude=["Popout", "Tooltip", "Scroller", "BackgroundFlash"]] - list of items to exclude from the search
+     * @param {callable} [options.filter=_=>_] - filter to check the current instance with (should return a boolean)
+     * @return {(*|null)} the owner instance or undefined if not found.
+     */
+    static getOwnerInstance(node, {include, exclude = ["Popout", "Tooltip", "Scroller", "BackgroundFlash"], filter = _ => _} = {}) {
+        if (node === undefined) return undefined;
+        const excluding = include === undefined;
+        const nameFilter = excluding ? exclude : include;
+        function getDisplayName(owner) {
+            const type = owner.type;
+            if (!type) return null;
+            return type.displayName || type.name || null;
+        }
+        function classFilter(owner) {
+            const name = getDisplayName(owner);
+            return (name !== null && !!(nameFilter.includes(name) ^ excluding));
+        }
+        
+        let curr = this.getReactInstance(node);
+        for (curr = curr && curr.return; !_utilities__WEBPACK_IMPORTED_MODULE_2__["default"].isNil(curr); curr = curr.return) {
+            if (_utilities__WEBPACK_IMPORTED_MODULE_2__["default"].isNil(curr)) continue;
+            const owner = curr.stateNode;
+            if (!_utilities__WEBPACK_IMPORTED_MODULE_2__["default"].isNil(owner) && !(owner instanceof HTMLElement) && classFilter(curr) && filter(owner)) return owner;
+        }
+        
+        return null;
+    }
 
-	/**
-	 * Creates and renders a react element that wraps dom elements.
-	 * @param {(HTMLElement|Array<HTMLElement>)} element - element or array of elements to wrap into a react element
-	 * @returns {object} - rendered react element
-	 */
-	static createWrappedElement(element) {
-		if (Array.isArray(element)) element = _domtools__WEBPACK_IMPORTED_MODULE_0__["default"].wrap(element);
-		return _discordmodules__WEBPACK_IMPORTED_MODULE_1__["default"].React.createElement(this.wrapElement(element));
-	}
+    /**
+     * Creates and renders a react element that wraps dom elements.
+     * @param {(HTMLElement|Array<HTMLElement>)} element - element or array of elements to wrap into a react element
+     * @returns {object} - rendered react element
+     */
+    static createWrappedElement(element) {
+        if (Array.isArray(element)) element = _domtools__WEBPACK_IMPORTED_MODULE_0__["default"].wrap(element);
+        return _discordmodules__WEBPACK_IMPORTED_MODULE_1__["default"].React.createElement(this.wrapElement(element));
+    }
 
-	/**
-	 * Creates an unrendered react component that wraps dom elements.
-	 * @param {(HTMLElement|Array<HTMLElement>)} element - element or array of elements to wrap into a react component
-	 * @returns {object} - unrendered react component
-	 */
-	static wrapElement(element) {
-		if (Array.isArray(element)) element = _domtools__WEBPACK_IMPORTED_MODULE_0__["default"].wrap(element);
-		return class ReactWrapper extends _discordmodules__WEBPACK_IMPORTED_MODULE_1__["default"].React.Component {
-			constructor(props) {
-				super(props);
-				this.element = element;
-			}
-	
-			componentDidMount() {this.refs.element.appendChild(this.element);}
-			render() {return _discordmodules__WEBPACK_IMPORTED_MODULE_1__["default"].React.createElement("div", {className: "react-wrapper", ref: "element"});}
-		};
-	}
+    /**
+     * Creates an unrendered react component that wraps dom elements.
+     * @param {(HTMLElement|Array<HTMLElement>)} element - element or array of elements to wrap into a react component
+     * @returns {object} - unrendered react component
+     */
+    static wrapElement(element) {
+        if (Array.isArray(element)) element = _domtools__WEBPACK_IMPORTED_MODULE_0__["default"].wrap(element);
+        return class ReactWrapper extends _discordmodules__WEBPACK_IMPORTED_MODULE_1__["default"].React.Component {
+            constructor(props) {
+                super(props);
+                this.element = element;
+            }
+    
+            componentDidMount() {this.refs.element.appendChild(this.element);}
+            render() {return _discordmodules__WEBPACK_IMPORTED_MODULE_1__["default"].React.createElement("div", {className: "react-wrapper", ref: "element"});}
+        };
+    }
 }
 
 /***/ }),
@@ -3271,7 +3268,7 @@ class Utilities {
      */
     static suppressErrors(method, description) {
         return (...params) => {
-            try { return method(...params);	}
+            try { return method(...params);}
             catch (e) { _logger__WEBPACK_IMPORTED_MODULE_0__["default"].err("Suppression", "Error occurred in " + description, e); }
         };
     }
@@ -3388,31 +3385,31 @@ class Utilities {
         const classes = [];
         const hasOwn = {}.hasOwnProperty;
 
-		for (let i = 0; i < arguments.length; i++) {
-			const arg = arguments[i];
-			if (!arg) continue;
+        for (let i = 0; i < arguments.length; i++) {
+            const arg = arguments[i];
+            if (!arg) continue;
 
-			const argType = typeof arg;
+            const argType = typeof arg;
 
-			if (argType === "string" || argType === "number") {
-				classes.push(arg);
+            if (argType === "string" || argType === "number") {
+                classes.push(arg);
             }
             else if (Array.isArray(arg) && arg.length) {
-				const inner = this.classNames.apply(null, arg);
-				if (inner) {
-					classes.push(inner);
-				}
+                const inner = this.classNames.apply(null, arg);
+                if (inner) {
+                    classes.push(inner);
+                }
             }
             else if (argType === "object") {
-				for (const key in arg) {
-					if (hasOwn.call(arg, key) && arg[key]) {
-						classes.push(key);
-					}
-				}
-			}
-		}
+                for (const key in arg) {
+                    if (hasOwn.call(arg, key) && arg[key]) {
+                        classes.push(key);
+                    }
+                }
+            }
+        }
 
-		return classes.join(" ");
+        return classes.join(" ");
     }
 
     /**
@@ -3966,7 +3963,7 @@ __webpack_require__.r(__webpack_exports__);
             const BoundLib = Object.assign({}, Library);
             BoundLib.Logger = BoundAPI.Logger;
             BoundLib.Patcher = BoundAPI.Patcher;
-            return [Library.Structs.Plugin(config), BoundLib];		
+            return [Library.Structs.Plugin(config), BoundLib];
         }
     };
 
@@ -3974,7 +3971,7 @@ __webpack_require__.r(__webpack_exports__);
     Library.buildPlugin = PluginLibrary.buildPlugin;
     window.ZLibrary = Library;
     window.ZLibraryPromise = new Promise(r => setImmediate(r));
-	window.ZeresPluginLibrary = PluginLibrary;
+    window.ZeresPluginLibrary = PluginLibrary;
     return PluginLibrary;
 });
 
@@ -4185,6 +4182,7 @@ class PermissionOverwrite {
 
     get guild() {
         if (this.channel) return this.channel.guild;
+        return null;
     }
 }
 
@@ -4193,6 +4191,7 @@ class RolePermissionOverwrite extends PermissionOverwrite {
 
     get role() {
         if (this.guild) return this.guild.roles.find(r => r.id === this.roleId);
+        return null;
     }
 }
 
@@ -4628,6 +4627,7 @@ class Guild {
      */
     get afkChannel() {
         if (this.afkChannelId) return _channel__WEBPACK_IMPORTED_MODULE_2__["Channel"].fromId(this.afkChannelId);
+        return null;
     }
 
     /**
@@ -4635,6 +4635,7 @@ class Guild {
      */
     get systemChannel() {
         if (this.systemChannelId) return _channel__WEBPACK_IMPORTED_MODULE_2__["Channel"].fromId(this.systemChannelId);
+        return null;
     }
 
     /**
@@ -4820,7 +4821,7 @@ class Guild {
      * @return {Promise}
      */
     updateName(name) {
-        return this.updateGuild({ name });
+        return this.updateGuild({name});
     }
 
     /**
@@ -4829,7 +4830,7 @@ class Guild {
      * @return {Promise}
      */
     updateVoiceRegion(region) {
-        return this.updateGuild({ region });
+        return this.updateGuild({region});
     }
 
     /**
@@ -4838,7 +4839,7 @@ class Guild {
      * @return {Promise}
      */
     updateVerificationLevel(verification_level) {
-        return this.updateGuild({ verification_level });
+        return this.updateGuild({verification_level});
     }
 
     /**
@@ -4847,7 +4848,7 @@ class Guild {
      * @return {Promise}
      */
     updateDefaultMessageNotifications(default_message_notifications) {
-        return this.updateGuild({ default_message_notifications });
+        return this.updateGuild({default_message_notifications});
     }
 
     /**
@@ -4856,7 +4857,7 @@ class Guild {
      * @return {Promise}
      */
     updateExplicitContentFilter(explicit_content_filter) {
-        return this.updateGuild({ explicit_content_filter });
+        return this.updateGuild({explicit_content_filter});
     }
 
     /**
@@ -4865,7 +4866,7 @@ class Guild {
      * @return {Promise}
      */
     updateAfkChannel(afk_channel) {
-        return this.updateGuild({ afk_channel_id: afk_channel.id || afk_channel });
+        return this.updateGuild({afk_channel_id: afk_channel.id || afk_channel});
     }
 
     /**
@@ -4874,7 +4875,7 @@ class Guild {
      * @return {Promise}
      */
     updateAfkTimeout(afk_timeout) {
-        return this.updateGuild({ afk_timeout });
+        return this.updateGuild({afk_timeout});
     }
 
     /**
@@ -4883,7 +4884,7 @@ class Guild {
      * @return {Promise}
      */
     updateIcon(icon) {
-        return this.updateGuild({ icon: typeof icon === "string" ? icon : icon.toString("base64") });
+        return this.updateGuild({icon: typeof icon === "string" ? icon : icon.toString("base64")});
     }
 
     /**
@@ -4903,7 +4904,7 @@ class Guild {
      * @return {Promise}
      */
     updateOwner(owner) {
-        return this.updateGuild({ owner_id: owner.user ? owner.user.id : owner.id || owner });
+        return this.updateGuild({owner_id: owner.user ? owner.user.id : owner.id || owner});
     }
 
     /**
@@ -4913,7 +4914,7 @@ class Guild {
      * @return {Promise}
      */
     updateSplash(splash) {
-        return this.updateGuild({ splash: typeof splash === "string" ? splash : splash.toString("base64") });
+        return this.updateGuild({splash: typeof splash === "string" ? splash : splash.toString("base64")});
     }
 
     /**
@@ -4933,7 +4934,7 @@ class Guild {
      * @return {Promise}
      */
     updateSystemChannel(system_channel) {
-        return this.updateGuild({ system_channel_id: system_channel.id || system_channel });
+        return this.updateGuild({system_channel_id: system_channel.id || system_channel});
     }
 
 }
@@ -5007,10 +5008,12 @@ class Reaction {
 
     get message() {
         if (this.channel) return this.channel.messages.find(m => m.id === this.messageId);
+        return null;
     }
 
     get guild() {
         if (this.channel) return this.channel.guild;
+        return null;
     }
 }
 
@@ -5046,10 +5049,12 @@ class Embed {
 
     get message() {
         if (this.channel) return this.channel.messages.find(m => m.id === this.messageId);
+        return null;
     }
 
     get guild() {
         if (this.channel) return this.channel.guild;
+        return null;
     }
 }
 
@@ -5104,6 +5109,7 @@ class Message {
 
     get author() {
         if (this.discordObject.author && !this.webhookId) return _user__WEBPACK_IMPORTED_MODULE_3__["User"].from(this.discordObject.author);
+        return null;
     }
 
     get channel() {
@@ -5112,6 +5118,7 @@ class Message {
 
     get guild() {
         if (this.channel) return this.channel.guild;
+        return null;
     }
 
     /**
@@ -5164,6 +5171,7 @@ class DefaultMessage extends Message {
 
     get webhook() {
         if (this.webhookId) return this.discordObject.author;
+        return null;
     }
 
     get mentions() {
@@ -5372,6 +5380,7 @@ class User {
     get note() {
         const note = modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].UserNoteStore.getNote(this.id);
         if (note) return note;
+        return null;
     }
 
     /**
@@ -5382,7 +5391,7 @@ class User {
     updateNote(note) {
         return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].APIModule.put({
             url: `${modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].DiscordConstants.Endpoints.NOTES}/${this.id}`,
-            body: { note }
+            body: {note}
         });
     }
 
@@ -5391,8 +5400,7 @@ class User {
     }
 
     async ensurePrivateChannel() {
-        if (modules__WEBPACK_IMPORTED_MODULE_0__["DiscordAPI"].currentUser === this)
-            throw new Error("Cannot create a direct message channel to the current user.");
+        if (modules__WEBPACK_IMPORTED_MODULE_0__["DiscordAPI"].currentUser === this) throw new Error("Cannot create a direct message channel to the current user.");
         return _channel__WEBPACK_IMPORTED_MODULE_3__["Channel"].fromId(await modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].PrivateChannelActions.ensurePrivateChannel(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordAPI"].currentUser.id, this.id));
     }
 
@@ -5487,8 +5495,7 @@ class GuildMember {
      * Opens the modal to change this user's nickname.
      */
     openChangeNicknameModal() {
-        if (modules__WEBPACK_IMPORTED_MODULE_0__["DiscordAPI"].currentUser === this.user)
-            this.assertPermissions("CHANGE_NICKNAME", modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].DiscordPermissions.CHANGE_NICKNAME);
+        if (modules__WEBPACK_IMPORTED_MODULE_0__["DiscordAPI"].currentUser === this.user) this.assertPermissions("CHANGE_NICKNAME", modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].DiscordPermissions.CHANGE_NICKNAME);
         else this.assertPermissions("MANAGE_NICKNAMES", modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].DiscordPermissions.MANAGE_NICKNAMES);
 
         modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].ChangeNicknameModal.open(this.guildId, this.userId);
@@ -5500,13 +5507,12 @@ class GuildMember {
      * @return {Promise}
      */
     changeNickname(nick) {
-        if (modules__WEBPACK_IMPORTED_MODULE_0__["DiscordAPI"].currentUser === this.user)
-            this.assertPermissions("CHANGE_NICKNAME", modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].DiscordPermissions.CHANGE_NICKNAME);
+        if (modules__WEBPACK_IMPORTED_MODULE_0__["DiscordAPI"].currentUser === this.user) this.assertPermissions("CHANGE_NICKNAME", modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].DiscordPermissions.CHANGE_NICKNAME);
         else this.assertPermissions("MANAGE_NICKNAMES", modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].DiscordPermissions.MANAGE_NICKNAMES);
 
         return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].APIModule.patch({
             url: `${modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].DiscordConstants.Endpoints.GUILD_MEMBERS(this.guild_id)}/${modules__WEBPACK_IMPORTED_MODULE_0__["DiscordAPI"].currentUser === this.user ? "@me/nick" : this.userId}`,
-            body: { nick }
+            body: {nick}
         });
     }
 
@@ -5587,7 +5593,7 @@ class GuildMember {
     addRole(...roles) {
         const newRoles = this.roleIds.concat([]);
         let changed = false;
-        for (let role of roles) {
+        for (const role of roles) {
             if (newRoles.includes(role.id || role)) continue;
             newRoles.push(role.id || role);
             changed = true;
@@ -5604,7 +5610,7 @@ class GuildMember {
     removeRole(...roles) {
         const newRoles = this.roleIds.concat([]);
         let changed = false;
-        for (let role of roles) {
+        for (const role of roles) {
             if (!newRoles.includes(role.id || role)) continue;
             modules__WEBPACK_IMPORTED_MODULE_0__["Utilities"].removeFromArray(newRoles, role.id || role);
             changed = true;
@@ -5622,7 +5628,7 @@ class GuildMember {
         roles = roles.map(r => r.id || r);
         return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].APIModule.patch({
             url: `${modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].DiscordConstants.Endpoints.GUILD_MEMBERS(this.guildId)}/${this.userId}`,
-            body: { roles }
+            body: {roles}
         });
     }
 }
@@ -5829,55 +5835,55 @@ __webpack_require__.r(__webpack_exports__);
  * @memberof module:DOMTools
  **/
 class ClassName {
-	/**
-	 * 
-	 * @param {string} name - name of the class to represent
-	 */
-	constructor(name) {
-		this.value = name;
-	}
-	
-	/**
-	 * Concatenates new class names to the current one using spaces.
-	 * @param {string} classNames - list of class names to add to this class name
-	 * @returns {ClassName} returns self to allow chaining
-	 */
-	add(...classNames) {
-		for (let i = 0; i < classNames.length; i++) this.value += " " + classNames[i];
-		return this;
-	}
-	
-	/**
-	 * Returns the raw class name, this is how native function get the value.
-	 * @returns {string} raw class name.
-	 */
-	toString() {
-		return this.value;
-	}
-	
-	/**
-	 * Returns the raw class name, this is how native function get the value.
-	 * @returns {string} raw class name.
-	 */
-	valueOf() {
-		return this.value;
-	}
-	
-	/**
-	 * Returns the classname represented as {@link module:DOMTools.Selector}.
-	 * @returns {Selector} selector representation of this class name.
-	 */
-	get selector() {
-		return new _selector__WEBPACK_IMPORTED_MODULE_0__["default"](this.value);
-	}
+    /**
+     * 
+     * @param {string} name - name of the class to represent
+     */
+    constructor(name) {
+        this.value = name;
+    }
+    
+    /**
+     * Concatenates new class names to the current one using spaces.
+     * @param {string} classNames - list of class names to add to this class name
+     * @returns {ClassName} returns self to allow chaining
+     */
+    add(...classNames) {
+        for (let i = 0; i < classNames.length; i++) this.value += " " + classNames[i];
+        return this;
+    }
+    
+    /**
+     * Returns the raw class name, this is how native function get the value.
+     * @returns {string} raw class name.
+     */
+    toString() {
+        return this.value;
+    }
+    
+    /**
+     * Returns the raw class name, this is how native function get the value.
+     * @returns {string} raw class name.
+     */
+    valueOf() {
+        return this.value;
+    }
+    
+    /**
+     * Returns the classname represented as {@link module:DOMTools.Selector}.
+     * @returns {Selector} selector representation of this class name.
+     */
+    get selector() {
+        return new _selector__WEBPACK_IMPORTED_MODULE_0__["default"](this.value);
+    }
 
-	get single() {
-		return this.value.split(" ")[0];
-	}
+    get single() {
+        return this.value.split(" ")[0];
+    }
 
-	get first() {
-		return this.value.split(" ")[0];
-	}
+    get first() {
+        return this.value.split(" ")[0];
+    }
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (ClassName);
@@ -6045,79 +6051,79 @@ __webpack_require__.r(__webpack_exports__);
  * @memberof module:DOMTools
  **/
 class Selector {
-	/**
-	 * 
-	 * @param {string} classname - class to create selector for
-	 */
-	constructor(className) {
-		this.value = " ." + className.split(" ").join(".");
-	}
-	
-	/**
-	 * Returns the raw selector, this is how native function get the value.
-	 * @returns {string} raw selector.
-	 */
-	toString() {
-		return this.value;
-	}
-	
-	/**
-	 * Returns the raw selector, this is how native function get the value.
-	 * @returns {string} raw selector.
-	 */
-	valueOf() {
-		return this.value;
-	}
-	
-	selector(symbol, other) {
-		this.value = `${this.toString()} ${symbol} ${other.toString()}`;
-		return this;
-	}
-	
-	/**
-	 * Adds another selector as a direct child `>` to this one.
-	 * @param {string|DOMTools.Selector} other - Selector to add as child
-	 * @returns {DOMTools.Selector} returns self to allow chaining
-	 */
-	child(other) {
-		return this.selector(">", other);
-	}
-	
-	/**
-	 * Adds another selector as a adjacent sibling `+` to this one.
-	 * @param {string|DOMTools.Selector} other - Selector to add as adjacent sibling
-	 * @returns {DOMTools.Selector} returns self to allow chaining
-	 */
-	adjacent(other) {
-		return this.selector("+", other);
-	}
-	
-	/**
-	 * Adds another selector as a general sibling `~` to this one.
-	 * @param {string|DOMTools.Selector} other - Selector to add as sibling
-	 * @returns {DOMTools.Selector} returns self to allow chaining
-	 */
-	sibling(other) {
-		return this.selector("~", other);
-	}
-	
-	/**
-	 * Adds another selector as a descendent `(space)` to this one.
-	 * @param {string|DOMTools.Selector} other - Selector to add as descendent
-	 * @returns {DOMTools.Selector} returns self to allow chaining
-	 */
-	descend(other) {
-		return this.selector(" ", other);
-	}
+    /**
+     * 
+     * @param {string} classname - class to create selector for
+     */
+    constructor(className) {
+        this.value = " ." + className.split(" ").join(".");
+    }
+    
+    /**
+     * Returns the raw selector, this is how native function get the value.
+     * @returns {string} raw selector.
+     */
+    toString() {
+        return this.value;
+    }
+    
+    /**
+     * Returns the raw selector, this is how native function get the value.
+     * @returns {string} raw selector.
+     */
+    valueOf() {
+        return this.value;
+    }
+    
+    selector(symbol, other) {
+        this.value = `${this.toString()} ${symbol} ${other.toString()}`;
+        return this;
+    }
+    
+    /**
+     * Adds another selector as a direct child `>` to this one.
+     * @param {string|DOMTools.Selector} other - Selector to add as child
+     * @returns {DOMTools.Selector} returns self to allow chaining
+     */
+    child(other) {
+        return this.selector(">", other);
+    }
+    
+    /**
+     * Adds another selector as a adjacent sibling `+` to this one.
+     * @param {string|DOMTools.Selector} other - Selector to add as adjacent sibling
+     * @returns {DOMTools.Selector} returns self to allow chaining
+     */
+    adjacent(other) {
+        return this.selector("+", other);
+    }
+    
+    /**
+     * Adds another selector as a general sibling `~` to this one.
+     * @param {string|DOMTools.Selector} other - Selector to add as sibling
+     * @returns {DOMTools.Selector} returns self to allow chaining
+     */
+    sibling(other) {
+        return this.selector("~", other);
+    }
+    
+    /**
+     * Adds another selector as a descendent `(space)` to this one.
+     * @param {string|DOMTools.Selector} other - Selector to add as descendent
+     * @returns {DOMTools.Selector} returns self to allow chaining
+     */
+    descend(other) {
+        return this.selector(" ", other);
+    }
 
-	/**
-	 * Adds another selector to this one via `,`.
-	 * @param {string|DOMTools.Selector} other - Selector to add
-	 * @returns {DOMTools.Selector} returns self to allow chaining
-	 */
-	and(other) {
-		return this.selector(",", other);
-	}
+    /**
+     * Adds another selector to this one via `,`.
+     * @param {string|DOMTools.Selector} other - Selector to add
+     * @returns {DOMTools.Selector} returns self to allow chaining
+     */
+    and(other) {
+        return this.selector(",", other);
+    }
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (Selector);
@@ -6214,36 +6220,36 @@ __webpack_require__.r(__webpack_exports__);
  */
 class Listenable {
 
-	constructor() {
-		this.listeners = [];
-	}
+    constructor() {
+        this.listeners = [];
+    }
 
-	/**
-	 * Adds a listener to the current object.
-	 * @param {callable} callback - callback for when the event occurs
-	 * @returns {callable} - a way to cancel the listener without needing to call `removeListener`
-	 */
-	addListener(callback) {
-		if (typeof(callback) !== "function") return;
+    /**
+     * Adds a listener to the current object.
+     * @param {callable} callback - callback for when the event occurs
+     * @returns {callable} - a way to cancel the listener without needing to call `removeListener`
+     */
+    addListener(callback) {
+        if (typeof(callback) !== "function") return;
         this.listeners.push(callback);
         return () => {
             this.listeners.splice(this.listeners.indexOf(callback), 1);
         };
-	}
-
-	/**
-	 * Removes a listener from the current object.
-	 * @param {callable} callback - callback that was originally registered
-	 */
-	removeListener(callback) {
-		if (typeof(callback) !== "function") return;
-		this.listeners.splice(this.listeners.indexOf(callback), 1);
     }
-	
-	/**
-	 * Alerts the listeners that an event occurred. Data passed is optional
-	 * @param {*} [...data] - Any data desired to be passed to listeners 
-	 */
+
+    /**
+     * Removes a listener from the current object.
+     * @param {callable} callback - callback that was originally registered
+     */
+    removeListener(callback) {
+        if (typeof(callback) !== "function") return;
+        this.listeners.splice(this.listeners.indexOf(callback), 1);
+    }
+    
+    /**
+     * Alerts the listeners that an event occurred. Data passed is optional
+     * @param {*} [...data] - Any data desired to be passed to listeners 
+     */
     alertListeners(...data) {
         for (let l = 0; l < this.listeners.length; l++) this.listeners[l](...data);
     }
@@ -6592,7 +6598,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".plugin-input-group {\r\n    margin-top: 5px;\r\n}\r\n\r\n.plugin-input-group .button-collapse {\r\n    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxOS4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iQ2FscXVlXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSItOTUwIDUzMiAxOCAxOCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAtOTUwIDUzMiAxOCAxODsiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4NCgkuc3Qwe2ZpbGw6bm9uZTt9DQoJLnN0MXtmaWxsOm5vbmU7c3Ryb2tlOiNGRkZGRkY7c3Ryb2tlLXdpZHRoOjEuNTtzdHJva2UtbWl0ZXJsaW1pdDoxMDt9DQo8L3N0eWxlPg0KPHBhdGggY2xhc3M9InN0MCIgZD0iTS05MzIsNTMydjE4aC0xOHYtMThILTkzMnoiLz4NCjxwb2x5bGluZSBjbGFzcz0ic3QxIiBwb2ludHM9Ii05MzYuNiw1MzguOCAtOTQxLDU0My4yIC05NDUuNCw1MzguOCAiLz4NCjwvc3ZnPg0K);\r\n    height: 16px;\r\n    width: 16px;\r\n    display: inline-block;\r\n    vertical-align: bottom;\r\n    transition: transform .3s ease;\r\n    transform: rotate(0);\r\n}\r\n\r\n.plugin-input-group .button-collapse.collapsed {\r\n    transition: transform .3s ease;\r\n    transform: rotate(-90deg);\r\n}\r\n\r\n.plugin-input-group h2 {\r\n    font-size: 14px;\r\n}\r\n\r\n.plugin-input-group .plugin-input-group h2 {\r\n    margin-left: 16px;\r\n}\r\n\r\n.plugin-inputs {\r\n    height: auto;\r\n    overflow: hidden;\r\n    transition: height 300ms cubic-bezier(0.47, 0, 0.745, 0.715);\r\n}\r\n\r\n.plugin-inputs.collapsed {\r\n    height: 0px;\r\n}\r\n\r\n.file-input {\r\n\r\n}\r\n\r\n.file-input::-webkit-file-upload-button {\r\n\tcolor: white;\r\n\tbackground: #7289DA;\r\n\toutline: 0;\r\n\tborder: 0;\r\n\tpadding: 10px;\r\n\tvertical-align: top;\r\n\tmargin-top: -10px;\r\n\tmargin-left: -10px;\r\n\tborder-radius: 3px 0 0 3px;\r\n\tfont-size: 14px;\r\n    font-weight: 500;\r\n\tfont-family: Whitney,Helvetica Neue,Helvetica,Arial,sans-serif;\r\n\tcursor: pointer;\r\n}\r\n\r\n.color-input {\r\n    background: none;\r\n    padding: 0;\r\n    border: none;\r\n}\r\n\r\n.color-input:hover {\r\n    opacity: 0.8;\r\n}\r\n"
+module.exports = ".plugin-input-group {\r\n    margin-top: 5px;\r\n}\r\n\r\n.plugin-input-group .button-collapse {\r\n    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxOS4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iQ2FscXVlXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSItOTUwIDUzMiAxOCAxOCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAtOTUwIDUzMiAxOCAxODsiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4NCgkuc3Qwe2ZpbGw6bm9uZTt9DQoJLnN0MXtmaWxsOm5vbmU7c3Ryb2tlOiNGRkZGRkY7c3Ryb2tlLXdpZHRoOjEuNTtzdHJva2UtbWl0ZXJsaW1pdDoxMDt9DQo8L3N0eWxlPg0KPHBhdGggY2xhc3M9InN0MCIgZD0iTS05MzIsNTMydjE4aC0xOHYtMThILTkzMnoiLz4NCjxwb2x5bGluZSBjbGFzcz0ic3QxIiBwb2ludHM9Ii05MzYuNiw1MzguOCAtOTQxLDU0My4yIC05NDUuNCw1MzguOCAiLz4NCjwvc3ZnPg0K);\r\n    height: 16px;\r\n    width: 16px;\r\n    display: inline-block;\r\n    vertical-align: bottom;\r\n    transition: transform .3s ease;\r\n    transform: rotate(0);\r\n}\r\n\r\n.plugin-input-group .button-collapse.collapsed {\r\n    transition: transform .3s ease;\r\n    transform: rotate(-90deg);\r\n}\r\n\r\n.plugin-input-group h2 {\r\n    font-size: 14px;\r\n}\r\n\r\n.plugin-input-group .plugin-input-group h2 {\r\n    margin-left: 16px;\r\n}\r\n\r\n.plugin-inputs {\r\n    height: auto;\r\n    overflow: hidden;\r\n    transition: height 300ms cubic-bezier(0.47, 0, 0.745, 0.715);\r\n}\r\n\r\n.plugin-inputs.collapsed {\r\n    height: 0px;\r\n}\r\n\r\n.file-input {\r\n\r\n}\r\n\r\n.file-input::-webkit-file-upload-button {\r\n    color: white;\r\n    background: #7289DA;\r\n    outline: 0;\r\n    border: 0;\r\n    padding: 10px;\r\n    vertical-align: top;\r\n    margin-top: -10px;\r\n    margin-left: -10px;\r\n    border-radius: 3px 0 0 3px;\r\n    font-size: 14px;\r\n    font-weight: 500;\r\n    font-family: Whitney,Helvetica Neue,Helvetica,Arial,sans-serif;\r\n    cursor: pointer;\r\n}\r\n\r\n.color-input {\r\n    background: none;\r\n    padding: 0;\r\n    border: none;\r\n}\r\n\r\n.color-input:hover {\r\n    opacity: 0.8;\r\n}\r\n"
 
 /***/ }),
 
@@ -6659,9 +6665,9 @@ __webpack_require__.r(__webpack_exports__);
  * @param {HTMLElement|jQuery} menu - The original discord menu
  */
 function updateDiscordMenu(menu) {
-	if (!(menu instanceof window.jQuery) && !(menu instanceof Element)) return;
-	const updateHeight = _modules_reacttools__WEBPACK_IMPORTED_MODULE_2__["default"].getReactProperty(menu, "return.return.return.stateNode.updatePosition");
-	if (updateHeight) updateHeight();
+    if (!(menu instanceof window.jQuery) && !(menu instanceof Element)) return;
+    const updateHeight = _modules_reacttools__WEBPACK_IMPORTED_MODULE_2__["default"].getReactProperty(menu, "return.return.return.stateNode.updatePosition");
+    if (updateHeight) updateHeight();
 }
 
 /** Main menu class for creating custom context menus. */
@@ -6670,28 +6676,28 @@ class Menu {
      *
      * @param {boolean} [scroll=false] - should this menu be a scrolling menu (usually only used for submenus)
      */
-	constructor(submenu = false, scroll = false) {
-		this.theme = _modules_discordmodules__WEBPACK_IMPORTED_MODULE_3__["default"].UserSettingsStore.theme == "dark" ? "theme-dark" : "theme-light";
-		this.isSubmenu = submenu;
-		this.element = _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.contextMenu} plugin-context-menu ${this.theme}"></div>`);
-		this.scroll = scroll;
-		if (!scroll) return;
-		this.scroller = _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].Scrollers.scroller} ${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.scroller}"></div>`);
-		this.scrollerWrap = _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].Scrollers.scrollerWrap} ${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].Scrollers.scrollerThemed} ${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].Scrollers.themeGhostHairline}"></div>`);
-		this.scrollerWrap.append(this.scroller);
-		this.element.append(this.scrollerWrap);
-	}
+    constructor(submenu = false, scroll = false) {
+        this.theme = _modules_discordmodules__WEBPACK_IMPORTED_MODULE_3__["default"].UserSettingsStore.theme == "dark" ? "theme-dark" : "theme-light";
+        this.isSubmenu = submenu;
+        this.element = _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.contextMenu} plugin-context-menu ${this.theme}"></div>`);
+        this.scroll = scroll;
+        if (!scroll) return;
+        this.scroller = _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].Scrollers.scroller} ${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.scroller}"></div>`);
+        this.scrollerWrap = _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].Scrollers.scrollerWrap} ${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].Scrollers.scrollerThemed} ${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].Scrollers.themeGhostHairline}"></div>`);
+        this.scrollerWrap.append(this.scroller);
+        this.element.append(this.scrollerWrap);
+    }
 
     /**
      * Adds an item group to the menu. The group should already be populated.
      * @param {module:ContextMenu.ItemGroup} contextGroup - group to add to the menu
      * @returns {module:ContextMenu.Menu} returns self for chaining
      */
-	addGroup(contextGroup) {
-		if (this.scroll) this.scroller.append(contextGroup.getElement());
-		else this.element.append(contextGroup.getElement());
-		return this;
-	}
+    addGroup(contextGroup) {
+        if (this.scroll) this.scroller.append(contextGroup.getElement());
+        else this.element.append(contextGroup.getElement());
+        return this;
+    }
 
     /**
      * Adds items to the context menu directly. It is recommended to add to a group and use
@@ -6699,13 +6705,13 @@ class Menu {
      * @param {module:ContextMenu.MenuItem} contextItems - list of items to add to the context menu
      * @returns {module:ContextMenu.Menu} returns self for chaining
      */
-	addItems(...contextItems) {
-		for (let i = 0; i < contextItems.length; i++) {
-			if (this.scroll) this.scroller.append(contextItems[i].getElement());
-			else this.element.append(contextItems[i].getElement());
-		}
-		return this;
-	}
+    addItems(...contextItems) {
+        for (let i = 0; i < contextItems.length; i++) {
+            if (this.scroll) this.scroller.append(contextItems[i].getElement());
+            else this.element.append(contextItems[i].getElement());
+        }
+        return this;
+    }
 
     /**
      * Shows the menu at a specific x and y position. This generally comes from the
@@ -6713,59 +6719,51 @@ class Menu {
      * @param {number} x - x coordinate for the menu to show at
      * @param {number} y - y coordinate for the menu to show at
      */
-	show(x, y) {
-		const mouseX = x;
-		const mouseY = y;
+    show(x, y) {
+        const mouseX = x;
+        const mouseY = y;
 
-		const parents = this.element.closest(this.parentSelector);
-		const depth = parents.length;
-		// if (depth == 0) {
-			const layer = _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].TooltipLayers.layer}"></div>`);
-			let elementToAdd = this.element;
-			if (this.isSubmenu) {
-				const submenu = _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.subMenuContext}"></div>`);
-				submenu.append(this.element);
-				elementToAdd = submenu;
-			}
-			layer.append(elementToAdd);
-			layer.appendTo(_modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].Popouts.popouts.sibling(_modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].TooltipLayers.layerContainer).toString());
-		// }
-		this.element.css("top", mouseY + "px").css("left", mouseX + "px");
+        const parents = this.element.closest(this.parentSelector);
+        const depth = parents.length;
+        // if (depth == 0) {
+            const layer = _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].TooltipLayers.layer}"></div>`);
+            let elementToAdd = this.element;
+            if (this.isSubmenu) {
+                const submenu = _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.subMenuContext}"></div>`);
+                submenu.append(this.element);
+                elementToAdd = submenu;
+            }
+            layer.append(elementToAdd);
+            layer.appendTo(_modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].Popouts.popouts.sibling(_modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].TooltipLayers.layerContainer).toString());
+        // }
+        this.element.css("top", mouseY + "px").css("left", mouseX + "px");
 
-		// if (depth > 0) {
-		// 	const top = parents[parents.length - 1];
-		// 	const closest = parents[0];
-		// 	const negate = closest.hasClass(DiscordClasses.ContextMenu.invertChildX) ? -1 : 1;
-		// 	const value = negate * closest.find(DiscordSelectors.ContextMenu.item).outerWidth() + closest.offset().left - top.offset().left;
-		// 	this.element.css("margin-left", `${value}px`);
-		// }
+        if (mouseY + this.element.outerHeight() >= _structs_screen__WEBPACK_IMPORTED_MODULE_5__["default"].height) {
+            this.element.addClass("invertY").addClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.invertY);
+            this.element.css("top", `${mouseY - this.element.outerHeight()}px`);
+            if (depth > 0) this.element.css("top", `${(mouseY + this.element.parent().outerHeight()) - this.element.outerHeight()}px`);
+        }
+        if (this.element.offset().left + this.element.outerWidth() >= _structs_screen__WEBPACK_IMPORTED_MODULE_5__["default"].width) {
+            this.element.addClass("invertX");
+            this.element.css("left", `${mouseX - this.element.outerWidth()}px`);
+        }
+        if (this.element.offset().left + 2 * this.element.outerWidth() >= _structs_screen__WEBPACK_IMPORTED_MODULE_5__["default"].width) {
+            this.element.addClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.invertChildX);
+        }
 
-		if (mouseY + this.element.outerHeight() >= _structs_screen__WEBPACK_IMPORTED_MODULE_5__["default"].height) {
-			this.element.addClass("invertY").addClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.invertY);
-			this.element.css("top", `${mouseY - this.element.outerHeight()}px`);
-			if (depth > 0) this.element.css("top", `${(mouseY + this.element.parent().outerHeight()) - this.element.outerHeight()}px`);
-		}
-		if (this.element.offset().left + this.element.outerWidth() >= _structs_screen__WEBPACK_IMPORTED_MODULE_5__["default"].width) {
-			this.element.addClass("invertX");
-			this.element.css("left", `${mouseX - this.element.outerWidth()}px`);
-		}
-		if (this.element.offset().left + 2 * this.element.outerWidth() >= _structs_screen__WEBPACK_IMPORTED_MODULE_5__["default"].width) {
-			this.element.addClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.invertChildX);
-		}
-
-		if (depth !== 0) return;
-		_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].on(document, "mousedown.zctx", (e) => { if (!this.element.contains(e.target) && !this.element.isSameNode(e.target)) this.removeMenu(); });
-		_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].on(document, "click.zctx", (e) => { if (this.element.contains(e.target)) this.removeMenu(); });
-		_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].on(document, "keyup.zctx", (e) => { if (e.keyCode === 27) this.removeMenu(); });
-	}
+        if (depth !== 0) return;
+        _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].on(document, "mousedown.zctx", (e) => { if (!this.element.contains(e.target) && !this.element.isSameNode(e.target)) this.removeMenu(); });
+        _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].on(document, "click.zctx", (e) => { if (this.element.contains(e.target)) this.removeMenu(); });
+        _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].on(document, "keyup.zctx", (e) => { if (e.keyCode === 27) this.removeMenu(); });
+    }
 
     /** Allows you to remove the menu. */
-	removeMenu() {
-		this.element.closest(_modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].TooltipLayers.layer.toString())[0].remove();
-		const childs = this.element.findAll(this.parentSelector);
-		if (childs) childs.forEach(c => c.remove());
-		_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].off(document, ".zctx");
-	}
+    removeMenu() {
+        this.element.closest(_modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].TooltipLayers.layer.toString())[0].remove();
+        const childs = this.element.findAll(this.parentSelector);
+        if (childs) childs.forEach(c => c.remove());
+        _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].off(document, ".zctx");
+    }
 
     /**
      * Used to attach a menu to a menu item. This is how to create a submenu.
@@ -6775,41 +6773,41 @@ class Menu {
      * method.
      * @param {(HTMLElement|jQuery)} menuItem - item to attach to
      */
-	attachTo(menuItem) {
-		this.menuItem = menuItem;
-		menuItem.addEventListener("mouseenter", () => {
-			// this.element.appendTo(DiscordSelectors.Popouts.popouts.sibling(DiscordSelectors.TooltipLayers.layerContainer).toString());
-			// const left = this.element.parents(this.parentSelector)[0].css("left");
-			//console.log(parseInt(menuItem.offset().left), parseInt(menuItem.offset().top));
-			this.show(parseInt(menuItem.offset().right), parseInt(menuItem.offset().top));
-		});
-		menuItem.addEventListener("mouseleave", () => { this.element.closest(_modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].TooltipLayers.layer.toString())[0].remove(); });
-	}
+    attachTo(menuItem) {
+        this.menuItem = menuItem;
+        menuItem.addEventListener("mouseenter", () => {
+            // this.element.appendTo(DiscordSelectors.Popouts.popouts.sibling(DiscordSelectors.TooltipLayers.layerContainer).toString());
+            // const left = this.element.parents(this.parentSelector)[0].css("left");
+            //console.log(parseInt(menuItem.offset().left), parseInt(menuItem.offset().top));
+            this.show(parseInt(menuItem.offset().right), parseInt(menuItem.offset().top));
+        });
+        menuItem.addEventListener("mouseleave", () => { this.element.closest(_modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].TooltipLayers.layer.toString())[0].remove(); });
+    }
 
-	get parentSelector() {return this.element.closest(".plugin-context-menu").length > this.element.closest(_modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].ContextMenu.contextMenu).length ? ".plugin-context-menu" : _modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].ContextMenu.contextMenu;}
+    get parentSelector() {return this.element.closest(".plugin-context-menu").length > this.element.closest(_modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].ContextMenu.contextMenu).length ? ".plugin-context-menu" : _modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].ContextMenu.contextMenu;}
 }
 
 /** Class that represents a group of menu items. */
 class ItemGroup {
     /** Creates an item group. */
-	constructor() {
-		this.element = _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.itemGroup}"></div>`);
-	}
+    constructor() {
+        this.element = _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.itemGroup}"></div>`);
+    }
 
     /**
      * This is the method of adding menu items to a menu group.
      * @param {module:ContextMenu.MenuItem} contextItems - list of context menu items to add to this group
      * @returns {module:ContextMenu.ItemGroup} returns self for chaining
      */
-	addItems(...contextItems) {
-		for (let i = 0; i < contextItems.length; i++) {
-			this.element.append(contextItems[i].getElement());
-		}
-		return this;
-	}
+    addItems(...contextItems) {
+        for (let i = 0; i < contextItems.length; i++) {
+            this.element.append(contextItems[i].getElement());
+        }
+        return this;
+    }
 
     /** @returns {HTMLElement} returns the DOM node for the group */
-	getElement() { return this.element; }
+    getElement() { return this.element; }
 }
 
 /**
@@ -6832,18 +6830,18 @@ class MenuItem {
      * @param {boolean} [options.danger=false] - should the item show as danger
      * @param {module:ContextMenu~clickEvent} [options.callback] - callback for when it is clicked
      */
-	constructor(label, options = {}) {
-		const {danger = false, callback} = options;
-		this.element = _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.item}"></div>`);
-		this.label = label;
-		if (danger) this.element.addClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.danger);
-		this.element.on("click", (event) => {
-			if (!Array.from(this.element.children).some(c => c.isSameNode(event.target)) && !this.element.isSameNode(event.target)) return;
-			if (typeof(callback) == "function") callback(event);
-			else event.stopPropagation();
-		});
-	}
-	getElement() { return this.element;}
+    constructor(label, options = {}) {
+        const {danger = false, callback} = options;
+        this.element = _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.item}"></div>`);
+        this.label = label;
+        if (danger) this.element.addClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.danger);
+        this.element.on("click", (event) => {
+            if (!Array.from(this.element.children).some(c => c.isSameNode(event.target)) && !this.element.isSameNode(event.target)) return;
+            if (typeof(callback) == "function") callback(event);
+            else event.stopPropagation();
+        });
+    }
+    getElement() { return this.element;}
 }
 
 /**
@@ -6858,12 +6856,12 @@ class TextItem extends MenuItem {
      * @param {boolean} [options.danger=false] - should the item show as danger
      * @param {module:ContextMenu~clickEvent} [options.callback] - callback for when it is clicked
      */
-	constructor(label, options = {}) {
-		super(label, options);
-		const {hint = ""} = options;
-		this.element.append(_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<span>${label}</span>`));
-		this.element.append(_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.hint}">${hint}</div>`));
-	}
+    constructor(label, options = {}) {
+        super(label, options);
+        const {hint = ""} = options;
+        this.element.append(_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<span>${label}</span>`));
+        this.element.append(_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.hint}">${hint}</div>`));
+    }
 }
 
 /**
@@ -6879,12 +6877,12 @@ class ImageItem extends MenuItem {
      * @param {boolean} [options.danger=false] - should the item show as danger
      * @param {module:ContextMenu~clickEvent} [options.callback] - callback for when it is clicked
      */
-	constructor(label, imageSrc, options = {}) {
-		super(label, options);
-		this.element.addClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.itemImage);
-		this.element.append(_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.label}">${label}</div>`));
-		this.element.append(_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<img src="${imageSrc}">`));
-	}
+    constructor(label, imageSrc, options = {}) {
+        super(label, options);
+        this.element.addClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.itemImage);
+        this.element.append(_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.label}">${label}</div>`));
+        this.element.append(_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<img src="${imageSrc}">`));
+    }
 }
 
 /**
@@ -6900,15 +6898,15 @@ class SubMenuItem extends MenuItem {
      * @param {boolean} [options.danger=false] - should the item show as danger
      * @param {module:ContextMenu~clickEvent} [options.callback] - callback for when it is clicked
      */
-	constructor(label, subMenu, options = {}) {
-		// if (!(subMenu instanceof ContextSubMenu)) throw "subMenu must be of ContextSubMenu type.";
-		super(label, options);
-		this.element.addClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.itemSubMenu);
-		this.element.append(_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.label}">${label}</div>`));
-		this.element.append(_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<svg class="caret-UIZBlm da-caret" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M16.59 8.59004L12 13.17L7.41 8.59004L6 10L12 16L18 10L16.59 8.59004Z"></path></svg>`));
-		this.subMenu = subMenu;
-		this.subMenu.attachTo(this.getElement());
-	}
+    constructor(label, subMenu, options = {}) {
+        // if (!(subMenu instanceof ContextSubMenu)) throw "subMenu must be of ContextSubMenu type.";
+        super(label, options);
+        this.element.addClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.itemSubMenu);
+        this.element.append(_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.label}">${label}</div>`));
+        this.element.append(_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<svg class="caret-UIZBlm da-caret" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M16.59 8.59004L12 13.17L7.41 8.59004L6 10L12 16L18 10L16.59 8.59004Z"></path></svg>`));
+        this.subMenu = subMenu;
+        this.subMenu.attachTo(this.getElement());
+    }
 }
 
 /**
@@ -6924,27 +6922,27 @@ class ToggleItem extends MenuItem {
      * @param {boolean} [options.danger=false] - should the item show as danger
      * @param {module:ContextMenu~onChange} [options.callback] - callback for when the checkbox changes
      */
-	constructor(label, checked, options = {}) {
-		const {callback: onChange} = options;
-		if (options.callback) delete options.callback;
-		super(label, options);
-		this.element.addClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.itemToggle);
-		this.element.append(_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.label}">${label}</div>`));
-		this.checkbox = _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="checkbox ${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].Checkbox.checkbox} ${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.checkbox}" role="button"></div>`);
-		this.checkbox.append(_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="checkbox-inner ${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].Checkbox.checkboxInner}"></div>`));
-		this.checkbox.append(_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement("<span>"));
-		this.input = _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<input type="checkbox" class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].Checkbox.checkboxElement}">`);
-		this.input.checked = checked;
-		this.checkbox.find(".checkbox-inner").append(this.input);
-		this.checkbox.find(".checkbox-inner").append(_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement("<span>"));
+    constructor(label, checked, options = {}) {
+        const {callback: onChange} = options;
+        if (options.callback) delete options.callback;
+        super(label, options);
+        this.element.addClass(_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.itemToggle);
+        this.element.append(_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.label}">${label}</div>`));
+        this.checkbox = _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="checkbox ${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].Checkbox.checkbox} ${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenu.checkbox}" role="button"></div>`);
+        this.checkbox.append(_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<div class="checkbox-inner ${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].Checkbox.checkboxInner}"></div>`));
+        this.checkbox.append(_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement("<span>"));
+        this.input = _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement(`<input type="checkbox" class="${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_0__["default"].Checkbox.checkboxElement}">`);
+        this.input.checked = checked;
+        this.checkbox.find(".checkbox-inner").append(this.input);
+        this.checkbox.find(".checkbox-inner").append(_modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].createElement("<span>"));
         this.element.append(this.checkbox);
         this.element.on("click", (e) => {
-			if (!Array.from(this.element.children).some(c => c.isSameNode(e.target)) && !this.element.isSameNode(e.target)) return;
-			e.stopPropagation();
-			this.input.checked = !this.input.checked;
+            if (!Array.from(this.element.children).some(c => c.isSameNode(e.target)) && !this.element.isSameNode(e.target)) return;
+            e.stopPropagation();
+            this.input.checked = !this.input.checked;
             if (typeof(onChange) == "function") onChange(this.input.checked);
         });
-	}
+    }
 }
 
 /***/ }),
@@ -7808,29 +7806,29 @@ class DiscordContextMenu {
      * @returns {Promise<object>} the webpack module the menu was found in
      */
     static async getDiscordMenu(type) {
-		return new Promise(resolve => {
-			const cancel = _modules_patcher__WEBPACK_IMPORTED_MODULE_3__["default"].after("ZeresLibrary.DiscordContextMenu", ContextMenuActions, "openContextMenu", (_, [, component]) => {
-				const rendered = component();
-				const menuType = rendered.props && rendered.props.type || (rendered.type && rendered.type.displayName);
-				if (!menuType || typeof(menuType) != "string" || !menuType.includes(type)) return;
-				cancel();
-				return resolve(_modules_webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m.default == rendered.type));
-			});
-		});
-	}
+        return new Promise(resolve => {
+            const cancel = _modules_patcher__WEBPACK_IMPORTED_MODULE_3__["default"].after("ZeresLibrary.DiscordContextMenu", ContextMenuActions, "openContextMenu", (_, [, component]) => {
+                const rendered = component();
+                const menuType = rendered.props && rendered.props.type || (rendered.type && rendered.type.displayName);
+                if (!menuType || typeof(menuType) != "string" || !menuType.includes(type)) return;
+                cancel();
+                return resolve(_modules_webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m.default == rendered.type));
+            });
+        });
+    }
 
     /**
      * Calls `forceUpdate()` on all context menus it can find. Useful for
      * after patching a menu.
      */
-	static forceUpdateMenus() {
-		const menus = document.querySelectorAll(_modules_discordselectors__WEBPACK_IMPORTED_MODULE_5__["default"].ContextMenu.contextMenu);
-		for (const menu of menus) {
-			const stateNode = _modules_utilities__WEBPACK_IMPORTED_MODULE_4__["default"].findInTree(_modules_reacttools__WEBPACK_IMPORTED_MODULE_2__["default"].getReactInstance(menu), m=>m && m.forceUpdate && m.updatePosition, {walkable: ["return", "stateNode"]});
-			if (!stateNode) continue;
-			stateNode.forceUpdate();
-			stateNode.updatePosition();
-		}
+    static forceUpdateMenus() {
+        const menus = document.querySelectorAll(_modules_discordselectors__WEBPACK_IMPORTED_MODULE_5__["default"].ContextMenu.contextMenu);
+        for (const menu of menus) {
+            const stateNode = _modules_utilities__WEBPACK_IMPORTED_MODULE_4__["default"].findInTree(_modules_reacttools__WEBPACK_IMPORTED_MODULE_2__["default"].getReactInstance(menu), m=>m && m.forceUpdate && m.updatePosition, {walkable: ["return", "stateNode"]});
+            if (!stateNode) continue;
+            stateNode.forceUpdate();
+            stateNode.updatePosition();
+        }
     }
 }
 
@@ -7886,23 +7884,23 @@ const toPx = function(value) {
 </div> */
 
 class EmulatedTooltip {
-	/**
-	 *
-	 * @constructor
-	 * @param {(HTMLElement|jQuery)} node - DOM node to monitor and show the tooltip on
-	 * @param {string} tip - string to show in the tooltip
-	 * @param {object} options - additional options for the tooltip
-	 * @param {string} [options.style=black] - correlates to the discord styling/colors (black, brand, green, grey, red, yellow)
-	 * @param {string} [options.side=top] - can be any of top, right, bottom, left
-	 * @param {boolean} [options.preventFlip=false] - prevents moving the tooltip to the opposite side if it is too big or goes offscreen
+    /**
+     *
+     * @constructor
+     * @param {(HTMLElement|jQuery)} node - DOM node to monitor and show the tooltip on
+     * @param {string} tip - string to show in the tooltip
+     * @param {object} options - additional options for the tooltip
+     * @param {string} [options.style=black] - correlates to the discord styling/colors (black, brand, green, grey, red, yellow)
+     * @param {string} [options.side=top] - can be any of top, right, bottom, left
+     * @param {boolean} [options.preventFlip=false] - prevents moving the tooltip to the opposite side if it is too big or goes offscreen
      * @param {boolean} [options.disabled=false] - whether the tooltip should be disabled from showing on hover
-	 */
-	constructor(node, text, options = {}) {
-		const {style = "black", side = "top", preventFlip = false, disabled = false} = options;
-		this.node = node instanceof jQuery ? node[0] : node;
+     */
+    constructor(node, text, options = {}) {
+        const {style = "black", side = "top", preventFlip = false, disabled = false} = options;
+        this.node = node instanceof jQuery ? node[0] : node;
         this.label = text;
         this.style = style.toLowerCase();
-		this.side = side.toLowerCase();
+        this.side = side.toLowerCase();
         this.preventFlip = preventFlip;
         this.disabled = disabled;
 
@@ -7915,28 +7913,28 @@ class EmulatedTooltip {
         this.element.append(this.tooltipElement);
 
 
-		this.node.addEventListener("mouseenter", () => {
+        this.node.addEventListener("mouseenter", () => {
             if (this.disabled) return;
             this.show();
 
-			const observer = new MutationObserver((mutations) => {
-				mutations.forEach((mutation) => {
-					const nodes = Array.from(mutation.removedNodes);
-					const directMatch = nodes.indexOf(this.node) > -1;
-					const parentMatch = nodes.some(parent => parent.contains(this.node));
-					if (directMatch || parentMatch) {
-						this.hide();
-						observer.disconnect();
-					}
-				});
-			});
+            const observer = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    const nodes = Array.from(mutation.removedNodes);
+                    const directMatch = nodes.indexOf(this.node) > -1;
+                    const parentMatch = nodes.some(parent => parent.contains(this.node));
+                    if (directMatch || parentMatch) {
+                        this.hide();
+                        observer.disconnect();
+                    }
+                });
+            });
 
-			observer.observe(document.body, {subtree: true, childList: true});
-		});
+            observer.observe(document.body, {subtree: true, childList: true});
+        });
 
-		this.node.addEventListener("mouseleave", () => {
-			this.hide();
-		});
+        this.node.addEventListener("mouseleave", () => {
+            this.hide();
+        });
     }
 
     /** Container where the tooltip will be appended. */
@@ -7948,78 +7946,78 @@ class EmulatedTooltip {
     /** Boolean representing if the tooltip will fit on screen to the left of the element */
     get canShowLeft() { return this.node.offset().left - this.element.outerWidth() >= 0; }
     /** Boolean representing if the tooltip will fit on screen to the right of the element */
-	get canShowRight() { return this.node.offset().left + this.node.outerWidth() + this.element.outerWidth() <= _structs_screen__WEBPACK_IMPORTED_MODULE_1__["default"].width; }
+    get canShowRight() { return this.node.offset().left + this.node.outerWidth() + this.element.outerWidth() <= _structs_screen__WEBPACK_IMPORTED_MODULE_1__["default"].width; }
 
     /** Hides the tooltip. Automatically called on mouseleave. */
-	hide() {
+    hide() {
         this.element.remove();
         this.tooltipElement.className = this._className;
-	}
+    }
 
     /** Shows the tooltip. Automatically called on mouseenter. Will attempt to flip if position was wrong. */
-	show() {
+    show() {
         this.tooltipElement.className = `${modules__WEBPACK_IMPORTED_MODULE_0__["DiscordClasses"].Tooltips.tooltip} ${getClass(this.style)}`;
         this.labelElement.textContent = this.label;
-		this.element.appendTo(this.container);
+        this.element.appendTo(this.container);
 
-		if (this.side == "top") {
-			if (this.canShowAbove || (!this.canShowAbove && this.preventFlip)) this.showAbove();
-			else this.showBelow();
-		}
+        if (this.side == "top") {
+            if (this.canShowAbove || (!this.canShowAbove && this.preventFlip)) this.showAbove();
+            else this.showBelow();
+        }
 
-		if (this.side == "bottom") {
-			if (this.canShowBelow || (!this.canShowBelow && this.preventFlip)) this.showBelow();
-			else this.showAbove();
-		}
+        if (this.side == "bottom") {
+            if (this.canShowBelow || (!this.canShowBelow && this.preventFlip)) this.showBelow();
+            else this.showAbove();
+        }
 
-		if (this.side == "left") {
-			if (this.canShowLeft || (!this.canShowLeft && this.preventFlip)) this.showLeft();
-			else this.showRight();
-		}
+        if (this.side == "left") {
+            if (this.canShowLeft || (!this.canShowLeft && this.preventFlip)) this.showLeft();
+            else this.showRight();
+        }
 
-		if (this.side == "right") {
-			if (this.canShowRight || (!this.canShowRight && this.preventFlip)) this.showRight();
-			else this.showLeft();
-		}
-	}
+        if (this.side == "right") {
+            if (this.canShowRight || (!this.canShowRight && this.preventFlip)) this.showRight();
+            else this.showLeft();
+        }
+    }
 
     /** Force showing the tooltip above the node. */
-	showAbove() {
-		this.tooltipElement.addClass(getClass("top"));
-		this.element.css("top", toPx(this.node.offset().top - this.element.outerHeight() - 10));
-		this.centerHorizontally();
-	}
+    showAbove() {
+        this.tooltipElement.addClass(getClass("top"));
+        this.element.css("top", toPx(this.node.offset().top - this.element.outerHeight() - 10));
+        this.centerHorizontally();
+    }
 
     /** Force showing the tooltip below the node. */
-	showBelow() {
-		this.tooltipElement.addClass(getClass("bottom"));
-		this.element.css("top", toPx(this.node.offset().top + this.node.outerHeight() + 10));
-		this.centerHorizontally();
-	}
+    showBelow() {
+        this.tooltipElement.addClass(getClass("bottom"));
+        this.element.css("top", toPx(this.node.offset().top + this.node.outerHeight() + 10));
+        this.centerHorizontally();
+    }
 
     /** Force showing the tooltip to the left of the node. */
-	showLeft() {
-		this.tooltipElement.addClass(getClass("left"));
-		this.element.css("left", toPx(this.node.offset().left - this.element.outerWidth() - 10));
-		this.centerVertically();
-	}
+    showLeft() {
+        this.tooltipElement.addClass(getClass("left"));
+        this.element.css("left", toPx(this.node.offset().left - this.element.outerWidth() - 10));
+        this.centerVertically();
+    }
 
     /** Force showing the tooltip to the right of the node. */
-	showRight() {
-		this.tooltipElement.addClass(getClass("right"));
-		this.element.css("left", toPx(this.node.offset().left + this.node.outerWidth() + 10));
-		this.centerVertically();
-	}
+    showRight() {
+        this.tooltipElement.addClass(getClass("right"));
+        this.element.css("left", toPx(this.node.offset().left + this.node.outerWidth() + 10));
+        this.centerVertically();
+    }
 
-	centerHorizontally() {
-		const nodecenter = this.node.offset().left + (this.node.outerWidth() / 2);
-		this.element.css("left", toPx(nodecenter - (this.element.outerWidth() / 2)));
-	}
+    centerHorizontally() {
+        const nodecenter = this.node.offset().left + (this.node.outerWidth() / 2);
+        this.element.css("left", toPx(nodecenter - (this.element.outerWidth() / 2)));
+    }
 
-	centerVertically() {
-		const nodecenter = this.node.offset().top + (this.node.outerHeight() / 2);
-		this.element.css("top", toPx(nodecenter - (this.element.outerHeight() / 2)));
-	}
+    centerVertically() {
+        const nodecenter = this.node.offset().top + (this.node.outerHeight() / 2);
+        this.element.css("top", toPx(nodecenter - (this.element.outerHeight() / 2)));
+    }
 }
 
 /***/ }),
@@ -8235,12 +8233,12 @@ class Modals {
      * @param {string} body - text to show inside the modal
      */
     static showAlertModal(title, body) {
-		modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].ModalStack.push(function(props) {
-			return ce(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].AlertModal, Object.assign({
-				title: title,
-				body: body,
-			}, props));
-		});
+        modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].ModalStack.push(function(props) {
+            return ce(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].AlertModal, Object.assign({
+                title: title,
+                body: body,
+            }, props));
+        });
     }
 
     /**
@@ -8475,48 +8473,48 @@ __webpack_require__.r(__webpack_exports__);
  */
 class SettingField extends _structs_listenable__WEBPACK_IMPORTED_MODULE_0__["default"] {
     /**
-	 * @param {string} name - name label of the setting 
-	 * @param {string} note - help/note to show underneath or above the setting
-	 * @param {callable} onChange - callback to perform on setting change
-	 * @param {(ReactComponent|HTMLElement)} settingtype - actual setting to render 
-	 * @param {object} [props] - object of props to give to the setting and the settingtype
-	 * @param {boolean} [props.noteOnTop=false] - determines if the note should be shown above the element or not.
-	 */
-	constructor(name, note, onChange, settingtype, props = {}) {
-		super();
-		this.name = name;
-		this.note = note;
-		if (typeof(onChange) == "function") this.addListener(onChange);
-		this.inputWrapper = modules__WEBPACK_IMPORTED_MODULE_1__["DOMTools"].parseHTML(`<div class="plugin-input-container"></div>`);
-		this.type = typeof(settingtype) == "function" ? settingtype : modules__WEBPACK_IMPORTED_MODULE_1__["ReactTools"].wrapElement(settingtype);
-		this.props = props;
-		modules__WEBPACK_IMPORTED_MODULE_1__["DOMTools"].onAdded(this.getElement(), () => {this.onAdded();});
-		modules__WEBPACK_IMPORTED_MODULE_1__["DOMTools"].onRemoved(this.getElement(), () => {this.onRemoved();});
-	}
+     * @param {string} name - name label of the setting 
+     * @param {string} note - help/note to show underneath or above the setting
+     * @param {callable} onChange - callback to perform on setting change
+     * @param {(ReactComponent|HTMLElement)} settingtype - actual setting to render 
+     * @param {object} [props] - object of props to give to the setting and the settingtype
+     * @param {boolean} [props.noteOnTop=false] - determines if the note should be shown above the element or not.
+     */
+    constructor(name, note, onChange, settingtype, props = {}) {
+        super();
+        this.name = name;
+        this.note = note;
+        if (typeof(onChange) == "function") this.addListener(onChange);
+        this.inputWrapper = modules__WEBPACK_IMPORTED_MODULE_1__["DOMTools"].parseHTML(`<div class="plugin-input-container"></div>`);
+        this.type = typeof(settingtype) == "function" ? settingtype : modules__WEBPACK_IMPORTED_MODULE_1__["ReactTools"].wrapElement(settingtype);
+        this.props = props;
+        modules__WEBPACK_IMPORTED_MODULE_1__["DOMTools"].onAdded(this.getElement(), () => {this.onAdded();});
+        modules__WEBPACK_IMPORTED_MODULE_1__["DOMTools"].onRemoved(this.getElement(), () => {this.onRemoved();});
+    }
 
-	/** @returns {HTMLElement} - root element for setting */
-	getElement() { return this.inputWrapper; }
+    /** @returns {HTMLElement} - root element for setting */
+    getElement() { return this.inputWrapper; }
 
-	/** Fires onchange to listeners */
-	onChange() {
-		this.alertListeners(...arguments);
-	}
+    /** Fires onchange to listeners */
+    onChange() {
+        this.alertListeners(...arguments);
+    }
 
-	/** Fired when root node added to DOM */
-	onAdded() {
-		const reactElement = modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].ReactDOM.render(modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].React.createElement(ReactSetting, Object.assign({
-			title: this.name,
-			type: this.type,
-			note: this.note,
-		}, this.props)), this.getElement());
+    /** Fired when root node added to DOM */
+    onAdded() {
+        const reactElement = modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].ReactDOM.render(modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].React.createElement(ReactSetting, Object.assign({
+            title: this.name,
+            type: this.type,
+            note: this.note,
+        }, this.props)), this.getElement());
 
-		if (this.props.onChange) reactElement.props.onChange = this.props.onChange(reactElement);
-		reactElement.forceUpdate();
-	}
+        if (this.props.onChange) reactElement.props.onChange = this.props.onChange(reactElement);
+        reactElement.forceUpdate();
+    }
 
-	/** Fired when root node removed from DOM */
-	onRemoved() {
-		modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].ReactDOM.unmountComponentAtNode(this.getElement());
+    /** Fired when root node removed from DOM */
+    onRemoved() {
+        modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].ReactDOM.unmountComponentAtNode(this.getElement());
     }
 }
 
@@ -8535,32 +8533,32 @@ class ReactSetting extends modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"
     get dividerElement() { return modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].React.createElement("div", {className: modules__WEBPACK_IMPORTED_MODULE_1__["DiscordClasses"].Dividers.divider.add(modules__WEBPACK_IMPORTED_MODULE_1__["DiscordClasses"].Dividers.dividerDefault).toString()}); }
 
     render() {
-		const ce = modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].React.createElement;
-		const SettingElement = ce(this.props.type, this.props);
-		if (this.props.inline) {
-			const Flex = modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].FlexChild;
-			const titleDefault = modules__WEBPACK_IMPORTED_MODULE_1__["WebpackModules"].getByProps("titleDefault") ? modules__WEBPACK_IMPORTED_MODULE_1__["WebpackModules"].getByProps("titleDefault").titleDefault : "titleDefault-a8-ZSr title-31JmR4 da-titleDefault da-title";
-			return ce(Flex, {direction: Flex.Direction.VERTICAL},
-			ce(Flex, {align: Flex.Align.START}, 
-				ce(Flex.Child, {wrap: !0},
-					ce("div", {className: titleDefault}, this.props.title)
-				),
-				ce(Flex.Child, {grow: 0, shrink: 0}, SettingElement)
-			),
-			this.noteElement,
-			this.dividerElement
-			);
-		}
+        const ce = modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].React.createElement;
+        const SettingElement = ce(this.props.type, this.props);
+        if (this.props.inline) {
+            const Flex = modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].FlexChild;
+            const titleDefault = modules__WEBPACK_IMPORTED_MODULE_1__["WebpackModules"].getByProps("titleDefault") ? modules__WEBPACK_IMPORTED_MODULE_1__["WebpackModules"].getByProps("titleDefault").titleDefault : "titleDefault-a8-ZSr title-31JmR4 da-titleDefault da-title";
+            return ce(Flex, {direction: Flex.Direction.VERTICAL},
+            ce(Flex, {align: Flex.Align.START}, 
+                ce(Flex.Child, {wrap: !0},
+                    ce("div", {className: titleDefault}, this.props.title)
+                ),
+                ce(Flex.Child, {grow: 0, shrink: 0}, SettingElement)
+            ),
+            this.noteElement,
+            this.dividerElement
+            );
+        }
         
         return ce(modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].SettingsWrapper, {
-			className: modules__WEBPACK_IMPORTED_MODULE_1__["DiscordClasses"].Margins.marginBottom20.toString(),
-			title: this.props.title,
-			children: [
-				this.props.noteOnTop ? this.noteElement : SettingElement,
-				this.props.noteOnTop ? SettingElement : this.noteElement,
-				this.dividerElement
-			]
-		});
+            className: modules__WEBPACK_IMPORTED_MODULE_1__["DiscordClasses"].Margins.marginBottom20.toString(),
+            title: this.props.title,
+            children: [
+                this.props.noteOnTop ? this.noteElement : SettingElement,
+                this.props.noteOnTop ? SettingElement : this.noteElement,
+                this.dividerElement
+            ]
+        });
     }
 }
 
@@ -8593,89 +8591,89 @@ class SettingGroup extends _structs_listenable__WEBPACK_IMPORTED_MODULE_0__["def
     /**
      * @param {string} groupName - title for the group of settings
      * @param {object} [options] - additional options for the group
-	 * @param {callback} [options.callback] - callback called on settings changed
+     * @param {callback} [options.callback] - callback called on settings changed
      * @param {boolean} [options.collapsible=true] - determines if the group should be collapsible
      * @param {boolean} [options.shown=false] - determines if the group should be expanded by default
      */
-	constructor(groupName, options = {}) {
-		super();
-		const {collapsible = true, shown = false, callback = () => {}} = options;
-		this.addListener(callback);
-		this.onChange = this.onChange.bind(this);
+    constructor(groupName, options = {}) {
+        super();
+        const {collapsible = true, shown = false, callback = () => {}} = options;
+        this.addListener(callback);
+        this.onChange = this.onChange.bind(this);
 
-		const collapsed = shown || !collapsible ? "" : "collapsed";
-		const group = modules__WEBPACK_IMPORTED_MODULE_1__["DOMTools"].parseHTML(`<div class="plugin-input-group">
-											<h2 class="${modules__WEBPACK_IMPORTED_MODULE_1__["DiscordClasses"].Titles.h5} ${modules__WEBPACK_IMPORTED_MODULE_1__["DiscordClasses"].Titles.defaultMarginh5} ${modules__WEBPACK_IMPORTED_MODULE_1__["DiscordClasses"].Titles.defaultColor}">
-											<span class="button-collapse ${collapsed}"></span> ${groupName}
-											</h2>
-											<div class="plugin-inputs collapsible ${collapsed}"></div>
-											</div>`);
-		const label = group.querySelector("h2");
-		const controls = group.querySelector(".plugin-inputs");
+        const collapsed = shown || !collapsible ? "" : "collapsed";
+        const group = modules__WEBPACK_IMPORTED_MODULE_1__["DOMTools"].parseHTML(`<div class="plugin-input-group">
+                                            <h2 class="${modules__WEBPACK_IMPORTED_MODULE_1__["DiscordClasses"].Titles.h5} ${modules__WEBPACK_IMPORTED_MODULE_1__["DiscordClasses"].Titles.defaultMarginh5} ${modules__WEBPACK_IMPORTED_MODULE_1__["DiscordClasses"].Titles.defaultColor}">
+                                            <span class="button-collapse ${collapsed}"></span> ${groupName}
+                                            </h2>
+                                            <div class="plugin-inputs collapsible ${collapsed}"></div>
+                                            </div>`);
+        const label = group.querySelector("h2");
+        const controls = group.querySelector(".plugin-inputs");
 
-		this.group = group;
-		this.label = label;
-		this.controls = controls;
+        this.group = group;
+        this.label = label;
+        this.controls = controls;
 
-		if (!collapsible) return;
-		label.addEventListener("click", async () => {
-			const button = label.querySelector(".button-collapse");
-			const wasCollapsed = button.classList.contains("collapsed");
-			group.parentElement.querySelectorAll(":scope > .plugin-input-group > .collapsible:not(.collapsed)").forEach((element) => {
-				element.style.setProperty("height", element.scrollHeight + "px");
-				element.classList.add("collapsed");
-				setImmediate(() => {element.style.setProperty("height", "");});
-			});
-			group.parentElement.querySelectorAll(":scope > .plugin-input-group > h2 > .button-collapse").forEach(e => e.classList.add("collapsed"));
-			if (!wasCollapsed) return;
-			controls.style.setProperty("height", controls.scrollHeight + "px");
-			controls.classList.remove("collapsed");
-			button.classList.remove("collapsed");
-			await new Promise(resolve => setTimeout(resolve, 300));
-			controls.style.setProperty("height", "");
-		});
-	}
+        if (!collapsible) return;
+        label.addEventListener("click", async () => {
+            const button = label.querySelector(".button-collapse");
+            const wasCollapsed = button.classList.contains("collapsed");
+            group.parentElement.querySelectorAll(":scope > .plugin-input-group > .collapsible:not(.collapsed)").forEach((element) => {
+                element.style.setProperty("height", element.scrollHeight + "px");
+                element.classList.add("collapsed");
+                setImmediate(() => {element.style.setProperty("height", "");});
+            });
+            group.parentElement.querySelectorAll(":scope > .plugin-input-group > h2 > .button-collapse").forEach(e => e.classList.add("collapsed"));
+            if (!wasCollapsed) return;
+            controls.style.setProperty("height", controls.scrollHeight + "px");
+            controls.classList.remove("collapsed");
+            button.classList.remove("collapsed");
+            await new Promise(resolve => setTimeout(resolve, 300));
+            controls.style.setProperty("height", "");
+        });
+    }
     
     /** @returns {HTMLElement} - root node for the group. */
-	getElement() {return this.group;}
+    getElement() {return this.group;}
     
     /**
      * Adds multiple nodes to this group.
      * @param {(...HTMLElement|...jQuery|...module:Settings.SettingField|...module:Settings.SettingGroup)} nodes - list of nodes to add to the group container 
      * @returns {module:Settings.SettingGroup} - returns self for chaining
      */
-	append(...nodes) {
-		for (let i = 0; i < nodes.length; i++) {
-			if (nodes[i] instanceof jQuery || nodes[i] instanceof Element) this.controls.append(nodes[i]);
-			else if (nodes[i] instanceof _settingfield__WEBPACK_IMPORTED_MODULE_2__["default"] || nodes[i] instanceof SettingGroup) this.controls.append(nodes[i].getElement());
-			if (nodes[i] instanceof _settingfield__WEBPACK_IMPORTED_MODULE_2__["default"]) {
-				nodes[i].addListener(((node) => (value) => {
-					this.onChange(node.id || node.name, value);
-				})(nodes[i]));
-			}
-			else if (nodes[i] instanceof SettingGroup) {
-				nodes[i].addListener(((node) => (settingId, value) => {
-					this.onChange(node.id || node.name, settingId, value);
-				})(nodes[i]));
-			}
-		}
-		return this;
-	}
+    append(...nodes) {
+        for (let i = 0; i < nodes.length; i++) {
+            if (nodes[i] instanceof jQuery || nodes[i] instanceof Element) this.controls.append(nodes[i]);
+            else if (nodes[i] instanceof _settingfield__WEBPACK_IMPORTED_MODULE_2__["default"] || nodes[i] instanceof SettingGroup) this.controls.append(nodes[i].getElement());
+            if (nodes[i] instanceof _settingfield__WEBPACK_IMPORTED_MODULE_2__["default"]) {
+                nodes[i].addListener(((node) => (value) => {
+                    this.onChange(node.id || node.name, value);
+                })(nodes[i]));
+            }
+            else if (nodes[i] instanceof SettingGroup) {
+                nodes[i].addListener(((node) => (settingId, value) => {
+                    this.onChange(node.id || node.name, settingId, value);
+                })(nodes[i]));
+            }
+        }
+        return this;
+    }
     
     /**
      * Appends this node to another
      * @param {HTMLElement} node - node to attach the group to.
      * @returns {module:Settings.SettingGroup} - returns self for chaining
      */
-	appendTo(node) {
-		node.append(this.group);
-		return this;
-	}
+    appendTo(node) {
+        node.append(this.group);
+        return this;
+    }
 
-	/** Fires onchange to listeners */
-	onChange() {
-		this.alertListeners(...arguments);
-	}
+    /** Fires onchange to listeners */
+    onChange() {
+        this.alertListeners(...arguments);
+    }
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (SettingGroup);
@@ -8707,59 +8705,59 @@ __webpack_require__.r(__webpack_exports__);
  */
 class SettingPanel extends _structs_listenable__WEBPACK_IMPORTED_MODULE_0__["default"] {
 
-	/**
-	 * Creates a new settings panel
-	 * @param {callable} onChange - callback to fire when settings change
-	 * @param {(...HTMLElement|...jQuery|...module:Settings.SettingField|...module:Settings.SettingGroup)} nodes  - list of nodes to add to the panel container 
-	 */
-	constructor(onChange, ...nodes) {
-		super();
-		this.element = modules__WEBPACK_IMPORTED_MODULE_1__["DOMTools"].parseHTML(`<div class="plugin-form-container"></div>`);	
-		if (typeof(onChange) == "function") this.addListener(onChange);
+    /**
+     * Creates a new settings panel
+     * @param {callable} onChange - callback to fire when settings change
+     * @param {(...HTMLElement|...jQuery|...module:Settings.SettingField|...module:Settings.SettingGroup)} nodes  - list of nodes to add to the panel container 
+     */
+    constructor(onChange, ...nodes) {
+        super();
+        this.element = modules__WEBPACK_IMPORTED_MODULE_1__["DOMTools"].parseHTML(`<div class="plugin-form-container"></div>`);
+        if (typeof(onChange) == "function") this.addListener(onChange);
         this.onChange = this.onChange.bind(this);
         this.append(...nodes);
     }
-	
-	/**
-	 * Creates a new settings panel
-	 * @param {callable} onChange - callback to fire when settings change
-	 * @param {(...HTMLElement|...jQuery|...module:Settings.SettingField|...module:Settings.SettingGroup)} nodes  - list of nodes to add to the panel container 
-	 * @returns {HTMLElement} - root node for the panel.
-	 */
+    
+    /**
+     * Creates a new settings panel
+     * @param {callable} onChange - callback to fire when settings change
+     * @param {(...HTMLElement|...jQuery|...module:Settings.SettingField|...module:Settings.SettingGroup)} nodes  - list of nodes to add to the panel container 
+     * @returns {HTMLElement} - root node for the panel.
+     */
     static build(onChange, ...nodes) {
         return (new SettingPanel(onChange, ...nodes)).getElement();
     }
-	
-	/** @returns {HTMLElement} - root node for the panel. */
-	getElement() {return this.element;}
+    
+    /** @returns {HTMLElement} - root node for the panel. */
+    getElement() {return this.element;}
 
-	/**
+    /**
      * Adds multiple nodes to this panel.
      * @param {(...HTMLElement|...jQuery|...SettingField|...SettingGroup)} nodes - list of nodes to add to the panel container 
      * @returns {module:Settings.SettingPanel} - returns self for chaining
      */
-	append(...nodes) {
-		for (let i = 0; i < nodes.length; i++) {
-			if (nodes[i] instanceof jQuery || nodes[i] instanceof Element) this.element.append(nodes[i]);
-			else if (nodes[i] instanceof _settingfield__WEBPACK_IMPORTED_MODULE_2__["default"] || nodes[i] instanceof _settinggroup__WEBPACK_IMPORTED_MODULE_3__["default"]) this.element.append(nodes[i].getElement());
-			if (nodes[i] instanceof _settingfield__WEBPACK_IMPORTED_MODULE_2__["default"]) {
-				nodes[i].addListener(((node) => (value) => {
-					this.onChange(node.id || node.name, value);
-				})(nodes[i]));
-			}
-			else if (nodes[i] instanceof _settinggroup__WEBPACK_IMPORTED_MODULE_3__["default"]) {
-				nodes[i].addListener(((node) => (settingId, value) => {
-					this.onChange(node.id || node.name, settingId, value);
-				})(nodes[i]));
-			}
-		}
-		return this;
-	}
+    append(...nodes) {
+        for (let i = 0; i < nodes.length; i++) {
+            if (nodes[i] instanceof jQuery || nodes[i] instanceof Element) this.element.append(nodes[i]);
+            else if (nodes[i] instanceof _settingfield__WEBPACK_IMPORTED_MODULE_2__["default"] || nodes[i] instanceof _settinggroup__WEBPACK_IMPORTED_MODULE_3__["default"]) this.element.append(nodes[i].getElement());
+            if (nodes[i] instanceof _settingfield__WEBPACK_IMPORTED_MODULE_2__["default"]) {
+                nodes[i].addListener(((node) => (value) => {
+                    this.onChange(node.id || node.name, value);
+                })(nodes[i]));
+            }
+            else if (nodes[i] instanceof _settinggroup__WEBPACK_IMPORTED_MODULE_3__["default"]) {
+                nodes[i].addListener(((node) => (settingId, value) => {
+                    this.onChange(node.id || node.name, settingId, value);
+                })(nodes[i]));
+            }
+        }
+        return this;
+    }
 
-	/** Fires onchange to listeners */
-	onChange() {
-		this.alertListeners(...arguments);
-	}
+    /** Fires onchange to listeners */
+    onChange() {
+        this.alertListeners(...arguments);
+    }
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (SettingPanel);
@@ -8792,39 +8790,39 @@ const presetColors = [1752220, 3066993, 3447003, 10181046, 15277667, 15844367, 1
  */
 class ColorPicker extends _settingfield__WEBPACK_IMPORTED_MODULE_0__["default"] {
     /**
-	 * @param {string} name - name label of the setting 
-	 * @param {string} note - help/note to show underneath or above the setting
-	 * @param {string} value - current hex color
-	 * @param {callable} onChange - callback to perform on setting change, callback receives hex string
-	 * @param {object} [options] - object of options to give to the setting
-	 * @param {boolean} [options.disabled=false] - should the setting be disabled
-	 * @param {Array<number>} [options.colors=presetColors] - preset list of colors
-	 */
-	constructor(name, note, value, onChange, options = {}) {
-		// super(name, note, onChange, DiscordModules.ColorPicker, {
-		// 	disabled: options.disabled ? true : false,
-		// 	onChange: reactElement => color => {
-		// 		reactElement.props.value = color;
-		// 		reactElement.forceUpdate();
-		// 		this.onChange(ColorConverter.int2hex(color));
-		// 	},
-		// 	colors: Array.isArray(options.colors) ? options.colors : presetColors,
-		// 	defaultColor: typeof(value) == "number" ? value : ColorConverter.hex2int(value),
-		// 	value: 0
-		// });
-		const classes = ["color-input"];
-		if (options.disabled) classes.push(modules__WEBPACK_IMPORTED_MODULE_1__["DiscordClasses"].BasicInputs.disabled);
-		const ReactColorPicker = modules__WEBPACK_IMPORTED_MODULE_1__["DOMTools"].parseHTML(`<input type="color" class="${classes.join(" ")}">`);
-		if (options.disabled) ReactColorPicker.setAttribute("disabled", "");
-		if (value) ReactColorPicker.setAttribute("value", value);
-		ReactColorPicker.addEventListener("change", (event) => {
-			this.onChange(event.target.value);
-		});
-		super(name, note, onChange, ReactColorPicker, {inline: true});
-	}
+     * @param {string} name - name label of the setting 
+     * @param {string} note - help/note to show underneath or above the setting
+     * @param {string} value - current hex color
+     * @param {callable} onChange - callback to perform on setting change, callback receives hex string
+     * @param {object} [options] - object of options to give to the setting
+     * @param {boolean} [options.disabled=false] - should the setting be disabled
+     * @param {Array<number>} [options.colors=presetColors] - preset list of colors
+     */
+    constructor(name, note, value, onChange, options = {}) {
+        // super(name, note, onChange, DiscordModules.ColorPicker, {
+        //  disabled: options.disabled ? true : false,
+        //  onChange: reactElement => color => {
+        //      reactElement.props.value = color;
+        //      reactElement.forceUpdate();
+        //      this.onChange(ColorConverter.int2hex(color));
+        //  },
+        //  colors: Array.isArray(options.colors) ? options.colors : presetColors,
+        //  defaultColor: typeof(value) == "number" ? value : ColorConverter.hex2int(value),
+        //  value: 0
+        // });
+        const classes = ["color-input"];
+        if (options.disabled) classes.push(modules__WEBPACK_IMPORTED_MODULE_1__["DiscordClasses"].BasicInputs.disabled);
+        const ReactColorPicker = modules__WEBPACK_IMPORTED_MODULE_1__["DOMTools"].parseHTML(`<input type="color" class="${classes.join(" ")}">`);
+        if (options.disabled) ReactColorPicker.setAttribute("disabled", "");
+        if (value) ReactColorPicker.setAttribute("value", value);
+        ReactColorPicker.addEventListener("change", (event) => {
+            this.onChange(event.target.value);
+        });
+        super(name, note, onChange, ReactColorPicker, {inline: true});
+    }
 
-	/** Default colors for ColorPicker */
-	static get presetColors() {return presetColors;}
+    /** Default colors for ColorPicker */
+    static get presetColors() {return presetColors;}
 }
 
 
@@ -8862,31 +8860,31 @@ __webpack_require__.r(__webpack_exports__);
  */
 class Dropdown extends _settingfield__WEBPACK_IMPORTED_MODULE_0__["default"] {
     /**
-	 * @param {string} name - name label of the setting 
-	 * @param {string} note - help/note to show underneath or above the setting
-	 * @param {*} defaultValue - currently selected value
-	 * @param {Array<module:Settings~DropdownItem>} values - array of all options available
-	 * @param {callable} onChange - callback to perform on setting change, callback item value
-	 * @param {object} [options] - object of options to give to the setting
-	 * @param {boolean} [options.clearable=false] - should be able to empty the field value
-	 * @param {boolean} [options.searchable=false] - should user be able to search the dropdown
-	 * @param {boolean} [options.disabled=false] - should the setting be disabled
-	 */
-	constructor(name, note, defaultValue, values, onChange, options = {}) {
-		const {clearable = false, searchable = false, disabled = false} = options;
-		super(name, note, onChange, modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].Dropdown, {
-			clearable: clearable,
-			searchable: searchable,
-			disabled: disabled,
-			options: values,
-			onChange: dropdown => opt => {
-				dropdown.props.value = opt.value;
-				dropdown.forceUpdate();
-				this.onChange(opt.value);
-			},
-			value: defaultValue
-		});
-	}
+     * @param {string} name - name label of the setting 
+     * @param {string} note - help/note to show underneath or above the setting
+     * @param {*} defaultValue - currently selected value
+     * @param {Array<module:Settings~DropdownItem>} values - array of all options available
+     * @param {callable} onChange - callback to perform on setting change, callback item value
+     * @param {object} [options] - object of options to give to the setting
+     * @param {boolean} [options.clearable=false] - should be able to empty the field value
+     * @param {boolean} [options.searchable=false] - should user be able to search the dropdown
+     * @param {boolean} [options.disabled=false] - should the setting be disabled
+     */
+    constructor(name, note, defaultValue, values, onChange, options = {}) {
+        const {clearable = false, searchable = false, disabled = false} = options;
+        super(name, note, onChange, modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].Dropdown, {
+            clearable: clearable,
+            searchable: searchable,
+            disabled: disabled,
+            options: values,
+            onChange: dropdown => opt => {
+                dropdown.props.value = opt.value;
+                dropdown.forceUpdate();
+                this.onChange(opt.value);
+            },
+            value: defaultValue
+        });
+    }
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (Dropdown);
@@ -8915,26 +8913,26 @@ __webpack_require__.r(__webpack_exports__);
  */
 class FilePicker extends _settingfield__WEBPACK_IMPORTED_MODULE_0__["default"] {
     /**
-	 * @param {string} name - name label of the setting 
-	 * @param {string} note - help/note to show underneath or above the setting
-	 * @param {callable} onChange - callback to perform on setting change, callback receives File object
-	 * @param {object} [options] - object of options to give to the setting
-	 * @param {boolean} [options.disabled=false] - should the setting be disabled
-	 * @param {Array<string>|string} [options.accept] - what file types should be accepted
-	 * @param {boolean} [options.multiple=false] - should multiple files be accepted
-	 */
-	constructor(name, note, onChange, options = {}) {
-		const classes = modules__WEBPACK_IMPORTED_MODULE_1__["DiscordClasses"].BasicInputs.inputDefault.add("file-input");
-		if (options.disabled) classes.add(modules__WEBPACK_IMPORTED_MODULE_1__["DiscordClasses"].BasicInputs.disabled);
-		const ReactFilePicker = modules__WEBPACK_IMPORTED_MODULE_1__["DOMTools"].parseHTML(`<input type="file" class="${classes}">`);
-		if (options.disabled) ReactFilePicker.setAttribute("disabled", "");
-		if (options.multiple) ReactFilePicker.setAttribute("multiple", "");
-		if (options.accept) ReactFilePicker.setAttribute("accept", Array.isArray(options.accept) ? options.accept.join(",") : options.accept);
-		ReactFilePicker.addEventListener("change", (event) => {
-			this.onChange(event.target.files[0]);
-		});
-		super(name, note, onChange, ReactFilePicker);
-	}
+     * @param {string} name - name label of the setting 
+     * @param {string} note - help/note to show underneath or above the setting
+     * @param {callable} onChange - callback to perform on setting change, callback receives File object
+     * @param {object} [options] - object of options to give to the setting
+     * @param {boolean} [options.disabled=false] - should the setting be disabled
+     * @param {Array<string>|string} [options.accept] - what file types should be accepted
+     * @param {boolean} [options.multiple=false] - should multiple files be accepted
+     */
+    constructor(name, note, onChange, options = {}) {
+        const classes = modules__WEBPACK_IMPORTED_MODULE_1__["DiscordClasses"].BasicInputs.inputDefault.add("file-input");
+        if (options.disabled) classes.add(modules__WEBPACK_IMPORTED_MODULE_1__["DiscordClasses"].BasicInputs.disabled);
+        const ReactFilePicker = modules__WEBPACK_IMPORTED_MODULE_1__["DOMTools"].parseHTML(`<input type="file" class="${classes}">`);
+        if (options.disabled) ReactFilePicker.setAttribute("disabled", "");
+        if (options.multiple) ReactFilePicker.setAttribute("multiple", "");
+        if (options.accept) ReactFilePicker.setAttribute("accept", Array.isArray(options.accept) ? options.accept.join(",") : options.accept);
+        ReactFilePicker.addEventListener("change", (event) => {
+            this.onChange(event.target.files[0]);
+        });
+        super(name, note, onChange, ReactFilePicker);
+    }
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (FilePicker);
@@ -8963,15 +8961,15 @@ __webpack_require__.r(__webpack_exports__);
  */
 class Keybind extends _settingfield__WEBPACK_IMPORTED_MODULE_0__["default"] {
     /**
-	 * @param {string} name - name label of the setting 
-	 * @param {string} note - help/note to show underneath or above the setting
-	 * @param {Array<number>} value - array of keycodes
-	 * @param {callable} onChange - callback to perform on setting change, callback receives array of keycodes
-	 * @param {object} [options] - object of options to give to the setting
-	 * @param {boolean} [options.disabled=false] - should the setting be disabled
-	 */    
+     * @param {string} name - name label of the setting 
+     * @param {string} note - help/note to show underneath or above the setting
+     * @param {Array<number>} value - array of keycodes
+     * @param {callable} onChange - callback to perform on setting change, callback receives array of keycodes
+     * @param {object} [options] - object of options to give to the setting
+     * @param {boolean} [options.disabled=false] - should the setting be disabled
+     */    
     constructor(label, help, value, onChange, options = {}) {
-        const {disabled=false} = options;
+        const {disabled = false} = options;
         super(label, help, onChange, modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].Keybind, {
             disabled: disabled,
             defaultValue: value.map(a => [0, a]),
@@ -9019,27 +9017,27 @@ __webpack_require__.r(__webpack_exports__);
  */
 class RadioGroup extends _settingfield__WEBPACK_IMPORTED_MODULE_0__["default"] {
     /**
-	 * @param {string} name - name label of the setting 
-	 * @param {string} note - help/note to show underneath or above the setting
-	 * @param {*} defaultValue - currently selected value
-	 * @param {Array<module:Settings~RadioItem>} values - array of all options available
-	 * @param {callable} onChange - callback to perform on setting change, callback item value
-	 * @param {object} [options] - object of options to give to the setting
-	 * @param {boolean} [options.disabled=false] - should the setting be disabled
-	 */
-	constructor(name, note, defaultValue, values, onChange, options = {}) {
-		super(name, note, onChange, modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].RadioGroup, {
-			noteOnTop: true,
-			disabled: options.disabled ? true : false,
-			options: values,
-			onChange: reactElement => option => {
-				reactElement.props.value = option.value;
-				reactElement.forceUpdate();
-				this.onChange(option.value);
-			},
-			value: defaultValue
-		});
-	}
+     * @param {string} name - name label of the setting 
+     * @param {string} note - help/note to show underneath or above the setting
+     * @param {*} defaultValue - currently selected value
+     * @param {Array<module:Settings~RadioItem>} values - array of all options available
+     * @param {callable} onChange - callback to perform on setting change, callback item value
+     * @param {object} [options] - object of options to give to the setting
+     * @param {boolean} [options.disabled=false] - should the setting be disabled
+     */
+    constructor(name, note, defaultValue, values, onChange, options = {}) {
+        super(name, note, onChange, modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].RadioGroup, {
+            noteOnTop: true,
+            disabled: options.disabled ? true : false,
+            options: values,
+            onChange: reactElement => option => {
+                reactElement.props.value = option.value;
+                reactElement.forceUpdate();
+                this.onChange(option.value);
+            },
+            value: defaultValue
+        });
+    }
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (RadioGroup);
@@ -9072,35 +9070,35 @@ __webpack_require__.r(__webpack_exports__);
  */
 class Slider extends _settingfield__WEBPACK_IMPORTED_MODULE_0__["default"] {
    /**
-	* 
-	* @param {string} name - name label of the setting 
-	* @param {string} note - help/note to show underneath or above the setting
-	* @param {number} min - minimum value allowed
-	* @param {number} max - maximum value allowed
-	* @param {number} value - currently selected value
-	* @param {callable} onChange - callback to fire when setting is changed, callback receives number
-	* @param {object} [options] - object of options to give to the setting
-	* @param {boolean} [options.disabled=false] - should the setting be disabled
-	* @param {object} [options.fillStyles] - object of css styles to add to active slider
-	* @param {Array<number>} [options.markers] - array of vertical markers to show on the slider
-	* @param {boolean} [options.stickToMarkers] - should the slider be forced to use markers
-	* @param {boolean} [options.equidistant] - should the markers be scaled to be equidistant
-	*/
-	constructor(name, note, min, max, value, onChange, options = {}) {
-		const props =  {
-			onChange: _ => _,
-			initialValue: value,
-			disabled: options.disabled ? true : false,
-			minValue: min,
-			maxValue: max,
-			handleSize: 10
-		};
-		if (options.fillStyles) props.fillStyles = options.fillStyles;
-		if (options.markers) props.markers = options.markers;
-		if (options.stickToMarkers) props.stickToMarkers = options.stickToMarkers;
-		if (typeof(options.equidistant) != "undefined") props.equidistant = options.equidistant;
-		super(name, note, onChange, modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].Slider, Object.assign(props, {onValueChange: v => this.onChange(v)}));
-	}
+    * 
+    * @param {string} name - name label of the setting 
+    * @param {string} note - help/note to show underneath or above the setting
+    * @param {number} min - minimum value allowed
+    * @param {number} max - maximum value allowed
+    * @param {number} value - currently selected value
+    * @param {callable} onChange - callback to fire when setting is changed, callback receives number
+    * @param {object} [options] - object of options to give to the setting
+    * @param {boolean} [options.disabled=false] - should the setting be disabled
+    * @param {object} [options.fillStyles] - object of css styles to add to active slider
+    * @param {Array<number>} [options.markers] - array of vertical markers to show on the slider
+    * @param {boolean} [options.stickToMarkers] - should the slider be forced to use markers
+    * @param {boolean} [options.equidistant] - should the markers be scaled to be equidistant
+    */
+    constructor(name, note, min, max, value, onChange, options = {}) {
+        const props =  {
+            onChange: _ => _,
+            initialValue: value,
+            disabled: options.disabled ? true : false,
+            minValue: min,
+            maxValue: max,
+            handleSize: 10
+        };
+        if (options.fillStyles) props.fillStyles = options.fillStyles;
+        if (options.markers) props.markers = options.markers;
+        if (options.stickToMarkers) props.stickToMarkers = options.stickToMarkers;
+        if (typeof(options.equidistant) != "undefined") props.equidistant = options.equidistant;
+        super(name, note, onChange, modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].Slider, Object.assign(props, {onValueChange: v => this.onChange(v)}));
+    }
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (Slider);
@@ -9131,34 +9129,34 @@ __webpack_require__.r(__webpack_exports__);
  */
 class Switch extends _settingfield__WEBPACK_IMPORTED_MODULE_0__["default"] {
     /**
-	 * @param {string} name - name label of the setting 
-	 * @param {string} note - help/note to show underneath or above the setting
-	 * @param {boolean} isChecked - should switch be checked
-	 * @param {callable} onChange - callback to perform on setting change, callback receives boolean
-	 * @param {object} [options] - object of options to give to the setting
-	 * @param {boolean} [options.disabled=false] - should the setting be disabled
-	 */
-	constructor(name, note, isChecked, onChange, options = {}) {
-		super(name, note, onChange);
-		this.disabled = options.disabled ? true : false;
-		this.value = isChecked ? true : false;
-	}
+     * @param {string} name - name label of the setting 
+     * @param {string} note - help/note to show underneath or above the setting
+     * @param {boolean} isChecked - should switch be checked
+     * @param {callable} onChange - callback to perform on setting change, callback receives boolean
+     * @param {object} [options] - object of options to give to the setting
+     * @param {boolean} [options.disabled=false] - should the setting be disabled
+     */
+    constructor(name, note, isChecked, onChange, options = {}) {
+        super(name, note, onChange);
+        this.disabled = options.disabled ? true : false;
+        this.value = isChecked ? true : false;
+    }
 
-	onAdded() {
-		const reactElement = modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].ReactDOM.render(modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].React.createElement(modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].SwitchRow, {
-			children: this.name,
-			note: this.note,
-			disabled: this.disabled,
-			hideBorder: false,
-			value: this.value,
-			onChange: (e) => {
-				const checked = e.currentTarget.checked;
-				reactElement.props.value = checked;
-				reactElement.forceUpdate();
-				this.onChange(checked);
-			}
-		}), this.getElement());
-	}
+    onAdded() {
+        const reactElement = modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].ReactDOM.render(modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].React.createElement(modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].SwitchRow, {
+            children: this.name,
+            note: this.note,
+            disabled: this.disabled,
+            hideBorder: false,
+            value: this.value,
+            onChange: (e) => {
+                const checked = e.currentTarget.checked;
+                reactElement.props.value = checked;
+                reactElement.forceUpdate();
+                this.onChange(checked);
+            }
+        }), this.getElement());
+    }
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (Switch);
@@ -9189,16 +9187,16 @@ __webpack_require__.r(__webpack_exports__);
  */
 class Textbox extends _settingfield__WEBPACK_IMPORTED_MODULE_0__["default"] {
     /**
-	 * @param {string} name - name label of the setting 
-	 * @param {string} note - help/note to show underneath or above the setting
-	 * @param {string} value - current text in box
-	 * @param {callable} onChange - callback to perform on setting change, callback receives text
-	 * @param {object} [options] - object of options to give to the setting
-	 * @param {string} [options.placeholder=""] - placeholder for when textbox is empty
-	 * @param {boolean} [options.disabled=false] - should the setting be disabled
-	 */
+     * @param {string} name - name label of the setting 
+     * @param {string} note - help/note to show underneath or above the setting
+     * @param {string} value - current text in box
+     * @param {callable} onChange - callback to perform on setting change, callback receives text
+     * @param {object} [options] - object of options to give to the setting
+     * @param {string} [options.placeholder=""] - placeholder for when textbox is empty
+     * @param {boolean} [options.disabled=false] - should the setting be disabled
+     */
     constructor(name, note, value, onChange, options = {}) {
-        const {placeholder = "", disabled=false} = options;
+        const {placeholder = "", disabled = false} = options;
         super(name, note, onChange, modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].Textbox, {
             onChange: textbox => value => {
                 textbox.props.value = value;
@@ -9365,85 +9363,85 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class Tooltip {
-	/**
-	 * 
-	 * @constructor
-	 * @param {(HTMLElement|jQuery)} node - DOM node to monitor and show the tooltip on
-	 * @param {string} tip - string to show in the tooltip
-	 * @param {object} options - additional options for the tooltip
-	 * @param {string} [options.style=black] - correlates to the discord styling
-	 * @param {string} [options.side=top] - can be any of top, right, bottom, left
-	 * @param {boolean} [options.preventFlip=false] - prevents moving the tooltip to the opposite side if it is too big or goes offscreen
-	 * @param {boolean} [options.disabled=false] - whether the tooltip should be disabled from showing on hover
-	 */
-	constructor(node, text, options = {}) {
-		if (!(node instanceof jQuery) && !(node instanceof Element)) return undefined;
-		this.node = node instanceof jQuery ? node[0] : node;
-		const {style = "black", side = "top", disabled = false} = options;
-		this.label = text;
-		this.style = style;
-		this.side = side;
-		this.disabled = disabled;
-		this.id = modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].KeyGenerator();
+    /**
+     * 
+     * @constructor
+     * @param {(HTMLElement|jQuery)} node - DOM node to monitor and show the tooltip on
+     * @param {string} tip - string to show in the tooltip
+     * @param {object} options - additional options for the tooltip
+     * @param {string} [options.style=black] - correlates to the discord styling
+     * @param {string} [options.side=top] - can be any of top, right, bottom, left
+     * @param {boolean} [options.preventFlip=false] - prevents moving the tooltip to the opposite side if it is too big or goes offscreen
+     * @param {boolean} [options.disabled=false] - whether the tooltip should be disabled from showing on hover
+     */
+    constructor(node, text, options = {}) {
+        if (!(node instanceof jQuery) && !(node instanceof Element)) return undefined;
+        this.node = node instanceof jQuery ? node[0] : node;
+        const {style = "black", side = "top", disabled = false} = options;
+        this.label = text;
+        this.style = style;
+        this.side = side;
+        this.disabled = disabled;
+        this.id = modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].KeyGenerator();
 
-		this.node.addEventListener("mouseenter", () => {
-			if (this.disabled) return;
-			this.show();
+        this.node.addEventListener("mouseenter", () => {
+            if (this.disabled) return;
+            this.show();
 
-			const observer = new MutationObserver((mutations) => {
-				mutations.forEach((mutation) => {
-					const nodes = Array.from(mutation.removedNodes);
-					const directMatch = nodes.indexOf(this.node) > -1;
-					const parentMatch = nodes.some(parent => parent.contains(this.node));
-					if (directMatch || parentMatch) {
-						this.hide();
-						observer.disconnect();
-					}
-				});
-			});
+            const observer = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    const nodes = Array.from(mutation.removedNodes);
+                    const directMatch = nodes.indexOf(this.node) > -1;
+                    const parentMatch = nodes.some(parent => parent.contains(this.node));
+                    if (directMatch || parentMatch) {
+                        this.hide();
+                        observer.disconnect();
+                    }
+                });
+            });
 
-			observer.observe(document.body, {subtree: true, childList: true});
-		});
+            observer.observe(document.body, {subtree: true, childList: true});
+        });
 
-		this.node.addEventListener("mouseleave", () => {
-			this.hide();
-		});
-	}
+        this.node.addEventListener("mouseleave", () => {
+            this.hide();
+        });
+    }
 
-	/**
-	 * Disabled the tooltip and prevents it from showing on hover.
-	 */
-	disable() {
-		this.disabled = true;
-	}
+    /**
+     * Disabled the tooltip and prevents it from showing on hover.
+     */
+    disable() {
+        this.disabled = true;
+    }
 
-	/**
-	 * Enables the tooltip and allows it to show on hover.
-	 */
-	enable() {
-		this.disabled = false;
-	}
+    /**
+     * Enables the tooltip and allows it to show on hover.
+     */
+    enable() {
+        this.disabled = false;
+    }
 
     /** Hides the tooltip. Automatically called on mouseleave. */
-	hide() {
-		modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].Tooltips.hide(this.id);
+    hide() {
+        modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].Tooltips.hide(this.id);
     }
     
     /** Shows the tooltip. Automatically called on mouseenter. */
-	show() {
-		const {left, top, width, height} = this.node.getBoundingClientRect();
-		modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].Tooltips.show(this.id, {
-			position: this.side,
-			text: this.label,
-			color: this.style,
-			targetWidth: width,
-			targetHeight: height,
-			windowWidth: _structs_screen__WEBPACK_IMPORTED_MODULE_1__["default"].width,
-			windowHeight: _structs_screen__WEBPACK_IMPORTED_MODULE_1__["default"].height,
-			x: left,
-			y: top
-		});
-	}
+    show() {
+        const {left, top, width, height} = this.node.getBoundingClientRect();
+        modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].Tooltips.show(this.id, {
+            position: this.side,
+            text: this.label,
+            color: this.style,
+            targetWidth: width,
+            targetHeight: height,
+            windowWidth: _structs_screen__WEBPACK_IMPORTED_MODULE_1__["default"].width,
+            windowHeight: _structs_screen__WEBPACK_IMPORTED_MODULE_1__["default"].height,
+            x: left,
+            y: top
+        });
+    }
 }
 
 /***/ }),

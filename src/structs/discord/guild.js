@@ -7,10 +7,10 @@
  * https://github.com/JsSucks/BetterDiscordApp/blob/master/LICENSE
 */
 
-import { DiscordAPI, DiscordModules as Modules, Utilities } from "modules";
-import { List, InsufficientPermissions } from "structs";
-import { Channel } from "./channel";
-import { GuildMember } from "./user";
+import {DiscordAPI, DiscordModules as Modules, Utilities} from "modules";
+import {List, InsufficientPermissions} from "structs";
+import {Channel} from "./channel";
+import {GuildMember} from "./user";
 
 const roles = new WeakMap();
 
@@ -159,6 +159,7 @@ class Guild {
      */
     get afkChannel() {
         if (this.afkChannelId) return Channel.fromId(this.afkChannelId);
+        return null;
     }
 
     /**
@@ -166,6 +167,7 @@ class Guild {
      */
     get systemChannel() {
         if (this.systemChannelId) return Channel.fromId(this.systemChannelId);
+        return null;
     }
 
     /**
@@ -351,7 +353,7 @@ class Guild {
      * @return {Promise}
      */
     updateName(name) {
-        return this.updateGuild({ name });
+        return this.updateGuild({name});
     }
 
     /**
@@ -360,7 +362,7 @@ class Guild {
      * @return {Promise}
      */
     updateVoiceRegion(region) {
-        return this.updateGuild({ region });
+        return this.updateGuild({region});
     }
 
     /**
@@ -369,7 +371,7 @@ class Guild {
      * @return {Promise}
      */
     updateVerificationLevel(verification_level) {
-        return this.updateGuild({ verification_level });
+        return this.updateGuild({verification_level});
     }
 
     /**
@@ -378,7 +380,7 @@ class Guild {
      * @return {Promise}
      */
     updateDefaultMessageNotifications(default_message_notifications) {
-        return this.updateGuild({ default_message_notifications });
+        return this.updateGuild({default_message_notifications});
     }
 
     /**
@@ -387,7 +389,7 @@ class Guild {
      * @return {Promise}
      */
     updateExplicitContentFilter(explicit_content_filter) {
-        return this.updateGuild({ explicit_content_filter });
+        return this.updateGuild({explicit_content_filter});
     }
 
     /**
@@ -396,7 +398,7 @@ class Guild {
      * @return {Promise}
      */
     updateAfkChannel(afk_channel) {
-        return this.updateGuild({ afk_channel_id: afk_channel.id || afk_channel });
+        return this.updateGuild({afk_channel_id: afk_channel.id || afk_channel});
     }
 
     /**
@@ -405,7 +407,7 @@ class Guild {
      * @return {Promise}
      */
     updateAfkTimeout(afk_timeout) {
-        return this.updateGuild({ afk_timeout });
+        return this.updateGuild({afk_timeout});
     }
 
     /**
@@ -414,7 +416,7 @@ class Guild {
      * @return {Promise}
      */
     updateIcon(icon) {
-        return this.updateGuild({ icon: typeof icon === "string" ? icon : icon.toString("base64") });
+        return this.updateGuild({icon: typeof icon === "string" ? icon : icon.toString("base64")});
     }
 
     /**
@@ -434,7 +436,7 @@ class Guild {
      * @return {Promise}
      */
     updateOwner(owner) {
-        return this.updateGuild({ owner_id: owner.user ? owner.user.id : owner.id || owner });
+        return this.updateGuild({owner_id: owner.user ? owner.user.id : owner.id || owner});
     }
 
     /**
@@ -444,7 +446,7 @@ class Guild {
      * @return {Promise}
      */
     updateSplash(splash) {
-        return this.updateGuild({ splash: typeof splash === "string" ? splash : splash.toString("base64") });
+        return this.updateGuild({splash: typeof splash === "string" ? splash : splash.toString("base64")});
     }
 
     /**
@@ -464,7 +466,7 @@ class Guild {
      * @return {Promise}
      */
     updateSystemChannel(system_channel) {
-        return this.updateGuild({ system_channel_id: system_channel.id || system_channel });
+        return this.updateGuild({system_channel_id: system_channel.id || system_channel});
     }
 
 }

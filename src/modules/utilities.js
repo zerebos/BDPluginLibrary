@@ -71,7 +71,7 @@ export default class Utilities {
      */
     static suppressErrors(method, description) {
         return (...params) => {
-            try { return method(...params);	}
+            try { return method(...params);}
             catch (e) { Logger.err("Suppression", "Error occurred in " + description, e); }
         };
     }
@@ -188,31 +188,31 @@ export default class Utilities {
         const classes = [];
         const hasOwn = {}.hasOwnProperty;
 
-		for (let i = 0; i < arguments.length; i++) {
-			const arg = arguments[i];
-			if (!arg) continue;
+        for (let i = 0; i < arguments.length; i++) {
+            const arg = arguments[i];
+            if (!arg) continue;
 
-			const argType = typeof arg;
+            const argType = typeof arg;
 
-			if (argType === "string" || argType === "number") {
-				classes.push(arg);
+            if (argType === "string" || argType === "number") {
+                classes.push(arg);
             }
             else if (Array.isArray(arg) && arg.length) {
-				const inner = this.classNames.apply(null, arg);
-				if (inner) {
-					classes.push(inner);
-				}
+                const inner = this.classNames.apply(null, arg);
+                if (inner) {
+                    classes.push(inner);
+                }
             }
             else if (argType === "object") {
-				for (const key in arg) {
-					if (hasOwn.call(arg, key) && arg[key]) {
-						classes.push(key);
-					}
-				}
-			}
-		}
+                for (const key in arg) {
+                    if (hasOwn.call(arg, key) && arg[key]) {
+                        classes.push(key);
+                    }
+                }
+            }
+        }
 
-		return classes.join(" ");
+        return classes.join(" ");
     }
 
     /**

@@ -177,28 +177,28 @@ export default class DiscordContextMenu {
      * @returns {Promise<object>} the webpack module the menu was found in
      */
     static async getDiscordMenu(type) {
-		return new Promise(resolve => {
-			const cancel = Patcher.after("ZeresLibrary.DiscordContextMenu", ContextMenuActions, "openContextMenu", (_, [, component]) => {
-				const rendered = component();
-				const menuType = rendered.props && rendered.props.type || (rendered.type && rendered.type.displayName);
-				if (!menuType || typeof(menuType) != "string" || !menuType.includes(type)) return;
-				cancel();
-				return resolve(WebpackModules.getModule(m => m.default == rendered.type));
-			});
-		});
-	}
+        return new Promise(resolve => {
+            const cancel = Patcher.after("ZeresLibrary.DiscordContextMenu", ContextMenuActions, "openContextMenu", (_, [, component]) => {
+                const rendered = component();
+                const menuType = rendered.props && rendered.props.type || (rendered.type && rendered.type.displayName);
+                if (!menuType || typeof(menuType) != "string" || !menuType.includes(type)) return;
+                cancel();
+                return resolve(WebpackModules.getModule(m => m.default == rendered.type));
+            });
+        });
+    }
 
     /**
      * Calls `forceUpdate()` on all context menus it can find. Useful for
      * after patching a menu.
      */
-	static forceUpdateMenus() {
-		const menus = document.querySelectorAll(DiscordSelectors.ContextMenu.contextMenu);
-		for (const menu of menus) {
-			const stateNode = Utilities.findInTree(ReactTools.getReactInstance(menu), m=>m && m.forceUpdate && m.updatePosition, {walkable: ["return", "stateNode"]});
-			if (!stateNode) continue;
-			stateNode.forceUpdate();
-			stateNode.updatePosition();
-		}
+    static forceUpdateMenus() {
+        const menus = document.querySelectorAll(DiscordSelectors.ContextMenu.contextMenu);
+        for (const menu of menus) {
+            const stateNode = Utilities.findInTree(ReactTools.getReactInstance(menu), m=>m && m.forceUpdate && m.updatePosition, {walkable: ["return", "stateNode"]});
+            if (!stateNode) continue;
+            stateNode.forceUpdate();
+            stateNode.updatePosition();
+        }
     }
 }

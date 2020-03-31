@@ -65,7 +65,7 @@ export default (BasePlugin, Library) => {
             const BoundLib = Object.assign({}, Library);
             BoundLib.Logger = BoundAPI.Logger;
             BoundLib.Patcher = BoundAPI.Patcher;
-            return [Library.Structs.Plugin(config), BoundLib];		
+            return [Library.Structs.Plugin(config), BoundLib];
         }
     };
 
@@ -73,6 +73,6 @@ export default (BasePlugin, Library) => {
     Library.buildPlugin = PluginLibrary.buildPlugin;
     window.ZLibrary = Library;
     window.ZLibraryPromise = new Promise(r => setImmediate(r));
-	window.ZeresPluginLibrary = PluginLibrary;
+    window.ZeresPluginLibrary = PluginLibrary;
     return PluginLibrary;
 };

@@ -2,13 +2,13 @@ import DiscordClassModules from "./discordclassmodules";
 import DOMTools from "./domtools";
 
 const getRaw = function(prop) {
-	if (!this.hasOwnProperty(prop)) return "";
-	return this[prop];
+    if (!this.hasOwnProperty(prop)) return "";
+    return this[prop];
 };
 
 const getClass = function(prop) {
-	if (!this.hasOwnProperty(prop)) return "";
-	return this[prop].split(" ")[0];
+    if (!this.hasOwnProperty(prop)) return "";
+    return this[prop].split(" ")[0];
 };
 
 /**
@@ -24,17 +24,17 @@ const getClass = function(prop) {
  * @version 0.1.0
  */
 const DiscordModules = new Proxy(DiscordClassModules, {
-	get: function(list, item) {
-		if (item == "getRaw" || item == "getClass") return (module, prop) => DiscordModules[module][item]([prop]);
-		if (list[item] === undefined) return new Proxy({}, {get: function() {return "";}});
-		return new Proxy(list[item], {
-			get: function(obj, prop) {
-				if (prop == "getRaw") return getRaw.bind(obj);
-				if (prop == "getClass") return getClass.bind(obj);
-				if (!obj.hasOwnProperty(prop)) return "";
-				return new DOMTools.ClassName(obj[prop]);
-			}
-		});
-	}
+    get: function(list, item) {
+        if (item == "getRaw" || item == "getClass") return (module, prop) => DiscordModules[module][item]([prop]);
+        if (list[item] === undefined) return new Proxy({}, {get: function() {return "";}});
+        return new Proxy(list[item], {
+            get: function(obj, prop) {
+                if (prop == "getRaw") return getRaw.bind(obj);
+                if (prop == "getClass") return getClass.bind(obj);
+                if (!obj.hasOwnProperty(prop)) return "";
+                return new DOMTools.ClassName(obj[prop]);
+            }
+        });
+    }
 });
 export default DiscordModules;
