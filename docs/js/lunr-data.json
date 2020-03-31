@@ -702,19 +702,6 @@
           "module:discordapi.userset",
           "userset"
         ],
-        "module-DiscordAPI.UserSettings.html#.status": [
-          "current",
-          "lt;static&gt",
-          "member",
-          "module:discordapi.usersettings.statu",
-          "quot;dnd&quot",
-          "quot;idle&quot",
-          "quot;invisible&quot",
-          "quot;online&quot",
-          "statu",
-          "user'",
-          "usersettings.statu"
-        ],
         "module-DiscordAPI.UserSettings.html#.explicitContentFilter": [
           "0",
           "1",
@@ -1069,6 +1056,19 @@
           "timezoneoffset",
           "user'",
           "usersettings.timezoneoffset"
+        ],
+        "module-DiscordAPI.UserSettings.html#.status": [
+          "current",
+          "lt;static&gt",
+          "member",
+          "module:discordapi.usersettings.statu",
+          "quot;dnd&quot",
+          "quot;idle&quot",
+          "quot;invisible&quot",
+          "quot;online&quot",
+          "statu",
+          "user'",
+          "usersettings.statu"
         ],
         "module-DiscordAPI.UserSettings.html#.open": [
           "discord'",
@@ -4763,10 +4763,6 @@
                                     "ref": "module-WebpackModules.Filters.html#.combine",
                                     "tf": 25
                                   },
-                                  "module-DiscordAPI.UserSettings.html#.status": {
-                                    "ref": "module-DiscordAPI.UserSettings.html#.status",
-                                    "tf": 50
-                                  },
                                   "module-DiscordAPI.UserSettings.html#.explicitContentFilter": {
                                     "ref": "module-DiscordAPI.UserSettings.html#.explicitContentFilter",
                                     "tf": 50
@@ -4845,6 +4841,10 @@
                                   },
                                   "module-DiscordAPI.UserSettings.html#.timezoneOffset": {
                                     "ref": "module-DiscordAPI.UserSettings.html#.timezoneOffset",
+                                    "tf": 50
+                                  },
+                                  "module-DiscordAPI.UserSettings.html#.status": {
+                                    "ref": "module-DiscordAPI.UserSettings.html#.status",
                                     "tf": 50
                                   },
                                   "module-DiscordAPI.UserSettings.html#.open": {
@@ -8016,13 +8016,13 @@
                 "docs": {},
                 "u": {
                   "docs": {
-                    "module-DiscordAPI.UserSettings.html#.status": {
-                      "ref": "module-DiscordAPI.UserSettings.html#.status",
-                      "tf": 657.1428571428571
-                    },
                     "module-DiscordAPI.UserSettings.html#.showCurrentGame": {
                       "ref": "module-DiscordAPI.UserSettings.html#.showCurrentGame",
                       "tf": 5
+                    },
+                    "module-DiscordAPI.UserSettings.html#.status": {
+                      "ref": "module-DiscordAPI.UserSettings.html#.status",
+                      "tf": 657.1428571428571
                     }
                   }
                 }
@@ -9788,10 +9788,6 @@
                       "ref": "module-DiscordAPI.Guild.html#permissions",
                       "tf": 12.5
                     },
-                    "module-DiscordAPI.UserSettings.html#.status": {
-                      "ref": "module-DiscordAPI.UserSettings.html#.status",
-                      "tf": 7.142857142857142
-                    },
                     "module-DiscordAPI.UserSettings.html#.explicitContentFilter": {
                       "ref": "module-DiscordAPI.UserSettings.html#.explicitContentFilter",
                       "tf": 2.941176470588235
@@ -9811,6 +9807,10 @@
                     "module-DiscordAPI.UserSettings.html#.timezoneOffset": {
                       "ref": "module-DiscordAPI.UserSettings.html#.timezoneOffset",
                       "tf": 10
+                    },
+                    "module-DiscordAPI.UserSettings.html#.status": {
+                      "ref": "module-DiscordAPI.UserSettings.html#.status",
+                      "tf": 7.142857142857142
                     }
                   }
                 },
@@ -9931,104 +9931,6 @@
                                 "docs": {},
                                 ".": {
                                   "docs": {},
-                                  "s": {
-                                    "docs": {},
-                                    "t": {
-                                      "docs": {},
-                                      "a": {
-                                        "docs": {},
-                                        "t": {
-                                          "docs": {},
-                                          "u": {
-                                            "docs": {
-                                              "module-DiscordAPI.UserSettings.html#.status": {
-                                                "ref": "module-DiscordAPI.UserSettings.html#.status",
-                                                "tf": 100
-                                              }
-                                            }
-                                          }
-                                        }
-                                      }
-                                    },
-                                    "h": {
-                                      "docs": {},
-                                      "o": {
-                                        "docs": {},
-                                        "w": {
-                                          "docs": {},
-                                          "c": {
-                                            "docs": {},
-                                            "u": {
-                                              "docs": {},
-                                              "r": {
-                                                "docs": {},
-                                                "r": {
-                                                  "docs": {},
-                                                  "e": {
-                                                    "docs": {},
-                                                    "n": {
-                                                      "docs": {},
-                                                      "t": {
-                                                        "docs": {},
-                                                        "g": {
-                                                          "docs": {},
-                                                          "a": {
-                                                            "docs": {},
-                                                            "m": {
-                                                              "docs": {
-                                                                "module-DiscordAPI.UserSettings.html#.showCurrentGame": {
-                                                                  "ref": "module-DiscordAPI.UserSettings.html#.showCurrentGame",
-                                                                  "tf": 100
-                                                                }
-                                                              }
-                                                            }
-                                                          }
-                                                        }
-                                                      }
-                                                    }
-                                                  }
-                                                }
-                                              }
-                                            }
-                                          },
-                                          "e": {
-                                            "docs": {},
-                                            "m": {
-                                              "docs": {},
-                                              "b": {
-                                                "docs": {
-                                                  "module-DiscordAPI.UserSettings.html#.showEmbeds": {
-                                                    "ref": "module-DiscordAPI.UserSettings.html#.showEmbeds",
-                                                    "tf": 100
-                                                  }
-                                                }
-                                              }
-                                            }
-                                          },
-                                          "r": {
-                                            "docs": {},
-                                            "e": {
-                                              "docs": {},
-                                              "a": {
-                                                "docs": {},
-                                                "c": {
-                                                  "docs": {},
-                                                  "t": {
-                                                    "docs": {
-                                                      "module-DiscordAPI.UserSettings.html#.showReactions": {
-                                                        "ref": "module-DiscordAPI.UserSettings.html#.showReactions",
-                                                        "tf": 100
-                                                      }
-                                                    }
-                                                  }
-                                                }
-                                              }
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  },
                                   "e": {
                                     "docs": {},
                                     "x": {
@@ -10533,6 +10435,104 @@
                                                     "tf": 100
                                                   }
                                                 }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "s": {
+                                    "docs": {},
+                                    "h": {
+                                      "docs": {},
+                                      "o": {
+                                        "docs": {},
+                                        "w": {
+                                          "docs": {},
+                                          "c": {
+                                            "docs": {},
+                                            "u": {
+                                              "docs": {},
+                                              "r": {
+                                                "docs": {},
+                                                "r": {
+                                                  "docs": {},
+                                                  "e": {
+                                                    "docs": {},
+                                                    "n": {
+                                                      "docs": {},
+                                                      "t": {
+                                                        "docs": {},
+                                                        "g": {
+                                                          "docs": {},
+                                                          "a": {
+                                                            "docs": {},
+                                                            "m": {
+                                                              "docs": {
+                                                                "module-DiscordAPI.UserSettings.html#.showCurrentGame": {
+                                                                  "ref": "module-DiscordAPI.UserSettings.html#.showCurrentGame",
+                                                                  "tf": 100
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          },
+                                          "e": {
+                                            "docs": {},
+                                            "m": {
+                                              "docs": {},
+                                              "b": {
+                                                "docs": {
+                                                  "module-DiscordAPI.UserSettings.html#.showEmbeds": {
+                                                    "ref": "module-DiscordAPI.UserSettings.html#.showEmbeds",
+                                                    "tf": 100
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          },
+                                          "r": {
+                                            "docs": {},
+                                            "e": {
+                                              "docs": {},
+                                              "a": {
+                                                "docs": {},
+                                                "c": {
+                                                  "docs": {},
+                                                  "t": {
+                                                    "docs": {
+                                                      "module-DiscordAPI.UserSettings.html#.showReactions": {
+                                                        "ref": "module-DiscordAPI.UserSettings.html#.showReactions",
+                                                        "tf": 100
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "t": {
+                                      "docs": {},
+                                      "a": {
+                                        "docs": {},
+                                        "t": {
+                                          "docs": {},
+                                          "u": {
+                                            "docs": {
+                                              "module-DiscordAPI.UserSettings.html#.status": {
+                                                "ref": "module-DiscordAPI.UserSettings.html#.status",
+                                                "tf": 100
                                               }
                                             }
                                           }
@@ -16612,10 +16612,6 @@
                           "ref": "module-DiscordAPI.Guild.html#isSelected",
                           "tf": 12.5
                         },
-                        "module-DiscordAPI.UserSettings.html#.status": {
-                          "ref": "module-DiscordAPI.UserSettings.html#.status",
-                          "tf": 7.142857142857142
-                        },
                         "module-DiscordAPI.UserSettings.html#.restrictedGuildIds": {
                           "ref": "module-DiscordAPI.UserSettings.html#.restrictedGuildIds",
                           "tf": 2.380952380952381
@@ -16631,6 +16627,10 @@
                         "module-DiscordAPI.UserSettings.html#.developerMode": {
                           "ref": "module-DiscordAPI.UserSettings.html#.developerMode",
                           "tf": 2.7777777777777777
+                        },
+                        "module-DiscordAPI.UserSettings.html#.status": {
+                          "ref": "module-DiscordAPI.UserSettings.html#.status",
+                          "tf": 7.142857142857142
                         },
                         "module-DOMTools.ClassName.html#add": {
                           "ref": "module-DOMTools.ClassName.html#add",
@@ -18936,104 +18936,6 @@
                                                                     "docs": {},
                                                                     ".": {
                                                                       "docs": {},
-                                                                      "s": {
-                                                                        "docs": {},
-                                                                        "t": {
-                                                                          "docs": {},
-                                                                          "a": {
-                                                                            "docs": {},
-                                                                            "t": {
-                                                                              "docs": {},
-                                                                              "u": {
-                                                                                "docs": {
-                                                                                  "module-DiscordAPI.UserSettings.html#.status": {
-                                                                                    "ref": "module-DiscordAPI.UserSettings.html#.status",
-                                                                                    "tf": 1100
-                                                                                  }
-                                                                                }
-                                                                              }
-                                                                            }
-                                                                          }
-                                                                        },
-                                                                        "h": {
-                                                                          "docs": {},
-                                                                          "o": {
-                                                                            "docs": {},
-                                                                            "w": {
-                                                                              "docs": {},
-                                                                              "c": {
-                                                                                "docs": {},
-                                                                                "u": {
-                                                                                  "docs": {},
-                                                                                  "r": {
-                                                                                    "docs": {},
-                                                                                    "r": {
-                                                                                      "docs": {},
-                                                                                      "e": {
-                                                                                        "docs": {},
-                                                                                        "n": {
-                                                                                          "docs": {},
-                                                                                          "t": {
-                                                                                            "docs": {},
-                                                                                            "g": {
-                                                                                              "docs": {},
-                                                                                              "a": {
-                                                                                                "docs": {},
-                                                                                                "m": {
-                                                                                                  "docs": {
-                                                                                                    "module-DiscordAPI.UserSettings.html#.showCurrentGame": {
-                                                                                                      "ref": "module-DiscordAPI.UserSettings.html#.showCurrentGame",
-                                                                                                      "tf": 1100
-                                                                                                    }
-                                                                                                  }
-                                                                                                }
-                                                                                              }
-                                                                                            }
-                                                                                          }
-                                                                                        }
-                                                                                      }
-                                                                                    }
-                                                                                  }
-                                                                                }
-                                                                              },
-                                                                              "e": {
-                                                                                "docs": {},
-                                                                                "m": {
-                                                                                  "docs": {},
-                                                                                  "b": {
-                                                                                    "docs": {
-                                                                                      "module-DiscordAPI.UserSettings.html#.showEmbeds": {
-                                                                                        "ref": "module-DiscordAPI.UserSettings.html#.showEmbeds",
-                                                                                        "tf": 1100
-                                                                                      }
-                                                                                    }
-                                                                                  }
-                                                                                }
-                                                                              },
-                                                                              "r": {
-                                                                                "docs": {},
-                                                                                "e": {
-                                                                                  "docs": {},
-                                                                                  "a": {
-                                                                                    "docs": {},
-                                                                                    "c": {
-                                                                                      "docs": {},
-                                                                                      "t": {
-                                                                                        "docs": {
-                                                                                          "module-DiscordAPI.UserSettings.html#.showReactions": {
-                                                                                            "ref": "module-DiscordAPI.UserSettings.html#.showReactions",
-                                                                                            "tf": 1100
-                                                                                          }
-                                                                                        }
-                                                                                      }
-                                                                                    }
-                                                                                  }
-                                                                                }
-                                                                              }
-                                                                            }
-                                                                          }
-                                                                        }
-                                                                      },
                                                                       "e": {
                                                                         "docs": {},
                                                                         "x": {
@@ -19538,6 +19440,104 @@
                                                                                         "tf": 1100
                                                                                       }
                                                                                     }
+                                                                                  }
+                                                                                }
+                                                                              }
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      },
+                                                                      "s": {
+                                                                        "docs": {},
+                                                                        "h": {
+                                                                          "docs": {},
+                                                                          "o": {
+                                                                            "docs": {},
+                                                                            "w": {
+                                                                              "docs": {},
+                                                                              "c": {
+                                                                                "docs": {},
+                                                                                "u": {
+                                                                                  "docs": {},
+                                                                                  "r": {
+                                                                                    "docs": {},
+                                                                                    "r": {
+                                                                                      "docs": {},
+                                                                                      "e": {
+                                                                                        "docs": {},
+                                                                                        "n": {
+                                                                                          "docs": {},
+                                                                                          "t": {
+                                                                                            "docs": {},
+                                                                                            "g": {
+                                                                                              "docs": {},
+                                                                                              "a": {
+                                                                                                "docs": {},
+                                                                                                "m": {
+                                                                                                  "docs": {
+                                                                                                    "module-DiscordAPI.UserSettings.html#.showCurrentGame": {
+                                                                                                      "ref": "module-DiscordAPI.UserSettings.html#.showCurrentGame",
+                                                                                                      "tf": 1100
+                                                                                                    }
+                                                                                                  }
+                                                                                                }
+                                                                                              }
+                                                                                            }
+                                                                                          }
+                                                                                        }
+                                                                                      }
+                                                                                    }
+                                                                                  }
+                                                                                }
+                                                                              },
+                                                                              "e": {
+                                                                                "docs": {},
+                                                                                "m": {
+                                                                                  "docs": {},
+                                                                                  "b": {
+                                                                                    "docs": {
+                                                                                      "module-DiscordAPI.UserSettings.html#.showEmbeds": {
+                                                                                        "ref": "module-DiscordAPI.UserSettings.html#.showEmbeds",
+                                                                                        "tf": 1100
+                                                                                      }
+                                                                                    }
+                                                                                  }
+                                                                                }
+                                                                              },
+                                                                              "r": {
+                                                                                "docs": {},
+                                                                                "e": {
+                                                                                  "docs": {},
+                                                                                  "a": {
+                                                                                    "docs": {},
+                                                                                    "c": {
+                                                                                      "docs": {},
+                                                                                      "t": {
+                                                                                        "docs": {
+                                                                                          "module-DiscordAPI.UserSettings.html#.showReactions": {
+                                                                                            "ref": "module-DiscordAPI.UserSettings.html#.showReactions",
+                                                                                            "tf": 1100
+                                                                                          }
+                                                                                        }
+                                                                                      }
+                                                                                    }
+                                                                                  }
+                                                                                }
+                                                                              }
+                                                                            }
+                                                                          }
+                                                                        },
+                                                                        "t": {
+                                                                          "docs": {},
+                                                                          "a": {
+                                                                            "docs": {},
+                                                                            "t": {
+                                                                              "docs": {},
+                                                                              "u": {
+                                                                                "docs": {
+                                                                                  "module-DiscordAPI.UserSettings.html#.status": {
+                                                                                    "ref": "module-DiscordAPI.UserSettings.html#.status",
+                                                                                    "tf": 1100
                                                                                   }
                                                                                 }
                                                                               }
@@ -23597,10 +23597,6 @@
                         "ref": "module-DiscordAPI.Guild.html#pruneMembers",
                         "tf": 5.555555555555555
                       },
-                      "module-DiscordAPI.UserSettings.html#.status": {
-                        "ref": "module-DiscordAPI.UserSettings.html#.status",
-                        "tf": 110
-                      },
                       "module-DiscordAPI.UserSettings.html#.explicitContentFilter": {
                         "ref": "module-DiscordAPI.UserSettings.html#.explicitContentFilter",
                         "tf": 110
@@ -23679,6 +23675,10 @@
                       },
                       "module-DiscordAPI.UserSettings.html#.timezoneOffset": {
                         "ref": "module-DiscordAPI.UserSettings.html#.timezoneOffset",
+                        "tf": 110
+                      },
+                      "module-DiscordAPI.UserSettings.html#.status": {
+                        "ref": "module-DiscordAPI.UserSettings.html#.status",
                         "tf": 110
                       },
                       "module-DOMTools.ClassName.html#selector": {
@@ -28725,178 +28725,6 @@
                 "docs": {},
                 ";": {
                   "docs": {},
-                  "d": {
-                    "docs": {},
-                    "n": {
-                      "docs": {},
-                      "d": {
-                        "docs": {},
-                        "&": {
-                          "docs": {},
-                          "q": {
-                            "docs": {},
-                            "u": {
-                              "docs": {},
-                              "o": {
-                                "docs": {},
-                                "t": {
-                                  "docs": {
-                                    "module-DiscordAPI.UserSettings.html#.status": {
-                                      "ref": "module-DiscordAPI.UserSettings.html#.status",
-                                      "tf": 7.142857142857142
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    },
-                    "a": {
-                      "docs": {},
-                      "r": {
-                        "docs": {},
-                        "k": {
-                          "docs": {},
-                          "&": {
-                            "docs": {},
-                            "q": {
-                              "docs": {},
-                              "u": {
-                                "docs": {},
-                                "o": {
-                                  "docs": {},
-                                  "t": {
-                                    "docs": {
-                                      "module-DiscordAPI.UserSettings.html#.theme": {
-                                        "ref": "module-DiscordAPI.UserSettings.html#.theme",
-                                        "tf": 6.25
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "i": {
-                    "docs": {},
-                    "d": {
-                      "docs": {},
-                      "l": {
-                        "docs": {},
-                        "e": {
-                          "docs": {},
-                          "&": {
-                            "docs": {},
-                            "q": {
-                              "docs": {},
-                              "u": {
-                                "docs": {},
-                                "o": {
-                                  "docs": {},
-                                  "t": {
-                                    "docs": {
-                                      "module-DiscordAPI.UserSettings.html#.status": {
-                                        "ref": "module-DiscordAPI.UserSettings.html#.status",
-                                        "tf": 7.142857142857142
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    },
-                    "n": {
-                      "docs": {},
-                      "v": {
-                        "docs": {},
-                        "i": {
-                          "docs": {},
-                          "s": {
-                            "docs": {},
-                            "i": {
-                              "docs": {},
-                              "b": {
-                                "docs": {},
-                                "l": {
-                                  "docs": {},
-                                  "e": {
-                                    "docs": {},
-                                    "&": {
-                                      "docs": {},
-                                      "q": {
-                                        "docs": {},
-                                        "u": {
-                                          "docs": {},
-                                          "o": {
-                                            "docs": {},
-                                            "t": {
-                                              "docs": {
-                                                "module-DiscordAPI.UserSettings.html#.status": {
-                                                  "ref": "module-DiscordAPI.UserSettings.html#.status",
-                                                  "tf": 7.142857142857142
-                                                }
-                                              }
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "o": {
-                    "docs": {},
-                    "n": {
-                      "docs": {},
-                      "l": {
-                        "docs": {},
-                        "i": {
-                          "docs": {},
-                          "n": {
-                            "docs": {},
-                            "e": {
-                              "docs": {},
-                              "&": {
-                                "docs": {},
-                                "q": {
-                                  "docs": {},
-                                  "u": {
-                                    "docs": {},
-                                    "o": {
-                                      "docs": {},
-                                      "t": {
-                                        "docs": {
-                                          "module-DiscordAPI.UserSettings.html#.status": {
-                                            "ref": "module-DiscordAPI.UserSettings.html#.status",
-                                            "tf": 7.142857142857142
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  },
                   "a": {
                     "docs": {},
                     "l": {
@@ -29026,6 +28854,64 @@
                       }
                     }
                   },
+                  "d": {
+                    "docs": {},
+                    "a": {
+                      "docs": {},
+                      "r": {
+                        "docs": {},
+                        "k": {
+                          "docs": {},
+                          "&": {
+                            "docs": {},
+                            "q": {
+                              "docs": {},
+                              "u": {
+                                "docs": {},
+                                "o": {
+                                  "docs": {},
+                                  "t": {
+                                    "docs": {
+                                      "module-DiscordAPI.UserSettings.html#.theme": {
+                                        "ref": "module-DiscordAPI.UserSettings.html#.theme",
+                                        "tf": 6.25
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "n": {
+                      "docs": {},
+                      "d": {
+                        "docs": {},
+                        "&": {
+                          "docs": {},
+                          "q": {
+                            "docs": {},
+                            "u": {
+                              "docs": {},
+                              "o": {
+                                "docs": {},
+                                "t": {
+                                  "docs": {
+                                    "module-DiscordAPI.UserSettings.html#.status": {
+                                      "ref": "module-DiscordAPI.UserSettings.html#.status",
+                                      "tf": 7.142857142857142
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
                   "l": {
                     "docs": {},
                     "i": {
@@ -29072,6 +28958,120 @@
                             "module-DiscordAPI.UserSettings.html#.developerMode": {
                               "ref": "module-DiscordAPI.UserSettings.html#.developerMode",
                               "tf": 2.7777777777777777
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "i": {
+                    "docs": {},
+                    "d": {
+                      "docs": {},
+                      "l": {
+                        "docs": {},
+                        "e": {
+                          "docs": {},
+                          "&": {
+                            "docs": {},
+                            "q": {
+                              "docs": {},
+                              "u": {
+                                "docs": {},
+                                "o": {
+                                  "docs": {},
+                                  "t": {
+                                    "docs": {
+                                      "module-DiscordAPI.UserSettings.html#.status": {
+                                        "ref": "module-DiscordAPI.UserSettings.html#.status",
+                                        "tf": 7.142857142857142
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "n": {
+                      "docs": {},
+                      "v": {
+                        "docs": {},
+                        "i": {
+                          "docs": {},
+                          "s": {
+                            "docs": {},
+                            "i": {
+                              "docs": {},
+                              "b": {
+                                "docs": {},
+                                "l": {
+                                  "docs": {},
+                                  "e": {
+                                    "docs": {},
+                                    "&": {
+                                      "docs": {},
+                                      "q": {
+                                        "docs": {},
+                                        "u": {
+                                          "docs": {},
+                                          "o": {
+                                            "docs": {},
+                                            "t": {
+                                              "docs": {
+                                                "module-DiscordAPI.UserSettings.html#.status": {
+                                                  "ref": "module-DiscordAPI.UserSettings.html#.status",
+                                                  "tf": 7.142857142857142
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "o": {
+                    "docs": {},
+                    "n": {
+                      "docs": {},
+                      "l": {
+                        "docs": {},
+                        "i": {
+                          "docs": {},
+                          "n": {
+                            "docs": {},
+                            "e": {
+                              "docs": {},
+                              "&": {
+                                "docs": {},
+                                "q": {
+                                  "docs": {},
+                                  "u": {
+                                    "docs": {},
+                                    "o": {
+                                      "docs": {},
+                                      "t": {
+                                        "docs": {
+                                          "module-DiscordAPI.UserSettings.html#.status": {
+                                            "ref": "module-DiscordAPI.UserSettings.html#.status",
+                                            "tf": 7.142857142857142
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
                             }
                           }
                         }
@@ -30675,16 +30675,6 @@
       "description": "",
       "body": ""
     },
-    "module-DiscordAPI.UserSettings.html#.status": {
-      "id": "module-DiscordAPI.UserSettings.html#.status",
-      "kind": "member",
-      "title": "&lt;static&gt; status",
-      "longname": "module:DiscordAPI.UserSettings.status",
-      "name": "status",
-      "tags": "module:DiscordAPI.UserSettings.status UserSettings.status status",
-      "summary": "",
-      "description": "The user's current status. Either &quot;online&quot;, &quot;idle&quot;, &quot;dnd&quot; or &quot;invisible&quot;."
-    },
     "module-DiscordAPI.UserSettings.html#.explicitContentFilter": {
       "id": "module-DiscordAPI.UserSettings.html#.explicitContentFilter",
       "kind": "member",
@@ -30884,6 +30874,16 @@
       "tags": "module:DiscordAPI.UserSettings.timezoneOffset UserSettings.timezoneOffset timezoneOffset",
       "summary": "",
       "description": "The user's timezone offset in hours. This is not configurable."
+    },
+    "module-DiscordAPI.UserSettings.html#.status": {
+      "id": "module-DiscordAPI.UserSettings.html#.status",
+      "kind": "member",
+      "title": "&lt;static&gt; status",
+      "longname": "module:DiscordAPI.UserSettings.status",
+      "name": "status",
+      "tags": "module:DiscordAPI.UserSettings.status UserSettings.status status",
+      "summary": "",
+      "description": "The user's current status. Either &quot;online&quot;, &quot;idle&quot;, &quot;dnd&quot; or &quot;invisible&quot;."
     },
     "module-DiscordAPI.UserSettings.html#.open": {
       "id": "module-DiscordAPI.UserSettings.html#.open",

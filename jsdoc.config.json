@@ -17,6 +17,7 @@
       "outputSourceFiles": true
     },
     "includeDate": false,
+    "dateFormat": "",
     "path": "ink-docstrap",
     "theme": "cerulean",
     "navType": "vertical",

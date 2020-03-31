@@ -119,7 +119,7 @@ var ZeresPluginLibrary =
 /*! exports provided: info, changelog, main, default */
 /***/ (function(module) {
 
-module.exports = {"info":{"name":"ZeresPluginLibrary","authors":[{"name":"Zerebos","discord_id":"249746236008169473","github_username":"rauenzi","twitter_username":"ZackRauen"}],"version":"1.2.13","description":"Gives other plugins utility functions and the ability to emulate v2.","github":"https://github.com/rauenzi/BDPluginLibrary","github_raw":"https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"},"changelog":[{"title":"Improvements","type":"improved","items":["**Internal changes** to stop using all BD globals outside of `BdApi`.","**jQuery** now no longer used in the library--not that there was much anyways.","There were also some various performance improvements."]},{"title":"Bugs Squashed","type":"fixed","items":["`ReactComponents` had some bugs with how it stored and searched components, this has been fixed.","There was a bug where the library reloaded the wrong plugins, it shouldn't do that anymore."]}],"main":"plugin.js"};
+module.exports = {"info":{"name":"ZeresPluginLibrary","authors":[{"name":"Zerebos","discord_id":"249746236008169473","github_username":"rauenzi","twitter_username":"ZackRauen"}],"version":"1.2.14","description":"Gives other plugins utility functions and the ability to emulate v2.","github":"https://github.com/rauenzi/BDPluginLibrary","github_raw":"https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"},"changelog":[{"title":"Improvements","type":"improved","items":["**Internal changes** to stop using all BD globals outside of `BdApi`.","**jQuery** now no longer used in the library--not that there was much anyways.","Added some new options to the Slider setting to make it customizable","There were also some various performance improvements."]},{"title":"Bugs Squashed","type":"fixed","items":["`ReactComponents` had some bugs with how it stored and searched components, this has been fixed.","There was a bug where the library reloaded the wrong plugins, it shouldn't do that anymore."]}],"main":"plugin.js"};
 
 /***/ }),
 
@@ -6370,33 +6370,14 @@ __webpack_require__.r(__webpack_exports__);
         buildSetting(data) {
             const {name, note, type, value, onChange, id} = data;
             let setting = null;
-            if (type == "color") {
-                setting = new _ui_settings__WEBPACK_IMPORTED_MODULE_7__["ColorPicker"](name, note, value, onChange, {disabled: data.disabled, presetColors: data.presetColors});
-            }
-            else if (type == "dropdown") {
-                setting = new _ui_settings__WEBPACK_IMPORTED_MODULE_7__["Dropdown"](name, note, value, data.options, onChange);
-            }
-            else if (type == "file") {
-                setting = new _ui_settings__WEBPACK_IMPORTED_MODULE_7__["FilePicker"](name, note, onChange);
-            }
-            else if (type == "keybind") {
-                setting = new _ui_settings__WEBPACK_IMPORTED_MODULE_7__["Keybind"](name, note, value, onChange);
-            }
-            else if (type == "radio") {
-                setting = new _ui_settings__WEBPACK_IMPORTED_MODULE_7__["RadioGroup"](name, note, value, data.options, onChange, {disabled: data.disabled});
-            }
-            else if (type == "slider") {
-                const options = {};
-                if (typeof(data.markers) != "undefined") options.markers = data.markers;
-                if (typeof(data.stickToMarkers) != "undefined") options.stickToMarkers = data.stickToMarkers;
-                setting = new _ui_settings__WEBPACK_IMPORTED_MODULE_7__["Slider"](name, note, data.min, data.max, value, onChange, options);
-            }
-            else if (type == "switch") {
-                setting = new _ui_settings__WEBPACK_IMPORTED_MODULE_7__["Switch"](name, note, value, onChange, {disabled: data.disabled});
-            }
-            else if (type == "textbox") {
-                setting = new _ui_settings__WEBPACK_IMPORTED_MODULE_7__["Textbox"](name, note, value, onChange, {placeholder: data.placeholder || ""});
-            }
+            if (type == "color") setting = new _ui_settings__WEBPACK_IMPORTED_MODULE_7__["ColorPicker"](name, note, value, onChange, {disabled: data.disabled, presetColors: data.presetColors});
+            else if (type == "dropdown") setting = new _ui_settings__WEBPACK_IMPORTED_MODULE_7__["Dropdown"](name, note, value, data.options, onChange);
+            else if (type == "file") setting = new _ui_settings__WEBPACK_IMPORTED_MODULE_7__["FilePicker"](name, note, onChange);
+            else if (type == "keybind") setting = new _ui_settings__WEBPACK_IMPORTED_MODULE_7__["Keybind"](name, note, value, onChange);
+            else if (type == "radio") setting = new _ui_settings__WEBPACK_IMPORTED_MODULE_7__["RadioGroup"](name, note, value, data.options, onChange, {disabled: data.disabled});
+            else if (type == "slider") setting = new _ui_settings__WEBPACK_IMPORTED_MODULE_7__["Slider"](name, note, data.min, data.max, value, onChange, data);
+            else if (type == "switch") setting = new _ui_settings__WEBPACK_IMPORTED_MODULE_7__["Switch"](name, note, value, onChange, {disabled: data.disabled});
+            else if (type == "textbox") setting = new _ui_settings__WEBPACK_IMPORTED_MODULE_7__["Textbox"](name, note, value, onChange, {placeholder: data.placeholder || ""});
             if (id) setting.id = id;
             return setting;
         }
@@ -9060,7 +9041,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-//TODO: Documentation
+/**
+ * Used to render the grabber tooltip.
+ * @param {Number} value - The value to render
+ * @returns {string} the text to show in the tooltip
+ * @callback module:Settings~SliderRenderValue
+ */
 
 /** 
  * Creates a slider/range using discord's built in slider.
@@ -9083,6 +9069,9 @@ class Slider extends _settingfield__WEBPACK_IMPORTED_MODULE_0__["default"] {
     * @param {Array<number>} [options.markers] - array of vertical markers to show on the slider
     * @param {boolean} [options.stickToMarkers] - should the slider be forced to use markers
     * @param {boolean} [options.equidistant] - should the markers be scaled to be equidistant
+    * @param {module:Settings~SliderRenderValue} [options.onValueRender] - function to call to render the value in the tooltip
+    * @param {module:Settings~SliderRenderValue} [options.renderValue] - alias of `onValueRender`
+    * @param {string} [options.units] - can be used in place of `onValueRender` will use this string and render Math.round(value) + units
     */
     constructor(name, note, min, max, value, onChange, options = {}) {
         const props =  {
@@ -9097,6 +9086,8 @@ class Slider extends _settingfield__WEBPACK_IMPORTED_MODULE_0__["default"] {
         if (options.markers) props.markers = options.markers;
         if (options.stickToMarkers) props.stickToMarkers = options.stickToMarkers;
         if (typeof(options.equidistant) != "undefined") props.equidistant = options.equidistant;
+        if (options.units) props.onValueRender = (value) => `${Math.round(value)}${options.units}`;
+        if (options.onValueRender || options.renderValue) props.onValueRender = options.onValueRender || options.renderValue;
         super(name, note, onChange, modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].Slider, Object.assign(props, {onValueChange: v => this.onChange(v)}));
     }
 }

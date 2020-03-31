@@ -92,33 +92,14 @@ export default function(config) {
         buildSetting(data) {
             const {name, note, type, value, onChange, id} = data;
             let setting = null;
-            if (type == "color") {
-                setting = new Settings.ColorPicker(name, note, value, onChange, {disabled: data.disabled, presetColors: data.presetColors});
-            }
-            else if (type == "dropdown") {
-                setting = new Settings.Dropdown(name, note, value, data.options, onChange);
-            }
-            else if (type == "file") {
-                setting = new Settings.FilePicker(name, note, onChange);
-            }
-            else if (type == "keybind") {
-                setting = new Settings.Keybind(name, note, value, onChange);
-            }
-            else if (type == "radio") {
-                setting = new Settings.RadioGroup(name, note, value, data.options, onChange, {disabled: data.disabled});
-            }
-            else if (type == "slider") {
-                const options = {};
-                if (typeof(data.markers) != "undefined") options.markers = data.markers;
-                if (typeof(data.stickToMarkers) != "undefined") options.stickToMarkers = data.stickToMarkers;
-                setting = new Settings.Slider(name, note, data.min, data.max, value, onChange, options);
-            }
-            else if (type == "switch") {
-                setting = new Settings.Switch(name, note, value, onChange, {disabled: data.disabled});
-            }
-            else if (type == "textbox") {
-                setting = new Settings.Textbox(name, note, value, onChange, {placeholder: data.placeholder || ""});
-            }
+            if (type == "color") setting = new Settings.ColorPicker(name, note, value, onChange, {disabled: data.disabled, presetColors: data.presetColors});
+            else if (type == "dropdown") setting = new Settings.Dropdown(name, note, value, data.options, onChange);
+            else if (type == "file") setting = new Settings.FilePicker(name, note, onChange);
+            else if (type == "keybind") setting = new Settings.Keybind(name, note, value, onChange);
+            else if (type == "radio") setting = new Settings.RadioGroup(name, note, value, data.options, onChange, {disabled: data.disabled});
+            else if (type == "slider") setting = new Settings.Slider(name, note, data.min, data.max, value, onChange, data);
+            else if (type == "switch") setting = new Settings.Switch(name, note, value, onChange, {disabled: data.disabled});
+            else if (type == "textbox") setting = new Settings.Textbox(name, note, value, onChange, {placeholder: data.placeholder || ""});
             if (id) setting.id = id;
             return setting;
         }
