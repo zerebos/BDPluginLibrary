@@ -7,24 +7,16 @@
             "github_username": "rauenzi",
             "twitter_username": "ZackRauen"
         }],
-        "version": "1.2.14",
+        "version": "1.2.15",
         "description": "Gives other plugins utility functions and the ability to emulate v2.",
         "github": "https://github.com/rauenzi/BDPluginLibrary",
         "github_raw": "https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"
     },
     "changelog": [
         {
-            "title": "Improvements", "type": "improved", "items": [
-                "**Internal changes** to stop using all BD globals outside of `BdApi`.",
-                "**jQuery** now no longer used in the library--not that there was much anyways.",
-                "Added some new options to the Slider setting to make it customizable",
-                "There were also some various performance improvements."
-            ]
-        },
-        {
             "title": "Bugs Squashed", "type": "fixed", "items": [
-                "`ReactComponents` had some bugs with how it stored and searched components, this has been fixed.",
-                "There was a bug where the library reloaded the wrong plugins, it shouldn't do that anymore."
+                "Some fixes to the plugin updater.",
+                "Fix an issue where changelogs caused crashes."
             ]
         }
     ],

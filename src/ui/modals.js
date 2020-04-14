@@ -105,7 +105,7 @@ export default class Modals {
         const renderHeader = function() {
             return ce(DiscordModules.FlexChild.Child, {grow: 1, shrink: 1},
                 ce(DiscordModules.Titles.default, {tag: DiscordModules.Titles.Tags.H4}, title),
-                ce(TextElement.default,
+                ce(TextElement,
                     {size: TextElement.Sizes.SMALL, color: TextElement.Colors.PRIMARY, className: DiscordClasses.Changelog.date.toString()},
                     "Version " + version
                 )

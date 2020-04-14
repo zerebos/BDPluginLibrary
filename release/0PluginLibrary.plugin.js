@@ -119,7 +119,7 @@ var ZeresPluginLibrary =
 /*! exports provided: info, changelog, main, default */
 /***/ (function(module) {
 
-module.exports = {"info":{"name":"ZeresPluginLibrary","authors":[{"name":"Zerebos","discord_id":"249746236008169473","github_username":"rauenzi","twitter_username":"ZackRauen"}],"version":"1.2.14","description":"Gives other plugins utility functions and the ability to emulate v2.","github":"https://github.com/rauenzi/BDPluginLibrary","github_raw":"https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"},"changelog":[{"title":"Improvements","type":"improved","items":["**Internal changes** to stop using all BD globals outside of `BdApi`.","**jQuery** now no longer used in the library--not that there was much anyways.","Added some new options to the Slider setting to make it customizable","There were also some various performance improvements."]},{"title":"Bugs Squashed","type":"fixed","items":["`ReactComponents` had some bugs with how it stored and searched components, this has been fixed.","There was a bug where the library reloaded the wrong plugins, it shouldn't do that anymore."]}],"main":"plugin.js"};
+module.exports = {"info":{"name":"ZeresPluginLibrary","authors":[{"name":"Zerebos","discord_id":"249746236008169473","github_username":"rauenzi","twitter_username":"ZackRauen"}],"version":"1.2.15","description":"Gives other plugins utility functions and the ability to emulate v2.","github":"https://github.com/rauenzi/BDPluginLibrary","github_raw":"https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"},"changelog":[{"title":"Bugs Squashed","type":"fixed","items":["Some fixes to the plugin updater.","Fix an issue where changelogs caused crashes."]}],"main":"plugin.js"};
 
 /***/ }),
 
@@ -556,7 +556,7 @@ __webpack_require__.r(__webpack_exports__);
     get GuildMemberStore() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getMember");},
     get MemberCountStore() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getMemberCounts");},
     get GuildEmojiStore() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getEmojis");},
-    // get GuildActions() {return WebpackModules.getByProps("requestMembers");},
+    get GuildActions() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("requestMembers");}, // apparently it's back
     get GuildPermissions() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getGuildPermissions");},
 
     /* Channel Store & Actions */
@@ -744,7 +744,7 @@ __webpack_require__.r(__webpack_exports__);
 
     /* Misc */
     get ExternalLink() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByRegex(/trusted/);},
-    get TextElement() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("Sizes", "Weights");},
+    get TextElement() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByDisplayName("Text");},
     get FlexChild() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("Child");},
     get Titles() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("Tags", "default");},
 
@@ -2098,7 +2098,7 @@ class PluginUpdater {
         return new Promise(resolve => {
             const request = __webpack_require__(/*! request */ "request");
             request(updateLink, (error, response, result) => {
-                if (error) return;
+                if (error || response.statusCode !== 200) return resolve();
                 const remoteVersion = window.PluginUpdates.plugins[updateLink].versioner(result);
                 const hasUpdate = window.PluginUpdates.plugins[updateLink].comparator(window.PluginUpdates.plugins[updateLink].version, remoteVersion);
                 if (hasUpdate) resolve(this.showUpdateNotice(pluginName, updateLink));
@@ -8279,7 +8279,7 @@ class Modals {
         const renderHeader = function() {
             return ce(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].FlexChild.Child, {grow: 1, shrink: 1},
                 ce(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].Titles.default, {tag: modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].Titles.Tags.H4}, title),
-                ce(TextElement.default,
+                ce(TextElement,
                     {size: TextElement.Sizes.SMALL, color: TextElement.Colors.PRIMARY, className: modules__WEBPACK_IMPORTED_MODULE_0__["DiscordClasses"].Changelog.date.toString()},
                     "Version " + version
                 )

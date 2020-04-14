@@ -81,7 +81,7 @@ export default class PluginUpdater {
         return new Promise(resolve => {
             const request = require("request");
             request(updateLink, (error, response, result) => {
-                if (error) return;
+                if (error || response.statusCode !== 200) return resolve();
                 const remoteVersion = window.PluginUpdates.plugins[updateLink].versioner(result);
                 const hasUpdate = window.PluginUpdates.plugins[updateLink].comparator(window.PluginUpdates.plugins[updateLink].version, remoteVersion);
                 if (hasUpdate) resolve(this.showUpdateNotice(pluginName, updateLink));

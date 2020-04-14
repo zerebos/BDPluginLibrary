@@ -24,7 +24,7 @@ export default Utilities.memoizeObject({
     get GuildMemberStore() {return WebpackModules.getByProps("getMember");},
     get MemberCountStore() {return WebpackModules.getByProps("getMemberCounts");},
     get GuildEmojiStore() {return WebpackModules.getByProps("getEmojis");},
-    // get GuildActions() {return WebpackModules.getByProps("requestMembers");},
+    get GuildActions() {return WebpackModules.getByProps("requestMembers");}, // apparently it's back
     get GuildPermissions() {return WebpackModules.getByProps("getGuildPermissions");},
 
     /* Channel Store & Actions */
@@ -212,7 +212,7 @@ export default Utilities.memoizeObject({
 
     /* Misc */
     get ExternalLink() {return WebpackModules.getByRegex(/trusted/);},
-    get TextElement() {return WebpackModules.getByProps("Sizes", "Weights");},
+    get TextElement() {return WebpackModules.getByDisplayName("Text");},
     get FlexChild() {return WebpackModules.getByProps("Child");},
     get Titles() {return WebpackModules.getByProps("Tags", "default");},
 

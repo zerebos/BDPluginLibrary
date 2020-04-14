@@ -1,4 +1,12 @@
-//META{"name":"HideDisabledEmojis","displayName":"HideDisabledEmojis","website":"https://github.com/rauenzi/BetterDiscordAddons/tree/master/Plugins/HideDisabledEmojis","source":"https://github.com/rauenzi/BetterDiscordAddons/blob/master/Plugins/HideDisabledEmojis/HideDisabledEmojis.plugin.js"}*//
+/**
+ * @name HideDisabledEmojis
+ * @invite undefined
+ * @authorLink undefined
+ * @donate undefined
+ * @patreon undefined
+ * @website https://github.com/rauenzi/BetterDiscordAddons/tree/master/Plugins/HideDisabledEmojis
+ * @source https://github.com/rauenzi/BetterDiscordAddons/blob/master/Plugins/HideDisabledEmojis/HideDisabledEmojis.plugin.js
+ */
 /*@cc_on
 @if (@_jscript)
 	
@@ -33,25 +41,15 @@ var HideDisabledEmojis = (() => {
         getDescription() {return config.info.description;}
         getVersion() {return config.info.version;}
         load() {
-            const title = "Library Missing";
-            const ModalStack = BdApi.findModuleByProps("push", "update", "pop", "popWithKey");
-            const TextElement = BdApi.findModuleByProps("Sizes", "Weights");
-            const ConfirmationModal = BdApi.findModule(m => m.defaultProps && m.key && m.key() == "confirm-modal");
-            if (!ModalStack || !ConfirmationModal || !TextElement) return BdApi.alert(title, `The library plugin needed for ${config.info.name} is missing.<br /><br /> <a href="https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js" target="_blank">Click here to download the library!</a>`);
-            ModalStack.push(function(props) {
-                return BdApi.React.createElement(ConfirmationModal, Object.assign({
-                    header: title,
-                    children: [TextElement({color: TextElement.Colors.PRIMARY, children: [`The library plugin needed for ${config.info.name} is missing. Please click Download Now to install it.`]})],
-                    red: false,
-                    confirmText: "Download Now",
-                    cancelText: "Cancel",
-                    onConfirm: () => {
-                        require("request").get("https://rauenzi.github.io/BDPluginLibrary/release/0PluginLibrary.plugin.js", async (error, response, body) => {
-                            if (error) return require("electron").shell.openExternal("https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js");
-                            await new Promise(r => require("fs").writeFile(require("path").join(ContentManager.pluginsFolder, "0PluginLibrary.plugin.js"), body, r));
-                        });
-                    }
-                }, props));
+            BdApi.showConfirmationModal("Library Missing", `The library plugin needed for ${config.info.name} is missing. Please click Download Now to install it.`, {
+                confirmText: "Download Now",
+                cancelText: "Cancel",
+                onConfirm: () => {
+                    require("request").get("https://rauenzi.github.io/BDPluginLibrary/release/0PluginLibrary.plugin.js", async (error, response, body) => {
+                        if (error) return require("electron").shell.openExternal("https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js");
+                        await new Promise(r => require("fs").writeFile(require("path").join(BdApi.Plugins.folder, "0PluginLibrary.plugin.js"), body, r));
+                    });
+                }
             });
         }
         start() {}
