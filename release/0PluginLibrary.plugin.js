@@ -2067,14 +2067,12 @@ class PluginUpdater {
             window.PluginUpdates = {
                 plugins: {},
                 checkAll: async function() {
-                    ui__WEBPACK_IMPORTED_MODULE_4__["Toasts"].info("Plugin update check in progress.");
                     for (const key in this.plugins) {
                         const plugin = this.plugins[key];
                         if (!plugin.versioner) plugin.versioner = PluginUpdater.defaultVersioner;
                         if (!plugin.comparator) plugin.comparator = PluginUpdater.defaultComparator;
                         await PluginUpdater.processUpdateCheck(plugin.name, plugin.raw);
                     }
-                    ui__WEBPACK_IMPORTED_MODULE_4__["Toasts"].success("Plugin update check complete.");
                 },
                 interval: setInterval(() => {
                     window.PluginUpdates.checkAll();
@@ -2154,7 +2152,8 @@ class PluginUpdater {
     static createUpdateButton() {
         const updateButton = _domtools__WEBPACK_IMPORTED_MODULE_1__["default"].parseHTML(`<button class="bd-pfbtn bd-updatebtn" style="left: 220px;">Check for Updates</button>`);
         updateButton.onclick = function () {
-            window.PluginUpdates.checkAll();
+            ui__WEBPACK_IMPORTED_MODULE_4__["Toasts"].info("Plugin update check in progress.");
+            window.PluginUpdates.checkAll().then(() => {ui__WEBPACK_IMPORTED_MODULE_4__["Toasts"].success("Plugin update check complete.");});
         };
         const tooltip = new ui__WEBPACK_IMPORTED_MODULE_4__["EmulatedTooltip"](updateButton, "Checks for updates of plugins that support this feature. Right-click for a list.");
         updateButton.oncontextmenu = function () {

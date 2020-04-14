@@ -50,14 +50,12 @@ export default class PluginUpdater {
             window.PluginUpdates = {
                 plugins: {},
                 checkAll: async function() {
-                    Toasts.info("Plugin update check in progress.");
                     for (const key in this.plugins) {
                         const plugin = this.plugins[key];
                         if (!plugin.versioner) plugin.versioner = PluginUpdater.defaultVersioner;
                         if (!plugin.comparator) plugin.comparator = PluginUpdater.defaultComparator;
                         await PluginUpdater.processUpdateCheck(plugin.name, plugin.raw);
                     }
-                    Toasts.success("Plugin update check complete.");
                 },
                 interval: setInterval(() => {
                     window.PluginUpdates.checkAll();
@@ -137,7 +135,8 @@ export default class PluginUpdater {
     static createUpdateButton() {
         const updateButton = DOMTools.parseHTML(`<button class="bd-pfbtn bd-updatebtn" style="left: 220px;">Check for Updates</button>`);
         updateButton.onclick = function () {
-            window.PluginUpdates.checkAll();
+            Toasts.info("Plugin update check in progress.");
+            window.PluginUpdates.checkAll().then(() => {Toasts.success("Plugin update check complete.");});
         };
         const tooltip = new EmulatedTooltip(updateButton, "Checks for updates of plugins that support this feature. Right-click for a list.");
         updateButton.oncontextmenu = function () {
