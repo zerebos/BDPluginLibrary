@@ -7,18 +7,10 @@
             "github_username": "rauenzi",
             "twitter_username": "ZackRauen"
         }],
-        "version": "1.2.15",
+        "version": "1.2.16",
         "description": "Gives other plugins utility functions and the ability to emulate v2.",
         "github": "https://github.com/rauenzi/BDPluginLibrary",
         "github_raw": "https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"
     },
-    "changelog": [
-        {
-            "title": "Bugs Squashed", "type": "fixed", "items": [
-                "Some fixes to the plugin updater.",
-                "Fix an issue where changelogs caused crashes."
-            ]
-        }
-    ],
     "main": "plugin.js"
 }

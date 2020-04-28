@@ -40,12 +40,7 @@ export default class Modals {
      * @param {string} body - text to show inside the modal
      */
     static showAlertModal(title, body) {
-        DiscordModules.ModalStack.push(function(props) {
-            return ce(DiscordModules.AlertModal, Object.assign({
-                title: title,
-                body: body,
-            }, props));
-        });
+        this.showConfirmationModal(title, body, {cancelText: null});
     }
 
     /**

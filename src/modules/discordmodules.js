@@ -167,7 +167,7 @@ export default Utilities.memoizeObject({
     /* Modals */
     get ModalStack() {return WebpackModules.getByProps("push", "update", "pop", "popWithKey");},
     get UserProfileModals() {return WebpackModules.getByProps("fetchMutualFriends", "setSection");},
-    get AlertModal() {return WebpackModules.getByPrototypes("handleCancel", "handleSubmit", "handleMinorConfirm");},
+    get AlertModal() {return WebpackModules.getByPrototypes("handleCancel", "handleSubmit");},
     get ConfirmationModal() {return WebpackModules.getModule(m => m.defaultProps && m.key && m.key() == "confirm-modal");},
     // Grab with react components or open with UserProfileModals
     // get UserProfileModal() {
