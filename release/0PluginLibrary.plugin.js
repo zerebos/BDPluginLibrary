@@ -3646,6 +3646,7 @@ class Filters {
      */
     static byString(...strings) {
         return module => {
+            if (typeof module != "function") return false;
             const moduleString = module.toString([]);
             for (const s of strings) {
                 if (!moduleString.includes(s)) return false;
