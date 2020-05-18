@@ -55,7 +55,10 @@ export class Filters {
         return module => {
             const method = filter(module);
             if (!method) return false;
-            return method.toString([]).search(search) !== -1;
+            let methodString = "";
+            try {methodString = method.toString([]);}
+            catch (err) {methodString = method.toString();}
+            return methodString.search(search) !== -1;
         };
     }
 
@@ -66,7 +69,9 @@ export class Filters {
      */
     static byString(...strings) {
         return module => {
-            const moduleString = module.toString([]);
+            let moduleString = "";
+            try {moduleString = module.toString([]);}
+            catch (err) {moduleString = module.toString();}
             for (const s of strings) {
                 if (!moduleString.includes(s)) return false;
             }
@@ -112,6 +117,10 @@ export default class WebpackModules {
      * @return {Any}
      */
     static getModule(filter, first = true) {
+        const wrappedFilter = (m) => {
+            try {return filter(m);}
+            catch (err) {return false;}
+        };
         const modules = this.getAllModules();
         const rm = [];
         for (const index in modules) {
@@ -121,8 +130,8 @@ export default class WebpackModules {
             let foundModule = null;
 
             if (!exports) continue;
-            if (exports.__esModule && exports.default && filter(exports.default)) foundModule = exports.default;
-            if (filter(exports)) foundModule = exports;
+            if (exports.__esModule && exports.default && wrappedFilter(exports.default)) foundModule = exports.default;
+            if (wrappedFilter(exports)) foundModule = exports;
             if (!foundModule) continue;
             if (first) return foundModule;
             rm.push(foundModule);
@@ -131,24 +140,16 @@ export default class WebpackModules {
     }
 
     /**
-     * Gets a specific module by index of the webpack require cache.
-     * Best used in combination with getIndex in order to patch a
-     * specific function.
-     *
-     * Note: this gives the **raw** module, meaning the actual module
-     * is in returnValue.exports. This is done in order to be able
-     * to patch modules which export a single function directly.
-     * @param {Number} index Index into the webpack require cache
-     * @return {Any}
-     */
-
-    /**
      * Gets the index in the webpack require cache of a specific
      * module using a filter.
      * @param {Function} filter A function to use to filter modules
      * @return {Number|null}
      */
     static getIndex(filter) {
+        const wrappedFilter = (m) => {
+            try {return filter(m);}
+            catch (err) {return false;}
+        };
         const modules = this.getAllModules();
         for (const index in modules) {
             if (!modules.hasOwnProperty(index)) continue;
@@ -157,8 +158,8 @@ export default class WebpackModules {
             let foundModule = null;
 
             if (!exports) continue;
-            if (exports.__esModule && exports.default && filter(exports.default)) foundModule = exports.default;
-            if (filter(exports)) foundModule = exports;
+            if (exports.__esModule && exports.default && wrappedFilter(exports.default)) foundModule = exports.default;
+            if (wrappedFilter(exports)) foundModule = exports;
             if (!foundModule) continue;
             return index;
         }
@@ -271,6 +272,10 @@ export default class WebpackModules {
      * Gets a specific module by index of the webpack require cache.
      * Best used in combination with getIndex in order to patch a
      * specific function.
+     *
+     * Note: this gives the **raw** module, meaning the actual module
+     * is in returnValue.exports. This is done in order to be able
+     * to patch modules which export a single function directly.
      * @param {Number} index Index into the webpack require cache
      * @return {Any}
      */
