@@ -23,7 +23,7 @@
 	WScript.Quit();
 
 @else@*/
-var ZeresPluginLibrary =
+module.exports =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -482,7 +482,7 @@ __webpack_require__.r(__webpack_exports__);
  * @version 0.0.2
  */
 /* harmony default export */ __webpack_exports__["default"] = (_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].memoizeObject({
-    get ContextMenu() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("itemToggle");},
+    get ContextMenu() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("menu", "item");},
     get Scrollers() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("scrollerWrap", "scrollerThemed", "scrollerTrack");},
     get AccountDetails() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("container", "avatar", "hasBuildOverride");},
     get Typing() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("typing", "text");},
@@ -831,7 +831,8 @@ const DiscordSelectors = new Proxy(_discordclassmodules__WEBPACK_IMPORTED_MODULE
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return DOMTools; });
 /* harmony import */ var _utilities__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utilities */ "./src/modules/utilities.js");
-/* harmony import */ var structs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! structs */ "./src/structs/structs.js");
+/* harmony import */ var _logger__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./logger */ "./src/modules/logger.js");
+/* harmony import */ var structs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! structs */ "./src/structs/structs.js");
 /**
  * Helpful utilities for dealing with DOM operations.
  * 
@@ -841,6 +842,7 @@ __webpack_require__.r(__webpack_exports__);
  * @module DOMTools
  * @version 0.0.5
  */
+
 
 
 
@@ -863,9 +865,9 @@ __webpack_require__.r(__webpack_exports__);
  
 class DOMTools {
 
-    static get Selector() {return structs__WEBPACK_IMPORTED_MODULE_1__["Selector"];}
-    static get ClassName() {return structs__WEBPACK_IMPORTED_MODULE_1__["ClassName"];}
-    static get DOMObserver() {return structs__WEBPACK_IMPORTED_MODULE_1__["DOMObserver"];}
+    static get Selector() {return structs__WEBPACK_IMPORTED_MODULE_2__["Selector"];}
+    static get ClassName() {return structs__WEBPACK_IMPORTED_MODULE_2__["ClassName"];}
+    static get DOMObserver() {return structs__WEBPACK_IMPORTED_MODULE_2__["DOMObserver"];}
 
     /**
      * Default DOMObserver for global usage.
@@ -873,7 +875,7 @@ class DOMTools {
      * @see DOMObserver
      */
     static get observer() {
-        return this._observer || (this._observer = new structs__WEBPACK_IMPORTED_MODULE_1__["DOMObserver"]());
+        return this._observer || (this._observer = new structs__WEBPACK_IMPORTED_MODULE_2__["DOMObserver"]());
     }
 
     /**
@@ -948,6 +950,14 @@ class DOMTools {
         spanElement.append(textNode);
         textNode.nodeValue = html;
         return spanElement.innerHTML;
+    }
+
+    /**
+     * Takes a string and escapes it for use as a DOM id.
+     * @param {String} id - string to be escaped
+     */
+    static escapeID(id) {
+        return id.replace(/^[^a-z]+|[^\w-]+/gi, "-");
     }
 
     /**
@@ -1519,43 +1529,50 @@ class DOMTools {
     }
 }
 
-_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "addClass", function(...classes) {return DOMTools.addClass(this, ...classes);});
-_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "removeClass", function(...classes) {return DOMTools.removeClass(this, ...classes);});
-_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "toggleClass", function(className, indicator) {return DOMTools.toggleClass(this, className, indicator);});
-_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "replaceClass", function(oldClass, newClass) {return DOMTools.replaceClass(this, oldClass, newClass);});
-_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "hasClass", function(className) {return DOMTools.hasClass(this, className);});
-_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "insertAfter", function(referenceNode) {return DOMTools.insertAfter(this, referenceNode);});
-_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "after", function(newNode) {return DOMTools.after(this, newNode);});
-_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "next", function(selector = "") {return DOMTools.next(this, selector);});
-_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "nextAll", function() {return DOMTools.nextAll(this);});
-_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "nextUntil", function(selector) {return DOMTools.nextUntil(this, selector);});
-_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "previous", function(selector = "") {return DOMTools.previous(this, selector);});
-_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "previousAll", function() {return DOMTools.previousAll(this);});
-_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "previousUntil", function(selector) {return DOMTools.previousUntil(this, selector);});
-_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "index", function() {return DOMTools.index(this);});
-_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "findChild", function(selector) {return DOMTools.findChild(this, selector);});
-_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "findChildren", function(selector) {return DOMTools.findChildren(this, selector);});
-_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "parent", function(selector) {return DOMTools.parent(this, selector);});
-_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "parents", function(selector = "") {return DOMTools.parents(this, selector);});
-_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "parentsUntil", function(selector) {return DOMTools.parentsUntil(this, selector);});
-_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "siblings", function(selector = "*") {return DOMTools.siblings(this, selector);});
-_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "css", function(attribute, value) {return DOMTools.css(this, attribute, value);});
-_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "width", function(value) {return DOMTools.width(this, value);});
-_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "height", function(value) {return DOMTools.height(this, value);});
-_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "innerWidth", function() {return DOMTools.innerWidth(this);});
-_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "innerHeight", function() {return DOMTools.innerHeight(this);});
-_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "outerWidth", function() {return DOMTools.outerWidth(this);});
-_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "outerHeight", function() {return DOMTools.outerHeight(this);});
-_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "offset", function() {return DOMTools.offset(this);});
-_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "text", function(value) {return DOMTools.text(this, value);});
-_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "on", function(event, delegate, callback) {return DOMTools.on(this, event, delegate, callback);});
-_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "once", function(event, delegate, callback) {return DOMTools.once(this, event, delegate, callback);});
-_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "off", function(event, delegate, callback) {return DOMTools.off(this, event, delegate, callback);});
-_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "find", function(selector) {return DOMTools.query(selector, this);});
-_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "findAll", function(selector) {return DOMTools.queryAll(selector, this);});
-_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "appendTo", function(otherNode) {return DOMTools.appendTo(this, otherNode);});
-_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "onAdded", function(callback) {return DOMTools.onAdded(this, callback);});
-_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, "onRemoved", function(callback) {return DOMTools.onRemoved(this, callback);});
+const addToPrototype = function(MainObject, prop, func) {
+    _utilities__WEBPACK_IMPORTED_MODULE_0__["default"].addToPrototype(HTMLElement, prop, function() {
+        _logger__WEBPACK_IMPORTED_MODULE_1__["default"].warn("DOMTools", "These custom functions on HTMLElement will be removed.");
+        return Reflect.apply(func, this, arguments);
+    });
+};
+
+addToPrototype(HTMLElement, "addClass", function(...classes) {return DOMTools.addClass(this, ...classes);});
+addToPrototype(HTMLElement, "removeClass", function(...classes) {return DOMTools.removeClass(this, ...classes);});
+addToPrototype(HTMLElement, "toggleClass", function(className, indicator) {return DOMTools.toggleClass(this, className, indicator);});
+addToPrototype(HTMLElement, "replaceClass", function(oldClass, newClass) {return DOMTools.replaceClass(this, oldClass, newClass);});
+addToPrototype(HTMLElement, "hasClass", function(className) {return DOMTools.hasClass(this, className);});
+addToPrototype(HTMLElement, "insertAfter", function(referenceNode) {return DOMTools.insertAfter(this, referenceNode);});
+addToPrototype(HTMLElement, "after", function(newNode) {return DOMTools.after(this, newNode);});
+addToPrototype(HTMLElement, "next", function(selector = "") {return DOMTools.next(this, selector);});
+addToPrototype(HTMLElement, "nextAll", function() {return DOMTools.nextAll(this);});
+addToPrototype(HTMLElement, "nextUntil", function(selector) {return DOMTools.nextUntil(this, selector);});
+addToPrototype(HTMLElement, "previous", function(selector = "") {return DOMTools.previous(this, selector);});
+addToPrototype(HTMLElement, "previousAll", function() {return DOMTools.previousAll(this);});
+addToPrototype(HTMLElement, "previousUntil", function(selector) {return DOMTools.previousUntil(this, selector);});
+addToPrototype(HTMLElement, "index", function() {return DOMTools.index(this);});
+addToPrototype(HTMLElement, "findChild", function(selector) {return DOMTools.findChild(this, selector);});
+addToPrototype(HTMLElement, "findChildren", function(selector) {return DOMTools.findChildren(this, selector);});
+addToPrototype(HTMLElement, "parent", function(selector) {return DOMTools.parent(this, selector);});
+addToPrototype(HTMLElement, "parents", function(selector = "") {return DOMTools.parents(this, selector);});
+addToPrototype(HTMLElement, "parentsUntil", function(selector) {return DOMTools.parentsUntil(this, selector);});
+addToPrototype(HTMLElement, "siblings", function(selector = "*") {return DOMTools.siblings(this, selector);});
+addToPrototype(HTMLElement, "css", function(attribute, value) {return DOMTools.css(this, attribute, value);});
+addToPrototype(HTMLElement, "width", function(value) {return DOMTools.width(this, value);});
+addToPrototype(HTMLElement, "height", function(value) {return DOMTools.height(this, value);});
+addToPrototype(HTMLElement, "innerWidth", function() {return DOMTools.innerWidth(this);});
+addToPrototype(HTMLElement, "innerHeight", function() {return DOMTools.innerHeight(this);});
+addToPrototype(HTMLElement, "outerWidth", function() {return DOMTools.outerWidth(this);});
+addToPrototype(HTMLElement, "outerHeight", function() {return DOMTools.outerHeight(this);});
+addToPrototype(HTMLElement, "offset", function() {return DOMTools.offset(this);});
+addToPrototype(HTMLElement, "text", function(value) {return DOMTools.text(this, value);});
+addToPrototype(HTMLElement, "on", function(event, delegate, callback) {return DOMTools.on(this, event, delegate, callback);});
+addToPrototype(HTMLElement, "once", function(event, delegate, callback) {return DOMTools.once(this, event, delegate, callback);});
+addToPrototype(HTMLElement, "off", function(event, delegate, callback) {return DOMTools.off(this, event, delegate, callback);});
+addToPrototype(HTMLElement, "find", function(selector) {return DOMTools.query(selector, this);});
+addToPrototype(HTMLElement, "findAll", function(selector) {return DOMTools.queryAll(selector, this);});
+addToPrototype(HTMLElement, "appendTo", function(otherNode) {return DOMTools.appendTo(this, otherNode);});
+addToPrototype(HTMLElement, "onAdded", function(callback) {return DOMTools.onAdded(this, callback);});
+addToPrototype(HTMLElement, "onRemoved", function(callback) {return DOMTools.onRemoved(this, callback);});
 
 /***/ }),
 
@@ -3901,7 +3918,7 @@ class WebpackModules {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ((BasePlugin, Library) => {
-    const {PluginUpdater, Patcher, Logger, Settings, Toasts, PluginUtilities, ReactComponents} = Library;
+    const {PluginUpdater, Patcher, Logger, Settings, Toasts, PluginUtilities, ReactComponents, DCM} = Library;
     const PluginLibrary = class PluginLibrary extends BasePlugin {
         get Library() {return Library;}
         
@@ -3913,6 +3930,7 @@ __webpack_require__.r(__webpack_exports__);
             PluginUtilities.addStyle("ZLibraryCSS", Settings.CSS + Toasts.CSS + PluginUpdater.CSS);
             ReactComponents.AutoPatcher.processAll();
             ReactComponents.AutoPatcher.autoPatch();
+            DCM.patchComponents();
             
             /**
              * Checking if this is the library first being loaded during init
@@ -6932,663 +6950,6 @@ class ToggleItem extends MenuItem {
 
 /***/ }),
 
-/***/ "./src/ui/contextmenu/contextmenu.js":
-/*!*******************************************!*\
-  !*** ./src/ui/contextmenu/contextmenu.js ***!
-  \*******************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _modules_discordmodules__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../modules/discordmodules */ "./src/modules/discordmodules.js");
-/* harmony import */ var _modules_discordclasses__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../modules/discordclasses */ "./src/modules/discordclasses.js");
-/* harmony import */ var _errorboundary__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../errorboundary */ "./src/ui/errorboundary.js");
-
-
-
-
-
-const React = _modules_discordmodules__WEBPACK_IMPORTED_MODULE_0__["default"].React;
-
-/**
- * This creates the main context menu
- * 
- * @param {object} props - props to pass to the react renderer
- * @param {Array<object>} props.children - items and groups to show
- * 
- * @memberof module:DiscordContextMenu
- */
-class ContextMenu extends React.Component {
-
-    static get defaultProps() {
-        return {
-            className: _modules_discordclasses__WEBPACK_IMPORTED_MODULE_1__["default"].ContextMenu.contextMenu,
-            config: {},
-            position: "right",
-            align: "top",
-            theme: "dark"
-        };
-    }
-    
-    render() {
-        return React.createElement("div", Object.assign({}, ContextMenu.defaultProps, this.props));
-    }
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (Object(_errorboundary__WEBPACK_IMPORTED_MODULE_2__["WrapBoundary"])(ContextMenu));
-
-/***/ }),
-
-/***/ "./src/ui/contextmenu/imageitem.js":
-/*!*****************************************!*\
-  !*** ./src/ui/contextmenu/imageitem.js ***!
-  \*****************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _modules_discordmodules__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../modules/discordmodules */ "./src/modules/discordmodules.js");
-/* harmony import */ var _modules_webpackmodules__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../modules/webpackmodules */ "./src/modules/webpackmodules.js");
-/* harmony import */ var _errorboundary__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../errorboundary */ "./src/ui/errorboundary.js");
-
-
-
-
-
-const React = _modules_discordmodules__WEBPACK_IMPORTED_MODULE_0__["default"].React;
-const ContextMenuActions = _modules_discordmodules__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenuActions;
-const DiscordComponent = _modules_webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByDisplayName("ImageMenuItem");
-
-/**
- * Fires when the item is clicked.
- * @param {boolean} value - The new value of `active`
- * @callback module:DiscordContextMenu~ImageMenuItemOnClick
- */
-
-/**
- * This creates a menu item with an image or custom icon on the side.
- * 
- * @param {object} props - props to pass to the react renderer
- * @param {string} props.label - label to show on the menu item
- * @param {string} [props.hint] - hint to show on the right hand side (usually keyboard combo)
- * @param {string} [props.image] - link to image to show on the side
- * @param {function} [props.icon] - react component to render on the side
- * @param {module:DiscordContextMenu~ImageMenuItemOnClick} [props.action] - function to perform on click
- * @param {module:DiscordContextMenu~ImageMenuItemOnClick} [props.onClick] - function to perform on click (alias of `action`)
- * @param {boolean} [props.closeOnClick=false] - should the context menu close after clicing this item
- * @param {boolean} [props.danger=false] - should the item show as danger (red)
- * @param {boolean} [props.active=false] - if this "on" can be used to make custom toggles using icons
- * @param {boolean} [props.disabled=false] - should the item be disabled/unclickable
- * 
- * @memberof module:DiscordContextMenu
- */
-class ImageMenuItem extends React.Component {
-    handleClick() {
-        this.props.active = !this.props.active;
-        if (this.props.onClick) this.props.onClick(this.props.active);
-        if (this.props.action) this.props.action(this.props.active);
-        if (this.props.closeOnClick) ContextMenuActions.closeContextMenu();
-        this.forceUpdate();
-    }
-    render() {
-        const Component = DiscordComponent ? DiscordComponent.default || DiscordComponent : null;
-        return React.createElement(Component, Object.assign({}, this.props, {action: this.handleClick.bind(this)}));
-    }
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (Object(_errorboundary__WEBPACK_IMPORTED_MODULE_2__["WrapBoundary"])(ImageMenuItem));
-
-// Discord's implementation for reference
-// function (e, t, n) {
-//     "use strict";
-//     t.__esModule = !0, t.default = void 0;
-//     ! function (e) {
-//         if (e && e.__esModule) return e;
-//         var t = {};
-//         if (null != e)
-//             for (var n in e)
-//                 if (Object.prototype.hasOwnProperty.call(e, n)) {
-//                     var r = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(e, n) : {};
-//                     r.get || r.set ? Object.defineProperty(t, n, r) : t[n] = e[n]
-//                 } t.default = e
-//     }(n(0));
-//     var r, a = l(n(9)),
-//         o = l(n(197)),
-//         i = l(n(1024));
-
-//     function l(e) {
-//         return e && e.__esModule ? e : {
-//             default: e
-//         }
-//     }
-
-//     function u(e, t, n, a) {
-//         r || (r = "function" == typeof Symbol && Symbol.for && Symbol.for("react.element") || 60103);
-//         var o = e && e.defaultProps,
-//             i = arguments.length - 3;
-//         if (t || 0 === i || (t = {
-//                 children: void 0
-//             }), t && o)
-//             for (var l in o) void 0 === t[l] && (t[l] = o[l]);
-//         else t || (t = o || {});
-//         if (1 === i) t.children = a;
-//         else if (i > 1) {
-//             for (var u = new Array(i), s = 0; s < i; s++) u[s] = arguments[s + 3];
-//             t.children = u
-//         }
-//         return {
-//             $$typeof: r,
-//             type: e,
-//             key: void 0 === n ? null : "" + n,
-//             ref: null,
-//             props: t,
-//             _owner: null
-//         }
-//     }
-//     var s = function (e) {
-//         var t, n, r = e.image,
-//             l = e.icon,
-//             s = e.label,
-//             d = e.action,
-//             c = e.active,
-//             f = void 0 !== c && c,
-//             p = e.disabled,
-//             v = void 0 !== p && p,
-//             h = e.danger,
-//             _ = void 0 !== h && h;
-//         return v || (n = function (e) {
-//             return d(e, s, f)
-//         }), u(o.default, {
-//             className: (0, a.default)(i.default.item, i.default.itemImage, (t = {}, t[i.default.clickable] = !v, t[i.default.disabled] = v, t[i.default.danger] = _, t)),
-//             onClick: n
-//         }, void 0, u("div", {
-//             className: i.default.label
-//         }, void 0, s), null != r ? u("img", {
-//             alt: "",
-//             src: r,
-//             className: i.default.image
-//         }) : null, null != l ? u(l, {
-//             className: i.default.image
-//         }) : null)
-//     };
-//     s.displayName = "ImageMenuItem";
-//     var d = s;
-//     t.default = d
-
-/***/ }),
-
-/***/ "./src/ui/contextmenu/itemgroup.js":
-/*!*****************************************!*\
-  !*** ./src/ui/contextmenu/itemgroup.js ***!
-  \*****************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _modules_discordmodules__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../modules/discordmodules */ "./src/modules/discordmodules.js");
-/* harmony import */ var _modules_webpackmodules__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../modules/webpackmodules */ "./src/modules/webpackmodules.js");
-/* harmony import */ var _errorboundary__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../errorboundary */ "./src/ui/errorboundary.js");
-
-
-
-
-
-const React = _modules_discordmodules__WEBPACK_IMPORTED_MODULE_0__["default"].React;
-const DiscordComponent = _modules_webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByString("className", "itemGroup");
-
-/**
- * This holds all the items together in a group.
- * 
- * @param {object} props - props to pass to the react renderer
- * @param {Array<object>} [props.children] - items to contain in this group
- * @param {Array<object>} [props.items] - alias for `children`
- * 
- * @memberof module:DiscordContextMenu
- */
-class ItemGroup extends React.Component {
-    render() {
-        const Component = DiscordComponent ? DiscordComponent.default || DiscordComponent : null;
-        return React.createElement(Component, this.props, this.props.children || this.props.items);
-    }
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (Object(_errorboundary__WEBPACK_IMPORTED_MODULE_2__["WrapBoundary"])(ItemGroup));
-
-/***/ }),
-
-/***/ "./src/ui/contextmenu/menuitem.js":
-/*!****************************************!*\
-  !*** ./src/ui/contextmenu/menuitem.js ***!
-  \****************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _modules_discordmodules__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../modules/discordmodules */ "./src/modules/discordmodules.js");
-/* harmony import */ var _modules_webpackmodules__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../modules/webpackmodules */ "./src/modules/webpackmodules.js");
-/* harmony import */ var _errorboundary__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../errorboundary */ "./src/ui/errorboundary.js");
-
-
-
-
-
-const React = _modules_discordmodules__WEBPACK_IMPORTED_MODULE_0__["default"].React;
-const ContextMenuActions = _modules_discordmodules__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenuActions;
-const DiscordComponent = _modules_webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByRegex(/\.label\b.*\.hint\b.*\.action\b/);
-
-/**
- * Fires when the item is clicked.
- * @param {MouseEvent} event - event object invoked on click
- * @callback module:DiscordContextMenu~MenuItemOnClick
- */
-
-/**
- * This creates a basic menu item with a lot of options.
- * 
- * @param {object} props - props to pass to the react renderer
- * @param {string} props.label - label to show on the menu item
- * @param {string} [props.hint] - hint to show on the right hand side (usually keyboard combo)
- * @param {string} [props.className] - additional class name for this item
- * @param {string} [props.tooltip] - text to show on hover
- * @param {Array<object>} [props.children] - array of children to render underneath
- * @param {module:DiscordContextMenu~MenuItemOnClick} [props.action] - function to perform on click
- * @param {module:DiscordContextMenu~MenuItemOnClick} [props.onClick] - function to perform on click (alias of `action`)
- * @param {boolean} [props.closeOnClick=false] - should the context menu close after clicing this item
- * @param {boolean} [props.danger=false] - should the item show as danger (red)
- * @param {boolean} [props.brand=false] - should the item be blurple (branded)
- * @param {boolean} [props.disabled=false] - should the item be disabled/unclickable
- * 
- * @memberof module:DiscordContextMenu
- */
-class MenuItem extends React.Component {
-    handleClick(event) {
-        if (this.props.onClick) this.props.onClick(event);
-        if (this.props.action) this.props.action(event);
-        if (this.props.closeOnClick) ContextMenuActions.closeContextMenu();
-    }
-    render() {
-        const Component = DiscordComponent ? DiscordComponent.default || DiscordComponent : null;
-        return React.createElement(Component, Object.assign({}, this.props, {action: this.handleClick.bind(this)}));
-    }
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (Object(_errorboundary__WEBPACK_IMPORTED_MODULE_2__["WrapBoundary"])(MenuItem));
-
-// Discord's implementation for reference
-// var c = function (e) {
-//     var t, n = e.style,
-//         r = e.label,
-//         s = e.hint,
-//         c = e.action,
-//         f = e.danger,
-//         p = void 0 !== f && f,
-//         v = e.disabled,
-//         h = void 0 !== v && v,
-//         _ = e.brand,
-//         m = void 0 !== _ && _,
-//         y = e.children,
-//         g = e.className,
-//         E = e.tooltip,
-//         S = d(i.default, {
-//             className: (0, o.default)(u.default.item, (t = {}, t[u.default.clickable] = !h, t[u.default.danger] = p, t[u.default.disabled] = h, t[u.default.brand] = m, t), g),
-//             style: n,
-//             role: "menuitem",
-//             onClick: h ? void 0 : c
-//         }, void 0, d("div", {
-//             className: u.default.label
-//         }, void 0, r), d("div", {
-//             className: u.default.hint
-//         }, void 0, s), y);
-//     return null != E ? d(l.default, {
-//         text: E
-//     }, void 0, function (e) {
-//         return a.createElement("div", e, S)
-//     }) : S
-// };
-// t.default = c
-
-/***/ }),
-
-/***/ "./src/ui/contextmenu/slideritem.js":
-/*!******************************************!*\
-  !*** ./src/ui/contextmenu/slideritem.js ***!
-  \******************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _modules_discordmodules__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../modules/discordmodules */ "./src/modules/discordmodules.js");
-/* harmony import */ var _modules_webpackmodules__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../modules/webpackmodules */ "./src/modules/webpackmodules.js");
-/* harmony import */ var _errorboundary__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../errorboundary */ "./src/ui/errorboundary.js");
-
-
-
-
-
-const React = _modules_discordmodules__WEBPACK_IMPORTED_MODULE_0__["default"].React;
-const DiscordComponent = _modules_webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByDisplayName("SliderMenuItem");
-
-/**
- * Fires when the item is clicked.
- * @param {Number} value - The new value selected
- * @callback module:DiscordContextMenu~SliderMenuItemOnChange
- */
-
-/**
- * Fires when the item is clicked.
- * @param {Number} value - The value to render
- * @returns {string} the text to show in the tooltip
- * @callback module:DiscordContextMenu~SliderMenuItemRenderValue
- */
-
-/**
- * This creates a setting style slider inside of a menu item.
- * 
- * @param {object} props - props to pass to the react renderer
- * @param {string} props.label - label to show on the menu item
- * @param {Number} [props.defaultValue=0] - the initial value of the slider
- * @param {Number} [props.minValue=0] - the minimum value of the slider
- * @param {Number} [props.maxValue=100] - the maximum value of the slider
- * @param {module:DiscordContextMenu~SliderMenuItemOnChange} [props.onValueChange] - function to perform on a value change
- * @param {module:DiscordContextMenu~SliderMenuItemOnChange} [props.onChange] - alias of `onValueChange`
- * @param {module:DiscordContextMenu~SliderMenuItemRenderValue} [props.onValueRender] - function to call to render the value in the tooltip
- * @param {module:DiscordContextMenu~SliderMenuItemRenderValue} [props.renderValue] - alias of `onValueChange`
- * 
- * @memberof module:DiscordContextMenu
- */
-class SliderMenuItem extends React.Component {
-    onChange(value) {
-        if (this.props.onChange) this.props.onChange(value);
-        if (this.props.onValueChange) this.props.onValueChange(value);
-    }
-    render() {
-        const onValueRender = this.props.renderValue || this.props.onValueRender || undefined;
-        const Component = DiscordComponent ? DiscordComponent.default || DiscordComponent : null;
-        return React.createElement(Component, Object.assign({}, this.props, {onValueChange: this.onChange.bind(this), onValueRender}));
-    }
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (Object(_errorboundary__WEBPACK_IMPORTED_MODULE_2__["WrapBoundary"])(SliderMenuItem));
-
-// Discord's implementation for reference
-// function (e, t, n) {
-//     "use strict";
-//     t.__esModule = !0, t.default = void 0;
-//     ! function (e) {
-//         if (e && e.__esModule) return e;
-//         var t = {};
-//         if (null != e)
-//             for (var n in e)
-//                 if (Object.prototype.hasOwnProperty.call(e, n)) {
-//                     var r = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(e, n) : {};
-//                     r.get || r.set ? Object.defineProperty(t, n, r) : t[n] = e[n]
-//                 } t.default = e
-//     }(n(0));
-//     var r, a = l(n(9)),
-//         o = l(n(6325)),
-//         i = l(n(1024));
-
-//     function l(e) {
-//         return e && e.__esModule ? e : {
-//             default: e
-//         }
-//     }
-
-//     function u(e, t, n, a) {
-//         r || (r = "function" == typeof Symbol && Symbol.for && Symbol.for("react.element") || 60103);
-//         var o = e && e.defaultProps,
-//             i = arguments.length - 3;
-//         if (t || 0 === i || (t = {
-//                 children: void 0
-//             }), t && o)
-//             for (var l in o) void 0 === t[l] && (t[l] = o[l]);
-//         else t || (t = o || {});
-//         if (1 === i) t.children = a;
-//         else if (i > 1) {
-//             for (var u = new Array(i), s = 0; s < i; s++) u[s] = arguments[s + 3];
-//             t.children = u
-//         }
-//         return {
-//             $$typeof: r,
-//             type: e,
-//             key: void 0 === n ? null : "" + n,
-//             ref: null,
-//             props: t,
-//             _owner: null
-//         }
-//     }
-//     var s = function (e) {
-//         var t = e.defaultValue,
-//             n = void 0 === t ? 0 : t,
-//             r = e.minValue,
-//             l = void 0 === r ? 0 : r,
-//             s = e.maxValue,
-//             d = void 0 === s ? 100 : s,
-//             c = e.onValueChange,
-//             f = e.onValueRender,
-//             p = e.label;
-//         return u("div", {
-//             className: (0, a.default)(i.default.itemSlider)
-//         }, void 0, u("div", {
-//             className: i.default.label
-//         }, void 0, p), u(o.default, {
-//             mini: !0,
-//             handleSize: 16,
-//             className: i.default.slider,
-//             initialValue: n,
-//             minValue: l,
-//             maxValue: d,
-//             onValueChange: c,
-//             onValueRender: f
-//         }))
-//     };
-//     s.displayName = "SliderMenuItem";
-//     var d = s;
-//     t.default = d
-// }
-
-/***/ }),
-
-/***/ "./src/ui/contextmenu/submenuitem.js":
-/*!*******************************************!*\
-  !*** ./src/ui/contextmenu/submenuitem.js ***!
-  \*******************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _modules_discordmodules__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../modules/discordmodules */ "./src/modules/discordmodules.js");
-/* harmony import */ var _modules_webpackmodules__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../modules/webpackmodules */ "./src/modules/webpackmodules.js");
-/* harmony import */ var _errorboundary__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../errorboundary */ "./src/ui/errorboundary.js");
-
-
-
-
-
-const React = _modules_discordmodules__WEBPACK_IMPORTED_MODULE_0__["default"].React;
-const ContextMenuActions = _modules_discordmodules__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenuActions;
-const DiscordComponent = _modules_webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].find(m => m.default && m.default.displayName && m.default.displayName.includes("SubMenuItem"));
-
-/**
- * Fires when the item is clicked.
- * @param {MouseEvent} event - The event generated on click
- * @callback module:DiscordContextMenu~SubMenuItemOnClick
- */
-
-/**
- * This creates a menu item that shows a submenu on hover.
- * 
- * @param {object} props - props to pass to the react renderer
- * @param {string} props.label - label to show on the menu item
- * @param {string} [props.theme=currentTheme] - whether to show the submenu as light or dark
- * @param {string} [props.align="center"] - how to align the submenu: "top", "bottom", "center"
- * @param {Array<object>} [props.render] - array of items to render in the submenu
- * @param {Array<object>} [props.items] - alias of `render`
- * @param {module:DiscordContextMenu~SubMenuItemOnClick} [props.action] - function to perform on click
- * @param {module:DiscordContextMenu~SubMenuItemOnClick} [props.onClick] - function to perform on click (alias of `action`)
- * @param {boolean} [props.disabled=false] - should the item be disabled/unclickable
- * 
- * @memberof module:DiscordContextMenu
- */
-class SubMenuItem extends React.Component {
-    handleClick(event) {
-        if (this.props.onClick) this.props.onClick(event);
-        if (this.props.action) this.props.action(event);
-        if (this.props.closeOnClick) ContextMenuActions.closeContextMenu();
-    }
-    render() {
-        const Component = DiscordComponent ? DiscordComponent.default || DiscordComponent : null;
-        return React.createElement(Component, Object.assign({}, this.props, {render: this.props.render || this.props.items, action: this.handleClick.bind(this)}));
-    }
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (Object(_errorboundary__WEBPACK_IMPORTED_MODULE_2__["WrapBoundary"])(SubMenuItem));
-
-// Discord's implementation for reference
-// function l() {
-//     let e, t = this.props,
-//         n = t.label,
-//         r = t.render,
-//         a = t.disabled,
-//         l = t.action,
-//         u = t.theme,
-//         _ = t.align,
-//         y = this.state.open,
-//         E = "function" == typeof r ? r() : r.filter(function (e) {
-//             return e
-//         }),
-//         S = (0, i.isFragment)(E) ? E.props.children.length : E.length;
-//     return 0 === S ? null : m(s.default, {
-//         innerRef: this.setRef,
-//         className: (0, o.default)(h.default.itemSubMenu, (e = {}, e[h.default.selected] = y, e)),
-//         onClick: a ? function () {} : l,
-//         onMouseEnter: a ? void 0 : this.handleMouseEnter,
-//         onMouseLeave: a ? void 0 : this.handleMouseLeave
-//     }, void 0, m("div", {
-//         className: h.default.label
-//     }, void 0, n), m(c.default, {
-//         className: h.default.caret
-//     }), y ? m(p.AppReferencePositionLayer, {
-//         position: f.Positions.RIGHT,
-//         align: _ || f.Align.CENTER,
-//         autoInvert: !0,
-//         nudgeAlignIntoViewport: !0,
-//         spacing: 12,
-//         reference: this.ref
-//     }, void 0, function () {
-//         return m("div", {
-//             className: h.default.subMenuContext,
-//             onClick: g
-//         }, void 0, S > 8 ? m(d.default, {
-//             className: (0, o.default)(h.default.contextMenu, h.default.scroller),
-//             theme: d.default.Themes.GHOST_HAIRLINE,
-//             backgroundColor: u === v.ThemeTypes.LIGHT ? v.Colors.WHITE : v.Colors.PRIMARY_DARK_800
-//         }, void 0, E) : m("div", {
-//             className: h.default.contextMenu
-//         }, void 0, E))
-//     }) : null)
-// }
-
-/***/ }),
-
-/***/ "./src/ui/contextmenu/toggleitem.js":
-/*!******************************************!*\
-  !*** ./src/ui/contextmenu/toggleitem.js ***!
-  \******************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _modules_discordmodules__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../modules/discordmodules */ "./src/modules/discordmodules.js");
-/* harmony import */ var _modules_webpackmodules__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../modules/webpackmodules */ "./src/modules/webpackmodules.js");
-/* harmony import */ var _errorboundary__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../errorboundary */ "./src/ui/errorboundary.js");
-
-
-
-
-
-const React = _modules_discordmodules__WEBPACK_IMPORTED_MODULE_0__["default"].React;
-const DiscordComponent = _modules_webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByString("itemToggle", "checkbox");
-
-/**
- * Fires when the item is clicked.
- * @param {boolean} value - The new value of `active`
- * @callback module:DiscordContextMenu~ToggleMenuItemOnClick
- */
-
-/**
- * This creates a menu item with a checkbox toggle.
- * 
- * @param {object} props - props to pass to the react renderer
- * @param {string} props.label - label to show on the menu item
- * @param {string} [props.className] - additional class name for the label
- * @param {object} [props.style] - css styles for the main label
- * @param {object} [props.checkboxStyle] - css styles for the checkbox
- * @param {module:DiscordContextMenu~ToggleMenuItemOnClick} [props.action] - function to perform on click
- * @param {module:DiscordContextMenu~ToggleMenuItemOnClick} [props.onClick] - function to perform on click (alias of `action`)
- * @param {boolean} [props.loading=false] - should the text show as loading... not super useful
- * @param {boolean} [props.danger=false] - should the item show as danger (red)
- * @param {boolean} [props.active=false] - should the checkbox be checked
- * @param {boolean} [props.disabled=false] - should the item be disabled/unclickable
- * 
- * @memberof module:DiscordContextMenu
- */
-class ToggleMenuItem extends React.Component {
-    handleToggle() {
-        this.props.active = !this.props.active;
-        if (this.props.action) this.props.action(this.props.active);
-        this.forceUpdate();
-    }
-    render() {
-        const Component = DiscordComponent ? DiscordComponent.default || DiscordComponent : null;
-        return React.createElement(Component, Object.assign({}, this.props, {action: this.handleToggle.bind(this)}));
-    }
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (Object(_errorboundary__WEBPACK_IMPORTED_MODULE_2__["WrapBoundary"])(ToggleMenuItem));
-
-// Discord's implementation for reference
-// const f = function (e) {
-//     let t, n, r = e.label,
-//         s = e.action,
-//         f = e.active,
-//         p = void 0 !== f && f,
-//         v = e.disabled,
-//         h = void 0 !== v && v,
-//         _ = e.danger,
-//         m = void 0 !== _ && _,
-//         y = e.loading,
-//         g = void 0 !== y && y,
-//         E = e.style,
-//         S = e.checkboxStyle,
-//         O = e.className;
-//     return h || (n = function (e) {
-//         return s(e, r, p)
-//     }), d(i.default, {
-//         className: (0, a.default)(u.default.item, u.default.itemToggle, O, (t = {}, t[u.default.clickable] = !h, t[u.default.disabled] = h, t[u.default.danger] = m, t)),
-//         onClick: n
-//     }, void 0, d("div", {
-//         className: u.default.label,
-//         style: E
-//     }, void 0, g ? d(l.default, {
-//         type: l.default.Type.PULSING_ELLIPSIS
-//     }) : r), d(o.default, {
-//         checked: p,
-//         containerClassName: u.default.checkbox,
-//         onChange: c,
-//         style: S
-//     }))
-// };
-
-/***/ }),
-
 /***/ "./src/ui/discordcontextmenu.js":
 /*!**************************************!*\
   !*** ./src/ui/discordcontextmenu.js ***!
@@ -7604,14 +6965,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_reacttools__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../modules/reacttools */ "./src/modules/reacttools.js");
 /* harmony import */ var _modules_patcher__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../modules/patcher */ "./src/modules/patcher.js");
 /* harmony import */ var _modules_utilities__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../modules/utilities */ "./src/modules/utilities.js");
-/* harmony import */ var _modules_discordselectors__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../modules/discordselectors */ "./src/modules/discordselectors.js");
-/* harmony import */ var _contextmenu_contextmenu__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./contextmenu/contextmenu */ "./src/ui/contextmenu/contextmenu.js");
-/* harmony import */ var _contextmenu_itemgroup__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./contextmenu/itemgroup */ "./src/ui/contextmenu/itemgroup.js");
-/* harmony import */ var _contextmenu_menuitem__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./contextmenu/menuitem */ "./src/ui/contextmenu/menuitem.js");
-/* harmony import */ var _contextmenu_imageitem__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./contextmenu/imageitem */ "./src/ui/contextmenu/imageitem.js");
-/* harmony import */ var _contextmenu_toggleitem__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./contextmenu/toggleitem */ "./src/ui/contextmenu/toggleitem.js");
-/* harmony import */ var _contextmenu_submenuitem__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./contextmenu/submenuitem */ "./src/ui/contextmenu/submenuitem.js");
-/* harmony import */ var _contextmenu_slideritem__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./contextmenu/slideritem */ "./src/ui/contextmenu/slideritem.js");
+/* harmony import */ var _modules_discordclasses__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../modules/discordclasses */ "./src/modules/discordclasses.js");
+/* harmony import */ var _modules_domtools__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../modules/domtools */ "./src/modules/domtools.js");
+/* harmony import */ var _modules_logger__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../modules/logger */ "./src/modules/logger.js");
 
 
 
@@ -7621,18 +6977,110 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
-
-
-
+// d = e.label,
+// f = e.icon,
+// h = e.imageUrl,
+// v = e.hint,
+// m = e.subtext,
+// g = e.hasSubmenu,
+// y = e.disabled,
+// E = e.isFocused,
+// S = e.menuItemProps,
+// T = e.action,
+// b = e.onClose,
 
 
 const React = _modules_discordmodules__WEBPACK_IMPORTED_MODULE_0__["default"].React;
 const ContextMenuActions = _modules_discordmodules__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenuActions;
 
 const ce = React.createElement;
+const ContextMenu = _modules_webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("MenuRadioItem", "MenuItem");
+
+/**
+ * Fires when the item is clicked.
+ * @param {MouseEvent} event - The event generated on click
+ * @callback module:DiscordContextMenu~MenuItemOnClick
+ */
+
+/**
+ * @interface
+ * @name module:DiscordContextMenu~MenuItem
+ *
+ * This is the generic context menu item component. It is very extensible and will adapt
+ * it's type depending on the props.
+ * 
+ * @param {object} props - props to pass to the react renderer
+ * @param {string} props.label - label to show on the menu item
+ * @param {string} [props.id] - specific id used for this item
+ * @param {string} [props.hint] - hint to show on the right hand side (usually keyboard combo)
+ * @param {string} [props.subtext] - description to show underneath
+ * @param {string} [props.image] - link to image to show on the side
+ * @param {function} [props.icon] - react component to render on the side
+ * @param {function} [props.render] - render function for custom rendering the menu item
+ * @param {module:DiscordContextMenu~MenuItemOnClick} [props.action] - function to perform on click
+ * @param {module:DiscordContextMenu~MenuItemOnClick} [props.onClick] - function to perform on click (alias of `action`)
+ * @param {function} [props.onClose] - function to run when this is closed
+ * @param {boolean} [props.danger=false] - should the item show as danger (red)
+ * @param {boolean} [props.disabled=false] - should the item be disabled/unclickable
+ * 
+ * @param {object} [props.style] - allows you to add custom styles
+ * @param {boolean} [props.closeOnClick] - allows you to prevent closing on click
+ */
+
+/**
+ * @interface
+ * @name module:DiscordContextMenu~MenuToggleItem
+ * @extends module:DiscordContextMenu~MenuItem
+ *
+ * This item is used for creating checkboxes in menus. Properties shown here are additional
+ * to those of the main MenuItem {@link module:DiscordContextMenu~MenuItem}
+ * 
+ * 
+ * @param {boolean} [props.checked=false] - should the checkbox be checked
+ * @param {boolean} [props.active=false] - alias of `checked`
+ */
+
+/**
+ * @interface
+ * @name module:DiscordContextMenu~MenuRadioItem
+ * @extends module:DiscordContextMenu~MenuItem
+ *
+ * This item is used for creating radio selections in menus. Properties shown here are additional
+ * to those of the main MenuItem {@link module:DiscordContextMenu~MenuItem}
+ * 
+ * Note: for the `forceUpdate` option... Without this enabled, you will manually need to 
+ * manage the state for the functional component. If you do not the toggle will appear
+ * to not update. @see {@link https://reactjs.org/docs/hooks-reference.html#usestate}
+ * 
+ * @param {boolean} [props.checked=false] - should the checkbox be checked
+ * @param {boolean} [props.active=false] - alias of `checked`
+ * @param {boolean} [props.forceUpdate=true] - should the menu be force-updated after click
+ */
+
+/**
+ * @interface
+ * @name module:DiscordContextMenu~SubMenuItem
+ * @extends module:DiscordContextMenu~MenuItem
+ *
+ * This item is used for creating nested submenus. Properties shown here are additional
+ * to those of the main MenuItem {@link module:DiscordContextMenu~MenuItem}
+ * 
+ * @param {Array<object>} [props.render] - array of items to render in the submenu
+ * @param {Array<object>} [props.items] - alias of `render`
+ * @param {Array<object>} [props.children] - Already rendered elements
+ */
+
+/**
+ * @interface
+ * @name module:DiscordContextMenu~MenuControlItem
+ * @extends module:DiscordContextMenu~MenuItem
+ *
+ * This item is used for adding custom controls like sliders to the context menu.
+ * Properties shown here are additional to those of the main MenuItem {@link module:DiscordContextMenu~MenuItem}
+ * 
+ * @param {function} [props.control] - control function that renders the component
+ */
+
 
 /**
  * A utility for building and rendering Discord's own menus.
@@ -7640,14 +7088,6 @@ const ce = React.createElement;
  * @version 0.0.1
  */
 class DiscordContextMenu {
-
-    static get ContextMenu() {return _contextmenu_contextmenu__WEBPACK_IMPORTED_MODULE_6__["default"];}
-    static get ItemGroup() {return _contextmenu_itemgroup__WEBPACK_IMPORTED_MODULE_7__["default"];}
-    static get MenuItem() {return _contextmenu_menuitem__WEBPACK_IMPORTED_MODULE_8__["default"];}
-    static get ToggleMenuItem() {return _contextmenu_toggleitem__WEBPACK_IMPORTED_MODULE_10__["default"];}
-    static get SubMenuItem() {return _contextmenu_submenuitem__WEBPACK_IMPORTED_MODULE_11__["default"];}
-    static get ImageMenuItem() {return _contextmenu_imageitem__WEBPACK_IMPORTED_MODULE_9__["default"];}
-    static get SliderMenuItem() {return _contextmenu_slideritem__WEBPACK_IMPORTED_MODULE_12__["default"];}
 
     /**
      * Builds a single menu item. The only prop shown here is the type, the rest should
@@ -7657,14 +7097,14 @@ class DiscordContextMenu {
      * rest of the components.
      * 
      * @param {object} props - props used to build the item
-     * @param {string} [props.type="text"] - type of the item, options: text, image, submenu, toggle, slider
+     * @param {string} [props.type="text"] - type of the item, options: text, submenu, toggle, radio, custom, separator
      * @returns {object} the created component
      * 
-     * @see {@link module:DiscordContextMenu.MenuItem}
-     * @see {@link module:DiscordContextMenu.ToggleMenuItem}
-     * @see {@link module:DiscordContextMenu.SubMenuItem}
-     * @see {@link module:DiscordContextMenu.ImageMenuItem}
-     * @see {@link module:DiscordContextMenu.SliderMenuItem}
+     * @see {@link module:DiscordContextMenu~MenuItem}
+     * @see {@link module:DiscordContextMenu~MenuToggleItem}
+     * @see {@link module:DiscordContextMenu~MenuRadioItem}
+     * @see {@link module:DiscordContextMenu~SubMenuItem}
+     * @see {@link module:DiscordContextMenu~MenuControlItem}
      * 
      * @example
      * // Creates a single menu item that prints "MENU ITEM" on click
@@ -7679,26 +7119,29 @@ class DiscordContextMenu {
      * DiscordContextMenu.buildMenuItem({
      *      type: "toggle",
      *      label: "Item Toggle",
-     *      active: false,
+     *      checked: false,
      *      action: (newValue) => {console.log(newValue);}
      * });
      */
     static buildMenuItem(props) {
         const {type} = props;
-        let Component = _contextmenu_menuitem__WEBPACK_IMPORTED_MODULE_8__["default"];
-        if (type === "image") {
-            Component = _contextmenu_imageitem__WEBPACK_IMPORTED_MODULE_9__["default"];
+        if (type === "separator") return ce(ContextMenu.MenuSeparator);
+
+        let Component = ContextMenu.MenuItem;
+        if (type === "submenu") {
+            if (!props.children) props.children = this.buildMenuChildren(props.render || props.items);
         }
-        else if (type === "submenu") {
-            Component = _contextmenu_submenuitem__WEBPACK_IMPORTED_MODULE_11__["default"];
-            if (!props.render) props.render = this.buildMenuChildren(props.render || props.items);
+        else if (type === "toggle" || type === "radio") {
+            Component = type === "toggle" ? ContextMenu.MenuCheckboxItem : ContextMenu.MenuRadioItem;
+            if (props.active) props.checked = props.active;
         }
-        else if (type === "toggle") {
-            Component = _contextmenu_toggleitem__WEBPACK_IMPORTED_MODULE_10__["default"];
+        else if (type === "control") {
+            Component = ContextMenu.MenuControlItem;
         }
-        else if (type === "slider") {
-            Component = _contextmenu_slideritem__WEBPACK_IMPORTED_MODULE_12__["default"];
-        }
+        if (!props.id) props.id = _modules_domtools__WEBPACK_IMPORTED_MODULE_6__["default"].escapeID(props.label);
+        if (props.danger) props.color = "colorDanger";
+        if (props.onClick && !props.action) props.action = props.onClick;
+        props.extended = true;
         return ce(Component, props);
     }
 
@@ -7752,7 +7195,7 @@ class DiscordContextMenu {
         };
         const buildGroup = function(group) {
             const items = group.items.map(mapper).filter(i => i);
-            return ce(_contextmenu_itemgroup__WEBPACK_IMPORTED_MODULE_7__["default"], null, items);
+            return ce(ContextMenu.MenuGroup, null, items);
         };
         return setup.map(mapper).filter(i => i);
     }
@@ -7765,7 +7208,7 @@ class DiscordContextMenu {
      * @returns {function} the unique context menu component
      */
     static buildMenu(setup) {
-        return (props) => {return ce(_contextmenu_contextmenu__WEBPACK_IMPORTED_MODULE_6__["default"], props, this.buildMenuChildren(setup));};
+        return (props) => {return ce(ContextMenu.default, props, this.buildMenuChildren(setup));};
     }
 
     /**
@@ -7790,16 +7233,17 @@ class DiscordContextMenu {
      * @param {string} type - name of the context menu type
      * @returns {Promise<object>} the webpack module the menu was found in
      */
-    static async getDiscordMenu(type) {
-        return new Promise(resolve => {
-            const cancel = _modules_patcher__WEBPACK_IMPORTED_MODULE_3__["default"].after("ZeresLibrary.DiscordContextMenu", ContextMenuActions, "openContextMenu", (_, [, component]) => {
-                const rendered = component();
-                const menuType = rendered.props && rendered.props.type || (rendered.type && rendered.type.displayName);
-                if (!menuType || typeof(menuType) != "string" || !menuType.includes(type)) return;
-                cancel();
-                return resolve(_modules_webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m.default == rendered.type));
-            });
-        });
+    static async getDiscordMenu() {
+        _modules_logger__WEBPACK_IMPORTED_MODULE_7__["default"].warn("DiscordContextMenu", "This function no longer applies, please update your plugin.");
+        // return new Promise(resolve => {
+        //     const cancel = Patcher.after("ZeresLibrary.DiscordContextMenu", ContextMenuActions, "openContextMenu", (_, [, component]) => {
+        //         const rendered = component();
+        //         const menuType = rendered.props && rendered.props.type || (rendered.type && rendered.type.displayName);
+        //         if (!menuType || typeof(menuType) != "string" || !menuType.includes(type)) return;
+        //         cancel();
+        //         return resolve(WebpackModules.getModule(m => m.default == rendered.type));
+        //     });
+        // });
     }
 
     /**
@@ -7807,13 +7251,48 @@ class DiscordContextMenu {
      * after patching a menu.
      */
     static forceUpdateMenus() {
-        const menus = document.querySelectorAll(_modules_discordselectors__WEBPACK_IMPORTED_MODULE_5__["default"].ContextMenu.contextMenu);
+        const menus = document.querySelectorAll(`.${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_5__["default"].ContextMenu.menu.first}`);
         for (const menu of menus) {
             const stateNode = _modules_utilities__WEBPACK_IMPORTED_MODULE_4__["default"].findInTree(_modules_reacttools__WEBPACK_IMPORTED_MODULE_2__["default"].getReactInstance(menu), m=>m && m.forceUpdate && m.updatePosition, {walkable: ["return", "stateNode"]});
             if (!stateNode) continue;
             stateNode.forceUpdate();
             stateNode.updatePosition();
         }
+    }
+
+    static patchComponents() {
+        _modules_patcher__WEBPACK_IMPORTED_MODULE_3__["default"].unpatchAll("DCM");
+        this.patchMenuItem();
+        this.patchToggleItem();
+    }
+
+    static patchMenuItem() {
+        const MenuItem = _modules_webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m.default && m.default.displayName == "MenuItem");
+        if (!MenuItem || !MenuItem.default) return;
+        _modules_patcher__WEBPACK_IMPORTED_MODULE_3__["default"].after("DCM", MenuItem, "default", (_, args, ret) => {
+            if (!args || !args[0] || !args[0].extended) return;
+            const [props] = args;
+            if (!props.style) return;
+            ret.props.style = props.style;
+            if (props.closeOnClick !== false || !props.action) return;
+            ret.props.onClick = props.action;
+        });
+    }
+
+    static patchToggleItem() {
+        const MenuToggleItem = _modules_webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m.default && m.default.displayName == "MenuCheckboxItem");
+        if (!MenuToggleItem || !MenuToggleItem.default) return;
+        _modules_patcher__WEBPACK_IMPORTED_MODULE_3__["default"].before("DCM", MenuToggleItem, "default", (_, args) => {
+            if (!args || !args[0] || !args[0].extended) return;
+            const [props] = args;
+            const [active, doToggle] = React.useState(props.checked || false);
+            props.checked = active;
+            const originalAction = props.action;
+            props.action = function(ev) {
+                originalAction(ev);
+                doToggle(!active);
+            };
+        });
     }
 }
 
@@ -8003,49 +7482,6 @@ class EmulatedTooltip {
         const nodecenter = this.node.offset().top + (this.node.outerHeight() / 2);
         this.element.css("top", toPx(nodecenter - (this.element.outerHeight() / 2)));
     }
-}
-
-/***/ }),
-
-/***/ "./src/ui/errorboundary.js":
-/*!*********************************!*\
-  !*** ./src/ui/errorboundary.js ***!
-  \*********************************/
-/*! exports provided: default, WrapBoundary */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ErrorBoundary; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WrapBoundary", function() { return WrapBoundary; });
-/* harmony import */ var _modules_discordmodules__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../modules/discordmodules */ "./src/modules/discordmodules.js");
-
-
-const React = _modules_discordmodules__WEBPACK_IMPORTED_MODULE_0__["default"].React;
-const ce = React.createElement;
-
-class ErrorBoundary extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {hasError: false};
-    }
-  
-    componentDidCatch() {
-      this.setState({hasError: true});
-    }
-  
-    render() {
-      if (this.state.hasError) return ce("div", {className: "error"}, "Component Error");  
-      return this.props.children; 
-    }
-}
-
-function WrapBoundary(Original) {
-  return class ErrorBoundaryWrapper extends React.Component {
-      render() {
-          return ce(ErrorBoundary, null, ce(Original, this.props));
-      }
-  };
 }
 
 /***/ }),
@@ -9490,7 +8926,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = window.require("electron");
+module.exports = require("window.require(\"electron\")");
 
 /***/ }),
 
@@ -9501,7 +8937,7 @@ module.exports = window.require("electron");
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = window.require("fs");
+module.exports = require("window.require(\"fs\")");
 
 /***/ }),
 
@@ -9512,7 +8948,7 @@ module.exports = window.require("fs");
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = window.require("path");
+module.exports = require("window.require(\"path\")");
 
 /***/ }),
 
@@ -9534,7 +8970,7 @@ module.exports = require("process");
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = window.require("request");
+module.exports = require("window.require(\"request\")");
 
 /***/ })
 

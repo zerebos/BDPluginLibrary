@@ -33,6 +33,7 @@
         "Promise": false,
         "BdApi": false,
         "V2C_ContentColumn": false,
-        "Map": false
+        "Map": false,
+        "Reflect": false
     }
 }

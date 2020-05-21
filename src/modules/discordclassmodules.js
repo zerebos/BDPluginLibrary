@@ -15,7 +15,7 @@ import WebpackModules from "./webpackmodules";
  * @version 0.0.2
  */
 export default Utilities.memoizeObject({
-    get ContextMenu() {return WebpackModules.getByProps("itemToggle");},
+    get ContextMenu() {return WebpackModules.getByProps("menu", "item");},
     get Scrollers() {return WebpackModules.getByProps("scrollerWrap", "scrollerThemed", "scrollerTrack");},
     get AccountDetails() {return WebpackModules.getByProps("container", "avatar", "hasBuildOverride");},
     get Typing() {return WebpackModules.getByProps("typing", "text");},

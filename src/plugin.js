@@ -1,5 +1,5 @@
 export default (BasePlugin, Library) => {
-    const {PluginUpdater, Patcher, Logger, Settings, Toasts, PluginUtilities, ReactComponents} = Library;
+    const {PluginUpdater, Patcher, Logger, Settings, Toasts, PluginUtilities, ReactComponents, DCM} = Library;
     const PluginLibrary = class PluginLibrary extends BasePlugin {
         get Library() {return Library;}
         
@@ -11,6 +11,7 @@ export default (BasePlugin, Library) => {
             PluginUtilities.addStyle("ZLibraryCSS", Settings.CSS + Toasts.CSS + PluginUpdater.CSS);
             ReactComponents.AutoPatcher.processAll();
             ReactComponents.AutoPatcher.autoPatch();
+            DCM.patchComponents();
             
             /**
              * Checking if this is the library first being loaded during init
