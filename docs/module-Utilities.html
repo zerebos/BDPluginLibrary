@@ -52,13 +52,6 @@
 											<li><a href="module-DiscordAPI.Message.html">DiscordAPI.Message</a></li>
 											<li><a href="module-DiscordAPI.User.html">DiscordAPI.User</a></li>
 											<li><a href="module-DiscordAPI.UserSettings.html">DiscordAPI.UserSettings</a></li>
-											<li><a href="module-DiscordContextMenu.ContextMenu.html">DiscordContextMenu.ContextMenu</a></li>
-											<li><a href="module-DiscordContextMenu.ImageMenuItem.html">DiscordContextMenu.ImageMenuItem</a></li>
-											<li><a href="module-DiscordContextMenu.ItemGroup.html">DiscordContextMenu.ItemGroup</a></li>
-											<li><a href="module-DiscordContextMenu.MenuItem.html">DiscordContextMenu.MenuItem</a></li>
-											<li><a href="module-DiscordContextMenu.SliderMenuItem.html">DiscordContextMenu.SliderMenuItem</a></li>
-											<li><a href="module-DiscordContextMenu.SubMenuItem.html">DiscordContextMenu.SubMenuItem</a></li>
-											<li><a href="module-DiscordContextMenu.ToggleMenuItem.html">DiscordContextMenu.ToggleMenuItem</a></li>
 											<li><a href="module-DOMTools.ClassName.html">DOMTools.ClassName</a></li>
 											<li><a href="module-DOMTools.DOMObserver.html">DOMTools.DOMObserver</a></li>
 											<li><a href="module-DOMTools.Selector.html">DOMTools.Selector</a></li>
@@ -82,6 +75,11 @@
 								<li class="dropdown">
 									<a href="list_interface.html" class="dropdown-toggle" data-toggle="dropdown">Interfaces<b class="caret"></b></a>
 									<ul class="dropdown-menu">
+											<li><a href="module-DiscordContextMenu-MenuControlItem.html">DiscordContextMenu~MenuControlItem</a></li>
+											<li><a href="module-DiscordContextMenu-MenuItem%250D%250DThis%2520is%2520the%2520generic%2520context%2520menu%2520item%2520component.%2520It%2520is%2520very%2520extensible%2520and%2520will%2520adapt%250Dit_s%2520type%2520depending%2520on%2520the%2520props..html">DiscordContextMenu~MenuItemThis is the generic context menu item component. It is very extensible and will adaptit's type depending on the props.</a></li>
+											<li><a href="module-DiscordContextMenu-MenuRadioItem.html">DiscordContextMenu~MenuRadioItem</a></li>
+											<li><a href="module-DiscordContextMenu-MenuToggleItem.html">DiscordContextMenu~MenuToggleItem</a></li>
+											<li><a href="module-DiscordContextMenu-SubMenuItem.html">DiscordContextMenu~SubMenuItem</a></li>
 											<li><a href="module-DOMTools-Offset.html">DOMTools~Offset</a></li>
 											<li><a href="module-Modals-Changelog.html">Modals~Changelog</a></li>
 											<li><a href="module-Settings-DropdownItem.html">Settings~DropdownItem</a></li>
@@ -903,79 +901,6 @@
 </dd>
 											<hr/>
 											<dt class="symbol-title function public collapsible-symbol">
-			<h4 id=".addToPrototype" class="function public"><span class="signature-attribs">&lt;static> </span><span class="name">addToPrototype</span><span class="signature-params">( <span class="signature-param">object</span>, <span class="signature-param">prop</span>, <span class="signature-param">func</span>&nbsp;)</span><span class="signature-type"></span></h4>
-		</dt>
-<dd class="symbol-details function public  collapsible-symbol">
-	<div class="symbol-details-inner">
-			<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>Safely adds to the prototype of an existing object by checking if the
-			property exists on the prototype.</p></div>
-			</div>			<div class="callout callout-info">
-				<h5>Parameters</h5>
-				<table class="params table table-striped">
-					<thead>
-					<tr>
-							<th>Name</th>
-						<th>Type</th>
-						<th class="last">Description</th>
-					</tr>
-					</thead>
-					<tbody>
-						<tr>
-								<td><code>object</code></td>
-							<td><span class="param-type">object</span></td>
-							<td class="last">
-									<p>Object whose prototype to extend</p>
-							</td>
-						</tr>
-						<tr>
-								<td><code>prop</code></td>
-							<td><span class="param-type">string</span></td>
-							<td class="last">
-									<p>Name of the prototype property to add</p>
-							</td>
-						</tr>
-						<tr>
-								<td><code>func</code></td>
-							<td><span class="param-type">callable</span></td>
-							<td class="last">
-									<p>Function to run</p>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-							<!-- source -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Source</label>
-								<div class="col-sm-9">
-									<p class="form-control-static"><a href="modules_utilities.js.html">modules/utilities.js</a>, <a href="modules_utilities.js.html#line-225">line 225</a></p>
-								</div>
-							</div>
-			
-			
-			
-			
-					</form>
-			</div>	</div>
-</dd>
-											<hr/>
-											<dt class="symbol-title function public collapsible-symbol">
 			<h4 id=".extend" class="function public"><span class="signature-attribs">&lt;static> </span><span class="name">extend</span><span class="signature-params">( <span class="signature-param">extendee</span>, <span class="signature-param">...extenders</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{object}</span></h4>
 		</dt>
 <dd class="symbol-details function public  collapsible-symbol">
@@ -1402,7 +1327,7 @@
 	</div>
 	<footer>
 				<div class="copyright">Copyright © 2018-2020 Zack Rauen</div>
-			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
+			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.4</a> using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
 	</footer>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>

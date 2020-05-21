@@ -53,13 +53,6 @@
 											<li><a href="module-DiscordAPI.Message.html">DiscordAPI.Message</a></li>
 											<li><a href="module-DiscordAPI.User.html">DiscordAPI.User</a></li>
 											<li><a href="module-DiscordAPI.UserSettings.html">DiscordAPI.UserSettings</a></li>
-											<li><a href="module-DiscordContextMenu.ContextMenu.html">DiscordContextMenu.ContextMenu</a></li>
-											<li><a href="module-DiscordContextMenu.ImageMenuItem.html">DiscordContextMenu.ImageMenuItem</a></li>
-											<li><a href="module-DiscordContextMenu.ItemGroup.html">DiscordContextMenu.ItemGroup</a></li>
-											<li><a href="module-DiscordContextMenu.MenuItem.html">DiscordContextMenu.MenuItem</a></li>
-											<li><a href="module-DiscordContextMenu.SliderMenuItem.html">DiscordContextMenu.SliderMenuItem</a></li>
-											<li><a href="module-DiscordContextMenu.SubMenuItem.html">DiscordContextMenu.SubMenuItem</a></li>
-											<li><a href="module-DiscordContextMenu.ToggleMenuItem.html">DiscordContextMenu.ToggleMenuItem</a></li>
 											<li><a href="module-DOMTools.ClassName.html">DOMTools.ClassName</a></li>
 											<li><a href="module-DOMTools.DOMObserver.html">DOMTools.DOMObserver</a></li>
 											<li><a href="module-DOMTools.Selector.html">DOMTools.Selector</a></li>
@@ -83,6 +76,11 @@
 								<li class="dropdown">
 									<a href="list_interface.html" class="dropdown-toggle" data-toggle="dropdown">Interfaces<b class="caret"></b></a>
 									<ul class="dropdown-menu">
+											<li><a href="module-DiscordContextMenu-MenuControlItem.html">DiscordContextMenu~MenuControlItem</a></li>
+											<li><a href="module-DiscordContextMenu-MenuItem%250D%250DThis%2520is%2520the%2520generic%2520context%2520menu%2520item%2520component.%2520It%2520is%2520very%2520extensible%2520and%2520will%2520adapt%250Dit_s%2520type%2520depending%2520on%2520the%2520props..html">DiscordContextMenu~MenuItemThis is the generic context menu item component. It is very extensible and will adaptit's type depending on the props.</a></li>
+											<li><a href="module-DiscordContextMenu-MenuRadioItem.html">DiscordContextMenu~MenuRadioItem</a></li>
+											<li><a href="module-DiscordContextMenu-MenuToggleItem.html">DiscordContextMenu~MenuToggleItem</a></li>
+											<li><a href="module-DiscordContextMenu-SubMenuItem.html">DiscordContextMenu~SubMenuItem</a></li>
 											<li><a href="module-DOMTools-Offset.html">DOMTools~Offset</a></li>
 											<li><a href="module-Modals-Changelog.html">Modals~Changelog</a></li>
 											<li><a href="module-Settings-DropdownItem.html">Settings~DropdownItem</a></li>
@@ -195,14 +193,12 @@ export default class PluginUpdater {
             window.PluginUpdates = {
                 plugins: {},
                 checkAll: async function() {
-                    Toasts.info("Plugin update check in progress.");
                     for (const key in this.plugins) {
                         const plugin = this.plugins[key];
                         if (!plugin.versioner) plugin.versioner = PluginUpdater.defaultVersioner;
                         if (!plugin.comparator) plugin.comparator = PluginUpdater.defaultComparator;
                         await PluginUpdater.processUpdateCheck(plugin.name, plugin.raw);
                     }
-                    Toasts.success("Plugin update check complete.");
                 },
                 interval: setInterval(() => {
                     window.PluginUpdates.checkAll();
@@ -226,7 +222,7 @@ export default class PluginUpdater {
         return new Promise(resolve => {
             const request = require("request");
             request(updateLink, (error, response, result) => {
-                if (error) return;
+                if (error || response.statusCode !== 200) return resolve();
                 const remoteVersion = window.PluginUpdates.plugins[updateLink].versioner(result);
                 const hasUpdate = window.PluginUpdates.plugins[updateLink].comparator(window.PluginUpdates.plugins[updateLink].version, remoteVersion);
                 if (hasUpdate) resolve(this.showUpdateNotice(pluginName, updateLink));
@@ -282,7 +278,8 @@ export default class PluginUpdater {
     static createUpdateButton() {
         const updateButton = DOMTools.parseHTML(`&lt;button class="bd-pfbtn bd-updatebtn" style="left: 220px;">Check for Updates&lt;/button>`);
         updateButton.onclick = function () {
-            window.PluginUpdates.checkAll();
+            Toasts.info("Plugin update check in progress.");
+            window.PluginUpdates.checkAll().then(() => {Toasts.success("Plugin update check complete.");});
         };
         const tooltip = new EmulatedTooltip(updateButton, "Checks for updates of plugins that support this feature. Right-click for a list.");
         updateButton.oncontextmenu = function () {
@@ -393,7 +390,7 @@ export default class PluginUpdater {
 	</div>
 	<footer>
 				<div class="copyright">Copyright © 2018-2020 Zack Rauen</div>
-			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
+			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.4</a> using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
 	</footer>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
