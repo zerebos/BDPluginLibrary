@@ -7,13 +7,14 @@
             "github_username": "rauenzi",
             "twitter_username": "ZackRauen"
         }],
-        "version": "1.2.17",
+        "version": "1.2.18",
         "description": "Gives other plugins utility functions and the ability to emulate v2.",
         "github": "https://github.com/rauenzi/BDPluginLibrary",
         "github_raw": "https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"
     },
     "changelog": [
-        {"title": "Bugs Squashed", "type": "fixed", "items": ["Loading issues fixed.", "Issues with searching modules by string or webex fixed."]}
+        {"title": "Bugs Squashed", "type": "fixed", "items": ["DiscordContextMenu module has been rewritten to match Discord's new ones."]},
+        {"title": "Small Changes", "type": "improved", "items": ["Extensions to HTMLElement have been deprecated and will give warnings.", "Library uses the modern module api now."]}
     ],
     "main": "plugin.js"
 }

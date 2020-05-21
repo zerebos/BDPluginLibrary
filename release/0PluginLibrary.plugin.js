@@ -119,7 +119,7 @@ module.exports =
 /*! exports provided: info, changelog, main, default */
 /***/ (function(module) {
 
-module.exports = {"info":{"name":"ZeresPluginLibrary","authors":[{"name":"Zerebos","discord_id":"249746236008169473","github_username":"rauenzi","twitter_username":"ZackRauen"}],"version":"1.2.17","description":"Gives other plugins utility functions and the ability to emulate v2.","github":"https://github.com/rauenzi/BDPluginLibrary","github_raw":"https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"},"changelog":[{"title":"Bugs Squashed","type":"fixed","items":["Loading issues fixed.","Issues with searching modules by string or webex fixed."]}],"main":"plugin.js"};
+module.exports = {"info":{"name":"ZeresPluginLibrary","authors":[{"name":"Zerebos","discord_id":"249746236008169473","github_username":"rauenzi","twitter_username":"ZackRauen"}],"version":"1.2.18","description":"Gives other plugins utility functions and the ability to emulate v2.","github":"https://github.com/rauenzi/BDPluginLibrary","github_raw":"https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"},"changelog":[{"title":"Bugs Squashed","type":"fixed","items":["DiscordContextMenu module has been rewritten to match Discord's new ones."]},{"title":"Small Changes","type":"improved","items":["Extensions to HTMLElement have been deprecated and will give warnings.","Library uses the modern module api now."]}],"main":"plugin.js"};
 
 /***/ }),
 
@@ -2111,7 +2111,7 @@ class PluginUpdater {
      */
     static async processUpdateCheck(pluginName, updateLink) {
         return new Promise(resolve => {
-            const request = __webpack_require__(/*! request */ "request");
+            const request = require("request");
             request(updateLink, (error, response, result) => {
                 if (error || response.statusCode !== 200) return resolve();
                 const remoteVersion = window.PluginUpdates.plugins[updateLink].versioner(result);
@@ -2194,9 +2194,9 @@ class PluginUpdater {
      * @param {string} updateLink - link to the raw text version of the plugin
      */
     static downloadPlugin(pluginName, updateLink) {
-        const request = __webpack_require__(/*! request */ "request");
-        const fileSystem = __webpack_require__(/*! fs */ "fs");
-        const path = __webpack_require__(/*! path */ "path");
+        const request = require("request");
+        const fileSystem = require("fs");
+        const path = require("path");
         request(updateLink, async (error, response, body) => {
             if (error) return _logger__WEBPACK_IMPORTED_MODULE_2__["default"].warn("PluginUpdates", "Unable to get update for " + pluginName);
             const remoteVersion = window.PluginUpdates.plugins[updateLink].versioner(body);
@@ -2356,8 +2356,8 @@ __webpack_require__.r(__webpack_exports__);
      * @returns {string} full path to the BetterDiscord folder
      */
     static getBDFolder(subtarget = "") {
-        const process = __webpack_require__(/*! process */ "process");
-        const path = __webpack_require__(/*! path */ "path");
+        const process = require("process");
+        const path = require("path");
         if (process.env.injDir) return path.resolve(process.env.injDir, subtarget);
         switch (process.platform) {
             case "win32":
@@ -2390,7 +2390,7 @@ __webpack_require__.r(__webpack_exports__);
      * @param {callable} callback - basic callback to happen on channel switch
      */
     static addOnSwitchListener(callback) {
-        __webpack_require__(/*! electron */ "electron").remote.getCurrentWebContents().on("did-navigate-in-page", callback);
+        require("electron").remote.getCurrentWebContents().on("did-navigate-in-page", callback);
     }
 
     /**
@@ -2398,7 +2398,7 @@ __webpack_require__.r(__webpack_exports__);
      * @param {callable} callback - callback to remove from the listener list
      */
     static removeOnSwitchListener(callback) {
-        __webpack_require__(/*! electron */ "electron").remote.getCurrentWebContents().removeListener("did-navigate-in-page", callback);
+        require("electron").remote.getCurrentWebContents().removeListener("did-navigate-in-page", callback);
     }
 
     /**
@@ -3529,7 +3529,7 @@ class Utilities {
      * @return {Promise}
      */
     static async fileExists(path) {
-        const fs = __webpack_require__(/*! fs */ "fs");
+        const fs = require("fs");
         return new Promise((resolve, reject) => {
             fs.stat(path, (err, stats) => {
                 if (err) {
@@ -3564,7 +3564,7 @@ class Utilities {
             throw err;
         }
         
-        const fs = __webpack_require__(/*! fs */ "fs");
+        const fs = require("fs");
         return new Promise((resolve, reject) => {
             fs.readFile(path, "utf-8", (err, data) => {
                 if (err) {
@@ -8916,61 +8916,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-/***/ }),
-
-/***/ "electron":
-/*!***********************************************!*\
-  !*** external "window.require(\"electron\")" ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("window.require(\"electron\")");
-
-/***/ }),
-
-/***/ "fs":
-/*!*****************************************!*\
-  !*** external "window.require(\"fs\")" ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("window.require(\"fs\")");
-
-/***/ }),
-
-/***/ "path":
-/*!*******************************************!*\
-  !*** external "window.require(\"path\")" ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("window.require(\"path\")");
-
-/***/ }),
-
-/***/ "process":
-/*!**************************!*\
-  !*** external "process" ***!
-  \**************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("process");
-
-/***/ }),
-
-/***/ "request":
-/*!**********************************************!*\
-  !*** external "window.require(\"request\")" ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("window.require(\"request\")");
 
 /***/ })
 

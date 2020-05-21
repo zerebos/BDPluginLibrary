@@ -62,8 +62,8 @@ import DCM from "../ui/discordcontextmenu";
      * @returns {string} full path to the BetterDiscord folder
      */
     static getBDFolder(subtarget = "") {
-        const process = require("process");
-        const path = require("path");
+        const process = __non_webpack_require__("process");
+        const path = __non_webpack_require__("path");
         if (process.env.injDir) return path.resolve(process.env.injDir, subtarget);
         switch (process.platform) {
             case "win32":
@@ -96,7 +96,7 @@ import DCM from "../ui/discordcontextmenu";
      * @param {callable} callback - basic callback to happen on channel switch
      */
     static addOnSwitchListener(callback) {
-        require("electron").remote.getCurrentWebContents().on("did-navigate-in-page", callback);
+        __non_webpack_require__("electron").remote.getCurrentWebContents().on("did-navigate-in-page", callback);
     }
 
     /**
@@ -104,7 +104,7 @@ import DCM from "../ui/discordcontextmenu";
      * @param {callable} callback - callback to remove from the listener list
      */
     static removeOnSwitchListener(callback) {
-        require("electron").remote.getCurrentWebContents().removeListener("did-navigate-in-page", callback);
+        __non_webpack_require__("electron").remote.getCurrentWebContents().removeListener("did-navigate-in-page", callback);
     }
 
     /**

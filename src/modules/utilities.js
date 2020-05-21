@@ -316,7 +316,7 @@ export default class Utilities {
      * @return {Promise}
      */
     static async fileExists(path) {
-        const fs = require("fs");
+        const fs = __non_webpack_require__("fs");
         return new Promise((resolve, reject) => {
             fs.stat(path, (err, stats) => {
                 if (err) {
@@ -351,7 +351,7 @@ export default class Utilities {
             throw err;
         }
         
-        const fs = require("fs");
+        const fs = __non_webpack_require__("fs");
         return new Promise((resolve, reject) => {
             fs.readFile(path, "utf-8", (err, data) => {
                 if (err) {

@@ -77,7 +77,7 @@ export default class PluginUpdater {
      */
     static async processUpdateCheck(pluginName, updateLink) {
         return new Promise(resolve => {
-            const request = require("request");
+            const request = __non_webpack_require__("request");
             request(updateLink, (error, response, result) => {
                 if (error || response.statusCode !== 200) return resolve();
                 const remoteVersion = window.PluginUpdates.plugins[updateLink].versioner(result);
@@ -160,9 +160,9 @@ export default class PluginUpdater {
      * @param {string} updateLink - link to the raw text version of the plugin
      */
     static downloadPlugin(pluginName, updateLink) {
-        const request = require("request");
-        const fileSystem = require("fs");
-        const path = require("path");
+        const request = __non_webpack_require__("request");
+        const fileSystem = __non_webpack_require__("fs");
+        const path = __non_webpack_require__("path");
         request(updateLink, async (error, response, body) => {
             if (error) return Logger.warn("PluginUpdates", "Unable to get update for " + pluginName);
             const remoteVersion = window.PluginUpdates.plugins[updateLink].versioner(body);
