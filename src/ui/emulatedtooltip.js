@@ -45,24 +45,32 @@ export default class EmulatedTooltip {
      * @param {string} [options.style=black] - correlates to the discord styling/colors (black, brand, green, grey, red, yellow)
      * @param {string} [options.side=top] - can be any of top, right, bottom, left
      * @param {boolean} [options.preventFlip=false] - prevents moving the tooltip to the opposite side if it is too big or goes offscreen
+     * @param {boolean} [options.isTimestamp=false] - adds the timestampTooltip class (disables text wrapping)
+     * @param {boolean} [options.disablePointerEvents=false] - disables pointer events
      * @param {boolean} [options.disabled=false] - whether the tooltip should be disabled from showing on hover
      */
     constructor(node, text, options = {}) {
-        const {style = "black", side = "top", preventFlip = false, disabled = false} = options;
+        const {style = "black", side = "top", preventFlip = false, isTimestamp = false, disablePointerEvents = false, disabled = false} = options;
         this.node = node instanceof jQuery ? node[0] : node;
         this.label = text;
         this.style = style.toLowerCase();
         this.side = side.toLowerCase();
         this.preventFlip = preventFlip;
+        this.isTimestamp = isTimestamp;
+        this.disablePointerEvents = disablePointerEvents;
         this.disabled = disabled;
 
         if (!classExists(this.side)) return Logger.err("EmulatedTooltip", `Side ${this.side} does not exist.`);
         if (!classExists(this.style)) return Logger.err("EmulatedTooltip", `Style ${this.style} does not exist.`);
 
         this.element = DOMTools.createElement(`<div class="${DiscordClasses.TooltipLayers.layer}">`);
-        this.tooltipElement = DOMTools.createElement(`<div class="${DiscordClasses.Tooltips.tooltip} ${getClass(this.style)}"><div class="${DiscordClasses.Tooltips.tooltipPointer}"></div>${this.label}</div>`);
+        this.tooltipElement = DOMTools.createElement(`<div class="${DiscordClasses.Tooltips.tooltip} ${getClass(this.style)}"><div class="${DiscordClasses.Tooltips.tooltipPointer}"></div class="${DiscordClasses.Tooltips.tooltipContent}">${this.label}</div>`);
         this.labelElement = this.tooltipElement.childNodes[1];
         this.element.append(this.tooltipElement);
+        
+        if (this.disablePointerEvents) this.element.addClass(DiscordClasses.TooltipLayers.disabledPointerEvents);
+        if (this.disablePointerEvents) this.tooltipElement.addClass(DiscordClasses.Tooltips.tooltipDisablePointerEvents);
+        if (this.isTimestamp) this.tooltipElement.addClass(WebpackModules.getByProps("timestampTooltip")["timestampTooltip"]);
 
 
         this.node.addEventListener("mouseenter", () => {
@@ -109,6 +117,8 @@ export default class EmulatedTooltip {
     /** Shows the tooltip. Automatically called on mouseenter. Will attempt to flip if position was wrong. */
     show() {
         this.tooltipElement.className = `${DiscordClasses.Tooltips.tooltip} ${getClass(this.style)}`;
+        if (this.disablePointerEvents) this.tooltipElement.addClass(DiscordClasses.Tooltips.tooltipDisablePointerEvents);
+        if (this.isTimestamp) this.tooltipElement.addClass(WebpackModules.getByProps("timestampTooltip")["timestampTooltip"]);
         this.labelElement.textContent = this.label;
         this.element.appendTo(this.container);
 
