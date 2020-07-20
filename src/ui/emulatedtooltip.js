@@ -68,8 +68,10 @@ export default class EmulatedTooltip {
         this.labelElement = this.tooltipElement.childNodes[1];
         this.element.append(this.tooltipElement);
         
-        if (this.disablePointerEvents) this.element.addClass(DiscordClasses.TooltipLayers.disabledPointerEvents);
-        if (this.disablePointerEvents) this.tooltipElement.addClass(DiscordClasses.Tooltips.tooltipDisablePointerEvents);
+        if (this.disablePointerEvents) {
+            this.element.addClass(DiscordClasses.TooltipLayers.disabledPointerEvents);
+            this.tooltipElement.addClass(DiscordClasses.Tooltips.tooltipDisablePointerEvents);
+        }
         if (this.isTimestamp) this.tooltipElement.addClass(WebpackModules.getByProps("timestampTooltip")["timestampTooltip"]);
 
 
