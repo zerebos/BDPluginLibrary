@@ -4,7 +4,7 @@
  * @version 1.1.2
  */
 
-export const CSS = require("../../styles/settings.css");
+export {default as CSS} from "../../styles/settings.css";
 
 export * from "./settingfield";
 export {default as SettingField} from "./settingfield";

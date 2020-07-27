@@ -13,7 +13,7 @@ const Markdown = WebpackModules.getByDisplayName("Markdown");
 export default class Modals {
 
     /** Sizes of modals. */
-    static get ModalSizes() {return DiscordModules.ConfirmationModal.Sizes;}
+    static get ModalSizes() {return {};}
 
     /**
      * Shows the user profile modal for a given user.
@@ -53,21 +53,18 @@ export default class Modals {
      * @param {string} [options.cancelText=Cancel] - text for the cancel button
      * @param {callable} [options.onConfirm=NOOP] - callback to occur when clicking the submit button
      * @param {callable} [options.onCancel=NOOP] - callback to occur when clicking the cancel button
-     * @param {module:Modals.ModalSizes} [options.size=module:Modals.ModalSizes.SMALL] - overall size of the modal
      */
     static showModal(title, children, options = {}) {
-        const {danger = false, confirmText = "Okay", cancelText = "Cancel", onConfirm = () => {}, onCancel = () => {}, size = this.ModalSizes.SMALL} = options;
-        DiscordModules.ModalStack.push(function(props) {
-            return ce(DiscordModules.ConfirmationModal, Object.assign({
+        const {danger = false, confirmText = "Okay", cancelText = "Cancel", onConfirm = () => {}, onCancel = () => {}} = options;
+        return DiscordModules.ModalActions.openModal(props => {
+            return React.createElement(DiscordModules.ConfirmationModal, Object.assign({
                 header: title,
                 red: danger,
-                size: size,
                 confirmText: confirmText,
                 cancelText: cancelText,
                 onConfirm: onConfirm,
-                onCancel: onCancel,
-                children: Array.isArray(children) ? children : [children]
-            }, props));
+                onCancel: onCancel
+            }, props), children);
         });
     }
 

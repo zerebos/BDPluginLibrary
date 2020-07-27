@@ -14,7 +14,8 @@ import WebpackModules from "./webpackmodules";
 
 export default class Patcher {
 
-    static get patches() { return this._patches || (this._patches = []); }
+    // Use window._patches instead of local variables in case something tries to whack the lib
+    static get patches() {return window._patches || (this._patches = []);}
 
     /**
      * Returns all the patches done by a specific caller
@@ -54,7 +55,7 @@ export default class Patcher {
 
     static makeOverride(patch) {
         return function () {
-            let returnValue = undefined;
+            let returnValue;
             if (!patch.children || !patch.children.length) return patch.originalFunction.apply(this, arguments);
             for (const superPatch of patch.children.filter(c => c.type === "before")) {
                 try {
@@ -115,7 +116,8 @@ export default class Patcher {
         Object.assign(module[functionName], patch.originalFunction);
         module[functionName].__originalFunction = patch.originalFunction;
         module[functionName].toString = () => patch.originalFunction.toString();
-        return this.patches.push(patch), patch;
+        this.patches.push(patch);
+        return patch;
     }
 
     /**
@@ -148,7 +150,7 @@ export default class Patcher {
      * @param {boolean} [options.forcePatch=true] Set to `true` to patch even if the function doesnt exist. (Adds noop function in place).
      * @return {module:Patcher~unpatch} Function with no arguments and no return value that should be called to cancel (unpatch) this patch. You should save and run it when your plugin is stopped.
      */
-    static before(caller, moduleToPatch, functionName, callback, options = {}) { return this.pushChildPatch(caller, moduleToPatch, functionName, callback, Object.assign(options, {type: "before"})); }
+    static before(caller, moduleToPatch, functionName, callback, options = {}) {return this.pushChildPatch(caller, moduleToPatch, functionName, callback, Object.assign(options, {type: "before"}));}
 
     /**
      * This method patches onto another function, allowing your code to run after.
@@ -163,7 +165,7 @@ export default class Patcher {
      * @param {boolean} [options.forcePatch=true] Set to `true` to patch even if the function doesnt exist. (Adds noop function in place).
      * @return {module:Patcher~unpatch} Function with no arguments and no return value that should be called to cancel (unpatch) this patch. You should save and run it when your plugin is stopped.
      */
-    static after(caller, moduleToPatch, functionName, callback, options = {}) { return this.pushChildPatch(caller, moduleToPatch, functionName, callback, Object.assign(options, {type: "after"})); }
+    static after(caller, moduleToPatch, functionName, callback, options = {}) {return this.pushChildPatch(caller, moduleToPatch, functionName, callback, Object.assign(options, {type: "after"}));}
 
     /**
      * This method patches onto another function, allowing your code to run instead.
@@ -178,7 +180,7 @@ export default class Patcher {
      * @param {boolean} [options.forcePatch=true] Set to `true` to patch even if the function doesnt exist. (Adds noop function in place).
      * @return {module:Patcher~unpatch} Function with no arguments and no return value that should be called to cancel (unpatch) this patch. You should save and run it when your plugin is stopped.
      */
-    static instead(caller, moduleToPatch, functionName, callback, options = {}) { return this.pushChildPatch(caller, moduleToPatch, functionName, callback, Object.assign(options, {type: "instead"})); }
+    static instead(caller, moduleToPatch, functionName, callback, options = {}) {return this.pushChildPatch(caller, moduleToPatch, functionName, callback, Object.assign(options, {type: "instead"}));}
 
     /**
      * This method patches onto another function, allowing your code to run before, instead or after the original function.

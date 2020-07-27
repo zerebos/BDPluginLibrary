@@ -44,4 +44,4 @@ const getBoundLibrary = () => {
     return BoundLib;
 };
 
-export default pluginFunction(Library.Structs.Plugin(config), process.env.PLUGIN_NAME != "0PluginLibrary" ? getBoundLibrary() : Library);
+export default pluginFunction(Library.Structs.Plugin(config), process.env.PLUGIN_NAME != "0PluginLibrary" ? getBoundLibrary() : Library); // eslint-disable-line new-cap

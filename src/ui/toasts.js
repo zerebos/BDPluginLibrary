@@ -7,9 +7,11 @@
 import {Utilities, DOMTools, DiscordSelectors} from "modules";
 import {Icons} from "ui";
 
+import CSS from "../styles/toasts.css";
+
 export default class Toast {
 
-    static get CSS() {return require("../styles/toasts.css");}
+    static get CSS() {return CSS;}
 
     /** Shorthand for `type = "success"` for {@link module:Toasts.show} */
     static async success(content, options = {}) {return this.show(content, Object.assign(options, {type: "success"}));}
@@ -64,10 +66,10 @@ export default class Toast {
     static getIcon(icon) {
         let iconInner = `<img src="${icon}" width="20" height="20" />`;
         switch (icon) {
-            case "success": iconInner = Icons.IconSuccess(20); break;
-            case "warning": iconInner = Icons.IconWarning(20); break;
-            case "info": iconInner = Icons.IconInfo(20); break;
-            case "error": iconInner = Icons.IconError(20);
+            case "success": iconInner = Icons.IconSuccess(20); break; // eslint-disable-line new-cap
+            case "warning": iconInner = Icons.IconWarning(20); break; // eslint-disable-line new-cap
+            case "info": iconInner = Icons.IconInfo(20); break; // eslint-disable-line new-cap
+            case "error": iconInner = Icons.IconError(20); // eslint-disable-line new-cap
         }
         return Utilities.formatString(`<div class="toast-icon">{{icon}}</div>`, {icon: iconInner});
     }

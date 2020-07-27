@@ -62,7 +62,7 @@ module.exports = (Plugin, Library) => {
                         markers: [0, 9, 18, 27, 36, 45, 54, 63, 72, 81, 90],
                         stickToMarkers: true
                     }),
-                    new Settings.FilePicker("FilePicker", "This should be a description of what this setting is about or blank", (e) => {if(e) this.settings.file = e.path;})
+                    new Settings.FilePicker("FilePicker", "This should be a description of what this setting is about or blank", (e) => {if (e) this.settings.file = e.path;})
                 )
             );
         }

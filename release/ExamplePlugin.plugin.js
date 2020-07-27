@@ -31,7 +31,7 @@
 
 @else@*/
 
-var ExamplePlugin = (() => {
+module.exports = (() => {
     const config = {"info":{"name":"Example Plugin","authors":[{"name":"Zerebos","discord_id":"249746236008169473","github_username":"rauenzi","twitter_username":"ZackRauen"}],"version":"0.0.3","description":"Patcher Test Description","github":"","github_raw":""},"changelog":[{"title":"New Stuff","items":["Added more settings","Added changelog"]},{"title":"Bugs Squashed","type":"fixed","items":["React errors on reload"]},{"title":"Improvements","type":"improved","items":["Improvements to the base plugin"]},{"title":"On-going","type":"progress","items":["More modals and popouts being added","More classes and modules being added"]}],"main":"index.js"};
 
     return !global.ZeresPluginLibrary ? class {
@@ -119,7 +119,7 @@ var ExamplePlugin = (() => {
                         markers: [0, 9, 18, 27, 36, 45, 54, 63, 72, 81, 90],
                         stickToMarkers: true
                     }),
-                    new Settings.FilePicker("FilePicker", "This should be a description of what this setting is about or blank", (e) => {if(e) this.settings.file = e.path;})
+                    new Settings.FilePicker("FilePicker", "This should be a description of what this setting is about or blank", (e) => {if (e) this.settings.file = e.path;})
                 )
             );
         }

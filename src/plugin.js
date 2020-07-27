@@ -66,7 +66,7 @@ export default (BasePlugin, Library) => {
             const BoundLib = Object.assign({}, Library);
             BoundLib.Logger = BoundAPI.Logger;
             BoundLib.Patcher = BoundAPI.Patcher;
-            return [Library.Structs.Plugin(config), BoundLib];
+            return [Library.Structs.Plugin(config), BoundLib]; // eslint-disable-line new-cap
         }
     };
 

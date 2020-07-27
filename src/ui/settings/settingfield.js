@@ -1,6 +1,9 @@
 import Listenable from "../../structs/listenable";
 import {DiscordModules, DOMTools, DiscordClasses, ReactTools, WebpackModules} from "modules";
 
+const AccessibilityProvider = WebpackModules.getByProps("AccessibilityPreferencesContext").AccessibilityPreferencesContext.Provider;
+const LayerProvider = WebpackModules.getByProps("AppReferencePositionLayer").AppLayerProvider().props.layerContext.Provider;
+
 /** 
  * Setting field to extend to create new settings
  * @memberof module:Settings
@@ -70,6 +73,7 @@ class ReactSetting extends DiscordModules.React.Component {
     render() {
         const ce = DiscordModules.React.createElement;
         const SettingElement = ce(this.props.type, this.props);
+        const Context = ce(AccessibilityProvider, {value: {reducedMotion: {enabled: false, rawValue: "no-preference"}}}, ce(LayerProvider, {value: [document.querySelector("#app-mount > .layerContainer-yqaFcK")]}, SettingElement));
         if (this.props.inline) {
             const Flex = DiscordModules.FlexChild;
             const titleDefault = WebpackModules.getByProps("titleDefault") ? WebpackModules.getByProps("titleDefault").titleDefault : "titleDefault-a8-ZSr title-31JmR4 da-titleDefault da-title";
@@ -78,7 +82,7 @@ class ReactSetting extends DiscordModules.React.Component {
                 ce(Flex.Child, {wrap: !0},
                     ce("div", {className: titleDefault}, this.props.title)
                 ),
-                ce(Flex.Child, {grow: 0, shrink: 0}, SettingElement)
+                ce(Flex.Child, {grow: 0, shrink: 0}, Context)
             ),
             this.noteElement,
             this.dividerElement
@@ -89,8 +93,8 @@ class ReactSetting extends DiscordModules.React.Component {
             className: DiscordClasses.Margins.marginBottom20.toString(),
             title: this.props.title,
             children: [
-                this.props.noteOnTop ? this.noteElement : SettingElement,
-                this.props.noteOnTop ? SettingElement : this.noteElement,
+                this.props.noteOnTop ? this.noteElement : Context,
+                this.props.noteOnTop ? Context : this.noteElement,
                 this.dividerElement
             ]
         });

@@ -10,6 +10,8 @@ import Logger from "./logger";
 import DiscordClasses from "./discordclasses";
 import {EmulatedTooltip, Toasts} from "ui";
 
+import CSS from "../styles/updates.css";
+
 /**
  * Function that gets the remote version from the file contents.
  * @param {string} fileContent - the content of the remote file
@@ -28,7 +30,7 @@ import {EmulatedTooltip, Toasts} from "ui";
 
 export default class PluginUpdater {
 
-    static get CSS() { return require("../styles/updates.css");}
+    static get CSS() {return CSS;}
 
     /**
      * Checks for updates for the specified plugin at the specified link. The final
@@ -199,7 +201,7 @@ export default class PluginUpdater {
      * @param {string} updateLink - link to the raw text version of the plugin
      */
     static showUpdateNotice(pluginName, updateLink) {
-        if (!document.getElementById("pluginNotice"))  {
+        if (!document.getElementById("pluginNotice")) {
             const noticeElement = DOMTools.parseHTML(`<div class="${DiscordClasses.Notices.notice} ${DiscordClasses.Notices.noticeInfo}" id="pluginNotice">
                                                         <div class="${DiscordClasses.Notices.dismiss}" id="pluginNoticeDismiss"></div>
                                                         <span class="notice-message">The following plugins have updates:</span>&nbsp;&nbsp;<strong id="outdatedPlugins"></strong>
@@ -219,6 +221,11 @@ export default class PluginUpdater {
         });
         if (document.getElementById("outdatedPlugins").querySelectorAll("span").length) document.getElementById("outdatedPlugins").append(DOMTools.createElement("<span class='separator'>, </span>"));
         document.getElementById("outdatedPlugins").append(pluginNoticeElement);
+
+        const tooltip = new EmulatedTooltip(pluginNoticeElement, "Click To Update!", {side: "bottom"});
+
+        // If this is the first one added, show the tooltip immediately.
+        if (document.getElementById("outdatedPlugins").querySelectorAll("span").length === 1) tooltip.show();
     }
 
     /**

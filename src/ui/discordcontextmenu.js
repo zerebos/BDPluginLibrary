@@ -168,7 +168,7 @@ export default class DiscordContextMenu {
         else if (type === "control") {
             Component = ContextMenu.MenuControlItem;
         }
-        if (!props.id) props.id = DOMTools.escapeID(props.label);
+        if (!props.id) props.id = `${DOMTools.escapeID(props.label)}${performance.now()}`;
         if (props.danger) props.color = "colorDanger";
         if (props.onClick && !props.action) props.action = props.onClick;
         props.extended = true;
@@ -253,7 +253,7 @@ export default class DiscordContextMenu {
      */
     static openContextMenu(event, menuComponent, config) {
         return ContextMenuActions.openContextMenu(event, function(e) {
-            return ce(menuComponent, e);
+            return ce(menuComponent, Object.assign({}, e, {onClose: ContextMenuActions.closeContextMenu}));
         }, config);
     }
 
@@ -302,10 +302,13 @@ export default class DiscordContextMenu {
         Patcher.after("DCM", MenuItem, "default", (_, args, ret) => {
             if (!args || !args[0] || !args[0].extended) return;
             const [props] = args;
-            if (!props.style) return;
-            ret.props.style = props.style;
+            if (props.style) ret.props.style = props.style;
             if (props.closeOnClick !== false || !props.action) return;
-            ret.props.onClick = props.action;
+            ret.props.onClick = function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                return props.action(...arguments);
+            };
         });
     }
 

@@ -10,7 +10,7 @@
  * @version 0.0.1
  */
 
-import {DOMTools, DiscordClasses, DiscordSelectors, Logger} from "modules";
+import {DOMTools, DiscordClasses, DiscordSelectors, Logger, WebpackModules} from "modules";
 import Screen from "../structs/screen";
 
 const getClass = function(sideOrColor) {
@@ -21,7 +21,7 @@ const getClass = function(sideOrColor) {
 };
 
 const classExists = function(sideOrColor) {
-    return getClass(sideOrColor) ? true : false;
+    return !!getClass(sideOrColor);
 };
 
 const toPx = function(value) {
@@ -64,15 +64,15 @@ export default class EmulatedTooltip {
         if (!classExists(this.style)) return Logger.err("EmulatedTooltip", `Style ${this.style} does not exist.`);
 
         this.element = DOMTools.createElement(`<div class="${DiscordClasses.TooltipLayers.layer}">`);
-        this.tooltipElement = DOMTools.createElement(`<div class="${DiscordClasses.Tooltips.tooltip} ${getClass(this.style)}"><div class="${DiscordClasses.Tooltips.tooltipPointer}"></div class="${DiscordClasses.Tooltips.tooltipContent}">${this.label}</div>`);
+        this.tooltipElement = DOMTools.createElement(`<div class="${DiscordClasses.Tooltips.tooltip} ${getClass(this.style)}"><div class="${DiscordClasses.Tooltips.tooltipPointer}"></div><div class="${DiscordClasses.Tooltips.tooltipContent}">${this.label}</div></div>`);
         this.labelElement = this.tooltipElement.childNodes[1];
         this.element.append(this.tooltipElement);
         
         if (this.disablePointerEvents) {
-            this.element.addClass(DiscordClasses.TooltipLayers.disabledPointerEvents);
-            this.tooltipElement.addClass(DiscordClasses.Tooltips.tooltipDisablePointerEvents);
+            this.element.classList.add(DiscordClasses.TooltipLayers.disabledPointerEvents);
+            this.tooltipElement.classList.add(DiscordClasses.Tooltips.tooltipDisablePointerEvents);
         }
-        if (this.isTimestamp) this.tooltipElement.addClass(WebpackModules.getByProps("timestampTooltip")["timestampTooltip"]);
+        if (this.isTimestamp) this.tooltipElement.classList.add(WebpackModules.getByProps("timestampTooltip").timestampTooltip);
 
 
         this.node.addEventListener("mouseenter", () => {
@@ -100,15 +100,15 @@ export default class EmulatedTooltip {
     }
 
     /** Container where the tooltip will be appended. */
-    get container() { return document.querySelector(DiscordSelectors.Popouts.popouts.sibling(DiscordSelectors.TooltipLayers.layerContainer)); }
+    get container() {return document.querySelector(DiscordSelectors.Popouts.popouts.sibling(DiscordSelectors.TooltipLayers.layerContainer));}
     /** Boolean representing if the tooltip will fit on screen above the element */
-    get canShowAbove() { return this.node.offset().top - this.element.outerHeight() >= 0; }
+    get canShowAbove() {return this.node.getBoundingClientRect().top - this.element.offsetHeight >= 0;}
     /** Boolean representing if the tooltip will fit on screen below the element */
-    get canShowBelow() { return this.node.offset().top + this.node.outerHeight() + this.element.outerHeight() <= Screen.height; }
+    get canShowBelow() {return this.node.getBoundingClientRect().top + this.node.offsetHeight + this.element.offsetHeight <= Screen.height;}
     /** Boolean representing if the tooltip will fit on screen to the left of the element */
-    get canShowLeft() { return this.node.offset().left - this.element.outerWidth() >= 0; }
+    get canShowLeft() {return this.node.getBoundingClientRect().left - this.element.offsetWidth >= 0;}
     /** Boolean representing if the tooltip will fit on screen to the right of the element */
-    get canShowRight() { return this.node.offset().left + this.node.outerWidth() + this.element.outerWidth() <= Screen.width; }
+    get canShowRight() {return this.node.getBoundingClientRect().left + this.node.offsetWidth + this.element.offsetWidth <= Screen.width;}
 
     /** Hides the tooltip. Automatically called on mouseleave. */
     hide() {
@@ -119,10 +119,10 @@ export default class EmulatedTooltip {
     /** Shows the tooltip. Automatically called on mouseenter. Will attempt to flip if position was wrong. */
     show() {
         this.tooltipElement.className = `${DiscordClasses.Tooltips.tooltip} ${getClass(this.style)}`;
-        if (this.disablePointerEvents) this.tooltipElement.addClass(DiscordClasses.Tooltips.tooltipDisablePointerEvents);
-        if (this.isTimestamp) this.tooltipElement.addClass(WebpackModules.getByProps("timestampTooltip")["timestampTooltip"]);
+        if (this.disablePointerEvents) this.tooltipElement.classList.add(DiscordClasses.Tooltips.tooltipDisablePointerEvents);
+        if (this.isTimestamp) this.tooltipElement.classList.add(WebpackModules.getByProps("timestampTooltip").timestampTooltip);
         this.labelElement.textContent = this.label;
-        this.element.appendTo(this.container);
+        this.container.append(this.element);
 
         if (this.side == "top") {
             if (this.canShowAbove || (!this.canShowAbove && this.preventFlip)) this.showAbove();
@@ -147,39 +147,39 @@ export default class EmulatedTooltip {
 
     /** Force showing the tooltip above the node. */
     showAbove() {
-        this.tooltipElement.addClass(getClass("top"));
-        this.element.css("top", toPx(this.node.offset().top - this.element.outerHeight() - 10));
+        this.tooltipElement.classList.add(getClass("top"));
+        this.element.style.setProperty("top", toPx(this.node.getBoundingClientRect().top - this.element.offsetHeight - 10));
         this.centerHorizontally();
     }
 
     /** Force showing the tooltip below the node. */
     showBelow() {
-        this.tooltipElement.addClass(getClass("bottom"));
-        this.element.css("top", toPx(this.node.offset().top + this.node.outerHeight() + 10));
+        this.tooltipElement.classList.add(getClass("bottom"));
+        this.element.style.setProperty("top", toPx(this.node.getBoundingClientRect().top + this.node.offsetHeight + 10));
         this.centerHorizontally();
     }
 
     /** Force showing the tooltip to the left of the node. */
     showLeft() {
-        this.tooltipElement.addClass(getClass("left"));
-        this.element.css("left", toPx(this.node.offset().left - this.element.outerWidth() - 10));
+        this.tooltipElement.classList.add(getClass("left"));
+        this.element.style.setProperty("left", toPx(this.node.getBoundingClientRect().left - this.element.offsetWidth - 10));
         this.centerVertically();
     }
 
     /** Force showing the tooltip to the right of the node. */
     showRight() {
-        this.tooltipElement.addClass(getClass("right"));
-        this.element.css("left", toPx(this.node.offset().left + this.node.outerWidth() + 10));
+        this.tooltipElement.classList.add(getClass("right"));
+        this.element.style.setProperty("left", toPx(this.node.getBoundingClientRect().left + this.node.offsetWidth + 10));
         this.centerVertically();
     }
 
     centerHorizontally() {
-        const nodecenter = this.node.offset().left + (this.node.outerWidth() / 2);
-        this.element.css("left", toPx(nodecenter - (this.element.outerWidth() / 2)));
+        const nodecenter = this.node.getBoundingClientRect().left + (this.node.offsetWidth / 2);
+        this.element.style.setProperty("left", toPx(nodecenter - (this.element.offsetWidth / 2)));
     }
 
     centerVertically() {
-        const nodecenter = this.node.offset().top + (this.node.outerHeight() / 2);
-        this.element.css("top", toPx(nodecenter - (this.element.outerHeight() / 2)));
+        const nodecenter = this.node.getBoundingClientRect().top + (this.node.offsetHeight / 2);
+        this.element.style.setProperty("top", toPx(nodecenter - (this.element.offsetHeight / 2)));
     }
 }
