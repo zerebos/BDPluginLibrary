@@ -23,7 +23,7 @@ export default Utilities.memoizeObject({
     get PopoutRoles() {return WebpackModules.getByProps("roleCircle");},
     get UserModal() {return WebpackModules.getByProps("profileBadge");},
     get Textarea() {return WebpackModules.getByProps("channelTextArea", "textArea");},
-    get Popouts() {return WebpackModules.getByProps("popouts");},
+    get Popouts() {return WebpackModules.getByProps("popouts", "popout");},
     get Titles() {return WebpackModules.getByProps("defaultMarginh5");},
     get Notices() {return WebpackModules.getByProps("noticeInfo");},
     get Backdrop() {return WebpackModules.getByProps("backdrop");},
