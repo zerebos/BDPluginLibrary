@@ -13,6 +13,7 @@ const bdFolder = (process.platform == "win32" ? process.env.APPDATA : process.pl
 const args = process.argv.slice(2);
 const mode = args[0];
 
+
 const list = args.slice(1).length ? args.slice(1) : fs.readdirSync(pluginsPath).filter(f => fs.lstatSync(path.join(pluginsPath, f)).isDirectory() && f != "0PluginLibrary");
 (async (list) => {
     console.log("");
@@ -23,7 +24,7 @@ const list = args.slice(1).length ? args.slice(1) : fs.readdirSync(pluginsPath).
         const isLibrary = output == "0PluginLibrary";
         const pluginName = isLibrary ? "ZeresPluginLibrary" : output;
         console.log(`Packing ${pluginName}`);
-        const configPath = isLibrary ? path.join(__dirname, "..", "src", "config.json") : path.join(pluginsPath, output, "config.json");
+        const configPath = isLibrary ? path.join(__dirname, "..", "src", "config.js") : path.join(pluginsPath, output, "config.json");
         if (!fs.existsSync(configPath)) {
             console.error(`Could not find "${configPath}". Skipping...`);
             continue;
@@ -35,7 +36,17 @@ const list = args.slice(1).length ? args.slice(1) : fs.readdirSync(pluginsPath).
         config.output.library = pluginName;
         config.output.filename = output + ".plugin.js";
         config.output.path = releasePath;
-        const banner = `//META{"name":"${pluginName}","displayName":"${pluginName}","website":"${pluginConfig.info.github}","source":"${pluginConfig.info.github_raw}"}*//\n`;
+        const banner = `/**
+ * @name ${pluginName}
+ * @invite TyFxKer
+ * @authorLink https://twitter.com/ZackRauen
+ * @donate https://paypal.me/ZackRauen
+ * @patreon https://patreon.com/Zerebos
+ * @website ${pluginConfig.info.github}
+ * @source ${pluginConfig.info.github_raw}
+ */
+`;
+        // const banner = `//META{"name":"${pluginName}","displayName":"${pluginName}","website":"${pluginConfig.info.github}","source":"${pluginConfig.info.github_raw}"}*//\n`;
         await new Promise((resolve) => {
             webpack(config, (err, stats) => {
                 if (err || stats.hasErrors()) console.error(err);

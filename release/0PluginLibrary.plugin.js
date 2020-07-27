@@ -1,4 +1,12 @@
-//META{"name":"ZeresPluginLibrary","displayName":"ZeresPluginLibrary","website":"https://github.com/rauenzi/BDPluginLibrary","source":"https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"}*//
+/**
+ * @name ZeresPluginLibrary
+ * @invite TyFxKer
+ * @authorLink https://twitter.com/ZackRauen
+ * @donate https://paypal.me/ZackRauen
+ * @patreon https://patreon.com/Zerebos
+ * @website https://github.com/rauenzi/BDPluginLibrary
+ * @source https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js
+ */
 
 /*@cc_on
 @if (@_jscript)
@@ -112,14 +120,49 @@ module.exports =
 /************************************************************************/
 /******/ ({
 
-/***/ "./src/config.json":
-/*!*************************!*\
-  !*** ./src/config.json ***!
-  \*************************/
-/*! exports provided: info, changelog, main, default */
-/***/ (function(module) {
+/***/ "./src/config.js":
+/*!***********************!*\
+  !*** ./src/config.js ***!
+  \***********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
 
-module.exports = JSON.parse("{\"info\":{\"name\":\"ZeresPluginLibrary\",\"authors\":[{\"name\":\"Zerebos\",\"discord_id\":\"249746236008169473\",\"github_username\":\"rauenzi\",\"twitter_username\":\"ZackRauen\"}],\"version\":\"1.2.19\",\"description\":\"Gives other plugins utility functions and the ability to emulate v2.\",\"github\":\"https://github.com/rauenzi/BDPluginLibrary\",\"github_raw\":\"https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js\"},\"changelog\":[{\"title\":\"Bugs Squashed\",\"type\":\"fixed\",\"items\":[\"EmulatedToolips look good again and have more options. Thanks to DorCoMaNdO on GitHub!\",\"Modals like the alert and confirmation modals should work again.\",\"Context menus and patches using DCM should work again.\"]},{\"title\":\"Small Changes\",\"type\":\"improved\",\"items\":[\"Discord's ColorPicker will be used for color settings if it is loaded.\"]}],\"main\":\"plugin.js\"}");
+module.exports = {
+    info: {
+        name: "ZeresPluginLibrary",
+        authors: [{
+            name: "Zerebos",
+            discord_id: "249746236008169473",
+            github_username: "rauenzi",
+            twitter_username: "ZackRauen"
+        }],
+        version: "1.2.19",
+        description: "Gives other plugins utility functions and the ability to emulate v2.",
+        github: "https://github.com/rauenzi/BDPluginLibrary",
+        github_raw: "https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"
+    },
+    changelog: [
+        {
+            title: "Bugs Squashed",
+            type: "fixed",
+            items: [
+                "EmulatedToolips look good again and have more options. Thanks to DorCoMaNdO on GitHub!",
+                "Modals like the alert and confirmation modals should work again.",
+                "Context menus and patches using DCM should work again."
+            ]
+        },
+        {
+            title: "Small Changes",
+            type: "improved",
+            items: [
+                "Discord's ColorPicker will be used for color settings if it is loaded.",
+                "Patches should hopefully be maintained in case the library gets reloaded unexpectedly.",
+                "Update check should show a tooltip instructing users to click in order to update."
+            ]
+        }
+    ],
+    main: "plugin.js"
+};
 
 /***/ }),
 
@@ -149,7 +192,7 @@ Library.Popouts = ui__WEBPACK_IMPORTED_MODULE_1__["Popouts"];
 Library.Modals = ui__WEBPACK_IMPORTED_MODULE_1__["Modals"];
 for (const mod in modules__WEBPACK_IMPORTED_MODULE_0__) Library[mod] = modules__WEBPACK_IMPORTED_MODULE_0__[mod];
 
-const config = __webpack_require__(/*! ./src/config.json */ "./src/config.json");
+const config = __webpack_require__(/*! ./src/config.js */ "./src/config.js");
 const baseModule = __webpack_require__(/*! ./src/plugin.js */ "./src/plugin.js");
 const pluginFunction = baseModule.default ? baseModule.default : baseModule;
 
@@ -7454,7 +7497,7 @@ class EmulatedTooltip {
         if (this.disablePointerEvents) this.tooltipElement.classList.add(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordClasses"].Tooltips.tooltipDisablePointerEvents);
         if (this.isTimestamp) this.tooltipElement.classList.add(modules__WEBPACK_IMPORTED_MODULE_0__["WebpackModules"].getByProps("timestampTooltip").timestampTooltip);
         this.labelElement.textContent = this.label;
-        this.element.appendTo(this.container);
+        this.container.append(this.element);
 
         if (this.side == "top") {
             if (this.canShowAbove || (!this.canShowAbove && this.preventFlip)) this.showAbove();
