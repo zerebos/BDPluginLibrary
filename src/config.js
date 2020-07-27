@@ -7,7 +7,7 @@ module.exports = {
             github_username: "rauenzi",
             twitter_username: "ZackRauen"
         }],
-        version: "1.2.19",
+        version: "1.2.20",
         description: "Gives other plugins utility functions and the ability to emulate v2.",
         github: "https://github.com/rauenzi/BDPluginLibrary",
         github_raw: "https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"

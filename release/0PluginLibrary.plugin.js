@@ -136,7 +136,7 @@ module.exports = {
             github_username: "rauenzi",
             twitter_username: "ZackRauen"
         }],
-        version: "1.2.19",
+        version: "1.2.20",
         description: "Gives other plugins utility functions and the ability to emulate v2.",
         github: "https://github.com/rauenzi/BDPluginLibrary",
         github_raw: "https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"
@@ -1844,7 +1844,7 @@ __webpack_require__.r(__webpack_exports__);
 class Patcher {
 
     // Use window._patches instead of local variables in case something tries to whack the lib
-    static get patches() {return window._patches || (this._patches = []);}
+    static get patches() {return window._patches || (window._patches = []);}
 
     /**
      * Returns all the patches done by a specific caller
