@@ -7,7 +7,7 @@ module.exports = {
             github_username: "rauenzi",
             twitter_username: "ZackRauen"
         }],
-        version: "1.2.20",
+        version: "1.2.21",
         description: "Gives other plugins utility functions and the ability to emulate v2.",
         github: "https://github.com/rauenzi/BDPluginLibrary",
         github_raw: "https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"
@@ -17,7 +17,8 @@ module.exports = {
             title: "Bugs Squashed",
             type: "fixed",
             items: [
-                "EmulatedToolips look good again and have more options. Thanks to DorCoMaNdO on GitHub!",
+                "EmulatedTooltips look good again and have more options. Thanks to DorCoMaNdO on GitHub!",
+                "EmulatedTooltips positioning and unclosable Click To Update tooltips fixed by Lighty",
                 "Modals like the alert and confirmation modals should work again.",
                 "Context menus and patches using DCM should work again."
             ]

@@ -16,7 +16,7 @@ import Screen from "../structs/screen";
 const getClass = function(sideOrColor) {
     const upperCase = sideOrColor[0].toUpperCase() + sideOrColor.slice(1);
     const tooltipClass = DiscordClasses.Tooltips[`tooltip${upperCase}`];
-    if (tooltipClass) return tooltipClass;
+    if (tooltipClass) return tooltipClass.value;
     return null;
 };
 
@@ -59,6 +59,7 @@ export default class EmulatedTooltip {
         this.isTimestamp = isTimestamp;
         this.disablePointerEvents = disablePointerEvents;
         this.disabled = disabled;
+        this.active = false;
 
         if (!classExists(this.side)) return Logger.err("EmulatedTooltip", `Side ${this.side} does not exist.`);
         if (!classExists(this.style)) return Logger.err("EmulatedTooltip", `Style ${this.style} does not exist.`);
@@ -67,7 +68,7 @@ export default class EmulatedTooltip {
         this.tooltipElement = DOMTools.createElement(`<div class="${DiscordClasses.Tooltips.tooltip} ${getClass(this.style)}"><div class="${DiscordClasses.Tooltips.tooltipPointer}"></div><div class="${DiscordClasses.Tooltips.tooltipContent}">${this.label}</div></div>`);
         this.labelElement = this.tooltipElement.childNodes[1];
         this.element.append(this.tooltipElement);
-        
+
         if (this.disablePointerEvents) {
             this.element.classList.add(DiscordClasses.TooltipLayers.disabledPointerEvents);
             this.tooltipElement.classList.add(DiscordClasses.Tooltips.tooltipDisablePointerEvents);
@@ -78,20 +79,6 @@ export default class EmulatedTooltip {
         this.node.addEventListener("mouseenter", () => {
             if (this.disabled) return;
             this.show();
-
-            const observer = new MutationObserver((mutations) => {
-                mutations.forEach((mutation) => {
-                    const nodes = Array.from(mutation.removedNodes);
-                    const directMatch = nodes.indexOf(this.node) > -1;
-                    const parentMatch = nodes.some(parent => parent.contains(this.node));
-                    if (directMatch || parentMatch) {
-                        this.hide();
-                        observer.disconnect();
-                    }
-                });
-            });
-
-            observer.observe(document.body, {subtree: true, childList: true});
         });
 
         this.node.addEventListener("mouseleave", () => {
@@ -112,12 +99,18 @@ export default class EmulatedTooltip {
 
     /** Hides the tooltip. Automatically called on mouseleave. */
     hide() {
+        /** Don't rehide if already inactive */
+        if (!this.active) return;
+        this.active = false;
         this.element.remove();
         this.tooltipElement.className = this._className;
     }
 
     /** Shows the tooltip. Automatically called on mouseenter. Will attempt to flip if position was wrong. */
     show() {
+        /** Don't reshow if already active */
+        if (this.active) return;
+        this.active = true;
         this.tooltipElement.className = `${DiscordClasses.Tooltips.tooltip} ${getClass(this.style)}`;
         if (this.disablePointerEvents) this.tooltipElement.classList.add(DiscordClasses.Tooltips.tooltipDisablePointerEvents);
         if (this.isTimestamp) this.tooltipElement.classList.add(WebpackModules.getByProps("timestampTooltip").timestampTooltip);
@@ -143,6 +136,23 @@ export default class EmulatedTooltip {
             if (this.canShowRight || (!this.canShowRight && this.preventFlip)) this.showRight();
             else this.showLeft();
         }
+
+        /** Do not create a new observer each time if one already exists! */
+        if (this.observer) return;
+        /** Use an observer in show otherwise you'll cause unclosable tooltips */
+        this.observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                const nodes = Array.from(mutation.removedNodes);
+                const directMatch = nodes.indexOf(this.node) > -1;
+                const parentMatch = nodes.some(parent => parent.contains(this.node));
+                if (directMatch || parentMatch) {
+                    this.hide();
+                    this.observer.disconnect();
+                }
+            });
+        });
+
+        this.observer.observe(document.body, {subtree: true, childList: true});
     }
 
     /** Force showing the tooltip above the node. */
