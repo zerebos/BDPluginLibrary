@@ -7513,20 +7513,22 @@ class EmulatedTooltip {
             else this.showLeft();
         }
 
+        /** Do not create a new observer each time if one already exists! */
+        if (this.observer) return;
         /** Use an observer in show otherwise you'll cause unclosable tooltips */
-        const observer = new MutationObserver((mutations) => {
+        this.observer = new MutationObserver((mutations) => {
             mutations.forEach((mutation) => {
                 const nodes = Array.from(mutation.removedNodes);
                 const directMatch = nodes.indexOf(this.node) > -1;
                 const parentMatch = nodes.some(parent => parent.contains(this.node));
                 if (directMatch || parentMatch) {
                     this.hide();
-                    observer.disconnect();
+                    this.observer.disconnect();
                 }
             });
         });
 
-        observer.observe(document.body, {subtree: true, childList: true});
+        this.observer.observe(document.body, {subtree: true, childList: true});
     }
 
     /** Force showing the tooltip above the node. */
