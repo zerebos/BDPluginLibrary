@@ -136,7 +136,7 @@ module.exports = {
             github_username: "rauenzi",
             twitter_username: "ZackRauen"
         }],
-        version: "1.2.20",
+        version: "1.2.21",
         description: "Gives other plugins utility functions and the ability to emulate v2.",
         github: "https://github.com/rauenzi/BDPluginLibrary",
         github_raw: "https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"
@@ -146,7 +146,8 @@ module.exports = {
             title: "Bugs Squashed",
             type: "fixed",
             items: [
-                "EmulatedToolips look good again and have more options. Thanks to DorCoMaNdO on GitHub!",
+                "EmulatedTooltips look good again and have more options. Thanks to DorCoMaNdO on GitHub!",
+                "EmulatedTooltips positioning and unclosable Click To Update tooltips fixed by Lighty",
                 "Modals like the alert and confirmation modals should work again.",
                 "Context menus and patches using DCM should work again."
             ]
@@ -7391,7 +7392,7 @@ __webpack_require__.r(__webpack_exports__);
 const getClass = function(sideOrColor) {
     const upperCase = sideOrColor[0].toUpperCase() + sideOrColor.slice(1);
     const tooltipClass = modules__WEBPACK_IMPORTED_MODULE_0__["DiscordClasses"].Tooltips[`tooltip${upperCase}`];
-    if (tooltipClass) return tooltipClass;
+    if (tooltipClass) return tooltipClass.value;
     return null;
 };
 
@@ -7434,6 +7435,7 @@ class EmulatedTooltip {
         this.isTimestamp = isTimestamp;
         this.disablePointerEvents = disablePointerEvents;
         this.disabled = disabled;
+        this.active = false;
 
         if (!classExists(this.side)) return modules__WEBPACK_IMPORTED_MODULE_0__["Logger"].err("EmulatedTooltip", `Side ${this.side} does not exist.`);
         if (!classExists(this.style)) return modules__WEBPACK_IMPORTED_MODULE_0__["Logger"].err("EmulatedTooltip", `Style ${this.style} does not exist.`);
@@ -7442,7 +7444,7 @@ class EmulatedTooltip {
         this.tooltipElement = modules__WEBPACK_IMPORTED_MODULE_0__["DOMTools"].createElement(`<div class="${modules__WEBPACK_IMPORTED_MODULE_0__["DiscordClasses"].Tooltips.tooltip} ${getClass(this.style)}"><div class="${modules__WEBPACK_IMPORTED_MODULE_0__["DiscordClasses"].Tooltips.tooltipPointer}"></div><div class="${modules__WEBPACK_IMPORTED_MODULE_0__["DiscordClasses"].Tooltips.tooltipContent}">${this.label}</div></div>`);
         this.labelElement = this.tooltipElement.childNodes[1];
         this.element.append(this.tooltipElement);
-        
+
         if (this.disablePointerEvents) {
             this.element.classList.add(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordClasses"].TooltipLayers.disabledPointerEvents);
             this.tooltipElement.classList.add(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordClasses"].Tooltips.tooltipDisablePointerEvents);
@@ -7453,20 +7455,6 @@ class EmulatedTooltip {
         this.node.addEventListener("mouseenter", () => {
             if (this.disabled) return;
             this.show();
-
-            const observer = new MutationObserver((mutations) => {
-                mutations.forEach((mutation) => {
-                    const nodes = Array.from(mutation.removedNodes);
-                    const directMatch = nodes.indexOf(this.node) > -1;
-                    const parentMatch = nodes.some(parent => parent.contains(this.node));
-                    if (directMatch || parentMatch) {
-                        this.hide();
-                        observer.disconnect();
-                    }
-                });
-            });
-
-            observer.observe(document.body, {subtree: true, childList: true});
         });
 
         this.node.addEventListener("mouseleave", () => {
@@ -7487,12 +7475,18 @@ class EmulatedTooltip {
 
     /** Hides the tooltip. Automatically called on mouseleave. */
     hide() {
+        /** Don't rehide if already inactive */
+        if (!this.active) return;
+        this.active = false;
         this.element.remove();
         this.tooltipElement.className = this._className;
     }
 
     /** Shows the tooltip. Automatically called on mouseenter. Will attempt to flip if position was wrong. */
     show() {
+        /** Don't reshow if already active */
+        if (this.active) return;
+        this.active = true;
         this.tooltipElement.className = `${modules__WEBPACK_IMPORTED_MODULE_0__["DiscordClasses"].Tooltips.tooltip} ${getClass(this.style)}`;
         if (this.disablePointerEvents) this.tooltipElement.classList.add(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordClasses"].Tooltips.tooltipDisablePointerEvents);
         if (this.isTimestamp) this.tooltipElement.classList.add(modules__WEBPACK_IMPORTED_MODULE_0__["WebpackModules"].getByProps("timestampTooltip").timestampTooltip);
@@ -7518,6 +7512,21 @@ class EmulatedTooltip {
             if (this.canShowRight || (!this.canShowRight && this.preventFlip)) this.showRight();
             else this.showLeft();
         }
+
+        /** Use an observer in show otherwise you'll cause unclosable tooltips */
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                const nodes = Array.from(mutation.removedNodes);
+                const directMatch = nodes.indexOf(this.node) > -1;
+                const parentMatch = nodes.some(parent => parent.contains(this.node));
+                if (directMatch || parentMatch) {
+                    this.hide();
+                    observer.disconnect();
+                }
+            });
+        });
+
+        observer.observe(document.body, {subtree: true, childList: true});
     }
 
     /** Force showing the tooltip above the node. */
