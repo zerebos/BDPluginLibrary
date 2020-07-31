@@ -58,7 +58,7 @@ class Channel {
 
     /**
      * Send a message in this channel.
-     * @param {String} content The new message's content
+     * @param {String|object} content The new message's content
      * @param {Boolean} parse Whether to parse the message or send it as it is
      * @return {Promise<Message>}
      */
@@ -68,7 +68,7 @@ class Channel {
         this.select();
 
         if (parse) content = Modules.MessageParser.parse(this.discordObject, content);
-        else content = {content};
+        else if (typeof content == 'string') content = {content, validNonShortcutEmojis: Array(0)};
 
         const response = await Modules.MessageActions._sendMessage(this.id, content);
         return Message.from(Modules.MessageStore.getMessage(this.id, response.body.id));
@@ -271,7 +271,7 @@ export class GuildChannel extends Channel {
 
     /**
      * Updates this channel's permission overwrites.
-     * @param {Array} permissionOverwrites An array of permission overwrites
+     * @param {Array} permission_overwrites An array of permission overwrites
      * @return {Promise}
      */
     updatePermissionOverwrites(permission_overwrites) {
@@ -296,7 +296,7 @@ export class GuildTextChannel extends GuildChannel {
 
     /**
      * Updates this channel's topic.
-     * @param {String} topc The new channel topic
+     * @param {String} topic The new channel topic
      * @return {Promise}
      */
     updateTopic(topic) {
@@ -341,7 +341,7 @@ export class GuildVoiceChannel extends GuildChannel {
 
     /**
      * Updates this channel's user limit.
-     * @param {Number} userLimit The new user limit
+     * @param {Number} user_limit The new user limit
      * @return {Promise}
      */
     updateUserLimit(user_limit) {
