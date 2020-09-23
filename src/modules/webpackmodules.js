@@ -26,7 +26,10 @@ export class Filters {
         return module => {
             const component = filter(module);
             if (!component) return false;
-            return props.every(property => component[property] !== undefined);
+            for (let p = 0; p < props.length; p++) {
+                if (module[props[p]] === undefined) return false;
+            }
+            return true;
         };
     }
 
@@ -154,7 +157,7 @@ export default class WebpackModules {
         for (const index in modules) {
             if (!modules.hasOwnProperty(index)) continue;
             const module = modules[index];
-            const {exports} = module;
+            const exports = module.exports;
             let foundModule = null;
 
             if (!exports) continue;
