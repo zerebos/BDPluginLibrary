@@ -25,7 +25,7 @@ export default Utilities.memoizeObject({
     get Textarea() {return WebpackModules.getByProps("channelTextArea", "textArea");},
     get Popouts() {return WebpackModules.getByProps("popouts", "popout");},
     get Titles() {return WebpackModules.getByProps("defaultMarginh5");},
-    get Notices() {return WebpackModules.getByProps("noticeInfo");},
+    get Notices() {return WebpackModules.getByProps("notice", "colorInfo");},
     get Backdrop() {return WebpackModules.getByProps("backdrop");},
     get Modals() {return WebpackModules.getModule(m => m.modal && m.inner && !m.header);},
     get AuditLog() {return WebpackModules.getByProps("userHook");},

@@ -136,7 +136,7 @@ module.exports = {
             github_username: "rauenzi",
             twitter_username: "ZackRauen"
         }],
-        version: "1.2.22",
+        version: "1.2.23",
         description: "Gives other plugins utility functions and the ability to emulate v2.",
         github: "https://github.com/rauenzi/BDPluginLibrary",
         github_raw: "https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"
@@ -146,7 +146,7 @@ module.exports = {
             title: "Bugs Squashed",
             type: "fixed",
             items: [
-                "Hotfix for the UserPopout component. This fixes crashes for StatusEverywhere, RoleMembers, and AccountDetailsPlus."
+                "Hotfix for the PluginUpdater. Actually shows it now."
             ]
         }
     ],
@@ -525,7 +525,7 @@ __webpack_require__.r(__webpack_exports__);
     get Textarea() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("channelTextArea", "textArea");},
     get Popouts() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("popouts", "popout");},
     get Titles() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("defaultMarginh5");},
-    get Notices() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("noticeInfo");},
+    get Notices() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("notice", "colorInfo");},
     get Backdrop() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("backdrop");},
     get Modals() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m.modal && m.inner && !m.header);},
     get AuditLog() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("userHook");},
@@ -2246,7 +2246,7 @@ class PluginUpdater {
             if (BdApi.isSettingEnabled("fork-ps-5")) return;
             if (!window.PluginUpdates.downloaded) {
                 window.PluginUpdates.downloaded = [];
-                const button = _domtools__WEBPACK_IMPORTED_MODULE_1__["default"].parseHTML(`<button class="btn btn-reload ${_discordclasses__WEBPACK_IMPORTED_MODULE_3__["default"].Notices.btn} ${_discordclasses__WEBPACK_IMPORTED_MODULE_3__["default"].Notices.button}">Reload</button>`);
+                const button = _domtools__WEBPACK_IMPORTED_MODULE_1__["default"].parseHTML(`<button class="btn btn-reload ${_discordclasses__WEBPACK_IMPORTED_MODULE_3__["default"].Notices.buttonMinor} ${_discordclasses__WEBPACK_IMPORTED_MODULE_3__["default"].Notices.button}">Reload</button>`);
                 const tooltip = new ui__WEBPACK_IMPORTED_MODULE_4__["EmulatedTooltip"](button, window.PluginUpdates.downloaded.join(", "), {side: "top"});
                 button.addEventListener("click", (e) => {
                     e.preventDefault();
@@ -2270,8 +2270,8 @@ class PluginUpdater {
      */
     static showUpdateNotice(pluginName, updateLink) {
         if (!document.getElementById("pluginNotice")) {
-            const noticeElement = _domtools__WEBPACK_IMPORTED_MODULE_1__["default"].parseHTML(`<div class="${_discordclasses__WEBPACK_IMPORTED_MODULE_3__["default"].Notices.notice} ${_discordclasses__WEBPACK_IMPORTED_MODULE_3__["default"].Notices.noticeInfo}" id="pluginNotice">
-                                                        <div class="${_discordclasses__WEBPACK_IMPORTED_MODULE_3__["default"].Notices.dismiss}" id="pluginNoticeDismiss"></div>
+            const noticeElement = _domtools__WEBPACK_IMPORTED_MODULE_1__["default"].parseHTML(`<div class="${_discordclasses__WEBPACK_IMPORTED_MODULE_3__["default"].Notices.notice} ${_discordclasses__WEBPACK_IMPORTED_MODULE_3__["default"].Notices.colorInfo}" id="pluginNotice">
+                                                        <div class="${_discordclasses__WEBPACK_IMPORTED_MODULE_3__["default"].Notices.closeButton}" id="pluginNoticeDismiss"></div>
                                                         <span class="notice-message">The following plugins have updates:</span>&nbsp;&nbsp;<strong id="outdatedPlugins"></strong>
                                                     </div>`);
             _domtools__WEBPACK_IMPORTED_MODULE_1__["default"].query("[class*='app-'] > [class*='app-']").prepend(noticeElement);

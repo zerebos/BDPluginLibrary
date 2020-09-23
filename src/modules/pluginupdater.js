@@ -178,7 +178,7 @@ export default class PluginUpdater {
             if (BdApi.isSettingEnabled("fork-ps-5")) return;
             if (!window.PluginUpdates.downloaded) {
                 window.PluginUpdates.downloaded = [];
-                const button = DOMTools.parseHTML(`<button class="btn btn-reload ${DiscordClasses.Notices.btn} ${DiscordClasses.Notices.button}">Reload</button>`);
+                const button = DOMTools.parseHTML(`<button class="btn btn-reload ${DiscordClasses.Notices.buttonMinor} ${DiscordClasses.Notices.button}">Reload</button>`);
                 const tooltip = new EmulatedTooltip(button, window.PluginUpdates.downloaded.join(", "), {side: "top"});
                 button.addEventListener("click", (e) => {
                     e.preventDefault();
@@ -202,8 +202,8 @@ export default class PluginUpdater {
      */
     static showUpdateNotice(pluginName, updateLink) {
         if (!document.getElementById("pluginNotice")) {
-            const noticeElement = DOMTools.parseHTML(`<div class="${DiscordClasses.Notices.notice} ${DiscordClasses.Notices.noticeInfo}" id="pluginNotice">
-                                                        <div class="${DiscordClasses.Notices.dismiss}" id="pluginNoticeDismiss"></div>
+            const noticeElement = DOMTools.parseHTML(`<div class="${DiscordClasses.Notices.notice} ${DiscordClasses.Notices.colorInfo}" id="pluginNotice">
+                                                        <div class="${DiscordClasses.Notices.closeButton}" id="pluginNoticeDismiss"></div>
                                                         <span class="notice-message">The following plugins have updates:</span>&nbsp;&nbsp;<strong id="outdatedPlugins"></strong>
                                                     </div>`);
             DOMTools.query("[class*='app-'] > [class*='app-']").prepend(noticeElement);
