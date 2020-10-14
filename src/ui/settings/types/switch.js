@@ -32,10 +32,9 @@ class Switch extends SettingField {
             hideBorder: false,
             value: this.value,
             onChange: (e) => {
-                const checked = e.currentTarget.checked;
-                reactElement.props.value = checked;
+                reactElement.props.value = e;
                 reactElement.forceUpdate();
-                this.onChange(checked);
+                this.onChange(e);
             }
         }), this.getElement());
     }
