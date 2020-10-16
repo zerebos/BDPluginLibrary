@@ -7,7 +7,7 @@ module.exports = {
             github_username: "rauenzi",
             twitter_username: "ZackRauen"
         }],
-        version: "1.2.23",
+        version: "1.2.24",
         description: "Gives other plugins utility functions and the ability to emulate v2.",
         github: "https://github.com/rauenzi/BDPluginLibrary",
         github_raw: "https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"
@@ -17,7 +17,7 @@ module.exports = {
             title: "Bugs Squashed",
             type: "fixed",
             items: [
-                "Hotfix for the PluginUpdater. Actually shows it now."
+                "Fixed toggles not working in plugin settings."
             ]
         }
     ],

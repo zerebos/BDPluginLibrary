@@ -136,7 +136,7 @@ module.exports = {
             github_username: "rauenzi",
             twitter_username: "ZackRauen"
         }],
-        version: "1.2.23",
+        version: "1.2.24",
         description: "Gives other plugins utility functions and the ability to emulate v2.",
         github: "https://github.com/rauenzi/BDPluginLibrary",
         github_raw: "https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"
@@ -146,12 +146,13 @@ module.exports = {
             title: "Bugs Squashed",
             type: "fixed",
             items: [
-                "Hotfix for the PluginUpdater. Actually shows it now."
+                "Fixed toggles not working in plugin settings."
             ]
         }
     ],
     main: "plugin.js"
 };
+
 
 /***/ }),
 
@@ -2317,6 +2318,7 @@ class PluginUpdater {
     }
 }
 
+
 /***/ }),
 
 /***/ "./src/modules/pluginutilities.js":
@@ -3664,7 +3666,10 @@ class Filters {
         return module => {
             const component = filter(module);
             if (!component) return false;
-            return props.every(property => component[property] !== undefined);
+            for (let p = 0; p < props.length; p++) {
+                if (module[props[p]] === undefined) return false;
+            }
+            return true;
         };
     }
 
@@ -3792,7 +3797,7 @@ class WebpackModules {
         for (const index in modules) {
             if (!modules.hasOwnProperty(index)) continue;
             const module = modules[index];
-            const {exports} = module;
+            const exports = module.exports;
             let foundModule = null;
 
             if (!exports) continue;
@@ -4125,7 +4130,7 @@ class Channel {
 
     /**
      * Send a message in this channel.
-     * @param {String} content The new message's content
+     * @param {String|object} content The new message's content
      * @param {Boolean} parse Whether to parse the message or send it as it is
      * @return {Promise<Message>}
      */
@@ -4135,7 +4140,7 @@ class Channel {
         this.select();
 
         if (parse) content = modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].MessageParser.parse(this.discordObject, content);
-        else content = {content};
+        else if (typeof content == 'string') content = {content, validNonShortcutEmojis: Array(0)};
 
         const response = await modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].MessageActions._sendMessage(this.id, content);
         return _message__WEBPACK_IMPORTED_MODULE_3__["Message"].from(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].MessageStore.getMessage(this.id, response.body.id));
@@ -4338,7 +4343,7 @@ class GuildChannel extends Channel {
 
     /**
      * Updates this channel's permission overwrites.
-     * @param {Array} permissionOverwrites An array of permission overwrites
+     * @param {Array} permission_overwrites An array of permission overwrites
      * @return {Promise}
      */
     updatePermissionOverwrites(permission_overwrites) {
@@ -4363,7 +4368,7 @@ class GuildTextChannel extends GuildChannel {
 
     /**
      * Updates this channel's topic.
-     * @param {String} topc The new channel topic
+     * @param {String} topic The new channel topic
      * @return {Promise}
      */
     updateTopic(topic) {
@@ -4408,7 +4413,7 @@ class GuildVoiceChannel extends GuildChannel {
 
     /**
      * Updates this channel's user limit.
-     * @param {Number} userLimit The new user limit
+     * @param {Number} user_limit The new user limit
      * @return {Promise}
      */
     updateUserLimit(user_limit) {
@@ -4510,6 +4515,7 @@ class GroupChannel extends PrivateChannel {
 
 // export {Channel, GuildChannel, ChannelCategory, GuildTextChannel, GuildVoiceChannel, PrivateChannel, DirectMessageChannel, GroupChannel};
 // export {PermissionOverwrite, RolePermissionOverwrite, MemberPermissionOverwrite};
+
 
 /***/ }),
 
@@ -8699,16 +8705,16 @@ class Switch extends _settingfield__WEBPACK_IMPORTED_MODULE_0__["default"] {
             hideBorder: false,
             value: this.value,
             onChange: (e) => {
-                const checked = e.currentTarget.checked;
-                reactElement.props.value = checked;
+                reactElement.props.value = e;
                 reactElement.forceUpdate();
-                this.onChange(checked);
+                this.onChange(e);
             }
         }), this.getElement());
     }
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (Switch);
+
 
 /***/ }),
 
