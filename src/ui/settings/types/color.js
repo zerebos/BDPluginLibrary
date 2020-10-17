@@ -24,7 +24,7 @@ class ColorPicker extends SettingField {
     constructor(name, note, value, onChange, options = {}) {
         if (DiscordModules.ColorPicker) {
             super(name, note, onChange, DiscordModules.ColorPicker, {
-                disabled: options.disabled ? true : false,
+                disabled: !!options.disabled,
                 onChange: reactElement => color => {
                     reactElement.props.value = color;
                     reactElement.forceUpdate();

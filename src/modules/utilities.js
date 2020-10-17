@@ -14,7 +14,7 @@ export default class Utilities {
      * @param {function} comparator - comparator to sort by
      */
     static stableSort(list, comparator) {
-        const entries = Array(length);
+        const entries = Array(list.length);
 
         // wrap values with initial indices
         for (let index = 0; index < list.length; index++) {
@@ -71,8 +71,8 @@ export default class Utilities {
      */
     static suppressErrors(method, description) {
         return (...params) => {
-            try { return method(...params);}
-            catch (e) { Logger.err("Suppression", "Error occurred in " + description, e); }
+            try {return method(...params);}
+            catch (e) {Logger.err("Suppression", "Error occurred in " + description, e);}
         };
     }
 
@@ -147,7 +147,7 @@ export default class Utilities {
 
         if (typeof tree !== "object" || tree == null) return undefined;
 
-        let tempReturn = undefined;
+        let tempReturn;
         if (Array.isArray(tree)) {
             for (const value of tree) {
                 tempReturn = this.findInTree(value, searchFilter, {walkable, ignore});
@@ -243,8 +243,8 @@ export default class Utilities {
                 if (extenders[i].hasOwnProperty(key)) {
                     if (Array.isArray(extendee[key]) && Array.isArray(extenders[i][key])) this.extend(extendee[key], extenders[i][key]);
                     else if (typeof extendee[key] === "object" && typeof extenders[i][key] === "object") this.extend(extendee[key], extenders[i][key]);
-                    else if (Array.isArray(extenders[i][key])) extendee[key] = [], this.extend(extendee[key], extenders[i][key]);
-                    else if (typeof extenders[i][key] === "object") extendee[key] = {}, this.extend(extendee[key], extenders[i][key]);
+                    else if (Array.isArray(extenders[i][key])) extendee[key] = [], this.extend(extendee[key], extenders[i][key]); // eslint-disable-line no-sequences
+                    else if (typeof extenders[i][key] === "object") extendee[key] = {}, this.extend(extendee[key], extenders[i][key]); // eslint-disable-line no-sequences
                     else extendee[key] = extenders[i][key];
                 }
             }
@@ -344,12 +344,7 @@ export default class Utilities {
      * @return {Promise}
      */
     static async readFile(path) {
-        try {
-            await this.fileExists(path);
-        }
-        catch (err) {
-            throw err;
-        }
+        await this.fileExists(path);
         
         const fs = __non_webpack_require__("fs");
         return new Promise((resolve, reject) => {

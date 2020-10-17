@@ -153,6 +153,8 @@ import Logger from "./logger";
 import DiscordClasses from "./discordclasses";
 import {EmulatedTooltip, Toasts} from "ui";
 
+import CSS from "../styles/updates.css";
+
 /**
  * Function that gets the remote version from the file contents.
  * @param {string} fileContent - the content of the remote file
@@ -171,7 +173,7 @@ import {EmulatedTooltip, Toasts} from "ui";
 
 export default class PluginUpdater {
 
-    static get CSS() { return require("../styles/updates.css");}
+    static get CSS() {return CSS;}
 
     /**
      * Checks for updates for the specified plugin at the specified link. The final
@@ -220,7 +222,7 @@ export default class PluginUpdater {
      */
     static async processUpdateCheck(pluginName, updateLink) {
         return new Promise(resolve => {
-            const request = require("request");
+            const request = __non_webpack_require__("request");
             request(updateLink, (error, response, result) => {
                 if (error || response.statusCode !== 200) return resolve();
                 const remoteVersion = window.PluginUpdates.plugins[updateLink].versioner(result);
@@ -303,9 +305,9 @@ export default class PluginUpdater {
      * @param {string} updateLink - link to the raw text version of the plugin
      */
     static downloadPlugin(pluginName, updateLink) {
-        const request = require("request");
-        const fileSystem = require("fs");
-        const path = require("path");
+        const request = __non_webpack_require__("request");
+        const fileSystem = __non_webpack_require__("fs");
+        const path = __non_webpack_require__("path");
         request(updateLink, async (error, response, body) => {
             if (error) return Logger.warn("PluginUpdates", "Unable to get update for " + pluginName);
             const remoteVersion = window.PluginUpdates.plugins[updateLink].versioner(body);
@@ -319,7 +321,7 @@ export default class PluginUpdater {
             if (BdApi.isSettingEnabled("fork-ps-5")) return;
             if (!window.PluginUpdates.downloaded) {
                 window.PluginUpdates.downloaded = [];
-                const button = DOMTools.parseHTML(`&lt;button class="btn btn-reload ${DiscordClasses.Notices.btn} ${DiscordClasses.Notices.button}">Reload&lt;/button>`);
+                const button = DOMTools.parseHTML(`&lt;button class="btn btn-reload ${DiscordClasses.Notices.buttonMinor} ${DiscordClasses.Notices.button}">Reload&lt;/button>`);
                 const tooltip = new EmulatedTooltip(button, window.PluginUpdates.downloaded.join(", "), {side: "top"});
                 button.addEventListener("click", (e) => {
                     e.preventDefault();
@@ -342,9 +344,9 @@ export default class PluginUpdater {
      * @param {string} updateLink - link to the raw text version of the plugin
      */
     static showUpdateNotice(pluginName, updateLink) {
-        if (!document.getElementById("pluginNotice"))  {
-            const noticeElement = DOMTools.parseHTML(`&lt;div class="${DiscordClasses.Notices.notice} ${DiscordClasses.Notices.noticeInfo}" id="pluginNotice">
-                                                        &lt;div class="${DiscordClasses.Notices.dismiss}" id="pluginNoticeDismiss">&lt;/div>
+        if (!document.getElementById("pluginNotice")) {
+            const noticeElement = DOMTools.parseHTML(`&lt;div class="${DiscordClasses.Notices.notice} ${DiscordClasses.Notices.colorInfo}" id="pluginNotice">
+                                                        &lt;div class="${DiscordClasses.Notices.closeButton}" id="pluginNoticeDismiss">&lt;/div>
                                                         &lt;span class="notice-message">The following plugins have updates:&lt;/span>&amp;nbsp;&amp;nbsp;&lt;strong id="outdatedPlugins">&lt;/strong>
                                                     &lt;/div>`);
             DOMTools.query("[class*='app-'] > [class*='app-']").prepend(noticeElement);
@@ -362,6 +364,11 @@ export default class PluginUpdater {
         });
         if (document.getElementById("outdatedPlugins").querySelectorAll("span").length) document.getElementById("outdatedPlugins").append(DOMTools.createElement("&lt;span class='separator'>, &lt;/span>"));
         document.getElementById("outdatedPlugins").append(pluginNoticeElement);
+
+        const tooltip = new EmulatedTooltip(pluginNoticeElement, "Click To Update!", {side: "bottom"});
+
+        // If this is the first one added, show the tooltip immediately.
+        if (document.getElementById("outdatedPlugins").querySelectorAll("span").length === 1) tooltip.show();
     }
 
     /**
@@ -383,7 +390,8 @@ export default class PluginUpdater {
             else document.getElementById("pluginNoticeDismiss").click();
         }
     }
-}</code></pre>
+}
+</code></pre>
 		</section>
 			</div>
 		</div>

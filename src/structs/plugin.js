@@ -29,10 +29,10 @@ export default function(config) {
                 this.settings = Utilities.deepclone(this.defaultSettings);
             }
         }
-        getName() { return this._config.info.name.replace(" ", ""); }
-        getDescription() { return this._config.info.description; }
-        getVersion() { return this._config.info.version; }
-        getAuthor() { return this._config.info.authors.map(a => a.name).join(", "); }
+        getName() {return this._config.info.name.replace(" ", "");}
+        getDescription() {return this._config.info.description;}
+        getVersion() {return this._config.info.version;}
+        getAuthor() {return this._config.info.authors.map(a => a.name).join(", ");}
         load() {
             const currentVersionInfo = PluginUtilities.loadData(this.getName(), "currentVersionInfo", {version: this.getVersion(), hasShownChangelog: false});
             if (currentVersionInfo.version != this.getVersion() || !currentVersionInfo.hasShownChangelog) {

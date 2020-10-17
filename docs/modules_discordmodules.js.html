@@ -179,7 +179,7 @@ export default Utilities.memoizeObject({
     // get ChannelSelector() {return WebpackModules.getByProps("selectGuild", "selectChannel");},
 
     /* Current User Info, State and Settings */
-    get UserInfoStore() {return WebpackModules.getByProps("getToken");},
+    get UserInfoStore() {return WebpackModules.getByProps("getSessionId");},
     get UserSettingsStore() {return WebpackModules.getByProps("guildPositions");},
     // Not really needed by plugins
     // get AccountManager() {return WebpackModules.getByProps("register", "login");},
@@ -212,7 +212,7 @@ export default Utilities.memoizeObject({
     /* Discord Objects &amp; Utils */
     get DiscordConstants() {return WebpackModules.getByProps("Permissions", "ActivityTypes", "StatusTypes");},
     get DiscordPermissions() {return WebpackModules.getByProps("Permissions", "ActivityTypes", "StatusTypes").Permissions;},
-    get Permissions() {return WebpackModules.getByProps("getHighestRole");},
+    get Permissions() {return WebpackModules.getByProps("computePermissions");},
     get ColorConverter() {return WebpackModules.getByProps("hex2int");},
     get ColorShader() {return WebpackModules.getByProps("darken");},
     get TinyColor() {return WebpackModules.getByPrototypes("toRgb");},
@@ -308,10 +308,11 @@ export default Utilities.memoizeObject({
     get GuildSettingsWindow() {return WebpackModules.getByProps("open", "updateGuild");},
 
     /* Modals */
+    get ModalActions() {return WebpackModules.getByProps("openModal", "updateModal");},
     get ModalStack() {return WebpackModules.getByProps("push", "update", "pop", "popWithKey");},
     get UserProfileModals() {return WebpackModules.getByProps("fetchMutualFriends", "setSection");},
     get AlertModal() {return WebpackModules.getByPrototypes("handleCancel", "handleSubmit");},
-    get ConfirmationModal() {return WebpackModules.getModule(m => m.defaultProps &amp;&amp; m.key &amp;&amp; m.key() == "confirm-modal");},
+    get ConfirmationModal() {return WebpackModules.findByDisplayName("ConfirmModal");},
     // Grab with react components or open with UserProfileModals
     // get UserProfileModal() {
     //     return WebpackModules.find(m => {
@@ -344,9 +345,7 @@ export default Utilities.memoizeObject({
     get PopoutOpener() {return WebpackModules.getByProps("openPopout");},
     // Grab with react components
     // get EmojiPicker() {return WebpackModules.getByDisplayName("FluxContainer(EmojiPicker)");},
-    get UserPopout() {
-        return WebpackModules.getByDisplayName("FluxContainer(ForwardRef(SubscribeGuildMembersContainer(UserPopout)))");
-    },
+    get UserPopout() {return WebpackModules.getByDisplayName("UserPopout");},
 
     /* Context Menus */
     get ContextMenuActions() {return WebpackModules.getByProps("openContextMenu");},
@@ -364,8 +363,7 @@ export default Utilities.memoizeObject({
     get SettingsNote() {return WebpackModules.getByDisplayName("FormText");},
     get SettingsDivider() {return WebpackModules.getModule(m => !m.defaultProps &amp;&amp; m.prototype &amp;&amp; m.prototype.render &amp;&amp; m.prototype.render.toString().includes("default.divider"));},
 
-    // Gone yet again
-    // get ColorPicker() {return WebpackModules.getByPrototypes("renderCustomColorPopout");},
+    get ColorPicker() {return WebpackModules.getByDisplayName("ColorPicker");}, // Loaded by Discord on demand
     get Dropdown() {return WebpackModules.getModule(m => m.prototype &amp;&amp; !m.prototype.handleClick &amp;&amp; m.prototype.render &amp;&amp; m.prototype.render.toString().includes("default.select"));},
     get Keybind() {return WebpackModules.getByPrototypes("handleComboChange");},
     get RadioGroup() {return WebpackModules.getModule(m => m.defaultProps &amp;&amp; m.defaultProps.options &amp;&amp; m.defaultProps.size);},

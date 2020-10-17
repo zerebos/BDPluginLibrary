@@ -23,16 +23,16 @@ export class Role {
         this.guildId = guild_id;
     }
 
-    get id() { return this.discordObject.id; }
-    get name() { return this.discordObject.name; }
-    get position() { return this.discordObject.position; }
-    get originalPosition() { return this.discordObject.originalPosition; }
-    get permissions() { return this.discordObject.permissions; }
-    get managed() { return this.discordObject.managed; }
-    get mentionable() { return this.discordObject.mentionable; }
-    get hoist() { return this.discordObject.hoist; }
-    get colour() { return this.discordObject.color; }
-    get colourString() { return this.discordObject.colorString; }
+    get id() {return this.discordObject.id;}
+    get name() {return this.discordObject.name;}
+    get position() {return this.discordObject.position;}
+    get originalPosition() {return this.discordObject.originalPosition;}
+    get permissions() {return this.discordObject.permissions;}
+    get managed() {return this.discordObject.managed;}
+    get mentionable() {return this.discordObject.mentionable;}
+    get hoist() {return this.discordObject.hoist;}
+    get colour() {return this.discordObject.color;}
+    get colourString() {return this.discordObject.colorString;}
 
     get guild() {
         return Guild.fromId(this.guildId);
@@ -53,15 +53,15 @@ export class Emoji {
         this.discordObject = data;
     }
 
-    get id() { return this.discordObject.id; }
-    get guildId() { return this.discordObject.guild_id; }
-    get name() { return this.discordObject.name; }
-    get managed() { return this.discordObject.managed; }
-    get animated() { return this.discordObject.animated; }
-    get allNamesString() { return this.discordObject.allNamesString; }
-    get requireColons() { return this.discordObject.require_colons; }
-    get url() { return this.discordObject.url; }
-    get roles() { return this.discordObject.roles; }
+    get id() {return this.discordObject.id;}
+    get guildId() {return this.discordObject.guild_id;}
+    get name() {return this.discordObject.name;}
+    get managed() {return this.discordObject.managed;}
+    get animated() {return this.discordObject.animated;}
+    get allNamesString() {return this.discordObject.allNamesString;}
+    get requireColons() {return this.discordObject.require_colons;}
+    get url() {return this.discordObject.url;}
+    get roles() {return this.discordObject.roles;}
 
     get guild() {
         return Guild.fromId(this.guildId);
@@ -91,28 +91,28 @@ class Guild {
         if (guild) return Guild.from(guild);
     }
 
-    static get Role() { return Role; }
-    static get Emoji() { return Emoji; }
+    static get Role() {return Role;}
+    static get Emoji() {return Emoji;}
 
-    get id() { return this.discordObject.id; }
-    get ownerId() { return this.discordObject.ownerId; }
-    get applicationId() { return this.discordObject.application_id; }
-    get systemChannelId() { return this.discordObject.systemChannelId; }
-    get name() { return this.discordObject.name; }
-    get acronym() { return this.discordObject.acronym; }
-    get icon() { return this.discordObject.icon; }
-    get joinedAt() { return this.discordObject.joinedAt; }
-    get verificationLevel() { return this.discordObject.verificationLevel; }
-    get mfaLevel() { return this.discordObject.mfaLevel; }
-    get large() { return this.discordObject.large; }
-    get lazy() { return this.discordObject.lazy; }
-    get voiceRegion() { return this.discordObject.region; }
-    get afkChannelId() { return this.discordObject.afkChannelId; }
-    get afkTimeout() { return this.discordObject.afkTimeout; }
-    get explicitContentFilter() { return this.discordObject.explicitContentFilter; }
-    get defaultMessageNotifications() { return this.discordObject.defaultMessageNotifications; }
-    get splash() { return this.discordObject.splash; }
-    get features() { return this.discordObject.features; }
+    get id() {return this.discordObject.id;}
+    get ownerId() {return this.discordObject.ownerId;}
+    get applicationId() {return this.discordObject.application_id;}
+    get systemChannelId() {return this.discordObject.systemChannelId;}
+    get name() {return this.discordObject.name;}
+    get acronym() {return this.discordObject.acronym;}
+    get icon() {return this.discordObject.icon;}
+    get joinedAt() {return this.discordObject.joinedAt;}
+    get verificationLevel() {return this.discordObject.verificationLevel;}
+    get mfaLevel() {return this.discordObject.mfaLevel;}
+    get large() {return this.discordObject.large;}
+    get lazy() {return this.discordObject.lazy;}
+    get voiceRegion() {return this.discordObject.region;}
+    get afkChannelId() {return this.discordObject.afkChannelId;}
+    get afkTimeout() {return this.discordObject.afkTimeout;}
+    get explicitContentFilter() {return this.discordObject.explicitContentFilter;}
+    get defaultMessageNotifications() {return this.discordObject.defaultMessageNotifications;}
+    get splash() {return this.discordObject.splash;}
+    get features() {return this.discordObject.features;}
 
     get owner() {
         return this.members.find(m => m.userId === this.ownerId);
@@ -296,9 +296,10 @@ class Guild {
     async createChannel(type, name, category, permission_overwrites) {
         this.assertPermissions("MANAGE_CHANNELS", Modules.DiscordPermissions.MANAGE_CHANNELS);
         const response = await Modules.APIModule.post({
-            url: Modules.DiscordConstants.Endpoints.GUILD_CHANNELS(this.id),
+            url: Modules.DiscordConstants.Endpoints.GUILD_CHANNELS(this.id), // eslint-disable-line new-cap
             body: {
-                type, name,
+                type,
+                name,
                 parent_id: category ? category.id : undefined,
                 permission_overwrites: permission_overwrites ? permission_overwrites.map(p => ({
                     type: p.type,

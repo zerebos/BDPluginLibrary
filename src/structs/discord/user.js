@@ -35,27 +35,27 @@ class User {
         if (user) return User.from(user);
     }
 
-    get id() { return this.discordObject.id; }
-    get username() { return this.discordObject.username; }
-    get usernameLowerCase() { return this.discordObject.usernameLowerCase; }
-    get discriminator() { return this.discordObject.discriminator; }
-    get avatar() { return this.discordObject.avatar; }
-    get email() { return undefined; }
-    get phone() { return undefined; }
-    get flags() { return this.discordObject.flags; }
-    get isBot() { return this.discordObject.bot; }
-    get premium() { return this.discordObject.premium; }
-    get verified() { return this.discordObject.verified; }
-    get mfaEnabled() { return this.discordObject.mfaEnabled; }
-    get mobile() { return this.discordObject.mobile; }
+    get id() {return this.discordObject.id;}
+    get username() {return this.discordObject.username;}
+    get usernameLowerCase() {return this.discordObject.usernameLowerCase;}
+    get discriminator() {return this.discordObject.discriminator;}
+    get avatar() {return this.discordObject.avatar;}
+    get email() {return undefined;}
+    get phone() {return undefined;}
+    get flags() {return this.discordObject.flags;}
+    get isBot() {return this.discordObject.bot;}
+    get premium() {return this.discordObject.premium;}
+    get verified() {return this.discordObject.verified;}
+    get mfaEnabled() {return this.discordObject.mfaEnabled;}
+    get mobile() {return this.discordObject.mobile;}
 
-    get tag() { return this.discordObject.tag; }
-    get avatarUrl() { return this.discordObject.avatarURL; }
-    get createdAt() { return this.discordObject.createdAt; }
+    get tag() {return this.discordObject.tag;}
+    get avatarUrl() {return this.discordObject.avatarURL;}
+    get createdAt() {return this.discordObject.createdAt;}
 
-    get isClamied() { return this.discordObject.isClaimed(); }
-    get isLocalBot() { return this.discordObject.isLocalBot(); }
-    get isPhoneVerified() { return this.discordObject.isPhoneVerified(); }
+    get isClamied() {return this.discordObject.isClaimed();}
+    get isLocalBot() {return this.discordObject.isLocalBot();}
+    get isPhoneVerified() {return this.discordObject.isPhoneVerified();}
 
     get guilds() {
         return DiscordAPI.guilds.filter(g => g.members.find(m => m.user === this));
@@ -150,11 +150,11 @@ export class GuildMember {
         this.guildId = guild_id;
     }
 
-    get userId() { return this.discordObject.userId; }
-    get nickname() { return this.discordObject.nick; }
-    get colourString() { return this.discordObject.colorString; }
-    get hoistRoleId() { return this.discordObject.hoistRoleId; }
-    get roleIds() { return this.discordObject.roles; }
+    get userId() {return this.discordObject.userId;}
+    get nickname() {return this.discordObject.nick;}
+    get colourString() {return this.discordObject.colorString;}
+    get hoistRoleId() {return this.discordObject.hoistRoleId;}
+    get roleIds() {return this.discordObject.roles;}
 
     get user() {
         return User.fromId(this.userId);
@@ -205,7 +205,7 @@ export class GuildMember {
         else this.assertPermissions("MANAGE_NICKNAMES", Modules.DiscordPermissions.MANAGE_NICKNAMES);
 
         return Modules.APIModule.patch({
-            url: `${Modules.DiscordConstants.Endpoints.GUILD_MEMBERS(this.guild_id)}/${DiscordAPI.currentUser === this.user ? "@me/nick" : this.userId}`,
+            url: `${Modules.DiscordConstants.Endpoints.GUILD_MEMBERS(this.guild_id)}/${DiscordAPI.currentUser === this.user ? "@me/nick" : this.userId}`, // eslint-disable-line new-cap
             body: {nick}
         });
     }
@@ -321,7 +321,7 @@ export class GuildMember {
     updateRoles(roles) {
         roles = roles.map(r => r.id || r);
         return Modules.APIModule.patch({
-            url: `${Modules.DiscordConstants.Endpoints.GUILD_MEMBERS(this.guildId)}/${this.userId}`,
+            url: `${Modules.DiscordConstants.Endpoints.GUILD_MEMBERS(this.guildId)}/${this.userId}`, // eslint-disable-line new-cap
             body: {roles}
         });
     }

@@ -41,7 +41,7 @@ export default class Logger {
      * @param {string} module - Name of the calling module.
      * @param {string} message - Messages to have logged.
      */
-    static err(module, ...message) { Logger._log(module, message, "error"); }
+    static err(module, ...message) {Logger._log(module, message, "error");}
 
     /**
      * Logs a warning message.
@@ -49,7 +49,7 @@ export default class Logger {
      * @param {string} module - Name of the calling module.
      * @param {...any} message - Messages to have logged.
      */
-    static warn(module, ...message) { Logger._log(module, message, "warn"); }
+    static warn(module, ...message) {Logger._log(module, message, "warn");}
 
     /**
      * Logs an informational message.
@@ -57,7 +57,7 @@ export default class Logger {
      * @param {string} module - Name of the calling module.
      * @param {...any} message - Messages to have logged.
      */
-    static info(module, ...message) { Logger._log(module, message, "info"); }
+    static info(module, ...message) {Logger._log(module, message, "info");}
 
     /**
      * Logs used for debugging purposes.
@@ -65,7 +65,7 @@ export default class Logger {
      * @param {string} module - Name of the calling module.
      * @param {...any} message - Messages to have logged.
      */
-    static debug(module, ...message) { Logger._log(module, message, "debug"); }
+    static debug(module, ...message) {Logger._log(module, message, "debug");}
     
     /**
      * Logs used for basic loggin.
@@ -73,7 +73,7 @@ export default class Logger {
      * @param {string} module - Name of the calling module.
      * @param {...any} message - Messages to have logged.
      */
-    static log(module, ...message) { Logger._log(module, message); }
+    static log(module, ...message) {Logger._log(module, message);}
 
     /**
      * Logs strings using different console levels and a module label.

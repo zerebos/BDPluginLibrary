@@ -488,7 +488,7 @@ export default class DOMTools {
         return element.getBoundingClientRect();
     }
 
-    static get listeners() { return this._listeners || (this._listeners = {}); }
+    static get listeners() {return this._listeners || (this._listeners = {});}
 
     /**
      * This is similar to jQuery's `on` function and can *hopefully* be used in the same way.
@@ -517,9 +517,9 @@ export default class DOMTools {
         const [type, namespace] = event.split(".");
         const hasDelegate = delegate && callback;
         if (!callback) callback = delegate;
-        const eventFunc = !hasDelegate ? callback : function(event) {
-            if (event.target.matches(delegate)) {
-                callback(event);
+        const eventFunc = !hasDelegate ? callback : function(ev) {
+            if (ev.target.matches(delegate)) {
+                callback(ev);
             }
         };
 
@@ -557,12 +557,12 @@ export default class DOMTools {
         const [type, namespace] = event.split(".");
         const hasDelegate = delegate && callback;
         if (!callback) callback = delegate;
-        const eventFunc = !hasDelegate ? function(event) {
-            callback(event);
+        const eventFunc = !hasDelegate ? function(ev) {
+            callback(ev);
             element.removeEventListener(type, eventFunc);
-        } : function(event) {
-            if (!event.target.matches(delegate)) return;
-            callback(event);
+        } : function(ev) {
+            if (!ev.target.matches(delegate)) return;
+            callback(ev);
             element.removeEventListener(type, eventFunc);
         };
 
@@ -589,7 +589,10 @@ export default class DOMTools {
     static __offAll(event, element) {
         const [type, namespace] = event.split(".");
         let matchFilter = listener => listener.event == type, defaultFilter = _ => _;
-        if (element) matchFilter = l => l.event == type && l.element == element, defaultFilter = l => l.element == element;
+        if (element) {
+            matchFilter = l => l.event == type && l.element == element;
+            defaultFilter = l => l.element == element;
+        }
         const listeners = this.listeners[namespace] || [];
         const list = type ? listeners.filter(matchFilter) : listeners.filter(defaultFilter);
         for (let c = 0; c < list.length; c++) list[c].cancel();
@@ -631,9 +634,9 @@ export default class DOMTools {
 
         const hasDelegate = delegate && callback;
         if (!callback) callback = delegate;
-        const eventFunc = !hasDelegate ? callback : function(event) {
-            if (event.target.matches(delegate)) {
-                callback(event);
+        const eventFunc = !hasDelegate ? callback : function(ev) {
+            if (ev.target.matches(delegate)) {
+                callback(ev);
             }
         };
 
@@ -663,16 +666,16 @@ export default class DOMTools {
     }
 
     /** Shorthand for {@link module:DOMTools.onMountChange} with third parameter `true` */
-    static onMount(node, callback) { return this.onMountChange(node, callback); }
+    static onMount(node, callback) {return this.onMountChange(node, callback);}
 
     /** Shorthand for {@link module:DOMTools.onMountChange} with third parameter `false` */
-    static onUnmount(node, callback) { return this.onMountChange(node, callback, false); }
+    static onUnmount(node, callback) {return this.onMountChange(node, callback, false);}
 
     /** Alias for {@link module:DOMTools.onMount} */
-    static onAdded(node, callback) { return this.onMount(node, callback); }
+    static onAdded(node, callback) {return this.onMount(node, callback);}
 
     /** Alias for {@link module:DOMTools.onUnmount} */
-    static onRemoved(node, callback) { return this.onUnmount(node, callback, false); }
+    static onRemoved(node, callback) {return this.onUnmount(node, callback, false);}
 
     /**
      * Helper function which combines multiple elements into one parent element

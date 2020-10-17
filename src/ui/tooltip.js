@@ -30,7 +30,7 @@ export default class Tooltip {
         this.style = style;
         this.side = side;
         this.disabled = disabled;
-        this.id = DiscordModules.KeyGenerator();
+        this.id = DiscordModules.KeyGenerator(); // eslint-disable-line new-cap
 
         this.node.addEventListener("mouseenter", () => {
             if (this.disabled) return;

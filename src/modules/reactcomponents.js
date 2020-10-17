@@ -11,7 +11,7 @@
 */
 
 import Patcher from "./patcher";
-import Reflection from "./reflection";
+import reflect from "./reflection";
 import Modules from "./discordmodules";
 import DOMTools from "./domtools";
 import ReactTools from "./reacttools";
@@ -160,7 +160,7 @@ class ReactComponent {
     forceUpdateAll() {
         if (!this.selector) return;
         for (const e of document.querySelectorAll(this.selector)) {
-            Reflection(e).forceUpdate(this);
+            reflect(e).forceUpdate(this); // eslint-disable-line new-cap
         }
     }
 }
@@ -247,7 +247,7 @@ export default class ReactComponents {
 
                 let component, reflect;
                 for (const element of elements) {
-                    reflect = Reflection(element);
+                    reflect = reflect(element);
                     component = filter ? reflect.components.find(filter) : reflect.component;
                     if (component) break;
                 }
@@ -268,7 +268,7 @@ export default class ReactComponents {
                 //         Utilities.removeFromArray(this.listeners, current);
                 //     }
                 // }
-                //Logger.info("ReactComponents", [`Found important component ${name} with reflection`, reflect]);
+                // Logger.info("ReactComponents", [`Found important component ${name} with reflection`, reflect]);
 
                 this.push(component, selector, filter);
             };
@@ -322,8 +322,8 @@ export default class ReactComponents {
 
     static *recursiveComponents(internalInstance = ReactTools.rootInstance) {
         if (internalInstance.stateNode) yield internalInstance.stateNode;
-        if (internalInstance.sibling) yield *this.recursiveComponents(internalInstance.sibling);
-        if (internalInstance.child) yield *this.recursiveComponents(internalInstance.child);
+        if (internalInstance.sibling) yield* this.recursiveComponents(internalInstance.sibling);
+        if (internalInstance.child) yield* this.recursiveComponents(internalInstance.child);
     }
 }
 

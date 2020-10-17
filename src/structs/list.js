@@ -7,10 +7,6 @@
  */
 class List extends Array {
 
-    constructor() {
-        super(...arguments);
-    }
-
     /**
      * Allows multiple filters at once
      * @param {...callable} filters - set a filters to filter the list by

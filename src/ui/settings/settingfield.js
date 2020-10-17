@@ -2,7 +2,7 @@ import Listenable from "../../structs/listenable";
 import {DiscordModules, DOMTools, DiscordClasses, ReactTools, WebpackModules} from "modules";
 
 const AccessibilityProvider = WebpackModules.getByProps("AccessibilityPreferencesContext").AccessibilityPreferencesContext.Provider;
-const LayerProvider = WebpackModules.getByProps("AppReferencePositionLayer").AppLayerProvider().props.layerContext.Provider;
+const LayerProvider = WebpackModules.getByProps("AppReferencePositionLayer").AppLayerProvider().props.layerContext.Provider; // eslint-disable-line new-cap
 
 /** 
  * Setting field to extend to create new settings
@@ -31,7 +31,7 @@ class SettingField extends Listenable {
     }
 
     /** @returns {HTMLElement} - root element for setting */
-    getElement() { return this.inputWrapper; }
+    getElement() {return this.inputWrapper;}
 
     /** Fires onchange to listeners */
     onChange() {
@@ -59,16 +59,12 @@ class SettingField extends Listenable {
 export default SettingField;
 
 class ReactSetting extends DiscordModules.React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     get noteElement() {
         const className = this.props.noteOnTop ? DiscordClasses.Margins.marginBottom8 : DiscordClasses.Margins.marginTop8;
         return DiscordModules.React.createElement(DiscordModules.SettingsNote, {children: this.props.note, type: "description", className: className.toString()});
     }
 
-    get dividerElement() { return DiscordModules.React.createElement("div", {className: DiscordClasses.Dividers.divider.add(DiscordClasses.Dividers.dividerDefault).toString()}); }
+    get dividerElement() {return DiscordModules.React.createElement("div", {className: DiscordClasses.Dividers.divider.add(DiscordClasses.Dividers.dividerDefault).toString()});}
 
     render() {
         const ce = DiscordModules.React.createElement;

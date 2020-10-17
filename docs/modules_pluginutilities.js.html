@@ -165,8 +165,8 @@ import DCM from "../ui/discordcontextmenu";
     */
     static loadData(name, key, defaultData) {
         const defaults = Utilities.deepclone(defaultData);
-        try { return Utilities.extend(defaults ? defaults : {}, BdApi.getData(name, key)); }
-        catch (err) { Logger.err(name, "Unable to load data: ", err); }
+        try {return Utilities.extend(defaults ? defaults : {}, BdApi.getData(name, key));}
+        catch (err) {Logger.err(name, "Unable to load data: ", err);}
         return defaults;
     }
 
@@ -177,8 +177,8 @@ import DCM from "../ui/discordcontextmenu";
      * @param {object} data - data to save
     */
     static saveData(name, key, data) {
-        try { BdApi.setData(name, key, data); }
-        catch (err) { Logger.err(name, "Unable to save data: ", err); }
+        try {BdApi.setData(name, key, data);}
+        catch (err) {Logger.err(name, "Unable to save data: ", err);}
     }
 
     /**
@@ -205,8 +205,8 @@ import DCM from "../ui/discordcontextmenu";
      * @returns {string} full path to the BetterDiscord folder
      */
     static getBDFolder(subtarget = "") {
-        const process = require("process");
-        const path = require("path");
+        const process = __non_webpack_require__("process");
+        const path = __non_webpack_require__("path");
         if (process.env.injDir) return path.resolve(process.env.injDir, subtarget);
         switch (process.platform) {
             case "win32":
@@ -239,7 +239,7 @@ import DCM from "../ui/discordcontextmenu";
      * @param {callable} callback - basic callback to happen on channel switch
      */
     static addOnSwitchListener(callback) {
-        require("electron").remote.getCurrentWebContents().on("did-navigate-in-page", callback);
+        __non_webpack_require__("electron").remote.getCurrentWebContents().on("did-navigate-in-page", callback);
     }
 
     /**
@@ -247,7 +247,7 @@ import DCM from "../ui/discordcontextmenu";
      * @param {callable} callback - callback to remove from the listener list
      */
     static removeOnSwitchListener(callback) {
-        require("electron").remote.getCurrentWebContents().removeListener("did-navigate-in-page", callback);
+        __non_webpack_require__("electron").remote.getCurrentWebContents().removeListener("did-navigate-in-page", callback);
     }
 
     /**

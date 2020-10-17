@@ -1,7 +1,7 @@
 import SettingField from "../settingfield";
 import {DiscordModules} from "modules";
 
-//TODO: Documentation
+// TODO: Documentation
 
 /** 
  * Creates a textbox using discord's built in textbox.

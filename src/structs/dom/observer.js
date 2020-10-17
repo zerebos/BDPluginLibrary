@@ -10,6 +10,8 @@
 
 import {Utilities, Logger} from "modules";
 
+/* eslint-disable operator-linebreak */
+
 /** 
  * Representation of a MutationObserver but with helpful utilities.
  * @memberof module:DOMTools
@@ -74,11 +76,11 @@ class DOMObserver {
         }
     }
 
-    get root() { return this._root; }
-    set root(root) { this._root = root; this.reconnect(); }
+    get root() {return this._root;}
+    set root(root) {this._root = root; this.reconnect();}
 
-    get options() { return this._options; }
-    set options(options) { this._options = options; this.reconnect(); }
+    get options() {return this._options;}
+    set options(options) {this._options = options; this.reconnect();}
 
     get subscriptions() {
         return this._subscriptions || (this._subscriptions = []);

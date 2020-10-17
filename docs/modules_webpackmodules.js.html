@@ -169,7 +169,10 @@ export class Filters {
         return module => {
             const component = filter(module);
             if (!component) return false;
-            return props.every(property => component[property] !== undefined);
+            for (let p = 0; p &lt; props.length; p++) {
+                if (module[props[p]] === undefined) return false;
+            }
+            return true;
         };
     }
 
@@ -184,7 +187,10 @@ export class Filters {
             const component = filter(module);
             if (!component) return false;
             if (!component.prototype) return false;
-            return fields.every(field => component.prototype[field] !== undefined);
+            for (let f = 0; f &lt; fields.length; f++) {
+                if (module.prototype[fields[f]] === undefined) return false;
+            }
+            return true;
         };
     }
 
@@ -297,7 +303,7 @@ export default class WebpackModules {
         for (const index in modules) {
             if (!modules.hasOwnProperty(index)) continue;
             const module = modules[index];
-            const {exports} = module;
+            const exports = module.exports;
             let foundModule = null;
 
             if (!exports) continue;
@@ -432,10 +438,8 @@ export default class WebpackModules {
     static get require() {
         if (this._require) return this._require;
         const id = "zl-webpackmodules";
-        const __webpack_require__ = typeof(window.webpackJsonp) == "function" ? window.webpackJsonp([], {
-            [id]: (module, exports, __webpack_require__) => exports.default = __webpack_require__
-        }, [id]).default : window.webpackJsonp.push([[], {
-            [id]: (module, exports, __webpack_require__) => module.exports = __webpack_require__
+        const __webpack_require__ = window.webpackJsonp.push([[], {
+            [id]: (module, exports, req) => module.exports = req
         }, [[id]]]);
         delete __webpack_require__.m[id];
         delete __webpack_require__.c[id];

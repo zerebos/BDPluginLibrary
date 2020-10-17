@@ -91,6 +91,7 @@
         "webpackJsonp": "readonly",
         "Proxy": "readonly",
         "Set": "readonly",
+        "Map": "readonly",
         "WeakMap": "readonly",
         "Promise": "readonly",
         "ace": "readonly",

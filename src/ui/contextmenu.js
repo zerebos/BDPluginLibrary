@@ -103,9 +103,9 @@ export class Menu {
         }
 
         if (depth !== 0) return;
-        DOMTools.on(document, "mousedown.zctx", (e) => { if (!this.element.contains(e.target) && !this.element.isSameNode(e.target)) this.removeMenu(); });
-        DOMTools.on(document, "click.zctx", (e) => { if (this.element.contains(e.target)) this.removeMenu(); });
-        DOMTools.on(document, "keyup.zctx", (e) => { if (e.keyCode === 27) this.removeMenu(); });
+        DOMTools.on(document, "mousedown.zctx", (e) => {if (!this.element.contains(e.target) && !this.element.isSameNode(e.target)) this.removeMenu();});
+        DOMTools.on(document, "click.zctx", (e) => {if (this.element.contains(e.target)) this.removeMenu();});
+        DOMTools.on(document, "keyup.zctx", (e) => {if (e.keyCode === 27) this.removeMenu();});
     }
 
     /** Allows you to remove the menu. */
@@ -129,10 +129,10 @@ export class Menu {
         menuItem.addEventListener("mouseenter", () => {
             // this.element.appendTo(DiscordSelectors.Popouts.popouts.sibling(DiscordSelectors.TooltipLayers.layerContainer).toString());
             // const left = this.element.parents(this.parentSelector)[0].css("left");
-            //console.log(parseInt(menuItem.offset().left), parseInt(menuItem.offset().top));
+            // console.log(parseInt(menuItem.offset().left), parseInt(menuItem.offset().top));
             this.show(parseInt(menuItem.offset().right), parseInt(menuItem.offset().top));
         });
-        menuItem.addEventListener("mouseleave", () => { this.element.closest(DiscordSelectors.TooltipLayers.layer.toString())[0].remove(); });
+        menuItem.addEventListener("mouseleave", () => {this.element.closest(DiscordSelectors.TooltipLayers.layer.toString())[0].remove();});
     }
 
     get parentSelector() {return this.element.closest(".plugin-context-menu").length > this.element.closest(DiscordSelectors.ContextMenu.contextMenu).length ? ".plugin-context-menu" : DiscordSelectors.ContextMenu.contextMenu;}
@@ -158,7 +158,7 @@ export class ItemGroup {
     }
 
     /** @returns {HTMLElement} returns the DOM node for the group */
-    getElement() { return this.element; }
+    getElement() {return this.element;}
 }
 
 /**
@@ -192,7 +192,7 @@ export class MenuItem {
             else event.stopPropagation();
         });
     }
-    getElement() { return this.element;}
+    getElement() {return this.element;}
 }
 
 /**

@@ -135,6 +135,23 @@ window.lunrData = {
           "option",
           "pass"
         ],
+        "List.html": [
+          "add",
+          "array",
+          "class",
+          "extens",
+          "list",
+          "simpl",
+          "util"
+        ],
+        "List.html#get": [
+          "allow",
+          "filter",
+          "function",
+          "list#get",
+          "multipl",
+          "onc"
+        ],
         "module-DOMTools.Selector.html": [
           "class",
           "domtools~selector",
@@ -225,23 +242,6 @@ window.lunrData = {
           "selector",
           "selector#and",
           "via"
-        ],
-        "List.html": [
-          "add",
-          "array",
-          "class",
-          "extens",
-          "list",
-          "simpl",
-          "util"
-        ],
-        "List.html#get": [
-          "allow",
-          "filter",
-          "function",
-          "list#get",
-          "multipl",
-          "onc"
         ],
         "module-DOMTools.ClassName.html": [
           "class",
@@ -406,135 +406,6 @@ window.lunrData = {
           "paramet",
           "set",
           "typedef"
-        ],
-        "module-DOMTools.DOMObserver.html": [
-          "class",
-          "domobserv",
-          "domtools~domobserv",
-          "help",
-          "module:domtools.domobserv",
-          "mutationobserv",
-          "represent",
-          "util"
-        ],
-        "module-DOMTools.DOMObserver.html#observe": [
-          "attach",
-          "call",
-          "callback",
-          "domobserver#observ",
-          "don't",
-          "element",
-          "function",
-          "manual",
-          "module:domtools.domobserver#observ",
-          "need",
-          "observ",
-          "start"
-        ],
-        "module-DOMTools.DOMObserver.html#disconnect": [
-          "be",
-          "call",
-          "callback",
-          "disconnect",
-          "domobserver#disconnect",
-          "function",
-          "instead",
-          "module:domtools.domobserver#disconnect",
-          "observ",
-          "observer.unsubscribeal",
-          "probabl",
-          "stop",
-          "unbind",
-          "us",
-          "want"
-        ],
-        "module-DOMTools.DOMObserver.html#subscribe": [
-          "bind",
-          "callback",
-          "domobserver#subscrib",
-          "filter",
-          "function",
-          "group",
-          "module:domtools.domobserver#subscrib",
-          "mutat",
-          "object",
-          "subscrib"
-        ],
-        "module-DOMTools.DOMObserver.html#unsubscribe": [
-          "disconnect",
-          "domobserver#unsubscrib",
-          "function",
-          "left",
-          "module:domtools.domobserver#unsubscrib",
-          "none",
-          "remov",
-          "subscript",
-          "unsubscrib"
-        ],
-        "module-DOMTools.DOMObserver.html#subscribeToQuerySelector": [
-          "affect",
-          "bind",
-          "callback",
-          "domobserver#subscribetoqueryselector",
-          "element",
-          "filter",
-          "function",
-          "group",
-          "match",
-          "module:domtools.domobserver#subscribetoqueryselector",
-          "mutat",
-          "object",
-          "selector",
-          "subscrib",
-          "subscribetoqueryselector"
-        ],
-        "module-Settings.SettingField.html": [
-          "class",
-          "creat",
-          "extend",
-          "field",
-          "module:settings.settingfield",
-          "new",
-          "set",
-          "settingfield",
-          "settings~settingfield"
-        ],
-        "module-Settings.SettingField.html#getElement": [
-          "function",
-          "getel",
-          "htmlelement",
-          "module:settings.settingfield#getel",
-          "settingfield#getel"
-        ],
-        "module-Settings.SettingField.html#onChange": [
-          "fire",
-          "function",
-          "listen",
-          "module:settings.settingfield#onchang",
-          "onchang",
-          "settingfield#onchang"
-        ],
-        "module-Settings.SettingField.html#onAdded": [
-          "ad",
-          "dom",
-          "fire",
-          "function",
-          "module:settings.settingfield#onad",
-          "node",
-          "onad",
-          "root",
-          "settingfield#onad"
-        ],
-        "module-Settings.SettingField.html#onRemoved": [
-          "dom",
-          "fire",
-          "function",
-          "module:settings.settingfield#onremov",
-          "node",
-          "onremov",
-          "remov",
-          "root",
-          "settingfield#onremov"
         ],
         "module-Settings.SettingGroup.html": [
           "class",
@@ -1069,6 +940,87 @@ window.lunrData = {
           "remov",
           "root"
         ],
+        "module-DOMTools.DOMObserver.html": [
+          "class",
+          "domobserv",
+          "domtools~domobserv",
+          "help",
+          "module:domtools.domobserv",
+          "mutationobserv",
+          "represent",
+          "util"
+        ],
+        "module-DOMTools.DOMObserver.html#observe": [
+          "attach",
+          "call",
+          "callback",
+          "domobserver#observ",
+          "don't",
+          "element",
+          "function",
+          "manual",
+          "module:domtools.domobserver#observ",
+          "need",
+          "observ",
+          "start"
+        ],
+        "module-DOMTools.DOMObserver.html#disconnect": [
+          "be",
+          "call",
+          "callback",
+          "disconnect",
+          "domobserver#disconnect",
+          "function",
+          "instead",
+          "module:domtools.domobserver#disconnect",
+          "observ",
+          "observer.unsubscribeal",
+          "probabl",
+          "stop",
+          "unbind",
+          "us",
+          "want"
+        ],
+        "module-DOMTools.DOMObserver.html#subscribe": [
+          "bind",
+          "callback",
+          "domobserver#subscrib",
+          "filter",
+          "function",
+          "group",
+          "module:domtools.domobserver#subscrib",
+          "mutat",
+          "object",
+          "subscrib"
+        ],
+        "module-DOMTools.DOMObserver.html#unsubscribe": [
+          "disconnect",
+          "domobserver#unsubscrib",
+          "function",
+          "left",
+          "module:domtools.domobserver#unsubscrib",
+          "none",
+          "remov",
+          "subscript",
+          "unsubscrib"
+        ],
+        "module-DOMTools.DOMObserver.html#subscribeToQuerySelector": [
+          "affect",
+          "bind",
+          "callback",
+          "domobserver#subscribetoqueryselector",
+          "element",
+          "filter",
+          "function",
+          "group",
+          "match",
+          "module:domtools.domobserver#subscribetoqueryselector",
+          "mutat",
+          "object",
+          "selector",
+          "subscrib",
+          "subscribetoqueryselector"
+        ],
         "module-Settings.FilePicker.html": [
           "chromium'",
           "class",
@@ -1117,6 +1069,54 @@ window.lunrData = {
           "onremov",
           "remov",
           "root"
+        ],
+        "module-Settings.SettingField.html": [
+          "class",
+          "creat",
+          "extend",
+          "field",
+          "module:settings.settingfield",
+          "new",
+          "set",
+          "settingfield",
+          "settings~settingfield"
+        ],
+        "module-Settings.SettingField.html#getElement": [
+          "function",
+          "getel",
+          "htmlelement",
+          "module:settings.settingfield#getel",
+          "settingfield#getel"
+        ],
+        "module-Settings.SettingField.html#onChange": [
+          "fire",
+          "function",
+          "listen",
+          "module:settings.settingfield#onchang",
+          "onchang",
+          "settingfield#onchang"
+        ],
+        "module-Settings.SettingField.html#onAdded": [
+          "ad",
+          "dom",
+          "fire",
+          "function",
+          "module:settings.settingfield#onad",
+          "node",
+          "onad",
+          "root",
+          "settingfield#onad"
+        ],
+        "module-Settings.SettingField.html#onRemoved": [
+          "dom",
+          "fire",
+          "function",
+          "module:settings.settingfield#onremov",
+          "node",
+          "onremov",
+          "remov",
+          "root",
+          "settingfield#onremov"
         ],
         "module-Settings.Switch.html": [
           "built",
@@ -1239,6 +1239,70 @@ window.lunrData = {
           "root",
           "textbox#onremov"
         ],
+        "module-Settings.ColorPicker.html": [
+          "base",
+          "built",
+          "class",
+          "color",
+          "colorpick",
+          "creat",
+          "discord'",
+          "hex",
+          "input",
+          "module:settings.colorpick",
+          "output",
+          "picker",
+          "settings~colorpick",
+          "string",
+          "us"
+        ],
+        "module-Settings.ColorPicker.html#.presetColors": [
+          "color",
+          "colorpick",
+          "colorpicker.presetcolor",
+          "default",
+          "lt;static&gt",
+          "member",
+          "module:settings.colorpicker.presetcolor",
+          "presetcolor"
+        ],
+        "module-Settings.ColorPicker.html#getElement": [
+          "colorpicker#getel",
+          "function",
+          "getel",
+          "htmlelement",
+          "module:settings.colorpicker#getel"
+        ],
+        "module-Settings.ColorPicker.html#onChange": [
+          "colorpicker#onchang",
+          "fire",
+          "function",
+          "listen",
+          "module:settings.colorpicker#onchang",
+          "onchang"
+        ],
+        "module-Settings.ColorPicker.html#onAdded": [
+          "ad",
+          "colorpicker#onad",
+          "dom",
+          "fire",
+          "function",
+          "module:settings.colorpicker#onad",
+          "node",
+          "onad",
+          "root"
+        ],
+        "module-Settings.ColorPicker.html#onRemoved": [
+          "colorpicker#onremov",
+          "dom",
+          "fire",
+          "function",
+          "module:settings.colorpicker#onremov",
+          "node",
+          "onremov",
+          "remov",
+          "root"
+        ],
         "module-DiscordAPI.Channel.html": [
           "channel",
           "class",
@@ -1330,70 +1394,6 @@ window.lunrData = {
           "promis",
           "updat",
           "updatechannel"
-        ],
-        "module-Settings.ColorPicker.html": [
-          "base",
-          "built",
-          "class",
-          "color",
-          "colorpick",
-          "creat",
-          "discord'",
-          "hex",
-          "input",
-          "module:settings.colorpick",
-          "output",
-          "picker",
-          "settings~colorpick",
-          "string",
-          "us"
-        ],
-        "module-Settings.ColorPicker.html#.presetColors": [
-          "color",
-          "colorpick",
-          "colorpicker.presetcolor",
-          "default",
-          "lt;static&gt",
-          "member",
-          "module:settings.colorpicker.presetcolor",
-          "presetcolor"
-        ],
-        "module-Settings.ColorPicker.html#getElement": [
-          "colorpicker#getel",
-          "function",
-          "getel",
-          "htmlelement",
-          "module:settings.colorpicker#getel"
-        ],
-        "module-Settings.ColorPicker.html#onChange": [
-          "colorpicker#onchang",
-          "fire",
-          "function",
-          "listen",
-          "module:settings.colorpicker#onchang",
-          "onchang"
-        ],
-        "module-Settings.ColorPicker.html#onAdded": [
-          "ad",
-          "colorpicker#onad",
-          "dom",
-          "fire",
-          "function",
-          "module:settings.colorpicker#onad",
-          "node",
-          "onad",
-          "root"
-        ],
-        "module-Settings.ColorPicker.html#onRemoved": [
-          "colorpicker#onremov",
-          "dom",
-          "fire",
-          "function",
-          "module:settings.colorpicker#onremov",
-          "node",
-          "onremov",
-          "remov",
-          "root"
         ],
         "module-Tooltip_module_Tooltip.html": [
           "class",
@@ -2537,17 +2537,17 @@ window.lunrData = {
           "menutoggleitem",
           "module:discordcontextmenu~menutoggleitem"
         ],
-        "module-DiscordContextMenu-MenuRadioItem.html": [
-          "discordcontextmenu~menuradioitem",
-          "interfac",
-          "menuradioitem",
-          "module:discordcontextmenu~menuradioitem"
-        ],
         "module-Modals-Changelog.html": [
           "changelog",
           "interfac",
           "modals~changelog",
           "module:modals~changelog"
+        ],
+        "module-DiscordContextMenu-MenuRadioItem.html": [
+          "discordcontextmenu~menuradioitem",
+          "interfac",
+          "menuradioitem",
+          "module:discordcontextmenu~menuradioitem"
         ],
         "module-DiscordContextMenu-SubMenuItem.html": [
           "discordcontextmenu~submenuitem",
@@ -2823,6 +2823,59 @@ window.lunrData = {
               }
             }
           },
+          "u": {
+            "docs": {},
+            "i": {
+              "docs": {},
+              "l": {
+                "docs": {},
+                "d": {
+                  "docs": {
+                    "module-Settings.SettingPanel.html#.build": {
+                      "ref": "module-Settings.SettingPanel.html#.build",
+                      "tf": 620
+                    },
+                    "module-DiscordContextMenu.html": {
+                      "ref": "module-DiscordContextMenu.html",
+                      "tf": 10
+                    }
+                  }
+                },
+                "t": {
+                  "docs": {
+                    "module-Settings.Keybind.html": {
+                      "ref": "module-Settings.Keybind.html",
+                      "tf": 6.25
+                    },
+                    "module-Settings.Switch.html": {
+                      "ref": "module-Settings.Switch.html",
+                      "tf": 8.333333333333332
+                    },
+                    "module-Settings.Textbox.html": {
+                      "ref": "module-Settings.Textbox.html",
+                      "tf": 8.333333333333332
+                    },
+                    "module-Settings.ColorPicker.html": {
+                      "ref": "module-Settings.ColorPicker.html",
+                      "tf": 3.571428571428571
+                    },
+                    "module-Settings.Dropdown.html": {
+                      "ref": "module-Settings.Dropdown.html",
+                      "tf": 8.333333333333332
+                    },
+                    "module-Settings.RadioGroup.html": {
+                      "ref": "module-Settings.RadioGroup.html",
+                      "tf": 7.142857142857142
+                    },
+                    "module-Settings.Slider.html": {
+                      "ref": "module-Settings.Slider.html",
+                      "tf": 8.333333333333332
+                    }
+                  }
+                }
+              }
+            }
+          },
           "e": {
             "docs": {
               "module-DOMTools.DOMObserver.html#disconnect": {
@@ -2941,59 +2994,6 @@ window.lunrData = {
               }
             }
           },
-          "u": {
-            "docs": {},
-            "i": {
-              "docs": {},
-              "l": {
-                "docs": {},
-                "d": {
-                  "docs": {
-                    "module-Settings.SettingPanel.html#.build": {
-                      "ref": "module-Settings.SettingPanel.html#.build",
-                      "tf": 620
-                    },
-                    "module-DiscordContextMenu.html": {
-                      "ref": "module-DiscordContextMenu.html",
-                      "tf": 10
-                    }
-                  }
-                },
-                "t": {
-                  "docs": {
-                    "module-Settings.Keybind.html": {
-                      "ref": "module-Settings.Keybind.html",
-                      "tf": 6.25
-                    },
-                    "module-Settings.Switch.html": {
-                      "ref": "module-Settings.Switch.html",
-                      "tf": 8.333333333333332
-                    },
-                    "module-Settings.Textbox.html": {
-                      "ref": "module-Settings.Textbox.html",
-                      "tf": 8.333333333333332
-                    },
-                    "module-Settings.ColorPicker.html": {
-                      "ref": "module-Settings.ColorPicker.html",
-                      "tf": 3.571428571428571
-                    },
-                    "module-Settings.Dropdown.html": {
-                      "ref": "module-Settings.Dropdown.html",
-                      "tf": 8.333333333333332
-                    },
-                    "module-Settings.RadioGroup.html": {
-                      "ref": "module-Settings.RadioGroup.html",
-                      "tf": 7.142857142857142
-                    },
-                    "module-Settings.Slider.html": {
-                      "ref": "module-Settings.Slider.html",
-                      "tf": 8.333333333333332
-                    }
-                  }
-                }
-              }
-            }
-          },
           "a": {
             "docs": {},
             "s": {
@@ -3094,10 +3094,6 @@ window.lunrData = {
                             "docs": {},
                             "t": {
                               "docs": {
-                                "module-Settings.SettingField.html#getElement": {
-                                  "ref": "module-Settings.SettingField.html#getElement",
-                                  "tf": 50
-                                },
                                 "module-Settings.SettingGroup.html#getElement": {
                                   "ref": "module-Settings.SettingGroup.html#getElement",
                                   "tf": 50
@@ -3116,6 +3112,10 @@ window.lunrData = {
                                 },
                                 "module-Settings.FilePicker.html#getElement": {
                                   "ref": "module-Settings.FilePicker.html#getElement",
+                                  "tf": 50
+                                },
+                                "module-Settings.SettingField.html#getElement": {
+                                  "ref": "module-Settings.SettingField.html#getElement",
                                   "tf": 50
                                 },
                                 "module-Settings.Switch.html#getElement": {
@@ -3568,12 +3568,12 @@ window.lunrData = {
                             "ref": "module-DiscordContextMenu-MenuToggleItem.html",
                             "tf": 110
                           },
-                          "module-DiscordContextMenu-MenuRadioItem.html": {
-                            "ref": "module-DiscordContextMenu-MenuRadioItem.html",
-                            "tf": 110
-                          },
                           "module-Modals-Changelog.html": {
                             "ref": "module-Modals-Changelog.html",
+                            "tf": 110
+                          },
+                          "module-DiscordContextMenu-MenuRadioItem.html": {
+                            "ref": "module-DiscordContextMenu-MenuRadioItem.html",
                             "tf": 110
                           },
                           "module-DiscordContextMenu-SubMenuItem.html": {
@@ -3818,20 +3818,6 @@ window.lunrData = {
                 }
               }
             },
-            "v": {
-              "docs": {},
-              "i": {
-                "docs": {},
-                "t": {
-                  "docs": {
-                    "module-DiscordAPI.Channel.html#sendInvite": {
-                      "ref": "module-DiscordAPI.Channel.html#sendInvite",
-                      "tf": 16.666666666666664
-                    }
-                  }
-                }
-              }
-            },
             "p": {
               "docs": {},
               "u": {
@@ -3841,6 +3827,20 @@ window.lunrData = {
                     "module-Settings.ColorPicker.html": {
                       "ref": "module-Settings.ColorPicker.html",
                       "tf": 3.571428571428571
+                    }
+                  }
+                }
+              }
+            },
+            "v": {
+              "docs": {},
+              "i": {
+                "docs": {},
+                "t": {
+                  "docs": {
+                    "module-DiscordAPI.Channel.html#sendInvite": {
+                      "ref": "module-DiscordAPI.Channel.html#sendInvite",
+                      "tf": 16.666666666666664
                     }
                   }
                 }
@@ -4389,10 +4389,6 @@ window.lunrData = {
                         "ref": "Listenable.html#alertListeners",
                         "tf": 7.142857142857142
                       },
-                      "module-Settings.SettingField.html#onChange": {
-                        "ref": "module-Settings.SettingField.html#onChange",
-                        "tf": 16.666666666666664
-                      },
                       "module-Settings.SettingGroup.html#onChange": {
                         "ref": "module-Settings.SettingGroup.html#onChange",
                         "tf": 16.666666666666664
@@ -4407,6 +4403,10 @@ window.lunrData = {
                       },
                       "module-Settings.FilePicker.html#onChange": {
                         "ref": "module-Settings.FilePicker.html#onChange",
+                        "tf": 16.666666666666664
+                      },
+                      "module-Settings.SettingField.html#onChange": {
+                        "ref": "module-Settings.SettingField.html#onChange",
                         "tf": 16.666666666666664
                       },
                       "module-Settings.Switch.html#onChange": {
@@ -4819,17 +4819,6 @@ window.lunrData = {
           },
           "e": {
             "docs": {},
-            "f": {
-              "docs": {},
-              "t": {
-                "docs": {
-                  "module-DOMTools.DOMObserver.html#unsubscribe": {
-                    "ref": "module-DOMTools.DOMObserver.html#unsubscribe",
-                    "tf": 10
-                  }
-                }
-              }
-            },
             "v": {
               "docs": {},
               "e": {
@@ -4852,6 +4841,17 @@ window.lunrData = {
                       "ref": "module-DiscordAPI.Guild.html#updateExplicitContentFilter",
                       "tf": 8.333333333333332
                     }
+                  }
+                }
+              }
+            },
+            "f": {
+              "docs": {},
+              "t": {
+                "docs": {
+                  "module-DOMTools.DOMObserver.html#unsubscribe": {
+                    "ref": "module-DOMTools.DOMObserver.html#unsubscribe",
+                    "tf": 10
                   }
                 }
               }
@@ -6053,20 +6053,20 @@ window.lunrData = {
                       "ref": "Listenable.html#removeListener",
                       "tf": 12.5
                     },
-                    "module-DOMTools.DOMObserver.html#unsubscribe": {
-                      "ref": "module-DOMTools.DOMObserver.html#unsubscribe",
-                      "tf": 10
-                    },
-                    "module-Settings.SettingField.html#onRemoved": {
-                      "ref": "module-Settings.SettingField.html#onRemoved",
-                      "tf": 10
-                    },
                     "module-Settings.Keybind.html#onRemoved": {
                       "ref": "module-Settings.Keybind.html#onRemoved",
                       "tf": 10
                     },
+                    "module-DOMTools.DOMObserver.html#unsubscribe": {
+                      "ref": "module-DOMTools.DOMObserver.html#unsubscribe",
+                      "tf": 10
+                    },
                     "module-Settings.FilePicker.html#onRemoved": {
                       "ref": "module-Settings.FilePicker.html#onRemoved",
+                      "tf": 10
+                    },
+                    "module-Settings.SettingField.html#onRemoved": {
+                      "ref": "module-Settings.SettingField.html#onRemoved",
                       "tf": 10
                     },
                     "module-Settings.Switch.html#onRemoved": {
@@ -6523,20 +6523,31 @@ window.lunrData = {
               }
             }
           },
+          "u": {
+            "docs": {},
+            "n": {
+              "docs": {
+                "module-DiscordAPI.UserSettings.html#.detectPlatformAccounts": {
+                  "ref": "module-DiscordAPI.UserSettings.html#.detectPlatformAccounts",
+                  "tf": 4.545454545454546
+                },
+                "module-DiscordAPI.UserSettings.html#.showCurrentGame": {
+                  "ref": "module-DiscordAPI.UserSettings.html#.showCurrentGame",
+                  "tf": 5
+                },
+                "module-Patcher.html": {
+                  "ref": "module-Patcher.html",
+                  "tf": 2.631578947368421
+                }
+              }
+            }
+          },
           "o": {
             "docs": {},
             "o": {
               "docs": {},
               "t": {
                 "docs": {
-                  "module-Settings.SettingField.html#onAdded": {
-                    "ref": "module-Settings.SettingField.html#onAdded",
-                    "tf": 10
-                  },
-                  "module-Settings.SettingField.html#onRemoved": {
-                    "ref": "module-Settings.SettingField.html#onRemoved",
-                    "tf": 10
-                  },
                   "module-Settings.Keybind.html#onAdded": {
                     "ref": "module-Settings.Keybind.html#onAdded",
                     "tf": 10
@@ -6551,6 +6562,14 @@ window.lunrData = {
                   },
                   "module-Settings.FilePicker.html#onRemoved": {
                     "ref": "module-Settings.FilePicker.html#onRemoved",
+                    "tf": 10
+                  },
+                  "module-Settings.SettingField.html#onAdded": {
+                    "ref": "module-Settings.SettingField.html#onAdded",
+                    "tf": 10
+                  },
+                  "module-Settings.SettingField.html#onRemoved": {
+                    "ref": "module-Settings.SettingField.html#onRemoved",
                     "tf": 10
                   },
                   "module-Settings.Switch.html#onAdded": {
@@ -6616,25 +6635,6 @@ window.lunrData = {
               }
             }
           },
-          "u": {
-            "docs": {},
-            "n": {
-              "docs": {
-                "module-DiscordAPI.UserSettings.html#.detectPlatformAccounts": {
-                  "ref": "module-DiscordAPI.UserSettings.html#.detectPlatformAccounts",
-                  "tf": 4.545454545454546
-                },
-                "module-DiscordAPI.UserSettings.html#.showCurrentGame": {
-                  "ref": "module-DiscordAPI.UserSettings.html#.showCurrentGame",
-                  "tf": 5
-                },
-                "module-Patcher.html": {
-                  "ref": "module-Patcher.html",
-                  "tf": 2.631578947368421
-                }
-              }
-            }
-          },
           "i": {
             "docs": {},
             "g": {
@@ -6679,10 +6679,6 @@ window.lunrData = {
                   "ref": "module-WebpackModules.Filters.html#~filter",
                   "tf": 8.333333333333332
                 },
-                "module-Settings.SettingField.html": {
-                  "ref": "module-Settings.SettingField.html",
-                  "tf": 16.666666666666664
-                },
                 "module-Settings.SettingGroup.html": {
                   "ref": "module-Settings.SettingGroup.html",
                   "tf": 8.333333333333332
@@ -6706,6 +6702,10 @@ window.lunrData = {
                 "module-Settings.Keybind.html": {
                   "ref": "module-Settings.Keybind.html",
                   "tf": 6.25
+                },
+                "module-Settings.SettingField.html": {
+                  "ref": "module-Settings.SettingField.html",
+                  "tf": 16.666666666666664
                 },
                 "module-DiscordAPI.Guild.html#openSettings": {
                   "ref": "module-DiscordAPI.Guild.html#openSettings",
@@ -6736,18 +6736,18 @@ window.lunrData = {
                     "docs": {},
                     "g": {
                       "docs": {},
-                      "f": {
+                      "g": {
                         "docs": {},
-                        "i": {
+                        "r": {
                           "docs": {},
-                          "e": {
+                          "o": {
                             "docs": {},
-                            "l": {
+                            "u": {
                               "docs": {},
-                              "d": {
+                              "p": {
                                 "docs": {
-                                  "module-Settings.SettingField.html": {
-                                    "ref": "module-Settings.SettingField.html",
+                                  "module-Settings.SettingGroup.html": {
+                                    "ref": "module-Settings.SettingGroup.html",
                                     "tf": 650
                                   }
                                 },
@@ -6763,9 +6763,43 @@ window.lunrData = {
                                           "docs": {},
                                           "l": {
                                             "docs": {
-                                              "module-Settings.SettingField.html#getElement": {
-                                                "ref": "module-Settings.SettingField.html#getElement",
+                                              "module-Settings.SettingGroup.html#getElement": {
+                                                "ref": "module-Settings.SettingGroup.html#getElement",
                                                 "tf": 100
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "a": {
+                                    "docs": {},
+                                    "p": {
+                                      "docs": {},
+                                      "p": {
+                                        "docs": {},
+                                        "e": {
+                                          "docs": {},
+                                          "n": {
+                                            "docs": {},
+                                            "d": {
+                                              "docs": {
+                                                "module-Settings.SettingGroup.html#append": {
+                                                  "ref": "module-Settings.SettingGroup.html#append",
+                                                  "tf": 100
+                                                }
+                                              },
+                                              "t": {
+                                                "docs": {},
+                                                "o": {
+                                                  "docs": {
+                                                    "module-Settings.SettingGroup.html#appendTo": {
+                                                      "ref": "module-Settings.SettingGroup.html#appendTo",
+                                                      "tf": 100
+                                                    }
+                                                  }
+                                                }
                                               }
                                             }
                                           }
@@ -6787,39 +6821,8 @@ window.lunrData = {
                                               "docs": {},
                                               "g": {
                                                 "docs": {
-                                                  "module-Settings.SettingField.html#onChange": {
-                                                    "ref": "module-Settings.SettingField.html#onChange",
-                                                    "tf": 100
-                                                  }
-                                                }
-                                              }
-                                            }
-                                          }
-                                        }
-                                      },
-                                      "a": {
-                                        "docs": {},
-                                        "d": {
-                                          "docs": {
-                                            "module-Settings.SettingField.html#onAdded": {
-                                              "ref": "module-Settings.SettingField.html#onAdded",
-                                              "tf": 100
-                                            }
-                                          }
-                                        }
-                                      },
-                                      "r": {
-                                        "docs": {},
-                                        "e": {
-                                          "docs": {},
-                                          "m": {
-                                            "docs": {},
-                                            "o": {
-                                              "docs": {},
-                                              "v": {
-                                                "docs": {
-                                                  "module-Settings.SettingField.html#onRemoved": {
-                                                    "ref": "module-Settings.SettingField.html#onRemoved",
+                                                  "module-Settings.SettingGroup.html#onChange": {
+                                                    "ref": "module-Settings.SettingGroup.html#onChange",
                                                     "tf": 100
                                                   }
                                                 }
@@ -6854,26 +6857,6 @@ window.lunrData = {
                                       "docs": {},
                                       "g": {
                                         "docs": {},
-                                        "f": {
-                                          "docs": {},
-                                          "i": {
-                                            "docs": {},
-                                            "e": {
-                                              "docs": {},
-                                              "l": {
-                                                "docs": {},
-                                                "d": {
-                                                  "docs": {
-                                                    "module-Settings.SettingField.html": {
-                                                      "ref": "module-Settings.SettingField.html",
-                                                      "tf": 100
-                                                    }
-                                                  }
-                                                }
-                                              }
-                                            }
-                                          }
-                                        },
                                         "g": {
                                           "docs": {},
                                           "r": {
@@ -6906,6 +6889,26 @@ window.lunrData = {
                                                   "docs": {
                                                     "module-Settings.SettingPanel.html": {
                                                       "ref": "module-Settings.SettingPanel.html",
+                                                      "tf": 100
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "f": {
+                                          "docs": {},
+                                          "i": {
+                                            "docs": {},
+                                            "e": {
+                                              "docs": {},
+                                              "l": {
+                                                "docs": {},
+                                                "d": {
+                                                  "docs": {
+                                                    "module-Settings.SettingField.html": {
+                                                      "ref": "module-Settings.SettingField.html",
                                                       "tf": 100
                                                     }
                                                   }
@@ -7168,109 +7171,6 @@ window.lunrData = {
                           }
                         }
                       },
-                      "g": {
-                        "docs": {},
-                        "r": {
-                          "docs": {},
-                          "o": {
-                            "docs": {},
-                            "u": {
-                              "docs": {},
-                              "p": {
-                                "docs": {
-                                  "module-Settings.SettingGroup.html": {
-                                    "ref": "module-Settings.SettingGroup.html",
-                                    "tf": 650
-                                  }
-                                },
-                                "#": {
-                                  "docs": {},
-                                  "g": {
-                                    "docs": {},
-                                    "e": {
-                                      "docs": {},
-                                      "t": {
-                                        "docs": {},
-                                        "e": {
-                                          "docs": {},
-                                          "l": {
-                                            "docs": {
-                                              "module-Settings.SettingGroup.html#getElement": {
-                                                "ref": "module-Settings.SettingGroup.html#getElement",
-                                                "tf": 100
-                                              }
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  },
-                                  "a": {
-                                    "docs": {},
-                                    "p": {
-                                      "docs": {},
-                                      "p": {
-                                        "docs": {},
-                                        "e": {
-                                          "docs": {},
-                                          "n": {
-                                            "docs": {},
-                                            "d": {
-                                              "docs": {
-                                                "module-Settings.SettingGroup.html#append": {
-                                                  "ref": "module-Settings.SettingGroup.html#append",
-                                                  "tf": 100
-                                                }
-                                              },
-                                              "t": {
-                                                "docs": {},
-                                                "o": {
-                                                  "docs": {
-                                                    "module-Settings.SettingGroup.html#appendTo": {
-                                                      "ref": "module-Settings.SettingGroup.html#appendTo",
-                                                      "tf": 100
-                                                    }
-                                                  }
-                                                }
-                                              }
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  },
-                                  "o": {
-                                    "docs": {},
-                                    "n": {
-                                      "docs": {},
-                                      "c": {
-                                        "docs": {},
-                                        "h": {
-                                          "docs": {},
-                                          "a": {
-                                            "docs": {},
-                                            "n": {
-                                              "docs": {},
-                                              "g": {
-                                                "docs": {
-                                                  "module-Settings.SettingGroup.html#onChange": {
-                                                    "ref": "module-Settings.SettingGroup.html#onChange",
-                                                    "tf": 100
-                                                  }
-                                                }
-                                              }
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      },
                       "p": {
                         "docs": {},
                         "a": {
@@ -7370,6 +7270,106 @@ window.lunrData = {
                                                 "docs": {
                                                   "module-Settings.SettingPanel.html#onChange": {
                                                     "ref": "module-Settings.SettingPanel.html#onChange",
+                                                    "tf": 100
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "f": {
+                        "docs": {},
+                        "i": {
+                          "docs": {},
+                          "e": {
+                            "docs": {},
+                            "l": {
+                              "docs": {},
+                              "d": {
+                                "docs": {
+                                  "module-Settings.SettingField.html": {
+                                    "ref": "module-Settings.SettingField.html",
+                                    "tf": 650
+                                  }
+                                },
+                                "#": {
+                                  "docs": {},
+                                  "g": {
+                                    "docs": {},
+                                    "e": {
+                                      "docs": {},
+                                      "t": {
+                                        "docs": {},
+                                        "e": {
+                                          "docs": {},
+                                          "l": {
+                                            "docs": {
+                                              "module-Settings.SettingField.html#getElement": {
+                                                "ref": "module-Settings.SettingField.html#getElement",
+                                                "tf": 100
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "o": {
+                                    "docs": {},
+                                    "n": {
+                                      "docs": {},
+                                      "c": {
+                                        "docs": {},
+                                        "h": {
+                                          "docs": {},
+                                          "a": {
+                                            "docs": {},
+                                            "n": {
+                                              "docs": {},
+                                              "g": {
+                                                "docs": {
+                                                  "module-Settings.SettingField.html#onChange": {
+                                                    "ref": "module-Settings.SettingField.html#onChange",
+                                                    "tf": 100
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      "a": {
+                                        "docs": {},
+                                        "d": {
+                                          "docs": {
+                                            "module-Settings.SettingField.html#onAdded": {
+                                              "ref": "module-Settings.SettingField.html#onAdded",
+                                              "tf": 100
+                                            }
+                                          }
+                                        }
+                                      },
+                                      "r": {
+                                        "docs": {},
+                                        "e": {
+                                          "docs": {},
+                                          "m": {
+                                            "docs": {},
+                                            "o": {
+                                              "docs": {},
+                                              "v": {
+                                                "docs": {
+                                                  "module-Settings.SettingField.html#onRemoved": {
+                                                    "ref": "module-Settings.SettingField.html#onRemoved",
                                                     "tf": 100
                                                   }
                                                 }
@@ -8057,6 +8057,59 @@ window.lunrData = {
               }
             }
           },
+          "i": {
+            "docs": {},
+            "m": {
+              "docs": {},
+              "p": {
+                "docs": {},
+                "l": {
+                  "docs": {
+                    "List.html": {
+                      "ref": "List.html",
+                      "tf": 10
+                    },
+                    "module-Logger.html": {
+                      "ref": "module-Logger.html",
+                      "tf": 12.5
+                    }
+                  }
+                }
+              },
+              "i": {
+                "docs": {},
+                "l": {
+                  "docs": {},
+                  "a": {
+                    "docs": {},
+                    "r": {
+                      "docs": {
+                        "module-Toasts.html": {
+                          "ref": "module-Toasts.html",
+                          "tf": 12.5
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "b": {
+              "docs": {},
+              "l": {
+                "docs": {
+                  "module-DOMTools.Selector.html#adjacent": {
+                    "ref": "module-DOMTools.Selector.html#adjacent",
+                    "tf": 8.333333333333332
+                  },
+                  "module-DOMTools.Selector.html#sibling": {
+                    "ref": "module-DOMTools.Selector.html#sibling",
+                    "tf": 658.3333333333334
+                  }
+                }
+              }
+            }
+          },
           "t": {
             "docs": {},
             "r": {
@@ -8102,17 +8155,6 @@ window.lunrData = {
             },
             "a": {
               "docs": {},
-              "r": {
-                "docs": {},
-                "t": {
-                  "docs": {
-                    "module-DOMTools.DOMObserver.html#observe": {
-                      "ref": "module-DOMTools.DOMObserver.html#observe",
-                      "tf": 5
-                    }
-                  }
-                }
-              },
               "t": {
                 "docs": {},
                 "u": {
@@ -8123,6 +8165,17 @@ window.lunrData = {
                     },
                     "module-DiscordAPI.UserSettings.html#.showCurrentGame": {
                       "ref": "module-DiscordAPI.UserSettings.html#.showCurrentGame",
+                      "tf": 5
+                    }
+                  }
+                }
+              },
+              "r": {
+                "docs": {},
+                "t": {
+                  "docs": {
+                    "module-DOMTools.DOMObserver.html#observe": {
+                      "ref": "module-DOMTools.DOMObserver.html#observe",
                       "tf": 5
                     }
                   }
@@ -8153,59 +8206,6 @@ window.lunrData = {
                     "module-DiscordSelectors.html": {
                       "ref": "module-DiscordSelectors.html",
                       "tf": 1.7241379310344827
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "i": {
-            "docs": {},
-            "b": {
-              "docs": {},
-              "l": {
-                "docs": {
-                  "module-DOMTools.Selector.html#adjacent": {
-                    "ref": "module-DOMTools.Selector.html#adjacent",
-                    "tf": 8.333333333333332
-                  },
-                  "module-DOMTools.Selector.html#sibling": {
-                    "ref": "module-DOMTools.Selector.html#sibling",
-                    "tf": 658.3333333333334
-                  }
-                }
-              }
-            },
-            "m": {
-              "docs": {},
-              "p": {
-                "docs": {},
-                "l": {
-                  "docs": {
-                    "List.html": {
-                      "ref": "List.html",
-                      "tf": 10
-                    },
-                    "module-Logger.html": {
-                      "ref": "module-Logger.html",
-                      "tf": 12.5
-                    }
-                  }
-                }
-              },
-              "i": {
-                "docs": {},
-                "l": {
-                  "docs": {},
-                  "a": {
-                    "docs": {},
-                    "r": {
-                      "docs": {
-                        "module-Toasts.html": {
-                          "ref": "module-Toasts.html",
-                          "tf": 12.5
-                        }
-                      }
                     }
                   }
                 }
@@ -9419,13 +9419,13 @@ window.lunrData = {
                 "ref": "module-WebpackModules.Filters.html",
                 "tf": 16.666666666666664
               },
-              "module-DOMTools.DOMObserver.html#disconnect": {
-                "ref": "module-DOMTools.DOMObserver.html#disconnect",
-                "tf": 4.166666666666666
-              },
               "module-Settings.Keybind.html": {
                 "ref": "module-Settings.Keybind.html",
                 "tf": 6.25
+              },
+              "module-DOMTools.DOMObserver.html#disconnect": {
+                "ref": "module-DOMTools.DOMObserver.html#disconnect",
+                "tf": 4.166666666666666
               },
               "module-Settings.FilePicker.html": {
                 "ref": "module-Settings.FilePicker.html",
@@ -10584,55 +10584,6 @@ window.lunrData = {
               }
             }
           },
-          "n": {
-            "docs": {},
-            "b": {
-              "docs": {},
-              "i": {
-                "docs": {},
-                "n": {
-                  "docs": {},
-                  "d": {
-                    "docs": {
-                      "module-DOMTools.DOMObserver.html#disconnect": {
-                        "ref": "module-DOMTools.DOMObserver.html#disconnect",
-                        "tf": 4.166666666666666
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "s": {
-              "docs": {},
-              "u": {
-                "docs": {},
-                "b": {
-                  "docs": {},
-                  "s": {
-                    "docs": {},
-                    "c": {
-                      "docs": {},
-                      "r": {
-                        "docs": {},
-                        "i": {
-                          "docs": {},
-                          "b": {
-                            "docs": {
-                              "module-DOMTools.DOMObserver.html#unsubscribe": {
-                                "ref": "module-DOMTools.DOMObserver.html#unsubscribe",
-                                "tf": 650
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
           "p": {
             "docs": {},
             "l": {
@@ -11243,6 +11194,55 @@ window.lunrData = {
                 "tf": 16.666666666666664
               }
             }
+          },
+          "n": {
+            "docs": {},
+            "b": {
+              "docs": {},
+              "i": {
+                "docs": {},
+                "n": {
+                  "docs": {},
+                  "d": {
+                    "docs": {
+                      "module-DOMTools.DOMObserver.html#disconnect": {
+                        "ref": "module-DOMTools.DOMObserver.html#disconnect",
+                        "tf": 4.166666666666666
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "s": {
+              "docs": {},
+              "u": {
+                "docs": {},
+                "b": {
+                  "docs": {},
+                  "s": {
+                    "docs": {},
+                    "c": {
+                      "docs": {},
+                      "r": {
+                        "docs": {},
+                        "i": {
+                          "docs": {},
+                          "b": {
+                            "docs": {
+                              "module-DOMTools.DOMObserver.html#unsubscribe": {
+                                "ref": "module-DOMTools.DOMObserver.html#unsubscribe",
+                                "tf": 650
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         "z": {
@@ -11345,14 +11345,6 @@ window.lunrData = {
             },
             "m": {
               "docs": {
-                "module-Settings.SettingField.html#onAdded": {
-                  "ref": "module-Settings.SettingField.html#onAdded",
-                  "tf": 10
-                },
-                "module-Settings.SettingField.html#onRemoved": {
-                  "ref": "module-Settings.SettingField.html#onRemoved",
-                  "tf": 10
-                },
                 "module-Settings.Keybind.html#onAdded": {
                   "ref": "module-Settings.Keybind.html#onAdded",
                   "tf": 10
@@ -11367,6 +11359,14 @@ window.lunrData = {
                 },
                 "module-Settings.FilePicker.html#onRemoved": {
                   "ref": "module-Settings.FilePicker.html#onRemoved",
+                  "tf": 10
+                },
+                "module-Settings.SettingField.html#onAdded": {
+                  "ref": "module-Settings.SettingField.html#onAdded",
+                  "tf": 10
+                },
+                "module-Settings.SettingField.html#onRemoved": {
+                  "ref": "module-Settings.SettingField.html#onRemoved",
                   "tf": 10
                 },
                 "module-Settings.Switch.html#onAdded": {
@@ -13180,10 +13180,6 @@ window.lunrData = {
                 "docs": {},
                 "l": {
                   "docs": {
-                    "module-Settings.SettingField.html#getElement": {
-                      "ref": "module-Settings.SettingField.html#getElement",
-                      "tf": 650
-                    },
                     "module-Settings.SettingGroup.html#getElement": {
                       "ref": "module-Settings.SettingGroup.html#getElement",
                       "tf": 650
@@ -13198,6 +13194,10 @@ window.lunrData = {
                     },
                     "module-Settings.FilePicker.html#getElement": {
                       "ref": "module-Settings.FilePicker.html#getElement",
+                      "tf": 650
+                    },
+                    "module-Settings.SettingField.html#getElement": {
+                      "ref": "module-Settings.SettingField.html#getElement",
                       "tf": 650
                     },
                     "module-Settings.Switch.html#getElement": {
@@ -13271,14 +13271,6 @@ window.lunrData = {
                 "docs": {},
                 "p": {
                   "docs": {
-                    "module-DOMTools.DOMObserver.html#subscribe": {
-                      "ref": "module-DOMTools.DOMObserver.html#subscribe",
-                      "tf": 16.666666666666664
-                    },
-                    "module-DOMTools.DOMObserver.html#subscribeToQuerySelector": {
-                      "ref": "module-DOMTools.DOMObserver.html#subscribeToQuerySelector",
-                      "tf": 16.666666666666664
-                    },
                     "module-Settings.SettingGroup.html": {
                       "ref": "module-Settings.SettingGroup.html",
                       "tf": 8.333333333333332
@@ -13290,6 +13282,14 @@ window.lunrData = {
                     "module-Settings.SettingPanel.html": {
                       "ref": "module-Settings.SettingPanel.html",
                       "tf": 8.333333333333332
+                    },
+                    "module-DOMTools.DOMObserver.html#subscribe": {
+                      "ref": "module-DOMTools.DOMObserver.html#subscribe",
+                      "tf": 16.666666666666664
+                    },
+                    "module-DOMTools.DOMObserver.html#subscribeToQuerySelector": {
+                      "ref": "module-DOMTools.DOMObserver.html#subscribeToQuerySelector",
+                      "tf": 16.666666666666664
                     },
                     "module-Settings.RadioGroup.html": {
                       "ref": "module-Settings.RadioGroup.html",
@@ -14599,12 +14599,12 @@ window.lunrData = {
                       "ref": "Listenable.html",
                       "tf": 110
                     },
-                    "module-DOMTools.Selector.html": {
-                      "ref": "module-DOMTools.Selector.html",
-                      "tf": 110
-                    },
                     "List.html": {
                       "ref": "List.html",
+                      "tf": 110
+                    },
+                    "module-DOMTools.Selector.html": {
+                      "ref": "module-DOMTools.Selector.html",
                       "tf": 110
                     },
                     "module-DOMTools.ClassName.html": {
@@ -14631,14 +14631,6 @@ window.lunrData = {
                       "ref": "module-WebpackModules.Filters.html",
                       "tf": 110
                     },
-                    "module-DOMTools.DOMObserver.html": {
-                      "ref": "module-DOMTools.DOMObserver.html",
-                      "tf": 110
-                    },
-                    "module-Settings.SettingField.html": {
-                      "ref": "module-Settings.SettingField.html",
-                      "tf": 110
-                    },
                     "module-Settings.SettingGroup.html": {
                       "ref": "module-Settings.SettingGroup.html",
                       "tf": 110
@@ -14655,8 +14647,16 @@ window.lunrData = {
                       "ref": "module-Settings.Keybind.html",
                       "tf": 110
                     },
+                    "module-DOMTools.DOMObserver.html": {
+                      "ref": "module-DOMTools.DOMObserver.html",
+                      "tf": 110
+                    },
                     "module-Settings.FilePicker.html": {
                       "ref": "module-Settings.FilePicker.html",
+                      "tf": 110
+                    },
+                    "module-Settings.SettingField.html": {
+                      "ref": "module-Settings.SettingField.html",
                       "tf": 110
                     },
                     "module-Settings.Switch.html": {
@@ -14671,12 +14671,12 @@ window.lunrData = {
                       "ref": "module-Settings.Textbox.html",
                       "tf": 110
                     },
-                    "module-DiscordAPI.Channel.html": {
-                      "ref": "module-DiscordAPI.Channel.html",
-                      "tf": 110
-                    },
                     "module-Settings.ColorPicker.html": {
                       "ref": "module-Settings.ColorPicker.html",
+                      "tf": 110
+                    },
+                    "module-DiscordAPI.Channel.html": {
+                      "ref": "module-DiscordAPI.Channel.html",
                       "tf": 110
                     },
                     "module-Tooltip_module_Tooltip.html": {
@@ -16433,10 +16433,6 @@ window.lunrData = {
                 "docs": {},
                 "t": {
                   "docs": {
-                    "module-Settings.SettingField.html": {
-                      "ref": "module-Settings.SettingField.html",
-                      "tf": 8.333333333333332
-                    },
                     "module-Settings.SettingPanel.html#.build": {
                       "ref": "module-Settings.SettingPanel.html#.build",
                       "tf": 12.5
@@ -16447,6 +16443,10 @@ window.lunrData = {
                     },
                     "module-Settings.FilePicker.html": {
                       "ref": "module-Settings.FilePicker.html",
+                      "tf": 8.333333333333332
+                    },
+                    "module-Settings.SettingField.html": {
+                      "ref": "module-Settings.SettingField.html",
                       "tf": 8.333333333333332
                     },
                     "module-Settings.Switch.html": {
@@ -20414,106 +20414,6 @@ window.lunrData = {
                                                     "docs": {},
                                                     "g": {
                                                       "docs": {},
-                                                      "f": {
-                                                        "docs": {},
-                                                        "i": {
-                                                          "docs": {},
-                                                          "e": {
-                                                            "docs": {},
-                                                            "l": {
-                                                              "docs": {},
-                                                              "d": {
-                                                                "docs": {
-                                                                  "module-Settings.SettingField.html": {
-                                                                    "ref": "module-Settings.SettingField.html",
-                                                                    "tf": 1150
-                                                                  }
-                                                                },
-                                                                "#": {
-                                                                  "docs": {},
-                                                                  "g": {
-                                                                    "docs": {},
-                                                                    "e": {
-                                                                      "docs": {},
-                                                                      "t": {
-                                                                        "docs": {},
-                                                                        "e": {
-                                                                          "docs": {},
-                                                                          "l": {
-                                                                            "docs": {
-                                                                              "module-Settings.SettingField.html#getElement": {
-                                                                                "ref": "module-Settings.SettingField.html#getElement",
-                                                                                "tf": 1100
-                                                                              }
-                                                                            }
-                                                                          }
-                                                                        }
-                                                                      }
-                                                                    }
-                                                                  },
-                                                                  "o": {
-                                                                    "docs": {},
-                                                                    "n": {
-                                                                      "docs": {},
-                                                                      "c": {
-                                                                        "docs": {},
-                                                                        "h": {
-                                                                          "docs": {},
-                                                                          "a": {
-                                                                            "docs": {},
-                                                                            "n": {
-                                                                              "docs": {},
-                                                                              "g": {
-                                                                                "docs": {
-                                                                                  "module-Settings.SettingField.html#onChange": {
-                                                                                    "ref": "module-Settings.SettingField.html#onChange",
-                                                                                    "tf": 1100
-                                                                                  }
-                                                                                }
-                                                                              }
-                                                                            }
-                                                                          }
-                                                                        }
-                                                                      },
-                                                                      "a": {
-                                                                        "docs": {},
-                                                                        "d": {
-                                                                          "docs": {
-                                                                            "module-Settings.SettingField.html#onAdded": {
-                                                                              "ref": "module-Settings.SettingField.html#onAdded",
-                                                                              "tf": 1100
-                                                                            }
-                                                                          }
-                                                                        }
-                                                                      },
-                                                                      "r": {
-                                                                        "docs": {},
-                                                                        "e": {
-                                                                          "docs": {},
-                                                                          "m": {
-                                                                            "docs": {},
-                                                                            "o": {
-                                                                              "docs": {},
-                                                                              "v": {
-                                                                                "docs": {
-                                                                                  "module-Settings.SettingField.html#onRemoved": {
-                                                                                    "ref": "module-Settings.SettingField.html#onRemoved",
-                                                                                    "tf": 1100
-                                                                                  }
-                                                                                }
-                                                                              }
-                                                                            }
-                                                                          }
-                                                                        }
-                                                                      }
-                                                                    }
-                                                                  }
-                                                                }
-                                                              }
-                                                            }
-                                                          }
-                                                        }
-                                                      },
                                                       "g": {
                                                         "docs": {},
                                                         "r": {
@@ -20728,6 +20628,106 @@ window.lunrData = {
                                                                                 "docs": {
                                                                                   "module-Settings.SettingPanel.html#onChange": {
                                                                                     "ref": "module-Settings.SettingPanel.html#onChange",
+                                                                                    "tf": 1100
+                                                                                  }
+                                                                                }
+                                                                              }
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      },
+                                                      "f": {
+                                                        "docs": {},
+                                                        "i": {
+                                                          "docs": {},
+                                                          "e": {
+                                                            "docs": {},
+                                                            "l": {
+                                                              "docs": {},
+                                                              "d": {
+                                                                "docs": {
+                                                                  "module-Settings.SettingField.html": {
+                                                                    "ref": "module-Settings.SettingField.html",
+                                                                    "tf": 1150
+                                                                  }
+                                                                },
+                                                                "#": {
+                                                                  "docs": {},
+                                                                  "g": {
+                                                                    "docs": {},
+                                                                    "e": {
+                                                                      "docs": {},
+                                                                      "t": {
+                                                                        "docs": {},
+                                                                        "e": {
+                                                                          "docs": {},
+                                                                          "l": {
+                                                                            "docs": {
+                                                                              "module-Settings.SettingField.html#getElement": {
+                                                                                "ref": "module-Settings.SettingField.html#getElement",
+                                                                                "tf": 1100
+                                                                              }
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  "o": {
+                                                                    "docs": {},
+                                                                    "n": {
+                                                                      "docs": {},
+                                                                      "c": {
+                                                                        "docs": {},
+                                                                        "h": {
+                                                                          "docs": {},
+                                                                          "a": {
+                                                                            "docs": {},
+                                                                            "n": {
+                                                                              "docs": {},
+                                                                              "g": {
+                                                                                "docs": {
+                                                                                  "module-Settings.SettingField.html#onChange": {
+                                                                                    "ref": "module-Settings.SettingField.html#onChange",
+                                                                                    "tf": 1100
+                                                                                  }
+                                                                                }
+                                                                              }
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      },
+                                                                      "a": {
+                                                                        "docs": {},
+                                                                        "d": {
+                                                                          "docs": {
+                                                                            "module-Settings.SettingField.html#onAdded": {
+                                                                              "ref": "module-Settings.SettingField.html#onAdded",
+                                                                              "tf": 1100
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      },
+                                                                      "r": {
+                                                                        "docs": {},
+                                                                        "e": {
+                                                                          "docs": {},
+                                                                          "m": {
+                                                                            "docs": {},
+                                                                            "o": {
+                                                                              "docs": {},
+                                                                              "v": {
+                                                                                "docs": {
+                                                                                  "module-Settings.SettingField.html#onRemoved": {
+                                                                                    "ref": "module-Settings.SettingField.html#onRemoved",
                                                                                     "tf": 1100
                                                                                   }
                                                                                 }
@@ -22975,16 +22975,16 @@ window.lunrData = {
                         "ref": "module-DiscordAPI.UserSettings.html#.timezoneOffset",
                         "tf": 110
                       },
+                      "module-Settings.ColorPicker.html#.presetColors": {
+                        "ref": "module-Settings.ColorPicker.html#.presetColors",
+                        "tf": 110
+                      },
                       "module-DiscordAPI.Channel.html#messages": {
                         "ref": "module-DiscordAPI.Channel.html#messages",
                         "tf": 110
                       },
                       "module-DiscordAPI.Channel.html#isSelected": {
                         "ref": "module-DiscordAPI.Channel.html#isSelected",
-                        "tf": 110
-                      },
-                      "module-Settings.ColorPicker.html#.presetColors": {
-                        "ref": "module-Settings.ColorPicker.html#.presetColors",
                         "tf": 110
                       },
                       "module-DiscordAPI.Guild.html#mainChannels": {
@@ -23576,6 +23576,20 @@ window.lunrData = {
             },
             "t": {
               "docs": {},
+              "u": {
+                "docs": {},
+                "a": {
+                  "docs": {},
+                  "l": {
+                    "docs": {
+                      "module-DiscordAPI.UserSettings.html#.restrictedGuildIds": {
+                        "ref": "module-DiscordAPI.UserSettings.html#.restrictedGuildIds",
+                        "tf": 2.380952380952381
+                      }
+                    }
+                  }
+                }
+              },
               "a": {
                 "docs": {},
                 "t": {
@@ -23630,20 +23644,6 @@ window.lunrData = {
                     }
                   }
                 }
-              },
-              "u": {
-                "docs": {},
-                "a": {
-                  "docs": {},
-                  "l": {
-                    "docs": {
-                      "module-DiscordAPI.UserSettings.html#.restrictedGuildIds": {
-                        "ref": "module-DiscordAPI.UserSettings.html#.restrictedGuildIds",
-                        "tf": 2.380952380952381
-                      }
-                    }
-                  }
-                }
               }
             }
           },
@@ -23669,20 +23669,6 @@ window.lunrData = {
             },
             "n": {
               "docs": {},
-              "u": {
-                "docs": {},
-                "a": {
-                  "docs": {},
-                  "l": {
-                    "docs": {
-                      "module-DOMTools.DOMObserver.html#observe": {
-                        "ref": "module-DOMTools.DOMObserver.html#observe",
-                        "tf": 5
-                      }
-                    }
-                  }
-                }
-              },
               "a": {
                 "docs": {},
                 "g": {
@@ -23694,6 +23680,20 @@ window.lunrData = {
                     "module-Settings.SettingPanel.html": {
                       "ref": "module-Settings.SettingPanel.html",
                       "tf": 8.333333333333332
+                    }
+                  }
+                }
+              },
+              "u": {
+                "docs": {},
+                "a": {
+                  "docs": {},
+                  "l": {
+                    "docs": {
+                      "module-DOMTools.DOMObserver.html#observe": {
+                        "ref": "module-DOMTools.DOMObserver.html#observe",
+                        "tf": 5
+                      }
                     }
                   }
                 }
@@ -23964,73 +23964,6 @@ window.lunrData = {
               }
             }
           },
-          "a": {
-            "docs": {},
-            "n": {
-              "docs": {},
-              "t": {
-                "docs": {
-                  "module-DOMTools.DOMObserver.html#disconnect": {
-                    "ref": "module-DOMTools.DOMObserver.html#disconnect",
-                    "tf": 4.166666666666666
-                  },
-                  "module-ContextMenu.Menu.html#attachTo": {
-                    "ref": "module-ContextMenu.Menu.html#attachTo",
-                    "tf": 2.1739130434782608
-                  }
-                }
-              }
-            },
-            "i": {
-              "docs": {},
-              "t": {
-                "docs": {
-                  "module-DiscordAPI.UserSettings.html#.afkTimeout": {
-                    "ref": "module-DiscordAPI.UserSettings.html#.afkTimeout",
-                    "tf": 3.8461538461538463
-                  }
-                }
-              }
-            },
-            "t": {
-              "docs": {},
-              "c": {
-                "docs": {},
-                "h": {
-                  "docs": {
-                    "module-EmulatedTooltip.html": {
-                      "ref": "module-EmulatedTooltip.html",
-                      "tf": 1.7857142857142856
-                    },
-                    "module-Tooltip.html": {
-                      "ref": "module-Tooltip.html",
-                      "tf": 3.125
-                    }
-                  }
-                }
-              }
-            },
-            "y": {
-              "docs": {
-                "module-Modals.html": {
-                  "ref": "module-Modals.html",
-                  "tf": 8.333333333333332
-                },
-                "module-Popouts.html": {
-                  "ref": "module-Popouts.html",
-                  "tf": 8.333333333333332
-                },
-                "module-DiscordClassModules.html": {
-                  "ref": "module-DiscordClassModules.html",
-                  "tf": 1.5625
-                },
-                "module-DiscordSelectors.html": {
-                  "ref": "module-DiscordSelectors.html",
-                  "tf": 1.7241379310344827
-                }
-              }
-            }
-          },
           "h": {
             "docs": {},
             "e": {
@@ -24124,6 +24057,73 @@ window.lunrData = {
                       "tf": 3.571428571428571
                     }
                   }
+                }
+              }
+            }
+          },
+          "a": {
+            "docs": {},
+            "i": {
+              "docs": {},
+              "t": {
+                "docs": {
+                  "module-DiscordAPI.UserSettings.html#.afkTimeout": {
+                    "ref": "module-DiscordAPI.UserSettings.html#.afkTimeout",
+                    "tf": 3.8461538461538463
+                  }
+                }
+              }
+            },
+            "n": {
+              "docs": {},
+              "t": {
+                "docs": {
+                  "module-DOMTools.DOMObserver.html#disconnect": {
+                    "ref": "module-DOMTools.DOMObserver.html#disconnect",
+                    "tf": 4.166666666666666
+                  },
+                  "module-ContextMenu.Menu.html#attachTo": {
+                    "ref": "module-ContextMenu.Menu.html#attachTo",
+                    "tf": 2.1739130434782608
+                  }
+                }
+              }
+            },
+            "t": {
+              "docs": {},
+              "c": {
+                "docs": {},
+                "h": {
+                  "docs": {
+                    "module-EmulatedTooltip.html": {
+                      "ref": "module-EmulatedTooltip.html",
+                      "tf": 1.7857142857142856
+                    },
+                    "module-Tooltip.html": {
+                      "ref": "module-Tooltip.html",
+                      "tf": 3.125
+                    }
+                  }
+                }
+              }
+            },
+            "y": {
+              "docs": {
+                "module-Modals.html": {
+                  "ref": "module-Modals.html",
+                  "tf": 8.333333333333332
+                },
+                "module-Popouts.html": {
+                  "ref": "module-Popouts.html",
+                  "tf": 8.333333333333332
+                },
+                "module-DiscordClassModules.html": {
+                  "ref": "module-DiscordClassModules.html",
+                  "tf": 1.5625
+                },
+                "module-DiscordSelectors.html": {
+                  "ref": "module-DiscordSelectors.html",
+                  "tf": 1.7241379310344827
                 }
               }
             }
@@ -24340,16 +24340,16 @@ window.lunrData = {
           },
           "d": {
             "docs": {
-              "module-Settings.SettingField.html#onAdded": {
-                "ref": "module-Settings.SettingField.html#onAdded",
-                "tf": 10
-              },
               "module-Settings.Keybind.html#onAdded": {
                 "ref": "module-Settings.Keybind.html#onAdded",
                 "tf": 10
               },
               "module-Settings.FilePicker.html#onAdded": {
                 "ref": "module-Settings.FilePicker.html#onAdded",
+                "tf": 10
+              },
+              "module-Settings.SettingField.html#onAdded": {
+                "ref": "module-Settings.SettingField.html#onAdded",
                 "tf": 10
               },
               "module-Settings.Switch.html#onAdded": {
@@ -24387,6 +24387,10 @@ window.lunrData = {
                   "ref": "Listenable.html#addListener",
                   "tf": 12.5
                 },
+                "List.html": {
+                  "ref": "List.html",
+                  "tf": 10
+                },
                 "module-DOMTools.Selector.html#child": {
                   "ref": "module-DOMTools.Selector.html#child",
                   "tf": 7.142857142857142
@@ -24405,10 +24409,6 @@ window.lunrData = {
                 },
                 "module-DOMTools.Selector.html#and": {
                   "ref": "module-DOMTools.Selector.html#and",
-                  "tf": 10
-                },
-                "List.html": {
-                  "ref": "List.html",
                   "tf": 10
                 },
                 "module-DOMTools.ClassName.html#add": {
@@ -24773,158 +24773,6 @@ window.lunrData = {
               }
             }
           },
-          "t": {
-            "docs": {},
-            "t": {
-              "docs": {},
-              "a": {
-                "docs": {},
-                "c": {
-                  "docs": {},
-                  "h": {
-                    "docs": {
-                      "module-DOMTools.DOMObserver.html#observe": {
-                        "ref": "module-DOMTools.DOMObserver.html#observe",
-                        "tf": 5
-                      },
-                      "module-ContextMenu.Menu.html#attachTo": {
-                        "ref": "module-ContextMenu.Menu.html#attachTo",
-                        "tf": 4.3478260869565215
-                      },
-                      "module-ContextMenu.SubMenuItem.html": {
-                        "ref": "module-ContextMenu.SubMenuItem.html",
-                        "tf": 10
-                      }
-                    },
-                    "t": {
-                      "docs": {},
-                      "o": {
-                        "docs": {
-                          "module-ContextMenu.Menu.html#attachTo": {
-                            "ref": "module-ContextMenu.Menu.html#attachTo",
-                            "tf": 650
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              "e": {
-                "docs": {},
-                "m": {
-                  "docs": {},
-                  "p": {
-                    "docs": {},
-                    "t": {
-                      "docs": {
-                        "module-DiscordClasses.html": {
-                          "ref": "module-DiscordClasses.html",
-                          "tf": 1.8518518518518516
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "f": {
-            "docs": {},
-            "f": {
-              "docs": {},
-              "e": {
-                "docs": {},
-                "c": {
-                  "docs": {},
-                  "t": {
-                    "docs": {
-                      "module-DOMTools.DOMObserver.html#subscribeToQuerySelector": {
-                        "ref": "module-DOMTools.DOMObserver.html#subscribeToQuerySelector",
-                        "tf": 8.333333333333332
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "k": {
-              "docs": {
-                "module-DiscordAPI.Guild.html#afkChannel": {
-                  "ref": "module-DiscordAPI.Guild.html#afkChannel",
-                  "tf": 16.666666666666664
-                },
-                "module-DiscordAPI.Guild.html#updateAfkChannel": {
-                  "ref": "module-DiscordAPI.Guild.html#updateAfkChannel",
-                  "tf": 12.5
-                },
-                "module-DiscordAPI.Guild.html#updateAfkTimeout": {
-                  "ref": "module-DiscordAPI.Guild.html#updateAfkTimeout",
-                  "tf": 12.5
-                }
-              },
-              "t": {
-                "docs": {},
-                "i": {
-                  "docs": {},
-                  "m": {
-                    "docs": {},
-                    "e": {
-                      "docs": {},
-                      "o": {
-                        "docs": {},
-                        "u": {
-                          "docs": {},
-                          "t": {
-                            "docs": {
-                              "module-DiscordAPI.UserSettings.html#.afkTimeout": {
-                                "ref": "module-DiscordAPI.UserSettings.html#.afkTimeout",
-                                "tf": 650
-                              },
-                              "module-DiscordAPI.Guild.html#updateAfkTimeout": {
-                                "ref": "module-DiscordAPI.Guild.html#updateAfkTimeout",
-                                "tf": 33.33333333333333
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              "c": {
-                "docs": {},
-                "h": {
-                  "docs": {},
-                  "a": {
-                    "docs": {},
-                    "n": {
-                      "docs": {},
-                      "n": {
-                        "docs": {},
-                        "e": {
-                          "docs": {},
-                          "l": {
-                            "docs": {
-                              "module-DiscordAPI.Guild.html#afkChannel": {
-                                "ref": "module-DiscordAPI.Guild.html#afkChannel",
-                                "tf": 700
-                              },
-                              "module-DiscordAPI.Guild.html#updateAfkChannel": {
-                                "ref": "module-DiscordAPI.Guild.html#updateAfkChannel",
-                                "tf": 33.33333333333333
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
           "p": {
             "docs": {},
             "p": {
@@ -25056,6 +24904,102 @@ window.lunrData = {
               }
             }
           },
+          "f": {
+            "docs": {},
+            "k": {
+              "docs": {
+                "module-DiscordAPI.Guild.html#afkChannel": {
+                  "ref": "module-DiscordAPI.Guild.html#afkChannel",
+                  "tf": 16.666666666666664
+                },
+                "module-DiscordAPI.Guild.html#updateAfkChannel": {
+                  "ref": "module-DiscordAPI.Guild.html#updateAfkChannel",
+                  "tf": 12.5
+                },
+                "module-DiscordAPI.Guild.html#updateAfkTimeout": {
+                  "ref": "module-DiscordAPI.Guild.html#updateAfkTimeout",
+                  "tf": 12.5
+                }
+              },
+              "t": {
+                "docs": {},
+                "i": {
+                  "docs": {},
+                  "m": {
+                    "docs": {},
+                    "e": {
+                      "docs": {},
+                      "o": {
+                        "docs": {},
+                        "u": {
+                          "docs": {},
+                          "t": {
+                            "docs": {
+                              "module-DiscordAPI.UserSettings.html#.afkTimeout": {
+                                "ref": "module-DiscordAPI.UserSettings.html#.afkTimeout",
+                                "tf": 650
+                              },
+                              "module-DiscordAPI.Guild.html#updateAfkTimeout": {
+                                "ref": "module-DiscordAPI.Guild.html#updateAfkTimeout",
+                                "tf": 33.33333333333333
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "c": {
+                "docs": {},
+                "h": {
+                  "docs": {},
+                  "a": {
+                    "docs": {},
+                    "n": {
+                      "docs": {},
+                      "n": {
+                        "docs": {},
+                        "e": {
+                          "docs": {},
+                          "l": {
+                            "docs": {
+                              "module-DiscordAPI.Guild.html#afkChannel": {
+                                "ref": "module-DiscordAPI.Guild.html#afkChannel",
+                                "tf": 700
+                              },
+                              "module-DiscordAPI.Guild.html#updateAfkChannel": {
+                                "ref": "module-DiscordAPI.Guild.html#updateAfkChannel",
+                                "tf": 33.33333333333333
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "f": {
+              "docs": {},
+              "e": {
+                "docs": {},
+                "c": {
+                  "docs": {},
+                  "t": {
+                    "docs": {
+                      "module-DOMTools.DOMObserver.html#subscribeToQuerySelector": {
+                        "ref": "module-DOMTools.DOMObserver.html#subscribeToQuerySelector",
+                        "tf": 8.333333333333332
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
           "s": {
             "docs": {},
             "c": {
@@ -25067,6 +25011,62 @@ window.lunrData = {
                     "module-DiscordAPI.UserSettings.html#.convertEmoticons": {
                       "ref": "module-DiscordAPI.UserSettings.html#.convertEmoticons",
                       "tf": 5.555555555555555
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "t": {
+            "docs": {},
+            "t": {
+              "docs": {},
+              "a": {
+                "docs": {},
+                "c": {
+                  "docs": {},
+                  "h": {
+                    "docs": {
+                      "module-DOMTools.DOMObserver.html#observe": {
+                        "ref": "module-DOMTools.DOMObserver.html#observe",
+                        "tf": 5
+                      },
+                      "module-ContextMenu.Menu.html#attachTo": {
+                        "ref": "module-ContextMenu.Menu.html#attachTo",
+                        "tf": 4.3478260869565215
+                      },
+                      "module-ContextMenu.SubMenuItem.html": {
+                        "ref": "module-ContextMenu.SubMenuItem.html",
+                        "tf": 10
+                      }
+                    },
+                    "t": {
+                      "docs": {},
+                      "o": {
+                        "docs": {
+                          "module-ContextMenu.Menu.html#attachTo": {
+                            "ref": "module-ContextMenu.Menu.html#attachTo",
+                            "tf": 650
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "e": {
+                "docs": {},
+                "m": {
+                  "docs": {},
+                  "p": {
+                    "docs": {},
+                    "t": {
+                      "docs": {
+                        "module-DiscordClasses.html": {
+                          "ref": "module-DiscordClasses.html",
+                          "tf": 1.8518518518518516
+                        }
+                      }
                     }
                   }
                 }
@@ -25127,6 +25127,10 @@ window.lunrData = {
                             "ref": "Listenable.html#alertListeners",
                             "tf": 110
                           },
+                          "List.html#get": {
+                            "ref": "List.html#get",
+                            "tf": 110
+                          },
                           "module-DOMTools.Selector.html#toString": {
                             "ref": "module-DOMTools.Selector.html#toString",
                             "tf": 118.33333333333333
@@ -25153,10 +25157,6 @@ window.lunrData = {
                           },
                           "module-DOMTools.Selector.html#and": {
                             "ref": "module-DOMTools.Selector.html#and",
-                            "tf": 110
-                          },
-                          "List.html#get": {
-                            "ref": "List.html#get",
                             "tf": 110
                           },
                           "module-DOMTools.ClassName.html#add": {
@@ -25193,42 +25193,6 @@ window.lunrData = {
                           },
                           "module-WebpackModules.Filters.html#.combine": {
                             "ref": "module-WebpackModules.Filters.html#.combine",
-                            "tf": 110
-                          },
-                          "module-DOMTools.DOMObserver.html#observe": {
-                            "ref": "module-DOMTools.DOMObserver.html#observe",
-                            "tf": 110
-                          },
-                          "module-DOMTools.DOMObserver.html#disconnect": {
-                            "ref": "module-DOMTools.DOMObserver.html#disconnect",
-                            "tf": 110
-                          },
-                          "module-DOMTools.DOMObserver.html#subscribe": {
-                            "ref": "module-DOMTools.DOMObserver.html#subscribe",
-                            "tf": 110
-                          },
-                          "module-DOMTools.DOMObserver.html#unsubscribe": {
-                            "ref": "module-DOMTools.DOMObserver.html#unsubscribe",
-                            "tf": 110
-                          },
-                          "module-DOMTools.DOMObserver.html#subscribeToQuerySelector": {
-                            "ref": "module-DOMTools.DOMObserver.html#subscribeToQuerySelector",
-                            "tf": 110
-                          },
-                          "module-Settings.SettingField.html#getElement": {
-                            "ref": "module-Settings.SettingField.html#getElement",
-                            "tf": 110
-                          },
-                          "module-Settings.SettingField.html#onChange": {
-                            "ref": "module-Settings.SettingField.html#onChange",
-                            "tf": 110
-                          },
-                          "module-Settings.SettingField.html#onAdded": {
-                            "ref": "module-Settings.SettingField.html#onAdded",
-                            "tf": 110
-                          },
-                          "module-Settings.SettingField.html#onRemoved": {
-                            "ref": "module-Settings.SettingField.html#onRemoved",
                             "tf": 110
                           },
                           "module-Settings.SettingGroup.html#getElement": {
@@ -25283,6 +25247,26 @@ window.lunrData = {
                             "ref": "module-Settings.Keybind.html#onRemoved",
                             "tf": 110
                           },
+                          "module-DOMTools.DOMObserver.html#observe": {
+                            "ref": "module-DOMTools.DOMObserver.html#observe",
+                            "tf": 110
+                          },
+                          "module-DOMTools.DOMObserver.html#disconnect": {
+                            "ref": "module-DOMTools.DOMObserver.html#disconnect",
+                            "tf": 110
+                          },
+                          "module-DOMTools.DOMObserver.html#subscribe": {
+                            "ref": "module-DOMTools.DOMObserver.html#subscribe",
+                            "tf": 110
+                          },
+                          "module-DOMTools.DOMObserver.html#unsubscribe": {
+                            "ref": "module-DOMTools.DOMObserver.html#unsubscribe",
+                            "tf": 110
+                          },
+                          "module-DOMTools.DOMObserver.html#subscribeToQuerySelector": {
+                            "ref": "module-DOMTools.DOMObserver.html#subscribeToQuerySelector",
+                            "tf": 110
+                          },
                           "module-Settings.FilePicker.html#getElement": {
                             "ref": "module-Settings.FilePicker.html#getElement",
                             "tf": 110
@@ -25297,6 +25281,22 @@ window.lunrData = {
                           },
                           "module-Settings.FilePicker.html#onRemoved": {
                             "ref": "module-Settings.FilePicker.html#onRemoved",
+                            "tf": 110
+                          },
+                          "module-Settings.SettingField.html#getElement": {
+                            "ref": "module-Settings.SettingField.html#getElement",
+                            "tf": 110
+                          },
+                          "module-Settings.SettingField.html#onChange": {
+                            "ref": "module-Settings.SettingField.html#onChange",
+                            "tf": 110
+                          },
+                          "module-Settings.SettingField.html#onAdded": {
+                            "ref": "module-Settings.SettingField.html#onAdded",
+                            "tf": 110
+                          },
+                          "module-Settings.SettingField.html#onRemoved": {
+                            "ref": "module-Settings.SettingField.html#onRemoved",
                             "tf": 110
                           },
                           "module-Settings.Switch.html#getElement": {
@@ -25339,6 +25339,22 @@ window.lunrData = {
                             "ref": "module-Settings.Textbox.html#onRemoved",
                             "tf": 110
                           },
+                          "module-Settings.ColorPicker.html#getElement": {
+                            "ref": "module-Settings.ColorPicker.html#getElement",
+                            "tf": 110
+                          },
+                          "module-Settings.ColorPicker.html#onChange": {
+                            "ref": "module-Settings.ColorPicker.html#onChange",
+                            "tf": 110
+                          },
+                          "module-Settings.ColorPicker.html#onAdded": {
+                            "ref": "module-Settings.ColorPicker.html#onAdded",
+                            "tf": 110
+                          },
+                          "module-Settings.ColorPicker.html#onRemoved": {
+                            "ref": "module-Settings.ColorPicker.html#onRemoved",
+                            "tf": 110
+                          },
                           "module-DiscordAPI.Channel.html#sendMessage": {
                             "ref": "module-DiscordAPI.Channel.html#sendMessage",
                             "tf": 110
@@ -25361,22 +25377,6 @@ window.lunrData = {
                           },
                           "module-DiscordAPI.Channel.html#updateChannel": {
                             "ref": "module-DiscordAPI.Channel.html#updateChannel",
-                            "tf": 110
-                          },
-                          "module-Settings.ColorPicker.html#getElement": {
-                            "ref": "module-Settings.ColorPicker.html#getElement",
-                            "tf": 110
-                          },
-                          "module-Settings.ColorPicker.html#onChange": {
-                            "ref": "module-Settings.ColorPicker.html#onChange",
-                            "tf": 110
-                          },
-                          "module-Settings.ColorPicker.html#onAdded": {
-                            "ref": "module-Settings.ColorPicker.html#onAdded",
-                            "tf": 110
-                          },
-                          "module-Settings.ColorPicker.html#onRemoved": {
-                            "ref": "module-Settings.ColorPicker.html#onRemoved",
                             "tf": 110
                           },
                           "module-Settings.Dropdown.html#getElement": {
@@ -25625,6 +25625,10 @@ window.lunrData = {
                         "ref": "module-WebpackModules.Filters.html#~filter",
                         "tf": 533.3333333333334
                       },
+                      "module-DiscordAPI.UserSettings.html#.explicitContentFilter": {
+                        "ref": "module-DiscordAPI.UserSettings.html#.explicitContentFilter",
+                        "tf": 2.941176470588235
+                      },
                       "module-DOMTools.DOMObserver.html#subscribe": {
                         "ref": "module-DOMTools.DOMObserver.html#subscribe",
                         "tf": 16.666666666666664
@@ -25632,10 +25636,6 @@ window.lunrData = {
                       "module-DOMTools.DOMObserver.html#subscribeToQuerySelector": {
                         "ref": "module-DOMTools.DOMObserver.html#subscribeToQuerySelector",
                         "tf": 16.666666666666664
-                      },
-                      "module-DiscordAPI.UserSettings.html#.explicitContentFilter": {
-                        "ref": "module-DiscordAPI.UserSettings.html#.explicitContentFilter",
-                        "tf": 2.941176470588235
                       },
                       "module-DiscordAPI.Guild.html#updateExplicitContentFilter": {
                         "ref": "module-DiscordAPI.Guild.html#updateExplicitContentFilter",
@@ -25986,18 +25986,6 @@ window.lunrData = {
               "docs": {},
               "e": {
                 "docs": {
-                  "module-Settings.SettingField.html#onChange": {
-                    "ref": "module-Settings.SettingField.html#onChange",
-                    "tf": 16.666666666666664
-                  },
-                  "module-Settings.SettingField.html#onAdded": {
-                    "ref": "module-Settings.SettingField.html#onAdded",
-                    "tf": 10
-                  },
-                  "module-Settings.SettingField.html#onRemoved": {
-                    "ref": "module-Settings.SettingField.html#onRemoved",
-                    "tf": 10
-                  },
                   "module-Settings.SettingGroup.html#onChange": {
                     "ref": "module-Settings.SettingGroup.html#onChange",
                     "tf": 16.666666666666664
@@ -26028,6 +26016,18 @@ window.lunrData = {
                   },
                   "module-Settings.FilePicker.html#onRemoved": {
                     "ref": "module-Settings.FilePicker.html#onRemoved",
+                    "tf": 10
+                  },
+                  "module-Settings.SettingField.html#onChange": {
+                    "ref": "module-Settings.SettingField.html#onChange",
+                    "tf": 16.666666666666664
+                  },
+                  "module-Settings.SettingField.html#onAdded": {
+                    "ref": "module-Settings.SettingField.html#onAdded",
+                    "tf": 10
+                  },
+                  "module-Settings.SettingField.html#onRemoved": {
+                    "ref": "module-Settings.SettingField.html#onRemoved",
                     "tf": 10
                   },
                   "module-Settings.Switch.html#onChange": {
@@ -26755,10 +26755,6 @@ window.lunrData = {
                     "docs": {},
                     "g": {
                       "docs": {
-                        "module-Settings.SettingField.html#onChange": {
-                          "ref": "module-Settings.SettingField.html#onChange",
-                          "tf": 716.6666666666666
-                        },
                         "module-Settings.SettingGroup.html#onChange": {
                           "ref": "module-Settings.SettingGroup.html#onChange",
                           "tf": 716.6666666666666
@@ -26777,6 +26773,10 @@ window.lunrData = {
                         },
                         "module-Settings.FilePicker.html#onChange": {
                           "ref": "module-Settings.FilePicker.html#onChange",
+                          "tf": 716.6666666666666
+                        },
+                        "module-Settings.SettingField.html#onChange": {
+                          "ref": "module-Settings.SettingField.html#onChange",
                           "tf": 716.6666666666666
                         },
                         "module-Settings.Switch.html#onChange": {
@@ -26813,16 +26813,16 @@ window.lunrData = {
               "docs": {},
               "d": {
                 "docs": {
-                  "module-Settings.SettingField.html#onAdded": {
-                    "ref": "module-Settings.SettingField.html#onAdded",
-                    "tf": 700
-                  },
                   "module-Settings.Keybind.html#onAdded": {
                     "ref": "module-Settings.Keybind.html#onAdded",
                     "tf": 700
                   },
                   "module-Settings.FilePicker.html#onAdded": {
                     "ref": "module-Settings.FilePicker.html#onAdded",
+                    "tf": 700
+                  },
+                  "module-Settings.SettingField.html#onAdded": {
+                    "ref": "module-Settings.SettingField.html#onAdded",
                     "tf": 700
                   },
                   "module-Settings.Switch.html#onAdded": {
@@ -26862,16 +26862,16 @@ window.lunrData = {
                     "docs": {},
                     "v": {
                       "docs": {
-                        "module-Settings.SettingField.html#onRemoved": {
-                          "ref": "module-Settings.SettingField.html#onRemoved",
-                          "tf": 700
-                        },
                         "module-Settings.Keybind.html#onRemoved": {
                           "ref": "module-Settings.Keybind.html#onRemoved",
                           "tf": 700
                         },
                         "module-Settings.FilePicker.html#onRemoved": {
                           "ref": "module-Settings.FilePicker.html#onRemoved",
+                          "tf": 700
+                        },
+                        "module-Settings.SettingField.html#onRemoved": {
+                          "ref": "module-Settings.SettingField.html#onRemoved",
                           "tf": 700
                         },
                         "module-Settings.Switch.html#onRemoved": {
@@ -27708,13 +27708,13 @@ window.lunrData = {
                   "ref": "module-DOMTools.ClassName.html#add",
                   "tf": 6.25
                 },
-                "module-Settings.SettingField.html": {
-                  "ref": "module-Settings.SettingField.html",
-                  "tf": 8.333333333333332
-                },
                 "module-Settings.SettingPanel.html#.build": {
                   "ref": "module-Settings.SettingPanel.html#.build",
                   "tf": 12.5
+                },
+                "module-Settings.SettingField.html": {
+                  "ref": "module-Settings.SettingField.html",
+                  "tf": 8.333333333333332
                 }
               }
             },
@@ -27755,29 +27755,10 @@ window.lunrData = {
           },
           "o": {
             "docs": {},
-            "n": {
-              "docs": {},
-              "e": {
-                "docs": {
-                  "module-DOMTools.DOMObserver.html#unsubscribe": {
-                    "ref": "module-DOMTools.DOMObserver.html#unsubscribe",
-                    "tf": 10
-                  }
-                }
-              }
-            },
             "d": {
               "docs": {},
               "e": {
                 "docs": {
-                  "module-Settings.SettingField.html#onAdded": {
-                    "ref": "module-Settings.SettingField.html#onAdded",
-                    "tf": 10
-                  },
-                  "module-Settings.SettingField.html#onRemoved": {
-                    "ref": "module-Settings.SettingField.html#onRemoved",
-                    "tf": 10
-                  },
                   "module-Settings.SettingGroup.html#append": {
                     "ref": "module-Settings.SettingGroup.html#append",
                     "tf": 45.83333333333333
@@ -27808,6 +27789,14 @@ window.lunrData = {
                   },
                   "module-Settings.FilePicker.html#onRemoved": {
                     "ref": "module-Settings.FilePicker.html#onRemoved",
+                    "tf": 10
+                  },
+                  "module-Settings.SettingField.html#onAdded": {
+                    "ref": "module-Settings.SettingField.html#onAdded",
+                    "tf": 10
+                  },
+                  "module-Settings.SettingField.html#onRemoved": {
+                    "ref": "module-Settings.SettingField.html#onRemoved",
                     "tf": 10
                   },
                   "module-Settings.Switch.html#onAdded": {
@@ -27895,6 +27884,17 @@ window.lunrData = {
                   "module-EmulatedTooltip.html": {
                     "ref": "module-EmulatedTooltip.html",
                     "tf": 1.7857142857142856
+                  }
+                }
+              }
+            },
+            "n": {
+              "docs": {},
+              "e": {
+                "docs": {
+                  "module-DOMTools.DOMObserver.html#unsubscribe": {
+                    "ref": "module-DOMTools.DOMObserver.html#unsubscribe",
+                    "tf": 10
                   }
                 }
               }
@@ -29770,6 +29770,27 @@ window.lunrData = {
       "summary": "",
       "description": "Alerts the listeners that an event occurred. Data passed is optional"
     },
+    "List.html": {
+      "id": "List.html",
+      "kind": "class",
+      "title": "List",
+      "longname": "List",
+      "name": "List",
+      "tags": "List",
+      "summary": "",
+      "description": "Extension of Array that adds simple utilities.",
+      "body": ""
+    },
+    "List.html#get": {
+      "id": "List.html#get",
+      "kind": "function",
+      "title": "get( ...filters )",
+      "longname": "List#get",
+      "name": "get",
+      "tags": "List#get get",
+      "summary": "",
+      "description": "Allows multiple filters at once"
+    },
     "module-DOMTools.Selector.html": {
       "id": "module-DOMTools.Selector.html",
       "kind": "class",
@@ -29850,27 +29871,6 @@ window.lunrData = {
       "tags": "module:DOMTools.Selector#and Selector#and and",
       "summary": "",
       "description": "Adds another selector to this one via ,."
-    },
-    "List.html": {
-      "id": "List.html",
-      "kind": "class",
-      "title": "List",
-      "longname": "List",
-      "name": "List",
-      "tags": "List",
-      "summary": "",
-      "description": "Extension of Array that adds simple utilities.",
-      "body": ""
-    },
-    "List.html#get": {
-      "id": "List.html#get",
-      "kind": "function",
-      "title": "get( ...filters )",
-      "longname": "List#get",
-      "name": "get",
-      "tags": "List#get get",
-      "summary": "",
-      "description": "Allows multiple filters at once"
     },
     "module-DOMTools.ClassName.html": {
       "id": "module-DOMTools.ClassName.html",
@@ -30014,118 +30014,6 @@ window.lunrData = {
       "tags": "module:WebpackModules.Filters~filter Filters~filter",
       "summary": "",
       "description": "Checks if a given module matches a set of parameters."
-    },
-    "module-DOMTools.DOMObserver.html": {
-      "id": "module-DOMTools.DOMObserver.html",
-      "kind": "class",
-      "title": "DOMTools~DOMObserver",
-      "longname": "module:DOMTools.DOMObserver",
-      "name": "DOMObserver",
-      "tags": "module:DOMTools.DOMObserver DOMObserver",
-      "summary": "",
-      "description": "Representation of a MutationObserver but with helpful utilities.",
-      "body": ""
-    },
-    "module-DOMTools.DOMObserver.html#observe": {
-      "id": "module-DOMTools.DOMObserver.html#observe",
-      "kind": "function",
-      "title": "observe()",
-      "longname": "module:DOMTools.DOMObserver#observe",
-      "name": "observe",
-      "tags": "module:DOMTools.DOMObserver#observe DOMObserver#observe observe",
-      "summary": "",
-      "description": "Starts observing the element. This will be called when attaching a callback. You don't need to call this manually."
-    },
-    "module-DOMTools.DOMObserver.html#disconnect": {
-      "id": "module-DOMTools.DOMObserver.html#disconnect",
-      "kind": "function",
-      "title": "disconnect()",
-      "longname": "module:DOMTools.DOMObserver#disconnect",
-      "name": "disconnect",
-      "tags": "module:DOMTools.DOMObserver#disconnect DOMObserver#disconnect disconnect",
-      "summary": "",
-      "description": "Disconnects this observer. This stops callbacks being called, but does not unbind them. You probably want to use observer.unsubscribeAll instead."
-    },
-    "module-DOMTools.DOMObserver.html#subscribe": {
-      "id": "module-DOMTools.DOMObserver.html#subscribe",
-      "kind": "function",
-      "title": "subscribe( callback, filter, bind, group ) → {Object}",
-      "longname": "module:DOMTools.DOMObserver#subscribe",
-      "name": "subscribe",
-      "tags": "module:DOMTools.DOMObserver#subscribe DOMObserver#subscribe subscribe",
-      "summary": "",
-      "description": "Subscribes to mutations."
-    },
-    "module-DOMTools.DOMObserver.html#unsubscribe": {
-      "id": "module-DOMTools.DOMObserver.html#unsubscribe",
-      "kind": "function",
-      "title": "unsubscribe( subscription )",
-      "longname": "module:DOMTools.DOMObserver#unsubscribe",
-      "name": "unsubscribe",
-      "tags": "module:DOMTools.DOMObserver#unsubscribe DOMObserver#unsubscribe unsubscribe",
-      "summary": "",
-      "description": "Removes a subscription and disconnect if there are none left."
-    },
-    "module-DOMTools.DOMObserver.html#subscribeToQuerySelector": {
-      "id": "module-DOMTools.DOMObserver.html#subscribeToQuerySelector",
-      "kind": "function",
-      "title": "subscribeToQuerySelector( callback, filter, bind, group ) → {Object}",
-      "longname": "module:DOMTools.DOMObserver#subscribeToQuerySelector",
-      "name": "subscribeToQuerySelector",
-      "tags": "module:DOMTools.DOMObserver#subscribeToQuerySelector DOMObserver#subscribeToQuerySelector subscribeToQuerySelector",
-      "summary": "",
-      "description": "Subscribes to mutations that affect an element matching a selector."
-    },
-    "module-Settings.SettingField.html": {
-      "id": "module-Settings.SettingField.html",
-      "kind": "class",
-      "title": "Settings~SettingField",
-      "longname": "module:Settings.SettingField",
-      "name": "SettingField",
-      "tags": "module:Settings.SettingField SettingField",
-      "summary": "",
-      "description": "Setting field to extend to create new settings",
-      "body": ""
-    },
-    "module-Settings.SettingField.html#getElement": {
-      "id": "module-Settings.SettingField.html#getElement",
-      "kind": "function",
-      "title": "getElement() → {HTMLElement}",
-      "longname": "module:Settings.SettingField#getElement",
-      "name": "getElement",
-      "tags": "module:Settings.SettingField#getElement SettingField#getElement getElement",
-      "summary": "",
-      "description": ""
-    },
-    "module-Settings.SettingField.html#onChange": {
-      "id": "module-Settings.SettingField.html#onChange",
-      "kind": "function",
-      "title": "onChange()",
-      "longname": "module:Settings.SettingField#onChange",
-      "name": "onChange",
-      "tags": "module:Settings.SettingField#onChange SettingField#onChange onChange",
-      "summary": "",
-      "description": "Fires onchange to listeners"
-    },
-    "module-Settings.SettingField.html#onAdded": {
-      "id": "module-Settings.SettingField.html#onAdded",
-      "kind": "function",
-      "title": "onAdded()",
-      "longname": "module:Settings.SettingField#onAdded",
-      "name": "onAdded",
-      "tags": "module:Settings.SettingField#onAdded SettingField#onAdded onAdded",
-      "summary": "",
-      "description": "Fired when root node added to DOM"
-    },
-    "module-Settings.SettingField.html#onRemoved": {
-      "id": "module-Settings.SettingField.html#onRemoved",
-      "kind": "function",
-      "title": "onRemoved()",
-      "longname": "module:Settings.SettingField#onRemoved",
-      "name": "onRemoved",
-      "tags": "module:Settings.SettingField#onRemoved SettingField#onRemoved onRemoved",
-      "summary": "",
-      "description": "Fired when root node removed from DOM"
     },
     "module-Settings.SettingGroup.html": {
       "id": "module-Settings.SettingGroup.html",
@@ -30511,6 +30399,67 @@ window.lunrData = {
       "summary": "",
       "description": "Fired when root node removed from DOM"
     },
+    "module-DOMTools.DOMObserver.html": {
+      "id": "module-DOMTools.DOMObserver.html",
+      "kind": "class",
+      "title": "DOMTools~DOMObserver",
+      "longname": "module:DOMTools.DOMObserver",
+      "name": "DOMObserver",
+      "tags": "module:DOMTools.DOMObserver DOMObserver",
+      "summary": "",
+      "description": "Representation of a MutationObserver but with helpful utilities.",
+      "body": ""
+    },
+    "module-DOMTools.DOMObserver.html#observe": {
+      "id": "module-DOMTools.DOMObserver.html#observe",
+      "kind": "function",
+      "title": "observe()",
+      "longname": "module:DOMTools.DOMObserver#observe",
+      "name": "observe",
+      "tags": "module:DOMTools.DOMObserver#observe DOMObserver#observe observe",
+      "summary": "",
+      "description": "Starts observing the element. This will be called when attaching a callback. You don't need to call this manually."
+    },
+    "module-DOMTools.DOMObserver.html#disconnect": {
+      "id": "module-DOMTools.DOMObserver.html#disconnect",
+      "kind": "function",
+      "title": "disconnect()",
+      "longname": "module:DOMTools.DOMObserver#disconnect",
+      "name": "disconnect",
+      "tags": "module:DOMTools.DOMObserver#disconnect DOMObserver#disconnect disconnect",
+      "summary": "",
+      "description": "Disconnects this observer. This stops callbacks being called, but does not unbind them. You probably want to use observer.unsubscribeAll instead."
+    },
+    "module-DOMTools.DOMObserver.html#subscribe": {
+      "id": "module-DOMTools.DOMObserver.html#subscribe",
+      "kind": "function",
+      "title": "subscribe( callback, filter, bind, group ) → {Object}",
+      "longname": "module:DOMTools.DOMObserver#subscribe",
+      "name": "subscribe",
+      "tags": "module:DOMTools.DOMObserver#subscribe DOMObserver#subscribe subscribe",
+      "summary": "",
+      "description": "Subscribes to mutations."
+    },
+    "module-DOMTools.DOMObserver.html#unsubscribe": {
+      "id": "module-DOMTools.DOMObserver.html#unsubscribe",
+      "kind": "function",
+      "title": "unsubscribe( subscription )",
+      "longname": "module:DOMTools.DOMObserver#unsubscribe",
+      "name": "unsubscribe",
+      "tags": "module:DOMTools.DOMObserver#unsubscribe DOMObserver#unsubscribe unsubscribe",
+      "summary": "",
+      "description": "Removes a subscription and disconnect if there are none left."
+    },
+    "module-DOMTools.DOMObserver.html#subscribeToQuerySelector": {
+      "id": "module-DOMTools.DOMObserver.html#subscribeToQuerySelector",
+      "kind": "function",
+      "title": "subscribeToQuerySelector( callback, filter, bind, group ) → {Object}",
+      "longname": "module:DOMTools.DOMObserver#subscribeToQuerySelector",
+      "name": "subscribeToQuerySelector",
+      "tags": "module:DOMTools.DOMObserver#subscribeToQuerySelector DOMObserver#subscribeToQuerySelector subscribeToQuerySelector",
+      "summary": "",
+      "description": "Subscribes to mutations that affect an element matching a selector."
+    },
     "module-Settings.FilePicker.html": {
       "id": "module-Settings.FilePicker.html",
       "kind": "class",
@@ -30559,6 +30508,57 @@ window.lunrData = {
       "longname": "module:Settings.FilePicker#onRemoved",
       "name": "onRemoved",
       "tags": "module:Settings.FilePicker#onRemoved FilePicker#onRemoved onRemoved",
+      "summary": "",
+      "description": "Fired when root node removed from DOM"
+    },
+    "module-Settings.SettingField.html": {
+      "id": "module-Settings.SettingField.html",
+      "kind": "class",
+      "title": "Settings~SettingField",
+      "longname": "module:Settings.SettingField",
+      "name": "SettingField",
+      "tags": "module:Settings.SettingField SettingField",
+      "summary": "",
+      "description": "Setting field to extend to create new settings",
+      "body": ""
+    },
+    "module-Settings.SettingField.html#getElement": {
+      "id": "module-Settings.SettingField.html#getElement",
+      "kind": "function",
+      "title": "getElement() → {HTMLElement}",
+      "longname": "module:Settings.SettingField#getElement",
+      "name": "getElement",
+      "tags": "module:Settings.SettingField#getElement SettingField#getElement getElement",
+      "summary": "",
+      "description": ""
+    },
+    "module-Settings.SettingField.html#onChange": {
+      "id": "module-Settings.SettingField.html#onChange",
+      "kind": "function",
+      "title": "onChange()",
+      "longname": "module:Settings.SettingField#onChange",
+      "name": "onChange",
+      "tags": "module:Settings.SettingField#onChange SettingField#onChange onChange",
+      "summary": "",
+      "description": "Fires onchange to listeners"
+    },
+    "module-Settings.SettingField.html#onAdded": {
+      "id": "module-Settings.SettingField.html#onAdded",
+      "kind": "function",
+      "title": "onAdded()",
+      "longname": "module:Settings.SettingField#onAdded",
+      "name": "onAdded",
+      "tags": "module:Settings.SettingField#onAdded SettingField#onAdded onAdded",
+      "summary": "",
+      "description": "Fired when root node added to DOM"
+    },
+    "module-Settings.SettingField.html#onRemoved": {
+      "id": "module-Settings.SettingField.html#onRemoved",
+      "kind": "function",
+      "title": "onRemoved()",
+      "longname": "module:Settings.SettingField#onRemoved",
+      "name": "onRemoved",
+      "tags": "module:Settings.SettingField#onRemoved SettingField#onRemoved onRemoved",
       "summary": "",
       "description": "Fired when root node removed from DOM"
     },
@@ -30695,6 +30695,67 @@ window.lunrData = {
       "summary": "",
       "description": "Fired when root node removed from DOM"
     },
+    "module-Settings.ColorPicker.html": {
+      "id": "module-Settings.ColorPicker.html",
+      "kind": "class",
+      "title": "Settings~ColorPicker",
+      "longname": "module:Settings.ColorPicker",
+      "name": "ColorPicker",
+      "tags": "module:Settings.ColorPicker ColorPicker",
+      "summary": "",
+      "description": "Creates a color picker using Discord's built in color picker as a base. Input and output using hex strings.",
+      "body": ""
+    },
+    "module-Settings.ColorPicker.html#.presetColors": {
+      "id": "module-Settings.ColorPicker.html#.presetColors",
+      "kind": "member",
+      "title": "&lt;static&gt; presetColors",
+      "longname": "module:Settings.ColorPicker.presetColors",
+      "name": "presetColors",
+      "tags": "module:Settings.ColorPicker.presetColors ColorPicker.presetColors presetColors",
+      "summary": "",
+      "description": "Default colors for ColorPicker"
+    },
+    "module-Settings.ColorPicker.html#getElement": {
+      "id": "module-Settings.ColorPicker.html#getElement",
+      "kind": "function",
+      "title": "getElement() → {HTMLElement}",
+      "longname": "module:Settings.ColorPicker#getElement",
+      "name": "getElement",
+      "tags": "module:Settings.ColorPicker#getElement ColorPicker#getElement getElement",
+      "summary": "",
+      "description": ""
+    },
+    "module-Settings.ColorPicker.html#onChange": {
+      "id": "module-Settings.ColorPicker.html#onChange",
+      "kind": "function",
+      "title": "onChange()",
+      "longname": "module:Settings.ColorPicker#onChange",
+      "name": "onChange",
+      "tags": "module:Settings.ColorPicker#onChange ColorPicker#onChange onChange",
+      "summary": "",
+      "description": "Fires onchange to listeners"
+    },
+    "module-Settings.ColorPicker.html#onAdded": {
+      "id": "module-Settings.ColorPicker.html#onAdded",
+      "kind": "function",
+      "title": "onAdded()",
+      "longname": "module:Settings.ColorPicker#onAdded",
+      "name": "onAdded",
+      "tags": "module:Settings.ColorPicker#onAdded ColorPicker#onAdded onAdded",
+      "summary": "",
+      "description": "Fired when root node added to DOM"
+    },
+    "module-Settings.ColorPicker.html#onRemoved": {
+      "id": "module-Settings.ColorPicker.html#onRemoved",
+      "kind": "function",
+      "title": "onRemoved()",
+      "longname": "module:Settings.ColorPicker#onRemoved",
+      "name": "onRemoved",
+      "tags": "module:Settings.ColorPicker#onRemoved ColorPicker#onRemoved onRemoved",
+      "summary": "",
+      "description": "Fired when root node removed from DOM"
+    },
     "module-DiscordAPI.Channel.html": {
       "id": "module-DiscordAPI.Channel.html",
       "kind": "class",
@@ -30785,67 +30846,6 @@ window.lunrData = {
       "tags": "module:DiscordAPI.Channel#updateChannel Channel#updateChannel updateChannel",
       "summary": "",
       "description": "Updates this channel."
-    },
-    "module-Settings.ColorPicker.html": {
-      "id": "module-Settings.ColorPicker.html",
-      "kind": "class",
-      "title": "Settings~ColorPicker",
-      "longname": "module:Settings.ColorPicker",
-      "name": "ColorPicker",
-      "tags": "module:Settings.ColorPicker ColorPicker",
-      "summary": "",
-      "description": "Creates a color picker using Discord's built in color picker as a base. Input and output using hex strings.",
-      "body": ""
-    },
-    "module-Settings.ColorPicker.html#.presetColors": {
-      "id": "module-Settings.ColorPicker.html#.presetColors",
-      "kind": "member",
-      "title": "&lt;static&gt; presetColors",
-      "longname": "module:Settings.ColorPicker.presetColors",
-      "name": "presetColors",
-      "tags": "module:Settings.ColorPicker.presetColors ColorPicker.presetColors presetColors",
-      "summary": "",
-      "description": "Default colors for ColorPicker"
-    },
-    "module-Settings.ColorPicker.html#getElement": {
-      "id": "module-Settings.ColorPicker.html#getElement",
-      "kind": "function",
-      "title": "getElement() → {HTMLElement}",
-      "longname": "module:Settings.ColorPicker#getElement",
-      "name": "getElement",
-      "tags": "module:Settings.ColorPicker#getElement ColorPicker#getElement getElement",
-      "summary": "",
-      "description": ""
-    },
-    "module-Settings.ColorPicker.html#onChange": {
-      "id": "module-Settings.ColorPicker.html#onChange",
-      "kind": "function",
-      "title": "onChange()",
-      "longname": "module:Settings.ColorPicker#onChange",
-      "name": "onChange",
-      "tags": "module:Settings.ColorPicker#onChange ColorPicker#onChange onChange",
-      "summary": "",
-      "description": "Fires onchange to listeners"
-    },
-    "module-Settings.ColorPicker.html#onAdded": {
-      "id": "module-Settings.ColorPicker.html#onAdded",
-      "kind": "function",
-      "title": "onAdded()",
-      "longname": "module:Settings.ColorPicker#onAdded",
-      "name": "onAdded",
-      "tags": "module:Settings.ColorPicker#onAdded ColorPicker#onAdded onAdded",
-      "summary": "",
-      "description": "Fired when root node added to DOM"
-    },
-    "module-Settings.ColorPicker.html#onRemoved": {
-      "id": "module-Settings.ColorPicker.html#onRemoved",
-      "kind": "function",
-      "title": "onRemoved()",
-      "longname": "module:Settings.ColorPicker#onRemoved",
-      "name": "onRemoved",
-      "tags": "module:Settings.ColorPicker#onRemoved ColorPicker#onRemoved onRemoved",
-      "summary": "",
-      "description": "Fired when root node removed from DOM"
     },
     "module-Tooltip_module_Tooltip.html": {
       "id": "module-Tooltip_module_Tooltip.html",
@@ -31839,17 +31839,6 @@ window.lunrData = {
       "description": "",
       "body": ""
     },
-    "module-DiscordContextMenu-MenuRadioItem.html": {
-      "id": "module-DiscordContextMenu-MenuRadioItem.html",
-      "kind": "interface",
-      "title": "DiscordContextMenu~MenuRadioItem",
-      "longname": "module:DiscordContextMenu~MenuRadioItem",
-      "name": "MenuRadioItem",
-      "tags": "module:DiscordContextMenu~MenuRadioItem",
-      "summary": "",
-      "description": "",
-      "body": ""
-    },
     "module-Modals-Changelog.html": {
       "id": "module-Modals-Changelog.html",
       "kind": "interface",
@@ -31857,6 +31846,17 @@ window.lunrData = {
       "longname": "module:Modals~Changelog",
       "name": "Changelog",
       "tags": "module:Modals~Changelog",
+      "summary": "",
+      "description": "",
+      "body": ""
+    },
+    "module-DiscordContextMenu-MenuRadioItem.html": {
+      "id": "module-DiscordContextMenu-MenuRadioItem.html",
+      "kind": "interface",
+      "title": "DiscordContextMenu~MenuRadioItem",
+      "longname": "module:DiscordContextMenu~MenuRadioItem",
+      "name": "MenuRadioItem",
+      "tags": "module:DiscordContextMenu~MenuRadioItem",
       "summary": "",
       "description": "",
       "body": ""

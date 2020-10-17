@@ -157,8 +157,8 @@ export default function(node) {
             this.node = node instanceof window.jQuery ? node[0] : node;
         }
 
-        get el() { return this.node; }
-        get element() { return this.node; }
+        get el() {return this.node;}
+        get element() {return this.node;}
 
         get reactInternalInstance() {
             return Reflection.reactInternalInstance(this.node);

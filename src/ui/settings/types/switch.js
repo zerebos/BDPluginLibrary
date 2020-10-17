@@ -1,7 +1,7 @@
 import SettingField from "../settingfield";
 import {DiscordModules} from "modules";
 
-//TODO: Documentation
+// TODO: Documentation
 
 /** 
  * Creates a switch using discord's built in switch.
@@ -20,8 +20,8 @@ class Switch extends SettingField {
      */
     constructor(name, note, isChecked, onChange, options = {}) {
         super(name, note, onChange);
-        this.disabled = options.disabled ? true : false;
-        this.value = isChecked ? true : false;
+        this.disabled = !!options.disabled;
+        this.value = !!isChecked;
     }
 
     onAdded() {

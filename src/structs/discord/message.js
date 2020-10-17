@@ -30,8 +30,8 @@ export class Reaction {
         return this.guild.emojis.find(e => e.id === id);
     }
 
-    get count() { return this.discordObject.count; }
-    get me() { return this.discordObject.me; }
+    get count() {return this.discordObject.count;}
+    get me() {return this.discordObject.me;}
 
     get channel() {
         return Channel.fromId(this.channel_id);
@@ -60,19 +60,19 @@ export class Embed {
         this.channelId = channel_id;
     }
 
-    get title() { return this.discordObject.title; }
-    get type() { return this.discordObject.type; }
-    get description() { return this.discordObject.description; }
-    get url() { return this.discordObject.url; }
-    get timestamp() { return this.discordObject.timestamp; }
-    get colour() { return this.discordObject.color; }
-    get footer() { return this.discordObject.footer; }
-    get image() { return this.discordObject.image; }
-    get thumbnail() { return this.discordObject.thumbnail; }
-    get video() { return this.discordObject.video; }
-    get provider() { return this.discordObject.provider; }
-    get author() { return this.discordObject.author; }
-    get fields() { return this.discordObject.fields; }
+    get title() {return this.discordObject.title;}
+    get type() {return this.discordObject.type;}
+    get description() {return this.discordObject.description;}
+    get url() {return this.discordObject.url;}
+    get timestamp() {return this.discordObject.timestamp;}
+    get colour() {return this.discordObject.color;}
+    get footer() {return this.discordObject.footer;}
+    get image() {return this.discordObject.image;}
+    get thumbnail() {return this.discordObject.thumbnail;}
+    get video() {return this.discordObject.video;}
+    get provider() {return this.discordObject.provider;}
+    get author() {return this.discordObject.author;}
+    get fields() {return this.discordObject.fields;}
 
     get channel() {
         return Channel.fromId(this.channelId);
@@ -117,26 +117,26 @@ class Message {
         }
     }
 
-    static get DefaultMessage() { return DefaultMessage; }
-    static get RecipientAddMessage() { return RecipientAddMessage; }
-    static get RecipientRemoveMessage() { return RecipientRemoveMessage; }
-    static get CallMessage() { return CallMessage; }
-    static get GroupChannelNameChangeMessage() { return GroupChannelNameChangeMessage; }
-    static get GroupChannelIconChangeMessage() { return GroupChannelIconChangeMessage; }
-    static get MessagePinnedMessage() { return MessagePinnedMessage; }
-    static get GuildMemberJoinMessage() { return GuildMemberJoinMessage; }
+    static get DefaultMessage() {return DefaultMessage;}
+    static get RecipientAddMessage() {return RecipientAddMessage;}
+    static get RecipientRemoveMessage() {return RecipientRemoveMessage;}
+    static get CallMessage() {return CallMessage;}
+    static get GroupChannelNameChangeMessage() {return GroupChannelNameChangeMessage;}
+    static get GroupChannelIconChangeMessage() {return GroupChannelIconChangeMessage;}
+    static get MessagePinnedMessage() {return MessagePinnedMessage;}
+    static get GuildMemberJoinMessage() {return GuildMemberJoinMessage;}
 
-    static get Reaction() { return Reaction; }
-    static get Embed() { return Embed; }
+    static get Reaction() {return Reaction;}
+    static get Embed() {return Embed;}
 
-    get id() { return this.discordObject.id; }
-    get channelId() { return this.discordObject.channel_id; }
-    get nonce() { return this.discordObject.nonce; }
-    get type() { return this.discordObject.type; }
-    get timestamp() { return this.discordObject.timestamp; }
-    get state() { return this.discordObject.state; }
-    get nick() { return this.discordObject.nick; }
-    get colourString() { return this.discordObject.colorString; }
+    get id() {return this.discordObject.id;}
+    get channelId() {return this.discordObject.channel_id;}
+    get nonce() {return this.discordObject.nonce;}
+    get type() {return this.discordObject.type;}
+    get timestamp() {return this.discordObject.timestamp;}
+    get state() {return this.discordObject.state;}
+    get nick() {return this.discordObject.nick;}
+    get colourString() {return this.discordObject.colorString;}
 
     get author() {
         if (this.discordObject.author && !this.webhookId) return User.from(this.discordObject.author);
@@ -163,7 +163,7 @@ class Message {
             else if (!this.channel.owner === DiscordAPI.currentUser) throw new InsufficientPermissions("MANAGE_MESSAGES");
         }
 
-        return Modules.APIModule.delete(`${Modules.DiscordConstants.Endpoints.MESSAGES(this.channelId)}/${this.id}`);
+        return Modules.APIModule.delete(`${Modules.DiscordConstants.Endpoints.MESSAGES(this.channelId)}/${this.id}`); // eslint-disable-line new-cap
     }
 
     get isDeletable() {
@@ -182,23 +182,23 @@ class Message {
 export {Message};
 
 export class DefaultMessage extends Message {
-    get webhookId() { return this.discordObject.webhookId; }
-    get type() { return "DEFAULT"; }
-    get content() { return this.discordObject.content; }
-    get contentParsed() { return this.discordObject.contentParsed; }
-    get inviteCodes() { return this.discordObject.invites; }
-    get attachments() { return this.discordObject.attachments; }
-    get mentionIds() { return this.discordObject.mentions; }
-    get mentionRoleIds() { return this.discordObject.mentionRoles; }
-    get mentionEveryone() { return this.discordObject.mentionEveryone; }
-    get editedTimestamp() { return this.discordObject.editedTimestamp; }
-    get tts() { return this.discordObject.tts; }
-    get mentioned() { return this.discordObject.mentioned; }
-    get bot() { return this.discordObject.bot; }
-    get blocked() { return this.discordObject.blocked; }
-    get pinned() { return this.discordObject.pinned; }
-    get activity() { return this.discordObject.activity; }
-    get application() { return this.discordObject.application; }
+    get webhookId() {return this.discordObject.webhookId;}
+    get type() {return "DEFAULT";}
+    get content() {return this.discordObject.content;}
+    get contentParsed() {return this.discordObject.contentParsed;}
+    get inviteCodes() {return this.discordObject.invites;}
+    get attachments() {return this.discordObject.attachments;}
+    get mentionIds() {return this.discordObject.mentions;}
+    get mentionRoleIds() {return this.discordObject.mentionRoles;}
+    get mentionEveryone() {return this.discordObject.mentionEveryone;}
+    get editedTimestamp() {return this.discordObject.editedTimestamp;}
+    get tts() {return this.discordObject.tts;}
+    get mentioned() {return this.discordObject.mentioned;}
+    get bot() {return this.discordObject.bot;}
+    get blocked() {return this.discordObject.blocked;}
+    get pinned() {return this.discordObject.pinned;}
+    get activity() {return this.discordObject.activity;}
+    get application() {return this.discordObject.application;}
 
     get webhook() {
         if (this.webhookId) return this.discordObject.author;
@@ -237,7 +237,7 @@ export class DefaultMessage extends Message {
         else content = {content};
 
         const response = await Modules.APIModule.patch({
-            url: `${Modules.DiscordConstants.Endpoints.MESSAGES(this.channelId)}/${this.id}`,
+            url: `${Modules.DiscordConstants.Endpoints.MESSAGES(this.channelId)}/${this.id}`, // eslint-disable-line new-cap
             body: content
         });
 
@@ -263,8 +263,8 @@ export class DefaultMessage extends Message {
 }
 
 export class RecipientAddMessage extends Message {
-    get type() { return "RECIPIENT_ADD"; }
-    get addedUserId() { return this.discordObject.mentions[0]; }
+    get type() {return "RECIPIENT_ADD";}
+    get addedUserId() {return this.discordObject.mentions[0];}
 
     get addedUser() {
         return User.fromId(this.addedUserId);
@@ -272,8 +272,8 @@ export class RecipientAddMessage extends Message {
 }
 
 export class RecipientRemoveMessage extends Message {
-    get type() { return "RECIPIENT_REMOVE"; }
-    get removedUserId() { return this.discordObject.mentions[0]; }
+    get type() {return "RECIPIENT_REMOVE";}
+    get removedUserId() {return this.discordObject.mentions[0];}
 
     get removedUser() {
         return User.fromId(this.removedUserId);
@@ -285,11 +285,11 @@ export class RecipientRemoveMessage extends Message {
 }
 
 export class CallMessage extends Message {
-    get type() { return "CALL"; }
-    get mentionIds() { return this.discordObject.mentions; }
-    get call() { return this.discordObject.call; }
+    get type() {return "CALL";}
+    get mentionIds() {return this.discordObject.mentions;}
+    get call() {return this.discordObject.call;}
 
-    get endedTimestamp() { return this.call.endedTimestamp; }
+    get endedTimestamp() {return this.call.endedTimestamp;}
 
     get mentions() {
         return List.from(this.mentionIds, id => User.fromId(id));
@@ -301,18 +301,18 @@ export class CallMessage extends Message {
 }
 
 export class GroupChannelNameChangeMessage extends Message {
-    get type() { return "CHANNEL_NAME_CHANGE"; }
-    get newName() { return this.discordObject.content; }
+    get type() {return "CHANNEL_NAME_CHANGE";}
+    get newName() {return this.discordObject.content;}
 }
 
 export class GroupChannelIconChangeMessage extends Message {
-    get type() { return "CHANNEL_ICON_CHANGE"; }
+    get type() {return "CHANNEL_ICON_CHANGE";}
 }
 
 export class MessagePinnedMessage extends Message {
-    get type() { return "CHANNEL_PINNED_MESSAGE"; }
+    get type() {return "CHANNEL_PINNED_MESSAGE";}
 }
 
 export class GuildMemberJoinMessage extends Message {
-    get type() { return "GUILD_MEMBER_JOIN"; }
+    get type() {return "GUILD_MEMBER_JOIN";}
 }

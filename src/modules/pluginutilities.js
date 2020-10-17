@@ -22,8 +22,8 @@ import DCM from "../ui/discordcontextmenu";
     */
     static loadData(name, key, defaultData) {
         const defaults = Utilities.deepclone(defaultData);
-        try { return Utilities.extend(defaults ? defaults : {}, BdApi.getData(name, key)); }
-        catch (err) { Logger.err(name, "Unable to load data: ", err); }
+        try {return Utilities.extend(defaults ? defaults : {}, BdApi.getData(name, key));}
+        catch (err) {Logger.err(name, "Unable to load data: ", err);}
         return defaults;
     }
 
@@ -34,8 +34,8 @@ import DCM from "../ui/discordcontextmenu";
      * @param {object} data - data to save
     */
     static saveData(name, key, data) {
-        try { BdApi.setData(name, key, data); }
-        catch (err) { Logger.err(name, "Unable to save data: ", err); }
+        try {BdApi.setData(name, key, data);}
+        catch (err) {Logger.err(name, "Unable to save data: ", err);}
     }
 
     /**

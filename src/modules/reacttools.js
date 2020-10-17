@@ -7,7 +7,7 @@
 import DOMTools from "./domtools";
 import DiscordModules from "./discordmodules";
 import Utilities from "./utilities";
-import Reflection from "./reflection";
+import reflect from "./reflection";
 
 export default class ReactTools {
 
@@ -16,7 +16,7 @@ export default class ReactTools {
      * @param {(HTMLElement|jQuery|Selector)} node - node or selector to reflect on.
      */
     static Reflect(node) {
-        return Reflection(node);
+        return reflect(node);
     }
 
     static get rootInstance() {return document.getElementById("app-mount")._reactRootContainer._internalRoot.current;}

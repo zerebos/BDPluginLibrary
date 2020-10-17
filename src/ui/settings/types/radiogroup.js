@@ -29,7 +29,7 @@ class RadioGroup extends SettingField {
     constructor(name, note, defaultValue, values, onChange, options = {}) {
         super(name, note, onChange, DiscordModules.RadioGroup, {
             noteOnTop: true,
-            disabled: options.disabled ? true : false,
+            disabled: !!options.disabled,
             options: values,
             onChange: reactElement => option => {
                 reactElement.props.value = option.value;

@@ -34,10 +34,10 @@ class Slider extends SettingField {
     * @param {string} [options.units] - can be used in place of `onValueRender` will use this string and render Math.round(value) + units
     */
     constructor(name, note, min, max, value, onChange, options = {}) {
-        const props =  {
+        const props = {
             onChange: _ => _,
             initialValue: value,
-            disabled: options.disabled ? true : false,
+            disabled: !!options.disabled,
             minValue: min,
             maxValue: max,
             handleSize: 10
