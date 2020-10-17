@@ -1,13 +1,5 @@
 {
     "extends": ["eslint:recommended"],
-    "plugins": [
-        "react"
-    ],
-    "settings": {
-        "react": {
-            "version": "16.12.0"
-        }
-    },
 	"env": {
         "browser": true,
         "node": true,
@@ -106,6 +98,7 @@
         "DiscordNative": "readonly",
         "__non_webpack_require__": "readonly",
         "Symbol": "readonly",
+        "BigInt": "readonly",
         
         "alert": "off",
         "blur": "off",

@@ -44,7 +44,10 @@ export class Filters {
             const component = filter(module);
             if (!component) return false;
             if (!component.prototype) return false;
-            return fields.every(field => component.prototype[field] !== undefined);
+            for (let f = 0; f < fields.length; f++) {
+                if (module.prototype[fields[f]] === undefined) return false;
+            }
+            return true;
         };
     }
 
@@ -292,10 +295,8 @@ export default class WebpackModules {
     static get require() {
         if (this._require) return this._require;
         const id = "zl-webpackmodules";
-        const __webpack_require__ = typeof(window.webpackJsonp) == "function" ? window.webpackJsonp([], {
-            [id]: (module, exports, __webpack_require__) => exports.default = __webpack_require__
-        }, [id]).default : window.webpackJsonp.push([[], {
-            [id]: (module, exports, __webpack_require__) => module.exports = __webpack_require__
+        const __webpack_require__ = window.webpackJsonp.push([[], {
+            [id]: (module, exports, req) => module.exports = req
         }, [[id]]]);
         delete __webpack_require__.m[id];
         delete __webpack_require__.c[id];

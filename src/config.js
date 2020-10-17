@@ -7,7 +7,7 @@ module.exports = {
             github_username: "rauenzi",
             twitter_username: "ZackRauen"
         }],
-        version: "1.2.23",
+        version: process.env.__LIBRARY_VERSION__,
         description: "Gives other plugins utility functions and the ability to emulate v2.",
         github: "https://github.com/rauenzi/BDPluginLibrary",
         github_raw: "https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"
@@ -17,7 +17,9 @@ module.exports = {
             title: "Bugs Squashed",
             type: "fixed",
             items: [
-                "Hotfix for the PluginUpdater. Actually shows it now."
+                "Fixes toggles not working for plugin settings.",
+                "Fixes some functionality of `DiscordAPI`",
+                "Speeds up module searching a bit"
             ]
         }
     ],

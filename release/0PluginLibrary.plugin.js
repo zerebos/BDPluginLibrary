@@ -136,7 +136,7 @@ module.exports = {
             github_username: "rauenzi",
             twitter_username: "ZackRauen"
         }],
-        version: "1.2.23",
+        version: "1.2.24",
         description: "Gives other plugins utility functions and the ability to emulate v2.",
         github: "https://github.com/rauenzi/BDPluginLibrary",
         github_raw: "https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"
@@ -146,12 +146,15 @@ module.exports = {
             title: "Bugs Squashed",
             type: "fixed",
             items: [
-                "Hotfix for the PluginUpdater. Actually shows it now."
+                "Fixes toggles not working for plugin settings.",
+                "Fixes some functionality of `DiscordAPI`",
+                "Speeds up module searching a bit"
             ]
         }
     ],
     main: "plugin.js"
 };
+
 
 /***/ }),
 
@@ -601,7 +604,7 @@ __webpack_require__.r(__webpack_exports__);
     // get ChannelSelector() {return WebpackModules.getByProps("selectGuild", "selectChannel");},
 
     /* Current User Info, State and Settings */
-    get UserInfoStore() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getToken");},
+    get UserInfoStore() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getSessionId");},
     get UserSettingsStore() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("guildPositions");},
     // Not really needed by plugins
     // get AccountManager() {return WebpackModules.getByProps("register", "login");},
@@ -634,7 +637,7 @@ __webpack_require__.r(__webpack_exports__);
     /* Discord Objects & Utils */
     get DiscordConstants() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("Permissions", "ActivityTypes", "StatusTypes");},
     get DiscordPermissions() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("Permissions", "ActivityTypes", "StatusTypes").Permissions;},
-    get Permissions() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getHighestRole");},
+    get Permissions() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("computePermissions");},
     get ColorConverter() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("hex2int");},
     get ColorShader() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("darken");},
     get TinyColor() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByPrototypes("toRgb");},
@@ -2317,6 +2320,7 @@ class PluginUpdater {
     }
 }
 
+
 /***/ }),
 
 /***/ "./src/modules/pluginutilities.js":
@@ -3664,7 +3668,10 @@ class Filters {
         return module => {
             const component = filter(module);
             if (!component) return false;
-            return props.every(property => component[property] !== undefined);
+            for (let p = 0; p < props.length; p++) {
+                if (module[props[p]] === undefined) return false;
+            }
+            return true;
         };
     }
 
@@ -3679,7 +3686,10 @@ class Filters {
             const component = filter(module);
             if (!component) return false;
             if (!component.prototype) return false;
-            return fields.every(field => component.prototype[field] !== undefined);
+            for (let f = 0; f < fields.length; f++) {
+                if (module.prototype[fields[f]] === undefined) return false;
+            }
+            return true;
         };
     }
 
@@ -3792,7 +3802,7 @@ class WebpackModules {
         for (const index in modules) {
             if (!modules.hasOwnProperty(index)) continue;
             const module = modules[index];
-            const {exports} = module;
+            const exports = module.exports;
             let foundModule = null;
 
             if (!exports) continue;
@@ -3927,10 +3937,8 @@ class WebpackModules {
     static get require() {
         if (this._require) return this._require;
         const id = "zl-webpackmodules";
-        const __webpack_require__ = typeof(window.webpackJsonp) == "function" ? window.webpackJsonp([], {
-            [id]: (module, exports, __webpack_require__) => exports.default = __webpack_require__
-        }, [id]).default : window.webpackJsonp.push([[], {
-            [id]: (module, exports, __webpack_require__) => module.exports = __webpack_require__
+        const __webpack_require__ = window.webpackJsonp.push([[], {
+            [id]: (module, exports, req) => module.exports = req
         }, [[id]]]);
         delete __webpack_require__.m[id];
         delete __webpack_require__.c[id];
@@ -4080,6 +4088,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+const BotMessager = modules__WEBPACK_IMPORTED_MODULE_0__["WebpackModules"].getByProps("createBotMessage");
+
 const cache = new WeakMap();
 
 /**
@@ -4125,7 +4135,7 @@ class Channel {
 
     /**
      * Send a message in this channel.
-     * @param {String} content The new message's content
+     * @param {String|object} content The new message's content
      * @param {Boolean} parse Whether to parse the message or send it as it is
      * @return {Promise<Message>}
      */
@@ -4135,9 +4145,9 @@ class Channel {
         this.select();
 
         if (parse) content = modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].MessageParser.parse(this.discordObject, content);
-        else content = {content};
+        else if (typeof content == 'string') content = {content, validNonShortcutEmojis: Array(0)};
 
-        const response = await modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].MessageActions._sendMessage(this.id, content);
+        const response = await modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].MessageActions._sendMessage(this.id, content, {});
         return _message__WEBPACK_IMPORTED_MODULE_3__["Message"].from(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].MessageStore.getMessage(this.id, response.body.id));
     }
 
@@ -4148,7 +4158,8 @@ class Channel {
      */
     sendBotMessage(content) {
         this.select();
-        const message = modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].MessageParser.createBotMessage(this.id, content);
+        if (!BotMessager) return modules__WEBPACK_IMPORTED_MODULE_0__["Logger"].err("DiscordAPI", "Unable to create bot message");
+        const message = BotMessager.createBotMessage(this.id, content);
         modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].MessageActions.receiveMessage(this.id, message);
         return _message__WEBPACK_IMPORTED_MODULE_3__["Message"].from(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].MessageStore.getMessage(this.id, message.id));
     }
@@ -4275,7 +4286,7 @@ class GuildChannel extends Channel {
     get nicks() { return this.discordObject.nicks; }
 
     checkPermissions(perms) {
-        return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].Permissions.can(perms, modules__WEBPACK_IMPORTED_MODULE_0__["DiscordAPI"].currentUser, this.discordObject);
+        return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].Permissions.can({data: BigInt(perms)}, modules__WEBPACK_IMPORTED_MODULE_0__["DiscordAPI"].currentUser, this.discordObject);
     }
 
     assertPermissions(name, perms) {
@@ -4338,7 +4349,7 @@ class GuildChannel extends Channel {
 
     /**
      * Updates this channel's permission overwrites.
-     * @param {Array} permissionOverwrites An array of permission overwrites
+     * @param {Array} permission_overwrites An array of permission overwrites
      * @return {Promise}
      */
     updatePermissionOverwrites(permission_overwrites) {
@@ -4363,7 +4374,7 @@ class GuildTextChannel extends GuildChannel {
 
     /**
      * Updates this channel's topic.
-     * @param {String} topc The new channel topic
+     * @param {String} topic The new channel topic
      * @return {Promise}
      */
     updateTopic(topic) {
@@ -4408,7 +4419,7 @@ class GuildVoiceChannel extends GuildChannel {
 
     /**
      * Updates this channel's user limit.
-     * @param {Number} userLimit The new user limit
+     * @param {Number} user_limit The new user limit
      * @return {Promise}
      */
     updateUserLimit(user_limit) {
@@ -4510,6 +4521,7 @@ class GroupChannel extends PrivateChannel {
 
 // export {Channel, GuildChannel, ChannelCategory, GuildTextChannel, GuildVoiceChannel, PrivateChannel, DirectMessageChannel, GroupChannel};
 // export {PermissionOverwrite, RolePermissionOverwrite, MemberPermissionOverwrite};
+
 
 /***/ }),
 
@@ -8699,16 +8711,16 @@ class Switch extends _settingfield__WEBPACK_IMPORTED_MODULE_0__["default"] {
             hideBorder: false,
             value: this.value,
             onChange: (e) => {
-                const checked = e.currentTarget.checked;
-                reactElement.props.value = checked;
+                reactElement.props.value = e;
                 reactElement.forceUpdate();
-                this.onChange(checked);
+                this.onChange(e);
             }
         }), this.getElement());
     }
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (Switch);
+
 
 /***/ }),
 

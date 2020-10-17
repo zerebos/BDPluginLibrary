@@ -7,11 +7,13 @@
  * https://github.com/JsSucks/BetterDiscordApp/blob/master/LICENSE
 */
 
-import {DiscordAPI, DiscordModules as Modules} from "modules";
+import {DiscordAPI, DiscordModules as Modules, Logger, WebpackModules} from "modules";
 import {List, InsufficientPermissions} from "structs";
 import {Guild} from "./guild";
 import {Message} from "./message";
 import {User, GuildMember} from "./user";
+
+const BotMessager = WebpackModules.getByProps("createBotMessage");
 
 const cache = new WeakMap();
 
@@ -70,7 +72,7 @@ class Channel {
         if (parse) content = Modules.MessageParser.parse(this.discordObject, content);
         else if (typeof content == 'string') content = {content, validNonShortcutEmojis: Array(0)};
 
-        const response = await Modules.MessageActions._sendMessage(this.id, content);
+        const response = await Modules.MessageActions._sendMessage(this.id, content, {});
         return Message.from(Modules.MessageStore.getMessage(this.id, response.body.id));
     }
 
@@ -81,7 +83,8 @@ class Channel {
      */
     sendBotMessage(content) {
         this.select();
-        const message = Modules.MessageParser.createBotMessage(this.id, content);
+        if (!BotMessager) return Logger.err("DiscordAPI", "Unable to create bot message");
+        const message = BotMessager.createBotMessage(this.id, content);
         Modules.MessageActions.receiveMessage(this.id, message);
         return Message.from(Modules.MessageStore.getMessage(this.id, message.id));
     }
@@ -208,7 +211,7 @@ export class GuildChannel extends Channel {
     get nicks() { return this.discordObject.nicks; }
 
     checkPermissions(perms) {
-        return Modules.Permissions.can(perms, DiscordAPI.currentUser, this.discordObject);
+        return Modules.Permissions.can({data: BigInt(perms)}, DiscordAPI.currentUser, this.discordObject);
     }
 
     assertPermissions(name, perms) {

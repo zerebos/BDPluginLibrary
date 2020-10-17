@@ -36,7 +36,7 @@ export default Utilities.memoizeObject({
     // get ChannelSelector() {return WebpackModules.getByProps("selectGuild", "selectChannel");},
 
     /* Current User Info, State and Settings */
-    get UserInfoStore() {return WebpackModules.getByProps("getToken");},
+    get UserInfoStore() {return WebpackModules.getByProps("getSessionId");},
     get UserSettingsStore() {return WebpackModules.getByProps("guildPositions");},
     // Not really needed by plugins
     // get AccountManager() {return WebpackModules.getByProps("register", "login");},
@@ -69,7 +69,7 @@ export default Utilities.memoizeObject({
     /* Discord Objects & Utils */
     get DiscordConstants() {return WebpackModules.getByProps("Permissions", "ActivityTypes", "StatusTypes");},
     get DiscordPermissions() {return WebpackModules.getByProps("Permissions", "ActivityTypes", "StatusTypes").Permissions;},
-    get Permissions() {return WebpackModules.getByProps("getHighestRole");},
+    get Permissions() {return WebpackModules.getByProps("computePermissions");},
     get ColorConverter() {return WebpackModules.getByProps("hex2int");},
     get ColorShader() {return WebpackModules.getByProps("darken");},
     get TinyColor() {return WebpackModules.getByPrototypes("toRgb");},

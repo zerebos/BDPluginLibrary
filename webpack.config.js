@@ -1,5 +1,6 @@
 const path = require("path");
 const webpack = require("webpack");
+const pkg = require("./package.json");
 // const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 module.exports = env => {
@@ -37,7 +38,8 @@ module.exports = env => {
         "process.env": {
           PLUGIN_NAME: JSON.stringify(env ? env.PLUGIN_NAME : "0PluginLibrary"),
           CONFIG_PATH: JSON.stringify(env ? env.CONFIG_PATH : ""),
-          PLUGIN_PATH: JSON.stringify(env ? env.PLUGIN_PATH : "")
+          PLUGIN_PATH: JSON.stringify(env ? env.PLUGIN_PATH : ""),
+          __LIBRARY_VERSION__: JSON.stringify(pkg.version)
         }
       })
     ]
