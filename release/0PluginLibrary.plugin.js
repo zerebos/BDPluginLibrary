@@ -136,7 +136,7 @@ module.exports = {
             github_username: "rauenzi",
             twitter_username: "ZackRauen"
         }],
-        version: "1.2.24",
+        version: "1.2.25",
         description: "Gives other plugins utility functions and the ability to emulate v2.",
         github: "https://github.com/rauenzi/BDPluginLibrary",
         github_raw: "https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"
@@ -146,9 +146,8 @@ module.exports = {
             title: "Bugs Squashed",
             type: "fixed",
             items: [
-                "Fixes toggles not working for plugin settings.",
-                "Fixes some functionality of `DiscordAPI`",
-                "Speeds up module searching a bit"
+                "Updates to match Discord's internal changes for `ChannelStore`",
+                "Fixes an issue with clearing Dropdown settings"
             ]
         }
     ],
@@ -596,7 +595,7 @@ __webpack_require__.r(__webpack_exports__);
     get GuildPermissions() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getGuildPermissions");},
 
     /* Channel Store & Actions */
-    get ChannelStore() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getChannels", "getDMFromUserId");},
+    get ChannelStore() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getChannel", "getDMFromUserId");},
     get SelectedChannelStore() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getLastSelectedChannelId");},
     get ChannelActions() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("selectChannel");},
     get PrivateChannelActions() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("openPrivateChannel");},
@@ -1357,7 +1356,7 @@ class DOMTools {
         return element.getBoundingClientRect();
     }
 
-    static get listeners() { return this._listeners || (this._listeners = {}); }
+    static get listeners() {return this._listeners || (this._listeners = {});}
 
     /**
      * This is similar to jQuery's `on` function and can *hopefully* be used in the same way.
@@ -1386,9 +1385,9 @@ class DOMTools {
         const [type, namespace] = event.split(".");
         const hasDelegate = delegate && callback;
         if (!callback) callback = delegate;
-        const eventFunc = !hasDelegate ? callback : function(event) {
-            if (event.target.matches(delegate)) {
-                callback(event);
+        const eventFunc = !hasDelegate ? callback : function(ev) {
+            if (ev.target.matches(delegate)) {
+                callback(ev);
             }
         };
 
@@ -1426,12 +1425,12 @@ class DOMTools {
         const [type, namespace] = event.split(".");
         const hasDelegate = delegate && callback;
         if (!callback) callback = delegate;
-        const eventFunc = !hasDelegate ? function(event) {
-            callback(event);
+        const eventFunc = !hasDelegate ? function(ev) {
+            callback(ev);
             element.removeEventListener(type, eventFunc);
-        } : function(event) {
-            if (!event.target.matches(delegate)) return;
-            callback(event);
+        } : function(ev) {
+            if (!ev.target.matches(delegate)) return;
+            callback(ev);
             element.removeEventListener(type, eventFunc);
         };
 
@@ -1458,7 +1457,10 @@ class DOMTools {
     static __offAll(event, element) {
         const [type, namespace] = event.split(".");
         let matchFilter = listener => listener.event == type, defaultFilter = _ => _;
-        if (element) matchFilter = l => l.event == type && l.element == element, defaultFilter = l => l.element == element;
+        if (element) {
+            matchFilter = l => l.event == type && l.element == element;
+            defaultFilter = l => l.element == element;
+        }
         const listeners = this.listeners[namespace] || [];
         const list = type ? listeners.filter(matchFilter) : listeners.filter(defaultFilter);
         for (let c = 0; c < list.length; c++) list[c].cancel();
@@ -1500,9 +1502,9 @@ class DOMTools {
 
         const hasDelegate = delegate && callback;
         if (!callback) callback = delegate;
-        const eventFunc = !hasDelegate ? callback : function(event) {
-            if (event.target.matches(delegate)) {
-                callback(event);
+        const eventFunc = !hasDelegate ? callback : function(ev) {
+            if (ev.target.matches(delegate)) {
+                callback(ev);
             }
         };
 
@@ -1532,16 +1534,16 @@ class DOMTools {
     }
 
     /** Shorthand for {@link module:DOMTools.onMountChange} with third parameter `true` */
-    static onMount(node, callback) { return this.onMountChange(node, callback); }
+    static onMount(node, callback) {return this.onMountChange(node, callback);}
 
     /** Shorthand for {@link module:DOMTools.onMountChange} with third parameter `false` */
-    static onUnmount(node, callback) { return this.onMountChange(node, callback, false); }
+    static onUnmount(node, callback) {return this.onMountChange(node, callback, false);}
 
     /** Alias for {@link module:DOMTools.onMount} */
-    static onAdded(node, callback) { return this.onMount(node, callback); }
+    static onAdded(node, callback) {return this.onMount(node, callback);}
 
     /** Alias for {@link module:DOMTools.onUnmount} */
-    static onRemoved(node, callback) { return this.onUnmount(node, callback, false); }
+    static onRemoved(node, callback) {return this.onUnmount(node, callback, false);}
 
     /**
      * Helper function which combines multiple elements into one parent element
@@ -1664,7 +1666,7 @@ class Logger {
      * @param {string} module - Name of the calling module.
      * @param {string} message - Messages to have logged.
      */
-    static err(module, ...message) { Logger._log(module, message, "error"); }
+    static err(module, ...message) {Logger._log(module, message, "error");}
 
     /**
      * Logs a warning message.
@@ -1672,7 +1674,7 @@ class Logger {
      * @param {string} module - Name of the calling module.
      * @param {...any} message - Messages to have logged.
      */
-    static warn(module, ...message) { Logger._log(module, message, "warn"); }
+    static warn(module, ...message) {Logger._log(module, message, "warn");}
 
     /**
      * Logs an informational message.
@@ -1680,7 +1682,7 @@ class Logger {
      * @param {string} module - Name of the calling module.
      * @param {...any} message - Messages to have logged.
      */
-    static info(module, ...message) { Logger._log(module, message, "info"); }
+    static info(module, ...message) {Logger._log(module, message, "info");}
 
     /**
      * Logs used for debugging purposes.
@@ -1688,7 +1690,7 @@ class Logger {
      * @param {string} module - Name of the calling module.
      * @param {...any} message - Messages to have logged.
      */
-    static debug(module, ...message) { Logger._log(module, message, "debug"); }
+    static debug(module, ...message) {Logger._log(module, message, "debug");}
     
     /**
      * Logs used for basic loggin.
@@ -1696,7 +1698,7 @@ class Logger {
      * @param {string} module - Name of the calling module.
      * @param {...any} message - Messages to have logged.
      */
-    static log(module, ...message) { Logger._log(module, message); }
+    static log(module, ...message) {Logger._log(module, message);}
 
     /**
      * Logs strings using different console levels and a module label.
@@ -2361,8 +2363,8 @@ __webpack_require__.r(__webpack_exports__);
     */
     static loadData(name, key, defaultData) {
         const defaults = _utilities__WEBPACK_IMPORTED_MODULE_1__["default"].deepclone(defaultData);
-        try { return _utilities__WEBPACK_IMPORTED_MODULE_1__["default"].extend(defaults ? defaults : {}, BdApi.getData(name, key)); }
-        catch (err) { _logger__WEBPACK_IMPORTED_MODULE_0__["default"].err(name, "Unable to load data: ", err); }
+        try {return _utilities__WEBPACK_IMPORTED_MODULE_1__["default"].extend(defaults ? defaults : {}, BdApi.getData(name, key));}
+        catch (err) {_logger__WEBPACK_IMPORTED_MODULE_0__["default"].err(name, "Unable to load data: ", err);}
         return defaults;
     }
 
@@ -2373,8 +2375,8 @@ __webpack_require__.r(__webpack_exports__);
      * @param {object} data - data to save
     */
     static saveData(name, key, data) {
-        try { BdApi.setData(name, key, data); }
-        catch (err) { _logger__WEBPACK_IMPORTED_MODULE_0__["default"].err(name, "Unable to save data: ", err); }
+        try {BdApi.setData(name, key, data);}
+        catch (err) {_logger__WEBPACK_IMPORTED_MODULE_0__["default"].err(name, "Unable to save data: ", err);}
     }
 
     /**
@@ -2682,7 +2684,7 @@ class ReactComponent {
     forceUpdateAll() {
         if (!this.selector) return;
         for (const e of document.querySelectorAll(this.selector)) {
-            Object(_reflection__WEBPACK_IMPORTED_MODULE_1__["default"])(e).forceUpdate(this);
+            Object(_reflection__WEBPACK_IMPORTED_MODULE_1__["default"])(e).forceUpdate(this); // eslint-disable-line new-cap
         }
     }
 }
@@ -2769,7 +2771,7 @@ class ReactComponents {
 
                 let component, reflect;
                 for (const element of elements) {
-                    reflect = Object(_reflection__WEBPACK_IMPORTED_MODULE_1__["default"])(element);
+                    reflect = reflect(element);
                     component = filter ? reflect.components.find(filter) : reflect.component;
                     if (component) break;
                 }
@@ -2790,7 +2792,7 @@ class ReactComponents {
                 //         Utilities.removeFromArray(this.listeners, current);
                 //     }
                 // }
-                //Logger.info("ReactComponents", [`Found important component ${name} with reflection`, reflect]);
+                // Logger.info("ReactComponents", [`Found important component ${name} with reflection`, reflect]);
 
                 this.push(component, selector, filter);
             };
@@ -2844,8 +2846,8 @@ class ReactComponents {
 
     static *recursiveComponents(internalInstance = _reacttools__WEBPACK_IMPORTED_MODULE_4__["default"].rootInstance) {
         if (internalInstance.stateNode) yield internalInstance.stateNode;
-        if (internalInstance.sibling) yield *this.recursiveComponents(internalInstance.sibling);
-        if (internalInstance.child) yield *this.recursiveComponents(internalInstance.child);
+        if (internalInstance.sibling) yield* this.recursiveComponents(internalInstance.sibling);
+        if (internalInstance.child) yield* this.recursiveComponents(internalInstance.child);
     }
 }
 
@@ -3174,8 +3176,8 @@ const propsProxyHandler = {
             this.node = node instanceof window.jQuery ? node[0] : node;
         }
 
-        get el() { return this.node; }
-        get element() { return this.node; }
+        get el() {return this.node;}
+        get element() {return this.node;}
 
         get reactInternalInstance() {
             return Reflection.reactInternalInstance(this.node);
@@ -3272,7 +3274,7 @@ class Utilities {
      * @param {function} comparator - comparator to sort by
      */
     static stableSort(list, comparator) {
-        const entries = Array(length);
+        const entries = Array(list.length);
 
         // wrap values with initial indices
         for (let index = 0; index < list.length; index++) {
@@ -3329,8 +3331,8 @@ class Utilities {
      */
     static suppressErrors(method, description) {
         return (...params) => {
-            try { return method(...params);}
-            catch (e) { _logger__WEBPACK_IMPORTED_MODULE_0__["default"].err("Suppression", "Error occurred in " + description, e); }
+            try {return method(...params);}
+            catch (e) {_logger__WEBPACK_IMPORTED_MODULE_0__["default"].err("Suppression", "Error occurred in " + description, e);}
         };
     }
 
@@ -3405,7 +3407,7 @@ class Utilities {
 
         if (typeof tree !== "object" || tree == null) return undefined;
 
-        let tempReturn = undefined;
+        let tempReturn;
         if (Array.isArray(tree)) {
             for (const value of tree) {
                 tempReturn = this.findInTree(value, searchFilter, {walkable, ignore});
@@ -3501,8 +3503,8 @@ class Utilities {
                 if (extenders[i].hasOwnProperty(key)) {
                     if (Array.isArray(extendee[key]) && Array.isArray(extenders[i][key])) this.extend(extendee[key], extenders[i][key]);
                     else if (typeof extendee[key] === "object" && typeof extenders[i][key] === "object") this.extend(extendee[key], extenders[i][key]);
-                    else if (Array.isArray(extenders[i][key])) extendee[key] = [], this.extend(extendee[key], extenders[i][key]);
-                    else if (typeof extenders[i][key] === "object") extendee[key] = {}, this.extend(extendee[key], extenders[i][key]);
+                    else if (Array.isArray(extenders[i][key])) extendee[key] = [], this.extend(extendee[key], extenders[i][key]); // eslint-disable-line no-sequences
+                    else if (typeof extenders[i][key] === "object") extendee[key] = {}, this.extend(extendee[key], extenders[i][key]); // eslint-disable-line no-sequences
                     else extendee[key] = extenders[i][key];
                 }
             }
@@ -3602,12 +3604,7 @@ class Utilities {
      * @return {Promise}
      */
     static async readFile(path) {
-        try {
-            await this.fileExists(path);
-        }
-        catch (err) {
-            throw err;
-        }
+        await this.fileExists(path);
         
         const fs = require("fs");
         return new Promise((resolve, reject) => {
@@ -4120,18 +4117,18 @@ class Channel {
         if (channel) return Channel.from(channel);
     }
 
-    static get GuildChannel() { return GuildChannel; }
-    static get GuildTextChannel() { return GuildTextChannel; }
-    static get GuildVoiceChannel() { return GuildVoiceChannel; }
-    static get ChannelCategory() { return ChannelCategory; }
-    static get PrivateChannel() { return PrivateChannel; }
-    static get DirectMessageChannel() { return DirectMessageChannel; }
-    static get GroupChannel() { return GroupChannel; }
+    static get GuildChannel() {return GuildChannel;}
+    static get GuildTextChannel() {return GuildTextChannel;}
+    static get GuildVoiceChannel() {return GuildVoiceChannel;}
+    static get ChannelCategory() {return ChannelCategory;}
+    static get PrivateChannel() {return PrivateChannel;}
+    static get DirectMessageChannel() {return DirectMessageChannel;}
+    static get GroupChannel() {return GroupChannel;}
 
-    get id() { return this.discordObject.id; }
-    get applicationId() { return this.discordObject.application_id; }
-    get type() { return this.discordObject.type; }
-    get name() { return this.discordObject.name; }
+    get id() {return this.discordObject.id;}
+    get applicationId() {return this.discordObject.application_id;}
+    get type() {return this.discordObject.type;}
+    get name() {return this.discordObject.name;}
 
     /**
      * Send a message in this channel.
@@ -4145,7 +4142,7 @@ class Channel {
         this.select();
 
         if (parse) content = modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].MessageParser.parse(this.discordObject, content);
-        else if (typeof content == 'string') content = {content, validNonShortcutEmojis: Array(0)};
+        else if (typeof content == "string") content = {content, validNonShortcutEmojis: Array(0)};
 
         const response = await modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].MessageActions._sendMessage(this.id, content, {});
         return _message__WEBPACK_IMPORTED_MODULE_3__["Message"].from(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].MessageStore.getMessage(this.id, response.body.id));
@@ -4243,12 +4240,12 @@ class PermissionOverwrite {
         }
     }
 
-    static get RolePermissionOverwrite() { return RolePermissionOverwrite; }
-    static get MemberPermissionOverwrite() { return MemberPermissionOverwrite; }
+    static get RolePermissionOverwrite() {return RolePermissionOverwrite;}
+    static get MemberPermissionOverwrite() {return MemberPermissionOverwrite;}
 
-    get type() { return this.discordObject.type; }
-    get allow() { return this.discordObject.allow; }
-    get deny() { return this.discordObject.deny; }
+    get type() {return this.discordObject.type;}
+    get allow() {return this.discordObject.allow;}
+    get deny() {return this.discordObject.deny;}
 
     get channel() {
         return Channel.fromId(this.channelId);
@@ -4261,7 +4258,7 @@ class PermissionOverwrite {
 }
 
 class RolePermissionOverwrite extends PermissionOverwrite {
-    get roleId() { return this.discordObject.id; }
+    get roleId() {return this.discordObject.id;}
 
     get role() {
         if (this.guild) return this.guild.roles.find(r => r.id === this.roleId);
@@ -4270,7 +4267,7 @@ class RolePermissionOverwrite extends PermissionOverwrite {
 }
 
 class MemberPermissionOverwrite extends PermissionOverwrite {
-    get memberId() { return this.discordObject.id; }
+    get memberId() {return this.discordObject.id;}
 
     get member() {
         return _user__WEBPACK_IMPORTED_MODULE_4__["GuildMember"].fromId(this.memberId);
@@ -4278,12 +4275,12 @@ class MemberPermissionOverwrite extends PermissionOverwrite {
 }
 
 class GuildChannel extends Channel {
-    static get PermissionOverwrite() { return PermissionOverwrite; }
+    static get PermissionOverwrite() {return PermissionOverwrite;}
 
-    get guildId() { return this.discordObject.guild_id; }
-    get parentId() { return this.discordObject.parent_id; } // Channel category
-    get position() { return this.discordObject.position; }
-    get nicks() { return this.discordObject.nicks; }
+    get guildId() {return this.discordObject.guild_id;}
+    get parentId() {return this.discordObject.parent_id;} // Channel category
+    get position() {return this.discordObject.position;}
+    get nicks() {return this.discordObject.nicks;}
 
     checkPermissions(perms) {
         return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].Permissions.can({data: BigInt(perms)}, modules__WEBPACK_IMPORTED_MODULE_0__["DiscordAPI"].currentUser, this.discordObject);
@@ -4368,9 +4365,9 @@ class GuildChannel extends Channel {
 
 // Type 0 - GUILD_TEXT
 class GuildTextChannel extends GuildChannel {
-    get type() { return "GUILD_TEXT"; }
-    get topic() { return this.discordObject.topic; }
-    get nsfw() { return this.discordObject.nsfw; }
+    get type() {return "GUILD_TEXT";}
+    get topic() {return this.discordObject.topic;}
+    get nsfw() {return this.discordObject.nsfw;}
 
     /**
      * Updates this channel's topic.
@@ -4397,16 +4394,16 @@ class GuildTextChannel extends GuildChannel {
 
 // Type 2 - GUILD_VOICE
 class GuildVoiceChannel extends GuildChannel {
-    get type() { return "GUILD_VOICE"; }
-    get userLimit() { return this.discordObject.userLimit; }
-    get bitrate() { return this.discordObject.bitrate; }
+    get type() {return "GUILD_VOICE";}
+    get userLimit() {return this.discordObject.userLimit;}
+    get bitrate() {return this.discordObject.bitrate;}
 
-    sendMessage() { throw new Error("Cannot send messages in a voice channel."); }
-    get messages() { return new structs__WEBPACK_IMPORTED_MODULE_1__["List"](); }
-    jumpToPresent() { throw new Error("Cannot select a voice channel."); }
-    get hasMoreAfter() { return false; }
-    sendInvite() { throw new Error("Cannot invite someone to a voice channel."); }
-    select() { throw new Error("Cannot select a voice channel."); }
+    sendMessage() {throw new Error("Cannot send messages in a voice channel.");}
+    get messages() {return new structs__WEBPACK_IMPORTED_MODULE_1__["List"]();}
+    jumpToPresent() {throw new Error("Cannot select a voice channel.");}
+    get hasMoreAfter() {return false;}
+    sendInvite() {throw new Error("Cannot invite someone to a voice channel.");}
+    select() {throw new Error("Cannot select a voice channel.");}
 
     /**
      * Updates this channel's bitrate.
@@ -4429,17 +4426,17 @@ class GuildVoiceChannel extends GuildChannel {
 
 // Type 4 - GUILD_CATEGORY
 class ChannelCategory extends GuildChannel {
-    get type() { return "GUILD_CATEGORY"; }
-    get parentId() { return undefined; }
-    get category() { return undefined; }
+    get type() {return "GUILD_CATEGORY";}
+    get parentId() {return undefined;}
+    get category() {return undefined;}
 
-    sendMessage() { throw new Error("Cannot send messages in a channel category."); }
-    get messages() { return new structs__WEBPACK_IMPORTED_MODULE_1__["List"](); }
-    jumpToPresent() { throw new Error("Cannot select a channel category."); }
-    get hasMoreAfter() { return false; }
-    sendInvite() { throw new Error("Cannot invite someone to a channel category."); }
-    select() { throw new Error("Cannot select a channel category."); }
-    updateCategory() { throw new Error("Cannot set a channel category on another channel category."); }
+    sendMessage() {throw new Error("Cannot send messages in a channel category.");}
+    get messages() {return new structs__WEBPACK_IMPORTED_MODULE_1__["List"]();}
+    jumpToPresent() {throw new Error("Cannot select a channel category.");}
+    get hasMoreAfter() {return false;}
+    sendInvite() {throw new Error("Cannot invite someone to a channel category.");}
+    select() {throw new Error("Cannot select a channel category.");}
+    updateCategory() {throw new Error("Cannot set a channel category on another channel category.");}
 
     /**
      * A list of channels in this category.
@@ -4470,14 +4467,14 @@ class ChannelCategory extends GuildChannel {
 }
 
 class PrivateChannel extends Channel {
-    get userLimit() { return this.discordObject.userLimit; }
-    get bitrate() { return this.discordObject.bitrate; }
+    get userLimit() {return this.discordObject.userLimit;}
+    get bitrate() {return this.discordObject.bitrate;}
 }
 
 // Type 1 - DM
 class DirectMessageChannel extends PrivateChannel {
-    get type() { return "DM"; }
-    get recipientId() { return this.discordObject.recipients[0]; }
+    get type() {return "DM";}
+    get recipientId() {return this.discordObject.recipients[0];}
 
     /**
      * The other user of this direct message channel.
@@ -4489,10 +4486,10 @@ class DirectMessageChannel extends PrivateChannel {
 
 // Type 3 - GROUP_DM
 class GroupChannel extends PrivateChannel {
-    get ownerId() { return this.discordObject.ownerId; }
-    get type() { return "GROUP_DM"; }
-    get name() { return this.discordObject.name; }
-    get icon() { return this.discordObject.icon; }
+    get ownerId() {return this.discordObject.ownerId;}
+    get type() {return "GROUP_DM";}
+    get name() {return this.discordObject.name;}
+    get icon() {return this.discordObject.icon;}
 
     /**
      * A list of the other members of this group direct message channel.
@@ -4566,16 +4563,16 @@ class Role {
         this.guildId = guild_id;
     }
 
-    get id() { return this.discordObject.id; }
-    get name() { return this.discordObject.name; }
-    get position() { return this.discordObject.position; }
-    get originalPosition() { return this.discordObject.originalPosition; }
-    get permissions() { return this.discordObject.permissions; }
-    get managed() { return this.discordObject.managed; }
-    get mentionable() { return this.discordObject.mentionable; }
-    get hoist() { return this.discordObject.hoist; }
-    get colour() { return this.discordObject.color; }
-    get colourString() { return this.discordObject.colorString; }
+    get id() {return this.discordObject.id;}
+    get name() {return this.discordObject.name;}
+    get position() {return this.discordObject.position;}
+    get originalPosition() {return this.discordObject.originalPosition;}
+    get permissions() {return this.discordObject.permissions;}
+    get managed() {return this.discordObject.managed;}
+    get mentionable() {return this.discordObject.mentionable;}
+    get hoist() {return this.discordObject.hoist;}
+    get colour() {return this.discordObject.color;}
+    get colourString() {return this.discordObject.colorString;}
 
     get guild() {
         return Guild.fromId(this.guildId);
@@ -4596,15 +4593,15 @@ class Emoji {
         this.discordObject = data;
     }
 
-    get id() { return this.discordObject.id; }
-    get guildId() { return this.discordObject.guild_id; }
-    get name() { return this.discordObject.name; }
-    get managed() { return this.discordObject.managed; }
-    get animated() { return this.discordObject.animated; }
-    get allNamesString() { return this.discordObject.allNamesString; }
-    get requireColons() { return this.discordObject.require_colons; }
-    get url() { return this.discordObject.url; }
-    get roles() { return this.discordObject.roles; }
+    get id() {return this.discordObject.id;}
+    get guildId() {return this.discordObject.guild_id;}
+    get name() {return this.discordObject.name;}
+    get managed() {return this.discordObject.managed;}
+    get animated() {return this.discordObject.animated;}
+    get allNamesString() {return this.discordObject.allNamesString;}
+    get requireColons() {return this.discordObject.require_colons;}
+    get url() {return this.discordObject.url;}
+    get roles() {return this.discordObject.roles;}
 
     get guild() {
         return Guild.fromId(this.guildId);
@@ -4634,28 +4631,28 @@ class Guild {
         if (guild) return Guild.from(guild);
     }
 
-    static get Role() { return Role; }
-    static get Emoji() { return Emoji; }
+    static get Role() {return Role;}
+    static get Emoji() {return Emoji;}
 
-    get id() { return this.discordObject.id; }
-    get ownerId() { return this.discordObject.ownerId; }
-    get applicationId() { return this.discordObject.application_id; }
-    get systemChannelId() { return this.discordObject.systemChannelId; }
-    get name() { return this.discordObject.name; }
-    get acronym() { return this.discordObject.acronym; }
-    get icon() { return this.discordObject.icon; }
-    get joinedAt() { return this.discordObject.joinedAt; }
-    get verificationLevel() { return this.discordObject.verificationLevel; }
-    get mfaLevel() { return this.discordObject.mfaLevel; }
-    get large() { return this.discordObject.large; }
-    get lazy() { return this.discordObject.lazy; }
-    get voiceRegion() { return this.discordObject.region; }
-    get afkChannelId() { return this.discordObject.afkChannelId; }
-    get afkTimeout() { return this.discordObject.afkTimeout; }
-    get explicitContentFilter() { return this.discordObject.explicitContentFilter; }
-    get defaultMessageNotifications() { return this.discordObject.defaultMessageNotifications; }
-    get splash() { return this.discordObject.splash; }
-    get features() { return this.discordObject.features; }
+    get id() {return this.discordObject.id;}
+    get ownerId() {return this.discordObject.ownerId;}
+    get applicationId() {return this.discordObject.application_id;}
+    get systemChannelId() {return this.discordObject.systemChannelId;}
+    get name() {return this.discordObject.name;}
+    get acronym() {return this.discordObject.acronym;}
+    get icon() {return this.discordObject.icon;}
+    get joinedAt() {return this.discordObject.joinedAt;}
+    get verificationLevel() {return this.discordObject.verificationLevel;}
+    get mfaLevel() {return this.discordObject.mfaLevel;}
+    get large() {return this.discordObject.large;}
+    get lazy() {return this.discordObject.lazy;}
+    get voiceRegion() {return this.discordObject.region;}
+    get afkChannelId() {return this.discordObject.afkChannelId;}
+    get afkTimeout() {return this.discordObject.afkTimeout;}
+    get explicitContentFilter() {return this.discordObject.explicitContentFilter;}
+    get defaultMessageNotifications() {return this.discordObject.defaultMessageNotifications;}
+    get splash() {return this.discordObject.splash;}
+    get features() {return this.discordObject.features;}
 
     get owner() {
         return this.members.find(m => m.userId === this.ownerId);
@@ -4839,9 +4836,10 @@ class Guild {
     async createChannel(type, name, category, permission_overwrites) {
         this.assertPermissions("MANAGE_CHANNELS", modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].DiscordPermissions.MANAGE_CHANNELS);
         const response = await modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].APIModule.post({
-            url: modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].DiscordConstants.Endpoints.GUILD_CHANNELS(this.id),
+            url: modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].DiscordConstants.Endpoints.GUILD_CHANNELS(this.id), // eslint-disable-line new-cap
             body: {
-                type, name,
+                type,
+                name,
                 parent_id: category ? category.id : undefined,
                 permission_overwrites: permission_overwrites ? permission_overwrites.map(p => ({
                     type: p.type,
@@ -5074,8 +5072,8 @@ class Reaction {
         return this.guild.emojis.find(e => e.id === id);
     }
 
-    get count() { return this.discordObject.count; }
-    get me() { return this.discordObject.me; }
+    get count() {return this.discordObject.count;}
+    get me() {return this.discordObject.me;}
 
     get channel() {
         return _channel__WEBPACK_IMPORTED_MODULE_2__["Channel"].fromId(this.channel_id);
@@ -5104,19 +5102,19 @@ class Embed {
         this.channelId = channel_id;
     }
 
-    get title() { return this.discordObject.title; }
-    get type() { return this.discordObject.type; }
-    get description() { return this.discordObject.description; }
-    get url() { return this.discordObject.url; }
-    get timestamp() { return this.discordObject.timestamp; }
-    get colour() { return this.discordObject.color; }
-    get footer() { return this.discordObject.footer; }
-    get image() { return this.discordObject.image; }
-    get thumbnail() { return this.discordObject.thumbnail; }
-    get video() { return this.discordObject.video; }
-    get provider() { return this.discordObject.provider; }
-    get author() { return this.discordObject.author; }
-    get fields() { return this.discordObject.fields; }
+    get title() {return this.discordObject.title;}
+    get type() {return this.discordObject.type;}
+    get description() {return this.discordObject.description;}
+    get url() {return this.discordObject.url;}
+    get timestamp() {return this.discordObject.timestamp;}
+    get colour() {return this.discordObject.color;}
+    get footer() {return this.discordObject.footer;}
+    get image() {return this.discordObject.image;}
+    get thumbnail() {return this.discordObject.thumbnail;}
+    get video() {return this.discordObject.video;}
+    get provider() {return this.discordObject.provider;}
+    get author() {return this.discordObject.author;}
+    get fields() {return this.discordObject.fields;}
 
     get channel() {
         return _channel__WEBPACK_IMPORTED_MODULE_2__["Channel"].fromId(this.channelId);
@@ -5161,26 +5159,26 @@ class Message {
         }
     }
 
-    static get DefaultMessage() { return DefaultMessage; }
-    static get RecipientAddMessage() { return RecipientAddMessage; }
-    static get RecipientRemoveMessage() { return RecipientRemoveMessage; }
-    static get CallMessage() { return CallMessage; }
-    static get GroupChannelNameChangeMessage() { return GroupChannelNameChangeMessage; }
-    static get GroupChannelIconChangeMessage() { return GroupChannelIconChangeMessage; }
-    static get MessagePinnedMessage() { return MessagePinnedMessage; }
-    static get GuildMemberJoinMessage() { return GuildMemberJoinMessage; }
+    static get DefaultMessage() {return DefaultMessage;}
+    static get RecipientAddMessage() {return RecipientAddMessage;}
+    static get RecipientRemoveMessage() {return RecipientRemoveMessage;}
+    static get CallMessage() {return CallMessage;}
+    static get GroupChannelNameChangeMessage() {return GroupChannelNameChangeMessage;}
+    static get GroupChannelIconChangeMessage() {return GroupChannelIconChangeMessage;}
+    static get MessagePinnedMessage() {return MessagePinnedMessage;}
+    static get GuildMemberJoinMessage() {return GuildMemberJoinMessage;}
 
-    static get Reaction() { return Reaction; }
-    static get Embed() { return Embed; }
+    static get Reaction() {return Reaction;}
+    static get Embed() {return Embed;}
 
-    get id() { return this.discordObject.id; }
-    get channelId() { return this.discordObject.channel_id; }
-    get nonce() { return this.discordObject.nonce; }
-    get type() { return this.discordObject.type; }
-    get timestamp() { return this.discordObject.timestamp; }
-    get state() { return this.discordObject.state; }
-    get nick() { return this.discordObject.nick; }
-    get colourString() { return this.discordObject.colorString; }
+    get id() {return this.discordObject.id;}
+    get channelId() {return this.discordObject.channel_id;}
+    get nonce() {return this.discordObject.nonce;}
+    get type() {return this.discordObject.type;}
+    get timestamp() {return this.discordObject.timestamp;}
+    get state() {return this.discordObject.state;}
+    get nick() {return this.discordObject.nick;}
+    get colourString() {return this.discordObject.colorString;}
 
     get author() {
         if (this.discordObject.author && !this.webhookId) return _user__WEBPACK_IMPORTED_MODULE_3__["User"].from(this.discordObject.author);
@@ -5207,7 +5205,7 @@ class Message {
             else if (!this.channel.owner === modules__WEBPACK_IMPORTED_MODULE_0__["DiscordAPI"].currentUser) throw new structs__WEBPACK_IMPORTED_MODULE_1__["InsufficientPermissions"]("MANAGE_MESSAGES");
         }
 
-        return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].APIModule.delete(`${modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].DiscordConstants.Endpoints.MESSAGES(this.channelId)}/${this.id}`);
+        return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].APIModule.delete(`${modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].DiscordConstants.Endpoints.MESSAGES(this.channelId)}/${this.id}`); // eslint-disable-line new-cap
     }
 
     get isDeletable() {
@@ -5226,23 +5224,23 @@ class Message {
 
 
 class DefaultMessage extends Message {
-    get webhookId() { return this.discordObject.webhookId; }
-    get type() { return "DEFAULT"; }
-    get content() { return this.discordObject.content; }
-    get contentParsed() { return this.discordObject.contentParsed; }
-    get inviteCodes() { return this.discordObject.invites; }
-    get attachments() { return this.discordObject.attachments; }
-    get mentionIds() { return this.discordObject.mentions; }
-    get mentionRoleIds() { return this.discordObject.mentionRoles; }
-    get mentionEveryone() { return this.discordObject.mentionEveryone; }
-    get editedTimestamp() { return this.discordObject.editedTimestamp; }
-    get tts() { return this.discordObject.tts; }
-    get mentioned() { return this.discordObject.mentioned; }
-    get bot() { return this.discordObject.bot; }
-    get blocked() { return this.discordObject.blocked; }
-    get pinned() { return this.discordObject.pinned; }
-    get activity() { return this.discordObject.activity; }
-    get application() { return this.discordObject.application; }
+    get webhookId() {return this.discordObject.webhookId;}
+    get type() {return "DEFAULT";}
+    get content() {return this.discordObject.content;}
+    get contentParsed() {return this.discordObject.contentParsed;}
+    get inviteCodes() {return this.discordObject.invites;}
+    get attachments() {return this.discordObject.attachments;}
+    get mentionIds() {return this.discordObject.mentions;}
+    get mentionRoleIds() {return this.discordObject.mentionRoles;}
+    get mentionEveryone() {return this.discordObject.mentionEveryone;}
+    get editedTimestamp() {return this.discordObject.editedTimestamp;}
+    get tts() {return this.discordObject.tts;}
+    get mentioned() {return this.discordObject.mentioned;}
+    get bot() {return this.discordObject.bot;}
+    get blocked() {return this.discordObject.blocked;}
+    get pinned() {return this.discordObject.pinned;}
+    get activity() {return this.discordObject.activity;}
+    get application() {return this.discordObject.application;}
 
     get webhook() {
         if (this.webhookId) return this.discordObject.author;
@@ -5281,7 +5279,7 @@ class DefaultMessage extends Message {
         else content = {content};
 
         const response = await modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].APIModule.patch({
-            url: `${modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].DiscordConstants.Endpoints.MESSAGES(this.channelId)}/${this.id}`,
+            url: `${modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].DiscordConstants.Endpoints.MESSAGES(this.channelId)}/${this.id}`, // eslint-disable-line new-cap
             body: content
         });
 
@@ -5307,8 +5305,8 @@ class DefaultMessage extends Message {
 }
 
 class RecipientAddMessage extends Message {
-    get type() { return "RECIPIENT_ADD"; }
-    get addedUserId() { return this.discordObject.mentions[0]; }
+    get type() {return "RECIPIENT_ADD";}
+    get addedUserId() {return this.discordObject.mentions[0];}
 
     get addedUser() {
         return _user__WEBPACK_IMPORTED_MODULE_3__["User"].fromId(this.addedUserId);
@@ -5316,8 +5314,8 @@ class RecipientAddMessage extends Message {
 }
 
 class RecipientRemoveMessage extends Message {
-    get type() { return "RECIPIENT_REMOVE"; }
-    get removedUserId() { return this.discordObject.mentions[0]; }
+    get type() {return "RECIPIENT_REMOVE";}
+    get removedUserId() {return this.discordObject.mentions[0];}
 
     get removedUser() {
         return _user__WEBPACK_IMPORTED_MODULE_3__["User"].fromId(this.removedUserId);
@@ -5329,11 +5327,11 @@ class RecipientRemoveMessage extends Message {
 }
 
 class CallMessage extends Message {
-    get type() { return "CALL"; }
-    get mentionIds() { return this.discordObject.mentions; }
-    get call() { return this.discordObject.call; }
+    get type() {return "CALL";}
+    get mentionIds() {return this.discordObject.mentions;}
+    get call() {return this.discordObject.call;}
 
-    get endedTimestamp() { return this.call.endedTimestamp; }
+    get endedTimestamp() {return this.call.endedTimestamp;}
 
     get mentions() {
         return structs__WEBPACK_IMPORTED_MODULE_1__["List"].from(this.mentionIds, id => _user__WEBPACK_IMPORTED_MODULE_3__["User"].fromId(id));
@@ -5345,20 +5343,20 @@ class CallMessage extends Message {
 }
 
 class GroupChannelNameChangeMessage extends Message {
-    get type() { return "CHANNEL_NAME_CHANGE"; }
-    get newName() { return this.discordObject.content; }
+    get type() {return "CHANNEL_NAME_CHANGE";}
+    get newName() {return this.discordObject.content;}
 }
 
 class GroupChannelIconChangeMessage extends Message {
-    get type() { return "CHANNEL_ICON_CHANGE"; }
+    get type() {return "CHANNEL_ICON_CHANGE";}
 }
 
 class MessagePinnedMessage extends Message {
-    get type() { return "CHANNEL_PINNED_MESSAGE"; }
+    get type() {return "CHANNEL_PINNED_MESSAGE";}
 }
 
 class GuildMemberJoinMessage extends Message {
-    get type() { return "GUILD_MEMBER_JOIN"; }
+    get type() {return "GUILD_MEMBER_JOIN";}
 }
 
 
@@ -5416,27 +5414,27 @@ class User {
         if (user) return User.from(user);
     }
 
-    get id() { return this.discordObject.id; }
-    get username() { return this.discordObject.username; }
-    get usernameLowerCase() { return this.discordObject.usernameLowerCase; }
-    get discriminator() { return this.discordObject.discriminator; }
-    get avatar() { return this.discordObject.avatar; }
-    get email() { return undefined; }
-    get phone() { return undefined; }
-    get flags() { return this.discordObject.flags; }
-    get isBot() { return this.discordObject.bot; }
-    get premium() { return this.discordObject.premium; }
-    get verified() { return this.discordObject.verified; }
-    get mfaEnabled() { return this.discordObject.mfaEnabled; }
-    get mobile() { return this.discordObject.mobile; }
+    get id() {return this.discordObject.id;}
+    get username() {return this.discordObject.username;}
+    get usernameLowerCase() {return this.discordObject.usernameLowerCase;}
+    get discriminator() {return this.discordObject.discriminator;}
+    get avatar() {return this.discordObject.avatar;}
+    get email() {return undefined;}
+    get phone() {return undefined;}
+    get flags() {return this.discordObject.flags;}
+    get isBot() {return this.discordObject.bot;}
+    get premium() {return this.discordObject.premium;}
+    get verified() {return this.discordObject.verified;}
+    get mfaEnabled() {return this.discordObject.mfaEnabled;}
+    get mobile() {return this.discordObject.mobile;}
 
-    get tag() { return this.discordObject.tag; }
-    get avatarUrl() { return this.discordObject.avatarURL; }
-    get createdAt() { return this.discordObject.createdAt; }
+    get tag() {return this.discordObject.tag;}
+    get avatarUrl() {return this.discordObject.avatarURL;}
+    get createdAt() {return this.discordObject.createdAt;}
 
-    get isClamied() { return this.discordObject.isClaimed(); }
-    get isLocalBot() { return this.discordObject.isLocalBot(); }
-    get isPhoneVerified() { return this.discordObject.isPhoneVerified(); }
+    get isClamied() {return this.discordObject.isClaimed();}
+    get isLocalBot() {return this.discordObject.isLocalBot();}
+    get isPhoneVerified() {return this.discordObject.isPhoneVerified();}
 
     get guilds() {
         return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordAPI"].guilds.filter(g => g.members.find(m => m.user === this));
@@ -5531,11 +5529,11 @@ class GuildMember {
         this.guildId = guild_id;
     }
 
-    get userId() { return this.discordObject.userId; }
-    get nickname() { return this.discordObject.nick; }
-    get colourString() { return this.discordObject.colorString; }
-    get hoistRoleId() { return this.discordObject.hoistRoleId; }
-    get roleIds() { return this.discordObject.roles; }
+    get userId() {return this.discordObject.userId;}
+    get nickname() {return this.discordObject.nick;}
+    get colourString() {return this.discordObject.colorString;}
+    get hoistRoleId() {return this.discordObject.hoistRoleId;}
+    get roleIds() {return this.discordObject.roles;}
 
     get user() {
         return User.fromId(this.userId);
@@ -5586,7 +5584,7 @@ class GuildMember {
         else this.assertPermissions("MANAGE_NICKNAMES", modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].DiscordPermissions.MANAGE_NICKNAMES);
 
         return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].APIModule.patch({
-            url: `${modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].DiscordConstants.Endpoints.GUILD_MEMBERS(this.guild_id)}/${modules__WEBPACK_IMPORTED_MODULE_0__["DiscordAPI"].currentUser === this.user ? "@me/nick" : this.userId}`,
+            url: `${modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].DiscordConstants.Endpoints.GUILD_MEMBERS(this.guild_id)}/${modules__WEBPACK_IMPORTED_MODULE_0__["DiscordAPI"].currentUser === this.user ? "@me/nick" : this.userId}`, // eslint-disable-line new-cap
             body: {nick}
         });
     }
@@ -5702,7 +5700,7 @@ class GuildMember {
     updateRoles(roles) {
         roles = roles.map(r => r.id || r);
         return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].APIModule.patch({
-            url: `${modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].DiscordConstants.Endpoints.GUILD_MEMBERS(this.guildId)}/${this.userId}`,
+            url: `${modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].DiscordConstants.Endpoints.GUILD_MEMBERS(this.guildId)}/${this.userId}`, // eslint-disable-line new-cap
             body: {roles}
         });
     }
@@ -5754,26 +5752,26 @@ class UserSettings {
     /**
      * The user's current status. Either "online", "idle", "dnd" or "invisible".
      */
-    static get status() { return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].UserSettingsStore.status; }
+    static get status() {return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].UserSettingsStore.status;}
 
     /**
      * The user's selected explicit content filter level.
      * 0 == off, 1 == everyone except friends, 2 == everyone
      * Configurable in the privacy and safety panel.
      */
-    static get explicitContentFilter() { return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].UserSettingsStore.explicitContentFilter; }
+    static get explicitContentFilter() {return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].UserSettingsStore.explicitContentFilter;}
 
     /**
      * Whether to disallow direct messages from server members by default.
      */
-    static get defaultGuildsRestricted() { return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].UserSettingsStore.defaultGuildsRestricted; }
+    static get defaultGuildsRestricted() {return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].UserSettingsStore.defaultGuildsRestricted;}
 
     /**
      * An array of guilds to disallow direct messages from their members.
      * This is bypassed if the member is has another mutual guild with this disabled, or the member is friends with the current user.
      * Configurable in each server's privacy settings.
      */
-    static get restrictedGuildIds() { return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].UserSettingsStore.restrictedGuilds; }
+    static get restrictedGuildIds() {return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].UserSettingsStore.restrictedGuilds;}
 
     static get restrictedGuilds() {
         return structs__WEBPACK_IMPORTED_MODULE_1__["List"].from(this.restrictedGuildIds, id => _guild__WEBPACK_IMPORTED_MODULE_2__["Guild"].fromId(id) || id);
@@ -5784,109 +5782,109 @@ class UserSettings {
      * If everyone is checked, this will only have one item, "all". Otherwise it has either "mutual_friends", "mutual_guilds", both or neither.
      * Configurable in the privacy and safety panel.
      */
-    static get friendSourceFlags() { return Object.keys(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].UserSettingsStore.friendSourceFlags); }
-    static get friendSourceEveryone() { return this.friend_source_flags.include("all"); }
-    static get friendSourceMutual_friends() { return this.friend_source_flags.include("all") || this.friend_source_flags.include("mutual_friends"); }
-    static get friendSourceMutual_guilds() { return this.friend_source_flags.include("all") || this.friend_source_flags.include("mutual_guilds"); }
-    static get friendSourceAnyone() { return this.friend_source_flags.length > 0; }
+    static get friendSourceFlags() {return Object.keys(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].UserSettingsStore.friendSourceFlags);}
+    static get friendSourceEveryone() {return this.friend_source_flags.include("all");}
+    static get friendSourceMutual_friends() {return this.friend_source_flags.include("all") || this.friend_source_flags.include("mutual_friends");}
+    static get friendSourceMutual_guilds() {return this.friend_source_flags.include("all") || this.friend_source_flags.include("mutual_guilds");}
+    static get friendSourceAnyone() {return this.friend_source_flags.length > 0;}
 
     /**
      * Whether to automatically add accounts from other platforms running on the user's computer.
      * Configurable in the connections panel.
      */
-    static get detectPlatformAccounts() { return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].UserSettingsStore.detectPlatformAccounts; }
+    static get detectPlatformAccounts() {return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].UserSettingsStore.detectPlatformAccounts;}
 
     /**
      * The number of seconds Discord will wait for activity before sending mobile push notifications.
      * Configurable in the notifications panel.
      */
-    static get afkTimeout() { return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].UserSettingsStore.afkTimeout; }
+    static get afkTimeout() {return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].UserSettingsStore.afkTimeout;}
 
     /**
      * Whether to display the currently running game as a status message.
      * Configurable in the games panel.
      */
-    static get showCurrentGame() { return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].UserSettingsStore.showCurrentGame; }
+    static get showCurrentGame() {return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].UserSettingsStore.showCurrentGame;}
 
     /**
      * Whether to show images uploaded directly to Discord.
      * Configurable in the text and images panel.
      */
-    static get inlineAttachmentMedia() { return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].UserSettingsStore.inlineAttachmentMedia; }
+    static get inlineAttachmentMedia() {return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].UserSettingsStore.inlineAttachmentMedia;}
 
     /**
      * Whether to show images linked in Discord.
      * Configurable in the text and images panel.
      */
-    static get inlineEmbedMedia() { return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].UserSettingsStore.inlineEmbedMedia; }
+    static get inlineEmbedMedia() {return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].UserSettingsStore.inlineEmbedMedia;}
 
     /**
      * Whether to automatically play GIFs when the Discord window is active without having to hover the mouse over the image.
      * Configurable in the text and images panel.
      */
-    static get autoplayGifs() { return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].UserSettingsStore.gifAutoPlay; }
+    static get autoplayGifs() {return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].UserSettingsStore.gifAutoPlay;}
 
     /**
      * Whether to show content from HTTP[s] links as embeds.
      * Configurable in the text and images panel.
      */
-    static get showEmbeds() { return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].UserSettingsStore.renderEmbeds; }
+    static get showEmbeds() {return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].UserSettingsStore.renderEmbeds;}
 
     /**
      * Whether to show a message's reactions.
      * Configurable in the text and images panel.
      */
-    static get showReactions() { return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].UserSettingsStore.renderReactions; }
+    static get showReactions() {return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].UserSettingsStore.renderReactions;}
 
     /**
      * Whether to play animated emoji.
      * Configurable in the text and images panel.
      */
-    static get animateEmoji() { return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].UserSettingsStore.animateEmoji; }
+    static get animateEmoji() {return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].UserSettingsStore.animateEmoji;}
 
     /**
      * Whether to convert ASCII emoticons to emoji.
      * Configurable in the text and images panel.
      */
-    static get convertEmoticons() { return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].UserSettingsStore.convertEmoticons; }
+    static get convertEmoticons() {return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].UserSettingsStore.convertEmoticons;}
 
     /**
      * Whether to allow playing text-to-speech messages.
      * Configurable in the text and images panel.
      */
-    static get allowTts() { return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].UserSettingsStore.enableTTSCommand; }
+    static get allowTts() {return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].UserSettingsStore.enableTTSCommand;}
 
     /**
      * The user's selected theme. Either "dark" or "light".
      * Configurable in the appearance panel.
      */
-    static get theme() { return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].UserSettingsStore.theme; }
+    static get theme() {return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].UserSettingsStore.theme;}
 
     /**
      * Whether the user has enabled compact mode.
      * `true` if compact mode is enabled, `false` if cozy mode is enabled.
      * Configurable in the appearance panel.
      */
-    static get displayCompact() { return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].UserSettingsStore.messageDisplayCompact; }
+    static get displayCompact() {return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].UserSettingsStore.messageDisplayCompact;}
 
     /**
      * Whether the user has enabled developer mode.
      * Currently only adds a "Copy ID" option to the context menu on users, guilds and channels.
      * Configurable in the appearance panel.
      */
-    static get developerMode() { return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].UserSettingsStore.developerMode; }
+    static get developerMode() {return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].UserSettingsStore.developerMode;}
 
     /**
      * The user's selected language code.
      * Configurable in the language panel.
      */
-    static get locale() { return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].UserSettingsStore.locale; }
+    static get locale() {return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].UserSettingsStore.locale;}
 
     /**
      * The user's timezone offset in hours.
      * This is not configurable.
      */
-    static get timezoneOffset() { return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].UserSettingsStore.timezoneOffset; }
+    static get timezoneOffset() {return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].UserSettingsStore.timezoneOffset;}
 }
 
 
@@ -5987,6 +5985,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+/* eslint-disable operator-linebreak */
+
 /** 
  * Representation of a MutationObserver but with helpful utilities.
  * @memberof module:DOMTools
@@ -6051,11 +6051,11 @@ class DOMObserver {
         }
     }
 
-    get root() { return this._root; }
-    set root(root) { this._root = root; this.reconnect(); }
+    get root() {return this._root;}
+    set root(root) {this._root = root; this.reconnect();}
 
-    get options() { return this._options; }
-    set options(options) { this._options = options; this.reconnect(); }
+    get options() {return this._options;}
+    set options(options) {this._options = options; this.reconnect();}
 
     get subscriptions() {
         return this._subscriptions || (this._subscriptions = []);
@@ -6255,10 +6255,6 @@ __webpack_require__.r(__webpack_exports__);
  */
 class List extends Array {
 
-    constructor() {
-        super(...arguments);
-    }
-
     /**
      * Allows multiple filters at once
      * @param {...callable} filters - set a filters to filter the list by
@@ -6382,10 +6378,10 @@ __webpack_require__.r(__webpack_exports__);
                 this.settings = _modules_utilities__WEBPACK_IMPORTED_MODULE_5__["default"].deepclone(this.defaultSettings);
             }
         }
-        getName() { return this._config.info.name.replace(" ", ""); }
-        getDescription() { return this._config.info.description; }
-        getVersion() { return this._config.info.version; }
-        getAuthor() { return this._config.info.authors.map(a => a.name).join(", "); }
+        getName() {return this._config.info.name.replace(" ", "");}
+        getDescription() {return this._config.info.description;}
+        getVersion() {return this._config.info.version;}
+        getAuthor() {return this._config.info.authors.map(a => a.name).join(", ");}
         load() {
             const currentVersionInfo = _modules_pluginutilities__WEBPACK_IMPORTED_MODULE_4__["default"].loadData(this.getName(), "currentVersionInfo", {version: this.getVersion(), hasShownChangelog: false});
             if (currentVersionInfo.version != this.getVersion() || !currentVersionInfo.hasShownChangelog) {
@@ -6523,9 +6519,9 @@ __webpack_require__.r(__webpack_exports__);
  */
 class Screen {
     /** Document/window width */
-    static get width() { return Math.max(document.documentElement.clientWidth, window.innerWidth || 0); }
+    static get width() {return Math.max(document.documentElement.clientWidth, window.innerWidth || 0);}
     /** Document/window height */
-    static get height() { return Math.max(document.documentElement.clientHeight, window.innerHeight || 0); }
+    static get height() {return Math.max(document.documentElement.clientHeight, window.innerHeight || 0);}
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (Screen);
@@ -6814,9 +6810,9 @@ class Menu {
         }
 
         if (depth !== 0) return;
-        _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].on(document, "mousedown.zctx", (e) => { if (!this.element.contains(e.target) && !this.element.isSameNode(e.target)) this.removeMenu(); });
-        _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].on(document, "click.zctx", (e) => { if (this.element.contains(e.target)) this.removeMenu(); });
-        _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].on(document, "keyup.zctx", (e) => { if (e.keyCode === 27) this.removeMenu(); });
+        _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].on(document, "mousedown.zctx", (e) => {if (!this.element.contains(e.target) && !this.element.isSameNode(e.target)) this.removeMenu();});
+        _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].on(document, "click.zctx", (e) => {if (this.element.contains(e.target)) this.removeMenu();});
+        _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].on(document, "keyup.zctx", (e) => {if (e.keyCode === 27) this.removeMenu();});
     }
 
     /** Allows you to remove the menu. */
@@ -6840,10 +6836,10 @@ class Menu {
         menuItem.addEventListener("mouseenter", () => {
             // this.element.appendTo(DiscordSelectors.Popouts.popouts.sibling(DiscordSelectors.TooltipLayers.layerContainer).toString());
             // const left = this.element.parents(this.parentSelector)[0].css("left");
-            //console.log(parseInt(menuItem.offset().left), parseInt(menuItem.offset().top));
+            // console.log(parseInt(menuItem.offset().left), parseInt(menuItem.offset().top));
             this.show(parseInt(menuItem.offset().right), parseInt(menuItem.offset().top));
         });
-        menuItem.addEventListener("mouseleave", () => { this.element.closest(_modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].TooltipLayers.layer.toString())[0].remove(); });
+        menuItem.addEventListener("mouseleave", () => {this.element.closest(_modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].TooltipLayers.layer.toString())[0].remove();});
     }
 
     get parentSelector() {return this.element.closest(".plugin-context-menu").length > this.element.closest(_modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].ContextMenu.contextMenu).length ? ".plugin-context-menu" : _modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].ContextMenu.contextMenu;}
@@ -6869,7 +6865,7 @@ class ItemGroup {
     }
 
     /** @returns {HTMLElement} returns the DOM node for the group */
-    getElement() { return this.element; }
+    getElement() {return this.element;}
 }
 
 /**
@@ -6903,7 +6899,7 @@ class MenuItem {
             else event.stopPropagation();
         });
     }
-    getElement() { return this.element;}
+    getElement() {return this.element;}
 }
 
 /**
@@ -8010,7 +8006,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const AccessibilityProvider = modules__WEBPACK_IMPORTED_MODULE_1__["WebpackModules"].getByProps("AccessibilityPreferencesContext").AccessibilityPreferencesContext.Provider;
-const LayerProvider = modules__WEBPACK_IMPORTED_MODULE_1__["WebpackModules"].getByProps("AppReferencePositionLayer").AppLayerProvider().props.layerContext.Provider;
+const LayerProvider = modules__WEBPACK_IMPORTED_MODULE_1__["WebpackModules"].getByProps("AppReferencePositionLayer").AppLayerProvider().props.layerContext.Provider; // eslint-disable-line new-cap
 
 /** 
  * Setting field to extend to create new settings
@@ -8039,7 +8035,7 @@ class SettingField extends _structs_listenable__WEBPACK_IMPORTED_MODULE_0__["def
     }
 
     /** @returns {HTMLElement} - root element for setting */
-    getElement() { return this.inputWrapper; }
+    getElement() {return this.inputWrapper;}
 
     /** Fires onchange to listeners */
     onChange() {
@@ -8067,16 +8063,12 @@ class SettingField extends _structs_listenable__WEBPACK_IMPORTED_MODULE_0__["def
 /* harmony default export */ __webpack_exports__["default"] = (SettingField);
 
 class ReactSetting extends modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     get noteElement() {
         const className = this.props.noteOnTop ? modules__WEBPACK_IMPORTED_MODULE_1__["DiscordClasses"].Margins.marginBottom8 : modules__WEBPACK_IMPORTED_MODULE_1__["DiscordClasses"].Margins.marginTop8;
         return modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].React.createElement(modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].SettingsNote, {children: this.props.note, type: "description", className: className.toString()});
     }
 
-    get dividerElement() { return modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].React.createElement("div", {className: modules__WEBPACK_IMPORTED_MODULE_1__["DiscordClasses"].Dividers.divider.add(modules__WEBPACK_IMPORTED_MODULE_1__["DiscordClasses"].Dividers.dividerDefault).toString()}); }
+    get dividerElement() {return modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].React.createElement("div", {className: modules__WEBPACK_IMPORTED_MODULE_1__["DiscordClasses"].Dividers.divider.add(modules__WEBPACK_IMPORTED_MODULE_1__["DiscordClasses"].Dividers.dividerDefault).toString()});}
 
     render() {
         const ce = modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].React.createElement;
@@ -8348,7 +8340,7 @@ class ColorPicker extends _settingfield__WEBPACK_IMPORTED_MODULE_0__["default"] 
     constructor(name, note, value, onChange, options = {}) {
         if (modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].ColorPicker) {
             super(name, note, onChange, modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].ColorPicker, {
-                disabled: options.disabled ? true : false,
+                disabled: !!options.disabled,
                 onChange: reactElement => color => {
                     reactElement.props.value = color;
                     reactElement.forceUpdate();
@@ -8429,9 +8421,9 @@ class Dropdown extends _settingfield__WEBPACK_IMPORTED_MODULE_0__["default"] {
             disabled: disabled,
             options: values,
             onChange: dropdown => opt => {
-                dropdown.props.value = opt.value;
+                dropdown.props.value = opt && opt.value;
                 dropdown.forceUpdate();
-                this.onChange(opt.value);
+                this.onChange(opt && opt.value);
             },
             value: defaultValue
         });
@@ -8579,7 +8571,7 @@ class RadioGroup extends _settingfield__WEBPACK_IMPORTED_MODULE_0__["default"] {
     constructor(name, note, defaultValue, values, onChange, options = {}) {
         super(name, note, onChange, modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].RadioGroup, {
             noteOnTop: true,
-            disabled: options.disabled ? true : false,
+            disabled: !!options.disabled,
             options: values,
             onChange: reactElement => option => {
                 reactElement.props.value = option.value;
@@ -8644,10 +8636,10 @@ class Slider extends _settingfield__WEBPACK_IMPORTED_MODULE_0__["default"] {
     * @param {string} [options.units] - can be used in place of `onValueRender` will use this string and render Math.round(value) + units
     */
     constructor(name, note, min, max, value, onChange, options = {}) {
-        const props =  {
+        const props = {
             onChange: _ => _,
             initialValue: value,
-            disabled: options.disabled ? true : false,
+            disabled: !!options.disabled,
             minValue: min,
             maxValue: max,
             handleSize: 10
@@ -8680,7 +8672,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-//TODO: Documentation
+// TODO: Documentation
 
 /** 
  * Creates a switch using discord's built in switch.
@@ -8699,8 +8691,8 @@ class Switch extends _settingfield__WEBPACK_IMPORTED_MODULE_0__["default"] {
      */
     constructor(name, note, isChecked, onChange, options = {}) {
         super(name, note, onChange);
-        this.disabled = options.disabled ? true : false;
-        this.value = isChecked ? true : false;
+        this.disabled = !!options.disabled;
+        this.value = !!isChecked;
     }
 
     onAdded() {
@@ -8738,7 +8730,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-//TODO: Documentation
+// TODO: Documentation
 
 /** 
  * Creates a textbox using discord's built in textbox.
@@ -8946,7 +8938,7 @@ class Tooltip {
         this.style = style;
         this.side = side;
         this.disabled = disabled;
-        this.id = modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].KeyGenerator();
+        this.id = modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].KeyGenerator(); // eslint-disable-line new-cap
 
         this.node.addEventListener("mouseenter", () => {
             if (this.disabled) return;

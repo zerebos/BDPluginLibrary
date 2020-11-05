@@ -17,9 +17,8 @@ module.exports = {
             title: "Bugs Squashed",
             type: "fixed",
             items: [
-                "Fixes toggles not working for plugin settings.",
-                "Fixes some functionality of `DiscordAPI`",
-                "Speeds up module searching a bit"
+                "Updates to match Discord's internal changes for `ChannelStore`",
+                "Fixes an issue with clearing Dropdown settings"
             ]
         }
     ],
