@@ -11,7 +11,7 @@
 */
 
 import Patcher from "./patcher";
-import reflect from "./reflection";
+import Reflect from "./reflection";
 import Modules from "./discordmodules";
 import DOMTools from "./domtools";
 import ReactTools from "./reacttools";
@@ -160,7 +160,7 @@ class ReactComponent {
     forceUpdateAll() {
         if (!this.selector) return;
         for (const e of document.querySelectorAll(this.selector)) {
-            reflect(e).forceUpdate(this); // eslint-disable-line new-cap
+            Reflect(e).forceUpdate(this); // eslint-disable-line new-cap
         }
     }
 }
@@ -247,7 +247,7 @@ export default class ReactComponents {
 
                 let component, reflect;
                 for (const element of elements) {
-                    reflect = reflect(element);
+                    reflect = Reflect(element); // eslint-disable-line new-cap
                     component = filter ? reflect.components.find(filter) : reflect.component;
                     if (component) break;
                 }

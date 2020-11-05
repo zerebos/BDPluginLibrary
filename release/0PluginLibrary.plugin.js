@@ -136,7 +136,7 @@ module.exports = {
             github_username: "rauenzi",
             twitter_username: "ZackRauen"
         }],
-        version: "1.2.25",
+        version: "1.2.26",
         description: "Gives other plugins utility functions and the ability to emulate v2.",
         github: "https://github.com/rauenzi/BDPluginLibrary",
         github_raw: "https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"
@@ -147,7 +147,8 @@ module.exports = {
             type: "fixed",
             items: [
                 "Updates to match Discord's internal changes for `ChannelStore`",
-                "Fixes an issue with clearing Dropdown settings"
+                "Fixes an issue with clearing Dropdown settings",
+                "Fixes a reflection bug for PermissionsViewer"
             ]
         }
     ],
@@ -2771,7 +2772,7 @@ class ReactComponents {
 
                 let component, reflect;
                 for (const element of elements) {
-                    reflect = reflect(element);
+                    reflect = Object(_reflection__WEBPACK_IMPORTED_MODULE_1__["default"])(element); // eslint-disable-line new-cap
                     component = filter ? reflect.components.find(filter) : reflect.component;
                     if (component) break;
                 }

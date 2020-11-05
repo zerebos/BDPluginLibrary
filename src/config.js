@@ -18,7 +18,8 @@ module.exports = {
             type: "fixed",
             items: [
                 "Updates to match Discord's internal changes for `ChannelStore`",
-                "Fixes an issue with clearing Dropdown settings"
+                "Fixes an issue with clearing Dropdown settings",
+                "Fixes a reflection bug for PermissionsViewer"
             ]
         }
     ],
