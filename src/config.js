@@ -17,9 +17,7 @@ module.exports = {
             title: "Bugs Squashed",
             type: "fixed",
             items: [
-                "Updates to match Discord's internal changes for `ChannelStore`",
-                "Fixes an issue with clearing Dropdown settings",
-                "Fixes a reflection bug for PermissionsViewer"
+                "Fixed multiple plugins, settings and other things not working due to not fetching the react instance anymore (thanks Juby210)."
             ]
         }
     ],

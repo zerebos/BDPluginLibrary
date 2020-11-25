@@ -136,7 +136,7 @@ module.exports = {
             github_username: "rauenzi",
             twitter_username: "ZackRauen"
         }],
-        version: "1.2.26",
+        version: "1.2.27",
         description: "Gives other plugins utility functions and the ability to emulate v2.",
         github: "https://github.com/rauenzi/BDPluginLibrary",
         github_raw: "https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"
@@ -146,9 +146,7 @@ module.exports = {
             title: "Bugs Squashed",
             type: "fixed",
             items: [
-                "Updates to match Discord's internal changes for `ChannelStore`",
-                "Fixes an issue with clearing Dropdown settings",
-                "Fixes a reflection bug for PermissionsViewer"
+                "Fixed multiple plugins, settings and other things not working due to not fetching the react instance anymore (thanks Juby210)."
             ]
         }
     ],
@@ -2927,7 +2925,7 @@ class ReactTools {
     static getReactInstance(node) {
         if (!(node instanceof window.jQuery) && !(node instanceof Element)) return undefined;
         const domNode = node instanceof window.jQuery ? node[0] : node;
-        return domNode[Object.keys(domNode).find((key) => key.startsWith("__reactInternalInstance"))];
+        return domNode[Object.keys(domNode).find((key) => key.startsWith("__reactInternalInstance") || key.startsWith('__reactFiber'))];
     }
 
     /**
