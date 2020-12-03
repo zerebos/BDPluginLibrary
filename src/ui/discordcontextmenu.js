@@ -35,7 +35,7 @@ const ContextMenu = WebpackModules.getByProps("MenuRadioItem", "MenuItem");
 /**
  * @interface
  * @name module:DiscordContextMenu~MenuItem
- *
+ * @description
  * This is the generic context menu item component. It is very extensible and will adapt
  * it's type depending on the props.
  * 
@@ -66,7 +66,7 @@ const ContextMenu = WebpackModules.getByProps("MenuRadioItem", "MenuItem");
  * @interface
  * @name module:DiscordContextMenu~MenuToggleItem
  * @extends module:DiscordContextMenu~MenuItem
- *
+ * @description
  * This item is used for creating checkboxes in menus. Properties shown here are additional
  * to those of the main MenuItem {@link module:DiscordContextMenu~MenuItem}
  * 
@@ -79,7 +79,7 @@ const ContextMenu = WebpackModules.getByProps("MenuRadioItem", "MenuItem");
  * @interface
  * @name module:DiscordContextMenu~MenuRadioItem
  * @extends module:DiscordContextMenu~MenuItem
- *
+ * @description
  * This item is used for creating radio selections in menus. Properties shown here are additional
  * to those of the main MenuItem {@link module:DiscordContextMenu~MenuItem}
  * 
@@ -96,7 +96,7 @@ const ContextMenu = WebpackModules.getByProps("MenuRadioItem", "MenuItem");
  * @interface
  * @name module:DiscordContextMenu~SubMenuItem
  * @extends module:DiscordContextMenu~MenuItem
- *
+ * @description
  * This item is used for creating nested submenus. Properties shown here are additional
  * to those of the main MenuItem {@link module:DiscordContextMenu~MenuItem}
  * 
@@ -109,7 +109,7 @@ const ContextMenu = WebpackModules.getByProps("MenuRadioItem", "MenuItem");
  * @interface
  * @name module:DiscordContextMenu~MenuControlItem
  * @extends module:DiscordContextMenu~MenuItem
- *
+ * @description
  * This item is used for adding custom controls like sliders to the context menu.
  * Properties shown here are additional to those of the main MenuItem {@link module:DiscordContextMenu~MenuItem}
  * 

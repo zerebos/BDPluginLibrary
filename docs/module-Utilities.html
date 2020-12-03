@@ -55,7 +55,6 @@
 											<li><a href="module-DOMTools.ClassName.html">DOMTools.ClassName</a></li>
 											<li><a href="module-DOMTools.DOMObserver.html">DOMTools.DOMObserver</a></li>
 											<li><a href="module-DOMTools.Selector.html">DOMTools.Selector</a></li>
-											<li><a href="module-EmulatedTooltip_module_EmulatedTooltip.html">EmulatedTooltip>module:EmulatedTooltip</a></li>
 											<li><a href="module-Settings.ColorPicker.html">Settings.ColorPicker</a></li>
 											<li><a href="module-Settings.Dropdown.html">Settings.Dropdown</a></li>
 											<li><a href="module-Settings.FilePicker.html">Settings.FilePicker</a></li>
@@ -76,7 +75,7 @@
 									<a href="list_interface.html" class="dropdown-toggle" data-toggle="dropdown">Interfaces<b class="caret"></b></a>
 									<ul class="dropdown-menu">
 											<li><a href="module-DiscordContextMenu-MenuControlItem.html">DiscordContextMenu~MenuControlItem</a></li>
-											<li><a href="module-DiscordContextMenu-MenuItem%250D%250DThis%2520is%2520the%2520generic%2520context%2520menu%2520item%2520component.%2520It%2520is%2520very%2520extensible%2520and%2520will%2520adapt%250Dit_s%2520type%2520depending%2520on%2520the%2520props..html">DiscordContextMenu~MenuItemThis is the generic context menu item component. It is very extensible and will adaptit's type depending on the props.</a></li>
+											<li><a href="module-DiscordContextMenu-MenuItem.html">DiscordContextMenu~MenuItem</a></li>
 											<li><a href="module-DiscordContextMenu-MenuRadioItem.html">DiscordContextMenu~MenuRadioItem</a></li>
 											<li><a href="module-DiscordContextMenu-MenuToggleItem.html">DiscordContextMenu~MenuToggleItem</a></li>
 											<li><a href="module-DiscordContextMenu-SubMenuItem.html">DiscordContextMenu~SubMenuItem</a></li>
@@ -1186,6 +1185,72 @@
 </dd>
 											<hr/>
 											<dt class="symbol-title function public collapsible-symbol">
+			<h4 id=".debounce" class="function public"><span class="signature-attribs">&lt;static> </span><span class="name">debounce</span><span class="signature-params">( <span class="signature-param">executor</span>, <span class="signature-param">delay</span>&nbsp;)</span><span class="signature-type"></span></h4>
+		</dt>
+<dd class="symbol-details function public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>Returns a function, that, as long as it continues to be invoked, will not
+			be triggered. The function will be called after it stops being called for
+			N milliseconds.</p>
+			<p>Adapted from the version by David Walsh (https://davidwalsh.name/javascript-debounce-function)</p></div>
+			</div>			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>executor</code></td>
+							<td><span class="param-type">function</span></td>
+							<td class="last">
+							</td>
+						</tr>
+						<tr>
+								<td><code>delay</code></td>
+							<td><span class="param-type">number</span></td>
+							<td class="last">
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="modules_utilities.js.html">modules/utilities.js</a>, <a href="modules_utilities.js.html#line-323">line 323</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function public collapsible-symbol">
 			<h4 id=".fileExists" class="function public"><span class="signature-attribs">&lt;async, static> </span><span class="name">fileExists</span><span class="signature-params">( <span class="signature-param">path</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise}</span></h4>
 		</dt>
 <dd class="symbol-details function public  collapsible-symbol">
@@ -1232,6 +1297,13 @@
 			
 			
 			
+							<!-- deprecated -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Deprecated</label>
+								<div class="col-sm-9">
+									<p class="form-control-static">12/3/2020 Just use fs...</p>
+								</div>
+							</div>
 			
 			
 			
@@ -1240,7 +1312,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="modules_utilities.js.html">modules/utilities.js</a>, <a href="modules_utilities.js.html#line-318">line 318</a></p>
+									<p class="form-control-static"><a href="modules_utilities.js.html">modules/utilities.js</a>, <a href="modules_utilities.js.html#line-341">line 341</a></p>
 								</div>
 							</div>
 			
@@ -1298,6 +1370,13 @@
 			
 			
 			
+							<!-- deprecated -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Deprecated</label>
+								<div class="col-sm-9">
+									<p class="form-control-static">12/3/2020 Just use fs...</p>
+								</div>
+							</div>
 			
 			
 			
@@ -1306,7 +1385,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="modules_utilities.js.html">modules/utilities.js</a>, <a href="modules_utilities.js.html#line-346">line 346</a></p>
+									<p class="form-control-static"><a href="modules_utilities.js.html">modules/utilities.js</a>, <a href="modules_utilities.js.html#line-370">line 370</a></p>
 								</div>
 							</div>
 			

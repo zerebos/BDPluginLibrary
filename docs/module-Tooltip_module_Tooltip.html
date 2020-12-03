@@ -55,7 +55,6 @@
 											<li><a href="module-DOMTools.ClassName.html">DOMTools.ClassName</a></li>
 											<li><a href="module-DOMTools.DOMObserver.html">DOMTools.DOMObserver</a></li>
 											<li><a href="module-DOMTools.Selector.html">DOMTools.Selector</a></li>
-											<li><a href="module-EmulatedTooltip_module_EmulatedTooltip.html">EmulatedTooltip>module:EmulatedTooltip</a></li>
 											<li><a href="module-Settings.ColorPicker.html">Settings.ColorPicker</a></li>
 											<li><a href="module-Settings.Dropdown.html">Settings.Dropdown</a></li>
 											<li><a href="module-Settings.FilePicker.html">Settings.FilePicker</a></li>
@@ -76,7 +75,7 @@
 									<a href="list_interface.html" class="dropdown-toggle" data-toggle="dropdown">Interfaces<b class="caret"></b></a>
 									<ul class="dropdown-menu">
 											<li><a href="module-DiscordContextMenu-MenuControlItem.html">DiscordContextMenu~MenuControlItem</a></li>
-											<li><a href="module-DiscordContextMenu-MenuItem%250D%250DThis%2520is%2520the%2520generic%2520context%2520menu%2520item%2520component.%2520It%2520is%2520very%2520extensible%2520and%2520will%2520adapt%250Dit_s%2520type%2520depending%2520on%2520the%2520props..html">DiscordContextMenu~MenuItemThis is the generic context menu item component. It is very extensible and will adaptit's type depending on the props.</a></li>
+											<li><a href="module-DiscordContextMenu-MenuItem.html">DiscordContextMenu~MenuItem</a></li>
 											<li><a href="module-DiscordContextMenu-MenuRadioItem.html">DiscordContextMenu~MenuRadioItem</a></li>
 											<li><a href="module-DiscordContextMenu-MenuToggleItem.html">DiscordContextMenu~MenuToggleItem</a></li>
 											<li><a href="module-DiscordContextMenu-SubMenuItem.html">DiscordContextMenu~SubMenuItem</a></li>
@@ -197,7 +196,7 @@
 														<td class="attributes">&lt;optional&gt;<br/></td>
 														<td>black</td>
 													<td class="last">
-															<p>correlates to the discord styling</p>
+															<p>correlates to the discord styling/colors (black, brand, green, grey, red, yellow)</p>
 													</td>
 												</tr>
 												<tr>
@@ -216,6 +215,24 @@
 														<td>false</td>
 													<td class="last">
 															<p>prevents moving the tooltip to the opposite side if it is too big or goes offscreen</p>
+													</td>
+												</tr>
+												<tr>
+														<td><code>isTimestamp</code></td>
+													<td><span class="param-type">boolean</span></td>
+														<td class="attributes">&lt;optional&gt;<br/></td>
+														<td>false</td>
+													<td class="last">
+															<p>adds the timestampTooltip class (disables text wrapping)</p>
+													</td>
+												</tr>
+												<tr>
+														<td><code>disablePointerEvents</code></td>
+													<td><span class="param-type">boolean</span></td>
+														<td class="attributes">&lt;optional&gt;<br/></td>
+														<td>false</td>
+													<td class="last">
+															<p>disables pointer events</p>
 													</td>
 												</tr>
 												<tr>
@@ -254,7 +271,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="ui_tooltip.js.html">ui/tooltip.js</a>, <a href="ui_tooltip.js.html#line-25">line 25</a></p>
+									<p class="form-control-static"><a href="ui_tooltip.js.html">ui/tooltip.js</a>, <a href="ui_tooltip.js.html#line-52">line 52</a></p>
 								</div>
 							</div>
 			

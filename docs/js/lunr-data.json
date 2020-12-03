@@ -1395,12 +1395,6 @@
           "updat",
           "updatechannel"
         ],
-        "module-Tooltip_module_Tooltip.html": [
-          "class",
-          "module:tooltip",
-          "module:tooltip>module:tooltip",
-          "tooltip(require(&quot;tooltip&quot"
-        ],
         "module-Settings.Dropdown.html": [
           "built",
           "class",
@@ -1639,11 +1633,11 @@
           "root",
           "slider#onremov"
         ],
-        "module-EmulatedTooltip_module_EmulatedTooltip.html": [
+        "module-Tooltip_module_Tooltip.html": [
           "class",
-          "emulatedtooltip(require(&quot;emulatedtooltip&quot",
-          "module:emulatedtooltip",
-          "module:emulatedtooltip>module:emulatedtooltip"
+          "module:tooltip",
+          "module:tooltip>module:tooltip",
+          "tooltip(require(&quot;tooltip&quot"
         ],
         "module-DiscordAPI.Guild.html": [
           "class",
@@ -2342,20 +2336,29 @@
         ],
         "module-Tooltip.html": [
           "automat",
+          "close",
+          "discord'",
           "dom",
+          "emul",
           "event",
           "hide",
+          "intern",
+          "manipul",
           "modul",
           "module:tooltip",
           "mouseent",
           "mouseleav",
           "mutationobserv",
           "node",
+          "normal",
+          "note",
+          "possibl",
           "remov",
           "show",
           "themselv",
           "through",
           "tooltip",
+          "us",
           "watch"
         ],
         "module-DiscordClassModules.html": [
@@ -2515,27 +2518,58 @@
           "module:domtools~offset",
           "offset"
         ],
-        "module-DiscordContextMenu-MenuItem%0D%0DThis%20is%20the%20generic%20context%20menu%20item%20component.%20It%20is%20very%20extensible%20and%20will%20adapt%0Dit_s%20type%20depending%20on%20the%20props..html": [
+        "module-DiscordContextMenu-MenuItem.html": [
           "adapt",
+          "caus",
           "compon",
+          "conflict",
           "context",
           "depend",
+          "discordcontextmenu~menuitem",
+          "ensur",
+          "entir",
           "extens",
           "gener",
+          "hover",
+          "id",
           "interfac",
           "it'",
           "item",
+          "label",
           "menu",
+          "menuitem",
           "module:discordcontextmenu~menuitem",
+          "multipl",
+          "note",
+          "onc",
+          "plugin",
           "prop",
+          "provid",
+          "system",
           "type",
-          "veri"
+          "uniqu",
+          "us",
+          "veri",
+          "wish"
         ],
         "module-DiscordContextMenu-MenuToggleItem.html": [
+          "addit",
+          "checkbox",
+          "creat",
           "discordcontextmenu~menutoggleitem",
+          "here",
           "interfac",
+          "item",
+          "main",
+          "menu",
+          "menuitem",
           "menutoggleitem",
-          "module:discordcontextmenu~menutoggleitem"
+          "module:discordcontextmenu~menuitem",
+          "module:discordcontextmenu~menutoggleitem",
+          "properti",
+          "shown",
+          "those",
+          "us"
         ],
         "module-Modals-Changelog.html": [
           "changelog",
@@ -2544,25 +2578,85 @@
           "module:modals~changelog"
         ],
         "module-DiscordContextMenu-MenuRadioItem.html": [
+          "addit",
+          "appear",
+          "compon",
+          "creat",
           "discordcontextmenu~menuradioitem",
+          "enabl",
+          "forceupd",
+          "function",
+          "here",
+          "https://reactjs.org/docs/hook",
           "interfac",
+          "item",
+          "main",
+          "manag",
+          "manual",
+          "menu",
+          "menuitem",
           "menuradioitem",
-          "module:discordcontextmenu~menuradioitem"
+          "module:discordcontextmenu~menuitem",
+          "module:discordcontextmenu~menuradioitem",
+          "need",
+          "note",
+          "option",
+          "properti",
+          "radio",
+          "reference.html#usest",
+          "see",
+          "select",
+          "shown",
+          "state",
+          "those",
+          "toggl",
+          "updat",
+          "us",
+          "without"
         ],
         "module-DiscordContextMenu-SubMenuItem.html": [
+          "addit",
+          "creat",
           "discordcontextmenu~submenuitem",
+          "here",
           "interfac",
+          "item",
+          "main",
+          "menuitem",
+          "module:discordcontextmenu~menuitem",
           "module:discordcontextmenu~submenuitem",
-          "submenuitem"
+          "nest",
+          "properti",
+          "shown",
+          "submenu",
+          "submenuitem",
+          "those",
+          "us"
         ],
         "module-DiscordContextMenu-MenuControlItem.html": [
+          "ad",
+          "addit",
+          "context",
+          "control",
+          "custom",
           "discordcontextmenu~menucontrolitem",
+          "here",
           "interfac",
+          "item",
+          "main",
+          "menu",
           "menucontrolitem",
-          "module:discordcontextmenu~menucontrolitem"
+          "menuitem",
+          "module:discordcontextmenu~menucontrolitem",
+          "module:discordcontextmenu~menuitem",
+          "properti",
+          "shown",
+          "slider",
+          "those",
+          "us"
         ]
       },
-      "length": 217
+      "length": 216
     },
     "tokenStore": {
       "root": {
@@ -3072,6 +3166,29 @@
                   "tf": 3.571428571428571
                 }
               }
+            },
+            "r": {
+              "docs": {},
+              "e": {
+                "docs": {
+                  "module-DiscordContextMenu-MenuToggleItem.html": {
+                    "ref": "module-DiscordContextMenu-MenuToggleItem.html",
+                    "tf": 3.8461538461538463
+                  },
+                  "module-DiscordContextMenu-MenuRadioItem.html": {
+                    "ref": "module-DiscordContextMenu-MenuRadioItem.html",
+                    "tf": 1.6129032258064515
+                  },
+                  "module-DiscordContextMenu-SubMenuItem.html": {
+                    "ref": "module-DiscordContextMenu-SubMenuItem.html",
+                    "tf": 3.8461538461538463
+                  },
+                  "module-DiscordContextMenu-MenuControlItem.html": {
+                    "ref": "module-DiscordContextMenu-MenuControlItem.html",
+                    "tf": 3.125
+                  }
+                }
+              }
             }
           },
           "t": {
@@ -3412,6 +3529,74 @@
                               }
                             }
                           }
+                        },
+                        "r": {
+                          "docs": {},
+                          "e": {
+                            "docs": {},
+                            "a": {
+                              "docs": {},
+                              "c": {
+                                "docs": {},
+                                "t": {
+                                  "docs": {},
+                                  "j": {
+                                    "docs": {},
+                                    "s": {
+                                      "docs": {},
+                                      ".": {
+                                        "docs": {},
+                                        "o": {
+                                          "docs": {},
+                                          "r": {
+                                            "docs": {},
+                                            "g": {
+                                              "docs": {},
+                                              "/": {
+                                                "docs": {},
+                                                "d": {
+                                                  "docs": {},
+                                                  "o": {
+                                                    "docs": {},
+                                                    "c": {
+                                                      "docs": {},
+                                                      "s": {
+                                                        "docs": {},
+                                                        "/": {
+                                                          "docs": {},
+                                                          "h": {
+                                                            "docs": {},
+                                                            "o": {
+                                                              "docs": {},
+                                                              "o": {
+                                                                "docs": {},
+                                                                "k": {
+                                                                  "docs": {
+                                                                    "module-DiscordContextMenu-MenuRadioItem.html": {
+                                                                      "ref": "module-DiscordContextMenu-MenuRadioItem.html",
+                                                                      "tf": 1.6129032258064515
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
                         }
                       }
                     }
@@ -3459,6 +3644,10 @@
                     "module-DiscordAPI.UserSettings.html#.autoplayGifs": {
                       "ref": "module-DiscordAPI.UserSettings.html#.autoplayGifs",
                       "tf": 2.941176470588235
+                    },
+                    "module-DiscordContextMenu-MenuItem.html": {
+                      "ref": "module-DiscordContextMenu-MenuItem.html",
+                      "tf": 1.2195121951219512
                     }
                   }
                 }
@@ -3499,7 +3688,7 @@
                   },
                   "module-Tooltip.html": {
                     "ref": "module-Tooltip.html",
-                    "tf": 3.125
+                    "tf": 1.7857142857142856
                   }
                 }
               }
@@ -3560,8 +3749,8 @@
                             "ref": "module-DOMTools-Offset.html",
                             "tf": 110
                           },
-                          "module-DiscordContextMenu-MenuItem%0D%0DThis%20is%20the%20generic%20context%20menu%20item%20component.%20It%20is%20very%20extensible%20and%20will%20adapt%0Dit_s%20type%20depending%20on%20the%20props..html": {
-                            "ref": "module-DiscordContextMenu-MenuItem%0D%0DThis%20is%20the%20generic%20context%20menu%20item%20component.%20It%20is%20very%20extensible%20and%20will%20adapt%0Dit_s%20type%20depending%20on%20the%20props..html",
+                          "module-DiscordContextMenu-MenuItem.html": {
+                            "ref": "module-DiscordContextMenu-MenuItem.html",
                             "tf": 110
                           },
                           "module-DiscordContextMenu-MenuToggleItem.html": {
@@ -3596,6 +3785,10 @@
                       },
                       "module-EmulatedTooltip.html": {
                         "ref": "module-EmulatedTooltip.html",
+                        "tf": 1.7857142857142856
+                      },
+                      "module-Tooltip.html": {
+                        "ref": "module-Tooltip.html",
                         "tf": 1.7857142857142856
                       },
                       "module-DiscordAPI.html": {
@@ -3923,9 +4116,25 @@
                     "ref": "module-ContextMenu.ToggleItem.html",
                     "tf": 12.5
                   },
-                  "module-DiscordContextMenu-MenuItem%0D%0DThis%20is%20the%20generic%20context%20menu%20item%20component.%20It%20is%20very%20extensible%20and%20will%20adapt%0Dit_s%20type%20depending%20on%20the%20props..html": {
-                    "ref": "module-DiscordContextMenu-MenuItem%0D%0DThis%20is%20the%20generic%20context%20menu%20item%20component.%20It%20is%20very%20extensible%20and%20will%20adapt%0Dit_s%20type%20depending%20on%20the%20props..html",
-                    "tf": 138.0769230769231
+                  "module-DiscordContextMenu-MenuItem.html": {
+                    "ref": "module-DiscordContextMenu-MenuItem.html",
+                    "tf": 4.878048780487805
+                  },
+                  "module-DiscordContextMenu-MenuToggleItem.html": {
+                    "ref": "module-DiscordContextMenu-MenuToggleItem.html",
+                    "tf": 3.8461538461538463
+                  },
+                  "module-DiscordContextMenu-MenuRadioItem.html": {
+                    "ref": "module-DiscordContextMenu-MenuRadioItem.html",
+                    "tf": 1.6129032258064515
+                  },
+                  "module-DiscordContextMenu-SubMenuItem.html": {
+                    "ref": "module-DiscordContextMenu-SubMenuItem.html",
+                    "tf": 3.8461538461538463
+                  },
+                  "module-DiscordContextMenu-MenuControlItem.html": {
+                    "ref": "module-DiscordContextMenu-MenuControlItem.html",
+                    "tf": 3.125
                   }
                 },
                 "g": {
@@ -4005,9 +4214,9 @@
                   "ref": "module-DiscordAPI.Guild.html#updateSplash",
                   "tf": 4.166666666666666
                 },
-                "module-DiscordContextMenu-MenuItem%0D%0DThis%20is%20the%20generic%20context%20menu%20item%20component.%20It%20is%20very%20extensible%20and%20will%20adapt%0Dit_s%20type%20depending%20on%20the%20props..html": {
-                  "ref": "module-DiscordContextMenu-MenuItem%0D%0DThis%20is%20the%20generic%20context%20menu%20item%20component.%20It%20is%20very%20extensible%20and%20will%20adapt%0Dit_s%20type%20depending%20on%20the%20props..html",
-                  "tf": 153.0769230769231
+                "module-DiscordContextMenu-MenuItem.html": {
+                  "ref": "module-DiscordContextMenu-MenuItem.html",
+                  "tf": 1.2195121951219512
                 }
               }
             },
@@ -4104,7 +4313,12 @@
             }
           },
           "d": {
-            "docs": {},
+            "docs": {
+              "module-DiscordContextMenu-MenuItem.html": {
+                "ref": "module-DiscordContextMenu-MenuItem.html",
+                "tf": 4.878048780487805
+              }
+            },
             "&": {
               "docs": {},
               "q": {
@@ -4924,6 +5138,10 @@
                     "module-DiscordClassModules.html": {
                       "ref": "module-DiscordClassModules.html",
                       "tf": 1.5625
+                    },
+                    "module-DiscordContextMenu-MenuItem.html": {
+                      "ref": "module-DiscordContextMenu-MenuItem.html",
+                      "tf": 3.6585365853658534
                     }
                   }
                 }
@@ -5012,6 +5230,10 @@
                       "module-PluginUtilities.html": {
                         "ref": "module-PluginUtilities.html",
                         "tf": 10
+                      },
+                      "module-DiscordContextMenu-MenuItem.html": {
+                        "ref": "module-DiscordContextMenu-MenuItem.html",
+                        "tf": 1.2195121951219512
                       }
                     },
                     "u": {
@@ -5309,6 +5531,17 @@
                       "tf": 8.333333333333332
                     }
                   }
+                },
+                "i": {
+                  "docs": {},
+                  "d": {
+                    "docs": {
+                      "module-DiscordContextMenu-MenuItem.html": {
+                        "ref": "module-DiscordContextMenu-MenuItem.html",
+                        "tf": 2.4390243902439024
+                      }
+                    }
+                  }
                 }
               },
               "p": {
@@ -5317,9 +5550,9 @@
                     "ref": "module-WebpackModules.Filters.html#.byProperties",
                     "tf": 20
                   },
-                  "module-DiscordContextMenu-MenuItem%0D%0DThis%20is%20the%20generic%20context%20menu%20item%20component.%20It%20is%20very%20extensible%20and%20will%20adapt%0Dit_s%20type%20depending%20on%20the%20props..html": {
-                    "ref": "module-DiscordContextMenu-MenuItem%0D%0DThis%20is%20the%20generic%20context%20menu%20item%20component.%20It%20is%20very%20extensible%20and%20will%20adapt%0Dit_s%20type%20depending%20on%20the%20props..html",
-                    "tf": 153.0769230769231
+                  "module-DiscordContextMenu-MenuItem.html": {
+                    "ref": "module-DiscordContextMenu-MenuItem.html",
+                    "tf": 1.2195121951219512
                   }
                 },
                 "e": {
@@ -5341,6 +5574,22 @@
                           "module-WebpackModules.Filters.html#.byDisplayName": {
                             "ref": "module-WebpackModules.Filters.html#.byDisplayName",
                             "tf": 10
+                          },
+                          "module-DiscordContextMenu-MenuToggleItem.html": {
+                            "ref": "module-DiscordContextMenu-MenuToggleItem.html",
+                            "tf": 3.8461538461538463
+                          },
+                          "module-DiscordContextMenu-MenuRadioItem.html": {
+                            "ref": "module-DiscordContextMenu-MenuRadioItem.html",
+                            "tf": 1.6129032258064515
+                          },
+                          "module-DiscordContextMenu-SubMenuItem.html": {
+                            "ref": "module-DiscordContextMenu-SubMenuItem.html",
+                            "tf": 3.8461538461538463
+                          },
+                          "module-DiscordContextMenu-MenuControlItem.html": {
+                            "ref": "module-DiscordContextMenu-MenuControlItem.html",
+                            "tf": 3.125
                           }
                         }
                       }
@@ -5782,6 +6031,10 @@
                         "module-EmulatedTooltip.html": {
                           "ref": "module-EmulatedTooltip.html",
                           "tf": 1.7857142857142856
+                        },
+                        "module-Tooltip.html": {
+                          "ref": "module-Tooltip.html",
+                          "tf": 1.7857142857142856
                         }
                       }
                     }
@@ -6103,7 +6356,7 @@
                     },
                     "module-Tooltip.html": {
                       "ref": "module-Tooltip.html",
-                      "tf": 6.25
+                      "tf": 3.571428571428571
                     }
                   },
                   "e": {
@@ -6346,6 +6599,65 @@
                   }
                 }
               }
+            },
+            "f": {
+              "docs": {},
+              "e": {
+                "docs": {},
+                "r": {
+                  "docs": {},
+                  "e": {
+                    "docs": {},
+                    "n": {
+                      "docs": {},
+                      "c": {
+                        "docs": {},
+                        "e": {
+                          "docs": {},
+                          ".": {
+                            "docs": {},
+                            "h": {
+                              "docs": {},
+                              "t": {
+                                "docs": {},
+                                "m": {
+                                  "docs": {},
+                                  "l": {
+                                    "docs": {},
+                                    "#": {
+                                      "docs": {},
+                                      "u": {
+                                        "docs": {},
+                                        "s": {
+                                          "docs": {},
+                                          "e": {
+                                            "docs": {},
+                                            "s": {
+                                              "docs": {},
+                                              "t": {
+                                                "docs": {
+                                                  "module-DiscordContextMenu-MenuRadioItem.html": {
+                                                    "ref": "module-DiscordContextMenu-MenuRadioItem.html",
+                                                    "tf": 1.6129032258064515
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
             }
           },
           "a": {
@@ -6379,6 +6691,10 @@
                     "module-Settings.RadioGroup.html": {
                       "ref": "module-Settings.RadioGroup.html",
                       "tf": 14.285714285714285
+                    },
+                    "module-DiscordContextMenu-MenuRadioItem.html": {
+                      "ref": "module-DiscordContextMenu-MenuRadioItem.html",
+                      "tf": 1.6129032258064515
                     }
                   },
                   "g": {
@@ -7426,6 +7742,10 @@
                       "module-DiscordAPI.Guild.html#select": {
                         "ref": "module-DiscordAPI.Guild.html#select",
                         "tf": 716.6666666666666
+                      },
+                      "module-DiscordContextMenu-MenuRadioItem.html": {
+                        "ref": "module-DiscordContextMenu-MenuRadioItem.html",
+                        "tf": 1.6129032258064515
                       }
                     },
                     "o": {
@@ -7832,6 +8152,10 @@
                 "module-DiscordAPI.html": {
                   "ref": "module-DiscordAPI.html",
                   "tf": 3.571428571428571
+                },
+                "module-DiscordContextMenu-MenuRadioItem.html": {
+                  "ref": "module-DiscordContextMenu-MenuRadioItem.html",
+                  "tf": 1.6129032258064515
                 }
               },
               "n": {
@@ -8028,6 +8352,10 @@
                         "module-ContextMenu.SubMenuItem.html": {
                           "ref": "module-ContextMenu.SubMenuItem.html",
                           "tf": 10
+                        },
+                        "module-DiscordContextMenu-SubMenuItem.html": {
+                          "ref": "module-DiscordContextMenu-SubMenuItem.html",
+                          "tf": 3.8461538461538463
                         }
                       },
                       "i": {
@@ -8166,6 +8494,14 @@
                     "module-DiscordAPI.UserSettings.html#.showCurrentGame": {
                       "ref": "module-DiscordAPI.UserSettings.html#.showCurrentGame",
                       "tf": 5
+                    }
+                  }
+                },
+                "e": {
+                  "docs": {
+                    "module-DiscordContextMenu-MenuRadioItem.html": {
+                      "ref": "module-DiscordContextMenu-MenuRadioItem.html",
+                      "tf": 1.6129032258064515
                     }
                   }
                 }
@@ -8393,7 +8729,7 @@
                   },
                   "module-Tooltip.html": {
                     "ref": "module-Tooltip.html",
-                    "tf": 3.125
+                    "tf": 1.7857142857142856
                   }
                 },
                 "c": {
@@ -8462,6 +8798,26 @@
                           }
                         }
                       }
+                    }
+                  }
+                },
+                "n": {
+                  "docs": {
+                    "module-DiscordContextMenu-MenuToggleItem.html": {
+                      "ref": "module-DiscordContextMenu-MenuToggleItem.html",
+                      "tf": 3.8461538461538463
+                    },
+                    "module-DiscordContextMenu-MenuRadioItem.html": {
+                      "ref": "module-DiscordContextMenu-MenuRadioItem.html",
+                      "tf": 1.6129032258064515
+                    },
+                    "module-DiscordContextMenu-SubMenuItem.html": {
+                      "ref": "module-DiscordContextMenu-SubMenuItem.html",
+                      "tf": 3.8461538461538463
+                    },
+                    "module-DiscordContextMenu-MenuControlItem.html": {
+                      "ref": "module-DiscordContextMenu-MenuControlItem.html",
+                      "tf": 3.125
                     }
                   }
                 }
@@ -8581,6 +8937,10 @@
                       "module-Settings.Slider.html": {
                         "ref": "module-Settings.Slider.html",
                         "tf": 658.3333333333334
+                      },
+                      "module-DiscordContextMenu-MenuControlItem.html": {
+                        "ref": "module-DiscordContextMenu-MenuControlItem.html",
+                        "tf": 3.125
                       }
                     },
                     "/": {
@@ -8705,6 +9065,10 @@
                       "module-DiscordAPI.Guild.html#updateSystemChannel": {
                         "ref": "module-DiscordAPI.Guild.html#updateSystemChannel",
                         "tf": 12.5
+                      },
+                      "module-DiscordContextMenu-MenuItem.html": {
+                        "ref": "module-DiscordContextMenu-MenuItem.html",
+                        "tf": 1.2195121951219512
                       }
                     },
                     "c": {
@@ -8789,7 +9153,7 @@
                         },
                         "module-Tooltip.html": {
                           "ref": "module-Tooltip.html",
-                          "tf": 603.125
+                          "tf": 603.5714285714286
                         }
                       },
                       "(": {
@@ -8935,7 +9299,12 @@
               "g": {
                 "docs": {},
                 "l": {
-                  "docs": {},
+                  "docs": {
+                    "module-DiscordContextMenu-MenuRadioItem.html": {
+                      "ref": "module-DiscordContextMenu-MenuRadioItem.html",
+                      "tf": 1.6129032258064515
+                    }
+                  },
                   "e": {
                     "docs": {},
                     "i": {
@@ -8988,9 +9357,9 @@
                     "ref": "module-DiscordAPI.Guild.html#createChannel",
                     "tf": 14.285714285714285
                   },
-                  "module-DiscordContextMenu-MenuItem%0D%0DThis%20is%20the%20generic%20context%20menu%20item%20component.%20It%20is%20very%20extensible%20and%20will%20adapt%0Dit_s%20type%20depending%20on%20the%20props..html": {
-                    "ref": "module-DiscordContextMenu-MenuItem%0D%0DThis%20is%20the%20generic%20context%20menu%20item%20component.%20It%20is%20very%20extensible%20and%20will%20adapt%0Dit_s%20type%20depending%20on%20the%20props..html",
-                    "tf": 153.0769230769231
+                  "module-DiscordContextMenu-MenuItem.html": {
+                    "ref": "module-DiscordContextMenu-MenuItem.html",
+                    "tf": 1.2195121951219512
                   }
                 },
                 "d": {
@@ -9235,7 +9604,7 @@
                           },
                           "module-Tooltip.html": {
                             "ref": "module-Tooltip.html",
-                            "tf": 6.25
+                            "tf": 3.571428571428571
                           }
                         }
                       }
@@ -9260,7 +9629,7 @@
                         },
                         "module-Tooltip.html": {
                           "ref": "module-Tooltip.html",
-                          "tf": 3.125
+                          "tf": 1.7857142857142856
                         }
                       }
                     }
@@ -9277,6 +9646,32 @@
                     "module-DiscordClasses.html": {
                       "ref": "module-DiscordClasses.html",
                       "tf": 1.8518518518518516
+                    }
+                  }
+                }
+              }
+            },
+            "o": {
+              "docs": {},
+              "s": {
+                "docs": {},
+                "e": {
+                  "docs": {
+                    "module-DiscordContextMenu-MenuToggleItem.html": {
+                      "ref": "module-DiscordContextMenu-MenuToggleItem.html",
+                      "tf": 3.8461538461538463
+                    },
+                    "module-DiscordContextMenu-MenuRadioItem.html": {
+                      "ref": "module-DiscordContextMenu-MenuRadioItem.html",
+                      "tf": 1.6129032258064515
+                    },
+                    "module-DiscordContextMenu-SubMenuItem.html": {
+                      "ref": "module-DiscordContextMenu-SubMenuItem.html",
+                      "tf": 3.8461538461538463
+                    },
+                    "module-DiscordContextMenu-MenuControlItem.html": {
+                      "ref": "module-DiscordContextMenu-MenuControlItem.html",
+                      "tf": 3.125
                     }
                   }
                 }
@@ -9483,6 +9878,10 @@
                 "ref": "module-EmulatedTooltip.html",
                 "tf": 1.7857142857142856
               },
+              "module-Tooltip.html": {
+                "ref": "module-Tooltip.html",
+                "tf": 1.7857142857142856
+              },
               "module-DiscordClassModules.html": {
                 "ref": "module-DiscordClassModules.html",
                 "tf": 4.6875
@@ -9502,6 +9901,26 @@
               "module-DiscordSelectors.html": {
                 "ref": "module-DiscordSelectors.html",
                 "tf": 3.4482758620689653
+              },
+              "module-DiscordContextMenu-MenuItem.html": {
+                "ref": "module-DiscordContextMenu-MenuItem.html",
+                "tf": 2.4390243902439024
+              },
+              "module-DiscordContextMenu-MenuToggleItem.html": {
+                "ref": "module-DiscordContextMenu-MenuToggleItem.html",
+                "tf": 3.8461538461538463
+              },
+              "module-DiscordContextMenu-MenuRadioItem.html": {
+                "ref": "module-DiscordContextMenu-MenuRadioItem.html",
+                "tf": 1.6129032258064515
+              },
+              "module-DiscordContextMenu-SubMenuItem.html": {
+                "ref": "module-DiscordContextMenu-SubMenuItem.html",
+                "tf": 3.8461538461538463
+              },
+              "module-DiscordContextMenu-MenuControlItem.html": {
+                "ref": "module-DiscordContextMenu-MenuControlItem.html",
+                "tf": 3.125
               }
             },
             "e": {
@@ -10676,6 +11095,10 @@
                     "module-PluginUpdater.html": {
                       "ref": "module-PluginUpdater.html",
                       "tf": 10
+                    },
+                    "module-DiscordContextMenu-MenuRadioItem.html": {
+                      "ref": "module-DiscordContextMenu-MenuRadioItem.html",
+                      "tf": 1.6129032258064515
                     }
                   },
                   "e": {
@@ -11242,6 +11665,20 @@
                   }
                 }
               }
+            },
+            "i": {
+              "docs": {},
+              "q": {
+                "docs": {},
+                "u": {
+                  "docs": {
+                    "module-DiscordContextMenu-MenuItem.html": {
+                      "ref": "module-DiscordContextMenu-MenuItem.html",
+                      "tf": 2.4390243902439024
+                    }
+                  }
+                }
+              }
             }
           }
         },
@@ -11431,7 +11868,7 @@
                 },
                 "module-Tooltip.html": {
                   "ref": "module-Tooltip.html",
-                  "tf": 3.125
+                  "tf": 3.571428571428571
                 }
               },
               "t": {
@@ -12221,6 +12658,10 @@
                             "ref": "module-EmulatedTooltip.html",
                             "tf": 3.571428571428571
                           },
+                          "module-Tooltip.html": {
+                            "ref": "module-Tooltip.html",
+                            "tf": 3.571428571428571
+                          },
                           "module-DiscordContextMenu.html": {
                             "ref": "module-DiscordContextMenu.html",
                             "tf": 10
@@ -12321,6 +12762,23 @@
                                                     "docs": {},
                                                     "u": {
                                                       "docs": {},
+                                                      "i": {
+                                                        "docs": {},
+                                                        "t": {
+                                                          "docs": {},
+                                                          "e": {
+                                                            "docs": {},
+                                                            "m": {
+                                                              "docs": {
+                                                                "module-DiscordContextMenu-MenuItem.html": {
+                                                                  "ref": "module-DiscordContextMenu-MenuItem.html",
+                                                                  "tf": 100
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      },
                                                       "t": {
                                                         "docs": {},
                                                         "o": {
@@ -12953,9 +13411,9 @@
                   "docs": {},
                   "d": {
                     "docs": {
-                      "module-DiscordContextMenu-MenuItem%0D%0DThis%20is%20the%20generic%20context%20menu%20item%20component.%20It%20is%20very%20extensible%20and%20will%20adapt%0Dit_s%20type%20depending%20on%20the%20props..html": {
-                        "ref": "module-DiscordContextMenu-MenuItem%0D%0DThis%20is%20the%20generic%20context%20menu%20item%20component.%20It%20is%20very%20extensible%20and%20will%20adapt%0Dit_s%20type%20depending%20on%20the%20props..html",
-                        "tf": 153.0769230769231
+                      "module-DiscordContextMenu-MenuItem.html": {
+                        "ref": "module-DiscordContextMenu-MenuItem.html",
+                        "tf": 1.2195121951219512
                       }
                     }
                   }
@@ -13161,9 +13619,9 @@
                       "ref": "module-Settings.html",
                       "tf": 7.142857142857142
                     },
-                    "module-DiscordContextMenu-MenuItem%0D%0DThis%20is%20the%20generic%20context%20menu%20item%20component.%20It%20is%20very%20extensible%20and%20will%20adapt%0Dit_s%20type%20depending%20on%20the%20props..html": {
-                      "ref": "module-DiscordContextMenu-MenuItem%0D%0DThis%20is%20the%20generic%20context%20menu%20item%20component.%20It%20is%20very%20extensible%20and%20will%20adapt%0Dit_s%20type%20depending%20on%20the%20props..html",
-                      "tf": 138.0769230769231
+                    "module-DiscordContextMenu-MenuItem.html": {
+                      "ref": "module-DiscordContextMenu-MenuItem.html",
+                      "tf": 1.2195121951219512
                     }
                   }
                 }
@@ -14679,10 +15137,6 @@
                       "ref": "module-DiscordAPI.Channel.html",
                       "tf": 110
                     },
-                    "module-Tooltip_module_Tooltip.html": {
-                      "ref": "module-Tooltip_module_Tooltip.html",
-                      "tf": 110
-                    },
                     "module-Settings.Dropdown.html": {
                       "ref": "module-Settings.Dropdown.html",
                       "tf": 110
@@ -14699,8 +15153,8 @@
                       "ref": "module-Settings.Slider.html",
                       "tf": 110
                     },
-                    "module-EmulatedTooltip_module_EmulatedTooltip.html": {
-                      "ref": "module-EmulatedTooltip_module_EmulatedTooltip.html",
+                    "module-Tooltip_module_Tooltip.html": {
+                      "ref": "module-Tooltip_module_Tooltip.html",
                       "tf": 110
                     },
                     "module-DiscordAPI.Guild.html": {
@@ -14914,6 +15368,10 @@
                     "module-EmulatedTooltip.html": {
                       "ref": "module-EmulatedTooltip.html",
                       "tf": 1.7857142857142856
+                    },
+                    "module-Tooltip.html": {
+                      "ref": "module-Tooltip.html",
+                      "tf": 1.7857142857142856
                     }
                   }
                 }
@@ -15022,6 +15480,17 @@
                   }
                 }
               }
+            },
+            "u": {
+              "docs": {},
+              "s": {
+                "docs": {
+                  "module-DiscordContextMenu-MenuItem.html": {
+                    "ref": "module-DiscordContextMenu-MenuItem.html",
+                    "tf": 1.2195121951219512
+                  }
+                }
+              }
             }
           },
           "u": {
@@ -15120,6 +15589,10 @@
                       "module-DiscordAPI.Guild.html#emojis": {
                         "ref": "module-DiscordAPI.Guild.html#emojis",
                         "tf": 12.5
+                      },
+                      "module-DiscordContextMenu-MenuControlItem.html": {
+                        "ref": "module-DiscordContextMenu-MenuControlItem.html",
+                        "tf": 3.125
                       }
                     }
                   }
@@ -15179,6 +15652,10 @@
                           "module-ContextMenu.ToggleItem.html": {
                             "ref": "module-ContextMenu.ToggleItem.html",
                             "tf": 12.5
+                          },
+                          "module-DiscordContextMenu-MenuToggleItem.html": {
+                            "ref": "module-DiscordContextMenu-MenuToggleItem.html",
+                            "tf": 3.8461538461538463
                           }
                         }
                       }
@@ -15634,6 +16111,10 @@
                         "module-Settings.SettingPanel.html": {
                           "ref": "module-Settings.SettingPanel.html",
                           "tf": 8.333333333333332
+                        },
+                        "module-DiscordContextMenu-MenuControlItem.html": {
+                          "ref": "module-DiscordContextMenu-MenuControlItem.html",
+                          "tf": 3.125
                         }
                       }
                     }
@@ -15692,9 +16173,13 @@
                           "ref": "module-ContextMenu.html",
                           "tf": 12.5
                         },
-                        "module-DiscordContextMenu-MenuItem%0D%0DThis%20is%20the%20generic%20context%20menu%20item%20component.%20It%20is%20very%20extensible%20and%20will%20adapt%0Dit_s%20type%20depending%20on%20the%20props..html": {
-                          "ref": "module-DiscordContextMenu-MenuItem%0D%0DThis%20is%20the%20generic%20context%20menu%20item%20component.%20It%20is%20very%20extensible%20and%20will%20adapt%0Dit_s%20type%20depending%20on%20the%20props..html",
-                          "tf": 138.0769230769231
+                        "module-DiscordContextMenu-MenuItem.html": {
+                          "ref": "module-DiscordContextMenu-MenuItem.html",
+                          "tf": 1.2195121951219512
+                        },
+                        "module-DiscordContextMenu-MenuControlItem.html": {
+                          "ref": "module-DiscordContextMenu-MenuControlItem.html",
+                          "tf": 3.125
                         }
                       },
                       "m": {
@@ -16046,6 +16531,23 @@
                       }
                     }
                   }
+                },
+                "l": {
+                  "docs": {},
+                  "i": {
+                    "docs": {},
+                    "c": {
+                      "docs": {},
+                      "t": {
+                        "docs": {
+                          "module-DiscordContextMenu-MenuItem.html": {
+                            "ref": "module-DiscordContextMenu-MenuItem.html",
+                            "tf": 2.4390243902439024
+                          }
+                        }
+                      }
+                    }
+                  }
                 }
               },
               "n": {
@@ -16181,9 +16683,13 @@
                         "ref": "module-ReactComponents.html",
                         "tf": 10
                       },
-                      "module-DiscordContextMenu-MenuItem%0D%0DThis%20is%20the%20generic%20context%20menu%20item%20component.%20It%20is%20very%20extensible%20and%20will%20adapt%0Dit_s%20type%20depending%20on%20the%20props..html": {
-                        "ref": "module-DiscordContextMenu-MenuItem%0D%0DThis%20is%20the%20generic%20context%20menu%20item%20component.%20It%20is%20very%20extensible%20and%20will%20adapt%0Dit_s%20type%20depending%20on%20the%20props..html",
-                        "tf": 138.0769230769231
+                      "module-DiscordContextMenu-MenuItem.html": {
+                        "ref": "module-DiscordContextMenu-MenuItem.html",
+                        "tf": 1.2195121951219512
+                      },
+                      "module-DiscordContextMenu-MenuRadioItem.html": {
+                        "ref": "module-DiscordContextMenu-MenuRadioItem.html",
+                        "tf": 1.6129032258064515
                       }
                     }
                   }
@@ -16512,6 +17018,18 @@
                     "module-Popouts.html": {
                       "ref": "module-Popouts.html",
                       "tf": 8.333333333333332
+                    },
+                    "module-DiscordContextMenu-MenuToggleItem.html": {
+                      "ref": "module-DiscordContextMenu-MenuToggleItem.html",
+                      "tf": 3.8461538461538463
+                    },
+                    "module-DiscordContextMenu-MenuRadioItem.html": {
+                      "ref": "module-DiscordContextMenu-MenuRadioItem.html",
+                      "tf": 1.6129032258064515
+                    },
+                    "module-DiscordContextMenu-SubMenuItem.html": {
+                      "ref": "module-DiscordContextMenu-SubMenuItem.html",
+                      "tf": 3.8461538461538463
                     }
                   },
                   "e": {
@@ -19883,9 +20401,25 @@
                                                                           "docs": {},
                                                                           "m": {
                                                                             "docs": {
-                                                                              "module-DiscordContextMenu-MenuItem%0D%0DThis%20is%20the%20generic%20context%20menu%20item%20component.%20It%20is%20very%20extensible%20and%20will%20adapt%0Dit_s%20type%20depending%20on%20the%20props..html": {
-                                                                                "ref": "module-DiscordContextMenu-MenuItem%0D%0DThis%20is%20the%20generic%20context%20menu%20item%20component.%20It%20is%20very%20extensible%20and%20will%20adapt%0Dit_s%20type%20depending%20on%20the%20props..html",
-                                                                                "tf": 138.0769230769231
+                                                                              "module-DiscordContextMenu-MenuItem.html": {
+                                                                                "ref": "module-DiscordContextMenu-MenuItem.html",
+                                                                                "tf": 1300
+                                                                              },
+                                                                              "module-DiscordContextMenu-MenuToggleItem.html": {
+                                                                                "ref": "module-DiscordContextMenu-MenuToggleItem.html",
+                                                                                "tf": 3.8461538461538463
+                                                                              },
+                                                                              "module-DiscordContextMenu-MenuRadioItem.html": {
+                                                                                "ref": "module-DiscordContextMenu-MenuRadioItem.html",
+                                                                                "tf": 1.6129032258064515
+                                                                              },
+                                                                              "module-DiscordContextMenu-SubMenuItem.html": {
+                                                                                "ref": "module-DiscordContextMenu-SubMenuItem.html",
+                                                                                "tf": 3.8461538461538463
+                                                                              },
+                                                                              "module-DiscordContextMenu-MenuControlItem.html": {
+                                                                                "ref": "module-DiscordContextMenu-MenuControlItem.html",
+                                                                                "tf": 3.125
                                                                               }
                                                                             }
                                                                           }
@@ -21746,100 +22280,6 @@
                           }
                         }
                       },
-                      "t": {
-                        "docs": {},
-                        "o": {
-                          "docs": {},
-                          "o": {
-                            "docs": {},
-                            "l": {
-                              "docs": {},
-                              "t": {
-                                "docs": {},
-                                "i": {
-                                  "docs": {},
-                                  "p": {
-                                    "docs": {
-                                      "module-Tooltip_module_Tooltip.html": {
-                                        "ref": "module-Tooltip_module_Tooltip.html",
-                                        "tf": 500
-                                      },
-                                      "module-Tooltip.html": {
-                                        "ref": "module-Tooltip.html",
-                                        "tf": 1300
-                                      }
-                                    },
-                                    ">": {
-                                      "docs": {},
-                                      "m": {
-                                        "docs": {},
-                                        "o": {
-                                          "docs": {},
-                                          "d": {
-                                            "docs": {},
-                                            "u": {
-                                              "docs": {},
-                                              "l": {
-                                                "docs": {},
-                                                "e": {
-                                                  "docs": {},
-                                                  ":": {
-                                                    "docs": {},
-                                                    "t": {
-                                                      "docs": {},
-                                                      "o": {
-                                                        "docs": {},
-                                                        "o": {
-                                                          "docs": {},
-                                                          "l": {
-                                                            "docs": {},
-                                                            "t": {
-                                                              "docs": {},
-                                                              "i": {
-                                                                "docs": {},
-                                                                "p": {
-                                                                  "docs": {
-                                                                    "module-Tooltip_module_Tooltip.html": {
-                                                                      "ref": "module-Tooltip_module_Tooltip.html",
-                                                                      "tf": 1300
-                                                                    }
-                                                                  }
-                                                                }
-                                                              }
-                                                            }
-                                                          }
-                                                        }
-                                                      }
-                                                    }
-                                                  }
-                                                }
-                                              }
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          },
-                          "a": {
-                            "docs": {},
-                            "s": {
-                              "docs": {},
-                              "t": {
-                                "docs": {
-                                  "module-Toasts.html": {
-                                    "ref": "module-Toasts.html",
-                                    "tf": 1300
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      },
                       "c": {
                         "docs": {},
                         "o": {
@@ -22334,110 +22774,62 @@
                           }
                         }
                       },
-                      "e": {
+                      "t": {
                         "docs": {},
-                        "m": {
+                        "o": {
                           "docs": {},
-                          "u": {
+                          "o": {
                             "docs": {},
                             "l": {
                               "docs": {},
-                              "a": {
+                              "t": {
                                 "docs": {},
-                                "t": {
+                                "i": {
                                   "docs": {},
-                                  "e": {
-                                    "docs": {},
-                                    "d": {
+                                  "p": {
+                                    "docs": {
+                                      "module-Tooltip_module_Tooltip.html": {
+                                        "ref": "module-Tooltip_module_Tooltip.html",
+                                        "tf": 500
+                                      },
+                                      "module-Tooltip.html": {
+                                        "ref": "module-Tooltip.html",
+                                        "tf": 1300
+                                      }
+                                    },
+                                    ">": {
                                       "docs": {},
-                                      "t": {
+                                      "m": {
                                         "docs": {},
                                         "o": {
                                           "docs": {},
-                                          "o": {
+                                          "d": {
                                             "docs": {},
-                                            "l": {
+                                            "u": {
                                               "docs": {},
-                                              "t": {
+                                              "l": {
                                                 "docs": {},
-                                                "i": {
+                                                "e": {
                                                   "docs": {},
-                                                  "p": {
-                                                    "docs": {
-                                                      "module-EmulatedTooltip_module_EmulatedTooltip.html": {
-                                                        "ref": "module-EmulatedTooltip_module_EmulatedTooltip.html",
-                                                        "tf": 500
-                                                      },
-                                                      "module-EmulatedTooltip.html": {
-                                                        "ref": "module-EmulatedTooltip.html",
-                                                        "tf": 1300
-                                                      }
-                                                    },
-                                                    ">": {
+                                                  ":": {
+                                                    "docs": {},
+                                                    "t": {
                                                       "docs": {},
-                                                      "m": {
+                                                      "o": {
                                                         "docs": {},
                                                         "o": {
                                                           "docs": {},
-                                                          "d": {
+                                                          "l": {
                                                             "docs": {},
-                                                            "u": {
+                                                            "t": {
                                                               "docs": {},
-                                                              "l": {
+                                                              "i": {
                                                                 "docs": {},
-                                                                "e": {
-                                                                  "docs": {},
-                                                                  ":": {
-                                                                    "docs": {},
-                                                                    "e": {
-                                                                      "docs": {},
-                                                                      "m": {
-                                                                        "docs": {},
-                                                                        "u": {
-                                                                          "docs": {},
-                                                                          "l": {
-                                                                            "docs": {},
-                                                                            "a": {
-                                                                              "docs": {},
-                                                                              "t": {
-                                                                                "docs": {},
-                                                                                "e": {
-                                                                                  "docs": {},
-                                                                                  "d": {
-                                                                                    "docs": {},
-                                                                                    "t": {
-                                                                                      "docs": {},
-                                                                                      "o": {
-                                                                                        "docs": {},
-                                                                                        "o": {
-                                                                                          "docs": {},
-                                                                                          "l": {
-                                                                                            "docs": {},
-                                                                                            "t": {
-                                                                                              "docs": {},
-                                                                                              "i": {
-                                                                                                "docs": {},
-                                                                                                "p": {
-                                                                                                  "docs": {
-                                                                                                    "module-EmulatedTooltip_module_EmulatedTooltip.html": {
-                                                                                                      "ref": "module-EmulatedTooltip_module_EmulatedTooltip.html",
-                                                                                                      "tf": 1300
-                                                                                                    }
-                                                                                                  }
-                                                                                                }
-                                                                                              }
-                                                                                            }
-                                                                                          }
-                                                                                        }
-                                                                                      }
-                                                                                    }
-                                                                                  }
-                                                                                }
-                                                                              }
-                                                                            }
-                                                                          }
-                                                                        }
-                                                                      }
+                                                                "p": {
+                                                                  "docs": {
+                                                                    "module-Tooltip_module_Tooltip.html": {
+                                                                      "ref": "module-Tooltip_module_Tooltip.html",
+                                                                      "tf": 1300
                                                                     }
                                                                   }
                                                                 }
@@ -22455,6 +22847,20 @@
                                         }
                                       }
                                     }
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "a": {
+                            "docs": {},
+                            "s": {
+                              "docs": {},
+                              "t": {
+                                "docs": {
+                                  "module-Toasts.html": {
+                                    "ref": "module-Toasts.html",
+                                    "tf": 1300
                                   }
                                 }
                               }
@@ -22634,6 +23040,56 @@
                                 "module-Utilities.html": {
                                   "ref": "module-Utilities.html",
                                   "tf": 1300
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "e": {
+                        "docs": {},
+                        "m": {
+                          "docs": {},
+                          "u": {
+                            "docs": {},
+                            "l": {
+                              "docs": {},
+                              "a": {
+                                "docs": {},
+                                "t": {
+                                  "docs": {},
+                                  "e": {
+                                    "docs": {},
+                                    "d": {
+                                      "docs": {},
+                                      "t": {
+                                        "docs": {},
+                                        "o": {
+                                          "docs": {},
+                                          "o": {
+                                            "docs": {},
+                                            "l": {
+                                              "docs": {},
+                                              "t": {
+                                                "docs": {},
+                                                "i": {
+                                                  "docs": {},
+                                                  "p": {
+                                                    "docs": {
+                                                      "module-EmulatedTooltip.html": {
+                                                        "ref": "module-EmulatedTooltip.html",
+                                                        "tf": 1300
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
                                 }
                               }
                             }
@@ -22823,7 +23279,7 @@
                           },
                           "module-Tooltip.html": {
                             "ref": "module-Tooltip.html",
-                            "tf": 3.125
+                            "tf": 1.7857142857142856
                           }
                         }
                       }
@@ -22843,7 +23299,7 @@
                             },
                             "module-Tooltip.html": {
                               "ref": "module-Tooltip.html",
-                              "tf": 3.125
+                              "tf": 1.7857142857142856
                             }
                           }
                         }
@@ -23258,9 +23714,21 @@
                     "ref": "module-DiscordContextMenu.html",
                     "tf": 10
                   },
-                  "module-DiscordContextMenu-MenuItem%0D%0DThis%20is%20the%20generic%20context%20menu%20item%20component.%20It%20is%20very%20extensible%20and%20will%20adapt%0Dit_s%20type%20depending%20on%20the%20props..html": {
-                    "ref": "module-DiscordContextMenu-MenuItem%0D%0DThis%20is%20the%20generic%20context%20menu%20item%20component.%20It%20is%20very%20extensible%20and%20will%20adapt%0Dit_s%20type%20depending%20on%20the%20props..html",
-                    "tf": 138.0769230769231
+                  "module-DiscordContextMenu-MenuItem.html": {
+                    "ref": "module-DiscordContextMenu-MenuItem.html",
+                    "tf": 2.4390243902439024
+                  },
+                  "module-DiscordContextMenu-MenuToggleItem.html": {
+                    "ref": "module-DiscordContextMenu-MenuToggleItem.html",
+                    "tf": 3.8461538461538463
+                  },
+                  "module-DiscordContextMenu-MenuRadioItem.html": {
+                    "ref": "module-DiscordContextMenu-MenuRadioItem.html",
+                    "tf": 1.6129032258064515
+                  },
+                  "module-DiscordContextMenu-MenuControlItem.html": {
+                    "ref": "module-DiscordContextMenu-MenuControlItem.html",
+                    "tf": 3.125
                   }
                 },
                 "#": {
@@ -23405,6 +23873,26 @@
                           "module-ContextMenu.MenuItem.html": {
                             "ref": "module-ContextMenu.MenuItem.html",
                             "tf": 650
+                          },
+                          "module-DiscordContextMenu-MenuItem.html": {
+                            "ref": "module-DiscordContextMenu-MenuItem.html",
+                            "tf": 500
+                          },
+                          "module-DiscordContextMenu-MenuToggleItem.html": {
+                            "ref": "module-DiscordContextMenu-MenuToggleItem.html",
+                            "tf": 3.8461538461538463
+                          },
+                          "module-DiscordContextMenu-MenuRadioItem.html": {
+                            "ref": "module-DiscordContextMenu-MenuRadioItem.html",
+                            "tf": 1.6129032258064515
+                          },
+                          "module-DiscordContextMenu-SubMenuItem.html": {
+                            "ref": "module-DiscordContextMenu-SubMenuItem.html",
+                            "tf": 3.8461538461538463
+                          },
+                          "module-DiscordContextMenu-MenuControlItem.html": {
+                            "ref": "module-DiscordContextMenu-MenuControlItem.html",
+                            "tf": 3.125
                           }
                         }
                       }
@@ -23567,6 +24055,10 @@
                         "module-Settings.SettingPanel.html#append": {
                           "ref": "module-Settings.SettingPanel.html#append",
                           "tf": 12.5
+                        },
+                        "module-DiscordContextMenu-MenuItem.html": {
+                          "ref": "module-DiscordContextMenu-MenuItem.html",
+                          "tf": 1.2195121951219512
                         }
                       }
                     }
@@ -23631,7 +24123,7 @@
                                       },
                                       "module-Tooltip.html": {
                                         "ref": "module-Tooltip.html",
-                                        "tf": 3.125
+                                        "tf": 1.7857142857142856
                                       }
                                     }
                                   }
@@ -23680,6 +24172,10 @@
                     "module-Settings.SettingPanel.html": {
                       "ref": "module-Settings.SettingPanel.html",
                       "tf": 8.333333333333332
+                    },
+                    "module-DiscordContextMenu-MenuRadioItem.html": {
+                      "ref": "module-DiscordContextMenu-MenuRadioItem.html",
+                      "tf": 1.6129032258064515
                     }
                   }
                 }
@@ -23693,6 +24189,10 @@
                       "module-DOMTools.DOMObserver.html#observe": {
                         "ref": "module-DOMTools.DOMObserver.html#observe",
                         "tf": 5
+                      },
+                      "module-DiscordContextMenu-MenuRadioItem.html": {
+                        "ref": "module-DiscordContextMenu-MenuRadioItem.html",
+                        "tf": 1.6129032258064515
                       }
                     }
                   }
@@ -23709,6 +24209,10 @@
                         "module-EmulatedTooltip.html": {
                           "ref": "module-EmulatedTooltip.html",
                           "tf": 1.7857142857142856
+                        },
+                        "module-Tooltip.html": {
+                          "ref": "module-Tooltip.html",
+                          "tf": 1.7857142857142856
                         }
                       }
                     }
@@ -23723,6 +24227,22 @@
                   "module-ContextMenu.Menu.html": {
                     "ref": "module-ContextMenu.Menu.html",
                     "tf": 7.142857142857142
+                  },
+                  "module-DiscordContextMenu-MenuToggleItem.html": {
+                    "ref": "module-DiscordContextMenu-MenuToggleItem.html",
+                    "tf": 3.8461538461538463
+                  },
+                  "module-DiscordContextMenu-MenuRadioItem.html": {
+                    "ref": "module-DiscordContextMenu-MenuRadioItem.html",
+                    "tf": 1.6129032258064515
+                  },
+                  "module-DiscordContextMenu-SubMenuItem.html": {
+                    "ref": "module-DiscordContextMenu-SubMenuItem.html",
+                    "tf": 3.8461538461538463
+                  },
+                  "module-DiscordContextMenu-MenuControlItem.html": {
+                    "ref": "module-DiscordContextMenu-MenuControlItem.html",
+                    "tf": 3.125
                   }
                 },
                 "c": {
@@ -23883,9 +24403,24 @@
                         "module-DiscordSelectors.html": {
                           "ref": "module-DiscordSelectors.html",
                           "tf": 1.7241379310344827
+                        },
+                        "module-DiscordContextMenu-MenuRadioItem.html": {
+                          "ref": "module-DiscordContextMenu-MenuRadioItem.html",
+                          "tf": 1.6129032258064515
                         }
                       }
                     }
+                  }
+                }
+              }
+            },
+            "s": {
+              "docs": {},
+              "h": {
+                "docs": {
+                  "module-DiscordContextMenu-MenuItem.html": {
+                    "ref": "module-DiscordContextMenu-MenuItem.html",
+                    "tf": 1.2195121951219512
                   }
                 }
               }
@@ -24101,7 +24636,7 @@
                     },
                     "module-Tooltip.html": {
                       "ref": "module-Tooltip.html",
-                      "tf": 3.125
+                      "tf": 1.7857142857142856
                     }
                   }
                 }
@@ -24379,6 +24914,10 @@
               "module-ContextMenu.ItemGroup.html#addItems": {
                 "ref": "module-ContextMenu.ItemGroup.html#addItems",
                 "tf": 8.333333333333332
+              },
+              "module-DiscordContextMenu-MenuControlItem.html": {
+                "ref": "module-DiscordContextMenu-MenuControlItem.html",
+                "tf": 3.125
               }
             },
             "d": {
@@ -24502,7 +25041,24 @@
               "i": {
                 "docs": {},
                 "t": {
-                  "docs": {},
+                  "docs": {
+                    "module-DiscordContextMenu-MenuToggleItem.html": {
+                      "ref": "module-DiscordContextMenu-MenuToggleItem.html",
+                      "tf": 3.8461538461538463
+                    },
+                    "module-DiscordContextMenu-MenuRadioItem.html": {
+                      "ref": "module-DiscordContextMenu-MenuRadioItem.html",
+                      "tf": 1.6129032258064515
+                    },
+                    "module-DiscordContextMenu-SubMenuItem.html": {
+                      "ref": "module-DiscordContextMenu-SubMenuItem.html",
+                      "tf": 3.8461538461538463
+                    },
+                    "module-DiscordContextMenu-MenuControlItem.html": {
+                      "ref": "module-DiscordContextMenu-MenuControlItem.html",
+                      "tf": 3.125
+                    }
+                  },
                   "e": {
                     "docs": {},
                     "m": {
@@ -24541,9 +25097,9 @@
                 "docs": {},
                 "t": {
                   "docs": {
-                    "module-DiscordContextMenu-MenuItem%0D%0DThis%20is%20the%20generic%20context%20menu%20item%20component.%20It%20is%20very%20extensible%20and%20will%20adapt%0Dit_s%20type%20depending%20on%20the%20props..html": {
-                      "ref": "module-DiscordContextMenu-MenuItem%0D%0DThis%20is%20the%20generic%20context%20menu%20item%20component.%20It%20is%20very%20extensible%20and%20will%20adapt%0Dit_s%20type%20depending%20on%20the%20props..html",
-                      "tf": 153.0769230769231
+                    "module-DiscordContextMenu-MenuItem.html": {
+                      "ref": "module-DiscordContextMenu-MenuItem.html",
+                      "tf": 1.2195121951219512
                     }
                   }
                 }
@@ -24824,6 +25380,10 @@
                       "module-DiscordAPI.UserSettings.html#.developerMode": {
                         "ref": "module-DiscordAPI.UserSettings.html#.developerMode",
                         "tf": 2.7777777777777777
+                      },
+                      "module-DiscordContextMenu-MenuRadioItem.html": {
+                        "ref": "module-DiscordContextMenu-MenuRadioItem.html",
+                        "tf": 1.6129032258064515
                       }
                     }
                   }
@@ -24869,7 +25429,7 @@
                         },
                         "module-Tooltip.html": {
                           "ref": "module-Tooltip.html",
-                          "tf": 3.125
+                          "tf": 1.7857142857142856
                         }
                       }
                     }
@@ -25570,6 +26130,10 @@
                           "module-DiscordSelectors.html": {
                             "ref": "module-DiscordSelectors.html",
                             "tf": 1.7241379310344827
+                          },
+                          "module-DiscordContextMenu-MenuRadioItem.html": {
+                            "ref": "module-DiscordContextMenu-MenuRadioItem.html",
+                            "tf": 1.6129032258064515
                           }
                         }
                       }
@@ -26243,6 +26807,32 @@
                 }
               }
             }
+          },
+          "o": {
+            "docs": {},
+            "r": {
+              "docs": {},
+              "c": {
+                "docs": {},
+                "e": {
+                  "docs": {},
+                  "u": {
+                    "docs": {},
+                    "p": {
+                      "docs": {},
+                      "d": {
+                        "docs": {
+                          "module-DiscordContextMenu-MenuRadioItem.html": {
+                            "ref": "module-DiscordContextMenu-MenuRadioItem.html",
+                            "tf": 1.6129032258064515
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         "o": {
@@ -26545,6 +27135,10 @@
                       "module-DiscordAPI.UserSettings.html#.developerMode": {
                         "ref": "module-DiscordAPI.UserSettings.html#.developerMode",
                         "tf": 2.7777777777777777
+                      },
+                      "module-DiscordContextMenu-MenuRadioItem.html": {
+                        "ref": "module-DiscordContextMenu-MenuRadioItem.html",
+                        "tf": 1.6129032258064515
                       }
                     }
                   }
@@ -26745,6 +27339,10 @@
                 "List.html#get": {
                   "ref": "List.html#get",
                   "tf": 12.5
+                },
+                "module-DiscordContextMenu-MenuItem.html": {
+                  "ref": "module-DiscordContextMenu-MenuItem.html",
+                  "tf": 1.2195121951219512
                 }
               },
               "h": {
@@ -27068,7 +27666,7 @@
                     },
                     "module-Tooltip.html": {
                       "ref": "module-Tooltip.html",
-                      "tf": 3.125
+                      "tf": 1.7857142857142856
                     }
                   }
                 }
@@ -27110,9 +27708,9 @@
                         "ref": "List.html",
                         "tf": 10
                       },
-                      "module-DiscordContextMenu-MenuItem%0D%0DThis%20is%20the%20generic%20context%20menu%20item%20component.%20It%20is%20very%20extensible%20and%20will%20adapt%0Dit_s%20type%20depending%20on%20the%20props..html": {
-                        "ref": "module-DiscordContextMenu-MenuItem%0D%0DThis%20is%20the%20generic%20context%20menu%20item%20component.%20It%20is%20very%20extensible%20and%20will%20adapt%0Dit_s%20type%20depending%20on%20the%20props..html",
-                        "tf": 153.0769230769231
+                      "module-DiscordContextMenu-MenuItem.html": {
+                        "ref": "module-DiscordContextMenu-MenuItem.html",
+                        "tf": 1.2195121951219512
                       }
                     }
                   },
@@ -27409,6 +28007,10 @@
                   "module-EmulatedTooltip.html": {
                     "ref": "module-EmulatedTooltip.html",
                     "tf": 1.7857142857142856
+                  },
+                  "module-Tooltip.html": {
+                    "ref": "module-Tooltip.html",
+                    "tf": 1.7857142857142856
                   }
                 },
                 "a": {
@@ -27436,116 +28038,6 @@
                                         "module-EmulatedTooltip.html": {
                                           "ref": "module-EmulatedTooltip.html",
                                           "tf": 600
-                                        }
-                                      },
-                                      "(": {
-                                        "docs": {},
-                                        "r": {
-                                          "docs": {},
-                                          "e": {
-                                            "docs": {},
-                                            "q": {
-                                              "docs": {},
-                                              "u": {
-                                                "docs": {},
-                                                "i": {
-                                                  "docs": {},
-                                                  "r": {
-                                                    "docs": {},
-                                                    "e": {
-                                                      "docs": {},
-                                                      "(": {
-                                                        "docs": {},
-                                                        "&": {
-                                                          "docs": {},
-                                                          "q": {
-                                                            "docs": {},
-                                                            "u": {
-                                                              "docs": {},
-                                                              "o": {
-                                                                "docs": {},
-                                                                "t": {
-                                                                  "docs": {},
-                                                                  ";": {
-                                                                    "docs": {},
-                                                                    "e": {
-                                                                      "docs": {},
-                                                                      "m": {
-                                                                        "docs": {},
-                                                                        "u": {
-                                                                          "docs": {},
-                                                                          "l": {
-                                                                            "docs": {},
-                                                                            "a": {
-                                                                              "docs": {},
-                                                                              "t": {
-                                                                                "docs": {},
-                                                                                "e": {
-                                                                                  "docs": {},
-                                                                                  "d": {
-                                                                                    "docs": {},
-                                                                                    "t": {
-                                                                                      "docs": {},
-                                                                                      "o": {
-                                                                                        "docs": {},
-                                                                                        "o": {
-                                                                                          "docs": {},
-                                                                                          "l": {
-                                                                                            "docs": {},
-                                                                                            "t": {
-                                                                                              "docs": {},
-                                                                                              "i": {
-                                                                                                "docs": {},
-                                                                                                "p": {
-                                                                                                  "docs": {},
-                                                                                                  "&": {
-                                                                                                    "docs": {},
-                                                                                                    "q": {
-                                                                                                      "docs": {},
-                                                                                                      "u": {
-                                                                                                        "docs": {},
-                                                                                                        "o": {
-                                                                                                          "docs": {},
-                                                                                                          "t": {
-                                                                                                            "docs": {
-                                                                                                              "module-EmulatedTooltip_module_EmulatedTooltip.html": {
-                                                                                                                "ref": "module-EmulatedTooltip_module_EmulatedTooltip.html",
-                                                                                                                "tf": 100
-                                                                                                              }
-                                                                                                            }
-                                                                                                          }
-                                                                                                        }
-                                                                                                      }
-                                                                                                    }
-                                                                                                  }
-                                                                                                }
-                                                                                              }
-                                                                                            }
-                                                                                          }
-                                                                                        }
-                                                                                      }
-                                                                                    }
-                                                                                  }
-                                                                                }
-                                                                              }
-                                                                            }
-                                                                          }
-                                                                        }
-                                                                      }
-                                                                    }
-                                                                  }
-                                                                }
-                                                              }
-                                                            }
-                                                          }
-                                                        }
-                                                      }
-                                                    }
-                                                  }
-                                                }
-                                              }
-                                            }
-                                          }
                                         }
                                       }
                                     }
@@ -27577,6 +28069,38 @@
                     "module-DiscordAPI.UserSettings.html#.developerMode": {
                       "ref": "module-DiscordAPI.UserSettings.html#.developerMode",
                       "tf": 2.7777777777777777
+                    },
+                    "module-DiscordContextMenu-MenuRadioItem.html": {
+                      "ref": "module-DiscordContextMenu-MenuRadioItem.html",
+                      "tf": 1.6129032258064515
+                    }
+                  }
+                }
+              }
+            },
+            "s": {
+              "docs": {},
+              "u": {
+                "docs": {},
+                "r": {
+                  "docs": {
+                    "module-DiscordContextMenu-MenuItem.html": {
+                      "ref": "module-DiscordContextMenu-MenuItem.html",
+                      "tf": 1.2195121951219512
+                    }
+                  }
+                }
+              }
+            },
+            "t": {
+              "docs": {},
+              "i": {
+                "docs": {},
+                "r": {
+                  "docs": {
+                    "module-DiscordContextMenu-MenuItem.html": {
+                      "ref": "module-DiscordContextMenu-MenuItem.html",
+                      "tf": 1.2195121951219512
                     }
                   }
                 }
@@ -27737,6 +28261,10 @@
                   "module-DiscordSelectors.html": {
                     "ref": "module-DiscordSelectors.html",
                     "tf": 1.7241379310344827
+                  },
+                  "module-DiscordContextMenu-MenuRadioItem.html": {
+                    "ref": "module-DiscordContextMenu-MenuRadioItem.html",
+                    "tf": 1.6129032258064515
                   }
                 }
               }
@@ -27748,6 +28276,10 @@
                   "module-DiscordClasses.html": {
                     "ref": "module-DiscordClasses.html",
                     "tf": 1.8518518518518516
+                  },
+                  "module-DiscordContextMenu-SubMenuItem.html": {
+                    "ref": "module-DiscordContextMenu-SubMenuItem.html",
+                    "tf": 3.8461538461538463
                   }
                 }
               }
@@ -27853,7 +28385,7 @@
                   },
                   "module-Tooltip.html": {
                     "ref": "module-Tooltip.html",
-                    "tf": 3.125
+                    "tf": 1.7857142857142856
                   }
                 }
               }
@@ -27884,6 +28416,18 @@
                   "module-EmulatedTooltip.html": {
                     "ref": "module-EmulatedTooltip.html",
                     "tf": 1.7857142857142856
+                  },
+                  "module-Tooltip.html": {
+                    "ref": "module-Tooltip.html",
+                    "tf": 1.7857142857142856
+                  },
+                  "module-DiscordContextMenu-MenuItem.html": {
+                    "ref": "module-DiscordContextMenu-MenuItem.html",
+                    "tf": 1.2195121951219512
+                  },
+                  "module-DiscordContextMenu-MenuRadioItem.html": {
+                    "ref": "module-DiscordContextMenu-MenuRadioItem.html",
+                    "tf": 1.6129032258064515
                   }
                 }
               }
@@ -27909,6 +28453,10 @@
                     "docs": {
                       "module-EmulatedTooltip.html": {
                         "ref": "module-EmulatedTooltip.html",
+                        "tf": 1.7857142857142856
+                      },
+                      "module-Tooltip.html": {
+                        "ref": "module-Tooltip.html",
                         "tf": 1.7857142857142856
                       }
                     }
@@ -28050,9 +28598,9 @@
               "docs": {},
               "i": {
                 "docs": {
-                  "module-DiscordContextMenu-MenuItem%0D%0DThis%20is%20the%20generic%20context%20menu%20item%20component.%20It%20is%20very%20extensible%20and%20will%20adapt%0Dit_s%20type%20depending%20on%20the%20props..html": {
-                    "ref": "module-DiscordContextMenu-MenuItem%0D%0DThis%20is%20the%20generic%20context%20menu%20item%20component.%20It%20is%20very%20extensible%20and%20will%20adapt%0Dit_s%20type%20depending%20on%20the%20props..html",
-                    "tf": 153.0769230769231
+                  "module-DiscordContextMenu-MenuItem.html": {
+                    "ref": "module-DiscordContextMenu-MenuItem.html",
+                    "tf": 1.2195121951219512
                   }
                 },
                 "f": {
@@ -28709,7 +29257,7 @@
           }
         }
       },
-      "length": 2088
+      "length": 2184
     },
     "corpusTokens": [
       "0",
@@ -28724,6 +29272,7 @@
       "adapt",
       "add",
       "addgroup",
+      "addit",
       "additem",
       "addlisten",
       "adjac",
@@ -28781,6 +29330,7 @@
       "callabl",
       "callback",
       "categori",
+      "caus",
       "chang",
       "changelog",
       "changesortloc",
@@ -28822,6 +29372,7 @@
       "comput",
       "concaten",
       "configur",
+      "conflict",
       "connect",
       "consol",
       "content",
@@ -28877,6 +29428,7 @@
       "discordclassmodul",
       "discordcontextmenu",
       "discordcontextmenu~menucontrolitem",
+      "discordcontextmenu~menuitem",
       "discordcontextmenu~menuradioitem",
       "discordcontextmenu~menutoggleitem",
       "discordcontextmenu~submenuitem",
@@ -28919,8 +29471,9 @@
       "emoticon",
       "emul",
       "emulatedtooltip",
-      "emulatedtooltip(require(&quot;emulatedtooltip&quot",
       "enabl",
+      "ensur",
+      "entir",
       "error",
       "event",
       "everyon",
@@ -28952,6 +29505,7 @@
       "first",
       "fit",
       "flag",
+      "forceupd",
       "friend",
       "friendsourceflag",
       "function",
@@ -29004,6 +29558,7 @@
       "haven't",
       "height",
       "help",
+      "here",
       "hex",
       "hide",
       "hint",
@@ -29012,8 +29567,10 @@
       "htmlelement",
       "http[",
       "https://github.com/jssucks/betterdiscordapp/blob/master/client/src/modules/patcher.j",
+      "https://reactjs.org/docs/hook",
       "icon",
       "icon_path",
+      "id",
       "id&quot",
       "imag",
       "imageitem",
@@ -29226,7 +29783,6 @@
       "module:domtools.selector#valueof",
       "module:domtools~offset",
       "module:emulatedtooltip",
-      "module:emulatedtooltip>module:emulatedtooltip",
       "module:logg",
       "module:mod",
       "module:modals~changelog",
@@ -29387,6 +29943,7 @@
       "properti",
       "prototyp",
       "prove",
+      "provid",
       "proxi",
       "prunememb",
       "push",
@@ -29418,6 +29975,7 @@
       "realli",
       "recommend",
       "record",
+      "reference.html#usest",
       "regex",
       "region",
       "remov",
@@ -29495,6 +30053,7 @@
       "show",
       "showcurrentgam",
       "showemb",
+      "shown",
       "showreact",
       "sibl",
       "similar",
@@ -29513,6 +30072,7 @@
       "splash",
       "splash_path",
       "start",
+      "state",
       "statu",
       "still",
       "stop",
@@ -29542,12 +30102,14 @@
       "theme",
       "themselv",
       "thing",
+      "those",
       "through",
       "timeout",
       "timezon",
       "timezoneoffset",
       "toast",
       "todo",
+      "toggl",
       "toggleitem",
       "tool",
       "tooltip",
@@ -29559,6 +30121,7 @@
       "typedef",
       "ui",
       "unbind",
+      "uniqu",
       "unsubscrib",
       "updat",
       "updateafkchannel",
@@ -29629,6 +30192,7 @@
       "whole",
       "width",
       "window",
+      "wish",
       "without",
       "work",
       "wrap",
@@ -30847,17 +31411,6 @@
       "summary": "",
       "description": "Updates this channel."
     },
-    "module-Tooltip_module_Tooltip.html": {
-      "id": "module-Tooltip_module_Tooltip.html",
-      "kind": "class",
-      "title": "Tooltip(require(&quot;Tooltip&quot;))",
-      "longname": "module:Tooltip>module:Tooltip",
-      "name": "module:Tooltip",
-      "tags": "module:Tooltip>module:Tooltip",
-      "summary": "",
-      "description": "",
-      "body": ""
-    },
     "module-Settings.Dropdown.html": {
       "id": "module-Settings.Dropdown.html",
       "kind": "class",
@@ -31072,13 +31625,13 @@
       "summary": "",
       "description": "Fired when root node removed from DOM"
     },
-    "module-EmulatedTooltip_module_EmulatedTooltip.html": {
-      "id": "module-EmulatedTooltip_module_EmulatedTooltip.html",
+    "module-Tooltip_module_Tooltip.html": {
+      "id": "module-Tooltip_module_Tooltip.html",
       "kind": "class",
-      "title": "EmulatedTooltip(require(&quot;EmulatedTooltip&quot;))",
-      "longname": "module:EmulatedTooltip>module:EmulatedTooltip",
-      "name": "module:EmulatedTooltip",
-      "tags": "module:EmulatedTooltip>module:EmulatedTooltip",
+      "title": "Tooltip(require(&quot;Tooltip&quot;))",
+      "longname": "module:Tooltip>module:Tooltip",
+      "name": "module:Tooltip",
+      "tags": "module:Tooltip>module:Tooltip",
       "summary": "",
       "description": "",
       "body": ""
@@ -31704,7 +32257,7 @@
       "name": "Tooltip",
       "tags": "module:Tooltip",
       "summary": "",
-      "description": "Tooltips that automatically show and hide themselves on mouseenter and mouseleave events. Will also remove themselves if the node to watch is removed from DOM through a MutationObserver.",
+      "description": "Tooltip that automatically show and hide themselves on mouseenter and mouseleave events. Will also remove themselves if the node to watch is removed from DOM through a MutationObserver. Note this is not using Discord's internals but normal DOM manipulation and emulates Discord's own tooltips as closely as possible.",
       "body": ""
     },
     "module-DiscordClassModules.html": {
@@ -31817,15 +32370,15 @@
       "description": "",
       "body": ""
     },
-    "module-DiscordContextMenu-MenuItem%0D%0DThis%20is%20the%20generic%20context%20menu%20item%20component.%20It%20is%20very%20extensible%20and%20will%20adapt%0Dit_s%20type%20depending%20on%20the%20props..html": {
-      "id": "module-DiscordContextMenu-MenuItem%0D%0DThis%20is%20the%20generic%20context%20menu%20item%20component.%20It%20is%20very%20extensible%20and%20will%20adapt%0Dit_s%20type%20depending%20on%20the%20props..html",
+    "module-DiscordContextMenu-MenuItem.html": {
+      "id": "module-DiscordContextMenu-MenuItem.html",
       "kind": "interface",
-      "title": "module:DiscordContextMenu~MenuItem This is the generic context menu item component. It is very extensible and will adapt it's type depending on the props.",
-      "longname": "module:DiscordContextMenu~MenuItem\r\rThis is the generic context menu item component. It is very extensible and will adapt\rit's type depending on the props.",
-      "name": "module:DiscordContextMenu~MenuItem\r\rThis is the generic context menu item component. It is very extensible and will adapt\rit's type depending on the props.",
-      "tags": "module:DiscordContextMenu~MenuItem\r\rThis is the generic context menu item component. It is very extensible and will adapt\rit's type depending on the props.  It is very extensible and will adapt\rit's type depending on the props. ",
+      "title": "DiscordContextMenu~MenuItem",
+      "longname": "module:DiscordContextMenu~MenuItem",
+      "name": "MenuItem",
+      "tags": "module:DiscordContextMenu~MenuItem",
       "summary": "",
-      "description": "",
+      "description": "This is the generic context menu item component. It is very extensible and will adapt it's type depending on the props. Note: The item ID should be unique to this item across the entire menu. If no id is provided, the system will use the label. Plugins should ensure there are no label conflicts if they do not wish to provide id. label conflicts (when not using unique ids) can cause multiple items to be hovered at once.",
       "body": ""
     },
     "module-DiscordContextMenu-MenuToggleItem.html": {
@@ -31836,7 +32389,7 @@
       "name": "MenuToggleItem",
       "tags": "module:DiscordContextMenu~MenuToggleItem",
       "summary": "",
-      "description": "",
+      "description": "This item is used for creating checkboxes in menus. Properties shown here are additional to those of the main MenuItem module:DiscordContextMenu~MenuItem",
       "body": ""
     },
     "module-Modals-Changelog.html": {
@@ -31858,7 +32411,7 @@
       "name": "MenuRadioItem",
       "tags": "module:DiscordContextMenu~MenuRadioItem",
       "summary": "",
-      "description": "",
+      "description": "This item is used for creating radio selections in menus. Properties shown here are additional to those of the main MenuItem module:DiscordContextMenu~MenuItem Note: for the forceUpdate option... Without this enabled, you will manually need to manage the state for the functional component. If you do not the toggle will appear to not update. @see https://reactjs.org/docs/hooks-reference.html#usestate",
       "body": ""
     },
     "module-DiscordContextMenu-SubMenuItem.html": {
@@ -31869,7 +32422,7 @@
       "name": "SubMenuItem",
       "tags": "module:DiscordContextMenu~SubMenuItem",
       "summary": "",
-      "description": "",
+      "description": "This item is used for creating nested submenus. Properties shown here are additional to those of the main MenuItem module:DiscordContextMenu~MenuItem",
       "body": ""
     },
     "module-DiscordContextMenu-MenuControlItem.html": {
@@ -31880,7 +32433,7 @@
       "name": "MenuControlItem",
       "tags": "module:DiscordContextMenu~MenuControlItem",
       "summary": "",
-      "description": "",
+      "description": "This item is used for adding custom controls like sliders to the context menu. Properties shown here are additional to those of the main MenuItem module:DiscordContextMenu~MenuItem",
       "body": ""
     }
   }

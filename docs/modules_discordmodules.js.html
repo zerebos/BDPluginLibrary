@@ -56,7 +56,6 @@
 											<li><a href="module-DOMTools.ClassName.html">DOMTools.ClassName</a></li>
 											<li><a href="module-DOMTools.DOMObserver.html">DOMTools.DOMObserver</a></li>
 											<li><a href="module-DOMTools.Selector.html">DOMTools.Selector</a></li>
-											<li><a href="module-EmulatedTooltip_module_EmulatedTooltip.html">EmulatedTooltip>module:EmulatedTooltip</a></li>
 											<li><a href="module-Settings.ColorPicker.html">Settings.ColorPicker</a></li>
 											<li><a href="module-Settings.Dropdown.html">Settings.Dropdown</a></li>
 											<li><a href="module-Settings.FilePicker.html">Settings.FilePicker</a></li>
@@ -77,7 +76,7 @@
 									<a href="list_interface.html" class="dropdown-toggle" data-toggle="dropdown">Interfaces<b class="caret"></b></a>
 									<ul class="dropdown-menu">
 											<li><a href="module-DiscordContextMenu-MenuControlItem.html">DiscordContextMenu~MenuControlItem</a></li>
-											<li><a href="module-DiscordContextMenu-MenuItem%250D%250DThis%2520is%2520the%2520generic%2520context%2520menu%2520item%2520component.%2520It%2520is%2520very%2520extensible%2520and%2520will%2520adapt%250Dit_s%2520type%2520depending%2520on%2520the%2520props..html">DiscordContextMenu~MenuItemThis is the generic context menu item component. It is very extensible and will adaptit's type depending on the props.</a></li>
+											<li><a href="module-DiscordContextMenu-MenuItem.html">DiscordContextMenu~MenuItem</a></li>
 											<li><a href="module-DiscordContextMenu-MenuRadioItem.html">DiscordContextMenu~MenuRadioItem</a></li>
 											<li><a href="module-DiscordContextMenu-MenuToggleItem.html">DiscordContextMenu~MenuToggleItem</a></li>
 											<li><a href="module-DiscordContextMenu-SubMenuItem.html">DiscordContextMenu~SubMenuItem</a></li>
@@ -171,7 +170,7 @@ export default Utilities.memoizeObject({
     get GuildPermissions() {return WebpackModules.getByProps("getGuildPermissions");},
 
     /* Channel Store &amp; Actions */
-    get ChannelStore() {return WebpackModules.getByProps("getChannels", "getDMFromUserId");},
+    get ChannelStore() {return WebpackModules.getByProps("getChannel", "getDMFromUserId");},
     get SelectedChannelStore() {return WebpackModules.getByProps("getLastSelectedChannelId");},
     get ChannelActions() {return WebpackModules.getByProps("selectChannel");},
     get PrivateChannelActions() {return WebpackModules.getByProps("openPrivateChannel");},
@@ -366,9 +365,9 @@ export default Utilities.memoizeObject({
     get ColorPicker() {return WebpackModules.getByDisplayName("ColorPicker");}, // Loaded by Discord on demand
     get Dropdown() {return WebpackModules.getModule(m => m.prototype &amp;&amp; !m.prototype.handleClick &amp;&amp; m.prototype.render &amp;&amp; m.prototype.render.toString().includes("default.select"));},
     get Keybind() {return WebpackModules.getByPrototypes("handleComboChange");},
-    get RadioGroup() {return WebpackModules.getModule(m => m.defaultProps &amp;&amp; m.defaultProps.options &amp;&amp; m.defaultProps.size);},
+    get RadioGroup() {return WebpackModules.getByDisplayName("RadioGroup");},
     get Slider() {return WebpackModules.getByPrototypes("renderMark");},
-    get SwitchRow() {return WebpackModules.getModule(m => m.defaultProps &amp;&amp; m.defaultProps.hideBorder == false);},
+    get SwitchRow() {return WebpackModules.getByDisplayName("SwitchItem");},
     get Textbox() {return WebpackModules.getModule(m => m.defaultProps &amp;&amp; m.defaultProps.type == "text");},
 });</code></pre>
 		</section>

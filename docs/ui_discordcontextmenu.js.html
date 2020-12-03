@@ -56,7 +56,6 @@
 											<li><a href="module-DOMTools.ClassName.html">DOMTools.ClassName</a></li>
 											<li><a href="module-DOMTools.DOMObserver.html">DOMTools.DOMObserver</a></li>
 											<li><a href="module-DOMTools.Selector.html">DOMTools.Selector</a></li>
-											<li><a href="module-EmulatedTooltip_module_EmulatedTooltip.html">EmulatedTooltip>module:EmulatedTooltip</a></li>
 											<li><a href="module-Settings.ColorPicker.html">Settings.ColorPicker</a></li>
 											<li><a href="module-Settings.Dropdown.html">Settings.Dropdown</a></li>
 											<li><a href="module-Settings.FilePicker.html">Settings.FilePicker</a></li>
@@ -77,7 +76,7 @@
 									<a href="list_interface.html" class="dropdown-toggle" data-toggle="dropdown">Interfaces<b class="caret"></b></a>
 									<ul class="dropdown-menu">
 											<li><a href="module-DiscordContextMenu-MenuControlItem.html">DiscordContextMenu~MenuControlItem</a></li>
-											<li><a href="module-DiscordContextMenu-MenuItem%250D%250DThis%2520is%2520the%2520generic%2520context%2520menu%2520item%2520component.%2520It%2520is%2520very%2520extensible%2520and%2520will%2520adapt%250Dit_s%2520type%2520depending%2520on%2520the%2520props..html">DiscordContextMenu~MenuItemThis is the generic context menu item component. It is very extensible and will adaptit's type depending on the props.</a></li>
+											<li><a href="module-DiscordContextMenu-MenuItem.html">DiscordContextMenu~MenuItem</a></li>
 											<li><a href="module-DiscordContextMenu-MenuRadioItem.html">DiscordContextMenu~MenuRadioItem</a></li>
 											<li><a href="module-DiscordContextMenu-MenuToggleItem.html">DiscordContextMenu~MenuToggleItem</a></li>
 											<li><a href="module-DiscordContextMenu-SubMenuItem.html">DiscordContextMenu~SubMenuItem</a></li>
@@ -178,9 +177,14 @@ const ContextMenu = WebpackModules.getByProps("MenuRadioItem", "MenuItem");
 /**
  * @interface
  * @name module:DiscordContextMenu~MenuItem
- *
+ * @description
  * This is the generic context menu item component. It is very extensible and will adapt
  * it's type depending on the props.
+ * 
+ * Note: The item ID should be unique to this item across the entire menu. If no `id` is 
+ * provided, the system will use the `label`. Plugins should ensure there are no `label`
+ * conflicts if they do not wish to provide `id`. `label` conflicts (when not using
+ * unique `id`s) can cause multiple items to be hovered at once.
  * 
  * @param {object} props - props to pass to the react renderer
  * @param {string} props.label - label to show on the menu item
@@ -204,7 +208,7 @@ const ContextMenu = WebpackModules.getByProps("MenuRadioItem", "MenuItem");
  * @interface
  * @name module:DiscordContextMenu~MenuToggleItem
  * @extends module:DiscordContextMenu~MenuItem
- *
+ * @description
  * This item is used for creating checkboxes in menus. Properties shown here are additional
  * to those of the main MenuItem {@link module:DiscordContextMenu~MenuItem}
  * 
@@ -217,7 +221,7 @@ const ContextMenu = WebpackModules.getByProps("MenuRadioItem", "MenuItem");
  * @interface
  * @name module:DiscordContextMenu~MenuRadioItem
  * @extends module:DiscordContextMenu~MenuItem
- *
+ * @description
  * This item is used for creating radio selections in menus. Properties shown here are additional
  * to those of the main MenuItem {@link module:DiscordContextMenu~MenuItem}
  * 
@@ -234,7 +238,7 @@ const ContextMenu = WebpackModules.getByProps("MenuRadioItem", "MenuItem");
  * @interface
  * @name module:DiscordContextMenu~SubMenuItem
  * @extends module:DiscordContextMenu~MenuItem
- *
+ * @description
  * This item is used for creating nested submenus. Properties shown here are additional
  * to those of the main MenuItem {@link module:DiscordContextMenu~MenuItem}
  * 
@@ -247,7 +251,7 @@ const ContextMenu = WebpackModules.getByProps("MenuRadioItem", "MenuItem");
  * @interface
  * @name module:DiscordContextMenu~MenuControlItem
  * @extends module:DiscordContextMenu~MenuItem
- *
+ * @description
  * This item is used for adding custom controls like sliders to the context menu.
  * Properties shown here are additional to those of the main MenuItem {@link module:DiscordContextMenu~MenuItem}
  * 
@@ -311,7 +315,7 @@ export default class DiscordContextMenu {
         else if (type === "control") {
             Component = ContextMenu.MenuControlItem;
         }
-        if (!props.id) props.id = `${DOMTools.escapeID(props.label)}${performance.now()}`;
+        if (!props.id) props.id = `${DOMTools.escapeID(props.label)}`;
         if (props.danger) props.color = "colorDanger";
         if (props.onClick &amp;&amp; !props.action) props.action = props.onClick;
         props.extended = true;
