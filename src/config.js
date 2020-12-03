@@ -27,6 +27,7 @@ module.exports = {
             type: "fixed",
             items: [
                 "Fixes an issue with `Switch` and `RadioGroup` settings not showing and potentially causing error.",
+                "Fixes an issue with switches not switching",
                 "Fixes a miscoloring of the color settings title.",
                 "Fixes issues with context menus suddenly hovering/selecting the wrong item.",
                 "Plugins must either provide unique `id` values to context menu items, or ensure there are no `label` conflicts."

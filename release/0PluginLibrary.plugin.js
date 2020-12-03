@@ -156,6 +156,7 @@ module.exports = {
             type: "fixed",
             items: [
                 "Fixes an issue with `Switch` and `RadioGroup` settings not showing and potentially causing error.",
+                "Fixes an issue with switches not switching",
                 "Fixes a miscoloring of the color settings title.",
                 "Fixes issues with context menus suddenly hovering/selecting the wrong item.",
                 "Plugins must either provide unique `id` values to context menu items, or ensure there are no `label` conflicts."
@@ -7107,7 +7108,7 @@ const ContextMenu = _modules_webpackmodules__WEBPACK_IMPORTED_MODULE_1__["defaul
 /**
  * @interface
  * @name module:DiscordContextMenu~MenuItem
- *
+ * @description
  * This is the generic context menu item component. It is very extensible and will adapt
  * it's type depending on the props.
  * 
@@ -7138,7 +7139,7 @@ const ContextMenu = _modules_webpackmodules__WEBPACK_IMPORTED_MODULE_1__["defaul
  * @interface
  * @name module:DiscordContextMenu~MenuToggleItem
  * @extends module:DiscordContextMenu~MenuItem
- *
+ * @description
  * This item is used for creating checkboxes in menus. Properties shown here are additional
  * to those of the main MenuItem {@link module:DiscordContextMenu~MenuItem}
  * 
@@ -7151,7 +7152,7 @@ const ContextMenu = _modules_webpackmodules__WEBPACK_IMPORTED_MODULE_1__["defaul
  * @interface
  * @name module:DiscordContextMenu~MenuRadioItem
  * @extends module:DiscordContextMenu~MenuItem
- *
+ * @description
  * This item is used for creating radio selections in menus. Properties shown here are additional
  * to those of the main MenuItem {@link module:DiscordContextMenu~MenuItem}
  * 
@@ -7168,7 +7169,7 @@ const ContextMenu = _modules_webpackmodules__WEBPACK_IMPORTED_MODULE_1__["defaul
  * @interface
  * @name module:DiscordContextMenu~SubMenuItem
  * @extends module:DiscordContextMenu~MenuItem
- *
+ * @description
  * This item is used for creating nested submenus. Properties shown here are additional
  * to those of the main MenuItem {@link module:DiscordContextMenu~MenuItem}
  * 
@@ -7181,7 +7182,7 @@ const ContextMenu = _modules_webpackmodules__WEBPACK_IMPORTED_MODULE_1__["defaul
  * @interface
  * @name module:DiscordContextMenu~MenuControlItem
  * @extends module:DiscordContextMenu~MenuItem
- *
+ * @description
  * This item is used for adding custom controls like sliders to the context menu.
  * Properties shown here are additional to those of the main MenuItem {@link module:DiscordContextMenu~MenuItem}
  * 
@@ -8513,7 +8514,22 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-// TODO: Documentation
+class SwitchWrapper extends modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {enabled: this.props.value};
+    }
+
+    render() {
+        return modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].React.createElement(modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].SwitchRow, Object.assign({}, this.props, {
+            value: this.state.enabled,
+            onChange: e => {
+                this.props.onChange(e);
+                this.setState({enabled: e});
+            }
+        }));
+    }
+}
 
 /** 
  * Creates a switch using discord's built in switch.
@@ -8537,17 +8553,13 @@ class Switch extends _settingfield__WEBPACK_IMPORTED_MODULE_0__["default"] {
     }
 
     onAdded() {
-        const reactElement = modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].ReactDOM.render(modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].React.createElement(modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].SwitchRow, {
+        modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].ReactDOM.render(modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].React.createElement(SwitchWrapper, {
             children: this.name,
             note: this.note,
             disabled: this.disabled,
             hideBorder: false,
             value: this.value,
-            onChange: (e) => {
-                reactElement.props.value = e;
-                reactElement.forceUpdate();
-                this.onChange(e);
-            }
+            onChange: (e) => {this.onChange(e);}
         }), this.getElement());
     }
 }

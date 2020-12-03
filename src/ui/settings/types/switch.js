@@ -1,7 +1,22 @@
 import SettingField from "../settingfield";
 import {DiscordModules} from "modules";
 
-// TODO: Documentation
+class SwitchWrapper extends DiscordModules.React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {enabled: this.props.value};
+    }
+
+    render() {
+        return DiscordModules.React.createElement(DiscordModules.SwitchRow, Object.assign({}, this.props, {
+            value: this.state.enabled,
+            onChange: e => {
+                this.props.onChange(e);
+                this.setState({enabled: e});
+            }
+        }));
+    }
+}
 
 /** 
  * Creates a switch using discord's built in switch.
@@ -25,17 +40,13 @@ class Switch extends SettingField {
     }
 
     onAdded() {
-        const reactElement = DiscordModules.ReactDOM.render(DiscordModules.React.createElement(DiscordModules.SwitchRow, {
+        DiscordModules.ReactDOM.render(DiscordModules.React.createElement(SwitchWrapper, {
             children: this.name,
             note: this.note,
             disabled: this.disabled,
             hideBorder: false,
             value: this.value,
-            onChange: (e) => {
-                reactElement.props.value = e;
-                reactElement.forceUpdate();
-                this.onChange(e);
-            }
+            onChange: (e) => {this.onChange(e);}
         }), this.getElement());
     }
 }
