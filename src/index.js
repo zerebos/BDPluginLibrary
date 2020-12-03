@@ -1,17 +1,19 @@
 import * as Modules from "modules";
-import {Settings, ContextMenu, Tooltip, EmulatedTooltip, Toasts, Popouts, Modals, DiscordContextMenu} from "ui";
+import {Settings, ContextMenu, Tooltip, Toasts, Popouts, Modals, DiscordContextMenu, ErrorBoundary} from "ui";
 
 const Library = {};
 Library.DiscordContextMenu = DiscordContextMenu;
 Library.DCM = DiscordContextMenu;
 Library.ContextMenu = ContextMenu;
 Library.Tooltip = Tooltip;
-Library.EmulatedTooltip = EmulatedTooltip;
+Library.EmulatedTooltip = Tooltip; // @deprecated 12/3/2020 the original Tooltip module was replaced with the EmulatedTooltip.
 Library.Toasts = Toasts;
 Library.Settings = Settings;
 Library.Popouts = Popouts;
 Library.Modals = Modals;
 for (const mod in Modules) Library[mod] = Modules[mod];
+
+Library.Components = {ErrorBoundary};
 
 const config = require(process.env.CONFIG_PATH);
 const baseModule = require(process.env.PLUGIN_PATH);

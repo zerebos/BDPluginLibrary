@@ -172,8 +172,8 @@ export default class Utilities {
      * @param {string} path - representation of the property to obtain
      */
     static getNestedProp(obj, path) {
-        return path.split(".").reduce(function(obj, prop) {
-            return obj && obj[prop];
+        return path.split(".").reduce(function(ob, prop) {
+            return ob && ob[prop];
         }, obj);
     }
 
@@ -308,12 +308,35 @@ export default class Utilities {
         let index;
         while ((index = filter ? array.findIndex(item) : array.indexOf(item)) > -1) array.splice(index, 1);
         return array;
-}
+    }
+
+    /**
+     * Returns a function, that, as long as it continues to be invoked, will not
+     * be triggered. The function will be called after it stops being called for
+     * N milliseconds.
+     * 
+     * Adapted from the version by David Walsh (https://davidwalsh.name/javascript-debounce-function)
+     * 
+     * @param {function} executor 
+     * @param {number} delay 
+     */
+    static debounce(executor, delay) {
+        let timeout;
+        return function(...args) {
+            const callback = () => {
+                timeout = null;
+                Reflect.apply(executor, null, args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(callback, delay);
+        };
+    }
 
     /**
      * Checks if a file exists and is a file.
      * @param {String} path The file's path
      * @return {Promise}
+     * @deprecated 12/3/2020 Just use fs...
      */
     static async fileExists(path) {
         const fs = __non_webpack_require__("fs");
@@ -342,6 +365,7 @@ export default class Utilities {
      * Returns the contents of a file.
      * @param {String} path The file's path
      * @return {Promise}
+     * @deprecated 12/3/2020 Just use fs...
      */
     static async readFile(path) {
         await this.fileExists(path);

@@ -2,6 +2,7 @@
  * Self-made context menus that emulate Discord's own context menus.
  * @module ContextMenu
  * @version 0.1.0
+ * @deprecated 12/3/2020 in favor of DiscordContextMenu
  */
 
 import DiscordClasses from "../modules/discordclasses";

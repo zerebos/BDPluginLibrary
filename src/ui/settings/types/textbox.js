@@ -22,10 +22,10 @@ class Textbox extends SettingField {
     constructor(name, note, value, onChange, options = {}) {
         const {placeholder = "", disabled = false} = options;
         super(name, note, onChange, DiscordModules.Textbox, {
-            onChange: textbox => value => {
-                textbox.props.value = value;
+            onChange: textbox => val => {
+                textbox.props.value = val;
                 textbox.forceUpdate();
-                this.onChange(value);
+                this.onChange(val);
             },
             value: value,
             disabled: disabled,

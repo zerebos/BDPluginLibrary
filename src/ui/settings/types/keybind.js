@@ -21,9 +21,9 @@ class Keybind extends SettingField {
         super(label, help, onChange, DiscordModules.Keybind, {
             disabled: disabled,
             defaultValue: value.map(a => [0, a]),
-            onChange: element => value => {
-                if (!Array.isArray(value)) return;
-                element.props.value = value;
+            onChange: element => val => {
+                if (!Array.isArray(val)) return;
+                element.props.value = val;
                 this.onChange(value.map(a => a[1]));
             }
         });

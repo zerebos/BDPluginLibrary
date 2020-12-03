@@ -223,8 +223,8 @@ export default Utilities.memoizeObject({
     get ColorPicker() {return WebpackModules.getByDisplayName("ColorPicker");}, // Loaded by Discord on demand
     get Dropdown() {return WebpackModules.getModule(m => m.prototype && !m.prototype.handleClick && m.prototype.render && m.prototype.render.toString().includes("default.select"));},
     get Keybind() {return WebpackModules.getByPrototypes("handleComboChange");},
-    get RadioGroup() {return WebpackModules.getModule(m => m.defaultProps && m.defaultProps.options && m.defaultProps.size);},
+    get RadioGroup() {return WebpackModules.getByDisplayName("RadioGroup");},
     get Slider() {return WebpackModules.getByPrototypes("renderMark");},
-    get SwitchRow() {return WebpackModules.getModule(m => m.defaultProps && m.defaultProps.hideBorder == false);},
+    get SwitchRow() {return WebpackModules.getByDisplayName("SwitchItem");},
     get Textbox() {return WebpackModules.getModule(m => m.defaultProps && m.defaultProps.type == "text");},
 });

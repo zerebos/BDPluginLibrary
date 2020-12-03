@@ -136,19 +136,38 @@ module.exports = {
             github_username: "rauenzi",
             twitter_username: "ZackRauen"
         }],
-        version: "1.2.26",
+        version: "1.2.27",
         description: "Gives other plugins utility functions and the ability to emulate v2.",
         github: "https://github.com/rauenzi/BDPluginLibrary",
         github_raw: "https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"
     },
     changelog: [
         {
+            title: "What's new?",
+            type: "added",
+            items: [
+                "Preemptive changes for upcoming React versions (`__reactInternalInstance$` => `__reactFiber$`)",
+                "Exposes the `ErrorBoundary` component with `errorChildren` option under `Library.Components.ErrorBoundary`.",
+                "`Utilities` module now has a `debounce` function. See the docs (https://rauenzi.github.io/BDPluginLibrary/docs) for specification."
+            ]
+        },
+        {
             title: "Bugs Squashed",
             type: "fixed",
             items: [
-                "Updates to match Discord's internal changes for `ChannelStore`",
-                "Fixes an issue with clearing Dropdown settings",
-                "Fixes a reflection bug for PermissionsViewer"
+                "Fixes an issue with `Switch` and `RadioGroup` settings not showing and potentially causing error.",
+                "Fixes a miscoloring of the color settings title.",
+                "Fixes issues with context menus suddenly hovering/selecting the wrong item.",
+                "Plugins must either provide unique `id` values to context menu items, or ensure there are no `label` conflicts."
+            ]
+        },
+        {
+            title: "Deprecations",
+            type: "improved",
+            items: [
+                "`Tooltip` module was replaced with the `EmulatedTooltip` module, making the `EmulatedTooltip` redundant and is now deprecated.",
+                "`ContextMenu` was deprecated in favor of `DiscordContextMenu`/`DCM`",
+                "`fileExists` and `readFile` functions of the `Utilities` module are now deprecated, just use `fs`."
             ]
         }
     ],
@@ -177,12 +196,14 @@ Library.DiscordContextMenu = ui__WEBPACK_IMPORTED_MODULE_1__["DiscordContextMenu
 Library.DCM = ui__WEBPACK_IMPORTED_MODULE_1__["DiscordContextMenu"];
 Library.ContextMenu = ui__WEBPACK_IMPORTED_MODULE_1__["ContextMenu"];
 Library.Tooltip = ui__WEBPACK_IMPORTED_MODULE_1__["Tooltip"];
-Library.EmulatedTooltip = ui__WEBPACK_IMPORTED_MODULE_1__["EmulatedTooltip"];
+Library.EmulatedTooltip = ui__WEBPACK_IMPORTED_MODULE_1__["Tooltip"]; // @deprecated 12/3/2020 the original Tooltip module was replaced with the EmulatedTooltip.
 Library.Toasts = ui__WEBPACK_IMPORTED_MODULE_1__["Toasts"];
 Library.Settings = ui__WEBPACK_IMPORTED_MODULE_1__["Settings"];
 Library.Popouts = ui__WEBPACK_IMPORTED_MODULE_1__["Popouts"];
 Library.Modals = ui__WEBPACK_IMPORTED_MODULE_1__["Modals"];
 for (const mod in modules__WEBPACK_IMPORTED_MODULE_0__) Library[mod] = modules__WEBPACK_IMPORTED_MODULE_0__[mod];
+
+Library.Components = {ErrorBoundary: ui__WEBPACK_IMPORTED_MODULE_1__["ErrorBoundary"]};
 
 const config = __webpack_require__(/*! ./src/config.js */ "./src/config.js");
 const baseModule = __webpack_require__(/*! ./src/plugin.js */ "./src/plugin.js");
@@ -791,9 +812,9 @@ __webpack_require__.r(__webpack_exports__);
     get ColorPicker() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByDisplayName("ColorPicker");}, // Loaded by Discord on demand
     get Dropdown() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m.prototype && !m.prototype.handleClick && m.prototype.render && m.prototype.render.toString().includes("default.select"));},
     get Keybind() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByPrototypes("handleComboChange");},
-    get RadioGroup() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m.defaultProps && m.defaultProps.options && m.defaultProps.size);},
+    get RadioGroup() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByDisplayName("RadioGroup");},
     get Slider() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByPrototypes("renderMark");},
-    get SwitchRow() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m.defaultProps && m.defaultProps.hideBorder == false);},
+    get SwitchRow() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByDisplayName("SwitchItem");},
     get Textbox() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m.defaultProps && m.defaultProps.type == "text");},
 }));
 
@@ -2927,7 +2948,7 @@ class ReactTools {
     static getReactInstance(node) {
         if (!(node instanceof window.jQuery) && !(node instanceof Element)) return undefined;
         const domNode = node instanceof window.jQuery ? node[0] : node;
-        return domNode[Object.keys(domNode).find((key) => key.startsWith("__reactInternalInstance"))];
+        return domNode[Object.keys(domNode).find((key) => key.startsWith("__reactInternalInstance") || key.startsWith("__reactFiber"))];
     }
 
     /**
@@ -3036,7 +3057,7 @@ class Reflection {
     static reactInternalInstance(node) {
         if (!node) return null;
         if (!Object.keys(node) || !Object.keys(node).length) return null;
-        const riiKey = Object.keys(node).find(k => k.startsWith("__reactInternalInstance"));
+        const riiKey = Object.keys(node).find(k => k.startsWith("__reactInternalInstance") || k.startsWith("__reactFiber"));
         return riiKey ? node[riiKey] : null;
     }
 
@@ -3172,9 +3193,9 @@ const propsProxyHandler = {
 
 /* harmony default export */ __webpack_exports__["default"] = (function(node) {
     return new class ReflectionInstance {
-        constructor(node) {
-            if (typeof node === "string") node = document.querySelector(node);
-            this.node = node instanceof window.jQuery ? node[0] : node;
+        constructor(ele) {
+            if (typeof ele === "string") ele = document.querySelector(ele);
+            this.node = ele instanceof window.jQuery ? ele[0] : ele;
         }
 
         get el() {return this.node;}
@@ -3433,8 +3454,8 @@ class Utilities {
      * @param {string} path - representation of the property to obtain
      */
     static getNestedProp(obj, path) {
-        return path.split(".").reduce(function(obj, prop) {
-            return obj && obj[prop];
+        return path.split(".").reduce(function(ob, prop) {
+            return ob && ob[prop];
         }, obj);
     }
 
@@ -3569,12 +3590,35 @@ class Utilities {
         let index;
         while ((index = filter ? array.findIndex(item) : array.indexOf(item)) > -1) array.splice(index, 1);
         return array;
-}
+    }
+
+    /**
+     * Returns a function, that, as long as it continues to be invoked, will not
+     * be triggered. The function will be called after it stops being called for
+     * N milliseconds.
+     * 
+     * Adapted from the version by David Walsh (https://davidwalsh.name/javascript-debounce-function)
+     * 
+     * @param {function} executor 
+     * @param {number} delay 
+     */
+    static debounce(executor, delay) {
+        let timeout;
+        return function(...args) {
+            const callback = () => {
+                timeout = null;
+                Reflect.apply(executor, null, args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(callback, delay);
+        };
+    }
 
     /**
      * Checks if a file exists and is a file.
      * @param {String} path The file's path
      * @return {Promise}
+     * @deprecated 12/3/2020 Just use fs...
      */
     static async fileExists(path) {
         const fs = require("fs");
@@ -3603,6 +3647,7 @@ class Utilities {
      * Returns the contents of a file.
      * @param {String} path The file's path
      * @return {Promise}
+     * @deprecated 12/3/2020 Just use fs...
      */
     static async readFile(path) {
         await this.fileExists(path);
@@ -6710,6 +6755,7 @@ __webpack_require__.r(__webpack_exports__);
  * Self-made context menus that emulate Discord's own context menus.
  * @module ContextMenu
  * @version 0.1.0
+ * @deprecated 12/3/2020 in favor of DiscordContextMenu
  */
 
 
@@ -7065,6 +7111,11 @@ const ContextMenu = _modules_webpackmodules__WEBPACK_IMPORTED_MODULE_1__["defaul
  * This is the generic context menu item component. It is very extensible and will adapt
  * it's type depending on the props.
  * 
+ * Note: The item ID should be unique to this item across the entire menu. If no `id` is 
+ * provided, the system will use the `label`. Plugins should ensure there are no `label`
+ * conflicts if they do not wish to provide `id`. `label` conflicts (when not using
+ * unique `id`s) can cause multiple items to be hovered at once.
+ * 
  * @param {object} props - props to pass to the react renderer
  * @param {string} props.label - label to show on the menu item
  * @param {string} [props.id] - specific id used for this item
@@ -7194,7 +7245,7 @@ class DiscordContextMenu {
         else if (type === "control") {
             Component = ContextMenu.MenuControlItem;
         }
-        if (!props.id) props.id = `${_modules_domtools__WEBPACK_IMPORTED_MODULE_6__["default"].escapeID(props.label)}${performance.now()}`;
+        if (!props.id) props.id = `${_modules_domtools__WEBPACK_IMPORTED_MODULE_6__["default"].escapeID(props.label)}`;
         if (props.danger) props.color = "colorDanger";
         if (props.onClick && !props.action) props.action = props.onClick;
         props.extended = true;
@@ -7357,217 +7408,6 @@ class DiscordContextMenu {
 
 /***/ }),
 
-/***/ "./src/ui/emulatedtooltip.js":
-/*!***********************************!*\
-  !*** ./src/ui/emulatedtooltip.js ***!
-  \***********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return EmulatedTooltip; });
-/* harmony import */ var modules__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! modules */ "./src/modules/modules.js");
-/* harmony import */ var _structs_screen__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../structs/screen */ "./src/structs/screen.js");
-/**
- * Tooltip that automatically show and hide themselves on mouseenter and mouseleave events.
- * Will also remove themselves if the node to watch is removed from DOM through
- * a MutationObserver.
- *
- * Note this is not using Discord's internals but normal DOM manipulation and emulates
- * Discord's own tooltips as closely as possible.
- *
- * @module EmulatedTooltip
- * @version 0.0.1
- */
-
-
-
-
-const getClass = function(sideOrColor) {
-    const upperCase = sideOrColor[0].toUpperCase() + sideOrColor.slice(1);
-    const tooltipClass = modules__WEBPACK_IMPORTED_MODULE_0__["DiscordClasses"].Tooltips[`tooltip${upperCase}`];
-    if (tooltipClass) return tooltipClass.value;
-    return null;
-};
-
-const classExists = function(sideOrColor) {
-    return !!getClass(sideOrColor);
-};
-
-const toPx = function(value) {
-    return `${value}px`;
-};
-
-/* <div class="layer-v9HyYc da-layer" style="left: 234.5px; bottom: 51px;">
-    <div class="tooltip-2QfLtc da-tooltip tooltipTop-XDDSxx tooltipBlack-PPG47z">
-        <div class="tooltipPointer-3ZfirK da-tooltipPointer"></div>
-        User Settings
-    </div>
-</div> */
-
-class EmulatedTooltip {
-    /**
-     *
-     * @constructor
-     * @param {(HTMLElement|jQuery)} node - DOM node to monitor and show the tooltip on
-     * @param {string} tip - string to show in the tooltip
-     * @param {object} options - additional options for the tooltip
-     * @param {string} [options.style=black] - correlates to the discord styling/colors (black, brand, green, grey, red, yellow)
-     * @param {string} [options.side=top] - can be any of top, right, bottom, left
-     * @param {boolean} [options.preventFlip=false] - prevents moving the tooltip to the opposite side if it is too big or goes offscreen
-     * @param {boolean} [options.isTimestamp=false] - adds the timestampTooltip class (disables text wrapping)
-     * @param {boolean} [options.disablePointerEvents=false] - disables pointer events
-     * @param {boolean} [options.disabled=false] - whether the tooltip should be disabled from showing on hover
-     */
-    constructor(node, text, options = {}) {
-        const {style = "black", side = "top", preventFlip = false, isTimestamp = false, disablePointerEvents = false, disabled = false} = options;
-        this.node = node instanceof jQuery ? node[0] : node;
-        this.label = text;
-        this.style = style.toLowerCase();
-        this.side = side.toLowerCase();
-        this.preventFlip = preventFlip;
-        this.isTimestamp = isTimestamp;
-        this.disablePointerEvents = disablePointerEvents;
-        this.disabled = disabled;
-        this.active = false;
-
-        if (!classExists(this.side)) return modules__WEBPACK_IMPORTED_MODULE_0__["Logger"].err("EmulatedTooltip", `Side ${this.side} does not exist.`);
-        if (!classExists(this.style)) return modules__WEBPACK_IMPORTED_MODULE_0__["Logger"].err("EmulatedTooltip", `Style ${this.style} does not exist.`);
-
-        this.element = modules__WEBPACK_IMPORTED_MODULE_0__["DOMTools"].createElement(`<div class="${modules__WEBPACK_IMPORTED_MODULE_0__["DiscordClasses"].TooltipLayers.layer}">`);
-        this.tooltipElement = modules__WEBPACK_IMPORTED_MODULE_0__["DOMTools"].createElement(`<div class="${modules__WEBPACK_IMPORTED_MODULE_0__["DiscordClasses"].Tooltips.tooltip} ${getClass(this.style)}"><div class="${modules__WEBPACK_IMPORTED_MODULE_0__["DiscordClasses"].Tooltips.tooltipPointer}"></div><div class="${modules__WEBPACK_IMPORTED_MODULE_0__["DiscordClasses"].Tooltips.tooltipContent}">${this.label}</div></div>`);
-        this.labelElement = this.tooltipElement.childNodes[1];
-        this.element.append(this.tooltipElement);
-
-        if (this.disablePointerEvents) {
-            this.element.classList.add(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordClasses"].TooltipLayers.disabledPointerEvents);
-            this.tooltipElement.classList.add(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordClasses"].Tooltips.tooltipDisablePointerEvents);
-        }
-        if (this.isTimestamp) this.tooltipElement.classList.add(modules__WEBPACK_IMPORTED_MODULE_0__["WebpackModules"].getByProps("timestampTooltip").timestampTooltip);
-
-
-        this.node.addEventListener("mouseenter", () => {
-            if (this.disabled) return;
-            this.show();
-        });
-
-        this.node.addEventListener("mouseleave", () => {
-            this.hide();
-        });
-    }
-
-    /** Container where the tooltip will be appended. */
-    get container() {return document.querySelector(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordSelectors"].Popouts.popouts.sibling(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordSelectors"].TooltipLayers.layerContainer));}
-    /** Boolean representing if the tooltip will fit on screen above the element */
-    get canShowAbove() {return this.node.getBoundingClientRect().top - this.element.offsetHeight >= 0;}
-    /** Boolean representing if the tooltip will fit on screen below the element */
-    get canShowBelow() {return this.node.getBoundingClientRect().top + this.node.offsetHeight + this.element.offsetHeight <= _structs_screen__WEBPACK_IMPORTED_MODULE_1__["default"].height;}
-    /** Boolean representing if the tooltip will fit on screen to the left of the element */
-    get canShowLeft() {return this.node.getBoundingClientRect().left - this.element.offsetWidth >= 0;}
-    /** Boolean representing if the tooltip will fit on screen to the right of the element */
-    get canShowRight() {return this.node.getBoundingClientRect().left + this.node.offsetWidth + this.element.offsetWidth <= _structs_screen__WEBPACK_IMPORTED_MODULE_1__["default"].width;}
-
-    /** Hides the tooltip. Automatically called on mouseleave. */
-    hide() {
-        /** Don't rehide if already inactive */
-        if (!this.active) return;
-        this.active = false;
-        this.element.remove();
-        this.tooltipElement.className = this._className;
-    }
-
-    /** Shows the tooltip. Automatically called on mouseenter. Will attempt to flip if position was wrong. */
-    show() {
-        /** Don't reshow if already active */
-        if (this.active) return;
-        this.active = true;
-        this.tooltipElement.className = `${modules__WEBPACK_IMPORTED_MODULE_0__["DiscordClasses"].Tooltips.tooltip} ${getClass(this.style)}`;
-        if (this.disablePointerEvents) this.tooltipElement.classList.add(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordClasses"].Tooltips.tooltipDisablePointerEvents);
-        if (this.isTimestamp) this.tooltipElement.classList.add(modules__WEBPACK_IMPORTED_MODULE_0__["WebpackModules"].getByProps("timestampTooltip").timestampTooltip);
-        this.labelElement.textContent = this.label;
-        this.container.append(this.element);
-
-        if (this.side == "top") {
-            if (this.canShowAbove || (!this.canShowAbove && this.preventFlip)) this.showAbove();
-            else this.showBelow();
-        }
-
-        if (this.side == "bottom") {
-            if (this.canShowBelow || (!this.canShowBelow && this.preventFlip)) this.showBelow();
-            else this.showAbove();
-        }
-
-        if (this.side == "left") {
-            if (this.canShowLeft || (!this.canShowLeft && this.preventFlip)) this.showLeft();
-            else this.showRight();
-        }
-
-        if (this.side == "right") {
-            if (this.canShowRight || (!this.canShowRight && this.preventFlip)) this.showRight();
-            else this.showLeft();
-        }
-
-        /** Do not create a new observer each time if one already exists! */
-        if (this.observer) return;
-        /** Use an observer in show otherwise you'll cause unclosable tooltips */
-        this.observer = new MutationObserver((mutations) => {
-            mutations.forEach((mutation) => {
-                const nodes = Array.from(mutation.removedNodes);
-                const directMatch = nodes.indexOf(this.node) > -1;
-                const parentMatch = nodes.some(parent => parent.contains(this.node));
-                if (directMatch || parentMatch) {
-                    this.hide();
-                    this.observer.disconnect();
-                }
-            });
-        });
-
-        this.observer.observe(document.body, {subtree: true, childList: true});
-    }
-
-    /** Force showing the tooltip above the node. */
-    showAbove() {
-        this.tooltipElement.classList.add(getClass("top"));
-        this.element.style.setProperty("top", toPx(this.node.getBoundingClientRect().top - this.element.offsetHeight - 10));
-        this.centerHorizontally();
-    }
-
-    /** Force showing the tooltip below the node. */
-    showBelow() {
-        this.tooltipElement.classList.add(getClass("bottom"));
-        this.element.style.setProperty("top", toPx(this.node.getBoundingClientRect().top + this.node.offsetHeight + 10));
-        this.centerHorizontally();
-    }
-
-    /** Force showing the tooltip to the left of the node. */
-    showLeft() {
-        this.tooltipElement.classList.add(getClass("left"));
-        this.element.style.setProperty("left", toPx(this.node.getBoundingClientRect().left - this.element.offsetWidth - 10));
-        this.centerVertically();
-    }
-
-    /** Force showing the tooltip to the right of the node. */
-    showRight() {
-        this.tooltipElement.classList.add(getClass("right"));
-        this.element.style.setProperty("left", toPx(this.node.getBoundingClientRect().left + this.node.offsetWidth + 10));
-        this.centerVertically();
-    }
-
-    centerHorizontally() {
-        const nodecenter = this.node.getBoundingClientRect().left + (this.node.offsetWidth / 2);
-        this.element.style.setProperty("left", toPx(nodecenter - (this.element.offsetWidth / 2)));
-    }
-
-    centerVertically() {
-        const nodecenter = this.node.getBoundingClientRect().top + (this.node.offsetHeight / 2);
-        this.element.style.setProperty("top", toPx(nodecenter - (this.element.offsetHeight / 2)));
-    }
-}
-
-
-/***/ }),
-
 /***/ "./src/ui/errorboundary.js":
 /*!*********************************!*\
   !*** ./src/ui/errorboundary.js ***!
@@ -7596,7 +7436,7 @@ class ErrorBoundary extends React.Component {
     }
   
     render() {
-      if (this.state.hasError) return ce("div", {className: "error"}, "Component Error");  
+      if (this.state.hasError) return this.props.errorChildren ? this.props.errorChildren : ce("div", {className: "error"}, "Component Error");  
       return this.props.children; 
     }
 }
@@ -8077,7 +7917,7 @@ class ReactSetting extends modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"
         const Context = ce(AccessibilityProvider, {value: {reducedMotion: {enabled: false, rawValue: "no-preference"}}}, ce(LayerProvider, {value: [document.querySelector("#app-mount > .layerContainer-yqaFcK")]}, SettingElement));
         if (this.props.inline) {
             const Flex = modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].FlexChild;
-            const titleDefault = modules__WEBPACK_IMPORTED_MODULE_1__["WebpackModules"].getByProps("titleDefault") ? modules__WEBPACK_IMPORTED_MODULE_1__["WebpackModules"].getByProps("titleDefault").titleDefault : "titleDefault-a8-ZSr title-31JmR4 da-titleDefault da-title";
+            const titleDefault = modules__WEBPACK_IMPORTED_MODULE_1__["WebpackModules"].getByProps("titleDefault") ? modules__WEBPACK_IMPORTED_MODULE_1__["WebpackModules"].getByProps("titleDefault").title : "titleDefault-a8-ZSr title-31JmR4 da-titleDefault da-title";
             return ce(Flex, {direction: Flex.Direction.VERTICAL},
             ce(Flex, {align: Flex.Align.START}, 
                 ce(Flex.Child, {wrap: !0},
@@ -8517,9 +8357,9 @@ class Keybind extends _settingfield__WEBPACK_IMPORTED_MODULE_0__["default"] {
         super(label, help, onChange, modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].Keybind, {
             disabled: disabled,
             defaultValue: value.map(a => [0, a]),
-            onChange: element => value => {
-                if (!Array.isArray(value)) return;
-                element.props.value = value;
+            onChange: element => val => {
+                if (!Array.isArray(val)) return;
+                element.props.value = val;
                 this.onChange(value.map(a => a[1]));
             }
         });
@@ -8649,7 +8489,7 @@ class Slider extends _settingfield__WEBPACK_IMPORTED_MODULE_0__["default"] {
         if (options.markers) props.markers = options.markers;
         if (options.stickToMarkers) props.stickToMarkers = options.stickToMarkers;
         if (typeof(options.equidistant) != "undefined") props.equidistant = options.equidistant;
-        if (options.units) props.onValueRender = (value) => `${Math.round(value)}${options.units}`;
+        if (options.units) props.onValueRender = (val) => `${Math.round(val)}${options.units}`;
         if (options.onValueRender || options.renderValue) props.onValueRender = options.onValueRender || options.renderValue;
         super(name, note, onChange, modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].Slider, Object.assign(props, {onValueChange: v => this.onChange(v)}));
     }
@@ -8752,10 +8592,10 @@ class Textbox extends _settingfield__WEBPACK_IMPORTED_MODULE_0__["default"] {
     constructor(name, note, value, onChange, options = {}) {
         const {placeholder = "", disabled = false} = options;
         super(name, note, onChange, modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].Textbox, {
-            onChange: textbox => value => {
-                textbox.props.value = value;
+            onChange: textbox => val => {
+                textbox.props.value = val;
                 textbox.forceUpdate();
-                this.onChange(value);
+                this.onChange(val);
             },
             value: value,
             disabled: disabled,
@@ -8907,57 +8747,87 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Tooltip; });
 /* harmony import */ var modules__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! modules */ "./src/modules/modules.js");
 /* harmony import */ var _structs_screen__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../structs/screen */ "./src/structs/screen.js");
-/** 
- * Tooltips that automatically show and hide themselves on mouseenter and mouseleave events.
+/**
+ * Tooltip that automatically show and hide themselves on mouseenter and mouseleave events.
  * Will also remove themselves if the node to watch is removed from DOM through
  * a MutationObserver.
- * 
+ *
+ * Note this is not using Discord's internals but normal DOM manipulation and emulates
+ * Discord's own tooltips as closely as possible.
+ *
  * @module Tooltip
- * @version 0.0.2
+ * @version 1.0.0
  */
 
 
 
 
+const getClass = function(sideOrColor) {
+    const upperCase = sideOrColor[0].toUpperCase() + sideOrColor.slice(1);
+    const tooltipClass = modules__WEBPACK_IMPORTED_MODULE_0__["DiscordClasses"].Tooltips[`tooltip${upperCase}`];
+    if (tooltipClass) return tooltipClass.value;
+    return null;
+};
+
+const classExists = function(sideOrColor) {
+    return !!getClass(sideOrColor);
+};
+
+const toPx = function(value) {
+    return `${value}px`;
+};
+
+/* <div class="layer-v9HyYc da-layer" style="left: 234.5px; bottom: 51px;">
+    <div class="tooltip-2QfLtc da-tooltip tooltipTop-XDDSxx tooltipBlack-PPG47z">
+        <div class="tooltipPointer-3ZfirK da-tooltipPointer"></div>
+        User Settings
+    </div>
+</div> */
+
 class Tooltip {
     /**
-     * 
+     *
      * @constructor
      * @param {(HTMLElement|jQuery)} node - DOM node to monitor and show the tooltip on
      * @param {string} tip - string to show in the tooltip
      * @param {object} options - additional options for the tooltip
-     * @param {string} [options.style=black] - correlates to the discord styling
+     * @param {string} [options.style=black] - correlates to the discord styling/colors (black, brand, green, grey, red, yellow)
      * @param {string} [options.side=top] - can be any of top, right, bottom, left
      * @param {boolean} [options.preventFlip=false] - prevents moving the tooltip to the opposite side if it is too big or goes offscreen
+     * @param {boolean} [options.isTimestamp=false] - adds the timestampTooltip class (disables text wrapping)
+     * @param {boolean} [options.disablePointerEvents=false] - disables pointer events
      * @param {boolean} [options.disabled=false] - whether the tooltip should be disabled from showing on hover
      */
     constructor(node, text, options = {}) {
-        if (!(node instanceof jQuery) && !(node instanceof Element)) return undefined;
+        const {style = "black", side = "top", preventFlip = false, isTimestamp = false, disablePointerEvents = false, disabled = false} = options;
         this.node = node instanceof jQuery ? node[0] : node;
-        const {style = "black", side = "top", disabled = false} = options;
         this.label = text;
-        this.style = style;
-        this.side = side;
+        this.style = style.toLowerCase();
+        this.side = side.toLowerCase();
+        this.preventFlip = preventFlip;
+        this.isTimestamp = isTimestamp;
+        this.disablePointerEvents = disablePointerEvents;
         this.disabled = disabled;
-        this.id = modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].KeyGenerator(); // eslint-disable-line new-cap
+        this.active = false;
+
+        if (!classExists(this.side)) return modules__WEBPACK_IMPORTED_MODULE_0__["Logger"].err("Tooltip", `Side ${this.side} does not exist.`);
+        if (!classExists(this.style)) return modules__WEBPACK_IMPORTED_MODULE_0__["Logger"].err("Tooltip", `Style ${this.style} does not exist.`);
+
+        this.element = modules__WEBPACK_IMPORTED_MODULE_0__["DOMTools"].createElement(`<div class="${modules__WEBPACK_IMPORTED_MODULE_0__["DiscordClasses"].TooltipLayers.layer}">`);
+        this.tooltipElement = modules__WEBPACK_IMPORTED_MODULE_0__["DOMTools"].createElement(`<div class="${modules__WEBPACK_IMPORTED_MODULE_0__["DiscordClasses"].Tooltips.tooltip} ${getClass(this.style)}"><div class="${modules__WEBPACK_IMPORTED_MODULE_0__["DiscordClasses"].Tooltips.tooltipPointer}"></div><div class="${modules__WEBPACK_IMPORTED_MODULE_0__["DiscordClasses"].Tooltips.tooltipContent}">${this.label}</div></div>`);
+        this.labelElement = this.tooltipElement.childNodes[1];
+        this.element.append(this.tooltipElement);
+
+        if (this.disablePointerEvents) {
+            this.element.classList.add(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordClasses"].TooltipLayers.disabledPointerEvents);
+            this.tooltipElement.classList.add(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordClasses"].Tooltips.tooltipDisablePointerEvents);
+        }
+        if (this.isTimestamp) this.tooltipElement.classList.add(modules__WEBPACK_IMPORTED_MODULE_0__["WebpackModules"].getByProps("timestampTooltip").timestampTooltip);
+
 
         this.node.addEventListener("mouseenter", () => {
             if (this.disabled) return;
             this.show();
-
-            const observer = new MutationObserver((mutations) => {
-                mutations.forEach((mutation) => {
-                    const nodes = Array.from(mutation.removedNodes);
-                    const directMatch = nodes.indexOf(this.node) > -1;
-                    const parentMatch = nodes.some(parent => parent.contains(this.node));
-                    if (directMatch || parentMatch) {
-                        this.hide();
-                        observer.disconnect();
-                    }
-                });
-            });
-
-            observer.observe(document.body, {subtree: true, childList: true});
         });
 
         this.node.addEventListener("mouseleave", () => {
@@ -8965,39 +8835,114 @@ class Tooltip {
         });
     }
 
-    /**
-     * Disabled the tooltip and prevents it from showing on hover.
-     */
-    disable() {
-        this.disabled = true;
-    }
+    /** Alias for the constructor */
+    static create(node, text, options = {}) {return new Tooltip(node, text, options);}
 
-    /**
-     * Enables the tooltip and allows it to show on hover.
-     */
-    enable() {
-        this.disabled = false;
-    }
+    /** Container where the tooltip will be appended. */
+    get container() {return document.querySelector(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordSelectors"].Popouts.popouts.sibling(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordSelectors"].TooltipLayers.layerContainer));}
+    /** Boolean representing if the tooltip will fit on screen above the element */
+    get canShowAbove() {return this.node.getBoundingClientRect().top - this.element.offsetHeight >= 0;}
+    /** Boolean representing if the tooltip will fit on screen below the element */
+    get canShowBelow() {return this.node.getBoundingClientRect().top + this.node.offsetHeight + this.element.offsetHeight <= _structs_screen__WEBPACK_IMPORTED_MODULE_1__["default"].height;}
+    /** Boolean representing if the tooltip will fit on screen to the left of the element */
+    get canShowLeft() {return this.node.getBoundingClientRect().left - this.element.offsetWidth >= 0;}
+    /** Boolean representing if the tooltip will fit on screen to the right of the element */
+    get canShowRight() {return this.node.getBoundingClientRect().left + this.node.offsetWidth + this.element.offsetWidth <= _structs_screen__WEBPACK_IMPORTED_MODULE_1__["default"].width;}
 
     /** Hides the tooltip. Automatically called on mouseleave. */
     hide() {
-        modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].Tooltips.hide(this.id);
+        /** Don't rehide if already inactive */
+        if (!this.active) return;
+        this.active = false;
+        this.element.remove();
+        this.tooltipElement.className = this._className;
     }
-    
-    /** Shows the tooltip. Automatically called on mouseenter. */
+
+    /** Shows the tooltip. Automatically called on mouseenter. Will attempt to flip if position was wrong. */
     show() {
-        const {left, top, width, height} = this.node.getBoundingClientRect();
-        modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].Tooltips.show(this.id, {
-            position: this.side,
-            text: this.label,
-            color: this.style,
-            targetWidth: width,
-            targetHeight: height,
-            windowWidth: _structs_screen__WEBPACK_IMPORTED_MODULE_1__["default"].width,
-            windowHeight: _structs_screen__WEBPACK_IMPORTED_MODULE_1__["default"].height,
-            x: left,
-            y: top
+        /** Don't reshow if already active */
+        if (this.active) return;
+        this.active = true;
+        this.tooltipElement.className = `${modules__WEBPACK_IMPORTED_MODULE_0__["DiscordClasses"].Tooltips.tooltip} ${getClass(this.style)}`;
+        if (this.disablePointerEvents) this.tooltipElement.classList.add(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordClasses"].Tooltips.tooltipDisablePointerEvents);
+        if (this.isTimestamp) this.tooltipElement.classList.add(modules__WEBPACK_IMPORTED_MODULE_0__["WebpackModules"].getByProps("timestampTooltip").timestampTooltip);
+        this.labelElement.textContent = this.label;
+        this.container.append(this.element);
+
+        if (this.side == "top") {
+            if (this.canShowAbove || (!this.canShowAbove && this.preventFlip)) this.showAbove();
+            else this.showBelow();
+        }
+
+        if (this.side == "bottom") {
+            if (this.canShowBelow || (!this.canShowBelow && this.preventFlip)) this.showBelow();
+            else this.showAbove();
+        }
+
+        if (this.side == "left") {
+            if (this.canShowLeft || (!this.canShowLeft && this.preventFlip)) this.showLeft();
+            else this.showRight();
+        }
+
+        if (this.side == "right") {
+            if (this.canShowRight || (!this.canShowRight && this.preventFlip)) this.showRight();
+            else this.showLeft();
+        }
+
+        /** Do not create a new observer each time if one already exists! */
+        if (this.observer) return;
+        /** Use an observer in show otherwise you'll cause unclosable tooltips */
+        this.observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                const nodes = Array.from(mutation.removedNodes);
+                const directMatch = nodes.indexOf(this.node) > -1;
+                const parentMatch = nodes.some(parent => parent.contains(this.node));
+                if (directMatch || parentMatch) {
+                    this.hide();
+                    this.observer.disconnect();
+                }
+            });
         });
+
+        this.observer.observe(document.body, {subtree: true, childList: true});
+    }
+
+    /** Force showing the tooltip above the node. */
+    showAbove() {
+        this.tooltipElement.classList.add(getClass("top"));
+        this.element.style.setProperty("top", toPx(this.node.getBoundingClientRect().top - this.element.offsetHeight - 10));
+        this.centerHorizontally();
+    }
+
+    /** Force showing the tooltip below the node. */
+    showBelow() {
+        this.tooltipElement.classList.add(getClass("bottom"));
+        this.element.style.setProperty("top", toPx(this.node.getBoundingClientRect().top + this.node.offsetHeight + 10));
+        this.centerHorizontally();
+    }
+
+    /** Force showing the tooltip to the left of the node. */
+    showLeft() {
+        this.tooltipElement.classList.add(getClass("left"));
+        this.element.style.setProperty("left", toPx(this.node.getBoundingClientRect().left - this.element.offsetWidth - 10));
+        this.centerVertically();
+    }
+
+    /** Force showing the tooltip to the right of the node. */
+    showRight() {
+        this.tooltipElement.classList.add(getClass("right"));
+        this.element.style.setProperty("left", toPx(this.node.getBoundingClientRect().left + this.node.offsetWidth + 10));
+        this.centerVertically();
+    }
+
+    centerHorizontally() {
+        const nodecenter = this.node.getBoundingClientRect().left + (this.node.offsetWidth / 2);
+        this.element.style.setProperty("left", toPx(nodecenter - (this.element.offsetWidth / 2)));
+    }
+
+    centerVertically() {
+        const nodecenter = this.node.getBoundingClientRect().top + (this.node.offsetHeight / 2);
+        this.element.style.setProperty("top", toPx(nodecenter - (this.element.offsetHeight / 2)));
     }
 }
 
@@ -9007,7 +8952,7 @@ class Tooltip {
 /*!**********************!*\
   !*** ./src/ui/ui.js ***!
   \**********************/
-/*! exports provided: Tooltip, EmulatedTooltip, Toasts, Popouts, Modals, DiscordContextMenu, ErrorBoundary, Settings, ContextMenu, Icons */
+/*! exports provided: Tooltip, Toasts, Popouts, Modals, DiscordContextMenu, ErrorBoundary, Settings, ContextMenu, Icons */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9021,24 +8966,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _tooltip__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./tooltip */ "./src/ui/tooltip.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Tooltip", function() { return _tooltip__WEBPACK_IMPORTED_MODULE_3__["default"]; });
 
-/* harmony import */ var _emulatedtooltip__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./emulatedtooltip */ "./src/ui/emulatedtooltip.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "EmulatedTooltip", function() { return _emulatedtooltip__WEBPACK_IMPORTED_MODULE_4__["default"]; });
+/* harmony import */ var _toasts__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./toasts */ "./src/ui/toasts.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Toasts", function() { return _toasts__WEBPACK_IMPORTED_MODULE_4__["default"]; });
 
-/* harmony import */ var _toasts__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./toasts */ "./src/ui/toasts.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Toasts", function() { return _toasts__WEBPACK_IMPORTED_MODULE_5__["default"]; });
+/* harmony import */ var _popouts__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./popouts */ "./src/ui/popouts.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Popouts", function() { return _popouts__WEBPACK_IMPORTED_MODULE_5__["default"]; });
 
-/* harmony import */ var _popouts__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./popouts */ "./src/ui/popouts.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Popouts", function() { return _popouts__WEBPACK_IMPORTED_MODULE_6__["default"]; });
+/* harmony import */ var _modals__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modals */ "./src/ui/modals.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Modals", function() { return _modals__WEBPACK_IMPORTED_MODULE_6__["default"]; });
 
-/* harmony import */ var _modals__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modals */ "./src/ui/modals.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Modals", function() { return _modals__WEBPACK_IMPORTED_MODULE_7__["default"]; });
+/* harmony import */ var _discordcontextmenu__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./discordcontextmenu */ "./src/ui/discordcontextmenu.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DiscordContextMenu", function() { return _discordcontextmenu__WEBPACK_IMPORTED_MODULE_7__["default"]; });
 
-/* harmony import */ var _discordcontextmenu__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./discordcontextmenu */ "./src/ui/discordcontextmenu.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DiscordContextMenu", function() { return _discordcontextmenu__WEBPACK_IMPORTED_MODULE_8__["default"]; });
-
-/* harmony import */ var _errorboundary__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./errorboundary */ "./src/ui/errorboundary.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ErrorBoundary", function() { return _errorboundary__WEBPACK_IMPORTED_MODULE_9__["default"]; });
-
+/* harmony import */ var _errorboundary__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./errorboundary */ "./src/ui/errorboundary.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ErrorBoundary", function() { return _errorboundary__WEBPACK_IMPORTED_MODULE_8__["default"]; });
 
 
 

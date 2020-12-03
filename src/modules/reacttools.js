@@ -29,7 +29,7 @@ export default class ReactTools {
     static getReactInstance(node) {
         if (!(node instanceof window.jQuery) && !(node instanceof Element)) return undefined;
         const domNode = node instanceof window.jQuery ? node[0] : node;
-        return domNode[Object.keys(domNode).find((key) => key.startsWith("__reactInternalInstance"))];
+        return domNode[Object.keys(domNode).find((key) => key.startsWith("__reactInternalInstance") || key.startsWith("__reactFiber"))];
     }
 
     /**

@@ -14,7 +14,7 @@ export default class ErrorBoundary extends React.Component {
     }
   
     render() {
-      if (this.state.hasError) return ce("div", {className: "error"}, "Component Error");  
+      if (this.state.hasError) return this.props.errorChildren ? this.props.errorChildren : ce("div", {className: "error"}, "Component Error");  
       return this.props.children; 
     }
 }

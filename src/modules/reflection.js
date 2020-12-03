@@ -16,7 +16,7 @@ class Reflection {
     static reactInternalInstance(node) {
         if (!node) return null;
         if (!Object.keys(node) || !Object.keys(node).length) return null;
-        const riiKey = Object.keys(node).find(k => k.startsWith("__reactInternalInstance"));
+        const riiKey = Object.keys(node).find(k => k.startsWith("__reactInternalInstance") || k.startsWith("__reactFiber"));
         return riiKey ? node[riiKey] : null;
     }
 
@@ -152,9 +152,9 @@ const propsProxyHandler = {
 
 export default function(node) {
     return new class ReflectionInstance {
-        constructor(node) {
-            if (typeof node === "string") node = document.querySelector(node);
-            this.node = node instanceof window.jQuery ? node[0] : node;
+        constructor(ele) {
+            if (typeof ele === "string") ele = document.querySelector(ele);
+            this.node = ele instanceof window.jQuery ? ele[0] : ele;
         }
 
         get el() {return this.node;}

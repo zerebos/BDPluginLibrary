@@ -39,6 +39,11 @@ const ContextMenu = WebpackModules.getByProps("MenuRadioItem", "MenuItem");
  * This is the generic context menu item component. It is very extensible and will adapt
  * it's type depending on the props.
  * 
+ * Note: The item ID should be unique to this item across the entire menu. If no `id` is 
+ * provided, the system will use the `label`. Plugins should ensure there are no `label`
+ * conflicts if they do not wish to provide `id`. `label` conflicts (when not using
+ * unique `id`s) can cause multiple items to be hovered at once.
+ * 
  * @param {object} props - props to pass to the react renderer
  * @param {string} props.label - label to show on the menu item
  * @param {string} [props.id] - specific id used for this item
@@ -168,7 +173,7 @@ export default class DiscordContextMenu {
         else if (type === "control") {
             Component = ContextMenu.MenuControlItem;
         }
-        if (!props.id) props.id = `${DOMTools.escapeID(props.label)}${performance.now()}`;
+        if (!props.id) props.id = `${DOMTools.escapeID(props.label)}`;
         if (props.danger) props.color = "colorDanger";
         if (props.onClick && !props.action) props.action = props.onClick;
         props.extended = true;

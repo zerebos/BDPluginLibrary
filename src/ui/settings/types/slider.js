@@ -46,7 +46,7 @@ class Slider extends SettingField {
         if (options.markers) props.markers = options.markers;
         if (options.stickToMarkers) props.stickToMarkers = options.stickToMarkers;
         if (typeof(options.equidistant) != "undefined") props.equidistant = options.equidistant;
-        if (options.units) props.onValueRender = (value) => `${Math.round(value)}${options.units}`;
+        if (options.units) props.onValueRender = (val) => `${Math.round(val)}${options.units}`;
         if (options.onValueRender || options.renderValue) props.onValueRender = options.onValueRender || options.renderValue;
         super(name, note, onChange, DiscordModules.Slider, Object.assign(props, {onValueChange: v => this.onChange(v)}));
     }
