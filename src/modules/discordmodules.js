@@ -95,6 +95,10 @@ export default Utilities.memoizeObject({
     get ExperimentsManager() {return WebpackModules.getByProps("isDeveloper");},
     get CurrentExperiment() {return WebpackModules.getByProps("getExperimentId");},
 
+    /* Streams */
+    get StreamStore() {return WebpackModules.getByProps("getAllActiveStreams", "getStreamForUser");},
+    get StreamPreviewStore() {return WebpackModules.getByProps("getIsPreviewLoading", "getPreviewURL");},
+
     /* Images, Avatars and Utils */
     get ImageResolver() {return WebpackModules.getByProps("getUserAvatarURL", "getGuildIconURL");},
     get ImageUtils() {return WebpackModules.getByProps("getSizedImageSrc");},
