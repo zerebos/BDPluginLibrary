@@ -30,8 +30,15 @@ export default (BasePlugin, Library) => {
              * instance property.
              */
 
-            const wasEnabled = BdApi.isSettingEnabled("fork-ps-2");
-            if (wasEnabled) BdApi.disableSetting("fork-ps-2");
+            // development vs master
+            const id = BdApi.version ? ["settings", "general", "showToasts"] : ["fork-ps-2"];
+            const wasEnabled = BdApi.isSettingEnabled(...id);
+            if (wasEnabled) BdApi.disableSetting(...id);
+            this._reloadPlugins();
+            if (wasEnabled) BdApi.enableSetting(...id);
+        }
+
+        _reloadPlugins() {
             const list = BdApi.Plugins.getAll().reduce((acc, val) => {
                 if (!val._config) return acc;
                 const name = val.getName();
@@ -40,7 +47,6 @@ export default (BasePlugin, Library) => {
                 return acc;
             }, []);
             for (let p = 0; p < list.length; p++) BdApi.Plugins.reload(list[p]);
-            if (wasEnabled) BdApi.enableSetting("fork-ps-2");
         }
 
         static buildPlugin(config) {

@@ -136,7 +136,7 @@ module.exports = {
             github_username: "rauenzi",
             twitter_username: "ZackRauen"
         }],
-        version: "1.2.27",
+        version: "1.2.28",
         description: "Gives other plugins utility functions and the ability to emulate v2.",
         github: "https://github.com/rauenzi/BDPluginLibrary",
         github_raw: "https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"
@@ -146,31 +146,17 @@ module.exports = {
             title: "What's new?",
             type: "added",
             items: [
-                "Preemptive changes for upcoming React versions (`__reactInternalInstance$` => `__reactFiber$`)",
-                "Exposes the `ErrorBoundary` component with `errorChildren` option under `Library.Components.ErrorBoundary`.",
-                "`Utilities` module now has a `debounce` function. See the docs (https://rauenzi.github.io/BDPluginLibrary/docs) for specification."
+                "Stream utility modules added to the list. (Thanks @jaimeadf on GitHub)"
             ]
         },
         {
             title: "Bugs Squashed",
             type: "fixed",
             items: [
-                "Fixes an issue with `Switch` and `RadioGroup` settings not showing and potentially causing error.",
-                "Fixes an issue with switches not switching",
-                "Fixes a miscoloring of the color settings title.",
-                "Fixes issues with context menus suddenly hovering/selecting the wrong item.",
-                "Plugins must either provide unique `id` values to context menu items, or ensure there are no `label` conflicts."
+                "Fixes an issue where the updater's tooltips wouldn't show.",
+                "Correctly grabs the user popout component now. (Thanks @Strencher)"
             ]
         },
-        {
-            title: "Deprecations",
-            type: "improved",
-            items: [
-                "`Tooltip` module was replaced with the `EmulatedTooltip` module, making the `EmulatedTooltip` redundant and is now deprecated.",
-                "`ContextMenu` was deprecated in favor of `DiscordContextMenu`/`DCM`",
-                "`fileExists` and `readFile` functions of the `Utilities` module are now deprecated, just use `fs`."
-            ]
-        }
     ],
     main: "plugin.js"
 };
@@ -685,6 +671,10 @@ __webpack_require__.r(__webpack_exports__);
     get ExperimentsManager() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("isDeveloper");},
     get CurrentExperiment() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getExperimentId");},
 
+    /* Streams */
+    get StreamStore() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getAllActiveStreams", "getStreamForUser");},
+    get StreamPreviewStore() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getIsPreviewLoading", "getPreviewURL");},
+
     /* Images, Avatars and Utils */
     get ImageResolver() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getUserAvatarURL", "getGuildIconURL");},
     get ImageUtils() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getSizedImageSrc");},
@@ -818,6 +808,7 @@ __webpack_require__.r(__webpack_exports__);
     get SwitchRow() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByDisplayName("SwitchItem");},
     get Textbox() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m.defaultProps && m.defaultProps.type == "text");},
 }));
+
 
 /***/ }),
 
@@ -2236,7 +2227,7 @@ class PluginUpdater {
             ui__WEBPACK_IMPORTED_MODULE_4__["Toasts"].info("Plugin update check in progress.");
             window.PluginUpdates.checkAll().then(() => {ui__WEBPACK_IMPORTED_MODULE_4__["Toasts"].success("Plugin update check complete.");});
         };
-        const tooltip = new ui__WEBPACK_IMPORTED_MODULE_4__["EmulatedTooltip"](updateButton, "Checks for updates of plugins that support this feature. Right-click for a list.");
+        const tooltip = new ui__WEBPACK_IMPORTED_MODULE_4__["Tooltip"](updateButton, "Checks for updates of plugins that support this feature. Right-click for a list.");
         updateButton.oncontextmenu = function () {
             if (!window.PluginUpdates || !window.PluginUpdates.plugins) return;
             tooltip.label = Object.values(window.PluginUpdates.plugins).map(p => p.name).join(", ");
@@ -2275,7 +2266,7 @@ class PluginUpdater {
             if (!window.PluginUpdates.downloaded) {
                 window.PluginUpdates.downloaded = [];
                 const button = _domtools__WEBPACK_IMPORTED_MODULE_1__["default"].parseHTML(`<button class="btn btn-reload ${_discordclasses__WEBPACK_IMPORTED_MODULE_3__["default"].Notices.buttonMinor} ${_discordclasses__WEBPACK_IMPORTED_MODULE_3__["default"].Notices.button}">Reload</button>`);
-                const tooltip = new ui__WEBPACK_IMPORTED_MODULE_4__["EmulatedTooltip"](button, window.PluginUpdates.downloaded.join(", "), {side: "top"});
+                const tooltip = new ui__WEBPACK_IMPORTED_MODULE_4__["Tooltip"](button, window.PluginUpdates.downloaded.join(", "), {side: "top"});
                 button.addEventListener("click", (e) => {
                     e.preventDefault();
                     window.location.reload(false);
@@ -2318,7 +2309,7 @@ class PluginUpdater {
         if (document.getElementById("outdatedPlugins").querySelectorAll("span").length) document.getElementById("outdatedPlugins").append(_domtools__WEBPACK_IMPORTED_MODULE_1__["default"].createElement("<span class='separator'>, </span>"));
         document.getElementById("outdatedPlugins").append(pluginNoticeElement);
 
-        const tooltip = new ui__WEBPACK_IMPORTED_MODULE_4__["EmulatedTooltip"](pluginNoticeElement, "Click To Update!", {side: "bottom"});
+        const tooltip = new ui__WEBPACK_IMPORTED_MODULE_4__["Tooltip"](pluginNoticeElement, "Click To Update!", {side: "bottom"});
 
         // If this is the first one added, show the tooltip immediately.
         if (document.getElementById("outdatedPlugins").querySelectorAll("span").length === 1) tooltip.show();
@@ -4042,8 +4033,15 @@ __webpack_require__.r(__webpack_exports__);
              * instance property.
              */
 
-            const wasEnabled = BdApi.isSettingEnabled("fork-ps-2");
-            if (wasEnabled) BdApi.disableSetting("fork-ps-2");
+            // development vs master
+            const id = BdApi.version ? ["settings", "general", "showToasts"] : ["fork-ps-2"];
+            const wasEnabled = BdApi.isSettingEnabled(...id);
+            if (wasEnabled) BdApi.disableSetting(...id);
+            this._reloadPlugins();
+            if (wasEnabled) BdApi.enableSetting(...id);
+        }
+
+        _reloadPlugins() {
             const list = BdApi.Plugins.getAll().reduce((acc, val) => {
                 if (!val._config) return acc;
                 const name = val.getName();
@@ -4052,7 +4050,6 @@ __webpack_require__.r(__webpack_exports__);
                 return acc;
             }, []);
             for (let p = 0; p < list.length; p++) BdApi.Plugins.reload(list[p]);
-            if (wasEnabled) BdApi.enableSetting("fork-ps-2");
         }
 
         static buildPlugin(config) {

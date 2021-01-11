@@ -8,7 +8,7 @@ import PluginUtilities from "./pluginutilities";
 import DOMTools from "./domtools";
 import Logger from "./logger";
 import DiscordClasses from "./discordclasses";
-import {EmulatedTooltip, Toasts} from "ui";
+import {Tooltip, Toasts} from "ui";
 
 import CSS from "../styles/updates.css";
 
@@ -140,7 +140,7 @@ export default class PluginUpdater {
             Toasts.info("Plugin update check in progress.");
             window.PluginUpdates.checkAll().then(() => {Toasts.success("Plugin update check complete.");});
         };
-        const tooltip = new EmulatedTooltip(updateButton, "Checks for updates of plugins that support this feature. Right-click for a list.");
+        const tooltip = new Tooltip(updateButton, "Checks for updates of plugins that support this feature. Right-click for a list.");
         updateButton.oncontextmenu = function () {
             if (!window.PluginUpdates || !window.PluginUpdates.plugins) return;
             tooltip.label = Object.values(window.PluginUpdates.plugins).map(p => p.name).join(", ");
@@ -179,7 +179,7 @@ export default class PluginUpdater {
             if (!window.PluginUpdates.downloaded) {
                 window.PluginUpdates.downloaded = [];
                 const button = DOMTools.parseHTML(`<button class="btn btn-reload ${DiscordClasses.Notices.buttonMinor} ${DiscordClasses.Notices.button}">Reload</button>`);
-                const tooltip = new EmulatedTooltip(button, window.PluginUpdates.downloaded.join(", "), {side: "top"});
+                const tooltip = new Tooltip(button, window.PluginUpdates.downloaded.join(", "), {side: "top"});
                 button.addEventListener("click", (e) => {
                     e.preventDefault();
                     window.location.reload(false);
@@ -222,7 +222,7 @@ export default class PluginUpdater {
         if (document.getElementById("outdatedPlugins").querySelectorAll("span").length) document.getElementById("outdatedPlugins").append(DOMTools.createElement("<span class='separator'>, </span>"));
         document.getElementById("outdatedPlugins").append(pluginNoticeElement);
 
-        const tooltip = new EmulatedTooltip(pluginNoticeElement, "Click To Update!", {side: "bottom"});
+        const tooltip = new Tooltip(pluginNoticeElement, "Click To Update!", {side: "bottom"});
 
         // If this is the first one added, show the tooltip immediately.
         if (document.getElementById("outdatedPlugins").querySelectorAll("span").length === 1) tooltip.show();
