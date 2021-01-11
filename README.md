@@ -26,7 +26,7 @@ The information below is just a quickstart guide and overview on using the build
 
 ```
 npm install
-npm run build_lib
+npm run build
 ```
 
 This generates a BD compatible `./release/0PluginLibrary.plugin.js` file to be added to your plugins folder.
