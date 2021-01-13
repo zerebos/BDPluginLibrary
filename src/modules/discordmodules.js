@@ -85,6 +85,10 @@ export default Utilities.memoizeObject({
     get MessageQueue() {return WebpackModules.getByProps("enqueue");},
     get MessageParser() {return WebpackModules.getModule(m => Object.keys(m).length && Object.keys(m).every(k => k === "parse" || k === "unparse"));},
 
+    /* Reactions */
+    get ReactionStore() {return WebpackModules.getByProps("getReactions", "_changeCallbacks");},
+    get ReactionManager() {return WebpackModules.getByProps("getReactions", "addReaction", "removeReaction");},
+
     /* In-Game Overlay */
     // Plugins don't need these
     // get OverlayUserPopoutSettings() {return WebpackModules.getByProps("openUserPopout");},
