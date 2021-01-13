@@ -328,11 +328,11 @@ export class GuildTextChannel extends GuildChannel {
 export class GuildAnnouncementChannel extends GuildTextChannel {
     get type() {return "GUILD_ANNOUNCEMENT";}
 
-    /**
-     * Makes a channel follow this channel.
-     * @param {GuildTextChannel} channel The channel that will follow
-     * @return {Promise}
-     */
+     /*
+      * Makes a channel follow this channel.
+      * @param {GuildTextChannel} channel The channel that will follow
+      * @return {Promise}
+      */
      addFollower(channel) {
          return Modules.APIModule.post({
              url: Modules.DiscordConstants.Endpoints.CHANNEL_FOLLOWERS(this.id),
@@ -422,6 +422,11 @@ export class GuildStoreChannel extends GuildChannel {
     get type() {return "GUILD_STORE";}
     get nsfw() {return this.discordObject.nsfw;}
 
+    /**
+     * Updates this channel's NSFW flag.
+     * @param {Boolean} nsfw Whether the channel should be marked as NSFW
+     * @return {Promise}
+     */
     setNsfw(nsfw = true) {
         return this.updateChannel({nsfw});
     }
