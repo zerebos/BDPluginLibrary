@@ -5,7 +5,7 @@
  *
  * This source code is licensed under the MIT license found at
  * https://github.com/JsSucks/BetterDiscordApp/blob/master/LICENSE
-*/
+ */
 
 import {DiscordAPI, DiscordModules as Modules, Logger, WebpackModules} from "modules";
 import {List, InsufficientPermissions} from "structs";
@@ -37,6 +37,7 @@ class Channel {
             case 2: return new GuildVoiceChannel(channel);
             case 3: return new GroupChannel(channel);
             case 4: return new ChannelCategory(channel);
+            case 5: return new GuildAnnouncementChannel(channel);
         }
     }
 
@@ -52,6 +53,7 @@ class Channel {
     static get PrivateChannel() {return PrivateChannel;}
     static get DirectMessageChannel() {return DirectMessageChannel;}
     static get GroupChannel() {return GroupChannel;}
+    static get GuildAnnouncementChannel() {return GuildAnnouncementChannel;}
 
     get id() {return this.discordObject.id;}
     get applicationId() {return this.discordObject.application_id;}
@@ -320,6 +322,25 @@ export class GuildTextChannel extends GuildChannel {
     }
 }
 
+// Type 5 - GUILD_ANNOUNCEMENT
+export class GuildAnnouncementChannel extends GuildTextChannel {
+    get type() {return "GUILD_ANNOUNCEMENT";}
+
+    /**
+     * Makes a channel follow this channel.
+     * @param {GuildTextChannel} channel The channel that will follow
+     * @return {Promise}
+     */
+     addFollower(channel) {
+         return Modules.APIModule.post({
+             url: Modules.DiscordConstants.Endpoints.CHANNEL_FOLLOWERS(this.id),
+             body: {
+                 webhook_channel_id: channel.id
+             }
+         });
+    }
+}
+
 // Type 2 - GUILD_VOICE
 export class GuildVoiceChannel extends GuildChannel {
     get type() {return "GUILD_VOICE";}
@@ -444,5 +465,5 @@ export class GroupChannel extends PrivateChannel {
 }
 
 
-// export {Channel, GuildChannel, ChannelCategory, GuildTextChannel, GuildVoiceChannel, PrivateChannel, DirectMessageChannel, GroupChannel};
+// export {Channel, GuildChannel, ChannelCategory, GuildTextChannel, GuildAnnouncementChannel, GuildVoiceChannel, PrivateChannel, DirectMessageChannel, GroupChannel};
 // export {PermissionOverwrite, RolePermissionOverwrite, MemberPermissionOverwrite};
