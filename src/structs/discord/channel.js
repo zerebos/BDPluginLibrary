@@ -38,6 +38,7 @@ class Channel {
             case 3: return new GroupChannel(channel);
             case 4: return new ChannelCategory(channel);
             case 5: return new GuildAnnouncementChannel(channel);
+            case 6: return new GuildStoreChannel(channel);
         }
     }
 
@@ -48,12 +49,13 @@ class Channel {
 
     static get GuildChannel() {return GuildChannel;}
     static get GuildTextChannel() {return GuildTextChannel;}
+    static get GuildAnnouncementChannel() {return GuildAnnouncementChannel;}
     static get GuildVoiceChannel() {return GuildVoiceChannel;}
+    static get GuildStoreChannel() {return GuildStoreChannel;}
     static get ChannelCategory() {return ChannelCategory;}
     static get PrivateChannel() {return PrivateChannel;}
     static get DirectMessageChannel() {return DirectMessageChannel;}
     static get GroupChannel() {return GroupChannel;}
-    static get GuildAnnouncementChannel() {return GuildAnnouncementChannel;}
 
     get id() {return this.discordObject.id;}
     get applicationId() {return this.discordObject.application_id;}
@@ -415,6 +417,20 @@ export class ChannelCategory extends GuildChannel {
     }
 }
 
+// Type 6 - GUILD_STORE
+export class GuildStoreChannel extends GuildChannel {
+    get type() {return "GUILD_STORE";}
+    get nsfw() {return this.discordObject.nsfw;}
+
+    setNsfw(nsfw = true) {
+        return this.updateChannel({nsfw});
+    }
+
+    setNotNsfw() {
+        return this.setNswf(false);
+    }
+}
+
 export class PrivateChannel extends Channel {
     get userLimit() {return this.discordObject.userLimit;}
     get bitrate() {return this.discordObject.bitrate;}
@@ -465,5 +481,5 @@ export class GroupChannel extends PrivateChannel {
 }
 
 
-// export {Channel, GuildChannel, ChannelCategory, GuildTextChannel, GuildAnnouncementChannel, GuildVoiceChannel, PrivateChannel, DirectMessageChannel, GroupChannel};
+// export {Channel, GuildChannel, ChannelCategory, GuildTextChannel, GuildAnnouncementChannel, GuildVoiceChannel, GuildStoreChannel, PrivateChannel, DirectMessageChannel, GroupChannel};
 // export {PermissionOverwrite, RolePermissionOverwrite, MemberPermissionOverwrite};
