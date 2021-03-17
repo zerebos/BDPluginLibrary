@@ -51,7 +51,7 @@ export default class Tooltip {
      */
     constructor(node, text, options = {}) {
         const {style = "black", side = "top", preventFlip = false, isTimestamp = false, disablePointerEvents = false, disabled = false} = options;
-        this.node = node instanceof jQuery ? node[0] : node;
+        this.node = DOMTools.resolveElement(node);
         this.label = text;
         this.style = style.toLowerCase();
         this.side = side.toLowerCase();

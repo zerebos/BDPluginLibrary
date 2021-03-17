@@ -14,18 +14,10 @@ module.exports = {
     },
     changelog: [
         {
-            title: "What's new?",
-            type: "added",
-            items: [
-                "Stream utility modules added to the list. (Thanks @jaimeadf on GitHub)"
-            ]
-        },
-        {
-            title: "Bugs Squashed",
+            title: "Internal Changes",
             type: "fixed",
             items: [
-                "Fixes an issue where the updater's tooltips wouldn't show.",
-                "Correctly grabs the user popout component now. (Thanks @Strencher)"
+                "Changes how elements and jQuery are resolved internally that could cause crashes when jQuery doesn't exist.",
             ]
         },
     ],

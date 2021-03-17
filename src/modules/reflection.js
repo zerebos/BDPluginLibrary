@@ -9,6 +9,7 @@
 */
 
 import Logger from "./logger";
+import DOMTools from "./domtools";
 import {Filters} from "./webpackmodules";
 import ReactComponents from "./reactcomponents";
 
@@ -154,7 +155,7 @@ export default function(node) {
     return new class ReflectionInstance {
         constructor(ele) {
             if (typeof ele === "string") ele = document.querySelector(ele);
-            this.node = ele instanceof window.jQuery ? ele[0] : ele;
+            this.node = DOMTools.resolveElement(ele);
         }
 
         get el() {return this.node;}

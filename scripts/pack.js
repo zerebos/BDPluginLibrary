@@ -3,7 +3,8 @@ const fs = require("fs");
 const path = require("path");
 const webpack = require("webpack");
 const defaults = require("../webpack.config.js");
-const defaultConfig = require(path.join(__dirname, "../package.json")).defaultConfig;
+const pkg = require(path.join(__dirname, "../package.json"));
+const defaultConfig = pkg.defaultConfig;
 const libConfigPath = path.join(__dirname, "../config.json");
 const libConfig = Object.assign(defaultConfig, fs.existsSync(libConfigPath) ? require(libConfigPath) : {});
 const pluginsPath = path.isAbsolute(libConfig.pluginsFolder) ? libConfig.pluginsFolder : path.join(__dirname, "..", libConfig.pluginsFolder);
@@ -38,6 +39,7 @@ const list = args.slice(1).length ? args.slice(1) : fs.readdirSync(pluginsPath).
         config.output.path = releasePath;
         const banner = `/**
  * @name ${pluginName}
+ * @version ${pkg.version}
  * @invite TyFxKer
  * @authorLink https://twitter.com/ZackRauen
  * @donate https://paypal.me/ZackRauen

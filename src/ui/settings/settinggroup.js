@@ -64,7 +64,7 @@ class SettingGroup extends Listenable {
      */
     append(...nodes) {
         for (let i = 0; i < nodes.length; i++) {
-            if (nodes[i] instanceof jQuery || nodes[i] instanceof Element) this.controls.append(nodes[i]);
+            if (DOMTools.resolveElement(nodes[i]) instanceof Element) this.controls.append(nodes[i]);
             else if (nodes[i] instanceof SettingField || nodes[i] instanceof SettingGroup) this.controls.append(nodes[i].getElement());
             if (nodes[i] instanceof SettingField) {
                 nodes[i].addListener(((node) => (value) => {

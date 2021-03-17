@@ -17,8 +17,9 @@ import Screen from "../structs/screen";
  * @param {HTMLElement|jQuery} menu - The original discord menu
  */
 export function updateDiscordMenu(menu) {
-    if (!(menu instanceof window.jQuery) && !(menu instanceof Element)) return;
-    const updateHeight = ReactTools.getReactProperty(menu, "return.return.return.stateNode.updatePosition");
+    const menuNode = DOMTools.resolveElement(menu);
+    if (!(menuNode instanceof Element)) return;
+    const updateHeight = ReactTools.getReactProperty(menuNode, "return.return.return.stateNode.updatePosition");
     if (updateHeight) updateHeight();
 }
 

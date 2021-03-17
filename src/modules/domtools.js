@@ -692,8 +692,13 @@ export default class DOMTools {
      * @param {(jQuery|Element)} node - node to resolve
      */
     static resolveElement(node) {
-        if (!(node instanceof jQuery) && !(node instanceof Element)) return undefined;
-        return node instanceof jQuery ? node[0] : node;
+        try {
+            if (!(node instanceof window.jQuery) && !(node instanceof Element)) return undefined;
+            return node instanceof window.jQuery ? node[0] : node;
+        }
+        catch {
+            return node;
+        }
     }
 }
 

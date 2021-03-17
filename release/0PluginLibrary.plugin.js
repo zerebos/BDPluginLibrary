@@ -1,5 +1,6 @@
 /**
  * @name ZeresPluginLibrary
+ * @version 1.2.29
  * @invite TyFxKer
  * @authorLink https://twitter.com/ZackRauen
  * @donate https://paypal.me/ZackRauen
@@ -136,25 +137,17 @@ module.exports = {
             github_username: "rauenzi",
             twitter_username: "ZackRauen"
         }],
-        version: "1.2.28",
+        version: "1.2.29",
         description: "Gives other plugins utility functions and the ability to emulate v2.",
         github: "https://github.com/rauenzi/BDPluginLibrary",
         github_raw: "https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"
     },
     changelog: [
         {
-            title: "What's new?",
-            type: "added",
-            items: [
-                "Stream utility modules added to the list. (Thanks @jaimeadf on GitHub)"
-            ]
-        },
-        {
-            title: "Bugs Squashed",
+            title: "Internal Changes",
             type: "fixed",
             items: [
-                "Fixes an issue where the updater's tooltips wouldn't show.",
-                "Correctly grabs the user popout component now. (Thanks @Strencher)"
+                "Changes how elements and jQuery are resolved internally that could cause crashes when jQuery doesn't exist.",
             ]
         },
     ],
@@ -1574,8 +1567,13 @@ class DOMTools {
      * @param {(jQuery|Element)} node - node to resolve
      */
     static resolveElement(node) {
-        if (!(node instanceof jQuery) && !(node instanceof Element)) return undefined;
-        return node instanceof jQuery ? node[0] : node;
+        try {
+            if (!(node instanceof window.jQuery) && !(node instanceof Element)) return undefined;
+            return node instanceof window.jQuery ? node[0] : node;
+        }
+        catch {
+            return node;
+        }
     }
 }
 
@@ -2938,8 +2936,8 @@ class ReactTools {
      * @return {object} the internal react instance
      */
     static getReactInstance(node) {
-        if (!(node instanceof window.jQuery) && !(node instanceof Element)) return undefined;
-        const domNode = node instanceof window.jQuery ? node[0] : node;
+        const domNode = _domtools__WEBPACK_IMPORTED_MODULE_0__["default"].resolveElement(node);
+        if (!(domNode instanceof Element)) return undefined;
         return domNode[Object.keys(domNode).find((key) => key.startsWith("__reactInternalInstance") || key.startsWith("__reactFiber"))];
     }
 
@@ -3029,8 +3027,9 @@ class ReactTools {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _logger__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./logger */ "./src/modules/logger.js");
-/* harmony import */ var _webpackmodules__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./webpackmodules */ "./src/modules/webpackmodules.js");
-/* harmony import */ var _reactcomponents__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./reactcomponents */ "./src/modules/reactcomponents.js");
+/* harmony import */ var _domtools__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./domtools */ "./src/modules/domtools.js");
+/* harmony import */ var _webpackmodules__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./webpackmodules */ "./src/modules/webpackmodules.js");
+/* harmony import */ var _reactcomponents__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./reactcomponents */ "./src/modules/reactcomponents.js");
 /**
  * BetterDiscord Reflection Module
  * Copyright (c) 2015-present JsSucks - https://github.com/JsSucks
@@ -3040,6 +3039,7 @@ __webpack_require__.r(__webpack_exports__);
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
 */
+
 
 
 
@@ -3143,7 +3143,7 @@ class Reflection {
     }
 
     static getComponentStateNode(node, component) {
-        if (component instanceof _reactcomponents__WEBPACK_IMPORTED_MODULE_2__["default"].ReactComponent) component = component.component;
+        if (component instanceof _reactcomponents__WEBPACK_IMPORTED_MODULE_3__["default"].ReactComponent) component = component.component;
 
         for (const stateNode of this.getStateNodes(node)) {
             if (stateNode instanceof component) return stateNode;
@@ -3187,7 +3187,7 @@ const propsProxyHandler = {
     return new class ReflectionInstance {
         constructor(ele) {
             if (typeof ele === "string") ele = document.querySelector(ele);
-            this.node = ele instanceof window.jQuery ? ele[0] : ele;
+            this.node = _domtools__WEBPACK_IMPORTED_MODULE_1__["default"].resolveElement(ele);
         }
 
         get el() {return this.node;}
@@ -3226,16 +3226,16 @@ const propsProxyHandler = {
             return Reflection.getComponents(this.node);
         }
         getComponentByProps(props, selector) {
-            return Reflection.findComponent(this.node, _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["Filters"].byProperties(props, selector));
+            return Reflection.findComponent(this.node, _webpackmodules__WEBPACK_IMPORTED_MODULE_2__["Filters"].byProperties(props, selector));
         }
         getComponentByPrototypes(props, selector) {
-            return Reflection.findComponent(this.node, _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["Filters"].byPrototypeFields(props, selector));
+            return Reflection.findComponent(this.node, _webpackmodules__WEBPACK_IMPORTED_MODULE_2__["Filters"].byPrototypeFields(props, selector));
         }
         getComponentByRegex(regex, selector) {
-            return Reflection.findComponent(this.node, _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["Filters"].byCode(regex, selector));
+            return Reflection.findComponent(this.node, _webpackmodules__WEBPACK_IMPORTED_MODULE_2__["Filters"].byCode(regex, selector));
         }
         getComponentByDisplayName(name) {
-            return Reflection.findComponent(this.node, _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["Filters"].byDisplayName(name));
+            return Reflection.findComponent(this.node, _webpackmodules__WEBPACK_IMPORTED_MODULE_2__["Filters"].byDisplayName(name));
         }
 
         forceUpdate(filter) {
@@ -6768,8 +6768,9 @@ __webpack_require__.r(__webpack_exports__);
  * @param {HTMLElement|jQuery} menu - The original discord menu
  */
 function updateDiscordMenu(menu) {
-    if (!(menu instanceof window.jQuery) && !(menu instanceof Element)) return;
-    const updateHeight = _modules_reacttools__WEBPACK_IMPORTED_MODULE_2__["default"].getReactProperty(menu, "return.return.return.stateNode.updatePosition");
+    const menuNode = _modules_domtools__WEBPACK_IMPORTED_MODULE_4__["default"].resolveElement(menu);
+    if (!(menuNode instanceof Element)) return;
+    const updateHeight = _modules_reacttools__WEBPACK_IMPORTED_MODULE_2__["default"].getReactProperty(menuNode, "return.return.return.stateNode.updatePosition");
     if (updateHeight) updateHeight();
 }
 
@@ -8022,7 +8023,7 @@ class SettingGroup extends _structs_listenable__WEBPACK_IMPORTED_MODULE_0__["def
      */
     append(...nodes) {
         for (let i = 0; i < nodes.length; i++) {
-            if (nodes[i] instanceof jQuery || nodes[i] instanceof Element) this.controls.append(nodes[i]);
+            if (modules__WEBPACK_IMPORTED_MODULE_1__["DOMTools"].resolveElement(nodes[i]) instanceof Element) this.controls.append(nodes[i]);
             else if (nodes[i] instanceof _settingfield__WEBPACK_IMPORTED_MODULE_2__["default"] || nodes[i] instanceof SettingGroup) this.controls.append(nodes[i].getElement());
             if (nodes[i] instanceof _settingfield__WEBPACK_IMPORTED_MODULE_2__["default"]) {
                 nodes[i].addListener(((node) => (value) => {
@@ -8116,7 +8117,7 @@ class SettingPanel extends _structs_listenable__WEBPACK_IMPORTED_MODULE_0__["def
      */
     append(...nodes) {
         for (let i = 0; i < nodes.length; i++) {
-            if (nodes[i] instanceof jQuery || nodes[i] instanceof Element) this.element.append(nodes[i]);
+            if (modules__WEBPACK_IMPORTED_MODULE_1__["DOMTools"].resolveElement(nodes[i]) instanceof Element) this.element.append(nodes[i]);
             else if (nodes[i] instanceof _settingfield__WEBPACK_IMPORTED_MODULE_2__["default"] || nodes[i] instanceof _settinggroup__WEBPACK_IMPORTED_MODULE_3__["default"]) this.element.append(nodes[i].getElement());
             if (nodes[i] instanceof _settingfield__WEBPACK_IMPORTED_MODULE_2__["default"]) {
                 nodes[i].addListener(((node) => (value) => {
@@ -8809,7 +8810,7 @@ class Tooltip {
      */
     constructor(node, text, options = {}) {
         const {style = "black", side = "top", preventFlip = false, isTimestamp = false, disablePointerEvents = false, disabled = false} = options;
-        this.node = node instanceof jQuery ? node[0] : node;
+        this.node = modules__WEBPACK_IMPORTED_MODULE_0__["DOMTools"].resolveElement(node);
         this.label = text;
         this.style = style.toLowerCase();
         this.side = side.toLowerCase();
