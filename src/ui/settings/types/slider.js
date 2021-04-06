@@ -2,6 +2,13 @@ import SettingField from "../settingfield";
 import {DiscordModules} from "modules";
 
 /**
+ * Used to render the marker.
+ * @param {Number} value - The value to render
+ * @returns {string} the text to show in the marker
+ * @callback module:Settings~SliderMarkerValue
+ */
+
+/**
  * Used to render the grabber tooltip.
  * @param {Number} value - The value to render
  * @returns {string} the text to show in the tooltip
@@ -26,9 +33,13 @@ class Slider extends SettingField {
     * @param {object} [options] - object of options to give to the setting
     * @param {boolean} [options.disabled=false] - should the setting be disabled
     * @param {object} [options.fillStyles] - object of css styles to add to active slider
+    * @param {number} [options.defaultValue] - value highlighted as default
+    * @param {number} [options.keyboardStep] - step moved when using arrow keys
     * @param {Array<number>} [options.markers] - array of vertical markers to show on the slider
     * @param {boolean} [options.stickToMarkers] - should the slider be forced to use markers
     * @param {boolean} [options.equidistant] - should the markers be scaled to be equidistant
+    * @param {module:Settings~SliderMarkerValue} [options.onMarkerRender] - function to call to render the value in the marker
+    * @param {module:Settings~SliderMarkerValue} [options.renderMarker] - alias of `onMarkerRender`
     * @param {module:Settings~SliderRenderValue} [options.onValueRender] - function to call to render the value in the tooltip
     * @param {module:Settings~SliderRenderValue} [options.renderValue] - alias of `onValueRender`
     * @param {string} [options.units] - can be used in place of `onValueRender` will use this string and render Math.round(value) + units
@@ -43,10 +54,13 @@ class Slider extends SettingField {
             handleSize: 10
         };
         if (options.fillStyles) props.fillStyles = options.fillStyles;
+        if (options.defaultValue) props.defaultValue = options.defaultValue;
+        if (options.keyboardStep) props.keyboardStep = options.keyboardStep;
         if (options.markers) props.markers = options.markers;
         if (options.stickToMarkers) props.stickToMarkers = options.stickToMarkers;
         if (typeof(options.equidistant) != "undefined") props.equidistant = options.equidistant;
         if (options.units) props.onValueRender = (val) => `${Math.round(val)}${options.units}`;
+        if (options.onMarkerRender || options.renderMarker) props.onRenderMarker = options.onRenderMarker || options.renderMarker;
         if (options.onValueRender || options.renderValue) props.onValueRender = options.onValueRender || options.renderValue;
         super(name, note, onChange, DiscordModules.Slider, Object.assign(props, {onValueChange: v => this.onChange(v)}));
     }
