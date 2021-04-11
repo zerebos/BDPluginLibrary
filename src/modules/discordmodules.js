@@ -38,6 +38,7 @@ export default Utilities.memoizeObject({
     /* Current User Info, State and Settings */
     get UserInfoStore() {return WebpackModules.getByProps("getSessionId");},
     get UserSettingsStore() {return WebpackModules.getByProps("guildPositions");},
+    get StreamerModeStore() {return WebpackModules.getByProps("hidePersonalInformation");},
     // Not really needed by plugins
     // get AccountManager() {return WebpackModules.getByProps("register", "login");},
     get UserSettingsUpdater() {return WebpackModules.getByProps("updateRemoteSettings");},
@@ -81,6 +82,7 @@ export default Utilities.memoizeObject({
 
     /* Discord Messages */
     get MessageStore() {return WebpackModules.getByProps("getMessages");},
+    get ReactionsStore() {return  WebpackModules.getByProps("getReactions", "_dispatcher");},
     get MessageActions() {return WebpackModules.getByProps("jumpToMessage", "_sendMessage");},
     get MessageQueue() {return WebpackModules.getByProps("enqueue");},
     get MessageParser() {return WebpackModules.getModule(m => Object.keys(m).length && Object.keys(m).every(k => k === "parse" || k === "unparse"));},
@@ -112,6 +114,7 @@ export default Utilities.memoizeObject({
 
     /* Electron & Other Internals with Utils*/
     get ElectronModule() {return WebpackModules.getByProps("setBadge");},
+    get Flux() {return WebpackModules.getByProps("Store", "connectStores");},
     get Dispatcher() {return WebpackModules.getByProps("dirtyDispatch");},
     get PathUtils() {return WebpackModules.getByProps("hasBasename");},
     get NotificationModule() {return WebpackModules.getByProps("showNotification");},
@@ -122,6 +125,7 @@ export default Utilities.memoizeObject({
     get Buffers() {return WebpackModules.getByProps("Buffer", "kMaxLength");},
     get DeviceStore() {return WebpackModules.getByProps("getDevices");},
     get SoftwareInfo() {return WebpackModules.getByProps("os");},
+    get i18n() {return WebpackModules.getByProps("Messages", "languages");},
     // Absorbed into Sentry
     // get CurrentContext() {return WebpackModules.getByProps("setTagsContext");},
 
@@ -216,8 +220,27 @@ export default Utilities.memoizeObject({
     /* Misc */
     get ExternalLink() {return WebpackModules.getByRegex(/trusted/);},
     get TextElement() {return WebpackModules.getByDisplayName("Text");},
+    get Anchor() {return WebpackModules.getByDisplayName("Anchor");},
+    get Flex() {return WebpackModules.getByDisplayName("Flex");},
     get FlexChild() {return WebpackModules.getByProps("Child");},
+    get Clickable() {return WebpackModules.getByDisplayName("Clickable");},
     get Titles() {return WebpackModules.getByProps("Tags", "default");},
+    get HeaderBar() {return WebpackModules.getByDisplayName("HeaderBar");},
+    get TabBar() {return WebpackModules.getByDisplayName("TabBar");},
+    get Tooltip() {return WebpackModules.getByProps("TooltipContainer").TooltipContainer;},
+    get Spinner() {return WebpackModules.getByDisplayName("Spinner");},
+
+    /* Forms */
+    get FormTitle() {return WebpackModules.getByDisplayName("FormTitle");},
+    get FormSection() {return WebpackModules.getByDisplayName("FormSection");},
+    get FormNotice() {return WebpackModules.getByDisplayName("FormNotice");},
+
+    /* Scrollers */
+    get ScrollerThin() {return WebpackModules.getByProps("ScrollerThin").ScrollerThin;},
+    get ScrollerAuto() {return WebpackModules.getByProps("ScrollerAuto").ScrollerAuto;},
+    get AdvancedScrollerThin() {return WebpackModules.getByProps("AdvancedScrollerThin").AdvancedScrollerThin;},
+    get AdvancedScrollerAuto() {return WebpackModules.getByProps("AdvancedScrollerAuto").AdvancedScrollerAuto;},
+    get AdvancedScrollerNone() {return WebpackModules.getByProps("AdvancedScrollerNone").AdvancedScrollerNone;},
 
     /* Settings */
     get SettingsWrapper() {return WebpackModules.getByDisplayName("FormItem");},
