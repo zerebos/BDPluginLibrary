@@ -20,7 +20,7 @@ export default class Modals {
      * @param {string} userId - id of the user to show profile for
      */
     static showUserProfile(userId) {
-        return DiscordModules.UserProfileModal.open(userId);
+        return DiscordModules.UserProfileModals.open(userId);
     }
 
     /**
