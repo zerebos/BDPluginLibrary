@@ -69,7 +69,7 @@ import DCM from "../ui/discordcontextmenu";
             case "win32":
                 return path.resolve(process.env.appdata, "BetterDiscord/", subtarget);
             case "darwin":
-                return path.resolve(process.env.HOME, "Library/Preferences/", "BetterDiscord/", subtarget);
+                return path.resolve(process.env.HOME, "Library/Application Support/", "BetterDiscord/", subtarget);
             default:
                 return path.resolve(process.env.XDG_CONFIG_HOME ? process.env.XDG_CONFIG_HOME : process.env.HOME + "/.config", "BetterDiscord/", subtarget);
         }
