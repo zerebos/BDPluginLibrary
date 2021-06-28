@@ -20,6 +20,13 @@ module.exports = {
                 "Changes how elements and jQuery are resolved internally that could cause crashes when jQuery doesn't exist.",
             ]
         },
+        {
+            title: "Fixed UserPopout Module",
+            type: "fixed",
+            items: [
+                "Discord changed their UserPopout component which caused some plugin to crash your client. This is fixed now. (29.06.21)"
+            ]
+        }
     ],
     main: "plugin.js"
 };
