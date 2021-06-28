@@ -210,7 +210,7 @@ export default Utilities.memoizeObject({
     get PopoutOpener() {return WebpackModules.getByProps("openPopout");},
     // Grab with react components
     // get EmojiPicker() {return WebpackModules.getByDisplayName("FluxContainer(EmojiPicker)");},
-    get UserPopout() {return WebpackModules.getByDisplayName("ConnectedUserPopout");},
+    get UserPopout() {return WebpackModules.getModule(m => m.type.displayName === "UserPopoutContainer");},
 
     /* Context Menus */
     get ContextMenuActions() {return WebpackModules.getByProps("openContextMenu");},
