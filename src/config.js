@@ -14,17 +14,12 @@ module.exports = {
     },
     changelog: [
         {
-            title: "Internal Changes",
-            type: "fixed",
-            items: [
-                "Changes how elements and jQuery are resolved internally that could cause crashes when jQuery doesn't exist.",
-            ]
-        },
-        {
             title: "Fixed UserPopout Module",
             type: "fixed",
             items: [
-                "Discord changed their UserPopout component which caused some plugin to crash your client. This is fixed now. (29.06.21)"
+                "Discord changed their UserPopout component which caused some plugins to crash the client, this has now been fixed.",
+                "Plugins now download to the correct folder on Mac.",
+                "Fixed some issues with slider settings."
             ]
         }
     ],

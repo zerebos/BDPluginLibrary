@@ -1,6 +1,6 @@
 /**
  * @name ZeresPluginLibrary
- * @version 1.2.29
+ * @version 1.2.30
  * @invite TyFxKer
  * @authorLink https://twitter.com/ZackRauen
  * @donate https://paypal.me/ZackRauen
@@ -154,7 +154,9 @@ module.exports = {
             title: "Fixed UserPopout Module",
             type: "fixed",
             items: [
-                "Discord changed their UserPopout component which caused some plugin to crash your client. This is fixed now. (29.06.21)"
+                "Discord changed their UserPopout component which caused some plugins to crash the client, this has now been fixed.",
+                "Plugins now download to the correct folder on Mac.",
+                "Fixed some issues with slider settings."
             ]
         }
     ],
@@ -614,6 +616,7 @@ __webpack_require__.r(__webpack_exports__);
     /* Current User Info, State and Settings */
     get UserInfoStore() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getSessionId");},
     get UserSettingsStore() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("guildPositions");},
+    get StreamerModeStore() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("hidePersonalInformation");},
     // Not really needed by plugins
     // get AccountManager() {return WebpackModules.getByProps("register", "login");},
     get UserSettingsUpdater() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("updateRemoteSettings");},
@@ -657,6 +660,7 @@ __webpack_require__.r(__webpack_exports__);
 
     /* Discord Messages */
     get MessageStore() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getMessages");},
+    get ReactionsStore() {return  _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getReactions", "_dispatcher");},
     get MessageActions() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("jumpToMessage", "_sendMessage");},
     get MessageQueue() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("enqueue");},
     get MessageParser() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => Object.keys(m).length && Object.keys(m).every(k => k === "parse" || k === "unparse"));},
@@ -688,6 +692,7 @@ __webpack_require__.r(__webpack_exports__);
 
     /* Electron & Other Internals with Utils*/
     get ElectronModule() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("setBadge");},
+    get Flux() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("Store", "connectStores");},
     get Dispatcher() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("dirtyDispatch");},
     get PathUtils() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("hasBasename");},
     get NotificationModule() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("showNotification");},
@@ -698,6 +703,7 @@ __webpack_require__.r(__webpack_exports__);
     get Buffers() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("Buffer", "kMaxLength");},
     get DeviceStore() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getDevices");},
     get SoftwareInfo() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("os");},
+    get i18n() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("Messages", "languages");},
     // Absorbed into Sentry
     // get CurrentContext() {return WebpackModules.getByProps("setTagsContext");},
 
@@ -792,8 +798,27 @@ __webpack_require__.r(__webpack_exports__);
     /* Misc */
     get ExternalLink() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByRegex(/trusted/);},
     get TextElement() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByDisplayName("Text");},
+    get Anchor() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByDisplayName("Anchor");},
+    get Flex() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByDisplayName("Flex");},
     get FlexChild() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("Child");},
+    get Clickable() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByDisplayName("Clickable");},
     get Titles() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("Tags", "default");},
+    get HeaderBar() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByDisplayName("HeaderBar");},
+    get TabBar() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByDisplayName("TabBar");},
+    get Tooltip() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("TooltipContainer").TooltipContainer;},
+    get Spinner() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByDisplayName("Spinner");},
+
+    /* Forms */
+    get FormTitle() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByDisplayName("FormTitle");},
+    get FormSection() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByDisplayName("FormSection");},
+    get FormNotice() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByDisplayName("FormNotice");},
+
+    /* Scrollers */
+    get ScrollerThin() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("ScrollerThin").ScrollerThin;},
+    get ScrollerAuto() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("ScrollerAuto").ScrollerAuto;},
+    get AdvancedScrollerThin() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("AdvancedScrollerThin").AdvancedScrollerThin;},
+    get AdvancedScrollerAuto() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("AdvancedScrollerAuto").AdvancedScrollerAuto;},
+    get AdvancedScrollerNone() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("AdvancedScrollerNone").AdvancedScrollerNone;},
 
     /* Settings */
     get SettingsWrapper() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByDisplayName("FormItem");},
@@ -2429,7 +2454,7 @@ __webpack_require__.r(__webpack_exports__);
             case "win32":
                 return path.resolve(process.env.appdata, "BetterDiscord/", subtarget);
             case "darwin":
-                return path.resolve(process.env.HOME, "Library/Preferences/", "BetterDiscord/", subtarget);
+                return path.resolve(process.env.HOME, "Library/Application Support/", "BetterDiscord/", subtarget);
             default:
                 return path.resolve(process.env.XDG_CONFIG_HOME ? process.env.XDG_CONFIG_HOME : process.env.HOME + "/.config", "BetterDiscord/", subtarget);
         }
@@ -8451,6 +8476,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /**
+ * Used to render the marker.
+ * @param {Number} value - The value to render
+ * @returns {string} the text to show in the marker
+ * @callback module:Settings~SliderMarkerValue
+ */
+
+/**
  * Used to render the grabber tooltip.
  * @param {Number} value - The value to render
  * @returns {string} the text to show in the tooltip
@@ -8475,9 +8507,13 @@ class Slider extends _settingfield__WEBPACK_IMPORTED_MODULE_0__["default"] {
     * @param {object} [options] - object of options to give to the setting
     * @param {boolean} [options.disabled=false] - should the setting be disabled
     * @param {object} [options.fillStyles] - object of css styles to add to active slider
+    * @param {number} [options.defaultValue] - value highlighted as default
+    * @param {number} [options.keyboardStep] - step moved when using arrow keys
     * @param {Array<number>} [options.markers] - array of vertical markers to show on the slider
     * @param {boolean} [options.stickToMarkers] - should the slider be forced to use markers
     * @param {boolean} [options.equidistant] - should the markers be scaled to be equidistant
+    * @param {module:Settings~SliderMarkerValue} [options.onMarkerRender] - function to call to render the value in the marker
+    * @param {module:Settings~SliderMarkerValue} [options.renderMarker] - alias of `onMarkerRender`
     * @param {module:Settings~SliderRenderValue} [options.onValueRender] - function to call to render the value in the tooltip
     * @param {module:Settings~SliderRenderValue} [options.renderValue] - alias of `onValueRender`
     * @param {string} [options.units] - can be used in place of `onValueRender` will use this string and render Math.round(value) + units
@@ -8492,10 +8528,17 @@ class Slider extends _settingfield__WEBPACK_IMPORTED_MODULE_0__["default"] {
             handleSize: 10
         };
         if (options.fillStyles) props.fillStyles = options.fillStyles;
+        if (typeof(options.defaultValue) !== 'undefined') props.defaultValue = options.defaultValue;
+        if (options.keyboardStep) props.keyboardStep = options.keyboardStep;
         if (options.markers) props.markers = options.markers;
         if (options.stickToMarkers) props.stickToMarkers = options.stickToMarkers;
         if (typeof(options.equidistant) != "undefined") props.equidistant = options.equidistant;
-        if (options.units) props.onValueRender = (val) => `${Math.round(val)}${options.units}`;
+        if (options.units) {
+            const renderValueLabel = (val) => `${Math.round(val)}${options.units}`;
+            props.onMarkerRender = renderValueLabel;
+            props.onValueRender = renderValueLabel;
+        }
+        if (options.onMarkerRender || options.renderMarker) props.onMarkerRender = options.onMarkerRender || options.renderMarker;
         if (options.onValueRender || options.renderValue) props.onValueRender = options.onValueRender || options.renderValue;
         super(name, note, onChange, modules__WEBPACK_IMPORTED_MODULE_1__["DiscordModules"].Slider, Object.assign(props, {onValueChange: v => this.onChange(v)}));
     }
