@@ -54,13 +54,17 @@ class Slider extends SettingField {
             handleSize: 10
         };
         if (options.fillStyles) props.fillStyles = options.fillStyles;
-        if (options.defaultValue) props.defaultValue = options.defaultValue;
+        if (typeof(options.defaultValue) !== 'undefined') props.defaultValue = options.defaultValue;
         if (options.keyboardStep) props.keyboardStep = options.keyboardStep;
         if (options.markers) props.markers = options.markers;
         if (options.stickToMarkers) props.stickToMarkers = options.stickToMarkers;
         if (typeof(options.equidistant) != "undefined") props.equidistant = options.equidistant;
-        if (options.units) props.onValueRender = (val) => `${Math.round(val)}${options.units}`;
-        if (options.onMarkerRender || options.renderMarker) props.onRenderMarker = options.onRenderMarker || options.renderMarker;
+        if (options.units) {
+            const renderValueLabel = (val) => `${Math.round(val)}${options.units}`;
+            props.onMarkerRender = renderValueLabel;
+            props.onValueRender = renderValueLabel;
+        }
+        if (options.onMarkerRender || options.renderMarker) props.onMarkerRender = options.onMarkerRender || options.renderMarker;
         if (options.onValueRender || options.renderValue) props.onValueRender = options.onValueRender || options.renderValue;
         super(name, note, onChange, DiscordModules.Slider, Object.assign(props, {onValueChange: v => this.onChange(v)}));
     }
