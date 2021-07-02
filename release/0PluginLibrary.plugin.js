@@ -137,7 +137,7 @@ module.exports = {
             github_username: "rauenzi",
             twitter_username: "ZackRauen"
         }],
-        version: "1.2.29",
+        version: "1.2.30",
         description: "Gives other plugins utility functions and the ability to emulate v2.",
         github: "https://github.com/rauenzi/BDPluginLibrary",
         github_raw: "https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"
@@ -150,6 +150,13 @@ module.exports = {
                 "Changes how elements and jQuery are resolved internally that could cause crashes when jQuery doesn't exist.",
             ]
         },
+        {
+            title: "Fixed UserPopout Module",
+            type: "fixed",
+            items: [
+                "Discord changed their UserPopout component which caused some plugin to crash your client. This is fixed now. (29.06.21)"
+            ]
+        }
     ],
     main: "plugin.js"
 };
@@ -775,7 +782,7 @@ __webpack_require__.r(__webpack_exports__);
     get PopoutOpener() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("openPopout");},
     // Grab with react components
     // get EmojiPicker() {return WebpackModules.getByDisplayName("FluxContainer(EmojiPicker)");},
-    get UserPopout() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByDisplayName("ConnectedUserPopout");},
+    get UserPopout() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m.type.displayName === "UserPopoutContainer");},
 
     /* Context Menus */
     get ContextMenuActions() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("openContextMenu");},
