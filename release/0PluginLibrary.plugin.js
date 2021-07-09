@@ -1,6 +1,6 @@
 /**
  * @name ZeresPluginLibrary
- * @version 1.2.30
+ * @version 1.2.31
  * @invite TyFxKer
  * @authorLink https://twitter.com/ZackRauen
  * @donate https://paypal.me/ZackRauen
@@ -11,25 +11,25 @@
 
 /*@cc_on
 @if (@_jscript)
-	
-	// Offer to self-install for clueless users that try to run this directly.
-	var shell = WScript.CreateObject("WScript.Shell");
-	var fs = new ActiveXObject("Scripting.FileSystemObject");
-	var pathPlugins = shell.ExpandEnvironmentStrings("%APPDATA%\BetterDiscord\plugins");
-	var pathSelf = WScript.ScriptFullName;
-	// Put the user at ease by addressing them in the first person
-	shell.Popup("It looks like you've mistakenly tried to run me directly. \n(Don't do that!)", 0, "I'm a plugin for BetterDiscord", 0x30);
-	if (fs.GetParentFolderName(pathSelf) === fs.GetAbsolutePathName(pathPlugins)) {
-		shell.Popup("I'm in the correct folder already.", 0, "I'm already installed", 0x40);
-	} else if (!fs.FolderExists(pathPlugins)) {
-		shell.Popup("I can't find the BetterDiscord plugins folder.\nAre you sure it's even installed?", 0, "Can't install myself", 0x10);
-	} else if (shell.Popup("Should I copy myself to BetterDiscord's plugins folder for you?", 0, "Do you need some help?", 0x34) === 6) {
-		fs.CopyFile(pathSelf, fs.BuildPath(pathPlugins, fs.GetFileName(pathSelf)), true);
-		// Show the user where to put plugins in the future
-		shell.Exec("explorer " + pathPlugins);
-		shell.Popup("I'm installed!", 0, "Successfully installed", 0x40);
-	}
-	WScript.Quit();
+    
+    // Offer to self-install for clueless users that try to run this directly.
+    var shell = WScript.CreateObject("WScript.Shell");
+    var fs = new ActiveXObject("Scripting.FileSystemObject");
+    var pathPlugins = shell.ExpandEnvironmentStrings("%APPDATA%\\BetterDiscord\\plugins");
+    var pathSelf = WScript.ScriptFullName;
+    // Put the user at ease by addressing them in the first person
+    shell.Popup("It looks like you've mistakenly tried to run me directly. \n(Don't do that!)", 0, "I'm a plugin for BetterDiscord", 0x30);
+    if (fs.GetParentFolderName(pathSelf) === fs.GetAbsolutePathName(pathPlugins)) {
+        shell.Popup("I'm in the correct folder already.", 0, "I'm already installed", 0x40);
+    } else if (!fs.FolderExists(pathPlugins)) {
+        shell.Popup("I can't find the BetterDiscord plugins folder.\nAre you sure it's even installed?", 0, "Can't install myself", 0x10);
+    } else if (shell.Popup("Should I copy myself to BetterDiscord's plugins folder for you?", 0, "Do you need some help?", 0x34) === 6) {
+        fs.CopyFile(pathSelf, fs.BuildPath(pathPlugins, fs.GetFileName(pathSelf)), true);
+        // Show the user where to put plugins in the future
+        shell.Exec("explorer " + pathPlugins);
+        shell.Popup("I'm installed!", 0, "Successfully installed", 0x40);
+    }
+    WScript.Quit();
 
 @else@*/
 module.exports =
@@ -137,26 +137,18 @@ module.exports = {
             github_username: "rauenzi",
             twitter_username: "ZackRauen"
         }],
-        version: "1.2.30",
+        version: "1.2.31",
         description: "Gives other plugins utility functions and the ability to emulate v2.",
         github: "https://github.com/rauenzi/BDPluginLibrary",
         github_raw: "https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"
     },
     changelog: [
         {
-            title: "Internal Changes",
+            title: "Fixed Plugin Updates",
             type: "fixed",
             items: [
-                "Changes how elements and jQuery are resolved internally that could cause crashes when jQuery doesn't exist.",
-            ]
-        },
-        {
-            title: "Fixed UserPopout Module",
-            type: "fixed",
-            items: [
-                "Discord changed their UserPopout component which caused some plugins to crash the client, this has now been fixed.",
-                "Plugins now download to the correct folder on Mac.",
-                "Fixed some issues with slider settings."
+                "Fixed plugin updates to stop them crashing Discord.",
+                "Fixed confirmation modal button color."
             ]
         }
     ],
@@ -2452,7 +2444,7 @@ __webpack_require__.r(__webpack_exports__);
         if (process.env.injDir) return path.resolve(process.env.injDir, subtarget);
         switch (process.platform) {
             case "win32":
-                return path.resolve(process.env.appdata, "BetterDiscord/", subtarget);
+                return path.resolve(process.env.APPDATA, "BetterDiscord/", subtarget);
             case "darwin":
                 return path.resolve(process.env.HOME, "Library/Application Support/", "BetterDiscord/", subtarget);
             default:
@@ -7669,7 +7661,7 @@ class Modals {
         return modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].ModalActions.openModal(props => {
             return React.createElement(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].ConfirmationModal, Object.assign({
                 header: title,
-                red: danger,
+                confirmButtonColor: danger ? modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].ButtonData.ButtonColors.RED : modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].ButtonData.ButtonColors.BRAND,
                 confirmText: confirmText,
                 cancelText: cancelText,
                 onConfirm: onConfirm,

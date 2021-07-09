@@ -14,12 +14,11 @@ module.exports = {
     },
     changelog: [
         {
-            title: "Fixed UserPopout Module",
+            title: "Fixed Plugin Updates",
             type: "fixed",
             items: [
-                "Discord changed their UserPopout component which caused some plugins to crash the client, this has now been fixed.",
-                "Plugins now download to the correct folder on Mac.",
-                "Fixed some issues with slider settings."
+                "Fixed plugin updates to stop them crashing Discord.",
+                "Fixed confirmation modal button color."
             ]
         }
     ],
