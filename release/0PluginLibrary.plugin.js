@@ -135,7 +135,7 @@ module.exports = {
             name: "Zerebos",
             discord_id: "249746236008169473",
             github_username: "rauenzi",
-            twitter_username: "ZackRauen"
+            twitter_username: "IAmZerebos"
         }],
         version: "1.2.31",
         description: "Gives other plugins utility functions and the ability to emulate v2.",
