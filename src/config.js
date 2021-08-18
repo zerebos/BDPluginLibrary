@@ -14,11 +14,10 @@ module.exports = {
     },
     changelog: [
         {
-            title: "Fixed Plugin Updates",
+            title: "Fixed Crashing",
             type: "fixed",
             items: [
-                "Fixed plugin updates to stop them crashing Discord.",
-                "Fixed confirmation modal button color."
+                "Fixed a crash after the latest discord update."
             ]
         }
     ],

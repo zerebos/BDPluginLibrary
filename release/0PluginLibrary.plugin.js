@@ -1,6 +1,6 @@
 /**
  * @name ZeresPluginLibrary
- * @version 1.2.31
+ * @version 1.2.32
  * @invite TyFxKer
  * @authorLink https://twitter.com/ZackRauen
  * @donate https://paypal.me/ZackRauen
@@ -137,18 +137,17 @@ module.exports = {
             github_username: "rauenzi",
             twitter_username: "IAmZerebos"
         }],
-        version: "1.2.31",
+        version: "1.2.32",
         description: "Gives other plugins utility functions and the ability to emulate v2.",
         github: "https://github.com/rauenzi/BDPluginLibrary",
         github_raw: "https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"
     },
     changelog: [
         {
-            title: "Fixed Plugin Updates",
+            title: "Fixed Crashing",
             type: "fixed",
             items: [
-                "Fixed plugin updates to stop them crashing Discord.",
-                "Fixed confirmation modal button color."
+                "Fixed a crash after the latest discord update."
             ]
         }
     ],
@@ -528,7 +527,8 @@ __webpack_require__.r(__webpack_exports__);
     get PopoutRoles() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("roleCircle");},
     get UserModal() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("profileBadge");},
     get Textarea() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("channelTextArea", "textArea");},
-    get Popouts() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("popouts", "popout");},
+    get Popouts() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("popouts", "popout");}, // broken, popouts element has been removed.
+    get App() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("app", "mobileApp");},
     get Titles() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("defaultMarginh5");},
     get Notices() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("notice", "colorInfo");},
     get Backdrop() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("backdrop");},
@@ -6862,7 +6862,7 @@ class Menu {
                 elementToAdd = submenu;
             }
             layer.append(elementToAdd);
-            layer.appendTo(_modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].Popouts.popouts.sibling(_modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].TooltipLayers.layerContainer).toString());
+            layer.appendTo(_modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].App.app.sibling(_modules_discordselectors__WEBPACK_IMPORTED_MODULE_1__["default"].TooltipLayers.layerContainer).toString());
         // }
         this.element.css("top", mouseY + "px").css("left", mouseX + "px");
 
@@ -8891,7 +8891,7 @@ class Tooltip {
     static create(node, text, options = {}) {return new Tooltip(node, text, options);}
 
     /** Container where the tooltip will be appended. */
-    get container() {return document.querySelector(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordSelectors"].Popouts.popouts.sibling(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordSelectors"].TooltipLayers.layerContainer));}
+    get container() {return document.querySelector(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordSelectors"].App.app.sibling(modules__WEBPACK_IMPORTED_MODULE_0__["DiscordSelectors"].TooltipLayers.layerContainer));}
     /** Boolean representing if the tooltip will fit on screen above the element */
     get canShowAbove() {return this.node.getBoundingClientRect().top - this.element.offsetHeight >= 0;}
     /** Boolean representing if the tooltip will fit on screen below the element */
