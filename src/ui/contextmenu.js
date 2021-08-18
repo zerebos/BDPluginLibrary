@@ -87,7 +87,7 @@ export class Menu {
                 elementToAdd = submenu;
             }
             layer.append(elementToAdd);
-            layer.appendTo(DiscordSelectors.Popouts.popouts.sibling(DiscordSelectors.TooltipLayers.layerContainer).toString());
+            layer.appendTo(DiscordSelectors.App.app.sibling(DiscordSelectors.TooltipLayers.layerContainer).toString());
         // }
         this.element.css("top", mouseY + "px").css("left", mouseX + "px");
 

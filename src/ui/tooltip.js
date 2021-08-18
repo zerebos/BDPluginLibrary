@@ -90,7 +90,7 @@ export default class Tooltip {
     static create(node, text, options = {}) {return new Tooltip(node, text, options);}
 
     /** Container where the tooltip will be appended. */
-    get container() {return document.querySelector(DiscordSelectors.Popouts.popouts.sibling(DiscordSelectors.TooltipLayers.layerContainer));}
+    get container() {return document.querySelector(DiscordSelectors.App.app.sibling(DiscordSelectors.TooltipLayers.layerContainer));}
     /** Boolean representing if the tooltip will fit on screen above the element */
     get canShowAbove() {return this.node.getBoundingClientRect().top - this.element.offsetHeight >= 0;}
     /** Boolean representing if the tooltip will fit on screen below the element */
