@@ -8,7 +8,7 @@ import {DiscordModules, DiscordClasses, WebpackModules} from "modules";
 
 const React = DiscordModules.React;
 const ce = React.createElement;
-const Markdown = WebpackModules.getByDisplayName("Markdown");
+const Markdown = WebpackModules.getModule(m => m.displayName == "Markdown" && m.rules);
 
 export default class Modals {
 

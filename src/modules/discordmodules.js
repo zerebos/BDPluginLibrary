@@ -49,7 +49,7 @@ export default Utilities.memoizeObject({
     get MentionStore() {return WebpackModules.getByProps("getMentions");},
 
     /* User Stores and Utils */
-    get UserStore() {return WebpackModules.getByProps("getCurrentUser");},
+    get UserStore() {return WebpackModules.getByProps("getCurrentUser", "getUser");},
     get UserStatusStore() {return WebpackModules.getByProps("getStatus", "getState");},
     get UserTypingStore() {return WebpackModules.getByProps("isTyping");},
     get UserActivityStore() {return WebpackModules.getByProps("getActivity");},
@@ -82,7 +82,7 @@ export default Utilities.memoizeObject({
 
     /* Discord Messages */
     get MessageStore() {return WebpackModules.getByProps("getMessages");},
-    get ReactionsStore() {return  WebpackModules.getByProps("getReactions", "_dispatcher");},
+    get ReactionsStore() {return WebpackModules.getByProps("getReactions", "_dispatcher");},
     get MessageActions() {return WebpackModules.getByProps("jumpToMessage", "_sendMessage");},
     get MessageQueue() {return WebpackModules.getByProps("enqueue");},
     get MessageParser() {return WebpackModules.getModule(m => Object.keys(m).length && Object.keys(m).every(k => k === "parse" || k === "unparse"));},
@@ -151,7 +151,7 @@ export default Utilities.memoizeObject({
     get Timestamps() {return WebpackModules.getByProps("fromTimestamp");},
 
     /* Strings and Utils */
-    get Strings() {return WebpackModules.getByProps("Messages").Messages;},
+    get Strings() {return WebpackModules.getModule(m => m.Messages && Object.keys(m.Messages).length);},
     get StringFormats() {return WebpackModules.getByProps("a", "z");},
     get StringUtils() {return WebpackModules.getByProps("toASCII");},
 

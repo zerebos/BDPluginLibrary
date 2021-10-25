@@ -14,10 +14,10 @@ module.exports = {
     },
     changelog: [
         {
-            title: "Fixed Crashing",
+            title: "Fixed Canary",
             type: "fixed",
             items: [
-                "Fixed a crash after the latest discord update."
+                "Hotfix for Canary changes"
             ]
         }
     ],

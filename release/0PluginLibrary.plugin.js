@@ -1,6 +1,6 @@
 /**
  * @name ZeresPluginLibrary
- * @version 1.2.32
+ * @version 1.2.33
  * @invite TyFxKer
  * @authorLink https://twitter.com/ZackRauen
  * @donate https://paypal.me/ZackRauen
@@ -137,17 +137,17 @@ module.exports = {
             github_username: "rauenzi",
             twitter_username: "IAmZerebos"
         }],
-        version: "1.2.32",
+        version: "1.2.33",
         description: "Gives other plugins utility functions and the ability to emulate v2.",
         github: "https://github.com/rauenzi/BDPluginLibrary",
         github_raw: "https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"
     },
     changelog: [
         {
-            title: "Fixed Crashing",
+            title: "Fixed Canary",
             type: "fixed",
             items: [
-                "Fixed a crash after the latest discord update."
+                "Hotfix for Canary changes"
             ]
         }
     ],
@@ -619,7 +619,7 @@ __webpack_require__.r(__webpack_exports__);
     get MentionStore() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getMentions");},
 
     /* User Stores and Utils */
-    get UserStore() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getCurrentUser");},
+    get UserStore() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getCurrentUser", "getUser");},
     get UserStatusStore() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getStatus", "getState");},
     get UserTypingStore() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("isTyping");},
     get UserActivityStore() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getActivity");},
@@ -652,7 +652,7 @@ __webpack_require__.r(__webpack_exports__);
 
     /* Discord Messages */
     get MessageStore() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getMessages");},
-    get ReactionsStore() {return  _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getReactions", "_dispatcher");},
+    get ReactionsStore() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getReactions", "_dispatcher");},
     get MessageActions() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("jumpToMessage", "_sendMessage");},
     get MessageQueue() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("enqueue");},
     get MessageParser() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => Object.keys(m).length && Object.keys(m).every(k => k === "parse" || k === "unparse"));},
@@ -721,7 +721,7 @@ __webpack_require__.r(__webpack_exports__);
     get Timestamps() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("fromTimestamp");},
 
     /* Strings and Utils */
-    get Strings() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("Messages").Messages;},
+    get Strings() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m.Messages && Object.keys(m.Messages).length);},
     get StringFormats() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("a", "z");},
     get StringUtils() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("toASCII");},
 
@@ -7610,7 +7610,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const React = modules__WEBPACK_IMPORTED_MODULE_0__["DiscordModules"].React;
 const ce = React.createElement;
-const Markdown = modules__WEBPACK_IMPORTED_MODULE_0__["WebpackModules"].getByDisplayName("Markdown");
+const Markdown = modules__WEBPACK_IMPORTED_MODULE_0__["WebpackModules"].getModule(m => m.displayName == "Markdown" && m.rules);
 
 class Modals {
 
