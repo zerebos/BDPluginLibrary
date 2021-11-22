@@ -7,7 +7,15 @@ const libConfigPath = path.join(__dirname, "../config.json");
 const libConfig = Object.assign(defaultConfig, fs.existsSync(libConfigPath) ? require(libConfigPath) : {});
 const pluginsPath = path.isAbsolute(libConfig.pluginsFolder) ? libConfig.pluginsFolder : path.join(__dirname, "..", libConfig.pluginsFolder);
 const releasePath = path.isAbsolute(libConfig.releaseFolder) ? libConfig.releaseFolder : path.join(__dirname, "..", libConfig.releaseFolder);
-const bdFolder = (process.platform == "win32" ? process.env.APPDATA : process.platform == "darwin" ? process.env.HOME + "/Library/Preferences" :  process.env.XDG_CONFIG_HOME ? process.env.XDG_CONFIG_HOME : process.env.HOME + "/.config") + "/BetterDiscord/";
+
+/** Return custom BetterDiscord path or tries to automatically get it. */
+const getBdFolder = function() {
+    if (libConfig.customBdFolder) {
+        return libConfig.customBdFolder;
+    } else {
+        return (process.platform == "win32" ? process.env.APPDATA : process.platform == "darwin" ? process.env.HOME + "/Library/Preferences" :  process.env.XDG_CONFIG_HOME ? process.env.XDG_CONFIG_HOME : process.env.HOME + "/.config") + "/BetterDiscord/";
+    }
+}
 
 const formatString = function(string, values) {
     for (const val in values) string = string.replace(new RegExp(`{{${val}}}`, "g"), () => values[val]);
@@ -63,7 +71,7 @@ for (let f = 0; f < list.length; f++) {
     fs.writeFileSync(buildFile, result);
     if (libConfig.copyToBD) {
         console.log(`Copying ${pluginName} to BD folder`);
-        fs.writeFileSync(path.join(bdFolder, "plugins", pluginName + ".plugin.js"), result);
+        fs.writeFileSync(path.join(getBdFolder(), "plugins", pluginName + ".plugin.js"), result);
     }
     console.log(`${pluginName} built successfully`);
     console.log(`${pluginName} saved as ${buildFile}`);

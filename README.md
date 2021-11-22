@@ -65,6 +65,13 @@ Boolean to determine if the plugin should include the Windows Host Script instal
 
 ***
 
+#### `customBdFolder`
+Absolute or relative path to the folder containing the BetterDiscord folder. Use it when you develop on Windows Subsystem for Linux.
+
+**Default**: tries to get the path automatically.
+
+***
+
 ## Building Plugins
 
 See the example plugin in `examples/ExamplePlugin`. Note how it does not check for updates in `onStart` instead the base class `Plugin` automatically checks for updates using the `github_raw` in the `config.json`.

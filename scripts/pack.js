@@ -9,10 +9,18 @@ const libConfigPath = path.join(__dirname, "../config.json");
 const libConfig = Object.assign(defaultConfig, fs.existsSync(libConfigPath) ? require(libConfigPath) : {});
 const pluginsPath = path.isAbsolute(libConfig.pluginsFolder) ? libConfig.pluginsFolder : path.join(__dirname, "..", libConfig.pluginsFolder);
 const releasePath = path.isAbsolute(libConfig.releaseFolder) ? libConfig.releaseFolder : path.join(__dirname, "..", libConfig.releaseFolder);
-const bdFolder = (process.platform == "win32" ? process.env.APPDATA : process.platform == "darwin" ? process.env.HOME + "/Library/Preferences" :  process.env.XDG_CONFIG_HOME ? process.env.XDG_CONFIG_HOME : process.env.HOME + "/.config") + "/BetterDiscord/";
 
 const args = process.argv.slice(2);
 const mode = args[0];
+
+/** Return BetterDiscord path set in config or try to get it automatically. */
+const getBdFolder = function() {
+    if (libConfig.customBdFolder) {
+        return libConfig.customBdFolder;
+    } else {
+        return (process.platform == "win32" ? process.env.APPDATA : process.platform == "darwin" ? process.env.HOME + "/Library/Preferences" :  process.env.XDG_CONFIG_HOME ? process.env.XDG_CONFIG_HOME : process.env.HOME + "/.config") + "/BetterDiscord/";
+    }
+}
 
 
 const list = args.slice(1).length ? args.slice(1) : fs.readdirSync(pluginsPath).filter(f => fs.lstatSync(path.join(pluginsPath, f)).isDirectory() && f != "0PluginLibrary");
@@ -62,7 +70,7 @@ const list = args.slice(1).length ? args.slice(1) : fs.readdirSync(pluginsPath).
         fs.writeFileSync(path.join(config.output.path, config.output.filename), result);
         if (libConfig.copyToBD) {
             console.log(`Copying ${pluginName} to BD folder`);
-            fs.writeFileSync(path.join(bdFolder, "plugins", config.output.filename), result);
+            fs.writeFileSync(path.join(getBdFolder(), "plugins", config.output.filename), result);
         }
         console.log(`${pluginName} packed successfully`);
     }
