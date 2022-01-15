@@ -106,7 +106,8 @@ export default class Modals {
         const renderFooter = footer ? function() {
             return ce(Markdown, null, footer);
         } : null;
-        DiscordModules.ModalStack.push(function(props) {
+
+        return DiscordModules.ModalActions.openModal(props => {
             return ce(DiscordModules.Changelog, Object.assign({
                 className: DiscordClasses.Changelog.container.toString(),
                 selectable: true,
@@ -114,8 +115,7 @@ export default class Modals {
                 onClose: _ => _,
                 renderHeader: renderHeader,
                 renderFooter: renderFooter,
-                children: changelogItems
-            }, props));
+            }, props), changelogItems);
         });
     }
 }

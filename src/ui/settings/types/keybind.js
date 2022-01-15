@@ -20,11 +20,11 @@ class Keybind extends SettingField {
         const {disabled = false} = options;
         super(label, help, onChange, DiscordModules.Keybind, {
             disabled: disabled,
-            defaultValue: value.map(a => [0, a]),
+            defaultValue: value.map(a => [0, a || 0, 1]),
             onChange: element => val => {
                 if (!Array.isArray(val)) return;
                 element.props.value = val;
-                this.onChange(value.map(a => a[1]));
+                this.onChange(val.map(a => a[1]));
             }
         });
     }

@@ -81,7 +81,7 @@ export default Utilities.memoizeObject({
     get NavigationUtils() {return WebpackModules.getByProps("transitionTo", "replaceWith", "getHistory");},
 
     /* Discord Messages */
-    get MessageStore() {return WebpackModules.getByProps("getMessages");},
+    get MessageStore() {return WebpackModules.getByProps("getMessage", "getMessages");},
     get ReactionsStore() {return WebpackModules.getByProps("getReactions", "_dispatcher");},
     get MessageActions() {return WebpackModules.getByProps("jumpToMessage", "_sendMessage");},
     get MessageQueue() {return WebpackModules.getByProps("enqueue");},
@@ -247,7 +247,7 @@ export default Utilities.memoizeObject({
     get SettingsNote() {return WebpackModules.getByDisplayName("FormText");},
     get SettingsDivider() {return WebpackModules.getModule(m => !m.defaultProps && m.prototype && m.prototype.render && m.prototype.render.toString().includes("default.divider"));},
 
-    get ColorPicker() {return WebpackModules.getByDisplayName("ColorPicker");}, // Loaded by Discord on demand
+    get ColorPicker() {return WebpackModules.getModule(m => m.displayName === "ColorPicker" && m.defaultProps);}, // Loaded by Discord on demand
     get Dropdown() {return WebpackModules.getModule(m => m.prototype && !m.prototype.handleClick && m.prototype.render && m.prototype.render.toString().includes("default.select"));},
     get Keybind() {return WebpackModules.getByPrototypes("handleComboChange");},
     get RadioGroup() {return WebpackModules.getByDisplayName("RadioGroup");},

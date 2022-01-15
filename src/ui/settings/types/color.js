@@ -32,7 +32,8 @@ class ColorPicker extends SettingField {
                 },
                 colors: Array.isArray(options.colors) ? options.colors : presetColors,
                 defaultColor: typeof(value) == "number" ? value : ColorConverter.hex2int(value),
-                value: 0
+                value: 0,
+                customPickerPosition: "right"
             });
         }
         else {

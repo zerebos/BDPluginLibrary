@@ -269,7 +269,7 @@ export default class DiscordContextMenu {
      * @returns {Promise<object>} the webpack module the menu was found in
      */
     static getDiscordMenu(nameOrFilter) {
-        if (typeof (nameOrFilter) !== "function") {
+        if (typeof(nameOrFilter) !== "function") {
             const displayName = nameOrFilter;
             nameOrFilter = (m) => m && m.displayName === displayName;
         }
@@ -336,7 +336,7 @@ export default class DiscordContextMenu {
 
                     return render;
                 });
-            }
+            };
         });
     }
 
