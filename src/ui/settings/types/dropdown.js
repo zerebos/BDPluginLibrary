@@ -33,10 +33,10 @@ class Dropdown extends SettingField {
             searchable: searchable,
             disabled: disabled,
             options: values,
-            onChange: dropdown => opt => {
-                dropdown.props.value = opt && opt.value;
+            onChange: dropdown => value => {
+                dropdown.props.value = value;
                 dropdown.forceUpdate();
-                this.onChange(opt && opt.value);
+                this.onChange(value);
             },
             value: defaultValue
         });
