@@ -19,7 +19,7 @@ Below is a brief comparison between the different ways to use the library.
 
 ### BDv1 Style Plugins
 
-You can remotely link this library or require the local `0PluginLibrary.plugin.js`. See the [section below](#creating-bdv1-style-plugins) for details.
+You can require the local `0PluginLibrary.plugin.js`. See the [section below](#creating-bdv1-style-plugins) for details.
 
 ### BDv2 Style Plugins
 

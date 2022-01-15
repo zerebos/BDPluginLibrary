@@ -14,10 +14,10 @@ module.exports = {
     },
     changelog: [
         {
-            title: "Fixed Canary",
-            type: "fixed",
+            title: "Library Overhaul",
+            type: "improved",
             items: [
-                "Hotfix for Canary changes"
+                "Overhauled a good portion of the library."
             ]
         }
     ],

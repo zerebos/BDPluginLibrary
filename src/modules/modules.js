@@ -8,7 +8,6 @@ export {default as DiscordSelectors} from "./discordselectors";
 export {default as ReactTools} from "./reacttools";
 export {default as ReactComponents} from "./reactcomponents";
 // export {default as DiscordComponents} from "./discordcomponents";
-export {default as DiscordAPI} from "./discordapi";
 
 
 export {default as Logger} from "./logger";
