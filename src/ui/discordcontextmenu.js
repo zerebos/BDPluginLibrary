@@ -265,20 +265,29 @@ export default class DiscordContextMenu {
     /**
      * Attempts to find and return a specific context menu type's module. Useful
      * when patching the render of these menus.
-     * @param {string} type - name of the context menu type
+     * @param {string | (module: any) => boolean} nameOrFilter - name of the context menu type
      * @returns {Promise<object>} the webpack module the menu was found in
      */
-    static async getDiscordMenu() {
-        Logger.warn("DiscordContextMenu", "This function no longer applies, please update your plugin.");
-        // return new Promise(resolve => {
-        //     const cancel = Patcher.after("ZeresLibrary.DiscordContextMenu", ContextMenuActions, "openContextMenu", (_, [, component]) => {
-        //         const rendered = component();
-        //         const menuType = rendered.props && rendered.props.type || (rendered.type && rendered.type.displayName);
-        //         if (!menuType || typeof(menuType) != "string" || !menuType.includes(type)) return;
-        //         cancel();
-        //         return resolve(WebpackModules.getModule(m => m.default == rendered.type));
-        //     });
-        // });
+    static getDiscordMenu(nameOrFilter) {
+        if (typeof (nameOrFilter) !== "function") {
+            const displayName = nameOrFilter;
+            nameOrFilter = (m) => m && m.displayName === displayName;
+        }
+
+        const directMatch = WebpackModules.getModule(m => m.default && nameOrFilter(m.default));
+        if (directMatch) return Promise.resolve(directMatch);
+
+        return new Promise(resolve => {
+            const listener = () => {
+                const match = WebpackModules.getModule(m => m.default && nameOrFilter(m.default));
+                if (!match) return;
+
+                this.contextMenuListeners.delete(listener);
+                return resolve(match);
+            };
+
+            this.contextMenuListeners.add(listener);
+        });
     }
 
     /**
@@ -299,6 +308,36 @@ export default class DiscordContextMenu {
         Patcher.unpatchAll("DCM");
         this.patchMenuItem();
         this.patchToggleItem();
+        this.patchLazyOpener();
+    }
+
+    static patchLazyOpener() {
+        this.contextMenuListeners = new Set();
+
+        Patcher.before("DCM", ContextMenuActions, "openContextMenuLazy", (_, methodArguments) => {
+            const originalRender = methodArguments[1];
+
+            if (typeof(originalRender) !== "function") return;
+
+            methodArguments[1] = (...args) => {
+                const menuPromise = Reflect.apply(originalRender, null, args);
+
+                return menuPromise.then((render) => {
+                    const listeners = [...this.contextMenuListeners];
+
+                    for (let i = 0; i < listeners.length; i++) {
+                        const listener = listeners[i];
+
+                        try {listener();}
+                        catch (error) {
+                            Logger.err("DiscordContextMenu", "Failed to fire listener:", error);
+                        }
+                    }
+
+                    return render;
+                });
+            }
+        });
     }
 
     static patchMenuItem() {
