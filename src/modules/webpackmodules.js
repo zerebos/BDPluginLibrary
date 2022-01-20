@@ -344,8 +344,6 @@ export default class WebpackModules {
      */
      static addListener(listener) {
         this.listeners.add(listener);
-        console.log(this.listeners);
-
         return this.removeListener.bind(this, listener);
     }
 

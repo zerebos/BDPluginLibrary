@@ -8,8 +8,6 @@
  * @version 0.0.5
  */
 
-import Utilities from "./utilities";
-import Logger from "./logger";
 import {Selector, ClassName, DOMObserver} from "structs";
 
 /**
@@ -41,6 +39,24 @@ export default class DOMTools {
      */
     static get observer() {
         return this._observer || (this._observer = new DOMObserver());
+    }
+
+    static animate({timing = _ => _, update, duration}) {
+        // https://javascript.info/js-animation
+        const start = performance.now();
+
+        requestAnimationFrame(function renderFrame(time) {
+            // timeFraction goes from 0 to 1
+            let timeFraction = (time - start) / duration;
+            if (timeFraction > 1) timeFraction = 1;
+
+            // calculate the current animation state
+            const progress = timing(timeFraction);
+
+            update(progress); // draw it
+
+            if (timeFraction < 1) requestAnimationFrame(renderFrame);
+        });
     }
 
     /**
@@ -701,48 +717,3 @@ export default class DOMTools {
         }
     }
 }
-
-const addToPrototype = function(MainObject, prop, func) {
-    Utilities.addToPrototype(HTMLElement, prop, function() {
-        Logger.warn("DOMTools", "These custom functions on HTMLElement will be removed.");
-        return Reflect.apply(func, this, arguments);
-    });
-};
-
-addToPrototype(HTMLElement, "addClass", function(...classes) {return DOMTools.addClass(this, ...classes);});
-addToPrototype(HTMLElement, "removeClass", function(...classes) {return DOMTools.removeClass(this, ...classes);});
-addToPrototype(HTMLElement, "toggleClass", function(className, indicator) {return DOMTools.toggleClass(this, className, indicator);});
-addToPrototype(HTMLElement, "replaceClass", function(oldClass, newClass) {return DOMTools.replaceClass(this, oldClass, newClass);});
-addToPrototype(HTMLElement, "hasClass", function(className) {return DOMTools.hasClass(this, className);});
-addToPrototype(HTMLElement, "insertAfter", function(referenceNode) {return DOMTools.insertAfter(this, referenceNode);});
-addToPrototype(HTMLElement, "after", function(newNode) {return DOMTools.after(this, newNode);});
-addToPrototype(HTMLElement, "next", function(selector = "") {return DOMTools.next(this, selector);});
-addToPrototype(HTMLElement, "nextAll", function() {return DOMTools.nextAll(this);});
-addToPrototype(HTMLElement, "nextUntil", function(selector) {return DOMTools.nextUntil(this, selector);});
-addToPrototype(HTMLElement, "previous", function(selector = "") {return DOMTools.previous(this, selector);});
-addToPrototype(HTMLElement, "previousAll", function() {return DOMTools.previousAll(this);});
-addToPrototype(HTMLElement, "previousUntil", function(selector) {return DOMTools.previousUntil(this, selector);});
-addToPrototype(HTMLElement, "index", function() {return DOMTools.index(this);});
-addToPrototype(HTMLElement, "findChild", function(selector) {return DOMTools.findChild(this, selector);});
-addToPrototype(HTMLElement, "findChildren", function(selector) {return DOMTools.findChildren(this, selector);});
-addToPrototype(HTMLElement, "parent", function(selector) {return DOMTools.parent(this, selector);});
-addToPrototype(HTMLElement, "parents", function(selector = "") {return DOMTools.parents(this, selector);});
-addToPrototype(HTMLElement, "parentsUntil", function(selector) {return DOMTools.parentsUntil(this, selector);});
-addToPrototype(HTMLElement, "siblings", function(selector = "*") {return DOMTools.siblings(this, selector);});
-addToPrototype(HTMLElement, "css", function(attribute, value) {return DOMTools.css(this, attribute, value);});
-addToPrototype(HTMLElement, "width", function(value) {return DOMTools.width(this, value);});
-addToPrototype(HTMLElement, "height", function(value) {return DOMTools.height(this, value);});
-addToPrototype(HTMLElement, "innerWidth", function() {return DOMTools.innerWidth(this);});
-addToPrototype(HTMLElement, "innerHeight", function() {return DOMTools.innerHeight(this);});
-addToPrototype(HTMLElement, "outerWidth", function() {return DOMTools.outerWidth(this);});
-addToPrototype(HTMLElement, "outerHeight", function() {return DOMTools.outerHeight(this);});
-addToPrototype(HTMLElement, "offset", function() {return DOMTools.offset(this);});
-addToPrototype(HTMLElement, "text", function(value) {return DOMTools.text(this, value);});
-addToPrototype(HTMLElement, "on", function(event, delegate, callback) {return DOMTools.on(this, event, delegate, callback);});
-addToPrototype(HTMLElement, "once", function(event, delegate, callback) {return DOMTools.once(this, event, delegate, callback);});
-addToPrototype(HTMLElement, "off", function(event, delegate, callback) {return DOMTools.off(this, event, delegate, callback);});
-addToPrototype(HTMLElement, "find", function(selector) {return DOMTools.query(selector, this);});
-addToPrototype(HTMLElement, "findAll", function(selector) {return DOMTools.queryAll(selector, this);});
-addToPrototype(HTMLElement, "appendTo", function(otherNode) {return DOMTools.appendTo(this, otherNode);});
-addToPrototype(HTMLElement, "onAdded", function(callback) {return DOMTools.onAdded(this, callback);});
-addToPrototype(HTMLElement, "onRemoved", function(callback) {return DOMTools.onRemoved(this, callback);});
