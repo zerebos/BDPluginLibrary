@@ -145,7 +145,7 @@ export default Utilities.memoizeObject({
     get DOMInfo() {return WebpackModules.getByProps("canUseDOM");},
 
     /* Locale/Location and Time */
-    get LocaleManager() {return WebpackModules.getByProps("setLocale");},
+    get LocaleManager() {return WebpackModules.getModule(m => m.Messages && Object.keys(m.Messages).length);},
     get Moment() {return WebpackModules.getByProps("parseZone");},
     get LocationManager() {return WebpackModules.getByProps("createLocation");},
     get Timestamps() {return WebpackModules.getByProps("fromTimestamp");},
