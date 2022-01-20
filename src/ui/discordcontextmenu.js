@@ -5,7 +5,6 @@ import Patcher from "../modules/patcher";
 import Utilities from "../modules/utilities";
 import DiscordClasses from "../modules/discordclasses";
 import DOMTools from "../modules/domtools";
-import Logger from "../modules/logger";
 
 // d = e.label,
 // f = e.icon,
@@ -278,15 +277,11 @@ export default class DiscordContextMenu {
         if (directMatch) return Promise.resolve(directMatch);
 
         return new Promise(resolve => {
-            const listener = () => {
-                const match = WebpackModules.getModule(m => m.default && nameOrFilter(m.default));
-                if (!match) return;
-
-                this.contextMenuListeners.delete(listener);
-                return resolve(match);
-            };
-
-            this.contextMenuListeners.add(listener);
+            const cancel = WebpackModules.addListener(module => {
+                if (!module.default || !nameOrFilter(module.default)) return;
+                resolve(module);
+                cancel();
+            });
         });
     }
 
@@ -308,36 +303,6 @@ export default class DiscordContextMenu {
         Patcher.unpatchAll("DCM");
         this.patchMenuItem();
         this.patchToggleItem();
-        this.patchLazyOpener();
-    }
-
-    static patchLazyOpener() {
-        this.contextMenuListeners = new Set();
-
-        Patcher.before("DCM", ContextMenuActions, "openContextMenuLazy", (_, methodArguments) => {
-            const originalRender = methodArguments[1];
-
-            if (typeof(originalRender) !== "function") return;
-
-            methodArguments[1] = (...args) => {
-                const menuPromise = Reflect.apply(originalRender, null, args);
-
-                return menuPromise.then((render) => {
-                    const listeners = [...this.contextMenuListeners];
-
-                    for (let i = 0; i < listeners.length; i++) {
-                        const listener = listeners[i];
-
-                        try {listener();}
-                        catch (error) {
-                            Logger.err("DiscordContextMenu", "Failed to fire listener:", error);
-                        }
-                    }
-
-                    return render;
-                });
-            };
-        });
     }
 
     static patchMenuItem() {

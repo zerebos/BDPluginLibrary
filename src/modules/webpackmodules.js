@@ -4,6 +4,7 @@
  * @version 0.0.2
  */
 import DiscordModules from "./discordmodules";
+import Logger from "./logger";
 
  /**
  * Checks if a given module matches a set of parameters.
@@ -311,4 +312,76 @@ export default class WebpackModules {
         return this.require.c;
     }
 
+
+
+    // Webpack Chunk Observing
+    static get chunkName() {return "webpackChunkdiscord_app";}
+
+    static initialize() {
+        this.handlePush = this.handlePush.bind(this);
+        this.listeners = new Set();
+        
+        this.__ORIGINAL_PUSH__ = window[this.chunkName].push;
+        Object.defineProperty(window[this.chunkName], "push", {
+            configurable: true,
+            get: () => this.handlePush,
+            set: (newPush) => {
+                this.__ORIGINAL_PUSH__ = newPush;
+
+                Object.defineProperty(window[this.chunkName], "push", {
+                    value: this.handlePush,
+                    configurable: true,
+                    writable: true
+                });
+            }
+        });
+    }    
+
+    /**
+     * Adds a listener for when discord loaded a chunk. Useful for subscribing to lazy loaded modules.
+     * @param {Function} listener
+     * @returns {() => boolean}
+     */
+     static addListener(listener) {
+        this.listeners.add(listener);
+        console.log(this.listeners);
+
+        return this.removeListener.bind(this, listener);
+    }
+
+    /**
+     * Removes a listener for when discord loaded a chunk.
+     * @param {Function} listener
+     * @returns {boolean}
+     */
+    static removeListener(listener) {return this.listeners.delete(listener);}
+
+    static handlePush(chunk) {
+        const [, modules] = chunk;
+
+        for (const moduleId in modules) {
+            const originalModule = modules[moduleId];
+
+            modules[moduleId] = (module, exports, require) => {
+                Reflect.apply(originalModule, null, [module, exports, require]);
+
+                const listeners = [...this.listeners];
+                for (let i = 0; i < listeners.length; i++) {
+                    try {listeners[i](exports);}
+                    catch (error) {
+                        Logger.err("WebpackModules", "Could not fire callback listener:", error);
+                    }
+                }
+            };
+
+            Object.assign(modules[moduleId], originalModule, {
+                toString: () => originalModule.toString()
+            });
+        }
+
+        return Reflect.apply(this.__ORIGINAL_PUSH__, window[this.chunkName], [chunk]);
+    }
+
 }
+
+WebpackModules.initialize();
