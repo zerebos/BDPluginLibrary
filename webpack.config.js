@@ -7,7 +7,7 @@ module.exports = env => {
   return {
     mode: "development",
     target: "node",
-    devtool: "none",
+    devtool: false,
     entry: "./src/index.js",
     output: {
       filename: "PluginLibrary.js",
@@ -32,6 +32,9 @@ module.exports = env => {
     },
     module: {
       rules: [{test: /\.css$/, use: "raw-loader"}]
+    },
+    optimization: {
+      minimize: false,
     },
     plugins: [
       new webpack.DefinePlugin({

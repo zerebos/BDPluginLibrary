@@ -40,10 +40,7 @@ const list = args.slice(1).length ? args.slice(1) : fs.readdirSync(pluginsPath).
         const banner = `/**
  * @name ${pluginName}
  * @version ${pkg.version}
- * @invite TyFxKer
- * @authorLink https://twitter.com/ZackRauen
- * @donate https://paypal.me/ZackRauen
- * @patreon https://patreon.com/Zerebos
+ * @authorLink https://twitter.com/IAmZerebos
  * @website ${pluginConfig.info.github}
  * @source ${pluginConfig.info.github_raw}
  */
