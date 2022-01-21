@@ -3,7 +3,6 @@
  * @module PluginUpdater
  */
 
-import PluginUtilities from "./pluginutilities";
 import DOMTools from "./domtools";
 import Logger from "./logger";
 import DiscordClasses from "./discordclasses";
@@ -169,7 +168,7 @@ export default class PluginUpdater {
             const remoteVersion = window.PluginUpdates.plugins[updateLink].versioner(body);
             let filename = updateLink.split("/");
             filename = filename[filename.length - 1];
-            const file = path.join(PluginUtilities.getPluginsFolder(), filename);
+            const file = path.join(BdApi.Plugins.folder, filename);
             await new Promise(r => fileSystem.writeFile(file, body, r));
             Toasts.success(`${pluginName} ${window.PluginUpdates.plugins[updateLink].version} has been replaced by ${pluginName} ${remoteVersion}`);
             this.removeUpdateNotice(pluginName);

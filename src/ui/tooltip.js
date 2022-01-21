@@ -10,7 +10,6 @@
  */
 
 import {DOMTools, DiscordClasses, DiscordSelectors, Logger, WebpackModules} from "modules";
-import Screen from "../structs/screen";
 
 const getClass = function(sideOrColor) {
     const upperCase = sideOrColor[0].toUpperCase() + sideOrColor.slice(1);
@@ -93,11 +92,11 @@ export default class Tooltip {
     /** Boolean representing if the tooltip will fit on screen above the element */
     get canShowAbove() {return this.node.getBoundingClientRect().top - this.element.offsetHeight >= 0;}
     /** Boolean representing if the tooltip will fit on screen below the element */
-    get canShowBelow() {return this.node.getBoundingClientRect().top + this.node.offsetHeight + this.element.offsetHeight <= Screen.height;}
+    get canShowBelow() {return this.node.getBoundingClientRect().top + this.node.offsetHeight + this.element.offsetHeight <= DOMTools.screenHeight;}
     /** Boolean representing if the tooltip will fit on screen to the left of the element */
     get canShowLeft() {return this.node.getBoundingClientRect().left - this.element.offsetWidth >= 0;}
     /** Boolean representing if the tooltip will fit on screen to the right of the element */
-    get canShowRight() {return this.node.getBoundingClientRect().left + this.node.offsetWidth + this.element.offsetWidth <= Screen.width;}
+    get canShowRight() {return this.node.getBoundingClientRect().left + this.node.offsetWidth + this.element.offsetWidth <= DOMTools.screenWidth;}
 
     /** Hides the tooltip. Automatically called on mouseleave. */
     hide() {

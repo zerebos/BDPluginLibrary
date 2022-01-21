@@ -2,7 +2,6 @@ import PluginUpdater from "../modules/pluginupdater";
 import Logger from "../modules/logger";
 import ReactTools from "../modules/reacttools";
 import Modals from "../ui/modals";
-import PluginUtilities from "../modules/pluginutilities";
 import Utilities from "../modules/utilities";
 import DiscordModules from "../modules/discordmodules";
 import * as Settings from "../ui/settings";
@@ -34,10 +33,10 @@ export default function(meta) {
         getVersion() {return this._config.info.version;}
         getAuthor() {return this._config.info.authors.map(a => a.name).join(", ");}
         load() {
-            const currentVersionInfo = PluginUtilities.loadData(this.getName(), "currentVersionInfo", {version: this.getVersion(), hasShownChangelog: false});
+            const currentVersionInfo = Utilities.loadData(this.getName(), "currentVersionInfo", {version: this.getVersion(), hasShownChangelog: false});
             if (currentVersionInfo.version != this.getVersion() || !currentVersionInfo.hasShownChangelog) {
                 this.showChangelog();
-                PluginUtilities.saveData(this.getName(), "currentVersionInfo", {version: this.getVersion(), hasShownChangelog: true});
+                Utilities.saveData(this.getName(), "currentVersionInfo", {version: this.getVersion(), hasShownChangelog: true});
             }
             PluginUpdater.checkForUpdate(this.getName(), this.getVersion(), this._config.info.github_raw);
         }
@@ -81,12 +80,12 @@ export default function(meta) {
         }
 
         saveSettings(settings) {
-            PluginUtilities.saveSettings(this.getName(), this.settings ? this.settings : settings);
+            Utilities.saveSettings(this.getName(), this.settings ? this.settings : settings);
         }
 
         loadSettings(defaultSettings) {
             // loadSettings -> loadData -> defaultSettings gets deep cloned
-            return PluginUtilities.loadSettings(this.getName(), this.defaultSettings ? this.defaultSettings : defaultSettings);
+            return Utilities.loadSettings(this.getName(), this.defaultSettings ? this.defaultSettings : defaultSettings);
         }
 
         buildSetting(data) {

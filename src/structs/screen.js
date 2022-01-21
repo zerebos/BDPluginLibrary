@@ -1,5 +1,6 @@
 /**
  * Representation of the screen such as width and height.
+ * @deprecated 1/21/22 Use DOMTools
  */
 class Screen {
     /** Document/window width */

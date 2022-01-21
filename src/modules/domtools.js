@@ -40,6 +40,12 @@ export default class DOMTools {
         return this._observer || (this._observer = new DOMObserver());
     }
 
+    /** Document/window width */
+    static get screenWidth() {return Math.max(document.documentElement.clientWidth, window.innerWidth || 0);}
+
+    /** Document/window height */
+    static get screenHeight() {return Math.max(document.documentElement.clientHeight, window.innerHeight || 0);}
+
     static animate({timing = _ => _, update, duration}) {
         // https://javascript.info/js-animation
         const start = performance.now();
@@ -56,6 +62,50 @@ export default class DOMTools {
 
             if (timeFraction < 1) requestAnimationFrame(renderFrame);
         });
+    }
+
+    /**
+     * Adds a style to the document.
+     * @param {string} id - identifier to use as the element id
+     * @param {string} css - css to add to the document
+     */
+    static addStyle(id, css) {
+        document.head.append(DOMTools.createElement(`<style id="${id}">${css}</style>`));
+    }
+
+    /**
+     * Removes a style from the document.
+     * @param {string} id - original identifier used
+     */
+    static removeStyle(id) {
+        const element = document.getElementById(id);
+        if (element && element.tagName === "STYLE") element.remove();
+    }
+
+    /**
+     * Adds/requires a remote script to be loaded
+     * @param {string} id - identifier to use for this script
+     * @param {string} url - url from which to load the script
+     * @returns {Promise} promise that resolves when the script is loaded
+     */
+    static addScript(id, url) {
+        return new Promise(resolve => {
+            const script = document.createElement("script");
+            script.id = id;
+            script.src = url;
+            script.type = "text/javascript";
+            script.onload = resolve;
+            document.head.append(script);
+        });
+    }
+
+    /**
+     * Removes a remote script from the document.
+     * @param {string} id - original identifier used
+     */
+    static removeScript(id) {
+        const element = document.getElementById(id);
+        if (element && element.tagName === "SCRIPT") element.remove();
     }
 
     /**

@@ -6,17 +6,8 @@
 import DOMTools from "./domtools";
 import DiscordModules from "./discordmodules";
 import Utilities from "./utilities";
-import reflect from "./reflection";
 
 export default class ReactTools {
-
-    /**
-     * Performs reflection on a specific node.
-     * @param {(HTMLElement|jQuery|Selector)} node - node or selector to reflect on.
-     */
-    static Reflect(node) {
-        return reflect(node);
-    }
 
     static get rootInstance() {return document.getElementById("app-mount")._reactRootContainer._internalRoot.current;}
 
@@ -74,6 +65,40 @@ export default class ReactTools {
         }
         
         return null;
+    }
+
+    /**
+     * Grabs the react internal state node trees of a specific node.
+     * @param {(HTMLElement|jQuery)} node - node to obtain state nodes of
+     * @return {Array<Function>} list of found state nodes
+     */
+    static getStateNodes(node) {
+        const instance = this.getReactInstance(node);
+        const stateNodes = [];
+        let lastInstance = instance;
+        while (lastInstance && lastInstance.return) {
+            if (lastInstance.return.stateNode instanceof HTMLElement) break;
+            if (lastInstance.return.stateNode) stateNodes.push(lastInstance.return.stateNode);
+            lastInstance = lastInstance.return;
+        }
+        return stateNodes;
+    }
+    
+    /**
+     * Grabs the react internal component tree of a specific node.
+     * @param {(HTMLElement|jQuery)} node - node to obtain react components of
+     * @return {Array<Function>} list of found react components
+     */
+    static getComponents(node) {
+        const instance = this.getReactInstance(node);
+        const components = [];
+        let lastInstance = instance;
+        while (lastInstance && lastInstance.return) {
+            if (typeof lastInstance.return.type === "string") break;
+            if (lastInstance.return.type) components.push(lastInstance.return.type);
+            lastInstance = lastInstance.return;
+        }
+        return components;
     }
 
     /**

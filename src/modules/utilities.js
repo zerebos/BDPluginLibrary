@@ -85,7 +85,7 @@ export default class Utilities {
 
     /**
      * Format template strings with placeholders (`${placeholder}`) into full strings.
-     * Quick example: `PluginUtilities.formatString("Hello, ${user}", {user: "Zerebos"})`
+     * Quick example: `Utilities.formatString("Hello, ${user}", {user: "Zerebos"})`
      * would return "Hello, Zerebos".
      * @param {string} string - string to format
      * @param {object} values - object literal of placeholders to replacements
@@ -103,7 +103,7 @@ export default class Utilities {
 
     /**
      * Format strings with placeholders (`{{placeholder}}`) into full strings.
-     * Quick example: `PluginUtilities.formatString("Hello, {{user}}", {user: "Zerebos"})`
+     * Quick example: `Utilities.formatString("Hello, {{user}}", {user: "Zerebos"})`
      * would return "Hello, Zerebos".
      * @param {string} string - string to format
      * @param {object} values - object literal of placeholders to replacements
@@ -329,6 +329,50 @@ export default class Utilities {
             clearTimeout(timeout);
             timeout = setTimeout(callback, delay);
         };
+    }
+
+    /**
+     * Loads data through BetterDiscord's API.
+     * @param {string} name - name for the file (usually plugin name)
+     * @param {string} key - which key the data is saved under
+     * @param {object} defaultData - default data to populate the object with
+     * @returns {object} the combined saved and default data
+    */
+     static loadData(name, key, defaultData) {
+        const defaults = this.deepclone(defaultData);
+        try {return this.extend(defaults ? defaults : {}, BdApi.getData(name, key));}
+        catch (err) {Logger.err(name, "Unable to load data: ", err);}
+        return defaults;
+    }
+
+    /**
+     * Saves data through BetterDiscord's API.
+     * @param {string} name - name for the file (usually plugin name)
+     * @param {string} key - which key the data should be saved under
+     * @param {object} data - data to save
+    */
+    static saveData(name, key, data) {
+        try {BdApi.setData(name, key, data);}
+        catch (err) {Logger.err(name, "Unable to save data: ", err);}
+    }
+
+    /**
+     * Loads settings through BetterDiscord's API.
+     * @param {string} name - name for the file (usually plugin name)
+     * @param {object} defaultData - default data to populate the object with
+     * @returns {object} the combined saved and default settings
+    */
+    static loadSettings(name, defaultSettings) {
+        return this.loadData(name, "settings", defaultSettings);
+    }
+
+    /**
+     * Saves settings through BetterDiscord's API.
+     * @param {string} name - name for the file (usually plugin name)
+     * @param {object} data - settings to save
+    */
+    static saveSettings(name, data) {
+        this.saveData(name, "settings", data);
     }
 
 }

@@ -3,7 +3,6 @@
  * @module Popouts
  */
 
-import {Screen} from "structs";
 import {DiscordModules, DOMTools, WebpackModules, Patcher} from "modules";
 
 const {React, ReactDOM} = DiscordModules;
@@ -97,9 +96,9 @@ export default class Popouts {
         const {guild = DiscordModules.SelectedGuildStore.getGuildId(), channel = DiscordModules.SelectedChannelStore.getChannelId()} = options;
         let {position = "right", align = "top"} = options;
         target = DOMTools.resolveElement(target);
-        if (target.getBoundingClientRect().right + 250 >= Screen.width) position = "left";
-        if (target.getBoundingClientRect().bottom + 400 >= Screen.height) align = "bottom";
-        if (target.getBoundingClientRect().top - 400 >= Screen.height) align = "top";
+        if (target.getBoundingClientRect().right + 250 >= DOMTools.screenWidth) position = "left";
+        if (target.getBoundingClientRect().bottom + 400 >= DOMTools.screenHeight) align = "bottom";
+        if (target.getBoundingClientRect().top - 400 >= DOMTools.screenHeight) align = "top";
         this.openPopout(target, {
             position: position,
             align: align,

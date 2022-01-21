@@ -1,12 +1,10 @@
-import Logger from "./logger";
 import Utilities from "./utilities";
 import DOMTools from "./domtools";
-
-import DCM from "../ui/discordcontextmenu";
 
 /**
  * A series of useful functions for BetterDiscord plugins.
  * @module PluginUtilities
+ * @deprecated 1/21/22 Use Alternatives
  */
 
 
@@ -18,47 +16,40 @@ import DCM from "../ui/discordcontextmenu";
      * @param {string} key - which key the data is saved under
      * @param {object} defaultData - default data to populate the object with
      * @returns {object} the combined saved and default data
+     * @deprecated 1/21/22 Use Utilities or BdApi directly
     */
-    static loadData(name, key, defaultData) {
-        const defaults = Utilities.deepclone(defaultData);
-        try {return Utilities.extend(defaults ? defaults : {}, BdApi.getData(name, key));}
-        catch (err) {Logger.err(name, "Unable to load data: ", err);}
-        return defaults;
-    }
+    static loadData(name, key, defaultData) {return Utilities.loadData(name, key, defaultData);}
 
     /**
      * Saves data through BetterDiscord's API.
      * @param {string} name - name for the file (usually plugin name)
      * @param {string} key - which key the data should be saved under
      * @param {object} data - data to save
+     * @deprecated 1/21/22 Use Utilities or BdApi directly
     */
-    static saveData(name, key, data) {
-        try {BdApi.setData(name, key, data);}
-        catch (err) {Logger.err(name, "Unable to save data: ", err);}
-    }
+    static saveData(name, key, data) {return Utilities.saveData(name, key, data);}
 
     /**
      * Loads settings through BetterDiscord's API.
      * @param {string} name - name for the file (usually plugin name)
      * @param {object} defaultData - default data to populate the object with
      * @returns {object} the combined saved and default settings
+     * @deprecated 1/21/22 Use Utilities or BdApi directly
     */
-    static loadSettings(name, defaultSettings) {
-        return this.loadData(name, "settings", defaultSettings);
-    }
+    static loadSettings(name, defaultSettings) {return Utilities.loadSettings(name, defaultSettings);}
 
     /**
      * Saves settings through BetterDiscord's API.
      * @param {string} name - name for the file (usually plugin name)
      * @param {object} data - settings to save
+     * @deprecated 1/21/22 Use Utilities or BdApi directly
     */
-    static saveSettings(name, data) {
-        this.saveData(name, "settings", data);
-    }
+    static saveSettings(name, data) {return Utilities.saveSettings(name, data);}
 
     /**
      * Get the full path to the BetterDiscord folder.
      * @returns {string} full path to the BetterDiscord folder
+     * @deprecated 1/21/22 Use BdApi
      */
     static getBDFolder(subtarget = "") {
         const process = __non_webpack_require__("process");
@@ -77,86 +68,61 @@ import DCM from "../ui/discordcontextmenu";
     /**
      * Get the full path to the plugins folder.
      * @returns {string} full path to the plugins folder
+     * @deprecated 1/21/22 Use BdApi
      */
-    static getPluginsFolder() {
-        return this.getBDFolder("plugins/");
-    }
+    static getPluginsFolder() {return BdApi.Plugins.folder;}
 
     /**
      * Get the full path to the themes folder.
      * @returns {string} full path to the themes folder
+     * @deprecated 1/21/22 Use BdApi
      */
-    static getThemesFolder() {
-        return this.getBDFolder("themes/");
-    }
+    static getThemesFolder() {return BdApi.Themes.folder;}
 
     /**
      * Adds a callback to a set of listeners for onSwitch.
      * @param {callable} callback - basic callback to happen on channel switch
+     * @deprecated 1/21/22 Use onSwitch
      */
-    static addOnSwitchListener(callback) {
-        __non_webpack_require__("electron").remote.getCurrentWebContents().on("did-navigate-in-page", callback);
-    }
+    static addOnSwitchListener() {}
 
     /**
      * Removes the listener added by {@link InternalUtilities.addOnSwitchListener}.
      * @param {callable} callback - callback to remove from the listener list
+     * @deprecated 1/21/22 Use onSwitch
      */
-    static removeOnSwitchListener(callback) {
-        __non_webpack_require__("electron").remote.getCurrentWebContents().removeListener("did-navigate-in-page", callback);
-    }
+    static removeOnSwitchListener() {}
 
     /**
      * Adds a style to the document.
      * @param {string} id - identifier to use as the element id
      * @param {string} css - css to add to the document
+     * @deprecated 1/21/22 Use DOMTools
      */
-    static addStyle(id, css) {
-        document.head.append(DOMTools.createElement(`<style id="${id}">${css}</style>`));
-    }
+    static addStyle(id, css) {return DOMTools.addStyle(id, css);}
 
     /**
      * Removes a style from the document.
      * @param {string} id - original identifier used
+     * @deprecated 1/21/22 Use DOMTools
      */
-    static removeStyle(id) {
-        const element = document.getElementById(id);
-        if (element) element.remove();
-    }
+    static removeStyle(id) {return DOMTools.removeStyle(id);}
 
     /**
      * Adds/requires a remote script to be loaded
      * @param {string} id - identifier to use for this script
      * @param {string} url - url from which to load the script
      * @returns {Promise} promise that resolves when the script is loaded
+     * @deprecated 1/21/22 Use DOMTools
      */
-    static addScript(id, url) {
-        return new Promise(resolve => {
-            const script = document.createElement("script");
-            script.id = id;
-            script.src = url;
-            script.type = "text/javascript";
-            script.onload = resolve;
-            document.head.append(script);
-        });
-    }
+    static addScript(id, url) {return DOMTools.addScript(id, url);}
 
     /**
      * Removes a remote script from the document.
      * @param {string} id - original identifier used
+     * @deprecated 1/21/22 Use DOMTools
      */
-    static removeScript(id) {
-        const element = document.getElementById(id);
-        if (element) element.remove();
-    }
-
-    static async getContextMenu(type) {
-        return DCM.getDiscordMenu(type);
-    }
-
-    static forceUpdateContextMenus() {
-        return DCM.forceUpdateMenus();
-    }
+    static removeScript(id) {return DOMTools.removeScript(id);}
 }
 
 

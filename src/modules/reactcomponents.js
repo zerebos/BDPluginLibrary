@@ -11,10 +11,10 @@
 */
 
 import Patcher from "./patcher";
-import Reflect from "./reflection";
 import Modules from "./discordmodules";
 import DOMTools from "./domtools";
 import ReactTools from "./reacttools";
+import Utilities from "./utilities";
 
 class ReactComponent {
     constructor(id, component, selector, filter) {
@@ -27,7 +27,9 @@ class ReactComponent {
     forceUpdateAll() {
         if (!this.selector) return;
         for (const e of document.querySelectorAll(this.selector)) {
-            Reflect(e).forceUpdate(this); // eslint-disable-line new-cap
+            const stateNode = Utilities.findInTree(ReactTools.getReactInstance(e), m => m && m.forceUpdate, {walkable: ["return", "stateNode"]});
+            if (!stateNode) continue;
+            stateNode.forceUpdate();
         }
     }
 }
@@ -109,10 +111,10 @@ export default class ReactComponents {
                 const elements = document.querySelectorAll(selector);
                 if (!elements.length) return;
 
-                let component, reflect;
+                let component;
                 for (const element of elements) {
-                    reflect = Reflect(element); // eslint-disable-line new-cap
-                    component = filter ? reflect.components.find(filter) : reflect.component;
+                    const componentsFound = ReactTools.getComponents(element);
+                    component = filter ? componentsFound.find(filter) : componentsFound[0];
                     if (component) break;
                 }
 
