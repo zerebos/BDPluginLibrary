@@ -2,7 +2,6 @@
  * Simple logger for the lib and plugins.
  * 
  * @module Logger
- * @version 0.1.0
  */
 
 /* eslint-disable no-console */

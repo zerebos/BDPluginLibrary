@@ -5,7 +5,6 @@
  * the same as the ones available in the module itself, but with the `element`
  * parameter bound to `this`.
  * @module DOMTools
- * @version 0.0.5
  */
 
 import {Selector, ClassName, DOMObserver} from "structs";

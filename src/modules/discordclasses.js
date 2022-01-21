@@ -21,7 +21,6 @@ const getClass = function(prop) {
  * 
  * @see module:DiscordClassModules
  * @module DiscordClasses
- * @version 0.1.0
  */
 const DiscordModules = new Proxy(DiscordClassModules, {
     get: function(list, item) {

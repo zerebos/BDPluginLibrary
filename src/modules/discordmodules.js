@@ -4,7 +4,6 @@
  * have the library installed or have a plugin using this library,
  * do `Object.keys(ZLibrary.DiscordModules)` in console for a list of modules.
  * @module DiscordModules
- * @version 0.0.3
  */
 import Utilities from "./utilities";
 import WebpackModules from "./webpackmodules";
@@ -24,7 +23,7 @@ export default Utilities.memoizeObject({
     get GuildMemberStore() {return WebpackModules.getByProps("getMember");},
     get MemberCountStore() {return WebpackModules.getByProps("getMemberCounts");},
     get GuildEmojiStore() {return WebpackModules.getByProps("getEmojis");},
-    get GuildActions() {return WebpackModules.getByProps("requestMembers");}, // apparently it's back
+    get GuildActions() {return WebpackModules.getByProps("requestMembers");},
     get GuildPermissions() {return WebpackModules.getByProps("getGuildPermissions");},
 
     /* Channel Store & Actions */
@@ -32,15 +31,11 @@ export default Utilities.memoizeObject({
     get SelectedChannelStore() {return WebpackModules.getByProps("getLastSelectedChannelId");},
     get ChannelActions() {return WebpackModules.getByProps("selectChannel");},
     get PrivateChannelActions() {return WebpackModules.getByProps("openPrivateChannel");},
-    // Absorbed into ChannelActions
-    // get ChannelSelector() {return WebpackModules.getByProps("selectGuild", "selectChannel");},
 
     /* Current User Info, State and Settings */
     get UserInfoStore() {return WebpackModules.getByProps("getSessionId");},
     get UserSettingsStore() {return WebpackModules.getByProps("guildPositions");},
     get StreamerModeStore() {return WebpackModules.getByProps("hidePersonalInformation");},
-    // Not really needed by plugins
-    // get AccountManager() {return WebpackModules.getByProps("register", "login");},
     get UserSettingsUpdater() {return WebpackModules.getByProps("updateRemoteSettings");},
     get OnlineWatcher() {return WebpackModules.getByProps("isOnline");},
     get CurrentUserIdle() {return WebpackModules.getByProps("isIdle");},
@@ -76,8 +71,6 @@ export default Utilities.memoizeObject({
     get TinyColor() {return WebpackModules.getByPrototypes("toRgb");},
     get ClassResolver() {return WebpackModules.getByProps("getClass");},
     get ButtonData() {return WebpackModules.getByProps("ButtonSizes");},
-    // They removed this
-    // get IconNames() {return WebpackModules.getByProps("IconNames");},
     get NavigationUtils() {return WebpackModules.getByProps("transitionTo", "replaceWith", "getHistory");},
 
     /* Discord Messages */
@@ -86,11 +79,6 @@ export default Utilities.memoizeObject({
     get MessageActions() {return WebpackModules.getByProps("jumpToMessage", "_sendMessage");},
     get MessageQueue() {return WebpackModules.getByProps("enqueue");},
     get MessageParser() {return WebpackModules.getModule(m => Object.keys(m).length && Object.keys(m).every(k => k === "parse" || k === "unparse"));},
-
-    /* In-Game Overlay */
-    // Plugins don't need these
-    // get OverlayUserPopoutSettings() {return WebpackModules.getByProps("openUserPopout");},
-    // get OverlayUserPopoutInfo() {return WebpackModules.getByProps("getOpenedUserPopout");},
 
     /* Experiments */
     get ExperimentStore() {return WebpackModules.getByProps("getExperimentOverrides");},
@@ -107,8 +95,6 @@ export default Utilities.memoizeObject({
     get AvatarDefaults() {return WebpackModules.getByProps("getUserAvatarURL", "DEFAULT_AVATARS");},
 
     /* Drag & Drop */
-    // No longer a part of their DND arch
-    // get DNDActions() {return WebpackModules.getByProps("beginDrag");},
     get DNDSources() {return WebpackModules.getByProps("addTarget");},
     get DNDObjects() {return WebpackModules.getByProps("DragSource");},
 
@@ -126,22 +112,16 @@ export default Utilities.memoizeObject({
     get DeviceStore() {return WebpackModules.getByProps("getDevices");},
     get SoftwareInfo() {return WebpackModules.getByProps("os");},
     get i18n() {return WebpackModules.getByProps("Messages", "languages");},
-    // Absorbed into Sentry
-    // get CurrentContext() {return WebpackModules.getByProps("setTagsContext");},
 
     /* Media Stuff (Audio/Video) */
     get MediaDeviceInfo() {return WebpackModules.getByProps("Codecs", "MediaEngineContextTypes");},
     get MediaInfo() {return WebpackModules.getByProps("getOutputVolume");},
     get MediaEngineInfo() {return WebpackModules.getByProps("determineMediaEngine");},
     get VoiceInfo() {return WebpackModules.getByProps("getEchoCancellation");},
-    // DNE with restructure
-    // get VideoStream() {return WebpackModules.getByProps("getVideoStream");},
     get SoundModule() {return WebpackModules.getByProps("playSound");},
 
     /* Window, DOM, HTML */
     get WindowInfo() {return WebpackModules.getByProps("isFocused", "windowSize");},
-    // Was never needed anyway
-    // get TagInfo() {return WebpackModules.getByProps("VALID_TAG_NAMES");},
     get DOMInfo() {return WebpackModules.getByProps("canUseDOM");},
 
     /* Locale/Location and Time */
@@ -166,8 +146,6 @@ export default Utilities.memoizeObject({
     /* DOM/React Components */
     /* ==================== */
     get LayerManager() {return WebpackModules.getByProps("popLayer", "pushLayer");},
-    // Restructured away
-    // get Tooltips() {return WebpackModules.find(m => m.hide && m.show && !m.search && !m.submit && !m.search && !m.activateRagingDemon && !m.dismiss);},
     get UserSettingsWindow() {return WebpackModules.getByProps("open", "updateAccount");},
     get ChannelSettingsWindow() {return WebpackModules.getByProps("open", "updateChannel");},
     get GuildSettingsWindow() {return WebpackModules.getByProps("open", "updateGuild");},
@@ -178,38 +156,16 @@ export default Utilities.memoizeObject({
     get UserProfileModals() {return WebpackModules.getByProps("fetchMutualFriends", "setSection");},
     get AlertModal() {return WebpackModules.getByPrototypes("handleCancel", "handleSubmit");},
     get ConfirmationModal() {return WebpackModules.findByDisplayName("ConfirmModal");},
-    // Grab with react components or open with UserProfileModals
-    // get UserProfileModal() {
-    //     return WebpackModules.find(m => {
-    //         try {return m.modalConfig && m.prototype.render().type.displayName == "FluxContainer(Component)";}
-    //         catch (err) {return false;}
-    //     });
-    // },
     get ChangeNicknameModal() {return WebpackModules.getByProps("open", "changeNickname");},
     get CreateChannelModal() {return WebpackModules.getByProps("open", "createChannel");},
     get PruneMembersModal() {return WebpackModules.getByProps("open", "prune");},
     get NotificationSettingsModal() {return WebpackModules.getByProps("open", "updateNotificationSettings");},
     get PrivacySettingsModal() {return WebpackModules.getModule(m => m.open && m.open.toString().includes("PRIVACY_SETTINGS_MODAL"));},
-    // No longer available
-    // get CreateInviteModal() {return WebpackModules.getByProps("open", "createInvite");},
     get Changelog() {return WebpackModules.getModule((m => m.defaultProps && m.defaultProps.selectable == false));},
-    // Grab with react components
-    // get Avatar() {
-    //     return WebpackModules.find(m => {
-    //         if (m.displayName != "FluxContainer(t)") return false;
-    //         try {
-    //             const temp = new m();
-    //             return temp.state && temp.state.hasOwnProperty("isFocused");
-    //         }
-    //         catch (err) {return false;}
-    //     });
-    // },
 
     /* Popouts */
     get PopoutStack() {return WebpackModules.getByProps("open", "close", "closeAll");},
     get PopoutOpener() {return WebpackModules.getByProps("openPopout");},
-    // Grab with react components
-    // get EmojiPicker() {return WebpackModules.getByDisplayName("FluxContainer(EmojiPicker)");},
     get UserPopout() {return WebpackModules.getModule(m => m.type.displayName === "UserPopoutContainer");},
 
     /* Context Menus */

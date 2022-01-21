@@ -18,7 +18,6 @@ import {DiscordModules} from "modules";
 /** 
  * Creates a slider/range using discord's built in slider.
  * @memberof module:Settings
- * @version 0.1.0
  * @extends module:Settings.SettingField
  */
 class Slider extends SettingField {
@@ -54,7 +53,7 @@ class Slider extends SettingField {
             handleSize: 10
         };
         if (options.fillStyles) props.fillStyles = options.fillStyles;
-        if (typeof(options.defaultValue) !== 'undefined') props.defaultValue = options.defaultValue;
+        if (typeof(options.defaultValue) !== "undefined") props.defaultValue = options.defaultValue;
         if (options.keyboardStep) props.keyboardStep = options.keyboardStep;
         if (options.markers) props.markers = options.markers;
         if (options.stickToMarkers) props.stickToMarkers = options.stickToMarkers;

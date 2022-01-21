@@ -1,7 +1,6 @@
 /**
  * Random set of utilities that didn't fit elsewhere.
  * @module WebpackModules
- * @version 0.0.2
  */
 import DiscordModules from "./discordmodules";
 import Logger from "./logger";

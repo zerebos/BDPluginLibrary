@@ -1,7 +1,6 @@
 /**
  * Helpful utilities for dealing with getting react information from DOM objects.
  * @module ReactTools
- * @version 0.0.5
  */
 
 import DOMTools from "./domtools";

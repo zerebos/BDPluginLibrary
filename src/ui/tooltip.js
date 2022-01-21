@@ -7,7 +7,6 @@
  * Discord's own tooltips as closely as possible.
  *
  * @module Tooltip
- * @version 1.0.0
  */
 
 import {DOMTools, DiscordClasses, DiscordSelectors, Logger, WebpackModules} from "modules";

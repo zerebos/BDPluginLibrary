@@ -7,20 +7,20 @@ import Utilities from "../modules/utilities";
 import DiscordModules from "../modules/discordmodules";
 import * as Settings from "../ui/settings";
 
-export default function(config) {
+export default function(meta) {
     return class Plugin {
         constructor() {
-            this._config = config;
+            this._config = meta;
             this._enabled = false;
-            if (typeof(config.defaultConfig) != "undefined") {
+            if (typeof(meta.defaultConfig) != "undefined") {
                 this.defaultSettings = {};
-                for (let s = 0; s < config.defaultConfig.length; s++) {
-                    const current = config.defaultConfig[s];
+                for (let s = 0; s < meta.defaultConfig.length; s++) {
+                    const current = meta.defaultConfig[s];
                     if (current.type != "category") {this.defaultSettings[current.id] = current.value;}
                     else {
                         this.defaultSettings[current.id] = {};
-                        for (let s = 0; s < current.settings.length; s++) {
-                            const subCurrent = current.settings[s];
+                        for (let si = 0; si < current.settings.length; si++) {
+                            const subCurrent = current.settings[si];
                             this.defaultSettings[current.id][subCurrent.id] = subCurrent.value;
                         }
                     }
@@ -118,8 +118,8 @@ export default function(config) {
                         this.settings[id][current.id] = value;
                     };
                     if (Object.keys(this.strings).length && this.strings.settings && this.strings.settings[id] && this.strings.settings[id][current.id]) {
-                        const {name, note} = this.strings.settings[id][current.id];
-                        current.name = name;
+                        const {settingName = name, note} = this.strings.settings[id][current.id];
+                        current.name = settingName;
                         current.note = note;
                     }
                     list.push(this.buildSetting(current));

@@ -1,7 +1,6 @@
 /**
  * Functions that check for and update existing plugins.
  * @module PluginUpdater
- * @version 0.1.2
  */
 
 import PluginUtilities from "./pluginutilities";

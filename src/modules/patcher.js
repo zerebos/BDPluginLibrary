@@ -5,7 +5,6 @@
  * This is a modified version of what we have been working on in BDv2. {@link https://github.com/JsSucks/BetterDiscordApp/blob/master/client/src/modules/patcher.js}
  *
  * @module Patcher
- * @version 0.0.2
  */
 
 import Logger from "./logger";

@@ -2,7 +2,6 @@
  * Toast maker similar to Android.
  * 
  * @module Toasts
- * @version 0.0.1
  */
 import {Utilities, DOMTools, DiscordSelectors} from "modules";
 import {Icons} from "ui";

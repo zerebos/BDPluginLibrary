@@ -11,7 +11,6 @@ import {DiscordModules} from "modules";
 /** 
  * Creates a dropdown using discord's built in dropdown.
  * @memberof module:Settings
- * @version 0.0.1
  * @extends module:Settings.SettingField
  */
 class Dropdown extends SettingField {

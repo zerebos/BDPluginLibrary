@@ -21,7 +21,6 @@ const getSelector = function(prop) {
  * 
  * @see module:DiscordClassModules
  * @module DiscordSelectors
- * @version 0.1.0
  */
 const DiscordSelectors = new Proxy(DiscordClassModules, {
     get: function(list, item) {

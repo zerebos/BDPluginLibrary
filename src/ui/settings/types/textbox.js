@@ -1,12 +1,9 @@
 import SettingField from "../settingfield";
 import {DiscordModules} from "modules";
 
-// TODO: Documentation
-
 /** 
  * Creates a textbox using discord's built in textbox.
  * @memberof module:Settings
- * @version 0.1.0
  * @extends module:Settings.SettingField
  */
 class Textbox extends SettingField {

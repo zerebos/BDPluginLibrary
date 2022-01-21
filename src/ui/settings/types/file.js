@@ -4,7 +4,6 @@ import {DiscordClasses, DOMTools} from "modules";
 /** 
  * Creates a file picker using chromium's default.
  * @memberof module:Settings
- * @version 0.0.1
  * @extends module:Settings.SettingField
  */
 class FilePicker extends SettingField {

@@ -13,7 +13,6 @@ import {DiscordModules} from "modules";
 /** 
  * Creates a radio group using discord's built in radios.
  * @memberof module:Settings
- * @version 0.0.1
  * @extends module:Settings.SettingField
  */
 class RadioGroup extends SettingField {

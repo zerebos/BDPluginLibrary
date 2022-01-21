@@ -10,7 +10,6 @@ const presetColors = [1752220, 3066993, 3447003, 10181046, 15277667, 15844367, 1
  * Creates a color picker using Discord's built in color picker
  * as a base. Input and output using hex strings.
  * @memberof module:Settings
- * @version 0.1.0
  * @extends module:Settings.SettingField
  */
 class ColorPicker extends SettingField {

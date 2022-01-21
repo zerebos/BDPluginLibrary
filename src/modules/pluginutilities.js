@@ -7,7 +7,6 @@ import DCM from "../ui/discordcontextmenu";
 /**
  * A series of useful functions for BetterDiscord plugins.
  * @module PluginUtilities
- * @version 0.2.5
  */
 
 

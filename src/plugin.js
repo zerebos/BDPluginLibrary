@@ -9,9 +9,8 @@ export default (BasePlugin, Library) => {
             const isBBDLoading = document.getElementsByClassName("bd-loaderv2").length;
             PluginUtilities.removeStyle("ZLibraryCSS");
             PluginUtilities.addStyle("ZLibraryCSS", Settings.CSS + Toasts.CSS + PluginUpdater.CSS);
-            ReactComponents.AutoPatcher.processAll();
-            ReactComponents.AutoPatcher.autoPatch();
-            DCM.patchComponents();
+            ReactComponents.initialize();
+            DCM.initialize();
             Popouts.initialize();
             
             /**
@@ -41,8 +40,8 @@ export default (BasePlugin, Library) => {
 
         _reloadPlugins() {
             const list = BdApi.Plugins.getAll().reduce((acc, val) => {
-                if (!val._config) return acc;
-                const name = val.getName();
+                if (!val.instance || !val.instance._config) return acc;
+                const name = val.name || val.instance.getName();
                 if (name === "ZeresPluginLibrary") return acc;
                 acc.push(name);
                 return acc;

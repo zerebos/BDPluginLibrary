@@ -1,7 +1,6 @@
 /**
  * Random set of utilities that didn't fit elsewhere.
  * @module Utilities
- * @version 0.0.2
  */
 
 import Logger from "./logger";

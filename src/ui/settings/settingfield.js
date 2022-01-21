@@ -7,7 +7,6 @@ const LayerProvider = WebpackModules.getByProps("AppReferencePositionLayer").App
 /** 
  * Setting field to extend to create new settings
  * @memberof module:Settings
- * @version 1.0.1
  */
 class SettingField extends Listenable {
     /**

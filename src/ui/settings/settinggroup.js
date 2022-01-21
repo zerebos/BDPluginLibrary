@@ -5,7 +5,6 @@ import SettingField from "./settingfield";
 /** 
  * Grouping of controls for easier management in settings panels.
  * @memberof module:Settings
- * @version 1.0.2
  */
 class SettingGroup extends Listenable {
     /**

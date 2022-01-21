@@ -1,7 +1,6 @@
 /**
  * Allows an easy way to create and show popouts.
  * @module Popouts
- * @version 0.0.1
  */
 
 import {Screen} from "structs";

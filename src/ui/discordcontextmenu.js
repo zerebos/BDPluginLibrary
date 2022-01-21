@@ -119,7 +119,6 @@ const ContextMenu = WebpackModules.getByProps("MenuRadioItem", "MenuItem");
 /**
  * A utility for building and rendering Discord's own menus.
  * @module DiscordContextMenu
- * @version 0.0.1
  */
 export default class DiscordContextMenu {
 
@@ -299,7 +298,7 @@ export default class DiscordContextMenu {
         }
     }
 
-    static patchComponents() {
+    static initialize() {
         Patcher.unpatchAll("DCM");
         this.patchMenuItem();
         this.patchToggleItem();

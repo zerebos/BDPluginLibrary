@@ -12,7 +12,6 @@ import WebpackModules from "./webpackmodules";
  * @see module:DiscordClasses
  * @see module:DiscordSelectors
  * @module DiscordClassModules
- * @version 0.0.2
  */
 export default Utilities.memoizeObject({
     get ContextMenu() {return WebpackModules.getByProps("menu", "item");},

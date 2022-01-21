@@ -21,7 +21,6 @@ class SwitchWrapper extends DiscordModules.React.Component {
 /** 
  * Creates a switch using discord's built in switch.
  * @memberof module:Settings
- * @version 0.1.0
  * @extends module:Settings.SettingField
  */
 class Switch extends SettingField {

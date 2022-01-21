@@ -1,7 +1,6 @@
 /**
  * Helpful utilities for dealing with colors.
  * @module ColorConverter
- * @version 0.0.2
  */
 
 import WebpackModules from "./webpackmodules";

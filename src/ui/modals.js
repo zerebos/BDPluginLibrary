@@ -1,7 +1,6 @@
 /**
  * Allows an easy way to create and show modals.
  * @module Modals
- * @version 0.0.1
  */
 
 import {DiscordModules, DiscordClasses, WebpackModules} from "modules";

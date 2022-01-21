@@ -1,7 +1,6 @@
 /**
  * An object that makes generating settings panel 10x easier.
  * @module Settings
- * @version 1.1.2
  */
 
 export {default as CSS} from "../../styles/settings.css";
