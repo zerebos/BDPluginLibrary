@@ -1,9 +1,10 @@
+<!-- start:readme.hbs -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-		<title>Modals~Changelog</title>
+		<title>Getting Started</title>
 		<!--[if lt IE 9]>
 		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
@@ -119,8 +120,8 @@
 	</header>
 	<!-- end:navbar.hbs -->		<div class="page-header">
 			<div class="container">
-				<span class="kind">interface</span>
-				<h1><span class="ancestors"><a href="module-Modals.html">Modals</a>~</span><span class="name">Changelog</span></h1>
+				<span class="kind">tutorial</span>
+				<h1><span class="title">Getting Started</span></h1>
 			</div>
 		</div>
 	<div class="container content">
@@ -128,93 +129,100 @@
 			<div class="col-md-9 main-content">
 						<ol class="breadcrumb">
 							<li><a href="index.html">Home</a></li>
-							<li><a href="list_interface.html">Interfaces</a></li>
-							<li class="active"><a href="module-Modals.html">Modals</a>~Changelog</li>
+							<li><a href="list_tutorial.html">Tutorials</a></li>
+							<li class="active">Getting Started</li>
 						</ol>
-					<section>
-							<dl class="symbol primary">
-								<dt class="symbol-title interface collapsible-symbol expanded">
-			<h2 class="interface"><span class="name">Changelog</span></h2>
-</dt>
-<dd class="symbol-details interface  collapsible-symbol expanded" style="max-height: 9999px;">
-	<div class="symbol-details-inner">
-			<div class="callout callout-info">
-				<h5>Properties</h5>
-				<table class="params table table-striped">
-					<thead>
-					<tr>
-							<th>Name</th>
-						<th>Type</th>
-							<th>Attributes</th>
-							<th>Default</th>
-						<th class="last">Description</th>
-					</tr>
-					</thead>
-					<tbody>
-						<tr>
-								<td><code>title</code></td>
-							<td><span class="param-type">string</span></td>
-								<td class="attributes"></td>
-								<td></td>
-							<td class="last">
-									<p>title of the changelog section</p>
-							</td>
-						</tr>
-						<tr>
-								<td><code>type</code></td>
-							<td><span class="param-type">string</span></td>
-								<td class="attributes">&lt;optional&gt;<br/></td>
-								<td>added</td>
-							<td class="last">
-									<p>type information of the section. Options: added, improved, fixed, progress.</p>
-							</td>
-						</tr>
-						<tr>
-								<td><code>items</code></td>
-							<td><span class="param-type">Array.&lt;string></span></td>
-								<td class="attributes"></td>
-								<td></td>
-							<td class="last">
-									<p>itemized list of items to show in that section. Can use markdown.</p>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-							<!-- source -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Source</label>
-								<div class="col-sm-9">
-									<p class="form-control-static"><a href="ui_modals.js.html">ui/modals.js</a>, <a href="ui_modals.js.html#line-70">line 70</a></p>
-								</div>
-							</div>
-			
-			
-			
-			
-					</form>
-			</div>	</div>
-</dd>
-							</dl>
-							<article class="secondary">
-							</article>
-					</section>
+		<section class="tutorial-section">
+			<article><h1>Getting Started</h1>
+<h2>Building The Library</h2>
+<pre class="prettyprint source"><code>npm install
+npm run build_lib
+</code></pre>
+<p>This generates a BD compatible 0PluginLibrary.plugin.js file to be added to your plugins folder.</p>
+<h2>Library Overview</h2>
+<p>The library consists of several Modules that provide a large amount of functionality to plugins. You may wish to do <code>console.dir(ZLibrary)</code> in console (after adding <code>0PluginLibrary.plugin.js</code>) to get a better feel for the structure of the library. Most of what is seen as a member of that object can be found in the Modules dropdown above.</p>
+<p>Below is a brief comparison between the different ways to use the library.</p>
+<h3>BDv1 Style Plugins</h3>
+<p>You can require the local <code>0PluginLibrary.plugin.js</code>. See the <a href="#creating-bdv1-style-plugins">section below</a> for details.</p>
+<h3>BDv2 Style Plugins</h3>
+<p>If you want to make BDv2 style plugins that will make the transition to BDv2 easier check out <a href="#creating-bdv2-style-plugins">this section</a> below. Like the BDv1 style, the BDv2 style plugins can remotely link the library or require the local copy. However there are several additional benefits to using BDv2 style over BDv1 style such as wrapped methods that automatically provide plugin information and the base <code>Plugin</code> object that your plugin extends from. This base plugin adds a lot of functionality to your plugin such as automatic setting panel generation, setting/data management, string (and locale) management, checking for updates (and alerting the user when needed), changelogs, and of course automatically filling BDv1 function requirements like <code>getName()</code>, <code>getVersion()</code> and so on.</p>
+<h3>Development Utility</h3>
+<p>Perhaps the easiest way to use the library is to not make a plugin with it, but to put <code>./release/0PluginLibrary.plugin.js</code> in your BD plugins folder and using the global <code>ZLibrary</code> object to help you develop other plugins, or just explore functionality of either this library or of Discord's internals. Obviously you can combine this with the two above.</p>
+<h2>Using The Library</h2>
+<h3>Creating BDv1 Style Plugins</h3>
+<p>There are two ways to use this library while keeping the plugin in BDv1 style. Either by requiring the user to have the local lib installed (recommended) or my remotely linking the library.</p>
+<p>When creating plugins in this format, the modules listed in the dropdown above will be available on the <code>ZLibrary</code> global object as shown in the skeletons below.</p>
+<h4>Using Library Plugin</h4>
+<p>Here's what the skeleton for a V1 plugin using the local library would look like:</p>
+<pre class="prettyprint source lang-js"><code>//META{&quot;name&quot;:&quot;ExampleLibraryPlugin&quot;}*//
+
+class ExampleLibraryPlugin {
+    getName() {return &quot;ExampleLibraryPlugin&quot;;}
+    getDescription() {return &quot;Does things with the library&quot;;}
+    getVersion() {return &quot;0.0.1&quot;;}
+    getAuthor() {return &quot;Myself&quot;;}
+
+    start() {
+        if (!global.ZeresPluginLibrary) return window.BdApi.alert(&quot;Library Missing&quot;,`The library plugin needed for ${this.getName()} is missing.&lt;br />&lt;br /> &lt;a href=&quot;https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js&quot; target=&quot;_blank&quot;>Click here to download the library!&lt;/a>`);
+        ZLibrary.PluginUpdater.checkForUpdate(this.getName(), this.getVersion(), &quot;LINK_TO_RAW_CODE&quot;);
+    }
+
+    stop() {
+
+	}
+}
+</code></pre>
+<h3>Creating BDv2 Style Plugins</h3>
+<p>The only required functions in V2 are <code>onStart</code> and <code>onStop</code> which fire when the plugin is started and stopped respectively. The config is also required.</p>
+<p>See the example plugin in <code>examples/ExamplePlugin</code>. Note how it does not check for updates in <code>onStart</code> instead the base class <code>Plugin</code> automatically checks for updates using the <code>github_raw</code> in the <code>config.json</code>.</p>
+<p>All plugin styles will set the meta using the plugin name for <code>name</code>. <code>github</code> and <code>github_raw</code> will be used as <code>website</code> and <code>source</code> options in the meta.</p>
+<p>When creating plugins in this format, the modules listed in the dropdown above will be available in the <code>Library</code> object as shown in the skeletons below.</p>
+<h4>Skeleton <code>index.js</code></h4>
+<pre class="prettyprint source lang-js"><code>module.exports = (Plugin, Library) => {
+    const {Patcher} = Library;
+    return class ExamplePlugin extends Plugin {
+
+        onStart() {
+            Patcher.before(Logger, &quot;log&quot;, (t, a) => {
+                a[0] = &quot;Patched Message: &quot; + a[0];
+            });
+        }
+
+        onStop() {
+            Patcher.unpatchAll();
+        }
+    };
+};
+</code></pre>
+<h4>Skeleton <code>config.json</code></h4>
+<pre class="prettyprint source lang-json"><code>{
+    &quot;info&quot;: {
+        &quot;name&quot;: &quot;Example Plugin&quot;,
+        &quot;authors&quot;: [{
+            &quot;name&quot;: &quot;Zerebos&quot;,
+            &quot;discord_id&quot;: &quot;249746236008169473&quot;,
+            &quot;github_username&quot;: &quot;rauenzi&quot;,
+            &quot;twitter_username&quot;: &quot;IAmZerebos&quot;
+        }],
+        &quot;version&quot;: &quot;0.0.3&quot;,
+        &quot;description&quot;: &quot;Patcher Test Description&quot;,
+        &quot;github&quot;: &quot;&quot;,
+        &quot;github_raw&quot;: &quot;&quot;
+    },
+    &quot;changelog&quot;: [
+        {&quot;title&quot;: &quot;New Stuff&quot;, &quot;items&quot;: [&quot;Added more settings&quot;, &quot;Added changelog&quot;]},
+        {&quot;title&quot;: &quot;Bugs Squashed&quot;, &quot;type&quot;: &quot;fixed&quot;, &quot;items&quot;: [&quot;React errors on reload&quot;]},
+        {&quot;title&quot;: &quot;Improvements&quot;, &quot;type&quot;: &quot;improved&quot;, &quot;items&quot;: [&quot;Improvements to the base plugin&quot;]},
+        {&quot;title&quot;: &quot;On-going&quot;, &quot;type&quot;: &quot;progress&quot;, &quot;items&quot;: [&quot;More modals and popouts being added&quot;, &quot;More classes and modules being added&quot;]}
+    ],
+    &quot;main&quot;: &quot;index.js&quot;
+}
+</code></pre>
+<h4>Using Library Plugin</h4>
+<p>To build all plugins in <code>plugins</code> folder, run <code>npm run build_plugin</code>. To build a single plugin run <code>npm run build_plugin PluginName</code>. This will yield <code>PluginName.plugin.js</code> in the <code>releases</code> folder with the same meta as outlined in the template. The resulting file will automatically check if the plugin library exists, and alert the user if it does not giving them a link to download it.</p>
+<h4>Building Library Into Plugins (larger file sizes)</h4>
+<p>To pack a plugin run <code>npm run build_plugin_packed PluginName</code>. This will produce a single <code>PluginName.plugin.js</code> file in the <code>releases</code> folder with the basic meta up top. This version will include all lib functions internally. To pack all plugins in the <code>plugins</code> folder run <code>npm run build_plugin_packed</code> without arguments.</p></article>
+		</section>
 			</div>
 				<div class="col-md-3 side-content">
 					<nav class="toc hidden-print hidden-sm hidden-xs"></nav>
@@ -250,3 +258,4 @@
 	
 </body>
 </html>
+<!-- end:readme.hbs -->

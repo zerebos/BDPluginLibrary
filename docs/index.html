@@ -38,28 +38,13 @@
 								<li class="dropdown">
 									<a href="list_class.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 									<ul class="dropdown-menu">
-											<li><a href="List.html">List</a></li>
 											<li><a href="Listenable.html">Listenable</a></li>
-											<li><a href="module-ContextMenu.ImageItem.html">ContextMenu.ImageItem</a></li>
-											<li><a href="module-ContextMenu.ItemGroup.html">ContextMenu.ItemGroup</a></li>
-											<li><a href="module-ContextMenu.Menu.html">ContextMenu.Menu</a></li>
-											<li><a href="module-ContextMenu.MenuItem.html">ContextMenu.MenuItem</a></li>
-											<li><a href="module-ContextMenu.SubMenuItem.html">ContextMenu.SubMenuItem</a></li>
-											<li><a href="module-ContextMenu.TextItem.html">ContextMenu.TextItem</a></li>
-											<li><a href="module-ContextMenu.ToggleItem.html">ContextMenu.ToggleItem</a></li>
-											<li><a href="module-DiscordAPI.Channel.html">DiscordAPI.Channel</a></li>
-											<li><a href="module-DiscordAPI.Guild.html">DiscordAPI.Guild</a></li>
-											<li><a href="module-DiscordAPI.InsufficientPermissions.html">DiscordAPI.InsufficientPermissions</a></li>
-											<li><a href="module-DiscordAPI.Message.html">DiscordAPI.Message</a></li>
-											<li><a href="module-DiscordAPI.User.html">DiscordAPI.User</a></li>
-											<li><a href="module-DiscordAPI.UserSettings.html">DiscordAPI.UserSettings</a></li>
 											<li><a href="module-DOMTools.ClassName.html">DOMTools.ClassName</a></li>
 											<li><a href="module-DOMTools.DOMObserver.html">DOMTools.DOMObserver</a></li>
 											<li><a href="module-DOMTools.Selector.html">DOMTools.Selector</a></li>
 											<li><a href="module-Settings.ColorPicker.html">Settings.ColorPicker</a></li>
 											<li><a href="module-Settings.Dropdown.html">Settings.Dropdown</a></li>
 											<li><a href="module-Settings.FilePicker.html">Settings.FilePicker</a></li>
-											<li><a href="module-Settings.Keybind.html">Settings.Keybind</a></li>
 											<li><a href="module-Settings.RadioGroup.html">Settings.RadioGroup</a></li>
 											<li><a href="module-Settings.SettingField.html">Settings.SettingField</a></li>
 											<li><a href="module-Settings.SettingGroup.html">Settings.SettingGroup</a></li>
@@ -67,6 +52,7 @@
 											<li><a href="module-Settings.Slider.html">Settings.Slider</a></li>
 											<li><a href="module-Settings.Switch.html">Settings.Switch</a></li>
 											<li><a href="module-Settings.Textbox.html">Settings.Textbox</a></li>
+											<li><a href="module-Settings=.Keybind.html">Settings=.Keybind</a></li>
 											<li><a href="module-Tooltip_module_Tooltip.html">Tooltip>module:Tooltip</a></li>
 											<li><a href="module-WebpackModules.Filters.html">WebpackModules.Filters</a></li>
 											<li><a href="Screen.html">Screen</a></li>
@@ -90,15 +76,12 @@
 									<a href="list_module.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
 									<ul class="dropdown-menu">
 											<li><a href="module-ColorConverter.html">ColorConverter</a></li>
-											<li><a href="module-ContextMenu.html">ContextMenu</a></li>
-											<li><a href="module-DiscordAPI.html">DiscordAPI</a></li>
 											<li><a href="module-DiscordClasses.html">DiscordClasses</a></li>
 											<li><a href="module-DiscordClassModules.html">DiscordClassModules</a></li>
 											<li><a href="module-DiscordContextMenu.html">DiscordContextMenu</a></li>
 											<li><a href="module-DiscordModules.html">DiscordModules</a></li>
 											<li><a href="module-DiscordSelectors.html">DiscordSelectors</a></li>
 											<li><a href="module-DOMTools.html">DOMTools</a></li>
-											<li><a href="module-EmulatedTooltip.html">EmulatedTooltip</a></li>
 											<li><a href="module-Logger.html">Logger</a></li>
 											<li><a href="module-Modals.html">Modals</a></li>
 											<li><a href="module-Patcher.html">Patcher</a></li>
@@ -112,6 +95,12 @@
 											<li><a href="module-Tooltip.html">Tooltip</a></li>
 											<li><a href="module-Utilities.html">Utilities</a></li>
 											<li><a href="module-WebpackModules.html">WebpackModules</a></li>
+									</ul>
+								</li>
+								<li class="dropdown">
+									<a href="list_tutorial.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="tutorial-getting-started.html">Getting Started</a></li>
 									</ul>
 								</li>
 				</ul>
@@ -141,94 +130,42 @@
 		<section class="readme-section">
 			<article><h1>PluginLibrary</h1>
 <p>This is the documentation for Zere's Plugin Library. I recommend going through the namespaces located on the right hand side so you can get an idea of how the library is organized. From the namespaces you can get to the classes, members, and objects of each. All of those will have their own page with all the relevant functions and member functions documented with brief explanations for them.</p>
-<h2>Building The Library</h2>
-<pre class="prettyprint source"><code>npm install
-npm run build_lib
-</code></pre>
-<p>This generates a BD compatible 0PluginLibrary.plugin.js file to be added to your plugins folder.</p>
-<h2>Library Overview</h2>
-<p>The library consists of several Modules that provide a large amount of functionality to plugins. You may wish to do <code>console.dir(ZLibrary)</code> in console (after adding <code>0PluginLibrary.plugin.js</code>) to get a better feel for the structure of the library. Most of what is seen as a member of that object can be found in the Modules dropdown above.</p>
-<p>Below is a brief comparison between the different ways to use the library.</p>
-<h3>BDv1 Style Plugins</h3>
-<p>You can remotely link this library or require the local <code>0PluginLibrary.plugin.js</code>. See the <a href="#creating-bdv1-style-plugins">section below</a> for details.</p>
-<h3>BDv2 Style Plugins</h3>
-<p>If you want to make BDv2 style plugins that will make the transition to BDv2 easier check out <a href="#creating-bdv2-style-plugins">this section</a> below. Like the BDv1 style, the BDv2 style plugins can remotely link the library or require the local copy. However there are several additional benefits to using BDv2 style over BDv1 style such as wrapped methods that automatically provide plugin information and the base <code>Plugin</code> object that your plugin extends from. This base plugin adds a lot of functionality to your plugin such as automatic setting panel generation, setting/data management, string (and locale) management, checking for updates (and alerting the user when needed), changelogs, and of course automatically filling BDv1 function requirements like <code>getName()</code>, <code>getVersion()</code> and so on.</p>
-<h3>Development Utility</h3>
-<p>Perhaps the easiest way to use the library is to not make a plugin with it, but to put <code>./release/0PluginLibrary.plugin.js</code> in your BD plugins folder and using the global <code>ZLibrary</code> object to help you develop other plugins, or just explore functionality of either this library or of Discord's internals. Obviously you can combine this with the two above.</p>
-<h2>Using The Library</h2>
-<h3>Creating BDv1 Style Plugins</h3>
-<p>There are two ways to use this library while keeping the plugin in BDv1 style. Either by requiring the user to have the local lib installed (recommended) or my remotely linking the library.</p>
-<p>When creating plugins in this format, the modules listed in the dropdown above will be available on the <code>ZLibrary</code> global object as shown in the skeletons below.</p>
-<h4>Using Library Plugin</h4>
-<p>Here's what the skeleton for a V1 plugin using the local library would look like:</p>
-<pre class="prettyprint source lang-js"><code>//META{&quot;name&quot;:&quot;ExampleLibraryPlugin&quot;}*//
-
-class ExampleLibraryPlugin {
-    getName() {return &quot;ExampleLibraryPlugin&quot;;}
-    getDescription() {return &quot;Does things with the library&quot;;}
-    getVersion() {return &quot;0.0.1&quot;;}
-    getAuthor() {return &quot;Myself&quot;;}
-
-    start() {
-        if (!global.ZeresPluginLibrary) return window.BdApi.alert(&quot;Library Missing&quot;,`The library plugin needed for ${this.getName()} is missing.&lt;br />&lt;br /> &lt;a href=&quot;https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js&quot; target=&quot;_blank&quot;>Click here to download the library!&lt;/a>`);
-        ZLibrary.PluginUpdater.checkForUpdate(this.getName(), this.getVersion(), &quot;LINK_TO_RAW_CODE&quot;);
-    }
-
-    stop() {
-
-	}
-}
-</code></pre>
-<h3>Creating BDv2 Style Plugins</h3>
-<p>The only required functions in V2 are <code>onStart</code> and <code>onStop</code> which fire when the plugin is started and stopped respectively. The config is also required.</p>
-<p>See the example plugin in <code>examples/ExamplePlugin</code>. Note how it does not check for updates in <code>onStart</code> instead the base class <code>Plugin</code> automatically checks for updates using the <code>github_raw</code> in the <code>config.json</code>.</p>
-<p>All plugin styles will set the meta using the plugin name for <code>name</code>. <code>github</code> and <code>github_raw</code> will be used as <code>website</code> and <code>source</code> options in the meta.</p>
-<p>When creating plugins in this format, the modules listed in the dropdown above will be available in the <code>Library</code> object as shown in the skeletons below.</p>
-<h4>Skeleton <code>index.js</code></h4>
-<pre class="prettyprint source lang-js"><code>module.exports = (Plugin, Library) => {
-    const {Patcher} = Library;
-    return class ExamplePlugin extends Plugin {
-
-        onStart() {
-            Patcher.before(Logger, &quot;log&quot;, (t, a) => {
-                a[0] = &quot;Patched Message: &quot; + a[0];
-            });
-        }
-
-        onStop() {
-            Patcher.unpatchAll();
-        }
-    };
-};
-</code></pre>
-<h4>Skeleton <code>config.json</code></h4>
-<pre class="prettyprint source lang-json"><code>{
-    &quot;info&quot;: {
-        &quot;name&quot;: &quot;Example Plugin&quot;,
-        &quot;authors&quot;: [{
-            &quot;name&quot;: &quot;Zerebos&quot;,
-            &quot;discord_id&quot;: &quot;249746236008169473&quot;,
-            &quot;github_username&quot;: &quot;rauenzi&quot;,
-            &quot;twitter_username&quot;: &quot;ZackRauen&quot;
-        }],
-        &quot;version&quot;: &quot;0.0.3&quot;,
-        &quot;description&quot;: &quot;Patcher Test Description&quot;,
-        &quot;github&quot;: &quot;&quot;,
-        &quot;github_raw&quot;: &quot;&quot;
-    },
-    &quot;changelog&quot;: [
-        {&quot;title&quot;: &quot;New Stuff&quot;, &quot;items&quot;: [&quot;Added more settings&quot;, &quot;Added changelog&quot;]},
-        {&quot;title&quot;: &quot;Bugs Squashed&quot;, &quot;type&quot;: &quot;fixed&quot;, &quot;items&quot;: [&quot;React errors on reload&quot;]},
-        {&quot;title&quot;: &quot;Improvements&quot;, &quot;type&quot;: &quot;improved&quot;, &quot;items&quot;: [&quot;Improvements to the base plugin&quot;]},
-        {&quot;title&quot;: &quot;On-going&quot;, &quot;type&quot;: &quot;progress&quot;, &quot;items&quot;: [&quot;More modals and popouts being added&quot;, &quot;More classes and modules being added&quot;]}
-    ],
-    &quot;main&quot;: &quot;index.js&quot;
-}
-</code></pre>
-<h4>Using Library Plugin</h4>
-<p>To build all plugins in <code>plugins</code> folder, run <code>npm run build_plugin</code>. To build a single plugin run <code>npm run build_plugin PluginName</code>. This will yield <code>PluginName.plugin.js</code> in the <code>releases</code> folder with the same meta as outlined in the template. The resulting file will automatically check if the plugin library exists, and alert the user if it does not giving them a link to download it.</p>
-<h4>Building Library Into Plugins (larger file sizes)</h4>
-<p>To pack a plugin run <code>npm run build_plugin_packed PluginName</code>. This will produce a single <code>PluginName.plugin.js</code> file in the <code>releases</code> folder with the basic meta up top. This version will include all lib functions internally. To pack all plugins in the <code>plugins</code> folder run <code>npm run build_plugin_packed</code> without arguments.</p></article>
+<p>If you are looking for some initial information on how to get started with the library check out: <a href="tutorial-getting-started.html">Getting Started</a></p>
+<h2>What's New in 2.0.0?</h2>
+<h3>Added</h3>
+<ul>
+<li>Replacement popout opener available at <code>Popouts.openPopout</code>. (Thanks Strencher!)</li>
+<li>New color picker component (<code>Components.ColorPicker</code>) for settings or general use. (Thanks Strencher!)</li>
+<li>Webpack chunk listener (<code>WebpackModules.addListener</code>), useful for patching lazy loaded components. (Thanks Strencher!)</li>
+</ul>
+<h3>Changed</h3>
+<ul>
+<li>The old <code>EmulatedTooltip</code> has taken over as the <code>Tooltip</code> module.</li>
+<li><code>DiscordContextMenu</code> is now aliased to <code>ContextMenu</code> on the library.</li>
+<li><code>PluginUtilities</code> module was <strong>deprecated</strong>. Some functions moved places in the library. Please see the docs for the module for alternatives.</li>
+<li><code>Screen</code> struct was <strong>deprecated</strong>, the values can now be found on <code>DOMTools</code>.</li>
+</ul>
+<h3>Removed</h3>
+<ul>
+<li>All deprecated items have been removed (enumerated below).</li>
+<li>Remote library is no longer supported <strong>at all</strong>.</li>
+<li><code>DiscordAPI</code> module has been entirely removed.</li>
+<li>Old <code>ContextMenu</code> using DOM manipulation has been removed.</li>
+<li><code>DOMTools</code> no longer pollutes the <code>HTMLElement</code> prototype.</li>
+<li><code>Utilities.fileExists</code> and <code>Utilities.readFile</code> were removed.</li>
+<li><code>Reflection</code> module was removed, so <code>ReactTools.Reflect</code> was as well.</li>
+<li><code>ReactComponents.Helpers</code> and <code>ReactComponents.AutoPatcher</code> were both removed, were not meant for plugin use anyways.</li>
+</ul>
+<h3>Fixed</h3>
+<ul>
+<li><code>DiscordContextMenu.getDiscordMenu()</code> now works again.</li>
+<li>Changelog modals work again.</li>
+<li>Toasts have returned to their usual position.</li>
+<li><code>SettingField</code> uses the correct layer container.</li>
+<li>Keybind settings work again.</li>
+<li>Dropdowns work again. (Thanks Qb!)</li>
+<li><code>Popouts.showUserPopout()</code> works again.</li>
+</ul></article>
 		</section>
 			</div>
 				<div class="col-md-3 side-content">
@@ -238,7 +175,7 @@ class ExampleLibraryPlugin {
 	</div>
 	<footer>
 				<div class="copyright">Copyright © 2018-2020 Zack Rauen</div>
-			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.4</a> using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
+			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
 	</footer>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>

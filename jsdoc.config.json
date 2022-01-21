@@ -5,7 +5,8 @@
   "opts": {
     "template": "node_modules/foodoc/template",
     "destination": "./docs",
-    "readme": "./DOCS.md"
+    "readme": "./DOCS.md",
+    "tutorials": "./tutorials"
   },
   "plugins": [
     "plugins/markdown"

@@ -38,28 +38,13 @@
 								<li class="dropdown">
 									<a href="list_class.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 									<ul class="dropdown-menu">
-											<li><a href="List.html">List</a></li>
 											<li><a href="Listenable.html">Listenable</a></li>
-											<li><a href="module-ContextMenu.ImageItem.html">ContextMenu.ImageItem</a></li>
-											<li><a href="module-ContextMenu.ItemGroup.html">ContextMenu.ItemGroup</a></li>
-											<li><a href="module-ContextMenu.Menu.html">ContextMenu.Menu</a></li>
-											<li><a href="module-ContextMenu.MenuItem.html">ContextMenu.MenuItem</a></li>
-											<li><a href="module-ContextMenu.SubMenuItem.html">ContextMenu.SubMenuItem</a></li>
-											<li><a href="module-ContextMenu.TextItem.html">ContextMenu.TextItem</a></li>
-											<li><a href="module-ContextMenu.ToggleItem.html">ContextMenu.ToggleItem</a></li>
-											<li><a href="module-DiscordAPI.Channel.html">DiscordAPI.Channel</a></li>
-											<li><a href="module-DiscordAPI.Guild.html">DiscordAPI.Guild</a></li>
-											<li><a href="module-DiscordAPI.InsufficientPermissions.html">DiscordAPI.InsufficientPermissions</a></li>
-											<li><a href="module-DiscordAPI.Message.html">DiscordAPI.Message</a></li>
-											<li><a href="module-DiscordAPI.User.html">DiscordAPI.User</a></li>
-											<li><a href="module-DiscordAPI.UserSettings.html">DiscordAPI.UserSettings</a></li>
 											<li><a href="module-DOMTools.ClassName.html">DOMTools.ClassName</a></li>
 											<li><a href="module-DOMTools.DOMObserver.html">DOMTools.DOMObserver</a></li>
 											<li><a href="module-DOMTools.Selector.html">DOMTools.Selector</a></li>
 											<li><a href="module-Settings.ColorPicker.html">Settings.ColorPicker</a></li>
 											<li><a href="module-Settings.Dropdown.html">Settings.Dropdown</a></li>
 											<li><a href="module-Settings.FilePicker.html">Settings.FilePicker</a></li>
-											<li><a href="module-Settings.Keybind.html">Settings.Keybind</a></li>
 											<li><a href="module-Settings.RadioGroup.html">Settings.RadioGroup</a></li>
 											<li><a href="module-Settings.SettingField.html">Settings.SettingField</a></li>
 											<li><a href="module-Settings.SettingGroup.html">Settings.SettingGroup</a></li>
@@ -67,6 +52,7 @@
 											<li><a href="module-Settings.Slider.html">Settings.Slider</a></li>
 											<li><a href="module-Settings.Switch.html">Settings.Switch</a></li>
 											<li><a href="module-Settings.Textbox.html">Settings.Textbox</a></li>
+											<li><a href="module-Settings=.Keybind.html">Settings=.Keybind</a></li>
 											<li><a href="module-Tooltip_module_Tooltip.html">Tooltip>module:Tooltip</a></li>
 											<li><a href="module-WebpackModules.Filters.html">WebpackModules.Filters</a></li>
 											<li><a href="Screen.html">Screen</a></li>
@@ -90,15 +76,12 @@
 									<a href="list_module.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
 									<ul class="dropdown-menu">
 											<li><a href="module-ColorConverter.html">ColorConverter</a></li>
-											<li><a href="module-ContextMenu.html">ContextMenu</a></li>
-											<li><a href="module-DiscordAPI.html">DiscordAPI</a></li>
 											<li><a href="module-DiscordClasses.html">DiscordClasses</a></li>
 											<li><a href="module-DiscordClassModules.html">DiscordClassModules</a></li>
 											<li><a href="module-DiscordContextMenu.html">DiscordContextMenu</a></li>
 											<li><a href="module-DiscordModules.html">DiscordModules</a></li>
 											<li><a href="module-DiscordSelectors.html">DiscordSelectors</a></li>
 											<li><a href="module-DOMTools.html">DOMTools</a></li>
-											<li><a href="module-EmulatedTooltip.html">EmulatedTooltip</a></li>
 											<li><a href="module-Logger.html">Logger</a></li>
 											<li><a href="module-Modals.html">Modals</a></li>
 											<li><a href="module-Patcher.html">Patcher</a></li>
@@ -112,6 +95,12 @@
 											<li><a href="module-Tooltip.html">Tooltip</a></li>
 											<li><a href="module-Utilities.html">Utilities</a></li>
 											<li><a href="module-WebpackModules.html">WebpackModules</a></li>
+									</ul>
+								</li>
+								<li class="dropdown">
+									<a href="list_tutorial.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="tutorial-getting-started.html">Getting Started</a></li>
 									</ul>
 								</li>
 				</ul>
@@ -143,14 +132,12 @@
 			<pre class="prettyprint source language-javascript line-numbers"><code class="language-javascript">/**
  * Functions that check for and update existing plugins.
  * @module PluginUpdater
- * @version 0.1.2
  */
 
-import PluginUtilities from "./pluginutilities";
 import DOMTools from "./domtools";
 import Logger from "./logger";
 import DiscordClasses from "./discordclasses";
-import {EmulatedTooltip, Toasts} from "ui";
+import {Tooltip, Toasts} from "ui";
 
 import CSS from "../styles/updates.css";
 
@@ -282,7 +269,7 @@ export default class PluginUpdater {
             Toasts.info("Plugin update check in progress.");
             window.PluginUpdates.checkAll().then(() => {Toasts.success("Plugin update check complete.");});
         };
-        const tooltip = new EmulatedTooltip(updateButton, "Checks for updates of plugins that support this feature. Right-click for a list.");
+        const tooltip = new Tooltip(updateButton, "Checks for updates of plugins that support this feature. Right-click for a list.");
         updateButton.oncontextmenu = function () {
             if (!window.PluginUpdates || !window.PluginUpdates.plugins) return;
             tooltip.label = Object.values(window.PluginUpdates.plugins).map(p => p.name).join(", ");
@@ -312,7 +299,7 @@ export default class PluginUpdater {
             const remoteVersion = window.PluginUpdates.plugins[updateLink].versioner(body);
             let filename = updateLink.split("/");
             filename = filename[filename.length - 1];
-            const file = path.join(PluginUtilities.getPluginsFolder(), filename);
+            const file = path.join(BdApi.Plugins.folder, filename);
             await new Promise(r => fileSystem.writeFile(file, body, r));
             Toasts.success(`${pluginName} ${window.PluginUpdates.plugins[updateLink].version} has been replaced by ${pluginName} ${remoteVersion}`);
             this.removeUpdateNotice(pluginName);
@@ -321,7 +308,7 @@ export default class PluginUpdater {
             if (!window.PluginUpdates.downloaded) {
                 window.PluginUpdates.downloaded = [];
                 const button = DOMTools.parseHTML(`&lt;button class="btn btn-reload ${DiscordClasses.Notices.buttonMinor} ${DiscordClasses.Notices.button}">Reload&lt;/button>`);
-                const tooltip = new EmulatedTooltip(button, window.PluginUpdates.downloaded.join(", "), {side: "top"});
+                const tooltip = new Tooltip(button, window.PluginUpdates.downloaded.join(", "), {side: "top"});
                 button.addEventListener("click", (e) => {
                     e.preventDefault();
                     window.location.reload(false);
@@ -364,7 +351,7 @@ export default class PluginUpdater {
         if (document.getElementById("outdatedPlugins").querySelectorAll("span").length) document.getElementById("outdatedPlugins").append(DOMTools.createElement("&lt;span class='separator'>, &lt;/span>"));
         document.getElementById("outdatedPlugins").append(pluginNoticeElement);
 
-        const tooltip = new EmulatedTooltip(pluginNoticeElement, "Click To Update!", {side: "bottom"});
+        const tooltip = new Tooltip(pluginNoticeElement, "Click To Update!", {side: "bottom"});
 
         // If this is the first one added, show the tooltip immediately.
         if (document.getElementById("outdatedPlugins").querySelectorAll("span").length === 1) tooltip.show();
@@ -397,7 +384,7 @@ export default class PluginUpdater {
 	</div>
 	<footer>
 				<div class="copyright">Copyright © 2018-2020 Zack Rauen</div>
-			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.4</a> using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
+			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
 	</footer>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>

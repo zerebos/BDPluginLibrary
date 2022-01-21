@@ -38,28 +38,13 @@
 								<li class="dropdown">
 									<a href="list_class.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 									<ul class="dropdown-menu">
-											<li><a href="List.html">List</a></li>
 											<li><a href="Listenable.html">Listenable</a></li>
-											<li><a href="module-ContextMenu.ImageItem.html">ContextMenu.ImageItem</a></li>
-											<li><a href="module-ContextMenu.ItemGroup.html">ContextMenu.ItemGroup</a></li>
-											<li><a href="module-ContextMenu.Menu.html">ContextMenu.Menu</a></li>
-											<li><a href="module-ContextMenu.MenuItem.html">ContextMenu.MenuItem</a></li>
-											<li><a href="module-ContextMenu.SubMenuItem.html">ContextMenu.SubMenuItem</a></li>
-											<li><a href="module-ContextMenu.TextItem.html">ContextMenu.TextItem</a></li>
-											<li><a href="module-ContextMenu.ToggleItem.html">ContextMenu.ToggleItem</a></li>
-											<li><a href="module-DiscordAPI.Channel.html">DiscordAPI.Channel</a></li>
-											<li><a href="module-DiscordAPI.Guild.html">DiscordAPI.Guild</a></li>
-											<li><a href="module-DiscordAPI.InsufficientPermissions.html">DiscordAPI.InsufficientPermissions</a></li>
-											<li><a href="module-DiscordAPI.Message.html">DiscordAPI.Message</a></li>
-											<li><a href="module-DiscordAPI.User.html">DiscordAPI.User</a></li>
-											<li><a href="module-DiscordAPI.UserSettings.html">DiscordAPI.UserSettings</a></li>
 											<li><a href="module-DOMTools.ClassName.html">DOMTools.ClassName</a></li>
 											<li><a href="module-DOMTools.DOMObserver.html">DOMTools.DOMObserver</a></li>
 											<li><a href="module-DOMTools.Selector.html">DOMTools.Selector</a></li>
 											<li><a href="module-Settings.ColorPicker.html">Settings.ColorPicker</a></li>
 											<li><a href="module-Settings.Dropdown.html">Settings.Dropdown</a></li>
 											<li><a href="module-Settings.FilePicker.html">Settings.FilePicker</a></li>
-											<li><a href="module-Settings.Keybind.html">Settings.Keybind</a></li>
 											<li><a href="module-Settings.RadioGroup.html">Settings.RadioGroup</a></li>
 											<li><a href="module-Settings.SettingField.html">Settings.SettingField</a></li>
 											<li><a href="module-Settings.SettingGroup.html">Settings.SettingGroup</a></li>
@@ -67,6 +52,7 @@
 											<li><a href="module-Settings.Slider.html">Settings.Slider</a></li>
 											<li><a href="module-Settings.Switch.html">Settings.Switch</a></li>
 											<li><a href="module-Settings.Textbox.html">Settings.Textbox</a></li>
+											<li><a href="module-Settings=.Keybind.html">Settings=.Keybind</a></li>
 											<li><a href="module-Tooltip_module_Tooltip.html">Tooltip>module:Tooltip</a></li>
 											<li><a href="module-WebpackModules.Filters.html">WebpackModules.Filters</a></li>
 											<li><a href="Screen.html">Screen</a></li>
@@ -90,15 +76,12 @@
 									<a href="list_module.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
 									<ul class="dropdown-menu">
 											<li><a href="module-ColorConverter.html">ColorConverter</a></li>
-											<li><a href="module-ContextMenu.html">ContextMenu</a></li>
-											<li><a href="module-DiscordAPI.html">DiscordAPI</a></li>
 											<li><a href="module-DiscordClasses.html">DiscordClasses</a></li>
 											<li><a href="module-DiscordClassModules.html">DiscordClassModules</a></li>
 											<li><a href="module-DiscordContextMenu.html">DiscordContextMenu</a></li>
 											<li><a href="module-DiscordModules.html">DiscordModules</a></li>
 											<li><a href="module-DiscordSelectors.html">DiscordSelectors</a></li>
 											<li><a href="module-DOMTools.html">DOMTools</a></li>
-											<li><a href="module-EmulatedTooltip.html">EmulatedTooltip</a></li>
 											<li><a href="module-Logger.html">Logger</a></li>
 											<li><a href="module-Modals.html">Modals</a></li>
 											<li><a href="module-Patcher.html">Patcher</a></li>
@@ -112,6 +95,12 @@
 											<li><a href="module-Tooltip.html">Tooltip</a></li>
 											<li><a href="module-Utilities.html">Utilities</a></li>
 											<li><a href="module-WebpackModules.html">WebpackModules</a></li>
+									</ul>
+								</li>
+								<li class="dropdown">
+									<a href="list_tutorial.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="tutorial-getting-started.html">Getting Started</a></li>
 									</ul>
 								</li>
 				</ul>
@@ -146,7 +135,6 @@
  * have the library installed or have a plugin using this library,
  * do `Object.keys(ZLibrary.DiscordModules)` in console for a list of modules.
  * @module DiscordModules
- * @version 0.0.3
  */
 import Utilities from "./utilities";
 import WebpackModules from "./webpackmodules";
@@ -166,7 +154,7 @@ export default Utilities.memoizeObject({
     get GuildMemberStore() {return WebpackModules.getByProps("getMember");},
     get MemberCountStore() {return WebpackModules.getByProps("getMemberCounts");},
     get GuildEmojiStore() {return WebpackModules.getByProps("getEmojis");},
-    get GuildActions() {return WebpackModules.getByProps("requestMembers");}, // apparently it's back
+    get GuildActions() {return WebpackModules.getByProps("requestMembers");},
     get GuildPermissions() {return WebpackModules.getByProps("getGuildPermissions");},
 
     /* Channel Store &amp; Actions */
@@ -174,14 +162,11 @@ export default Utilities.memoizeObject({
     get SelectedChannelStore() {return WebpackModules.getByProps("getLastSelectedChannelId");},
     get ChannelActions() {return WebpackModules.getByProps("selectChannel");},
     get PrivateChannelActions() {return WebpackModules.getByProps("openPrivateChannel");},
-    // Absorbed into ChannelActions
-    // get ChannelSelector() {return WebpackModules.getByProps("selectGuild", "selectChannel");},
 
     /* Current User Info, State and Settings */
     get UserInfoStore() {return WebpackModules.getByProps("getSessionId");},
     get UserSettingsStore() {return WebpackModules.getByProps("guildPositions");},
-    // Not really needed by plugins
-    // get AccountManager() {return WebpackModules.getByProps("register", "login");},
+    get StreamerModeStore() {return WebpackModules.getByProps("hidePersonalInformation");},
     get UserSettingsUpdater() {return WebpackModules.getByProps("updateRemoteSettings");},
     get OnlineWatcher() {return WebpackModules.getByProps("isOnline");},
     get CurrentUserIdle() {return WebpackModules.getByProps("isIdle");},
@@ -190,7 +175,7 @@ export default Utilities.memoizeObject({
     get MentionStore() {return WebpackModules.getByProps("getMentions");},
 
     /* User Stores and Utils */
-    get UserStore() {return WebpackModules.getByProps("getCurrentUser");},
+    get UserStore() {return WebpackModules.getByProps("getCurrentUser", "getUser");},
     get UserStatusStore() {return WebpackModules.getByProps("getStatus", "getState");},
     get UserTypingStore() {return WebpackModules.getByProps("isTyping");},
     get UserActivityStore() {return WebpackModules.getByProps("getActivity");},
@@ -217,20 +202,14 @@ export default Utilities.memoizeObject({
     get TinyColor() {return WebpackModules.getByPrototypes("toRgb");},
     get ClassResolver() {return WebpackModules.getByProps("getClass");},
     get ButtonData() {return WebpackModules.getByProps("ButtonSizes");},
-    // They removed this
-    // get IconNames() {return WebpackModules.getByProps("IconNames");},
     get NavigationUtils() {return WebpackModules.getByProps("transitionTo", "replaceWith", "getHistory");},
 
     /* Discord Messages */
-    get MessageStore() {return WebpackModules.getByProps("getMessages");},
+    get MessageStore() {return WebpackModules.getByProps("getMessage", "getMessages");},
+    get ReactionsStore() {return WebpackModules.getByProps("getReactions", "_dispatcher");},
     get MessageActions() {return WebpackModules.getByProps("jumpToMessage", "_sendMessage");},
     get MessageQueue() {return WebpackModules.getByProps("enqueue");},
     get MessageParser() {return WebpackModules.getModule(m => Object.keys(m).length &amp;&amp; Object.keys(m).every(k => k === "parse" || k === "unparse"));},
-
-    /* In-Game Overlay */
-    // Plugins don't need these
-    // get OverlayUserPopoutSettings() {return WebpackModules.getByProps("openUserPopout");},
-    // get OverlayUserPopoutInfo() {return WebpackModules.getByProps("getOpenedUserPopout");},
 
     /* Experiments */
     get ExperimentStore() {return WebpackModules.getByProps("getExperimentOverrides");},
@@ -247,13 +226,12 @@ export default Utilities.memoizeObject({
     get AvatarDefaults() {return WebpackModules.getByProps("getUserAvatarURL", "DEFAULT_AVATARS");},
 
     /* Drag &amp; Drop */
-    // No longer a part of their DND arch
-    // get DNDActions() {return WebpackModules.getByProps("beginDrag");},
     get DNDSources() {return WebpackModules.getByProps("addTarget");},
     get DNDObjects() {return WebpackModules.getByProps("DragSource");},
 
     /* Electron &amp; Other Internals with Utils*/
     get ElectronModule() {return WebpackModules.getByProps("setBadge");},
+    get Flux() {return WebpackModules.getByProps("Store", "connectStores");},
     get Dispatcher() {return WebpackModules.getByProps("dirtyDispatch");},
     get PathUtils() {return WebpackModules.getByProps("hasBasename");},
     get NotificationModule() {return WebpackModules.getByProps("showNotification");},
@@ -264,32 +242,27 @@ export default Utilities.memoizeObject({
     get Buffers() {return WebpackModules.getByProps("Buffer", "kMaxLength");},
     get DeviceStore() {return WebpackModules.getByProps("getDevices");},
     get SoftwareInfo() {return WebpackModules.getByProps("os");},
-    // Absorbed into Sentry
-    // get CurrentContext() {return WebpackModules.getByProps("setTagsContext");},
+    get i18n() {return WebpackModules.getByProps("Messages", "languages");},
 
     /* Media Stuff (Audio/Video) */
     get MediaDeviceInfo() {return WebpackModules.getByProps("Codecs", "MediaEngineContextTypes");},
     get MediaInfo() {return WebpackModules.getByProps("getOutputVolume");},
     get MediaEngineInfo() {return WebpackModules.getByProps("determineMediaEngine");},
     get VoiceInfo() {return WebpackModules.getByProps("getEchoCancellation");},
-    // DNE with restructure
-    // get VideoStream() {return WebpackModules.getByProps("getVideoStream");},
     get SoundModule() {return WebpackModules.getByProps("playSound");},
 
     /* Window, DOM, HTML */
     get WindowInfo() {return WebpackModules.getByProps("isFocused", "windowSize");},
-    // Was never needed anyway
-    // get TagInfo() {return WebpackModules.getByProps("VALID_TAG_NAMES");},
     get DOMInfo() {return WebpackModules.getByProps("canUseDOM");},
 
     /* Locale/Location and Time */
-    get LocaleManager() {return WebpackModules.getByProps("setLocale");},
+    get LocaleManager() {return WebpackModules.getModule(m => m.Messages &amp;&amp; Object.keys(m.Messages).length);},
     get Moment() {return WebpackModules.getByProps("parseZone");},
     get LocationManager() {return WebpackModules.getByProps("createLocation");},
     get Timestamps() {return WebpackModules.getByProps("fromTimestamp");},
 
     /* Strings and Utils */
-    get Strings() {return WebpackModules.getByProps("Messages").Messages;},
+    get Strings() {return WebpackModules.getModule(m => m.Messages &amp;&amp; Object.keys(m.Messages).length);},
     get StringFormats() {return WebpackModules.getByProps("a", "z");},
     get StringUtils() {return WebpackModules.getByProps("toASCII");},
 
@@ -304,8 +277,6 @@ export default Utilities.memoizeObject({
     /* DOM/React Components */
     /* ==================== */
     get LayerManager() {return WebpackModules.getByProps("popLayer", "pushLayer");},
-    // Restructured away
-    // get Tooltips() {return WebpackModules.find(m => m.hide &amp;&amp; m.show &amp;&amp; !m.search &amp;&amp; !m.submit &amp;&amp; !m.search &amp;&amp; !m.activateRagingDemon &amp;&amp; !m.dismiss);},
     get UserSettingsWindow() {return WebpackModules.getByProps("open", "updateAccount");},
     get ChannelSettingsWindow() {return WebpackModules.getByProps("open", "updateChannel");},
     get GuildSettingsWindow() {return WebpackModules.getByProps("open", "updateGuild");},
@@ -316,39 +287,17 @@ export default Utilities.memoizeObject({
     get UserProfileModals() {return WebpackModules.getByProps("fetchMutualFriends", "setSection");},
     get AlertModal() {return WebpackModules.getByPrototypes("handleCancel", "handleSubmit");},
     get ConfirmationModal() {return WebpackModules.findByDisplayName("ConfirmModal");},
-    // Grab with react components or open with UserProfileModals
-    // get UserProfileModal() {
-    //     return WebpackModules.find(m => {
-    //         try {return m.modalConfig &amp;&amp; m.prototype.render().type.displayName == "FluxContainer(Component)";}
-    //         catch (err) {return false;}
-    //     });
-    // },
     get ChangeNicknameModal() {return WebpackModules.getByProps("open", "changeNickname");},
     get CreateChannelModal() {return WebpackModules.getByProps("open", "createChannel");},
     get PruneMembersModal() {return WebpackModules.getByProps("open", "prune");},
     get NotificationSettingsModal() {return WebpackModules.getByProps("open", "updateNotificationSettings");},
     get PrivacySettingsModal() {return WebpackModules.getModule(m => m.open &amp;&amp; m.open.toString().includes("PRIVACY_SETTINGS_MODAL"));},
-    // No longer available
-    // get CreateInviteModal() {return WebpackModules.getByProps("open", "createInvite");},
     get Changelog() {return WebpackModules.getModule((m => m.defaultProps &amp;&amp; m.defaultProps.selectable == false));},
-    // Grab with react components
-    // get Avatar() {
-    //     return WebpackModules.find(m => {
-    //         if (m.displayName != "FluxContainer(t)") return false;
-    //         try {
-    //             const temp = new m();
-    //             return temp.state &amp;&amp; temp.state.hasOwnProperty("isFocused");
-    //         }
-    //         catch (err) {return false;}
-    //     });
-    // },
 
     /* Popouts */
     get PopoutStack() {return WebpackModules.getByProps("open", "close", "closeAll");},
     get PopoutOpener() {return WebpackModules.getByProps("openPopout");},
-    // Grab with react components
-    // get EmojiPicker() {return WebpackModules.getByDisplayName("FluxContainer(EmojiPicker)");},
-    get UserPopout() {return WebpackModules.getByDisplayName("UserPopout");},
+    get UserPopout() {return WebpackModules.getModule(m => m.type.displayName === "UserPopoutContainer");},
 
     /* Context Menus */
     get ContextMenuActions() {return WebpackModules.getByProps("openContextMenu");},
@@ -358,29 +307,49 @@ export default Utilities.memoizeObject({
     /* Misc */
     get ExternalLink() {return WebpackModules.getByRegex(/trusted/);},
     get TextElement() {return WebpackModules.getByDisplayName("Text");},
+    get Anchor() {return WebpackModules.getByDisplayName("Anchor");},
+    get Flex() {return WebpackModules.getByDisplayName("Flex");},
     get FlexChild() {return WebpackModules.getByProps("Child");},
+    get Clickable() {return WebpackModules.getByDisplayName("Clickable");},
     get Titles() {return WebpackModules.getByProps("Tags", "default");},
+    get HeaderBar() {return WebpackModules.getByDisplayName("HeaderBar");},
+    get TabBar() {return WebpackModules.getByDisplayName("TabBar");},
+    get Tooltip() {return WebpackModules.getByProps("TooltipContainer").TooltipContainer;},
+    get Spinner() {return WebpackModules.getByDisplayName("Spinner");},
+
+    /* Forms */
+    get FormTitle() {return WebpackModules.getByDisplayName("FormTitle");},
+    get FormSection() {return WebpackModules.getByDisplayName("FormSection");},
+    get FormNotice() {return WebpackModules.getByDisplayName("FormNotice");},
+
+    /* Scrollers */
+    get ScrollerThin() {return WebpackModules.getByProps("ScrollerThin").ScrollerThin;},
+    get ScrollerAuto() {return WebpackModules.getByProps("ScrollerAuto").ScrollerAuto;},
+    get AdvancedScrollerThin() {return WebpackModules.getByProps("AdvancedScrollerThin").AdvancedScrollerThin;},
+    get AdvancedScrollerAuto() {return WebpackModules.getByProps("AdvancedScrollerAuto").AdvancedScrollerAuto;},
+    get AdvancedScrollerNone() {return WebpackModules.getByProps("AdvancedScrollerNone").AdvancedScrollerNone;},
 
     /* Settings */
     get SettingsWrapper() {return WebpackModules.getByDisplayName("FormItem");},
     get SettingsNote() {return WebpackModules.getByDisplayName("FormText");},
     get SettingsDivider() {return WebpackModules.getModule(m => !m.defaultProps &amp;&amp; m.prototype &amp;&amp; m.prototype.render &amp;&amp; m.prototype.render.toString().includes("default.divider"));},
 
-    get ColorPicker() {return WebpackModules.getByDisplayName("ColorPicker");}, // Loaded by Discord on demand
-    get Dropdown() {return WebpackModules.getModule(m => m.prototype &amp;&amp; !m.prototype.handleClick &amp;&amp; m.prototype.render &amp;&amp; m.prototype.render.toString().includes("default.select"));},
+    get ColorPicker() {return WebpackModules.getModule(m => m.displayName === "ColorPicker" &amp;&amp; m.defaultProps);},
+    get Dropdown() {return WebpackModules.getByProps("SingleSelect").SingleSelect;},
     get Keybind() {return WebpackModules.getByPrototypes("handleComboChange");},
     get RadioGroup() {return WebpackModules.getByDisplayName("RadioGroup");},
     get Slider() {return WebpackModules.getByPrototypes("renderMark");},
     get SwitchRow() {return WebpackModules.getByDisplayName("SwitchItem");},
     get Textbox() {return WebpackModules.getModule(m => m.defaultProps &amp;&amp; m.defaultProps.type == "text");},
-});</code></pre>
+});
+</code></pre>
 		</section>
 			</div>
 		</div>
 	</div>
 	<footer>
 				<div class="copyright">Copyright © 2018-2020 Zack Rauen</div>
-			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.4</a> using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
+			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
 	</footer>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>

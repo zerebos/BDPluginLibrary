@@ -38,28 +38,13 @@
 								<li class="dropdown">
 									<a href="list_class.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 									<ul class="dropdown-menu">
-											<li><a href="List.html">List</a></li>
 											<li><a href="Listenable.html">Listenable</a></li>
-											<li><a href="module-ContextMenu.ImageItem.html">ContextMenu.ImageItem</a></li>
-											<li><a href="module-ContextMenu.ItemGroup.html">ContextMenu.ItemGroup</a></li>
-											<li><a href="module-ContextMenu.Menu.html">ContextMenu.Menu</a></li>
-											<li><a href="module-ContextMenu.MenuItem.html">ContextMenu.MenuItem</a></li>
-											<li><a href="module-ContextMenu.SubMenuItem.html">ContextMenu.SubMenuItem</a></li>
-											<li><a href="module-ContextMenu.TextItem.html">ContextMenu.TextItem</a></li>
-											<li><a href="module-ContextMenu.ToggleItem.html">ContextMenu.ToggleItem</a></li>
-											<li><a href="module-DiscordAPI.Channel.html">DiscordAPI.Channel</a></li>
-											<li><a href="module-DiscordAPI.Guild.html">DiscordAPI.Guild</a></li>
-											<li><a href="module-DiscordAPI.InsufficientPermissions.html">DiscordAPI.InsufficientPermissions</a></li>
-											<li><a href="module-DiscordAPI.Message.html">DiscordAPI.Message</a></li>
-											<li><a href="module-DiscordAPI.User.html">DiscordAPI.User</a></li>
-											<li><a href="module-DiscordAPI.UserSettings.html">DiscordAPI.UserSettings</a></li>
 											<li><a href="module-DOMTools.ClassName.html">DOMTools.ClassName</a></li>
 											<li><a href="module-DOMTools.DOMObserver.html">DOMTools.DOMObserver</a></li>
 											<li><a href="module-DOMTools.Selector.html">DOMTools.Selector</a></li>
 											<li><a href="module-Settings.ColorPicker.html">Settings.ColorPicker</a></li>
 											<li><a href="module-Settings.Dropdown.html">Settings.Dropdown</a></li>
 											<li><a href="module-Settings.FilePicker.html">Settings.FilePicker</a></li>
-											<li><a href="module-Settings.Keybind.html">Settings.Keybind</a></li>
 											<li><a href="module-Settings.RadioGroup.html">Settings.RadioGroup</a></li>
 											<li><a href="module-Settings.SettingField.html">Settings.SettingField</a></li>
 											<li><a href="module-Settings.SettingGroup.html">Settings.SettingGroup</a></li>
@@ -67,6 +52,7 @@
 											<li><a href="module-Settings.Slider.html">Settings.Slider</a></li>
 											<li><a href="module-Settings.Switch.html">Settings.Switch</a></li>
 											<li><a href="module-Settings.Textbox.html">Settings.Textbox</a></li>
+											<li><a href="module-Settings=.Keybind.html">Settings=.Keybind</a></li>
 											<li><a href="module-Tooltip_module_Tooltip.html">Tooltip>module:Tooltip</a></li>
 											<li><a href="module-WebpackModules.Filters.html">WebpackModules.Filters</a></li>
 											<li><a href="Screen.html">Screen</a></li>
@@ -90,15 +76,12 @@
 									<a href="list_module.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
 									<ul class="dropdown-menu">
 											<li><a href="module-ColorConverter.html">ColorConverter</a></li>
-											<li><a href="module-ContextMenu.html">ContextMenu</a></li>
-											<li><a href="module-DiscordAPI.html">DiscordAPI</a></li>
 											<li><a href="module-DiscordClasses.html">DiscordClasses</a></li>
 											<li><a href="module-DiscordClassModules.html">DiscordClassModules</a></li>
 											<li><a href="module-DiscordContextMenu.html">DiscordContextMenu</a></li>
 											<li><a href="module-DiscordModules.html">DiscordModules</a></li>
 											<li><a href="module-DiscordSelectors.html">DiscordSelectors</a></li>
 											<li><a href="module-DOMTools.html">DOMTools</a></li>
-											<li><a href="module-EmulatedTooltip.html">EmulatedTooltip</a></li>
 											<li><a href="module-Logger.html">Logger</a></li>
 											<li><a href="module-Modals.html">Modals</a></li>
 											<li><a href="module-Patcher.html">Patcher</a></li>
@@ -112,6 +95,12 @@
 											<li><a href="module-Tooltip.html">Tooltip</a></li>
 											<li><a href="module-Utilities.html">Utilities</a></li>
 											<li><a href="module-WebpackModules.html">WebpackModules</a></li>
+									</ul>
+								</li>
+								<li class="dropdown">
+									<a href="list_tutorial.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="tutorial-getting-started.html">Getting Started</a></li>
 									</ul>
 								</li>
 				</ul>
@@ -147,7 +136,6 @@ import Patcher from "../modules/patcher";
 import Utilities from "../modules/utilities";
 import DiscordClasses from "../modules/discordclasses";
 import DOMTools from "../modules/domtools";
-import Logger from "../modules/logger";
 
 // d = e.label,
 // f = e.icon,
@@ -262,7 +250,6 @@ const ContextMenu = WebpackModules.getByProps("MenuRadioItem", "MenuItem");
 /**
  * A utility for building and rendering Discord's own menus.
  * @module DiscordContextMenu
- * @version 0.0.1
  */
 export default class DiscordContextMenu {
 
@@ -407,20 +394,25 @@ export default class DiscordContextMenu {
     /**
      * Attempts to find and return a specific context menu type's module. Useful
      * when patching the render of these menus.
-     * @param {string} type - name of the context menu type
+     * @param {string | Function} nameOrFilter - name of the context menu type
      * @returns {Promise&lt;object>} the webpack module the menu was found in
      */
-    static async getDiscordMenu() {
-        Logger.warn("DiscordContextMenu", "This function no longer applies, please update your plugin.");
-        // return new Promise(resolve => {
-        //     const cancel = Patcher.after("ZeresLibrary.DiscordContextMenu", ContextMenuActions, "openContextMenu", (_, [, component]) => {
-        //         const rendered = component();
-        //         const menuType = rendered.props &amp;&amp; rendered.props.type || (rendered.type &amp;&amp; rendered.type.displayName);
-        //         if (!menuType || typeof(menuType) != "string" || !menuType.includes(type)) return;
-        //         cancel();
-        //         return resolve(WebpackModules.getModule(m => m.default == rendered.type));
-        //     });
-        // });
+    static getDiscordMenu(nameOrFilter) {
+        if (typeof(nameOrFilter) !== "function") {
+            const displayName = nameOrFilter;
+            nameOrFilter = (m) => m &amp;&amp; m.displayName === displayName;
+        }
+
+        const directMatch = WebpackModules.getModule(m => m.default &amp;&amp; nameOrFilter(m.default));
+        if (directMatch) return Promise.resolve(directMatch);
+
+        return new Promise(resolve => {
+            const cancel = WebpackModules.addListener(module => {
+                if (!module.default || !nameOrFilter(module.default)) return;
+                resolve(module);
+                cancel();
+            });
+        });
     }
 
     /**
@@ -437,7 +429,7 @@ export default class DiscordContextMenu {
         }
     }
 
-    static patchComponents() {
+    static initialize() {
         Patcher.unpatchAll("DCM");
         this.patchMenuItem();
         this.patchToggleItem();
@@ -481,7 +473,7 @@ export default class DiscordContextMenu {
 	</div>
 	<footer>
 				<div class="copyright">Copyright © 2018-2020 Zack Rauen</div>
-			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.4</a> using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
+			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
 	</footer>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>

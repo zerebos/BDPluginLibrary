@@ -263,7 +263,7 @@ export default class DiscordContextMenu {
     /**
      * Attempts to find and return a specific context menu type's module. Useful
      * when patching the render of these menus.
-     * @param {string | (module: any) => boolean} nameOrFilter - name of the context menu type
+     * @param {string | Function} nameOrFilter - name of the context menu type
      * @returns {Promise<object>} the webpack module the menu was found in
      */
     static getDiscordMenu(nameOrFilter) {

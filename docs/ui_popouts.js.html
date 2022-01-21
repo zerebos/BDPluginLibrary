@@ -38,28 +38,13 @@
 								<li class="dropdown">
 									<a href="list_class.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 									<ul class="dropdown-menu">
-											<li><a href="List.html">List</a></li>
 											<li><a href="Listenable.html">Listenable</a></li>
-											<li><a href="module-ContextMenu.ImageItem.html">ContextMenu.ImageItem</a></li>
-											<li><a href="module-ContextMenu.ItemGroup.html">ContextMenu.ItemGroup</a></li>
-											<li><a href="module-ContextMenu.Menu.html">ContextMenu.Menu</a></li>
-											<li><a href="module-ContextMenu.MenuItem.html">ContextMenu.MenuItem</a></li>
-											<li><a href="module-ContextMenu.SubMenuItem.html">ContextMenu.SubMenuItem</a></li>
-											<li><a href="module-ContextMenu.TextItem.html">ContextMenu.TextItem</a></li>
-											<li><a href="module-ContextMenu.ToggleItem.html">ContextMenu.ToggleItem</a></li>
-											<li><a href="module-DiscordAPI.Channel.html">DiscordAPI.Channel</a></li>
-											<li><a href="module-DiscordAPI.Guild.html">DiscordAPI.Guild</a></li>
-											<li><a href="module-DiscordAPI.InsufficientPermissions.html">DiscordAPI.InsufficientPermissions</a></li>
-											<li><a href="module-DiscordAPI.Message.html">DiscordAPI.Message</a></li>
-											<li><a href="module-DiscordAPI.User.html">DiscordAPI.User</a></li>
-											<li><a href="module-DiscordAPI.UserSettings.html">DiscordAPI.UserSettings</a></li>
 											<li><a href="module-DOMTools.ClassName.html">DOMTools.ClassName</a></li>
 											<li><a href="module-DOMTools.DOMObserver.html">DOMTools.DOMObserver</a></li>
 											<li><a href="module-DOMTools.Selector.html">DOMTools.Selector</a></li>
 											<li><a href="module-Settings.ColorPicker.html">Settings.ColorPicker</a></li>
 											<li><a href="module-Settings.Dropdown.html">Settings.Dropdown</a></li>
 											<li><a href="module-Settings.FilePicker.html">Settings.FilePicker</a></li>
-											<li><a href="module-Settings.Keybind.html">Settings.Keybind</a></li>
 											<li><a href="module-Settings.RadioGroup.html">Settings.RadioGroup</a></li>
 											<li><a href="module-Settings.SettingField.html">Settings.SettingField</a></li>
 											<li><a href="module-Settings.SettingGroup.html">Settings.SettingGroup</a></li>
@@ -67,6 +52,7 @@
 											<li><a href="module-Settings.Slider.html">Settings.Slider</a></li>
 											<li><a href="module-Settings.Switch.html">Settings.Switch</a></li>
 											<li><a href="module-Settings.Textbox.html">Settings.Textbox</a></li>
+											<li><a href="module-Settings=.Keybind.html">Settings=.Keybind</a></li>
 											<li><a href="module-Tooltip_module_Tooltip.html">Tooltip>module:Tooltip</a></li>
 											<li><a href="module-WebpackModules.Filters.html">WebpackModules.Filters</a></li>
 											<li><a href="Screen.html">Screen</a></li>
@@ -90,15 +76,12 @@
 									<a href="list_module.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
 									<ul class="dropdown-menu">
 											<li><a href="module-ColorConverter.html">ColorConverter</a></li>
-											<li><a href="module-ContextMenu.html">ContextMenu</a></li>
-											<li><a href="module-DiscordAPI.html">DiscordAPI</a></li>
 											<li><a href="module-DiscordClasses.html">DiscordClasses</a></li>
 											<li><a href="module-DiscordClassModules.html">DiscordClassModules</a></li>
 											<li><a href="module-DiscordContextMenu.html">DiscordContextMenu</a></li>
 											<li><a href="module-DiscordModules.html">DiscordModules</a></li>
 											<li><a href="module-DiscordSelectors.html">DiscordSelectors</a></li>
 											<li><a href="module-DOMTools.html">DOMTools</a></li>
-											<li><a href="module-EmulatedTooltip.html">EmulatedTooltip</a></li>
 											<li><a href="module-Logger.html">Logger</a></li>
 											<li><a href="module-Modals.html">Modals</a></li>
 											<li><a href="module-Patcher.html">Patcher</a></li>
@@ -112,6 +95,12 @@
 											<li><a href="module-Tooltip.html">Tooltip</a></li>
 											<li><a href="module-Utilities.html">Utilities</a></li>
 											<li><a href="module-WebpackModules.html">WebpackModules</a></li>
+									</ul>
+								</li>
+								<li class="dropdown">
+									<a href="list_tutorial.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="tutorial-getting-started.html">Getting Started</a></li>
 									</ul>
 								</li>
 				</ul>
@@ -143,13 +132,87 @@
 			<pre class="prettyprint source language-javascript line-numbers"><code class="language-javascript">/**
  * Allows an easy way to create and show popouts.
  * @module Popouts
- * @version 0.0.1
  */
 
-import {Screen} from "structs";
-import {DiscordModules, DOMTools} from "modules";
+import {DiscordModules, DOMTools, WebpackModules, Patcher} from "modules";
+
+const {React, ReactDOM} = DiscordModules;
+const {useReducer, useEffect, useRef} = React;
+const AccessibilityProvider = WebpackModules.getByProps("AccessibilityPreferencesContext").AccessibilityPreferencesContext.Provider;
+const Layers = WebpackModules.getByProps("AppReferencePositionLayer");
+const PopoutCSSAnimator = WebpackModules.getByDisplayName("PopoutCSSAnimator");
+const LayerProvider = Layers.AppLayerProvider().props.layerContext.Provider; // eslint-disable-line new-cap
+const LayerModule = WebpackModules.getByProps("LayerClassName");
+const {ComponentDispatch} = WebpackModules.getByProps("ComponentDispatch");
+const {ComponentActions} = WebpackModules.getByProps("ComponentActions");
+const AnalyticsTrackContext = WebpackModules.find(m => m._currentValue &amp;&amp; m._currentValue.toString &amp;&amp; m._currentValue.toString().includes("AnalyticsTrackImpressionContext function unimplemented"));
+const AnalyticsTracker = WebpackModules.find(m => m.toString &amp;&amp; m.toString().includes("setDebugTrackedData"));
+const Popout = WebpackModules.getByDisplayName("Popout");
+
+const createStore = state => {
+    const listeners = new Set();
+
+    const setState = function (getter = _ => _) {
+        const partial = getter(state);
+        if (partial === state) return;
+
+        state = partial;
+        
+        [...listeners].forEach(e => e());
+    };
+
+    setState.getState = () => state;
+
+    function storeListener(getter = _ => _) {
+        const [, forceUpdate] = useReducer(n => !n, true);
+
+        useEffect(() => {
+            const dispatch = () => {forceUpdate();};
+
+            listeners.add(dispatch);
+
+            return () => {listeners.delete(dispatch);};
+        });
+
+        return getter(state);
+    }
+
+    return [
+        setState,
+        storeListener
+    ];
+};
+
+const [setPopouts, usePopouts] = createStore([]);
+
+const AnimationTypes = {FADE: 3, SCALE: 2, TRANSLATE: 1};
 
 export default class Popouts {
+
+    static get AnimationTypes() {return AnimationTypes;}
+
+    static initialize() {
+        this.dispose();
+        this.popouts = 0;
+
+        this.container = Object.assign(document.createElement("div"), {
+            className: "ZeresPluginLibraryPopoutsRenderer",
+            style: "display: none;"
+        });
+    
+        this.layerContainer = Object.assign(document.createElement("div"), {
+            id: "ZeresPluginLibraryPopouts",
+            className: LayerModule.LayerClassName
+        });
+
+        document.body.append(this.container, this.layerContainer);
+        ReactDOM.render(React.createElement(PopoutsContainer), this.container);
+
+        Patcher.before("Popouts", LayerModule, "getParentLayerContainer", (_, [element]) => {
+            if (element.parentElement === this.layerContainer) return this.layerContainer;
+        });
+    }
+
     /**
      * Shows the user popout for a user relative to a target element
      * @param {HTMLElement} target - Element to show the popout in relation to
@@ -158,23 +221,22 @@ export default class Popouts {
      * @param {string} [options.guild="currentGuildId"] - Id of the guild  (uses current if not specified)
      * @param {string} [options.channel="currentChannelId"] - Id of the channel (uses current if not specified)
      * @param {string} [options.position="right"] - Positioning relative to element
+     * @param {string} [options.align="top"] - Positioning relative to element
      */
     static showUserPopout(target, user, options = {}) {
         const {guild = DiscordModules.SelectedGuildStore.getGuildId(), channel = DiscordModules.SelectedChannelStore.getChannelId()} = options;
-        let {position = "right"} = options;
+        let {position = "right", align = "top"} = options;
         target = DOMTools.resolveElement(target);
-        if (target.getBoundingClientRect().right + 250 >= Screen.width) position = "left";
-        DiscordModules.PopoutOpener.openPopout(target, {
+        if (target.getBoundingClientRect().right + 250 >= DOMTools.screenWidth) position = "left";
+        if (target.getBoundingClientRect().bottom + 400 >= DOMTools.screenHeight) align = "bottom";
+        if (target.getBoundingClientRect().top - 400 >= DOMTools.screenHeight) align = "top";
+        this.openPopout(target, {
             position: position,
-            offsetX: 0,
-            offsetY: 0,
-            animationType: "default",
-            preventInvert: false,
-            zIndexBoost: 0,
-            closeOnScroll: false,
-            shadow: false,
-            backdrop: false,
-            toggleClose: true,
+            align: align,
+            animation: options.animation || Popouts.AnimationTypes.TRANSLATE,
+            autoInvert: options.autoInvert,
+            nudgeAlignIntoViewport: options.nudgeAlignIntoViewport,
+            spacing: options.spacing,
             render: (props) => {
                 return DiscordModules.React.createElement(DiscordModules.UserPopout, Object.assign({}, props, {
                     userId: user.id,
@@ -182,16 +244,138 @@ export default class Popouts {
                     channelId: channel
                 }));
             }
-        }, "ZeresLibrary");
+        });
     }
-}</code></pre>
+
+    /**
+     * Shows a react popout relative to a target element
+     * @param {HTMLElement} target - Element to show the popout in relation to
+     * @param {object} [options] - Options to modify the request
+     * @param {string} [options.position="right"] - General position relative to element
+     * @param {string} [options.align="top"] - Alignment relative to element
+     * @param {Popouts.AnimationTypes} [options.animation=Popouts.AnimationTypes.TRANSLATE] - Animation type to use
+     * @param {boolean} [options.autoInvert=true] - Try to automatically adjust the position if it overflows the screen
+     * @param {boolean} [options.nudgeAlignIntoViewport=true] - Try to automatically adjust the alignment if it overflows the screen
+     * @param {number} [options.spacing=8] - Spacing between target and popout
+     */
+    static openPopout(target, options) {
+        const id = this.popouts++;
+
+        setPopouts(popouts => popouts.concat({
+            id: id,
+            element: React.createElement(PopoutWrapper, Object.assign({}, Popout.defaultProps, {
+                reference: {current: target},
+                popoutId: id,
+                key: "popout_" + id,
+                spacing: 50
+            }, options))
+        }));
+
+        return id;
+    }
+
+    static closePopout(id) {
+        const popout = setPopouts.getState().find(e => e.id === id);
+
+        if (!popout) return null;
+
+        setPopouts(popouts => {
+            const clone = [...popouts];
+            clone.splice(clone.indexOf(popout), 1);
+            return clone;
+        });
+    }
+
+    static dispose() {
+        Patcher.unpatchAll("Popouts");
+        const container = document.querySelector(".ZeresPluginLibraryPopoutsRenderer");
+        const layerContainer = document.querySelector("#ZeresPluginLibraryPopouts");
+        if (container) ReactDOM.unmountComponentAtNode(container);
+        if (container) container.remove();
+        if (layerContainer) layerContainer.remove();
+    }
+}
+
+function DiscordProviders({children, container}) {
+    return React.createElement(AccessibilityProvider, {
+        value: {
+            reducedMotion: {enabled: false, rawValue: "auto"}
+        }
+    }, React.createElement(LayerProvider, {
+        value: [container]
+    }, React.createElement(AnalyticsTrackContext.Provider, {
+        value: AnalyticsTracker
+    }, children)));
+}
+
+function PopoutsContainer() {
+    const popouts = usePopouts();
+
+    return React.createElement(DiscordProviders,
+        {container: Popouts.layerContainer},
+        popouts.map((popout) => popout.element)
+    );
+}
+
+function PopoutWrapper({render, animation, popoutId, ...props}) {
+    const popoutRef = useRef();
+
+    useEffect(() => {
+        if (!popoutRef.current) return;
+
+        const node = ReactDOM.findDOMNode(popoutRef.current);
+
+        const handleClick = ({target}) => {
+            if (target === node || node.contains(target)) return;
+
+            Popouts.closePopout(popoutId);
+        };
+
+        document.addEventListener("click", handleClick);
+
+        return () => {
+            document.removeEventListener("click", handleClick);
+        };
+    }, [popoutRef]);
+
+    switch (animation) {
+        case PopoutCSSAnimator.Types.FADE:
+        case PopoutCSSAnimator.Types.SCALE:
+        case PopoutCSSAnimator.Types.TRANSLATE: {
+            const renderPopout = render;
+            render = (renderProps) => {
+                return React.createElement(PopoutCSSAnimator, {
+                    position: renderProps.position,
+                    type: animation
+                }, renderPopout(renderProps));
+            };
+        }
+    }
+
+    return React.createElement(Layers.AppReferencePositionLayer, Object.assign(props, {
+        ref: popoutRef,
+        positionKey: "0",
+        autoInvert: true,
+        id: "popout_" + popoutId,
+        onMount() {
+            ComponentDispatch.dispatch(ComponentActions.POPOUT_SHOW);
+        },
+        onUnmount() {
+            ComponentDispatch.dispatch(ComponentActions.POPOUT_HIDE);
+        },
+        children: render
+    }));
+}
+
+
+</code></pre>
 		</section>
 			</div>
 		</div>
 	</div>
 	<footer>
 				<div class="copyright">Copyright © 2018-2020 Zack Rauen</div>
-			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.4</a> using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
+			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
 	</footer>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>

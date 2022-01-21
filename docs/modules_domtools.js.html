@@ -38,28 +38,13 @@
 								<li class="dropdown">
 									<a href="list_class.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 									<ul class="dropdown-menu">
-											<li><a href="List.html">List</a></li>
 											<li><a href="Listenable.html">Listenable</a></li>
-											<li><a href="module-ContextMenu.ImageItem.html">ContextMenu.ImageItem</a></li>
-											<li><a href="module-ContextMenu.ItemGroup.html">ContextMenu.ItemGroup</a></li>
-											<li><a href="module-ContextMenu.Menu.html">ContextMenu.Menu</a></li>
-											<li><a href="module-ContextMenu.MenuItem.html">ContextMenu.MenuItem</a></li>
-											<li><a href="module-ContextMenu.SubMenuItem.html">ContextMenu.SubMenuItem</a></li>
-											<li><a href="module-ContextMenu.TextItem.html">ContextMenu.TextItem</a></li>
-											<li><a href="module-ContextMenu.ToggleItem.html">ContextMenu.ToggleItem</a></li>
-											<li><a href="module-DiscordAPI.Channel.html">DiscordAPI.Channel</a></li>
-											<li><a href="module-DiscordAPI.Guild.html">DiscordAPI.Guild</a></li>
-											<li><a href="module-DiscordAPI.InsufficientPermissions.html">DiscordAPI.InsufficientPermissions</a></li>
-											<li><a href="module-DiscordAPI.Message.html">DiscordAPI.Message</a></li>
-											<li><a href="module-DiscordAPI.User.html">DiscordAPI.User</a></li>
-											<li><a href="module-DiscordAPI.UserSettings.html">DiscordAPI.UserSettings</a></li>
 											<li><a href="module-DOMTools.ClassName.html">DOMTools.ClassName</a></li>
 											<li><a href="module-DOMTools.DOMObserver.html">DOMTools.DOMObserver</a></li>
 											<li><a href="module-DOMTools.Selector.html">DOMTools.Selector</a></li>
 											<li><a href="module-Settings.ColorPicker.html">Settings.ColorPicker</a></li>
 											<li><a href="module-Settings.Dropdown.html">Settings.Dropdown</a></li>
 											<li><a href="module-Settings.FilePicker.html">Settings.FilePicker</a></li>
-											<li><a href="module-Settings.Keybind.html">Settings.Keybind</a></li>
 											<li><a href="module-Settings.RadioGroup.html">Settings.RadioGroup</a></li>
 											<li><a href="module-Settings.SettingField.html">Settings.SettingField</a></li>
 											<li><a href="module-Settings.SettingGroup.html">Settings.SettingGroup</a></li>
@@ -67,6 +52,7 @@
 											<li><a href="module-Settings.Slider.html">Settings.Slider</a></li>
 											<li><a href="module-Settings.Switch.html">Settings.Switch</a></li>
 											<li><a href="module-Settings.Textbox.html">Settings.Textbox</a></li>
+											<li><a href="module-Settings=.Keybind.html">Settings=.Keybind</a></li>
 											<li><a href="module-Tooltip_module_Tooltip.html">Tooltip>module:Tooltip</a></li>
 											<li><a href="module-WebpackModules.Filters.html">WebpackModules.Filters</a></li>
 											<li><a href="Screen.html">Screen</a></li>
@@ -90,15 +76,12 @@
 									<a href="list_module.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
 									<ul class="dropdown-menu">
 											<li><a href="module-ColorConverter.html">ColorConverter</a></li>
-											<li><a href="module-ContextMenu.html">ContextMenu</a></li>
-											<li><a href="module-DiscordAPI.html">DiscordAPI</a></li>
 											<li><a href="module-DiscordClasses.html">DiscordClasses</a></li>
 											<li><a href="module-DiscordClassModules.html">DiscordClassModules</a></li>
 											<li><a href="module-DiscordContextMenu.html">DiscordContextMenu</a></li>
 											<li><a href="module-DiscordModules.html">DiscordModules</a></li>
 											<li><a href="module-DiscordSelectors.html">DiscordSelectors</a></li>
 											<li><a href="module-DOMTools.html">DOMTools</a></li>
-											<li><a href="module-EmulatedTooltip.html">EmulatedTooltip</a></li>
 											<li><a href="module-Logger.html">Logger</a></li>
 											<li><a href="module-Modals.html">Modals</a></li>
 											<li><a href="module-Patcher.html">Patcher</a></li>
@@ -112,6 +95,12 @@
 											<li><a href="module-Tooltip.html">Tooltip</a></li>
 											<li><a href="module-Utilities.html">Utilities</a></li>
 											<li><a href="module-WebpackModules.html">WebpackModules</a></li>
+									</ul>
+								</li>
+								<li class="dropdown">
+									<a href="list_tutorial.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="tutorial-getting-started.html">Getting Started</a></li>
 									</ul>
 								</li>
 				</ul>
@@ -147,11 +136,8 @@
  * the same as the ones available in the module itself, but with the `element`
  * parameter bound to `this`.
  * @module DOMTools
- * @version 0.0.5
  */
 
-import Utilities from "./utilities";
-import Logger from "./logger";
 import {Selector, ClassName, DOMObserver} from "structs";
 
 /**
@@ -183,6 +169,74 @@ export default class DOMTools {
      */
     static get observer() {
         return this._observer || (this._observer = new DOMObserver());
+    }
+
+    /** Document/window width */
+    static get screenWidth() {return Math.max(document.documentElement.clientWidth, window.innerWidth || 0);}
+
+    /** Document/window height */
+    static get screenHeight() {return Math.max(document.documentElement.clientHeight, window.innerHeight || 0);}
+
+    static animate({timing = _ => _, update, duration}) {
+        // https://javascript.info/js-animation
+        const start = performance.now();
+
+        requestAnimationFrame(function renderFrame(time) {
+            // timeFraction goes from 0 to 1
+            let timeFraction = (time - start) / duration;
+            if (timeFraction > 1) timeFraction = 1;
+
+            // calculate the current animation state
+            const progress = timing(timeFraction);
+
+            update(progress); // draw it
+
+            if (timeFraction &lt; 1) requestAnimationFrame(renderFrame);
+        });
+    }
+
+    /**
+     * Adds a style to the document.
+     * @param {string} id - identifier to use as the element id
+     * @param {string} css - css to add to the document
+     */
+    static addStyle(id, css) {
+        document.head.append(DOMTools.createElement(`&lt;style id="${id}">${css}&lt;/style>`));
+    }
+
+    /**
+     * Removes a style from the document.
+     * @param {string} id - original identifier used
+     */
+    static removeStyle(id) {
+        const element = document.getElementById(id);
+        if (element &amp;&amp; element.tagName === "STYLE") element.remove();
+    }
+
+    /**
+     * Adds/requires a remote script to be loaded
+     * @param {string} id - identifier to use for this script
+     * @param {string} url - url from which to load the script
+     * @returns {Promise} promise that resolves when the script is loaded
+     */
+    static addScript(id, url) {
+        return new Promise(resolve => {
+            const script = document.createElement("script");
+            script.id = id;
+            script.src = url;
+            script.type = "text/javascript";
+            script.onload = resolve;
+            document.head.append(script);
+        });
+    }
+
+    /**
+     * Removes a remote script from the document.
+     * @param {string} id - original identifier used
+     */
+    static removeScript(id) {
+        const element = document.getElementById(id);
+        if (element &amp;&amp; element.tagName === "SCRIPT") element.remove();
     }
 
     /**
@@ -834,62 +888,22 @@ export default class DOMTools {
      * @param {(jQuery|Element)} node - node to resolve
      */
     static resolveElement(node) {
-        if (!(node instanceof jQuery) &amp;&amp; !(node instanceof Element)) return undefined;
-        return node instanceof jQuery ? node[0] : node;
+        try {
+            if (!(node instanceof window.jQuery) &amp;&amp; !(node instanceof Element)) return undefined;
+            return node instanceof window.jQuery ? node[0] : node;
+        }
+        catch {
+            return node;
+        }
     }
-}
-
-const addToPrototype = function(MainObject, prop, func) {
-    Utilities.addToPrototype(HTMLElement, prop, function() {
-        Logger.warn("DOMTools", "These custom functions on HTMLElement will be removed.");
-        return Reflect.apply(func, this, arguments);
-    });
-};
-
-addToPrototype(HTMLElement, "addClass", function(...classes) {return DOMTools.addClass(this, ...classes);});
-addToPrototype(HTMLElement, "removeClass", function(...classes) {return DOMTools.removeClass(this, ...classes);});
-addToPrototype(HTMLElement, "toggleClass", function(className, indicator) {return DOMTools.toggleClass(this, className, indicator);});
-addToPrototype(HTMLElement, "replaceClass", function(oldClass, newClass) {return DOMTools.replaceClass(this, oldClass, newClass);});
-addToPrototype(HTMLElement, "hasClass", function(className) {return DOMTools.hasClass(this, className);});
-addToPrototype(HTMLElement, "insertAfter", function(referenceNode) {return DOMTools.insertAfter(this, referenceNode);});
-addToPrototype(HTMLElement, "after", function(newNode) {return DOMTools.after(this, newNode);});
-addToPrototype(HTMLElement, "next", function(selector = "") {return DOMTools.next(this, selector);});
-addToPrototype(HTMLElement, "nextAll", function() {return DOMTools.nextAll(this);});
-addToPrototype(HTMLElement, "nextUntil", function(selector) {return DOMTools.nextUntil(this, selector);});
-addToPrototype(HTMLElement, "previous", function(selector = "") {return DOMTools.previous(this, selector);});
-addToPrototype(HTMLElement, "previousAll", function() {return DOMTools.previousAll(this);});
-addToPrototype(HTMLElement, "previousUntil", function(selector) {return DOMTools.previousUntil(this, selector);});
-addToPrototype(HTMLElement, "index", function() {return DOMTools.index(this);});
-addToPrototype(HTMLElement, "findChild", function(selector) {return DOMTools.findChild(this, selector);});
-addToPrototype(HTMLElement, "findChildren", function(selector) {return DOMTools.findChildren(this, selector);});
-addToPrototype(HTMLElement, "parent", function(selector) {return DOMTools.parent(this, selector);});
-addToPrototype(HTMLElement, "parents", function(selector = "") {return DOMTools.parents(this, selector);});
-addToPrototype(HTMLElement, "parentsUntil", function(selector) {return DOMTools.parentsUntil(this, selector);});
-addToPrototype(HTMLElement, "siblings", function(selector = "*") {return DOMTools.siblings(this, selector);});
-addToPrototype(HTMLElement, "css", function(attribute, value) {return DOMTools.css(this, attribute, value);});
-addToPrototype(HTMLElement, "width", function(value) {return DOMTools.width(this, value);});
-addToPrototype(HTMLElement, "height", function(value) {return DOMTools.height(this, value);});
-addToPrototype(HTMLElement, "innerWidth", function() {return DOMTools.innerWidth(this);});
-addToPrototype(HTMLElement, "innerHeight", function() {return DOMTools.innerHeight(this);});
-addToPrototype(HTMLElement, "outerWidth", function() {return DOMTools.outerWidth(this);});
-addToPrototype(HTMLElement, "outerHeight", function() {return DOMTools.outerHeight(this);});
-addToPrototype(HTMLElement, "offset", function() {return DOMTools.offset(this);});
-addToPrototype(HTMLElement, "text", function(value) {return DOMTools.text(this, value);});
-addToPrototype(HTMLElement, "on", function(event, delegate, callback) {return DOMTools.on(this, event, delegate, callback);});
-addToPrototype(HTMLElement, "once", function(event, delegate, callback) {return DOMTools.once(this, event, delegate, callback);});
-addToPrototype(HTMLElement, "off", function(event, delegate, callback) {return DOMTools.off(this, event, delegate, callback);});
-addToPrototype(HTMLElement, "find", function(selector) {return DOMTools.query(selector, this);});
-addToPrototype(HTMLElement, "findAll", function(selector) {return DOMTools.queryAll(selector, this);});
-addToPrototype(HTMLElement, "appendTo", function(otherNode) {return DOMTools.appendTo(this, otherNode);});
-addToPrototype(HTMLElement, "onAdded", function(callback) {return DOMTools.onAdded(this, callback);});
-addToPrototype(HTMLElement, "onRemoved", function(callback) {return DOMTools.onRemoved(this, callback);});</code></pre>
+}</code></pre>
 		</section>
 			</div>
 		</div>
 	</div>
 	<footer>
 				<div class="copyright">Copyright © 2018-2020 Zack Rauen</div>
-			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.4</a> using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
+			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
 	</footer>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>

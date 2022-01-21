@@ -338,8 +338,8 @@ export default class WebpackModules {
 
     /**
      * Adds a listener for when discord loaded a chunk. Useful for subscribing to lazy loaded modules.
-     * @param {Function} listener
-     * @returns {() => boolean}
+     * @param {Function} listener - Function to subscribe for chunks
+     * @returns {Function} A cancelling function
      */
      static addListener(listener) {
         this.listeners.add(listener);

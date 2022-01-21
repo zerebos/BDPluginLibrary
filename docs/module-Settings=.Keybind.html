@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-		<title>Settings.Dropdown</title>
+		<title>Keybind</title>
 		<!--[if lt IE 9]>
 		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
@@ -120,7 +120,7 @@
 	<!-- end:navbar.hbs -->		<div class="page-header">
 			<div class="container">
 				<span class="kind">class</span>
-				<h1><span class="ancestors"><a href="module-Settings.html">Settings</a>.</span><span class="name">Dropdown</span></h1>
+				<h1><span class="name">Keybind</span></h1>
 			</div>
 		</div>
 	<div class="container content">
@@ -129,7 +129,7 @@
 						<ol class="breadcrumb">
 							<li><a href="index.html">Home</a></li>
 							<li><a href="list_class.html">Classes</a></li>
-							<li class="active"><a href="module-Settings.html">Settings</a>.Dropdown</li>
+							<li class="active">Keybind</li>
 						</ol>
 						<div class="access-filter">
 								<label class="checkbox-inline">
@@ -144,11 +144,11 @@
 					<section>
 							<dl class="symbol primary">
 								<dt class="symbol-title class collapsible-symbol expanded">
-			<h2 class="class"><span class="signature-new">new&nbsp;</span><span class="name">Dropdown</span><span class="signature-params">( <span class="signature-param">name</span>, <span class="signature-param">note</span>, <span class="signature-param">defaultValue</span>, <span class="signature-param">values</span>, <span class="signature-param">onChange</span> [,&nbsp;<span class="signature-param">options</span>&nbsp;]&nbsp;)</span><span class="signature-type"></span></h2>
+			<h2 class="class"><span class="signature-new">new&nbsp;</span><span class="name">Keybind</span><span class="signature-params">( <span class="signature-param">name</span>, <span class="signature-param">note</span>, <span class="signature-param">value</span>, <span class="signature-param">onChange</span> [,&nbsp;<span class="signature-param">options</span>&nbsp;]&nbsp;)</span><span class="signature-type"></span></h2>
 </dt>
 <dd class="symbol-details class  collapsible-symbol expanded" style="max-height: 9999px;">
 	<div class="symbol-details-inner">
-			<div class="callout callout-primary"><h5>Description</h5>		<div class="description classdesc"><p>Creates a dropdown using discord's built in dropdown.</p></div>
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description classdesc"><p>Creates a keybind setting using discord's built in keybind recorder.</p></div>
 			</div>			<div class="callout callout-info">
 				<h5>Parameters</h5>
 				<table class="params table table-striped">
@@ -178,19 +178,11 @@
 							</td>
 						</tr>
 						<tr>
-								<td><code>defaultValue</code></td>
-							<td><span class="param-type">*</span></td>
+								<td><code>value</code></td>
+							<td><span class="param-type">Array.&lt;number></span></td>
 								<td class="attributes"></td>
 							<td class="last">
-									<p>currently selected value</p>
-							</td>
-						</tr>
-						<tr>
-								<td><code>values</code></td>
-							<td><span class="param-type">Array.&lt;<a href="module-Settings-DropdownItem.html">module:Settings~DropdownItem</a>></span></td>
-								<td class="attributes"></td>
-							<td class="last">
-									<p>array of all options available</p>
+									<p>array of keycodes</p>
 							</td>
 						</tr>
 						<tr>
@@ -198,7 +190,7 @@
 							<td><span class="param-type">callable</span></td>
 								<td class="attributes"></td>
 							<td class="last">
-									<p>callback to perform on setting change, callback item value</p>
+									<p>callback to perform on setting change, callback receives array of keycodes</p>
 							</td>
 						</tr>
 						<tr>
@@ -218,24 +210,6 @@
 											</tr>
 											</thead>
 											<tbody>
-												<tr>
-														<td><code>clearable</code></td>
-													<td><span class="param-type">boolean</span></td>
-														<td class="attributes">&lt;optional&gt;<br/></td>
-														<td>false</td>
-													<td class="last">
-															<p>should be able to empty the field value</p>
-													</td>
-												</tr>
-												<tr>
-														<td><code>searchable</code></td>
-													<td><span class="param-type">boolean</span></td>
-														<td class="attributes">&lt;optional&gt;<br/></td>
-														<td>false</td>
-													<td class="last">
-															<p>should user be able to search the dropdown</p>
-													</td>
-												</tr>
 												<tr>
 														<td><code>disabled</code></td>
 													<td><span class="param-type">boolean</span></td>
@@ -279,7 +253,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="ui_settings_types_dropdown.js.html">ui/settings/types/dropdown.js</a>, <a href="ui_settings_types_dropdown.js.html#line-16">line 16</a></p>
+									<p class="form-control-static"><a href="ui_settings_types_keybind.js.html">ui/settings/types/keybind.js</a>, <a href="ui_settings_types_keybind.js.html#line-9">line 9</a></p>
 								</div>
 							</div>
 			

@@ -38,28 +38,13 @@
 								<li class="dropdown">
 									<a href="list_class.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 									<ul class="dropdown-menu">
-											<li><a href="List.html">List</a></li>
 											<li><a href="Listenable.html">Listenable</a></li>
-											<li><a href="module-ContextMenu.ImageItem.html">ContextMenu.ImageItem</a></li>
-											<li><a href="module-ContextMenu.ItemGroup.html">ContextMenu.ItemGroup</a></li>
-											<li><a href="module-ContextMenu.Menu.html">ContextMenu.Menu</a></li>
-											<li><a href="module-ContextMenu.MenuItem.html">ContextMenu.MenuItem</a></li>
-											<li><a href="module-ContextMenu.SubMenuItem.html">ContextMenu.SubMenuItem</a></li>
-											<li><a href="module-ContextMenu.TextItem.html">ContextMenu.TextItem</a></li>
-											<li><a href="module-ContextMenu.ToggleItem.html">ContextMenu.ToggleItem</a></li>
-											<li><a href="module-DiscordAPI.Channel.html">DiscordAPI.Channel</a></li>
-											<li><a href="module-DiscordAPI.Guild.html">DiscordAPI.Guild</a></li>
-											<li><a href="module-DiscordAPI.InsufficientPermissions.html">DiscordAPI.InsufficientPermissions</a></li>
-											<li><a href="module-DiscordAPI.Message.html">DiscordAPI.Message</a></li>
-											<li><a href="module-DiscordAPI.User.html">DiscordAPI.User</a></li>
-											<li><a href="module-DiscordAPI.UserSettings.html">DiscordAPI.UserSettings</a></li>
 											<li><a href="module-DOMTools.ClassName.html">DOMTools.ClassName</a></li>
 											<li><a href="module-DOMTools.DOMObserver.html">DOMTools.DOMObserver</a></li>
 											<li><a href="module-DOMTools.Selector.html">DOMTools.Selector</a></li>
 											<li><a href="module-Settings.ColorPicker.html">Settings.ColorPicker</a></li>
 											<li><a href="module-Settings.Dropdown.html">Settings.Dropdown</a></li>
 											<li><a href="module-Settings.FilePicker.html">Settings.FilePicker</a></li>
-											<li><a href="module-Settings.Keybind.html">Settings.Keybind</a></li>
 											<li><a href="module-Settings.RadioGroup.html">Settings.RadioGroup</a></li>
 											<li><a href="module-Settings.SettingField.html">Settings.SettingField</a></li>
 											<li><a href="module-Settings.SettingGroup.html">Settings.SettingGroup</a></li>
@@ -67,6 +52,7 @@
 											<li><a href="module-Settings.Slider.html">Settings.Slider</a></li>
 											<li><a href="module-Settings.Switch.html">Settings.Switch</a></li>
 											<li><a href="module-Settings.Textbox.html">Settings.Textbox</a></li>
+											<li><a href="module-Settings=.Keybind.html">Settings=.Keybind</a></li>
 											<li><a href="module-Tooltip_module_Tooltip.html">Tooltip>module:Tooltip</a></li>
 											<li><a href="module-WebpackModules.Filters.html">WebpackModules.Filters</a></li>
 											<li><a href="Screen.html">Screen</a></li>
@@ -90,15 +76,12 @@
 									<a href="list_module.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
 									<ul class="dropdown-menu">
 											<li><a href="module-ColorConverter.html">ColorConverter</a></li>
-											<li><a href="module-ContextMenu.html">ContextMenu</a></li>
-											<li><a href="module-DiscordAPI.html">DiscordAPI</a></li>
 											<li><a href="module-DiscordClasses.html">DiscordClasses</a></li>
 											<li><a href="module-DiscordClassModules.html">DiscordClassModules</a></li>
 											<li><a href="module-DiscordContextMenu.html">DiscordContextMenu</a></li>
 											<li><a href="module-DiscordModules.html">DiscordModules</a></li>
 											<li><a href="module-DiscordSelectors.html">DiscordSelectors</a></li>
 											<li><a href="module-DOMTools.html">DOMTools</a></li>
-											<li><a href="module-EmulatedTooltip.html">EmulatedTooltip</a></li>
 											<li><a href="module-Logger.html">Logger</a></li>
 											<li><a href="module-Modals.html">Modals</a></li>
 											<li><a href="module-Patcher.html">Patcher</a></li>
@@ -112,6 +95,12 @@
 											<li><a href="module-Tooltip.html">Tooltip</a></li>
 											<li><a href="module-Utilities.html">Utilities</a></li>
 											<li><a href="module-WebpackModules.html">WebpackModules</a></li>
+									</ul>
+								</li>
+								<li class="dropdown">
+									<a href="list_tutorial.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="tutorial-getting-started.html">Getting Started</a></li>
 									</ul>
 								</li>
 				</ul>
@@ -153,148 +142,15 @@
 */
 
 import Patcher from "./patcher";
-import Reflect from "./reflection";
 import Modules from "./discordmodules";
 import DOMTools from "./domtools";
 import ReactTools from "./reacttools";
-
-class Helpers {
-    static get plannedActions() {
-        return this._plannedActions || (this._plannedActions = new Map());
-    }
-
-    static recursiveArray(parent, key, count = 1) {
-        let index = 0;
-        function* innerCall(parent, key) {
-            const item = parent[key];
-            if (Array.isArray(item)) {
-                for (const subKey of item.keys()) {
-                    yield* innerCall(item, subKey);
-                }
-                return;
-            }
-            yield {item, parent, key, index: index++, count};
-        }
-
-        return innerCall(parent, key);
-    }
-
-    static recursiveArrayCount(parent, key) {
-        let count = 0;
-        // eslint-disable-next-line no-empty-pattern
-        for (let {} of this.recursiveArray(parent, key)) ++count;
-        return this.recursiveArray(parent, key, count);
-    }
-
-    static get recursiveChildren() {
-        return function* (parent, key, index = 0, count = 1) {
-            const item = parent[key];
-            yield {item, parent, key, index, count};
-            if (item &amp;&amp; item.props &amp;&amp; item.props.children) {
-                for (const {parent, key, index, count} of this.recursiveArrayCount(item.props, "children")) {
-                    yield* this.recursiveChildren(parent, key, index, count);
-                }
-            }
-        };
-    }
-
-    static returnFirst(iterator, process) {
-        for (const child of iterator) {
-            const retVal = process(child);
-            if (retVal !== undefined) return retVal;
-        }
-    }
-
-    static getFirstChild(rootParent, rootKey, selector) {
-        const getDirectChild = (item, selector) => {
-            if (item &amp;&amp; item.props &amp;&amp; item.props.children) {
-                return this.returnFirst(this.recursiveArrayCount(item.props, "children"), checkFilter.bind(null, selector));
-            }
-        };
-        const checkFilter = (selector, {item, parent, key, count, index}) => {
-            let match = true;
-            if (selector.type) match = item &amp;&amp; selector.type === item.type;
-            if (match &amp;&amp; selector.tag) match = item &amp;&amp; typeof item.type === "string" &amp;&amp; selector.tag === item.type;
-            if (match &amp;&amp; selector.className) {
-                match = item &amp;&amp; item.props &amp;&amp; typeof item.props.className === "string";
-                if (match) {
-                    const classes = item.props.className.split(" ");
-                    if (selector.className === true) match = !!classes[0];
-                    else if (typeof selector.className === "string") match = classes.includes(selector.className);
-                    else if (selector.className instanceof RegExp) match = !!classes.find(cls => selector.className.test(cls));
-                    else match = false;
-                }
-            }
-            if (match &amp;&amp; selector.text) {
-                if (selector.text === true) match = typeof item === "string";
-                else if (typeof selector.text === "string") match = item === selector.text;
-                else if (selector.text instanceof RegExp) match = typeof item === "string" &amp;&amp; selector.text.test(item);
-                else match = false;
-            }
-            if (match &amp;&amp; selector.nthChild) match = index === (selector.nthChild &lt; 0 ? count + selector.nthChild : selector.nthChild);
-            if (match &amp;&amp; selector.hasChild) match = getDirectChild(item, selector.hasChild);
-            if (match &amp;&amp; selector.hasSuccessor) match = item &amp;&amp; !!this.getFirstChild(parent, key, selector.hasSuccessor).item;
-            if (match &amp;&amp; selector.eq) {
-                --selector.eq;
-                return;
-            }
-            if (match) {
-                if (selector.child) return getDirectChild(item, selector.child);
-                else if (selector.successor) return this.getFirstChild(parent, key, selector.successor);
-                return {item, parent, key};
-            }
-        };
-        return this.returnFirst(this.recursiveChildren(rootParent, rootKey), checkFilter.bind(null, selector)) || {};
-    }
-
-    static parseSelector(selector) {
-        if (selector.startsWith(".")) return {className: selector.substr(1)};
-        if (selector.startsWith("#")) return {id: selector.substr(1)};
-        return {};
-    }
-
-    static findByProp(obj, what, value) {
-        if (obj.hasOwnProperty(what) &amp;&amp; obj[what] === value) return obj;
-        if (obj.props &amp;&amp; !obj.children) return this.findByProp(obj.props, what, value);
-        if (!obj.children) return null;
-        if (!Array.isArray(obj.children)) return this.findByProp(obj.children, what, value);
-        for (const child of obj.children) {
-            if (!child) continue;
-            const findInChild = this.findByProp(child, what, value);
-            if (findInChild) return findInChild;
-        }
-        return null;
-    }
-
-    static findProp(obj, what) {
-        if (obj.hasOwnProperty(what)) return obj[what];
-        if (obj.props &amp;&amp; !obj.children) return this.findProp(obj.props, what);
-        if (!obj.children) return null;
-        if (!Array.isArray(obj.children)) return this.findProp(obj.children, what);
-        for (const child of obj.children) {
-            if (!child) continue;
-            const findInChild = this.findProp(child, what);
-            if (findInChild) return findInChild;
-        }
-        return null;
-    }
-
-    static get React() {
-        return Modules.React;
-    }
-
-    static get ReactDOM() {
-        return Modules.ReactDOM;
-    }
-}
-
-export {Helpers as ReactHelpers};
+import Utilities from "./utilities";
 
 class ReactComponent {
     constructor(id, component, selector, filter) {
         this.id = id;
         this.component = component;
-        // this.important = important;
         this.selector = selector;
         this.filter = filter;
     }
@@ -302,7 +158,9 @@ class ReactComponent {
     forceUpdateAll() {
         if (!this.selector) return;
         for (const e of document.querySelectorAll(this.selector)) {
-            Reflect(e).forceUpdate(this); // eslint-disable-line new-cap
+            const stateNode = Utilities.findInTree(ReactTools.getReactInstance(e), m => m &amp;&amp; m.forceUpdate, {walkable: ["return", "stateNode"]});
+            if (!stateNode) continue;
+            stateNode.forceUpdate();
         }
     }
 }
@@ -310,7 +168,6 @@ class ReactComponent {
 /**
  * Methods for obtaining and interacting with react components.
  * @module ReactComponents
- * @version 0.0.1
  */
 export default class ReactComponents {
     static get components() {return this._components || (this._components = new Map());}
@@ -319,8 +176,12 @@ export default class ReactComponents {
     static get nameSetters() {return this._nameSetters || (this._nameSetters = new Set());}
 
     static get ReactComponent() {return ReactComponent;}
-    static get Helpers() {return Helpers;}
-    static get AutoPatcher() {return ReactAutoPatcher;}
+
+    static initialize() {
+        ReactAutoPatcher.autoUnpatch();
+        ReactAutoPatcher.autoPatch();
+        ReactAutoPatcher.processAll();
+    }
 
     static push(component, selector, filter) {
         if (typeof(component) !== "function") return null;
@@ -336,17 +197,12 @@ export default class ReactComponents {
 
         const c = new ReactComponent(displayName, component, selector, filter);
         this.components.set(c.id, c);
-        // if (!have) this.components.push(c);
 
         const listener = this.listeners.get(displayName);
         if (listener) {
             for (const l of listener.children) l(c);
             this.listeners.delete(listener);
         }
-
-        // for (const listen of this.listeners) {
-        //     if (!listen.filter) continue;
-        // }
 
         return c;
     }
@@ -379,7 +235,6 @@ export default class ReactComponents {
         if (selector) {
             const callback = () => {
                 if (this.components.get(name)) {
-                    // Logger.info("ReactComponents", `Important component ${name} already found`);
                     DOMTools.observer.unsubscribe(observerSubscription);
                     return;
                 }
@@ -387,30 +242,20 @@ export default class ReactComponents {
                 const elements = document.querySelectorAll(selector);
                 if (!elements.length) return;
 
-                let component, reflect;
+                let component;
                 for (const element of elements) {
-                    reflect = Reflect(element); // eslint-disable-line new-cap
-                    component = filter ? reflect.components.find(filter) : reflect.component;
+                    const componentsFound = ReactTools.getComponents(element);
+                    component = filter ? componentsFound.find(filter) : componentsFound[0];
                     if (component) break;
                 }
 
-                if (!component &amp;&amp; filter) return;// Logger.log("ReactComponents", ["Found elements matching the query selector but no components passed the filter"]);
+                if (!component &amp;&amp; filter) return;
 
                 DOMTools.observer.unsubscribe(observerSubscription);
 
-                if (!component) return;// Logger.err("ReactComponents", [`FAILED TO GET IMPORTANT COMPONENT ${name} WITH REFLECTION FROM`, elements]);
+                if (!component) return;
 
                 if (!component.displayName) component.displayName = name;
-                // if (component.displayName &amp;&amp; component.displayName != name) {
-                //     let existing = this.listeners.find(l => l.id === component.displayName);
-                //     let current = this.listeners.find(l => l.id === name);
-                //     if (!existing) {current.id = component.displayName;}
-                //     else {
-                //         existing.listeners.push(current.listeners);
-                //         Utilities.removeFromArray(this.listeners, current);
-                //     }
-                // }
-                // Logger.info("ReactComponents", [`Found important component ${name} with reflection`, reflect]);
 
                 this.push(component, selector, filter);
             };
@@ -479,7 +324,6 @@ class ReactAutoPatcher {
         Patcher.before("ReactComponents", Modules.React, "createElement", (react, [component]) => ReactComponents.push(component));
         Patcher.instead("ReactComponents", Modules.React.Component.prototype, "UNSAFE_componentWillMount", (component) => ReactComponents.push(component));
         Patcher.instead("ReactComponents", Modules.React.Component.prototype, "componentWillMount", (component) => ReactComponents.push(component));
-        // this.patchComponents();
     }
 
     static async autoUnpatch() {
@@ -502,7 +346,7 @@ class ReactAutoPatcher {
 	</div>
 	<footer>
 				<div class="copyright">Copyright © 2018-2020 Zack Rauen</div>
-			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.4</a> using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
+			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
 	</footer>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>

@@ -203,7 +203,7 @@ export default Utilities.memoizeObject({
     get SettingsNote() {return WebpackModules.getByDisplayName("FormText");},
     get SettingsDivider() {return WebpackModules.getModule(m => !m.defaultProps && m.prototype && m.prototype.render && m.prototype.render.toString().includes("default.divider"));},
 
-    get ColorPicker() {return WebpackModules.getModule(m => m.displayName === "ColorPicker" && m.defaultProps);}, // Loaded by Discord on demand
+    get ColorPicker() {return WebpackModules.getModule(m => m.displayName === "ColorPicker" && m.defaultProps);},
     get Dropdown() {return WebpackModules.getByProps("SingleSelect").SingleSelect;},
     get Keybind() {return WebpackModules.getByPrototypes("handleComboChange");},
     get RadioGroup() {return WebpackModules.getByDisplayName("RadioGroup");},
