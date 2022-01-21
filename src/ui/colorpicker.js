@@ -19,6 +19,8 @@ export default class ColorPicker extends React.Component {
         this.onChange = this.onChange.bind(this);
         this.swatchRef = React.createRef();
     }
+    
+    get canCustom() {return this.props.acceptsCustom || true;}
 
     onChange(value) {
         this.setState({value: value}, () => {

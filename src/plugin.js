@@ -1,5 +1,5 @@
 export default (BasePlugin, Library) => {
-    const {PluginUpdater, Patcher, Logger, Settings, Toasts, PluginUtilities, ReactComponents, DCM} = Library;
+    const {PluginUpdater, Patcher, Logger, Settings, Toasts, PluginUtilities, ReactComponents, DCM, Popouts} = Library;
     const PluginLibrary = class PluginLibrary extends BasePlugin {
         get Library() {return Library;}
         
@@ -12,6 +12,7 @@ export default (BasePlugin, Library) => {
             ReactComponents.AutoPatcher.processAll();
             ReactComponents.AutoPatcher.autoPatch();
             DCM.patchComponents();
+            Popouts.initialize();
             
             /**
              * Checking if this is the library first being loaded during init
