@@ -1,5 +1,5 @@
 import SettingField from "../settingfield";
-import {ColorConverter} from "modules";
+import {ColorConverter, WebpackModules, DiscordClasses, DOMTools} from "modules";
 
 import ColorPickerComponent from "../../colorpicker";
 
@@ -24,19 +24,33 @@ class ColorPicker extends SettingField {
      * @param {Array<number>} [options.colors] - preset colors to show in swatch
      */
     constructor(name, note, value, onChange, options = {}) {
-        const defaultColor = options.defaultColor;
-        super(name, note, onChange, ColorPickerComponent, {
-            disabled: !!options.disabled,
-            onChange: reactElement => color => {
-                reactElement.props.value = color;
-                reactElement.forceUpdate();
-                this.onChange(ColorConverter.int2hex(color));
-            },
-            colors: Array.isArray(options.colors) ? options.colors : presetColors,
-            defaultColor: defaultColor && typeof(defaultColor) !== "number" ? ColorConverter.hex2int(defaultColor) : defaultColor,
-            value: typeof(value) == "number" ? value : ColorConverter.hex2int(value),
-            customPickerPosition: "right"
-        });
+        const ColorPickerComponents = WebpackModules.getByProps("CustomColorPicker");
+        if (ColorPickerComponents) {
+            const defaultColor = options.defaultColor;
+            super(name, note, onChange, ColorPickerComponent, {
+                disabled: !!options.disabled,
+                onChange: reactElement => color => {
+                    reactElement.props.value = color;
+                    reactElement.forceUpdate();
+                    this.onChange(ColorConverter.int2hex(color));
+                },
+                colors: Array.isArray(options.colors) ? options.colors : presetColors,
+                defaultColor: defaultColor && typeof(defaultColor) !== "number" ? ColorConverter.hex2int(defaultColor) : defaultColor,
+                value: typeof(value) == "number" ? value : ColorConverter.hex2int(value),
+                customPickerPosition: "right"
+            });
+        }
+        else {
+            const classes = ["color-input"];
+            if (options.disabled) classes.push(DiscordClasses.BasicInputs.disabled);
+            const ReactColorPicker = DOMTools.parseHTML(`<input type="color" class="${classes.join(" ")}">`);
+            if (options.disabled) ReactColorPicker.setAttribute("disabled", "");
+            if (value) ReactColorPicker.setAttribute("value", value);
+            ReactColorPicker.addEventListener("change", (event) => {
+                this.onChange(event.target.value);
+            });
+            super(name, note, onChange, ReactColorPicker, {inline: true});
+        }
     }
 
     /** Default colors for ColorPicker */

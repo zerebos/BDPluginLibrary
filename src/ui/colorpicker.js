@@ -4,7 +4,7 @@ const React = DiscordModules.React;
 
 const Popout = WebpackModules.getByDisplayName("Popout");
 const ColorPickerComponents = WebpackModules.getByProps("CustomColorPicker");
-const Swatch = ColorPickerComponents.CustomColorButton.prototype.render.call({props: {}}).type;
+const Swatch = ColorPickerComponents?.CustomColorButton.prototype.render.call({props: {}}).type;
 const {default: Tooltip, TooltipPositions} = WebpackModules.getByProps("TooltipContainer");
 const LocaleManager = DiscordModules.LocaleManager;
 
