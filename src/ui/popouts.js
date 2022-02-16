@@ -93,12 +93,11 @@ export default class Popouts {
      * @param {string} [options.align="top"] - Positioning relative to element
      */
     static showUserPopout(target, user, options = {}) {
-        const {guild = DiscordModules.SelectedGuildStore.getGuildId(), channel = DiscordModules.SelectedChannelStore.getChannelId()} = options;
-        let {position = "right", align = "top"} = options;
+        const {position = "right", align = "top", guild = DiscordModules.SelectedGuildStore.getGuildId(), channel = DiscordModules.SelectedChannelStore.getChannelId()} = options;
         target = DOMTools.resolveElement(target);
-        if (target.getBoundingClientRect().right + 250 >= DOMTools.screenWidth) position = "left";
-        if (target.getBoundingClientRect().bottom + 400 >= DOMTools.screenHeight) align = "bottom";
-        if (target.getBoundingClientRect().top - 400 >= DOMTools.screenHeight) align = "top";
+        // if (target.getBoundingClientRect().right + 250 >= DOMTools.screenWidth && options.autoInvert) position = "left";
+        // if (target.getBoundingClientRect().bottom + 400 >= DOMTools.screenHeight && options.autoInvert) align = "bottom";
+        // if (target.getBoundingClientRect().top - 400 >= DOMTools.screenHeight && options.autoInvert) align = "top";
         this.openPopout(target, {
             position: position,
             align: align,

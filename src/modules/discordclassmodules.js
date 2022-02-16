@@ -39,7 +39,7 @@ export default Utilities.memoizeObject({
     get Margins() {return WebpackModules.getModule(m => !m.title && m.marginBottom40 && m.marginTop40);},
     get Dividers() {return Object.assign({}, WebpackModules.getByProps("dividerDefault"), WebpackModules.getModule(m => Object.keys(m).length == 1 && m.divider));},
     get Changelog() {return Object.assign({}, WebpackModules.getByProps("container", "added"), WebpackModules.getByProps("content", "modal", "size"));},
-    get BasicInputs() {return WebpackModules.getByProps("inputDefault");},
+    get BasicInputs() {return WebpackModules.getByProps("inputDefault", "copyInput");},
     get Messages() {return WebpackModules.getByProps("message", "containerCozy");},
     get Guilds() {return WebpackModules.getByProps("guildsWrapper");},
     get EmojiPicker() {return WebpackModules.getByProps("emojiPicker", "emojiItem");},

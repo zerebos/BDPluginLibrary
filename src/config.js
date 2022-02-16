@@ -13,9 +13,7 @@ module.exports = {
         github_raw: "https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"
     },
     changelog: [
-        {title: "What's New?", items: ["New popout opener available. (Thanks Strencher!)", "New color picker component. (Thanks Strencher!)", "New webpack chunk listener. (Thanks Strencher!)"]},
-        {title: "What's Fixed?", type: "improved", items: ["`getDiscordMenu` works again!", "Changelog modals show.", "Toasts returned to their normal spot.", "Modals/popouts now show in the right spot.", "Keybind and Dropdown settings are fixed. (Thanks Qb!)", "`showUserPopout` works again!"]},
-        {title: "What's Gone?", type: "fixed", items: ["`DiscordAPI` module was removed.", "Redundant functions in `Utilities` are gone.", "Overly complicated `Reflection` module was removed.", "`HTMLElement` prototype no longer polluted."]}
+        {title: "What's Fixed?", type: "improved", items: ["Fixed an issue causing crashes.", "Fixed an issue where popouts got placed incorrectly.", "File picker does not overlay the entire settings panel"]},
     ],
     main: "plugin.js"
 };
