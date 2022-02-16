@@ -1,6 +1,6 @@
 /**
  * @name ZeresPluginLibrary
- * @version 2.0.1
+ * @version 2.0.2
  * @authorLink https://twitter.com/IAmZerebos
  * @website https://github.com/rauenzi/BDPluginLibrary
  * @source https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js
@@ -92,13 +92,13 @@ module.exports = {
             github_username: "rauenzi",
             twitter_username: "IAmZerebos"
         }],
-        version: "2.0.1",
+        version: "2.0.2",
         description: "Gives other plugins utility functions and the ability to emulate v2.",
         github: "https://github.com/rauenzi/BDPluginLibrary",
         github_raw: "https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"
     },
     changelog: [
-        {title: "What's Fixed?", type: "improved", items: ["Fixed an issue causing crashes.", "Fixed an issue where popouts got placed incorrectly.", "File picker does not overlay the entire settings panel"]},
+        {title: "What's Fixed?", type: "improved", items: ["Fixed an issue causing crashes.", "Fixed an issue where popouts got placed incorrectly.", "File picker does not overlay the entire settings panel", "Fixed an issue with color picker."]},
     ],
     main: "plugin.js"
 };
@@ -4128,7 +4128,7 @@ const React = modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.React;
 
 const Popout = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getByDisplayName("Popout");
 const ColorPickerComponents = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getByProps("CustomColorPicker");
-const Swatch = ColorPickerComponents.CustomColorButton.prototype.render.call({props: {}}).type;
+const Swatch = ColorPickerComponents?.CustomColorButton.prototype.render.call({props: {}}).type;
 const {default: Tooltip, TooltipPositions} = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getByProps("TooltipContainer");
 const LocaleManager = modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.LocaleManager;
 
@@ -5517,19 +5517,33 @@ class ColorPicker extends _settingfield__WEBPACK_IMPORTED_MODULE_0__["default"] 
      * @param {Array<number>} [options.colors] - preset colors to show in swatch
      */
     constructor(name, note, value, onChange, options = {}) {
-        const defaultColor = options.defaultColor;
-        super(name, note, onChange, _colorpicker__WEBPACK_IMPORTED_MODULE_2__["default"], {
-            disabled: !!options.disabled,
-            onChange: reactElement => color => {
-                reactElement.props.value = color;
-                reactElement.forceUpdate();
-                this.onChange(modules__WEBPACK_IMPORTED_MODULE_1__.ColorConverter.int2hex(color));
-            },
-            colors: Array.isArray(options.colors) ? options.colors : presetColors,
-            defaultColor: defaultColor && typeof(defaultColor) !== "number" ? modules__WEBPACK_IMPORTED_MODULE_1__.ColorConverter.hex2int(defaultColor) : defaultColor,
-            value: typeof(value) == "number" ? value : modules__WEBPACK_IMPORTED_MODULE_1__.ColorConverter.hex2int(value),
-            customPickerPosition: "right"
-        });
+        const ColorPickerComponents = modules__WEBPACK_IMPORTED_MODULE_1__.WebpackModules.getByProps("CustomColorPicker");
+        if (ColorPickerComponents) {
+            const defaultColor = options.defaultColor;
+            super(name, note, onChange, _colorpicker__WEBPACK_IMPORTED_MODULE_2__["default"], {
+                disabled: !!options.disabled,
+                onChange: reactElement => color => {
+                    reactElement.props.value = color;
+                    reactElement.forceUpdate();
+                    this.onChange(modules__WEBPACK_IMPORTED_MODULE_1__.ColorConverter.int2hex(color));
+                },
+                colors: Array.isArray(options.colors) ? options.colors : presetColors,
+                defaultColor: defaultColor && typeof(defaultColor) !== "number" ? modules__WEBPACK_IMPORTED_MODULE_1__.ColorConverter.hex2int(defaultColor) : defaultColor,
+                value: typeof(value) == "number" ? value : modules__WEBPACK_IMPORTED_MODULE_1__.ColorConverter.hex2int(value),
+                customPickerPosition: "right"
+            });
+        }
+        else {
+            const classes = ["color-input"];
+            if (options.disabled) classes.push(modules__WEBPACK_IMPORTED_MODULE_1__.DiscordClasses.BasicInputs.disabled);
+            const ReactColorPicker = modules__WEBPACK_IMPORTED_MODULE_1__.DOMTools.parseHTML(`<input type="color" class="${classes.join(" ")}">`);
+            if (options.disabled) ReactColorPicker.setAttribute("disabled", "");
+            if (value) ReactColorPicker.setAttribute("value", value);
+            ReactColorPicker.addEventListener("change", (event) => {
+                this.onChange(event.target.value);
+            });
+            super(name, note, onChange, ReactColorPicker, {inline: true});
+        }
     }
 
     /** Default colors for ColorPicker */
