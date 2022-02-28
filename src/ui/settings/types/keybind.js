@@ -3,7 +3,7 @@ import {DiscordModules} from "modules";
 
 /** 
  * Creates a keybind setting using discord's built in keybind recorder.
- * @memberof module:Settings=
+ * @memberof module:Settings
  * @extends module:Settings.SettingField
  */
 class Keybind extends SettingField {
