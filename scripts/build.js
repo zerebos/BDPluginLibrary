@@ -10,7 +10,7 @@ const releasePath = path.isAbsolute(libConfig.releaseFolder) ? libConfig.release
 const bdFolder = (process.platform == "win32" ? process.env.APPDATA : process.platform == "darwin" ? process.env.HOME + "/Library/Preferences" :  process.env.XDG_CONFIG_HOME ? process.env.XDG_CONFIG_HOME : process.env.HOME + "/.config") + "/BetterDiscord/";
 
 const formatString = function(string, values) {
-    for (const val in values) string = string.replace(new RegExp(`{{${val}}}`, "g"), () => values[val]);
+    for (const val in values) string = string.replace(new RegExp(`{{${val}}}`, "g"), () => values[val] ?? "");
     return string;
 };
 
