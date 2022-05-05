@@ -3,7 +3,7 @@
  * @module Modals
  */
 
-import {DiscordModules, DiscordClasses, WebpackModules} from "modules";
+import {DiscordModules, DiscordClasses, WebpackModules, Logger} from "modules";
 
 const React = DiscordModules.React;
 const ce = React.createElement;
@@ -84,6 +84,7 @@ export default class Modals {
      */
     static showChangelogModal(title, version, changelog, footer) {
         const TextElement = DiscordModules.TextElement;
+        if (!TextElement) return Logger.warn("Modals", "Unable to show changelog modal--TextElement not found.");
         const changelogItems = [];
         for (let c = 0; c < changelog.length; c++) {
             const entry = changelog[c];

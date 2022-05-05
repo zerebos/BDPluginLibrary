@@ -13,7 +13,7 @@ module.exports = {
         github_raw: "https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"
     },
     changelog: [
-        {title: "What's Fixed?", type: "improved", items: ["Fixed an issue causing crashes.", "Fixed an issue where popouts got placed incorrectly.", "File picker does not overlay the entire settings panel", "Fixed an issue with color picker."]},
+        {title: "What's Fixed?", type: "improved", items: ["Fixed crashing when trying to show changelogs."]},
     ],
     main: "plugin.js"
 };

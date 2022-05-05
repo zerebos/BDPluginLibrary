@@ -175,7 +175,7 @@ export default Utilities.memoizeObject({
 
     /* Misc */
     get ExternalLink() {return WebpackModules.getByRegex(/trusted/);},
-    get TextElement() {return WebpackModules.getByDisplayName("Text");},
+    get TextElement() {return WebpackModules.getByDisplayName("LegacyText") || WebpackModules.getByProps("Colors", "Sizes");},
     get Anchor() {return WebpackModules.getByDisplayName("Anchor");},
     get Flex() {return WebpackModules.getByDisplayName("Flex");},
     get FlexChild() {return WebpackModules.getByProps("Child");},

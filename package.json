@@ -1,6 +1,6 @@
 {
   "name": "pluginlibrary",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Zere's library for BetterDiscord plugins.",
   "repository": {
     "type": "git",
