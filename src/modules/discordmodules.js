@@ -72,6 +72,7 @@ export default Utilities.memoizeObject({
     get ClassResolver() {return WebpackModules.getByProps("getClass");},
     get ButtonData() {return WebpackModules.getByProps("ButtonSizes");},
     get NavigationUtils() {return WebpackModules.getByProps("transitionTo", "replaceWith", "getHistory");},
+    get KeybindStore() {return WebpackModules.getByProps("keyToCode");},
 
     /* Discord Messages */
     get MessageStore() {return WebpackModules.getByProps("getMessage", "getMessages");},

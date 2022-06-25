@@ -68,7 +68,7 @@ class ReactSetting extends DiscordModules.React.Component {
     render() {
         const ce = DiscordModules.React.createElement;
         const SettingElement = ce(this.props.type, this.props);
-        const Context = ce(AccessibilityProvider, {value: {reducedMotion: {enabled: false, rawValue: "no-preference"}}}, ce(LayerProvider, {value: [document.querySelector("#app-mount > .layerContainer-2v_Sit")]}, SettingElement));
+        const Context = ce(AccessibilityProvider, {value: {reducedMotion: {enabled: false, rawValue: "no-preference"}}}, ce(LayerProvider, {value: [document.querySelector("#app-mount .layerContainer-2v_Sit")]}, SettingElement));
         if (this.props.inline) {
             const Flex = DiscordModules.FlexChild;
             const titleDefault = WebpackModules.getByProps("titleDefault") ? WebpackModules.getByProps("titleDefault").title : "titleDefault-a8-ZSr title-31JmR4 da-titleDefault da-title";

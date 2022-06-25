@@ -340,8 +340,14 @@ export default class Utilities {
     */
      static loadData(name, key, defaultData) {
         const defaults = this.deepclone(defaultData);
-        try {return this.extend(defaults ? defaults : {}, BdApi.getData(name, key));}
-        catch (err) {Logger.err(name, "Unable to load data: ", err);}
+        try {
+            const storedData = BdApi.getData(name, key);
+            if (typeof(defaults) === "object") return this.extend(defaults, storedData);
+            return this.isNil(storedData) ? defaults : storedData;
+        }
+        catch (err) {
+            Logger.err(name, "Unable to load data: ", err);
+        }
         return defaults;
     }
 
