@@ -1027,7 +1027,7 @@
           "class",
           "module:tooltip",
           "module:tooltip>module:tooltip",
-          "tooltip(require(&quot;tooltip&quot"
+          "tooltip(require(\"tooltip"
         ],
         "module-ColorConverter.html": [
           "color",
@@ -5982,55 +5982,25 @@
                                       "docs": {},
                                       "(": {
                                         "docs": {},
-                                        "&": {
+                                        "\"": {
                                           "docs": {},
-                                          "q": {
+                                          "t": {
                                             "docs": {},
-                                            "u": {
+                                            "o": {
                                               "docs": {},
                                               "o": {
                                                 "docs": {},
-                                                "t": {
+                                                "l": {
                                                   "docs": {},
-                                                  ";": {
+                                                  "t": {
                                                     "docs": {},
-                                                    "t": {
+                                                    "i": {
                                                       "docs": {},
-                                                      "o": {
-                                                        "docs": {},
-                                                        "o": {
-                                                          "docs": {},
-                                                          "l": {
-                                                            "docs": {},
-                                                            "t": {
-                                                              "docs": {},
-                                                              "i": {
-                                                                "docs": {},
-                                                                "p": {
-                                                                  "docs": {},
-                                                                  "&": {
-                                                                    "docs": {},
-                                                                    "q": {
-                                                                      "docs": {},
-                                                                      "u": {
-                                                                        "docs": {},
-                                                                        "o": {
-                                                                          "docs": {},
-                                                                          "t": {
-                                                                            "docs": {
-                                                                              "module-Tooltip_module_Tooltip.html": {
-                                                                                "ref": "module-Tooltip_module_Tooltip.html",
-                                                                                "tf": 100
-                                                                              }
-                                                                            }
-                                                                          }
-                                                                        }
-                                                                      }
-                                                                    }
-                                                                  }
-                                                                }
-                                                              }
-                                                            }
+                                                      "p": {
+                                                        "docs": {
+                                                          "module-Tooltip_module_Tooltip.html": {
+                                                            "ref": "module-Tooltip_module_Tooltip.html",
+                                                            "tf": 100
                                                           }
                                                         }
                                                       }
@@ -16061,7 +16031,7 @@
       "toggl",
       "tool",
       "tooltip",
-      "tooltip(require(&quot;tooltip&quot",
+      "tooltip(require(\"tooltip",
       "tostr",
       "tutori",
       "type",
@@ -17094,7 +17064,7 @@
     "module-Tooltip_module_Tooltip.html": {
       "id": "module-Tooltip_module_Tooltip.html",
       "kind": "class",
-      "title": "Tooltip(require(&quot;Tooltip&quot;))",
+      "title": "Tooltip(require(\"Tooltip\"))",
       "longname": "module:Tooltip>module:Tooltip",
       "name": "module:Tooltip",
       "tags": "module:Tooltip>module:Tooltip",

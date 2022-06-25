@@ -10,7 +10,7 @@
     "@babel/core": "^7.16.10",
     "@babel/preset-env": "^7.16.11",
     "@babel/register": "^7.16.9",
-    "foodoc": "^0.0.9",
+    "foodoc": "github:rauenzi/foodoc",
     "jsdoc": "^3.6.10",
     "mocha": "^9.1.4",
     "raw-loader": "^4.0.2",
