@@ -339,7 +339,7 @@ export default class Utilities {
      * @returns {object} the combined saved and default data
     */
      static loadData(name, key, defaultData) {
-        const defaults = this.deepclone(defaultData);
+        const defaults = defaultData ? this.deepclone(defaultData) : {};
         try {
             const storedData = BdApi.getData(name, key);
             if (typeof(defaults) === "object") return this.extend(defaults, storedData);

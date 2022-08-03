@@ -13,7 +13,8 @@ module.exports = {
         github_raw: "https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"
     },
     changelog: [
-        {title: "What's Fixed?", type: "improved", items: ["Fixed crashing when trying to show changelogs."]},
+        {title: "What's New?", type: "improved", items: ["Updater system got an overhaul and now aligns more closely with Discord's banners."]},
+        {title: "What's Fixed?", type: "fixed", items: ["Dispatcher is grabbed correctly.", "Keybind settings are now usable.", "Data is loaded correctly."]},
     ],
     main: "plugin.js"
 };
