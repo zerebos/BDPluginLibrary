@@ -80,7 +80,7 @@ export default class Utilities {
      * @param {*} anything - whatever you want
      */
     static isNil(anything) {
-        return anything == null;
+        return anything === null;
     }
 
     /**
@@ -241,6 +241,7 @@ export default class Utilities {
             for (const key in extenders[i]) {
                 if (extenders[i].hasOwnProperty(key)) {
                     if (Array.isArray(extendee[key]) && Array.isArray(extenders[i][key])) this.extend(extendee[key], extenders[i][key]);
+                    else if (this.isNil(extenders[i][key])) extendee[key] = extenders[i][key];
                     else if (typeof extendee[key] === "object" && typeof extenders[i][key] === "object") this.extend(extendee[key], extenders[i][key]);
                     else if (Array.isArray(extenders[i][key])) extendee[key] = [], this.extend(extendee[key], extenders[i][key]); // eslint-disable-line no-sequences
                     else if (typeof extenders[i][key] === "object") extendee[key] = {}, this.extend(extendee[key], extenders[i][key]); // eslint-disable-line no-sequences
@@ -261,6 +262,7 @@ export default class Utilities {
      * @return {Any} The cloned value
      */
     static deepclone(value) {
+        if (this.isNil(value)) return value;
         if (typeof value === "object") {
             if (Array.isArray(value)) return value.map(i => this.deepclone(i));
 
@@ -338,12 +340,12 @@ export default class Utilities {
      * @param {object} defaultData - default data to populate the object with
      * @returns {object} the combined saved and default data
     */
-     static loadData(name, key, defaultData) {
-        const defaults = defaultData ? this.deepclone(defaultData) : {};
+     static loadData(name, key, defaultData = {}) {
+        const defaults = this.deepclone(defaultData);
         try {
             const storedData = BdApi.getData(name, key);
             if (typeof(defaults) === "object") return this.extend(defaults, storedData);
-            return this.isNil(storedData) ? defaults : storedData;
+            return this.isNil(storedData) || typeof(storedData) === "undefined" ? defaults : storedData;
         }
         catch (err) {
             Logger.err(name, "Unable to load data: ", err);
