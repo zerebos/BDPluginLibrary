@@ -51,6 +51,13 @@ Absolute or relative path to the folder where plugins that are built should be p
 
 ***
 
+#### `bdFolder`
+Absolute or relative path to the BetterDiscord folder. Useful when combined with `copyToBD`. This folder is found automatically on most system.
+
+**Default**: `"<os-specific>/BetterDiscord"`
+
+***
+
 #### `copyToBD`
 Boolean to determine if the built plugin should also be automatically copied over to your BD plugins directory. Very convenient for development.
 
@@ -71,10 +78,4 @@ See the example plugin in `examples/ExamplePlugin`. Note how it does not check f
 
 All plugin styles will set the meta using the plugin name for `name`. `github` and `github_raw` will be used as `website` and `source` options in the meta.
 
-### Plugins Using Lib Plugin (recommended)
-
 To build all plugins in `plugins` folder, run `npm run build_plugin`. To build a single plugin run `npm run build_plugin PluginName`. This will yield `PluginName.plugin.js` in the `releases` folder with the same meta as outlined in the template. The resulting file will automatically check if the plugin library exists, and alert the user if it does not giving them a link to download it.
-
-### Plugins w/ Packed Lib (larger file sizes)
-
-To pack a plugin run `npm run build_plugin_packed PluginName`. This will produce a single `PluginName.plugin.js` file in the `releases` folder with the basic meta up top. This version will include all lib functions internally. To pack all plugins in the `plugins` folder run `npm run build_plugin_packed` without arguments.
