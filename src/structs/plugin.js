@@ -55,7 +55,7 @@ export default function(meta) {
         get isEnabled() {return this._enabled;}
         get strings() {
             if (!this._config.strings) return {};
-            const locale = DiscordModules.UserSettingsStore.locale.split("-")[0];
+            const locale = DiscordModules.LocaleStore.locale.split("-")[0];
             if (this._config.strings.hasOwnProperty(locale)) return this._config.strings[locale];
             if (this._config.strings.hasOwnProperty("en")) return this._config.strings.en;
             return this._config.strings;

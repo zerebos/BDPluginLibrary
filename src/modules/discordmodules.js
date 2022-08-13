@@ -34,7 +34,8 @@ export default Utilities.memoizeObject({
 
     /* Current User Info, State and Settings */
     get UserInfoStore() {return WebpackModules.getByProps("getSessionId");},
-    get UserSettingsStore() {return WebpackModules.getByProps("guildPositions");},
+    get LocaleStore() {return WebpackModules.getByProps("locale", "initialize");},
+    get ThemeStore() {return WebpackModules.getByProps("theme", "initialize");},
     get StreamerModeStore() {return WebpackModules.getByProps("hidePersonalInformation");},
     get UserSettingsUpdater() {return WebpackModules.getByProps("updateRemoteSettings");},
     get OnlineWatcher() {return WebpackModules.getByProps("isOnline");},
