@@ -1,10 +1,4 @@
-# PluginLibrary - [Download][download] [![Build Status][travis-badge]][travis-link] [![Language Grade][lgtm-badge]][lgtm-link] [![Patreon][patreon-badge]][patreon-link] [![Paypal][paypal-badge]][paypal-link]
-
-[patreon-badge]: https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.herokuapp.com%2FZerebos&style=flat-square
-[patreon-link]: https://patreon.com/Zerebos
-
-[paypal-badge]: https://img.shields.io/badge/Paypal-Donate!-%2300457C.svg?logo=paypal&style=flat-square
-[paypal-link]: https://paypal.me/ZackRauen
+# PluginLibrary - [Download][download] [![Build Status][travis-badge]][travis-link] [![Language Grade][lgtm-badge]][lgtm-link]
 
 [lgtm-badge]: https://img.shields.io/lgtm/grade/javascript/g/rauenzi/BDPluginLibrary.svg?style=flat-square
 [lgtm-link]: https://lgtm.com/projects/g/rauenzi/BDPluginLibrary/context:javascript
@@ -12,9 +6,9 @@
 [travis-badge]: https://img.shields.io/travis/rauenzi/BDPluginLibrary.svg?&style=flat-square&branch=master
 [travis-link]: https://travis-ci.org/rauenzi/BDPluginLibrary
 
-[download]: https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js
+[download]: https://betterdiscord.app/Download?id=9
 
-This is the repo for Zere's Plugin Library for BetterDiscord. For now this is only for BBD/BDv1 You can follow development here. There will be more info and shit to come, but for now here ya go.
+This is the repo for Zere's Plugin Library for BetterDiscord. You can follow development here. There will be more info and shit to come, but for now here ya go.
 
 ## Library Documentation
 
