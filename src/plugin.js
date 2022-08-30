@@ -41,7 +41,7 @@ export default (BasePlugin, Library) => {
         _reloadPlugins() {
             const list = BdApi.Plugins.getAll().reduce((acc, val) => {
                 if (!val.instance || !val.instance._config) return acc;
-                const name = val.name || val.instance.getName();
+                const name = val.id || val.instance.getName();
                 if (name === "ZeresPluginLibrary") return acc;
                 acc.push(name);
                 return acc;

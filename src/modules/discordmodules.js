@@ -132,7 +132,7 @@ export default Utilities.memoizeObject({
     get Timestamps() {return WebpackModules.getByProps("fromTimestamp");},
 
     /* Strings and Utils */
-    get Strings() {return WebpackModules.getModule(m => m.Messages && Object.keys(m.Messages).length);},
+    get Strings() {return WebpackModules.getModule(m => m.Messages && Object.keys(m.Messages).length && m.Messages.COPY_ID);},
     get StringFormats() {return WebpackModules.getByProps("a", "z");},
     get StringUtils() {return WebpackModules.getByProps("toASCII");},
 
