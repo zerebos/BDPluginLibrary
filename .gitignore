@@ -8,8 +8,4 @@ release/*
 !release/SendButton.plugin.js
 !release/ZLibrary.js
 plugins
-/config.json
-TODO.txt
-discord1.js
-discord2.js
-getNestProp_performance.js
+types/
