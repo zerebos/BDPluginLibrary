@@ -1,81 +1,64 @@
 /* eslint-disable no-console */
-const path = require("path");
 const fs = require("fs");
-const args = process.argv.slice(2);
-const defaultConfig = require(path.join(__dirname, "../package.json")).defaultConfig;
+const path = require("path");
+const webpack = require("webpack");
+const defaults = require("../webpack.config.js");
+const pkg = require(path.join(__dirname, "../package.json"));
+const defaultConfig = pkg.defaultConfig;
 const libConfigPath = path.join(__dirname, "../config.json");
 const libConfig = Object.assign(defaultConfig, fs.existsSync(libConfigPath) ? require(libConfigPath) : {});
 const pluginsPath = path.isAbsolute(libConfig.pluginsFolder) ? libConfig.pluginsFolder : path.join(__dirname, "..", libConfig.pluginsFolder);
 const releasePath = path.isAbsolute(libConfig.releaseFolder) ? libConfig.releaseFolder : path.join(__dirname, "..", libConfig.releaseFolder);
-const windows = process.env.APPDATA;
-const mac = process.env.HOME + "/Library/Application Support";
-const linux = process.env.XDG_CONFIG_HOME ? process.env.XDG_CONFIG_HOME : process.env.HOME + "/.config";
-let bdFolder = (process.platform == "win32" ? windows : process.platform == "darwin" ? mac : linux) + "/BetterDiscord/";
-if (libConfig.bdFolder) bdFolder = libConfig.bdFolder;
-
-const embedFiles = function(content, pluginName, files) {
-    for (const fileName of files) {
-        content = content.replace(new RegExp(`require\\(('|"|\`)${fileName}('|"|\`)\\)`, "g"), () => {
-            const filePath = path.join(pluginsPath, pluginName, fileName);
-            if (!fileName.endsWith(".js")) return `\`${fs.readFileSync(filePath).toString().replace(/\\/g, `\\\\`).replace(/\\\\\$\{/g, "\\${").replace(/`/g, "\\`")}\``;
-            const exported = require(filePath);
-            if (typeof(exported) !== "object" && !Array.isArray(exported)) return `(${require(filePath).toString()})`;
-            if (Array.isArray(exported)) return `(${JSON.stringify(exported)})`;
-            const raw = fs.readFileSync(filePath).toString().replace(/module\.exports\s*=\s*/, "");
-            return `(() => {return ${raw}})()`;
+const bdFolder = (process.platform == "win32" ? process.env.APPDATA : process.platform == "darwin" ? process.env.HOME + "/Library/Preferences" : process.env.XDG_CONFIG_HOME ? process.env.XDG_CONFIG_HOME : process.env.HOME + "/.config") + "/BetterDiscord/";
+const args = process.argv.slice(2);
+const mode = args[0];
+const packList = args.slice(1).length ? args.slice(1) : fs.readdirSync(pluginsPath).filter(f => fs.lstatSync(path.join(pluginsPath, f)).isDirectory() && f != "0PluginLibrary");
+(async (list) => {
+    console.log("");
+    console.log(`Packing ${list.length} plugin${list.length > 1 ? "s" : ""}`);
+    console.time("Packing took");
+    for (let f = 0; f < list.length; f++) {
+        const output = list[f];
+        const isLibrary = output == "0PluginLibrary";
+        const pluginName = isLibrary ? "ZeresPluginLibrary" : output;
+        console.log(`Packing ${pluginName}`);
+        const configPath = isLibrary ? path.join(__dirname, "..", "src", "config.js") : path.join(pluginsPath, output, "config.json");
+        if (!fs.existsSync(configPath)) {
+            console.error(`Could not find "${configPath}". Skipping...`);
+            continue;
+        }
+        const pluginConfig = require(configPath);
+        const config = defaults({PLUGIN_NAME: output, CONFIG_PATH: configPath, PLUGIN_PATH: path.join(configPath, "..", pluginConfig.main)});
+        config.mode = mode;
+        config.entry = "./src/index.js";
+        config.output.library = pluginName;
+        config.output.filename = output + ".plugin.js";
+        config.output.path = releasePath;
+        const banner = `/**
+ * @name ${pluginName}
+ * @version ${pkg.version}
+ * @authorLink https://twitter.com/IAmZerebos
+ * @website ${pluginConfig.info.github}
+ * @source ${pluginConfig.info.github_raw}
+ */
+`;
+        // const banner = `//META{"name":"${pluginName}","displayName":"${pluginName}","website":"${pluginConfig.info.github}","source":"${pluginConfig.info.github_raw}"}*//\n`;
+        await new Promise((resolve) => {
+            webpack(config, (err, stats) => {
+                if (err || stats.hasErrors()) console.error(err);
+                if (stats.hasErrors()) console.error(stats.errors);
+                resolve();
+            });
         });
+        let result = fs.readFileSync(path.join(config.output.path, config.output.filename)).toString();
+        if (libConfig.addInstallScript) result = require(path.join(__dirname, "installscript.js")) + result + "\n/*@end@*/";
+        result = banner + "\n" + result;
+        fs.writeFileSync(path.join(config.output.path, config.output.filename), result);
+        if (libConfig.copyToBD) {
+            console.log(`Copying ${pluginName} to BD folder`);
+            fs.writeFileSync(path.join(bdFolder, "plugins", config.output.filename), result);
+        }
+        console.log(`${pluginName} packed successfully`);
     }
-    return content;
-};
-
-const template = fs.readFileSync(path.join(__dirname, "template.js")).toString();
-const list = args.slice(1).length ? args.slice(1) : fs.readdirSync(pluginsPath).filter(f => fs.lstatSync(path.join(pluginsPath, f)).isDirectory());
-console.log("");
-console.log(`Building ${list.length} plugin${list.length > 1 ? "s" : ""}`);
-console.time("Build took");
-for (let f = 0; f < list.length; f++) {
-    const pluginName = list[f];
-    const configPath = path.join(pluginsPath, pluginName, "config.json");
-    console.log(`Building ${pluginName} from ${configPath}`);
-    
-    if (!fs.existsSync(configPath)) {
-        console.error(`Could not find "${configPath}". Skipping...`);
-        continue;
-    }
-    const config = require(configPath);
-    const files = fs.readdirSync(path.join(pluginsPath, pluginName)).filter(f => f != "config.json" && f != config.main);
-    const content = embedFiles(require(path.join(pluginsPath, pluginName, config.main)).toString(), pluginName, files);
-    let result = buildMeta(config);
-    if (libConfig.addInstallScript) result += require(path.join(__dirname, "installscript.js"));
-    result += template.replace(`const config = "";`, `const config = ${JSON.stringify(config)};`)
-                      .replace(`const plugin = "";`, `const plugin = ${content};`);
-    if (libConfig.addInstallScript) result += "\n/*@end@*/";
-    const buildFile = path.join(releasePath, pluginName + ".plugin.js");
-    fs.writeFileSync(buildFile, result);
-    if (libConfig.copyToBD) {
-        console.log(`Copying ${pluginName} to BD folder`);
-        fs.writeFileSync(path.join(bdFolder, "plugins", pluginName + ".plugin.js"), result);
-    }
-    console.log(`${pluginName} built successfully`);
-    console.log(`${pluginName} saved as ${buildFile}`);
-}
-console.timeEnd("Build took");
-
-function buildMeta(config) {
-    const metaString = ["/**"];
-    const line = (label, val) => val && metaString.push(` * @${label} ${val}`);
-    line("name", config.info.name);
-    line("description", config.info.description);
-    line("version", config.info.version);
-    line("author", config.info.authors.map(a => a.name).join(", "));
-    line("authorId", config.info.authors[0].id ?? config.info.authors[0].discord_id);
-    line("authorLink", config.info.authors[0].link);
-    line("website", config.info.website ?? config.info.github);
-    line("source", config.info.source ?? config.info.github_raw);
-    line("donate", config.info.donate);
-    line("patreon", config.info.patreon);
-    metaString.push(" */");
-    metaString.push("");
-    return metaString.join("\n");
-}
-
+    console.timeEnd("Packing took");
+})(packList);

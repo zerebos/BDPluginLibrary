@@ -3,10 +3,10 @@
  * @module Popouts
  */
 
-import {DiscordModules, DOMTools, WebpackModules, Patcher} from "modules";
+// import {DiscordModules, DOMTools, WebpackModules, Patcher} from "modules";
 
-const {React, ReactDOM} = DiscordModules;
-const {useReducer, useEffect, useRef} = React;
+// const {React, ReactDOM} = DiscordModules;
+// const {useReducer, useEffect, useRef} = React;
 // const AccessibilityProvider = WebpackModules.getByProps("AccessibilityPreferencesContext").AccessibilityPreferencesContext.Provider;
 // const Layers = WebpackModules.getByProps("AppReferencePositionLayer");
 // const PopoutCSSAnimator = WebpackModules.getByDisplayName("PopoutCSSAnimator");
@@ -18,41 +18,41 @@ const {useReducer, useEffect, useRef} = React;
 // const AnalyticsTracker = WebpackModules.find(m => m.toString && m.toString().includes("setDebugTrackedData"));
 // const Popout = WebpackModules.getByDisplayName("Popout");
 
-const createStore = state => {
-    const listeners = new Set();
+// const createStore = state => {
+//     const listeners = new Set();
 
-    const setState = function (getter = _ => _) {
-        const partial = getter(state);
-        if (partial === state) return;
+//     const setState = function (getter = _ => _) {
+//         const partial = getter(state);
+//         if (partial === state) return;
 
-        state = partial;
+//         state = partial;
         
-        [...listeners].forEach(e => e());
-    };
+//         [...listeners].forEach(e => e());
+//     };
 
-    setState.getState = () => state;
+//     setState.getState = () => state;
 
-    function storeListener(getter = _ => _) {
-        const [, forceUpdate] = useReducer(n => !n, true);
+//     function storeListener(getter = _ => _) {
+//         const [, forceUpdate] = useReducer(n => !n, true);
 
-        useEffect(() => {
-            const dispatch = () => {forceUpdate();};
+//         useEffect(() => {
+//             const dispatch = () => {forceUpdate();};
 
-            listeners.add(dispatch);
+//             listeners.add(dispatch);
 
-            return () => {listeners.delete(dispatch);};
-        });
+//             return () => {listeners.delete(dispatch);};
+//         });
 
-        return getter(state);
-    }
+//         return getter(state);
+//     }
 
-    return [
-        setState,
-        storeListener
-    ];
-};
+//     return [
+//         setState,
+//         storeListener
+//     ];
+// };
 
-const [setPopouts, usePopouts] = createStore([]);
+// const [setPopouts, usePopouts] = createStore([]);
 
 const AnimationTypes = {FADE: 3, SCALE: 2, TRANSLATE: 1};
 

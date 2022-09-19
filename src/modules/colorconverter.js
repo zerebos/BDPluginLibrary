@@ -26,7 +26,7 @@ export default class ColorConverter {
     /**
      * Will get the red green and blue values of any color string.
      * @param {string} color - the color to obtain the red, green and blue values of. Can be in any of these formats: #fff, #ffffff, rgb, rgba
-     * @returns {array} - array containing the red, green, and blue values
+     * @returns {Array<number>} - array containing the red, green, and blue values
      */
     static getRGB(color) {
         let result = /rgb\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*\)/.exec(color);
@@ -50,6 +50,7 @@ export default class ColorConverter {
      */
     static darkenColor(color, percent) {
         const rgb = this.getRGB(color);
+        if (!rgb) return color;
         for (let i = 0; i < rgb.length; i++) rgb[i] = Math.round(Math.max(0, rgb[i] - rgb[i] * (percent / 100)));
         return "rgb(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + ")";
     }
@@ -62,6 +63,7 @@ export default class ColorConverter {
      */
     static lightenColor(color, percent) {
         const rgb = this.getRGB(color);
+        if (!rgb) return color;
         for (let i = 0; i < rgb.length; i++) rgb[i] = Math.round(Math.min(255, rgb[i] + rgb[i] * (percent / 100)));
         return "rgb(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + ")";
     }
@@ -74,6 +76,7 @@ export default class ColorConverter {
      */
     static rgbToAlpha(color, alpha) {
         const rgb = this.getRGB(color);
+        if (!rgb) return color;
         return "rgba(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + "," + alpha + ")";
     }
 

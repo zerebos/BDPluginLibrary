@@ -8,7 +8,7 @@ import {Icons} from "ui";
 
 import CSS from "../styles/toasts.css";
 
-export default class Toast {
+export default class Toasts {
 
     static get CSS() {return CSS;}
 

@@ -10,7 +10,7 @@
 export default class Patcher {
 
     // Use window._patches instead of local variables in case something tries to whack the lib
-    static get patches() {return window._patches || (window._patches = []);}
+    static get patches() {return [];}
 
     /**
      * Returns all the patches done by a specific caller
