@@ -13,8 +13,8 @@ module.exports = {
         github_raw: "https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"
     },
     changelog: [
-        {title: "What's New?", type: "improved", items: ["Dropdown are now done using custom components! There may be some edge issues but they should at least work better than before.", "Keybinds can now be cleared!"]},
-        {title: "What's Fixed?", type: "fixed", items: ["Plugin strings are handled correctly.", "Better data handling."]},
+        {title: "What's Fixed?", type: "fixed", items: ["Plugin loads again.", "Plugin settings work and display correctly.", "Modals are all rendered properly", "Library uses BetterDiscord's `Webpack` API."]},
+        {title: "What's Missing?", type: "progress", items: ["Popout module is not functional.", "Context menu module is not functional.", "Most prenamed DiscordModules are likely wrong."]},
     ],
     main: "plugin.js"
 };

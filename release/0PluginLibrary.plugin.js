@@ -1,6 +1,6 @@
 /**
  * @name ZeresPluginLibrary
- * @version 2.0.5
+ * @version 2.0.6
  * @authorLink https://twitter.com/IAmZerebos
  * @website https://github.com/rauenzi/BDPluginLibrary
  * @source https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js
@@ -92,14 +92,14 @@ module.exports = {
             github_username: "rauenzi",
             twitter_username: "IAmZerebos"
         }],
-        version: "2.0.5",
+        version: "2.0.6",
         description: "Gives other plugins utility functions and the ability to emulate v2.",
         github: "https://github.com/rauenzi/BDPluginLibrary",
         github_raw: "https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"
     },
     changelog: [
-        {title: "What's New?", type: "improved", items: ["Dropdown are now done using custom components! There may be some edge issues but they should at least work better than before.", "Keybinds can now be cleared!"]},
-        {title: "What's Fixed?", type: "fixed", items: ["Plugin strings are handled correctly.", "Better data handling."]},
+        {title: "What's Fixed?", type: "fixed", items: ["Plugin loads again.", "Plugin settings work and display correctly.", "Modals are all rendered properly", "Library uses BetterDiscord's `Webpack` API."]},
+        {title: "What's Missing?", type: "progress", items: ["Popout module is not functional.", "Context menu module is not functional.", "Most prenamed DiscordModules are likely wrong."]},
     ],
     main: "plugin.js"
 };
@@ -409,7 +409,7 @@ __webpack_require__.r(__webpack_exports__);
     get ColorShader() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("darken");},
     get TinyColor() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByPrototypes("toRgb");},
     get ClassResolver() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getClass");},
-    get ButtonData() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("ButtonSizes");},
+    get ButtonData() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("BorderColors");},
     get NavigationUtils() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("transitionTo", "replaceWith", "getHistory");},
     get KeybindStore() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("keyToCode");},
 
@@ -491,11 +491,16 @@ __webpack_require__.r(__webpack_exports__);
     get GuildSettingsWindow() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("open", "updateGuild");},
 
     /* Modals */
-    get ModalActions() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("openModal", "updateModal");},
+    get ModalActions() {
+        return {
+            openModal: _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m?.toString().includes("onCloseCallback") && m?.toString().includes("Layer")),
+            closeModal: _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m?.toString().includes("onCloseCallback()"))
+        };
+    },
     get ModalStack() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("push", "update", "pop", "popWithKey");},
     get UserProfileModals() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("fetchMutualFriends", "setSection");},
     get AlertModal() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByPrototypes("handleCancel", "handleSubmit");},
-    get ConfirmationModal() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].findByDisplayName("ConfirmModal");},
+    get ConfirmationModal() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m?.toString()?.includes("confirmText"));},
     get ChangeNicknameModal() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("open", "changeNickname");},
     get CreateChannelModal() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("open", "createChannel");},
     get PruneMembersModal() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("open", "prune");},
@@ -515,15 +520,15 @@ __webpack_require__.r(__webpack_exports__);
 
     /* Misc */
     get ExternalLink() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByRegex(/trusted/);},
-    get TextElement() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByDisplayName("LegacyText") || _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("Colors", "Sizes");},
+    get TextElement() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m?.Sizes?.SIZE_32 && m.Colors);},
     get Anchor() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByDisplayName("Anchor");},
     get Flex() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByDisplayName("Flex");},
     get FlexChild() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("Child");},
     get Clickable() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByDisplayName("Clickable");},
-    get Titles() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("Tags", "default");},
+    get Titles() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("Tags", "Sizes");},
     get HeaderBar() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByDisplayName("HeaderBar");},
     get TabBar() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByDisplayName("TabBar");},
-    get Tooltip() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("TooltipContainer").TooltipContainer;},
+    get Tooltip() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByPrototypes("renderTooltip");},
     get Spinner() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByDisplayName("Spinner");},
 
     /* Forms */
@@ -539,16 +544,16 @@ __webpack_require__.r(__webpack_exports__);
     get AdvancedScrollerNone() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("AdvancedScrollerNone").AdvancedScrollerNone;},
 
     /* Settings */
-    get SettingsWrapper() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByDisplayName("FormItem");},
-    get SettingsNote() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByDisplayName("FormText");},
+    get SettingsWrapper() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m.Tags && m?.toString().includes("required"));},
+    get SettingsNote() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m.Types && m?.toString().includes("selectable"));},
     get SettingsDivider() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => !m.defaultProps && m.prototype && m.prototype.render && m.prototype.render.toString().includes("default.divider"));},
 
     get ColorPicker() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m.displayName === "ColorPicker" && m.defaultProps);},
     get Dropdown() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("SingleSelect").SingleSelect;},
     get Keybind() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByPrototypes("handleComboChange");},
-    get RadioGroup() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByDisplayName("RadioGroup");},
+    get RadioGroup() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m.Sizes && m.toString().includes("radioItemClassName"));},
     get Slider() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByPrototypes("renderMark");},
-    get SwitchRow() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByDisplayName("SwitchItem");},
+    get SwitchRow() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m.toString().includes("helpdeskArticleId"));},
     get Textbox() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m.defaultProps && m.defaultProps.type == "text");},
 }));
 
@@ -1512,22 +1517,22 @@ class Logger {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Utilities": () => (/* reexport safe */ _utilities__WEBPACK_IMPORTED_MODULE_0__["default"]),
-/* harmony export */   "WebpackModules": () => (/* reexport safe */ _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"]),
-/* harmony export */   "Filters": () => (/* reexport safe */ _webpackmodules__WEBPACK_IMPORTED_MODULE_1__.Filters),
-/* harmony export */   "DiscordModules": () => (/* reexport safe */ _discordmodules__WEBPACK_IMPORTED_MODULE_2__["default"]),
 /* harmony export */   "ColorConverter": () => (/* reexport safe */ _colorconverter__WEBPACK_IMPORTED_MODULE_3__["default"]),
 /* harmony export */   "DOMTools": () => (/* reexport safe */ _domtools__WEBPACK_IMPORTED_MODULE_4__["default"]),
+/* harmony export */   "DiscordClassModules": () => (/* reexport safe */ _discordclassmodules__WEBPACK_IMPORTED_MODULE_13__["default"]),
 /* harmony export */   "DiscordClasses": () => (/* reexport safe */ _discordclasses__WEBPACK_IMPORTED_MODULE_5__["default"]),
+/* harmony export */   "DiscordModules": () => (/* reexport safe */ _discordmodules__WEBPACK_IMPORTED_MODULE_2__["default"]),
 /* harmony export */   "DiscordSelectors": () => (/* reexport safe */ _discordselectors__WEBPACK_IMPORTED_MODULE_6__["default"]),
-/* harmony export */   "ReactTools": () => (/* reexport safe */ _reacttools__WEBPACK_IMPORTED_MODULE_7__["default"]),
-/* harmony export */   "ReactComponents": () => (/* reexport safe */ _reactcomponents__WEBPACK_IMPORTED_MODULE_8__["default"]),
+/* harmony export */   "Filters": () => (/* reexport safe */ _webpackmodules__WEBPACK_IMPORTED_MODULE_1__.Filters),
 /* harmony export */   "Logger": () => (/* reexport safe */ _logger__WEBPACK_IMPORTED_MODULE_9__["default"]),
 /* harmony export */   "Patcher": () => (/* reexport safe */ _patcher__WEBPACK_IMPORTED_MODULE_10__["default"]),
 /* harmony export */   "PluginUpdater": () => (/* reexport safe */ _pluginupdater__WEBPACK_IMPORTED_MODULE_11__["default"]),
 /* harmony export */   "PluginUtilities": () => (/* reexport safe */ _pluginutilities__WEBPACK_IMPORTED_MODULE_12__["default"]),
-/* harmony export */   "DiscordClassModules": () => (/* reexport safe */ _discordclassmodules__WEBPACK_IMPORTED_MODULE_13__["default"]),
-/* harmony export */   "Structs": () => (/* reexport module object */ structs__WEBPACK_IMPORTED_MODULE_14__)
+/* harmony export */   "ReactComponents": () => (/* reexport safe */ _reactcomponents__WEBPACK_IMPORTED_MODULE_8__["default"]),
+/* harmony export */   "ReactTools": () => (/* reexport safe */ _reacttools__WEBPACK_IMPORTED_MODULE_7__["default"]),
+/* harmony export */   "Structs": () => (/* reexport module object */ structs__WEBPACK_IMPORTED_MODULE_14__),
+/* harmony export */   "Utilities": () => (/* reexport safe */ _utilities__WEBPACK_IMPORTED_MODULE_0__["default"]),
+/* harmony export */   "WebpackModules": () => (/* reexport safe */ _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"])
 /* harmony export */ });
 /* harmony import */ var _utilities__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utilities */ "./src/modules/utilities.js");
 /* harmony import */ var _webpackmodules__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./webpackmodules */ "./src/modules/webpackmodules.js");
@@ -3109,26 +3114,7 @@ class WebpackModules {
      * @return {Any}
      */
     static getModule(filter, first = true) {
-        const wrappedFilter = (m) => {
-            try {return filter(m);}
-            catch (err) {return false;}
-        };
-        const modules = this.getAllModules();
-        const rm = [];
-        for (const index in modules) {
-            if (!modules.hasOwnProperty(index)) continue;
-            const module = modules[index];
-            const {exports} = module;
-            let foundModule = null;
-
-            if (!exports) continue;
-            if (exports.__esModule && exports.default && wrappedFilter(exports.default)) foundModule = exports.default;
-            if (wrappedFilter(exports)) foundModule = exports;
-            if (!foundModule) continue;
-            if (first) return foundModule;
-            rm.push(foundModule);
-        }
-        return first || rm.length == 0 ? undefined : rm;
+        return BdApi.Webpack.getModule(filter, {first});
     }
 
     /**
@@ -3281,12 +3267,12 @@ class WebpackModules {
     static get require() {
         if (this._require) return this._require;
         const id = "zl-webpackmodules";
-        const __nested_webpack_require_11118__ = window.webpackJsonp.push([[], {
+        const __nested_webpack_require_10343__ = window.webpackJsonp.push([[], {
             [id]: (module, exports, req) => module.exports = req
         }, [[id]]]);
-        delete __nested_webpack_require_11118__.m[id];
-        delete __nested_webpack_require_11118__.c[id];
-        return this._require = __nested_webpack_require_11118__;
+        delete __nested_webpack_require_10343__.m[id];
+        delete __nested_webpack_require_10343__.c[id];
+        return this._require = __nested_webpack_require_10343__;
     }
 
     /**
@@ -3903,12 +3889,13 @@ __webpack_require__.r(__webpack_exports__);
         getVersion() {return this._config.info.version;}
         getAuthor() {return this._config.info.authors.map(a => a.name).join(", ");}
         load() {
+            _modules_pluginupdater__WEBPACK_IMPORTED_MODULE_0__["default"].checkForUpdate(this.getName(), this.getVersion(), this._config.info.github_raw);
+
             const currentVersionInfo = _modules_utilities__WEBPACK_IMPORTED_MODULE_4__["default"].loadData(this.getName(), "currentVersionInfo", {version: this.getVersion(), hasShownChangelog: false});
             if (currentVersionInfo.version != this.getVersion() || !currentVersionInfo.hasShownChangelog) {
                 this.showChangelog();
                 _modules_utilities__WEBPACK_IMPORTED_MODULE_4__["default"].saveData(this.getName(), "currentVersionInfo", {version: this.getVersion(), hasShownChangelog: true});
             }
-            _modules_pluginupdater__WEBPACK_IMPORTED_MODULE_0__["default"].checkForUpdate(this.getName(), this.getVersion(), this._config.info.github_raw);
         }
         async start() {
             _modules_logger__WEBPACK_IMPORTED_MODULE_1__["default"].info(this.getName(), `version ${this.getVersion()} has started.`);
@@ -3925,7 +3912,7 @@ __webpack_require__.r(__webpack_exports__);
         get isEnabled() {return this._enabled;}
         get strings() {
             if (!this._config.strings) return {};
-            const locale = _modules_discordmodules__WEBPACK_IMPORTED_MODULE_5__["default"].LocaleManager.getLocale().split("-")[0] ?? "en";
+            const locale = _modules_discordmodules__WEBPACK_IMPORTED_MODULE_5__["default"].LocaleManager?.getLocale().split("-")[0] ?? "en";
             if (this._config.strings.hasOwnProperty(locale)) return this._config.strings[locale];
             if (this._config.strings.hasOwnProperty("en")) return this._config.strings.en;
             return this._config.strings;
@@ -4060,12 +4047,12 @@ class Screen {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Screen": () => (/* reexport safe */ _screen__WEBPACK_IMPORTED_MODULE_0__["default"]),
-/* harmony export */   "Selector": () => (/* reexport safe */ _dom_selector__WEBPACK_IMPORTED_MODULE_1__["default"]),
 /* harmony export */   "ClassName": () => (/* reexport safe */ _dom_classname__WEBPACK_IMPORTED_MODULE_2__["default"]),
 /* harmony export */   "DOMObserver": () => (/* reexport safe */ _dom_observer__WEBPACK_IMPORTED_MODULE_3__["default"]),
 /* harmony export */   "Listenable": () => (/* reexport safe */ _listenable__WEBPACK_IMPORTED_MODULE_4__["default"]),
-/* harmony export */   "Plugin": () => (/* reexport safe */ _plugin__WEBPACK_IMPORTED_MODULE_5__["default"])
+/* harmony export */   "Plugin": () => (/* reexport safe */ _plugin__WEBPACK_IMPORTED_MODULE_5__["default"]),
+/* harmony export */   "Screen": () => (/* reexport safe */ _screen__WEBPACK_IMPORTED_MODULE_0__["default"]),
+/* harmony export */   "Selector": () => (/* reexport safe */ _dom_selector__WEBPACK_IMPORTED_MODULE_1__["default"])
 /* harmony export */ });
 /* harmony import */ var _screen__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./screen */ "./src/structs/screen.js");
 /* harmony import */ var _dom_selector__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dom/selector */ "./src/structs/dom/selector.js");
@@ -4102,7 +4089,7 @@ const React = modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.React;
 const Popout = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getByDisplayName("Popout");
 const ColorPickerComponents = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getByProps("CustomColorPicker");
 const Swatch = ColorPickerComponents?.CustomColorButton.prototype.render.call({props: {}}).type;
-const {default: Tooltip, TooltipPositions} = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getByProps("TooltipContainer");
+const Tooltip = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getByPrototypes("renderTooltip");
 const LocaleManager = modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.LocaleManager;
 
 class ColorPicker extends React.Component {
@@ -4138,7 +4125,7 @@ class ColorPicker extends React.Component {
             onChange: this.onChange,
             colors: this.props.colors,
             renderDefaultButton: props => React.createElement(Tooltip, {
-                position: TooltipPositions.BOTTOM,
+                position: Tooltip.Positions.BOTTOM,
                 text: LocaleManager.Messages.DEFAULT
             }, tooltipProps => React.createElement("div", Object.assign(tooltipProps, {
                 className: "defaultButtonWrapper",
@@ -4149,7 +4136,7 @@ class ColorPicker extends React.Component {
                 align: Popout.Align.CENTER,
                 position: Popout.Positions.BOTTOM
             }, props => React.createElement(Tooltip, {
-                position: TooltipPositions.BOTTOM,
+                position: Tooltip.Positions.BOTTOM,
                 text: LocaleManager.Messages.PICK_A_COLOR
             }, tooltipProps => React.createElement("div", Object.assign({}, tooltipProps, props, {
                 className: "colorPickerButtonWrapper"
@@ -4533,8 +4520,8 @@ class DiscordContextMenu {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ ErrorBoundary),
-/* harmony export */   "WrapBoundary": () => (/* binding */ WrapBoundary)
+/* harmony export */   "WrapBoundary": () => (/* binding */ WrapBoundary),
+/* harmony export */   "default": () => (/* binding */ ErrorBoundary)
 /* harmony export */ });
 /* harmony import */ var _modules_discordmodules__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../modules/discordmodules */ "./src/modules/discordmodules.js");
 
@@ -4709,7 +4696,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const React = modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.React;
 const ce = React.createElement;
-const Markdown = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getModule(m => m.displayName == "Markdown" && m.rules);
+const Markdown = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getModule(m => m.rules);
 
 class Modals {
 
@@ -4760,7 +4747,7 @@ class Modals {
         return modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.ModalActions.openModal(props => {
             return React.createElement(modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.ConfirmationModal, Object.assign({
                 header: title,
-                confirmButtonColor: danger ? modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.ButtonData.ButtonColors.RED : modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.ButtonData.ButtonColors.BRAND,
+                confirmButtonColor: danger ? modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.ButtonData.Colors.RED : modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.ButtonData.Colors.BRAND,
                 confirmText: confirmText,
                 cancelText: cancelText,
                 onConfirm: onConfirm,
@@ -4798,7 +4785,7 @@ class Modals {
         }
         const renderHeader = function() {
             return ce(modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.FlexChild.Child, {grow: 1, shrink: 1},
-                ce(modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.Titles["default"], {tag: modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.Titles.Tags.H4}, title),
+                ce(modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.Titles, {tag: modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.Titles.Tags.H4}, title),
                 ce(TextElement,
                     {size: TextElement.Sizes.SMALL, color: TextElement.Colors.PRIMARY, className: modules__WEBPACK_IMPORTED_MODULE_0__.DiscordClasses.Changelog.date.toString()},
                     "Version " + version
@@ -4809,16 +4796,17 @@ class Modals {
             return ce(Markdown, null, footer);
         } : null;
 
-        return modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.ModalActions.openModal(props => {
-            return ce(modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.Changelog, Object.assign({
-                className: modules__WEBPACK_IMPORTED_MODULE_0__.DiscordClasses.Changelog.container.toString(),
-                selectable: true,
-                onScroll: _ => _,
-                onClose: _ => _,
-                renderHeader: renderHeader,
-                renderFooter: renderFooter,
-            }, props), changelogItems);
-        });
+        // return DiscordModules.ModalActions.openModal(props => {
+        //     return ce(WebpackModules.getModule(m => m?.toString()?.includes("confirmText")), Object.assign({
+        //         className: DiscordClasses.Changelog.container.toString(),
+        //         selectable: true,
+        //         onScroll: _ => _,
+        //         onClose: _ => _,
+        //         renderHeader: renderHeader,
+        //         renderFooter: renderFooter,
+        //     }, props), changelogItems);
+        // });
+        return Modals.showModal(`${title} v${version}`, changelogItems, {cancelText: null, confirmText: null});
     }
 }
 
@@ -4845,16 +4833,16 @@ __webpack_require__.r(__webpack_exports__);
 
 const {React, ReactDOM} = modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules;
 const {useReducer, useEffect, useRef} = React;
-const AccessibilityProvider = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getByProps("AccessibilityPreferencesContext").AccessibilityPreferencesContext.Provider;
-const Layers = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getByProps("AppReferencePositionLayer");
-const PopoutCSSAnimator = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getByDisplayName("PopoutCSSAnimator");
-const LayerProvider = Layers.AppLayerProvider().props.layerContext.Provider; // eslint-disable-line new-cap
-const LayerModule = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getByProps("LayerClassName");
-const {ComponentDispatch} = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getByProps("ComponentDispatch");
-const {ComponentActions} = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getByProps("ComponentActions");
-const AnalyticsTrackContext = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.find(m => m._currentValue && m._currentValue.toString && m._currentValue.toString().includes("AnalyticsTrackImpressionContext function unimplemented"));
-const AnalyticsTracker = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.find(m => m.toString && m.toString().includes("setDebugTrackedData"));
-const Popout = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getByDisplayName("Popout");
+// const AccessibilityProvider = WebpackModules.getByProps("AccessibilityPreferencesContext").AccessibilityPreferencesContext.Provider;
+// const Layers = WebpackModules.getByProps("AppReferencePositionLayer");
+// const PopoutCSSAnimator = WebpackModules.getByDisplayName("PopoutCSSAnimator");
+// const LayerProvider = WebpackModules.getByDisplayName("AppLayerProvider")?.().props.layerContext.Provider; // eslint-disable-line new-cap
+// const LayerModule = WebpackModules.getByProps("LayerClassName");
+// const {ComponentDispatch} = WebpackModules.getByProps("ComponentDispatch");
+// const {ComponentActions} = WebpackModules.getByProps("ComponentActions");
+// const AnalyticsTrackContext = WebpackModules.find(m => m._currentValue && m._currentValue.toString && m._currentValue.toString().includes("AnalyticsTrackImpressionContext function unimplemented"));
+// const AnalyticsTracker = WebpackModules.find(m => m.toString && m.toString().includes("setDebugTrackedData"));
+// const Popout = WebpackModules.getByDisplayName("Popout");
 
 const createStore = state => {
     const listeners = new Set();
@@ -4899,25 +4887,25 @@ class Popouts {
     static get AnimationTypes() {return AnimationTypes;}
 
     static initialize() {
-        this.dispose();
-        this.popouts = 0;
+        // this.dispose();
+        // this.popouts = 0;
 
-        this.container = Object.assign(document.createElement("div"), {
-            className: "ZeresPluginLibraryPopoutsRenderer",
-            style: "display: none;"
-        });
+        // this.container = Object.assign(document.createElement("div"), {
+        //     className: "ZeresPluginLibraryPopoutsRenderer",
+        //     style: "display: none;"
+        // });
     
-        this.layerContainer = Object.assign(document.createElement("div"), {
-            id: "ZeresPluginLibraryPopouts",
-            className: LayerModule.LayerClassName
-        });
+        // this.layerContainer = Object.assign(document.createElement("div"), {
+        //     id: "ZeresPluginLibraryPopouts",
+        //     className: LayerModule.LayerClassName
+        // });
 
-        document.body.append(this.container, this.layerContainer);
-        ReactDOM.render(React.createElement(PopoutsContainer), this.container);
+        // document.body.append(this.container, this.layerContainer);
+        // ReactDOM.render(React.createElement(PopoutsContainer), this.container);
 
-        modules__WEBPACK_IMPORTED_MODULE_0__.Patcher.before("Popouts", LayerModule, "getParentLayerContainer", (_, [element]) => {
-            if (element.parentElement === this.layerContainer) return this.layerContainer;
-        });
+        // Patcher.before("Popouts", LayerModule, "getParentLayerContainer", (_, [element]) => {
+        //     if (element.parentElement === this.layerContainer) return this.layerContainer;
+        // });
     }
 
     /**
@@ -4931,26 +4919,26 @@ class Popouts {
      * @param {string} [options.align="top"] - Positioning relative to element
      */
     static showUserPopout(target, user, options = {}) {
-        const {position = "right", align = "top", guild = modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.SelectedGuildStore.getGuildId(), channel = modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.SelectedChannelStore.getChannelId()} = options;
-        target = modules__WEBPACK_IMPORTED_MODULE_0__.DOMTools.resolveElement(target);
-        // if (target.getBoundingClientRect().right + 250 >= DOMTools.screenWidth && options.autoInvert) position = "left";
-        // if (target.getBoundingClientRect().bottom + 400 >= DOMTools.screenHeight && options.autoInvert) align = "bottom";
-        // if (target.getBoundingClientRect().top - 400 >= DOMTools.screenHeight && options.autoInvert) align = "top";
-        this.openPopout(target, {
-            position: position,
-            align: align,
-            animation: options.animation || Popouts.AnimationTypes.TRANSLATE,
-            autoInvert: options.autoInvert,
-            nudgeAlignIntoViewport: options.nudgeAlignIntoViewport,
-            spacing: options.spacing,
-            render: (props) => {
-                return modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.React.createElement(modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.UserPopout, Object.assign({}, props, {
-                    userId: user.id,
-                    guildId: guild,
-                    channelId: channel
-                }));
-            }
-        });
+        // const {position = "right", align = "top", guild = DiscordModules.SelectedGuildStore.getGuildId(), channel = DiscordModules.SelectedChannelStore.getChannelId()} = options;
+        // target = DOMTools.resolveElement(target);
+        // // if (target.getBoundingClientRect().right + 250 >= DOMTools.screenWidth && options.autoInvert) position = "left";
+        // // if (target.getBoundingClientRect().bottom + 400 >= DOMTools.screenHeight && options.autoInvert) align = "bottom";
+        // // if (target.getBoundingClientRect().top - 400 >= DOMTools.screenHeight && options.autoInvert) align = "top";
+        // this.openPopout(target, {
+        //     position: position,
+        //     align: align,
+        //     animation: options.animation || Popouts.AnimationTypes.TRANSLATE,
+        //     autoInvert: options.autoInvert,
+        //     nudgeAlignIntoViewport: options.nudgeAlignIntoViewport,
+        //     spacing: options.spacing,
+        //     render: (props) => {
+        //         return DiscordModules.React.createElement(DiscordModules.UserPopout, Object.assign({}, props, {
+        //             userId: user.id,
+        //             guildId: guild,
+        //             channelId: channel
+        //         }));
+        //     }
+        // });
     }
 
     /**
@@ -4965,112 +4953,106 @@ class Popouts {
      * @param {number} [options.spacing=8] - Spacing between target and popout
      */
     static openPopout(target, options) {
-        const id = this.popouts++;
+        // const id = this.popouts++;
 
-        setPopouts(popouts => popouts.concat({
-            id: id,
-            element: React.createElement(PopoutWrapper, Object.assign({}, Popout.defaultProps, {
-                reference: {current: target},
-                popoutId: id,
-                key: "popout_" + id,
-                spacing: 50
-            }, options))
-        }));
+        // setPopouts(popouts => popouts.concat({
+        //     id: id,
+        //     element: React.createElement(PopoutWrapper, Object.assign({}, Popout.defaultProps, {
+        //         reference: {current: target},
+        //         popoutId: id,
+        //         key: "popout_" + id,
+        //         spacing: 50
+        //     }, options))
+        // }));
 
-        return id;
+        // return id;
     }
 
     static closePopout(id) {
-        const popout = setPopouts.getState().find(e => e.id === id);
+        // const popout = setPopouts.getState().find(e => e.id === id);
 
-        if (!popout) return null;
+        // if (!popout) return null;
 
-        setPopouts(popouts => {
-            const clone = [...popouts];
-            clone.splice(clone.indexOf(popout), 1);
-            return clone;
-        });
+        // setPopouts(popouts => {
+        //     const clone = [...popouts];
+        //     clone.splice(clone.indexOf(popout), 1);
+        //     return clone;
+        // });
     }
 
     static dispose() {
-        modules__WEBPACK_IMPORTED_MODULE_0__.Patcher.unpatchAll("Popouts");
-        const container = document.querySelector(".ZeresPluginLibraryPopoutsRenderer");
-        const layerContainer = document.querySelector("#ZeresPluginLibraryPopouts");
-        if (container) ReactDOM.unmountComponentAtNode(container);
-        if (container) container.remove();
-        if (layerContainer) layerContainer.remove();
+        // Patcher.unpatchAll("Popouts");
+        // const container = document.querySelector(".ZeresPluginLibraryPopoutsRenderer");
+        // const layerContainer = document.querySelector("#ZeresPluginLibraryPopouts");
+        // if (container) ReactDOM.unmountComponentAtNode(container);
+        // if (container) container.remove();
+        // if (layerContainer) layerContainer.remove();
     }
 }
 
 function DiscordProviders({children, container}) {
-    return React.createElement(AccessibilityProvider, {
-        value: {
-            reducedMotion: {enabled: false, rawValue: "auto"}
-        }
-    }, React.createElement(LayerProvider, {
-        value: [container]
-    }, React.createElement(AnalyticsTrackContext.Provider, {
-        value: AnalyticsTracker
-    }, children)));
+    // return React.createElement(LayerProvider, {
+    //     value: [container]
+    // }, children);
 }
 
 function PopoutsContainer() {
-    const popouts = usePopouts();
+    // const popouts = usePopouts();
 
-    return React.createElement(DiscordProviders,
-        {container: Popouts.layerContainer},
-        popouts.map((popout) => popout.element)
-    );
+    // return React.createElement(DiscordProviders,
+    //     {container: Popouts.layerContainer},
+    //     popouts.map((popout) => popout.element)
+    // );
 }
 
 function PopoutWrapper({render, animation, popoutId, ...props}) {
-    const popoutRef = useRef();
+    // const popoutRef = useRef();
 
-    useEffect(() => {
-        if (!popoutRef.current) return;
+    // useEffect(() => {
+    //     if (!popoutRef.current) return;
 
-        const node = ReactDOM.findDOMNode(popoutRef.current);
+    //     const node = ReactDOM.findDOMNode(popoutRef.current);
 
-        const handleClick = ({target}) => {
-            if (target === node || node.contains(target)) return;
+    //     const handleClick = ({target}) => {
+    //         if (target === node || node.contains(target)) return;
 
-            Popouts.closePopout(popoutId);
-        };
+    //         Popouts.closePopout(popoutId);
+    //     };
 
-        document.addEventListener("click", handleClick);
+    //     document.addEventListener("click", handleClick);
 
-        return () => {
-            document.removeEventListener("click", handleClick);
-        };
-    }, [popoutRef]);
+    //     return () => {
+    //         document.removeEventListener("click", handleClick);
+    //     };
+    // }, [popoutRef]);
 
-    switch (animation) {
-        case PopoutCSSAnimator.Types.FADE:
-        case PopoutCSSAnimator.Types.SCALE:
-        case PopoutCSSAnimator.Types.TRANSLATE: {
-            const renderPopout = render;
-            render = (renderProps) => {
-                return React.createElement(PopoutCSSAnimator, {
-                    position: renderProps.position,
-                    type: animation
-                }, renderPopout(renderProps));
-            };
-        }
-    }
+    // switch (animation) {
+    //     case PopoutCSSAnimator.Types.FADE:
+    //     case PopoutCSSAnimator.Types.SCALE:
+    //     case PopoutCSSAnimator.Types.TRANSLATE: {
+    //         const renderPopout = render;
+    //         render = (renderProps) => {
+    //             return React.createElement(PopoutCSSAnimator, {
+    //                 position: renderProps.position,
+    //                 type: animation
+    //             }, renderPopout(renderProps));
+    //         };
+    //     }
+    // }
 
-    return React.createElement(Layers.AppReferencePositionLayer, Object.assign(props, {
-        ref: popoutRef,
-        positionKey: "0",
-        autoInvert: true,
-        id: "popout_" + popoutId,
-        onMount() {
-            ComponentDispatch.dispatch(ComponentActions.POPOUT_SHOW);
-        },
-        onUnmount() {
-            ComponentDispatch.dispatch(ComponentActions.POPOUT_HIDE);
-        },
-        children: render
-    }));
+    // return React.createElement(Layers.AppReferencePositionLayer, Object.assign(props, {
+    //     ref: popoutRef,
+    //     positionKey: "0",
+    //     autoInvert: true,
+    //     id: "popout_" + popoutId,
+    //     onMount() {
+    //         ComponentDispatch.dispatch(ComponentActions.POPOUT_SHOW);
+    //     },
+    //     onUnmount() {
+    //         ComponentDispatch.dispatch(ComponentActions.POPOUT_HIDE);
+    //     },
+    //     children: render
+    // }));
 }
 
 
@@ -5088,18 +5070,18 @@ function PopoutWrapper({render, animation, popoutId, ...props}) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "CSS": () => (/* reexport safe */ _styles_settings_css__WEBPACK_IMPORTED_MODULE_0__["default"]),
+/* harmony export */   "ColorPicker": () => (/* reexport safe */ _types_color__WEBPACK_IMPORTED_MODULE_5__["default"]),
+/* harmony export */   "Dropdown": () => (/* reexport safe */ _types_dropdown__WEBPACK_IMPORTED_MODULE_9__["default"]),
+/* harmony export */   "FilePicker": () => (/* reexport safe */ _types_file__WEBPACK_IMPORTED_MODULE_6__["default"]),
+/* harmony export */   "Keybind": () => (/* reexport safe */ _types_keybind__WEBPACK_IMPORTED_MODULE_10__["default"]),
+/* harmony export */   "RadioGroup": () => (/* reexport safe */ _types_radiogroup__WEBPACK_IMPORTED_MODULE_11__["default"]),
 /* harmony export */   "ReactSetting": () => (/* reexport safe */ _settingfield__WEBPACK_IMPORTED_MODULE_1__.ReactSetting),
 /* harmony export */   "SettingField": () => (/* reexport safe */ _settingfield__WEBPACK_IMPORTED_MODULE_1__["default"]),
 /* harmony export */   "SettingGroup": () => (/* reexport safe */ _settinggroup__WEBPACK_IMPORTED_MODULE_2__["default"]),
 /* harmony export */   "SettingPanel": () => (/* reexport safe */ _settingpanel__WEBPACK_IMPORTED_MODULE_3__["default"]),
-/* harmony export */   "Textbox": () => (/* reexport safe */ _types_textbox__WEBPACK_IMPORTED_MODULE_4__["default"]),
-/* harmony export */   "ColorPicker": () => (/* reexport safe */ _types_color__WEBPACK_IMPORTED_MODULE_5__["default"]),
-/* harmony export */   "FilePicker": () => (/* reexport safe */ _types_file__WEBPACK_IMPORTED_MODULE_6__["default"]),
 /* harmony export */   "Slider": () => (/* reexport safe */ _types_slider__WEBPACK_IMPORTED_MODULE_7__["default"]),
 /* harmony export */   "Switch": () => (/* reexport safe */ _types_switch__WEBPACK_IMPORTED_MODULE_8__["default"]),
-/* harmony export */   "Dropdown": () => (/* reexport safe */ _types_dropdown__WEBPACK_IMPORTED_MODULE_9__["default"]),
-/* harmony export */   "Keybind": () => (/* reexport safe */ _types_keybind__WEBPACK_IMPORTED_MODULE_10__["default"]),
-/* harmony export */   "RadioGroup": () => (/* reexport safe */ _types_radiogroup__WEBPACK_IMPORTED_MODULE_11__["default"])
+/* harmony export */   "Textbox": () => (/* reexport safe */ _types_textbox__WEBPACK_IMPORTED_MODULE_4__["default"])
 /* harmony export */ });
 /* harmony import */ var _styles_settings_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../styles/settings.css */ "./src/styles/settings.css");
 /* harmony import */ var _settingfield__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./settingfield */ "./src/ui/settings/settingfield.js");
@@ -5144,16 +5126,16 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
-/* harmony export */   "ReactSetting": () => (/* binding */ ReactSetting)
+/* harmony export */   "ReactSetting": () => (/* binding */ ReactSetting),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _structs_listenable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../structs/listenable */ "./src/structs/listenable.js");
 /* harmony import */ var modules__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! modules */ "./src/modules/modules.js");
 
 
 
-const AccessibilityProvider = modules__WEBPACK_IMPORTED_MODULE_1__.WebpackModules.getByProps("AccessibilityPreferencesContext").AccessibilityPreferencesContext.Provider;
-const LayerProvider = modules__WEBPACK_IMPORTED_MODULE_1__.WebpackModules.getByProps("AppReferencePositionLayer").AppLayerProvider().props.layerContext.Provider; // eslint-disable-line new-cap
+// const AccessibilityProvider = WebpackModules.getByProps("AccessibilityPreferencesContext").AccessibilityPreferencesContext.Provider;
+const LayerProvider = modules__WEBPACK_IMPORTED_MODULE_1__.WebpackModules.getModule(m => m?.displayName === "AppLayerProvider")?.().props.layerContext.Provider; // eslint-disable-line new-cap
 
 /** 
  * Setting field to extend to create new settings
@@ -5190,6 +5172,7 @@ class SettingField extends _structs_listenable__WEBPACK_IMPORTED_MODULE_0__["def
 
     /** Fired when root node added to DOM */
     onAdded() {
+        console.log(ReactSetting);
         const reactElement = modules__WEBPACK_IMPORTED_MODULE_1__.DiscordModules.ReactDOM.render(modules__WEBPACK_IMPORTED_MODULE_1__.DiscordModules.React.createElement(ReactSetting, Object.assign({
             title: this.name,
             type: this.type,
@@ -5219,7 +5202,7 @@ class ReactSetting extends modules__WEBPACK_IMPORTED_MODULE_1__.DiscordModules.R
     render() {
         const ce = modules__WEBPACK_IMPORTED_MODULE_1__.DiscordModules.React.createElement;
         const SettingElement = ce(this.props.type, this.props);
-        const Context = ce(AccessibilityProvider, {value: {reducedMotion: {enabled: false, rawValue: "no-preference"}}}, ce(LayerProvider, {value: [document.querySelector("#app-mount .layerContainer-2v_Sit")]}, SettingElement));
+        const Context = ce(LayerProvider, {value: [document.querySelector("#app-mount .layerContainer-2v_Sit")]}, SettingElement);
         if (this.props.inline) {
             const Flex = modules__WEBPACK_IMPORTED_MODULE_1__.DiscordModules.FlexChild;
             const titleDefault = modules__WEBPACK_IMPORTED_MODULE_1__.WebpackModules.getByProps("titleDefault") ? modules__WEBPACK_IMPORTED_MODULE_1__.WebpackModules.getByProps("titleDefault").title : "titleDefault-a8-ZSr title-31JmR4 da-titleDefault da-title";
@@ -5752,6 +5735,9 @@ class CloseButton extends React.Component {
     }
 }
 
+const toCombo = modules__WEBPACK_IMPORTED_MODULE_1__.WebpackModules.getModule(m => m?.toString().includes("numpad plus")) ?? (() => [[0, 0], [0, 0]]);
+const toEvent = modules__WEBPACK_IMPORTED_MODULE_1__.WebpackModules.getModule(m => m?.toString().includes("keyCode") && m?.toString().includes("BROWSER")) ?? (() => ({}));
+
 class ClearableKeybind extends React.Component {
     constructor(props) {
         super(props);
@@ -5796,11 +5782,11 @@ class Keybind extends _settingfield__WEBPACK_IMPORTED_MODULE_0__["default"] {
         if (!Array.isArray(value) || value.some(v => typeof(v) !== "string")) value = []; // if non-strings present, not a valid combo
         super(label, help, onChange, ClearableKeybind, {
             disabled: disabled,
-            defaultValue: modules__WEBPACK_IMPORTED_MODULE_1__.DiscordModules.KeybindStore.toCombo(value.join("+")) ?? [],
+            defaultValue: toCombo(value.join("+")) ?? [],
             onChange: element => val => {
                 if (!Array.isArray(val)) return;
                 element.props.value = val;
-                this.onChange(val.map(a => modules__WEBPACK_IMPORTED_MODULE_1__.DiscordModules.KeybindStore.codeToKey(a)));
+                this.onChange(toEvent(val));
             }
         });
     }
@@ -6426,15 +6412,15 @@ class Tooltip {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Tooltip": () => (/* reexport safe */ _tooltip__WEBPACK_IMPORTED_MODULE_2__["default"]),
-/* harmony export */   "Toasts": () => (/* reexport safe */ _toasts__WEBPACK_IMPORTED_MODULE_3__["default"]),
-/* harmony export */   "Popouts": () => (/* reexport safe */ _popouts__WEBPACK_IMPORTED_MODULE_4__["default"]),
-/* harmony export */   "Modals": () => (/* reexport safe */ _modals__WEBPACK_IMPORTED_MODULE_5__["default"]),
+/* harmony export */   "ColorPicker": () => (/* reexport safe */ _colorpicker__WEBPACK_IMPORTED_MODULE_8__["default"]),
 /* harmony export */   "DiscordContextMenu": () => (/* reexport safe */ _discordcontextmenu__WEBPACK_IMPORTED_MODULE_6__["default"]),
 /* harmony export */   "ErrorBoundary": () => (/* reexport safe */ _errorboundary__WEBPACK_IMPORTED_MODULE_7__["default"]),
-/* harmony export */   "ColorPicker": () => (/* reexport safe */ _colorpicker__WEBPACK_IMPORTED_MODULE_8__["default"]),
+/* harmony export */   "Icons": () => (/* reexport module object */ _icons__WEBPACK_IMPORTED_MODULE_1__),
+/* harmony export */   "Modals": () => (/* reexport safe */ _modals__WEBPACK_IMPORTED_MODULE_5__["default"]),
+/* harmony export */   "Popouts": () => (/* reexport safe */ _popouts__WEBPACK_IMPORTED_MODULE_4__["default"]),
 /* harmony export */   "Settings": () => (/* reexport module object */ _settings__WEBPACK_IMPORTED_MODULE_0__),
-/* harmony export */   "Icons": () => (/* reexport module object */ _icons__WEBPACK_IMPORTED_MODULE_1__)
+/* harmony export */   "Toasts": () => (/* reexport safe */ _toasts__WEBPACK_IMPORTED_MODULE_3__["default"]),
+/* harmony export */   "Tooltip": () => (/* reexport safe */ _tooltip__WEBPACK_IMPORTED_MODULE_2__["default"])
 /* harmony export */ });
 /* harmony import */ var _settings__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./settings */ "./src/ui/settings/index.js");
 /* harmony import */ var _icons__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./icons */ "./src/ui/icons.js");

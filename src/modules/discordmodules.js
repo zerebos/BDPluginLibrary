@@ -70,7 +70,7 @@ export default Utilities.memoizeObject({
     get ColorShader() {return WebpackModules.getByProps("darken");},
     get TinyColor() {return WebpackModules.getByPrototypes("toRgb");},
     get ClassResolver() {return WebpackModules.getByProps("getClass");},
-    get ButtonData() {return WebpackModules.getByProps("ButtonSizes");},
+    get ButtonData() {return WebpackModules.getByProps("BorderColors");},
     get NavigationUtils() {return WebpackModules.getByProps("transitionTo", "replaceWith", "getHistory");},
     get KeybindStore() {return WebpackModules.getByProps("keyToCode");},
 
@@ -152,11 +152,16 @@ export default Utilities.memoizeObject({
     get GuildSettingsWindow() {return WebpackModules.getByProps("open", "updateGuild");},
 
     /* Modals */
-    get ModalActions() {return WebpackModules.getByProps("openModal", "updateModal");},
+    get ModalActions() {
+        return {
+            openModal: WebpackModules.getModule(m => m?.toString().includes("onCloseCallback") && m?.toString().includes("Layer")),
+            closeModal: WebpackModules.getModule(m => m?.toString().includes("onCloseCallback()"))
+        };
+    },
     get ModalStack() {return WebpackModules.getByProps("push", "update", "pop", "popWithKey");},
     get UserProfileModals() {return WebpackModules.getByProps("fetchMutualFriends", "setSection");},
     get AlertModal() {return WebpackModules.getByPrototypes("handleCancel", "handleSubmit");},
-    get ConfirmationModal() {return WebpackModules.findByDisplayName("ConfirmModal");},
+    get ConfirmationModal() {return WebpackModules.getModule(m => m?.toString()?.includes("confirmText"));},
     get ChangeNicknameModal() {return WebpackModules.getByProps("open", "changeNickname");},
     get CreateChannelModal() {return WebpackModules.getByProps("open", "createChannel");},
     get PruneMembersModal() {return WebpackModules.getByProps("open", "prune");},
@@ -176,15 +181,15 @@ export default Utilities.memoizeObject({
 
     /* Misc */
     get ExternalLink() {return WebpackModules.getByRegex(/trusted/);},
-    get TextElement() {return WebpackModules.getByDisplayName("LegacyText") || WebpackModules.getByProps("Colors", "Sizes");},
+    get TextElement() {return WebpackModules.getModule(m => m?.Sizes?.SIZE_32 && m.Colors);},
     get Anchor() {return WebpackModules.getByDisplayName("Anchor");},
     get Flex() {return WebpackModules.getByDisplayName("Flex");},
     get FlexChild() {return WebpackModules.getByProps("Child");},
     get Clickable() {return WebpackModules.getByDisplayName("Clickable");},
-    get Titles() {return WebpackModules.getByProps("Tags", "default");},
+    get Titles() {return WebpackModules.getByProps("Tags", "Sizes");},
     get HeaderBar() {return WebpackModules.getByDisplayName("HeaderBar");},
     get TabBar() {return WebpackModules.getByDisplayName("TabBar");},
-    get Tooltip() {return WebpackModules.getByProps("TooltipContainer").TooltipContainer;},
+    get Tooltip() {return WebpackModules.getByPrototypes("renderTooltip");},
     get Spinner() {return WebpackModules.getByDisplayName("Spinner");},
 
     /* Forms */
@@ -200,15 +205,15 @@ export default Utilities.memoizeObject({
     get AdvancedScrollerNone() {return WebpackModules.getByProps("AdvancedScrollerNone").AdvancedScrollerNone;},
 
     /* Settings */
-    get SettingsWrapper() {return WebpackModules.getByDisplayName("FormItem");},
-    get SettingsNote() {return WebpackModules.getByDisplayName("FormText");},
+    get SettingsWrapper() {return WebpackModules.getModule(m => m.Tags && m?.toString().includes("required"));},
+    get SettingsNote() {return WebpackModules.getModule(m => m.Types && m?.toString().includes("selectable"));},
     get SettingsDivider() {return WebpackModules.getModule(m => !m.defaultProps && m.prototype && m.prototype.render && m.prototype.render.toString().includes("default.divider"));},
 
     get ColorPicker() {return WebpackModules.getModule(m => m.displayName === "ColorPicker" && m.defaultProps);},
     get Dropdown() {return WebpackModules.getByProps("SingleSelect").SingleSelect;},
     get Keybind() {return WebpackModules.getByPrototypes("handleComboChange");},
-    get RadioGroup() {return WebpackModules.getByDisplayName("RadioGroup");},
+    get RadioGroup() {return WebpackModules.getModule(m => m.Sizes && m.toString().includes("radioItemClassName"));},
     get Slider() {return WebpackModules.getByPrototypes("renderMark");},
-    get SwitchRow() {return WebpackModules.getByDisplayName("SwitchItem");},
+    get SwitchRow() {return WebpackModules.getModule(m => m.toString().includes("helpdeskArticleId"));},
     get Textbox() {return WebpackModules.getModule(m => m.defaultProps && m.defaultProps.type == "text");},
 });

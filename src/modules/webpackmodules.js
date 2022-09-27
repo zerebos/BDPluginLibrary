@@ -123,26 +123,7 @@ export default class WebpackModules {
      * @return {Any}
      */
     static getModule(filter, first = true) {
-        const wrappedFilter = (m) => {
-            try {return filter(m);}
-            catch (err) {return false;}
-        };
-        const modules = this.getAllModules();
-        const rm = [];
-        for (const index in modules) {
-            if (!modules.hasOwnProperty(index)) continue;
-            const module = modules[index];
-            const {exports} = module;
-            let foundModule = null;
-
-            if (!exports) continue;
-            if (exports.__esModule && exports.default && wrappedFilter(exports.default)) foundModule = exports.default;
-            if (wrappedFilter(exports)) foundModule = exports;
-            if (!foundModule) continue;
-            if (first) return foundModule;
-            rm.push(foundModule);
-        }
-        return first || rm.length == 0 ? undefined : rm;
+        return BdApi.Webpack.getModule(filter, {first});
     }
 
     /**

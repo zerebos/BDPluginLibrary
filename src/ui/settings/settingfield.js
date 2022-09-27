@@ -1,8 +1,8 @@
 import Listenable from "../../structs/listenable";
 import {DiscordModules, DOMTools, DiscordClasses, ReactTools, WebpackModules} from "modules";
 
-const AccessibilityProvider = WebpackModules.getByProps("AccessibilityPreferencesContext").AccessibilityPreferencesContext.Provider;
-const LayerProvider = WebpackModules.getByProps("AppReferencePositionLayer").AppLayerProvider().props.layerContext.Provider; // eslint-disable-line new-cap
+// const AccessibilityProvider = WebpackModules.getByProps("AccessibilityPreferencesContext").AccessibilityPreferencesContext.Provider;
+const LayerProvider = WebpackModules.getModule(m => m?.displayName === "AppLayerProvider")?.().props.layerContext.Provider; // eslint-disable-line new-cap
 
 /** 
  * Setting field to extend to create new settings
@@ -39,6 +39,7 @@ class SettingField extends Listenable {
 
     /** Fired when root node added to DOM */
     onAdded() {
+        console.log(ReactSetting);
         const reactElement = DiscordModules.ReactDOM.render(DiscordModules.React.createElement(ReactSetting, Object.assign({
             title: this.name,
             type: this.type,
@@ -68,7 +69,7 @@ class ReactSetting extends DiscordModules.React.Component {
     render() {
         const ce = DiscordModules.React.createElement;
         const SettingElement = ce(this.props.type, this.props);
-        const Context = ce(AccessibilityProvider, {value: {reducedMotion: {enabled: false, rawValue: "no-preference"}}}, ce(LayerProvider, {value: [document.querySelector("#app-mount .layerContainer-2v_Sit")]}, SettingElement));
+        const Context = ce(LayerProvider, {value: [document.querySelector("#app-mount .layerContainer-2v_Sit")]}, SettingElement);
         if (this.props.inline) {
             const Flex = DiscordModules.FlexChild;
             const titleDefault = WebpackModules.getByProps("titleDefault") ? WebpackModules.getByProps("titleDefault").title : "titleDefault-a8-ZSr title-31JmR4 da-titleDefault da-title";

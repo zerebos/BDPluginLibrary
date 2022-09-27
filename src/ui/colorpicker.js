@@ -5,7 +5,7 @@ const React = DiscordModules.React;
 const Popout = WebpackModules.getByDisplayName("Popout");
 const ColorPickerComponents = WebpackModules.getByProps("CustomColorPicker");
 const Swatch = ColorPickerComponents?.CustomColorButton.prototype.render.call({props: {}}).type;
-const {default: Tooltip, TooltipPositions} = WebpackModules.getByProps("TooltipContainer");
+const Tooltip = WebpackModules.getByPrototypes("renderTooltip");
 const LocaleManager = DiscordModules.LocaleManager;
 
 export default class ColorPicker extends React.Component {
@@ -41,7 +41,7 @@ export default class ColorPicker extends React.Component {
             onChange: this.onChange,
             colors: this.props.colors,
             renderDefaultButton: props => React.createElement(Tooltip, {
-                position: TooltipPositions.BOTTOM,
+                position: Tooltip.Positions.BOTTOM,
                 text: LocaleManager.Messages.DEFAULT
             }, tooltipProps => React.createElement("div", Object.assign(tooltipProps, {
                 className: "defaultButtonWrapper",
@@ -52,7 +52,7 @@ export default class ColorPicker extends React.Component {
                 align: Popout.Align.CENTER,
                 position: Popout.Positions.BOTTOM
             }, props => React.createElement(Tooltip, {
-                position: TooltipPositions.BOTTOM,
+                position: Tooltip.Positions.BOTTOM,
                 text: LocaleManager.Messages.PICK_A_COLOR
             }, tooltipProps => React.createElement("div", Object.assign({}, tooltipProps, props, {
                 className: "colorPickerButtonWrapper"

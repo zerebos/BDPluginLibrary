@@ -33,12 +33,13 @@ export default function(meta) {
         getVersion() {return this._config.info.version;}
         getAuthor() {return this._config.info.authors.map(a => a.name).join(", ");}
         load() {
+            PluginUpdater.checkForUpdate(this.getName(), this.getVersion(), this._config.info.github_raw);
+
             const currentVersionInfo = Utilities.loadData(this.getName(), "currentVersionInfo", {version: this.getVersion(), hasShownChangelog: false});
             if (currentVersionInfo.version != this.getVersion() || !currentVersionInfo.hasShownChangelog) {
                 this.showChangelog();
                 Utilities.saveData(this.getName(), "currentVersionInfo", {version: this.getVersion(), hasShownChangelog: true});
             }
-            PluginUpdater.checkForUpdate(this.getName(), this.getVersion(), this._config.info.github_raw);
         }
         async start() {
             Logger.info(this.getName(), `version ${this.getVersion()} has started.`);

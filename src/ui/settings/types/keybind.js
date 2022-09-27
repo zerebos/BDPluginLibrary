@@ -1,5 +1,5 @@
 import SettingField from "../settingfield";
-import {DiscordModules} from "modules";
+import {DiscordModules, WebpackModules} from "modules";
 
 const React = DiscordModules.React;
 
@@ -11,6 +11,9 @@ class CloseButton extends React.Component {
                 );
     }
 }
+
+const toCombo = WebpackModules.getModule(m => m?.toString().includes("numpad plus")) ?? (() => [[0, 0], [0, 0]]);
+const toEvent = WebpackModules.getModule(m => m?.toString().includes("keyCode") && m?.toString().includes("BROWSER")) ?? (() => ({}));
 
 class ClearableKeybind extends React.Component {
     constructor(props) {
@@ -56,11 +59,11 @@ class Keybind extends SettingField {
         if (!Array.isArray(value) || value.some(v => typeof(v) !== "string")) value = []; // if non-strings present, not a valid combo
         super(label, help, onChange, ClearableKeybind, {
             disabled: disabled,
-            defaultValue: DiscordModules.KeybindStore.toCombo(value.join("+")) ?? [],
+            defaultValue: toCombo(value.join("+")) ?? [],
             onChange: element => val => {
                 if (!Array.isArray(val)) return;
                 element.props.value = val;
-                this.onChange(val.map(a => DiscordModules.KeybindStore.codeToKey(a)));
+                this.onChange(toEvent(val));
             }
         });
     }

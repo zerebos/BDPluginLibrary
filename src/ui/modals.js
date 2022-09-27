@@ -7,7 +7,7 @@ import {DiscordModules, DiscordClasses, WebpackModules, Logger} from "modules";
 
 const React = DiscordModules.React;
 const ce = React.createElement;
-const Markdown = WebpackModules.getModule(m => m.displayName == "Markdown" && m.rules);
+const Markdown = WebpackModules.getModule(m => m.rules);
 
 export default class Modals {
 
@@ -58,7 +58,7 @@ export default class Modals {
         return DiscordModules.ModalActions.openModal(props => {
             return React.createElement(DiscordModules.ConfirmationModal, Object.assign({
                 header: title,
-                confirmButtonColor: danger ? DiscordModules.ButtonData.ButtonColors.RED : DiscordModules.ButtonData.ButtonColors.BRAND,
+                confirmButtonColor: danger ? DiscordModules.ButtonData.Colors.RED : DiscordModules.ButtonData.Colors.BRAND,
                 confirmText: confirmText,
                 cancelText: cancelText,
                 onConfirm: onConfirm,
@@ -96,7 +96,7 @@ export default class Modals {
         }
         const renderHeader = function() {
             return ce(DiscordModules.FlexChild.Child, {grow: 1, shrink: 1},
-                ce(DiscordModules.Titles.default, {tag: DiscordModules.Titles.Tags.H4}, title),
+                ce(DiscordModules.Titles, {tag: DiscordModules.Titles.Tags.H4}, title),
                 ce(TextElement,
                     {size: TextElement.Sizes.SMALL, color: TextElement.Colors.PRIMARY, className: DiscordClasses.Changelog.date.toString()},
                     "Version " + version
@@ -107,15 +107,16 @@ export default class Modals {
             return ce(Markdown, null, footer);
         } : null;
 
-        return DiscordModules.ModalActions.openModal(props => {
-            return ce(DiscordModules.Changelog, Object.assign({
-                className: DiscordClasses.Changelog.container.toString(),
-                selectable: true,
-                onScroll: _ => _,
-                onClose: _ => _,
-                renderHeader: renderHeader,
-                renderFooter: renderFooter,
-            }, props), changelogItems);
-        });
+        // return DiscordModules.ModalActions.openModal(props => {
+        //     return ce(WebpackModules.getModule(m => m?.toString()?.includes("confirmText")), Object.assign({
+        //         className: DiscordClasses.Changelog.container.toString(),
+        //         selectable: true,
+        //         onScroll: _ => _,
+        //         onClose: _ => _,
+        //         renderHeader: renderHeader,
+        //         renderFooter: renderFooter,
+        //     }, props), changelogItems);
+        // });
+        return Modals.showModal(`${title} v${version}`, changelogItems, {cancelText: null, confirmText: null});
     }
 }
