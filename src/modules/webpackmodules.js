@@ -333,3 +333,5 @@ export default class WebpackModules {
     }
 
 }
+
+WebpackModules.initialize();

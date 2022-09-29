@@ -1,10 +1,7 @@
-# PluginLibrary - [Download][download] [![Build Status][travis-badge]][travis-link] [![Language Grade][lgtm-badge]][lgtm-link]
+# ZeresPluginLibrary - [Download][download] [![Language Grade][lgtm-badge]][lgtm-link]
 
 [lgtm-badge]: https://img.shields.io/lgtm/grade/javascript/g/rauenzi/BDPluginLibrary.svg?style=flat-square
 [lgtm-link]: https://lgtm.com/projects/g/rauenzi/BDPluginLibrary/context:javascript
-
-[travis-badge]: https://img.shields.io/travis/rauenzi/BDPluginLibrary.svg?&style=flat-square&branch=master
-[travis-link]: https://travis-ci.org/rauenzi/BDPluginLibrary
 
 [download]: https://betterdiscord.app/Download?id=9
 
@@ -27,16 +24,9 @@ This generates a BD compatible `./release/0PluginLibrary.plugin.js` file to be a
 
 ## Configuration
 
-The library is configurable with the default configuration found in the `package.json`. If you want to alter or extend these settings it's recommended that you create a `config.json` in the root directory that the build scripts will read and use. Note that this is merged with the default configuration so you don't have to include all the possible settings in the `config.json`.
+The library is configurable with the default configuration found in the `package.json`.
 
 ### Options
-
-#### `pluginsFolder`
-Absolute or relative path to the folder containing the plugins that build scripts can build automatically.
-
-**Default**: `"./plugins"`
-
-***
 
 #### `releaseFolder`
 Absolute or relative path to the folder where plugins that are built should be placed.
@@ -59,17 +49,6 @@ Boolean to determine if the built plugin should also be automatically copied ove
 
 ***
 
-#### `addInstallScript`
-Boolean to determine if the plugin should include the Windows Host Script install script. This means that users on Windows that double click the plugin will be prompted to automatically install the plugin.
-
-**Default**: `false`
-
-***
-
 ## Building Plugins
 
-See the example plugin in `examples/ExamplePlugin`. Note how it does not check for updates in `onStart` instead the base class `Plugin` automatically checks for updates using the `github_raw` in the `config.json`.
-
-All plugin styles will set the meta using the plugin name for `name`. `github` and `github_raw` will be used as `website` and `source` options in the meta.
-
-To build all plugins in `plugins` folder, run `npm run build_plugin`. To build a single plugin run `npm run build_plugin PluginName`. This will yield `PluginName.plugin.js` in the `releases` folder with the same meta as outlined in the template. The resulting file will automatically check if the plugin library exists, and alert the user if it does not giving them a link to download it.
+The build process for plugins is currently being reworked. In the meantime for an example, see what I do with my own plugins over at https://github.com/rauenzi/BetterDiscordAddons

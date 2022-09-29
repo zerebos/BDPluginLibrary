@@ -7,18 +7,14 @@
     "url": "https://github.com/rauenzi/BDPluginLibrary"
   },
   "devDependencies": {
-    "@babel/core": "^7.16.10",
-    "@babel/preset-env": "^7.16.11",
-    "@babel/register": "^7.16.9",
     "foodoc": "github:rauenzi/foodoc",
     "jsdoc": "^3.6.10",
-    "mocha": "^9.1.4",
     "raw-loader": "^4.0.2",
     "webpack": "^5.66.0",
     "webpack-cli": "^4.9.1"
   },
   "scripts": {
-    "test": "mocha --require @babel/register --recursive \"./tests/*.js\"",
+    "test": "echo \"No tests found\"",
     "build_plugin": "node ./scripts/build.js local",
     "build_plugin_packed": "node ./scripts/pack.js development",
     "build": "node ./scripts/pack.js development 0PluginLibrary",
@@ -33,9 +29,7 @@
     "scripts/template*"
   ],
   "defaultConfig": {
-    "pluginsFolder": "./examples",
     "releaseFolder": "./release",
-    "copyToBD": true,
-    "addInstallScript": true
+    "copyToBD": true
   }
 }
