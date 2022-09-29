@@ -1,15 +1,2 @@
 # Generated files
 node_modules
-release/*
-!release/0PluginLibrary.plugin.js
-!release/ExamplePlugin.plugin.js
-!release/ExamplePlugin2.plugin.js
-!release/HideDisabledEmojis.plugin.js
-!release/SendButton.plugin.js
-!release/ZLibrary.js
-plugins
-/config.json
-TODO.txt
-discord1.js
-discord2.js
-getNestProp_performance.js

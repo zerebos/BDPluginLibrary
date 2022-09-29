@@ -126,41 +126,12 @@ export default class WebpackModules {
         return BdApi.Webpack.getModule(filter, {first});
     }
 
-    /**
-     * Gets the index in the webpack require cache of a specific
-     * module using a filter.
-     * @param {Function} filter A function to use to filter modules
-     * @return {Number|null}
-     */
-    static getIndex(filter) {
-        const wrappedFilter = (m) => {
-            try {return filter(m);}
-            catch (err) {return false;}
-        };
-        const modules = this.getAllModules();
-        for (const index in modules) {
-            if (!modules.hasOwnProperty(index)) continue;
-            const module = modules[index];
-            const exports = module.exports;
-            let foundModule = null;
-
-            if (!exports) continue;
-            if (exports.__esModule && exports.default && wrappedFilter(exports.default)) foundModule = exports.default;
-            if (wrappedFilter(exports)) foundModule = exports;
-            if (!foundModule) continue;
-            return index;
-        }
+    static getIndex() {
         return null;
     }
 
-    /**
-     * Gets the index in the webpack require cache of a specific
-     * module that was already found.
-     * @param {Any} module An already acquired module
-     * @return {Number|null}
-     */
-    static getIndexByModule(module) {
-        return this.getIndex(m => m == module);
+    static getIndexByModule() {
+        return null;
     }
 
     /**
@@ -275,12 +246,8 @@ export default class WebpackModules {
      */
     static get require() {
         if (this._require) return this._require;
-        const id = "zl-webpackmodules";
-        const __webpack_require__ = window.webpackJsonp.push([[], {
-            [id]: (module, exports, req) => module.exports = req
-        }, [[id]]]);
-        delete __webpack_require__.m[id];
-        delete __webpack_require__.c[id];
+        const __webpack_require__ = window.webpackChunkdiscord_app.push([[Symbol()], {}, r=> r]);
+        window.webpackChunkdiscord_app.pop();
         return this._require = __webpack_require__;
     }
 
@@ -366,5 +333,3 @@ export default class WebpackModules {
     }
 
 }
-
-WebpackModules.initialize();

@@ -1,5 +1,5 @@
 export default (BasePlugin, Library) => {
-    const {PluginUpdater, Patcher, Logger, Settings, Toasts, DOMTools, ReactComponents, DCM, Popouts} = Library;
+    const {PluginUpdater, Patcher, Logger, Settings, Toasts, DOMTools, DCM, Popouts} = Library;
     const PluginLibrary = class PluginLibrary extends BasePlugin {
         get Library() {return Library;}
         
@@ -9,7 +9,6 @@ export default (BasePlugin, Library) => {
             const isBBDLoading = document.getElementsByClassName("bd-loaderv2").length;
             DOMTools.removeStyle("ZLibraryCSS");
             DOMTools.addStyle("ZLibraryCSS", Settings.CSS + Toasts.CSS + PluginUpdater.CSS);
-            ReactComponents.initialize();
             DCM.initialize();
             Popouts.initialize();
             

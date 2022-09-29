@@ -10,8 +10,6 @@
  * LICENSE file in the root directory of this source tree.
 */
 
-import Patcher from "./patcher";
-import Modules from "./discordmodules";
 import DOMTools from "./domtools";
 import ReactTools from "./reacttools";
 import Utilities from "./utilities";
@@ -45,12 +43,6 @@ export default class ReactComponents {
     static get nameSetters() {return this._nameSetters || (this._nameSetters = new Set());}
 
     static get ReactComponent() {return ReactComponent;}
-
-    static initialize() {
-        ReactAutoPatcher.autoUnpatch();
-        ReactAutoPatcher.autoPatch();
-        ReactAutoPatcher.processAll();
-    }
 
     static push(component, selector, filter) {
         if (typeof(component) !== "function") return null;
@@ -180,31 +172,5 @@ export default class ReactComponents {
         if (internalInstance.stateNode) yield internalInstance.stateNode;
         if (internalInstance.sibling) yield* this.recursiveComponents(internalInstance.sibling);
         if (internalInstance.child) yield* this.recursiveComponents(internalInstance.child);
-    }
-}
-
-class ReactAutoPatcher {
-    /**
-     * Wait for React to be loaded and patch it's createElement to store all unknown components.
-     * Also patches some known components.
-     */
-    static async autoPatch() {
-        this.autoUnpatch();
-        Patcher.before("ReactComponents", Modules.React, "createElement", (react, [component]) => ReactComponents.push(component));
-        Patcher.instead("ReactComponents", Modules.React.Component.prototype, "UNSAFE_componentWillMount", (component) => ReactComponents.push(component));
-        Patcher.instead("ReactComponents", Modules.React.Component.prototype, "componentWillMount", (component) => ReactComponents.push(component));
-    }
-
-    static async autoUnpatch() {
-        Patcher.unpatchAll("ReactComponents");
-    }
-
-    /**
-     * Finds and processes all currently available react components.
-     */
-    static processAll() {
-        for (const component of ReactComponents.recursiveComponents()) {
-            ReactComponents.push(component.constructor);
-        }
     }
 }
