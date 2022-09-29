@@ -49,15 +49,25 @@ export default class PluginUpdater {
      * @param {string} updateURL - url to check for update
      * @param {module:PluginUpdater~comparator} [comparator] - comparator that determines if there is an update. If not provided uses {@link module:PluginUpdater.defaultComparator}.
      */
-    static async checkForUpdate(pluginName, currentVersion, updateURL, comparator) {
-        let updateLink = "https://raw.githubusercontent.com/rauenzi/BetterDiscordAddons/master/Plugins/" + pluginName + "/" + pluginName + ".plugin.js";
-        if (updateURL) updateLink = updateURL;
+    static async checkForUpdate(pluginName, currentVersion, addonId, comparator) {
+        if (!pluginName || !currentVersion || !addonId) return;
+        let isUrl = false;
+        try {
+            // eslint-disable-next-line no-new
+            new URL(addonId);
+            isUrl = true;
+        }
+        catch {
+            isUrl = false;
+        }
+        let updateLink = `https://betterdiscord.app/gh-redirect?id=${addonId}`;
+        if (isUrl) updateLink = addonId;
         if (typeof(comparator) != "function") comparator = this.defaultComparator;
         this.setPlugin(pluginName, updateLink, currentVersion, comparator);
 
         const hasUpdate = await this.hasUpdate(updateLink);
         if (!hasUpdate) return;
-        pending.push(updateURL);
+        pending.push(updateLink);
         this.showUpdateNotice(updateLink);
     }
 
@@ -78,19 +88,32 @@ export default class PluginUpdater {
      * @param {string} updateLink - link to the raw text version of the plugin
      */
     static async hasUpdate(updateLink) {
+        const doit = (resolve, result) => {
+            try {
+                const plugin = this.getPlugin(updateLink);
+                const meta = this.parseMeta(result);
+                plugin.remoteVersion = meta.version;
+                const hasUpdate = plugin.comparator(plugin.version, plugin.remoteVersion);
+                if (hasUpdate) plugin.remote = result;
+                resolve(hasUpdate);
+            }
+            catch (err) {
+                resolve(false);
+            }
+        };
         return new Promise(resolve => {
-            request(updateLink, (error, response, result) => {
-                if (error || response.statusCode !== 200) return resolve(false);
-                try {
-                    const plugin = this.getPlugin(updateLink);
-                    const meta = this.parseMeta(result);
-                    plugin.remoteVersion = meta.version;
-                    const hasUpdate = plugin.comparator(plugin.version, plugin.remoteVersion);
-                    if (hasUpdate) plugin.remote = result;
-                    resolve(hasUpdate);
-                }
-                catch (err) {
-                    resolve(false);
+            request(updateLink, (err, resp, result) => {
+                if (err) return resolve(false);
+
+                // If a direct url was used
+                if (resp.statusCode === 200) return doit(resolve, result);
+
+                // If an addon id and redirect was used
+                if (resp.statusCode === 302) {
+                    request(resp.headers.location, (error, response, body) => {
+                        if (error || response.statusCode !== 200) return resolve(false);
+                        return doit(resolve, body);
+                    });
                 }
             });
         });

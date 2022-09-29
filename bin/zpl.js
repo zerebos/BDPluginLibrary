@@ -6,8 +6,8 @@
 
 const path = require("path");
 const fs = require("fs");
-const buildMeta = require("./meta");
-const bundle = require("./bundle");
+const buildMeta = require("../lib/meta");
+const bundle = require("../lib/bundle");
 const projectRoot = path.dirname(process.env.npm_package_json);
 
 // Parse arguments
@@ -102,6 +102,7 @@ const pluginFolder = path.join(pluginsPath, pluginName);
 const configPath = path.join(pluginsPath, pluginName, "config.json");
 const pluginFolderExists = fs.existsSync(pluginFolder);
 const configExists = fs.existsSync(configPath);
+const libPath = path.join(__dirname, "..", "lib");
 
 
 function initPlugin() {
@@ -112,11 +113,11 @@ function initPlugin() {
         process.exit(5);
     }
     else {
-        const templateConfig = require("./template_config.json");
-        templateConfig.info.name = pluginName;
+        const templateConfig = require("../lib/templates/config");
+        templateConfig.name = pluginName;
         fs.writeFileSync(configPath, JSON.stringify(templateConfig, null, 4));
 
-        const templateIndex = fs.readFileSync(path.join(__dirname, "template_index.js"));
+        const templateIndex = fs.readFileSync(path.join(libPath, "templates", "index.js"));
         fs.writeFileSync(mainFilePath, templateIndex);
     }
 }
@@ -141,13 +142,13 @@ function buildPlugin() {
         process.exit(7);
     }
 
-    const PLUGIN_TEMPLATE = fs.readFileSync(path.join(__dirname, "template_build.js")).toString();
+    const PLUGIN_TEMPLATE = fs.readFileSync(path.join(libPath, "templates", "built.js")).toString();
     const bundleableFiles = fs.readdirSync(path.join(pluginsPath, pluginName)).filter(f => f != "config.json" && f != config.main);
 
     const mainFileContent = require(mainFilePath).toString();
     const content = bundle(mainFileContent, pluginFolder, bundleableFiles);
     let result = buildMeta(config);
-    if (zplConfig.installScript) result += require(path.join(__dirname, "installscript.js"));
+    if (zplConfig.installScript) result += require("../lib/installscript");
     result += PLUGIN_TEMPLATE.replace(`const config = "";`, () => `const config = ${JSON.stringify(config, null, 4).replace(/"((?:[A-Za-z]|[0-9]|_)+)"\s?:/g, "$1:")};`)
                              .replace(`const plugin = "";`, () => `const plugin = ${content};`);
     if (zplConfig.installScript) result += "\n/*@end@*/";

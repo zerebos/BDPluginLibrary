@@ -13,6 +13,52 @@ View the library documentation here: [https://rauenzi.github.io/BDPluginLibrary/
 
 The information below is just a quickstart guide and overview on using the build scripts provided.
 
+## Using The Library
+
+If you'd like a real-world example, take a look at https://github.com/rauenzi/BetterDiscordAddons
+
+First add the library builder to your repo:
+
+```bash
+npm install zerespluginlibrary
+```
+
+Then add to your `package.json`:
+```json
+{
+    //...
+   "scripts": {
+    // ...
+       "build": "zpl build",
+       "init": "zpl init"
+   }
+   // ...
+}
+```
+
+Create your ZPL config. You can use `.zplrc`, `.zplrc.js`, or a top-level `zplConfig` key in `package.json`;
+```js
+// .zplrc.js
+module.exports = {
+    base: "./examples",
+    out: "./release",
+    copyToBD: true,
+    addInstallScript: true
+};
+```
+
+Initialize your first plugin with:
+```bash
+npm run init PluginName
+```
+
+You should a new folder with an `index.js` and `config.json`. When you're ready to build, just run:
+```bash
+npm run build PluginName
+```
+
+and a new `PluginName.plugin.js` will be created in your output folder.
+
 ## Building The Lib
 
 ```
@@ -22,11 +68,9 @@ npm run build
 
 This generates a BD compatible `./release/0PluginLibrary.plugin.js` file to be added to your plugins folder.
 
-## Configuration
+### Configuration
 
 The library is configurable with the default configuration found in the `package.json`.
-
-### Options
 
 #### `releaseFolder`
 Absolute or relative path to the folder where plugins that are built should be placed.
@@ -49,6 +93,3 @@ Boolean to determine if the built plugin should also be automatically copied ove
 
 ***
 
-## Building Plugins
-
-The build process for plugins is currently being reworked. In the meantime for an example, see what I do with my own plugins over at https://github.com/rauenzi/BetterDiscordAddons
