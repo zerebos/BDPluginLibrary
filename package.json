@@ -28,7 +28,7 @@
     "base": "./examples",
     "out": "./release",
     "copyToBD": true,
-    "addInstallScript": true
+    "installScript": true
   },
   "bin": {
     "zpl": "bin/zpl.js"
