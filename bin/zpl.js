@@ -58,7 +58,7 @@ else if (zplrcjsExists) {
     try {
         const exported = require(path.join(projectRoot, ".zplrc.js"));
         if (typeof(exported) === "function") {
-            const returned = exported();
+            const returned = exported(pluginName);
             Object.assign(zplConfig, returned);
         }
         else {
