@@ -1,0 +1,5 @@
+*.js text eol=lf
+*.d.ts text eol=lf
+*.json text eol=lf
+
+lib/installscript.js eol=crlf 
