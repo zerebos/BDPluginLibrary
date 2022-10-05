@@ -23,7 +23,24 @@ const React = DiscordModules.React;
 const ContextMenuActions = DiscordModules.ContextMenuActions;
 
 const ce = React.createElement;
-const ContextMenu = WebpackModules.getByProps("MenuRadioItem", "MenuItem");
+const ContextMenu = {
+    default: WebpackModules.getModule(m => m.toString().includes(".isUsingKeyboardNavigation"))
+};
+
+const rawModule = webpackChunkdiscord_app.map(a => a[1]).flatMap(a => Object.entries(a)).filter(a => a.toString().includes("groupend"))[0];
+const webpackModule = WebpackModules.getByIndex(rawModule[0]);
+const matches = rawModule[1].toString().matchAll(/if\(\w+\.type===\w+\.(\w+)\).+?type:"(.+?)"/g);
+const componentMap = {
+    separator: "MenuSeparator",
+    checkbox: "MenuCheckboxItem",
+    radio: "MenuRadioItem",
+    control: "MenuControlItem",
+    groupstart: "MenuGroup",
+    customitem: "MenuItem"
+};
+for (const [, identifier, type] of matches) {
+    ContextMenu[componentMap[type]] = webpackModule[identifier];
+}
 
 /**
  * Fires when the item is clicked.
@@ -167,6 +184,17 @@ export default class DiscordContextMenu {
         else if (type === "toggle" || type === "radio") {
             Component = type === "toggle" ? ContextMenu.MenuCheckboxItem : ContextMenu.MenuRadioItem;
             if (props.active) props.checked = props.active;
+
+            if (type === "toggle") {
+                const [active, doToggle] = React.useState(props.checked || false);
+                props.checked = active;
+
+                const originalAction = props.action;
+                props.action = function(ev) {
+                    originalAction(ev);
+                    doToggle(!active);
+                };
+            }
         }
         else if (type === "control") {
             Component = ContextMenu.MenuControlItem;

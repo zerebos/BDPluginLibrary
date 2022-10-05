@@ -14,7 +14,7 @@ export default Utilities.memoizeObject({
     get Events() {return WebpackModules.getByPrototypes("setMaxListeners", "emit");},
 
     /* Guild Info, Stores, and Utilities */
-    get GuildStore() {return WebpackModules.getByProps("getGuild");},
+    get GuildStore() {return WebpackModules.getByProps("getGuildCount");},
     get SortedGuildStore() {return WebpackModules.getByProps("getSortedGuilds");},
     get SelectedGuildStore() {return WebpackModules.getByProps("getLastSelectedGuildId");},
     get GuildSync() {return WebpackModules.getByProps("getSyncedGuilds");},
@@ -63,15 +63,20 @@ export default Utilities.memoizeObject({
     get InviteActions() {return WebpackModules.getByProps("acceptInvite");},
 
     /* Discord Objects & Utils */
-    get DiscordConstants() {return WebpackModules.getByProps("Permissions", "ActivityTypes", "StatusTypes");},
-    get DiscordPermissions() {return WebpackModules.getByProps("Permissions", "ActivityTypes", "StatusTypes").Permissions;},
+    get DiscordConstants() {return { Permissions: WebpackModules.getModule(m => m.VIEW_CREATOR_MONETIZATION_ANALYTICS) };},
+    get DiscordPermissions() {return WebpackModules.getModule(m => m.VIEW_CREATOR_MONETIZATION_ANALYTICS);},
     get Permissions() {return WebpackModules.getByProps("computePermissions");},
     get ColorConverter() {return WebpackModules.getByProps("hex2int");},
     get ColorShader() {return WebpackModules.getByProps("darken");},
     get TinyColor() {return WebpackModules.getByPrototypes("toRgb");},
     get ClassResolver() {return WebpackModules.getByProps("getClass");},
     get ButtonData() {return WebpackModules.getByProps("BorderColors");},
-    get NavigationUtils() {return WebpackModules.getByProps("transitionTo", "replaceWith", "getHistory");},
+    get NavigationUtils() {
+        return {
+            transitionToGuild: WebpackModules.getByProps("transitionToGuildSync"),
+            transitionTo: WebpackModules.find(m => m.toString().includes(`"transitionTo - Transitioning to "`))
+        };
+    },
     get KeybindStore() {return WebpackModules.getByProps("keyToCode");},
 
     /* Discord Messages */
@@ -102,7 +107,7 @@ export default Utilities.memoizeObject({
     /* Electron & Other Internals with Utils*/
     get ElectronModule() {return WebpackModules.getByProps("setBadge");},
     get Flux() {return WebpackModules.getByProps("Store", "connectStores");},
-    get Dispatcher() {return WebpackModules.getByProps("dispatch", "subscribe");},
+    get Dispatcher() {return WebpackModules.getByProps("dispatch", "_subscriptions");},
     get PathUtils() {return WebpackModules.getByProps("hasBasename");},
     get NotificationModule() {return WebpackModules.getByProps("showNotification");},
     get RouterModule() {return WebpackModules.getByProps("Router");},
@@ -175,7 +180,15 @@ export default Utilities.memoizeObject({
     get UserPopout() {return WebpackModules.getModule(m => m.type.displayName === "UserPopoutContainer");},
 
     /* Context Menus */
-    get ContextMenuActions() {return WebpackModules.getByProps("openContextMenu");},
+    get ContextMenuActions() {
+        const contextMenu = WebpackModules.getByProps("getContextMenu");
+        const openContextMenu = WebpackModules.getModule(m => m.length == 4 && m.toString().includes("enableSpellCheck"));
+
+        return {
+            openContextMenu,
+            closeContextMenu: contextMenu.close
+        };
+    },
     get ContextMenuItemsGroup() {return WebpackModules.getByRegex(/itemGroup/);},
     get ContextMenuItem() {return WebpackModules.getByRegex(/\.label\b.*\.hint\b.*\.action\b/);},
 
