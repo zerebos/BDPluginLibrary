@@ -74,7 +74,8 @@ export default Utilities.memoizeObject({
     get NavigationUtils() {
         return {
             transitionToGuild: WebpackModules.getByProps("transitionToGuildSync"),
-            transitionTo: WebpackModules.find(m => m.toString().includes(`"transitionTo - Transitioning to "`))
+            transitionTo: WebpackModules.getModule(m => m.toString().includes(`"transitionTo - Transitioning to "`)),
+            replaceWith: WebpackModules.getModule(m => m.toString().includes(`"Replacing route with "`))
         };
     },
     get KeybindStore() {return WebpackModules.getByProps("keyToCode");},
