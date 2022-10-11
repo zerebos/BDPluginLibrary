@@ -7,8 +7,8 @@ module.exports = {
     description: "Gives other plugins utility functions and the ability to emulate v2.",
     source: "https://github.com/rauenzi/BDPluginLibrary",
     changelog: [
-        {title: "What's Fixed?", type: "fixed", items: ["Plugin loads again.", "Plugin settings work and display correctly.", "Modals are all rendered properly", "Library uses BetterDiscord's `Webpack` API."]},
-        {title: "What's Missing?", type: "progress", items: ["Popout module is not functional.", "Context menu module is not functional.", "Most prenamed DiscordModules are likely wrong."]},
+        {title: "What's Fixed?", type: "fixed", items: ["More modules are idenitifed in Discord's internals.", "Modals should work again.", "Fixed overusage of memory.", "Plugin settings should work again."]},
+        {title: "What's Different?", type: "progress", items: ["Some internal modules now forward to BD's API.", "`getModule` can now accept the same options as BD's API."]},
     ],
-    main: "plugin.js"
+    main: "index.js"
 };

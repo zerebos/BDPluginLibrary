@@ -1,8 +1,6 @@
 import Listenable from "../../structs/listenable";
 import {DiscordModules, DOMTools, DiscordClasses, ReactTools, WebpackModules} from "modules";
 
-// const AccessibilityProvider = WebpackModules.getByProps("AccessibilityPreferencesContext").AccessibilityPreferencesContext.Provider;
-const LayerProvider = WebpackModules.getModule(m => m?.displayName === "AppLayerProvider")?.().props.layerContext.Provider; // eslint-disable-line new-cap
 
 /** 
  * Setting field to extend to create new settings
@@ -39,7 +37,6 @@ class SettingField extends Listenable {
 
     /** Fired when root node added to DOM */
     onAdded() {
-        console.log(ReactSetting);
         const reactElement = DiscordModules.ReactDOM.render(DiscordModules.React.createElement(ReactSetting, Object.assign({
             title: this.name,
             type: this.type,
@@ -64,21 +61,20 @@ class ReactSetting extends DiscordModules.React.Component {
         return DiscordModules.React.createElement(DiscordModules.SettingsNote, {children: this.props.note, type: "description", className: className.toString()});
     }
 
-    get dividerElement() {return DiscordModules.React.createElement("div", {className: DiscordClasses.Dividers.divider.add(DiscordClasses.Dividers.dividerDefault).toString()});}
+    get dividerElement() {return DiscordModules.React.createElement("div", {className: DiscordClasses.Dividers.divider.add(DiscordClasses.Margins.marginTop20).toString()});}
 
     render() {
         const ce = DiscordModules.React.createElement;
         const SettingElement = ce(this.props.type, this.props);
-        const Context = ce(LayerProvider, {value: [document.querySelector("#app-mount .layerContainer-2v_Sit")]}, SettingElement);
         if (this.props.inline) {
             const Flex = DiscordModules.FlexChild;
-            const titleDefault = WebpackModules.getByProps("titleDefault") ? WebpackModules.getByProps("titleDefault").title : "titleDefault-a8-ZSr title-31JmR4 da-titleDefault da-title";
+            const titleDefault = WebpackModules.getByProps("titleDefault") ? WebpackModules.getByProps("titleDefault").title : "titleDefault-a8-ZSr title-31JmR4";
             return ce(Flex, {direction: Flex.Direction.VERTICAL},
             ce(Flex, {align: Flex.Align.START}, 
                 ce(Flex.Child, {wrap: !0},
                     ce("div", {className: titleDefault}, this.props.title)
                 ),
-                ce(Flex.Child, {grow: 0, shrink: 0}, Context)
+                ce(Flex.Child, {grow: 0, shrink: 0}, SettingElement)
             ),
             this.noteElement,
             this.dividerElement
@@ -86,11 +82,11 @@ class ReactSetting extends DiscordModules.React.Component {
         }
         
         return ce(DiscordModules.SettingsWrapper, {
-            className: DiscordClasses.Margins.marginBottom20.toString(),
+            className: DiscordClasses.Margins.marginTop20.toString(),
             title: this.props.title,
             children: [
-                this.props.noteOnTop ? this.noteElement : Context,
-                this.props.noteOnTop ? Context : this.noteElement,
+                this.props.noteOnTop ? this.noteElement : SettingElement,
+                this.props.noteOnTop ? SettingElement : this.noteElement,
                 this.dividerElement
             ]
         });
