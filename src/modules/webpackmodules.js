@@ -119,11 +119,12 @@ export default class WebpackModules {
     /**
      * Finds a module using a filter function.
      * @param {Function} filter A function to use to filter modules
-     * @param {Boolean} first Whether to return only the first matching module
+     * @param {Boolean|object} first Whether to return only the first matching module or options object matching BD's options
      * @return {Any}
      */
     static getModule(filter, first = true) {
-        return BdApi.Webpack.getModule(filter, {first});
+        const options = typeof(first) === "object" ? first : {first};
+        return BdApi.Webpack.getModule(filter, options);
     }
 
     static getIndex() {
@@ -149,7 +150,7 @@ export default class WebpackModules {
     static getModuleByName(name, fallback) {
         if (DiscordModules.hasOwnProperty(name)) return DiscordModules[name];
         if (!fallback) return undefined;
-        const module = this.getModule(fallback, true);
+        const module = this.getModule(fallback);
         return module ? DiscordModules[name] = module : undefined;
     }
 
@@ -159,7 +160,7 @@ export default class WebpackModules {
      * @return {Any}
      */
     static getByDisplayName(name) {
-        return this.getModule(Filters.byDisplayName(name), true);
+        return this.getModule(Filters.byDisplayName(name));
     }
 
     /**

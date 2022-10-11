@@ -14,7 +14,7 @@ export default Utilities.memoizeObject({
     get Events() {return WebpackModules.getByPrototypes("setMaxListeners", "emit");},
 
     /* Guild Info, Stores, and Utilities */
-    get GuildStore() {return WebpackModules.getByProps("getGuild");},
+    get GuildStore() {return WebpackModules.getByProps("getGuild", "getGuilds");},
     get SortedGuildStore() {return WebpackModules.getByProps("getSortedGuilds");},
     get SelectedGuildStore() {return WebpackModules.getByProps("getLastSelectedGuildId");},
     get GuildSync() {return WebpackModules.getByProps("getSyncedGuilds");},
@@ -64,14 +64,20 @@ export default Utilities.memoizeObject({
 
     /* Discord Objects & Utils */
     get DiscordConstants() {return WebpackModules.getByProps("Permissions", "ActivityTypes", "StatusTypes");},
-    get DiscordPermissions() {return WebpackModules.getByProps("Permissions", "ActivityTypes", "StatusTypes").Permissions;},
+    get DiscordPermissions() {return WebpackModules.getModule(m => m.ADD_REACTIONS, {searchExports: true});},
     get Permissions() {return WebpackModules.getByProps("computePermissions");},
     get ColorConverter() {return WebpackModules.getByProps("hex2int");},
     get ColorShader() {return WebpackModules.getByProps("darken");},
     get TinyColor() {return WebpackModules.getByPrototypes("toRgb");},
     get ClassResolver() {return WebpackModules.getByProps("getClass");},
-    get ButtonData() {return WebpackModules.getByProps("BorderColors");},
-    get NavigationUtils() {return WebpackModules.getByProps("transitionTo", "replaceWith", "getHistory");},
+    get ButtonData() {return WebpackModules.getModule(m => m.BorderColors, {searchExports: true});},
+    get NavigationUtils() {
+        return {
+            transitionToGuild: WebpackModules.getByProps("transitionToGuildSync")?.transitionToGuildSync,
+            transitionTo: WebpackModules.getModule(m => m.toString().includes(`"transitionTo - Transitioning to "`), {searchExports: true}),
+            replaceWith: WebpackModules.getModule(m => m.toString().includes(`"Replacing route with "`), {searchExports: true})
+        };
+    },
     get KeybindStore() {return WebpackModules.getByProps("keyToCode");},
 
     /* Discord Messages */
@@ -154,14 +160,14 @@ export default Utilities.memoizeObject({
     /* Modals */
     get ModalActions() {
         return {
-            openModal: WebpackModules.getModule(m => m?.toString().includes("onCloseCallback") && m?.toString().includes("Layer")),
-            closeModal: WebpackModules.getModule(m => m?.toString().includes("onCloseCallback()"))
+            openModal: WebpackModules.getModule(m => typeof(m) === "function" && m?.toString().includes("onCloseCallback") && m?.toString().includes("Layer"), {searchExports: true}),
+            closeModal: WebpackModules.getModule(m => typeof(m) === "function" && m?.toString().includes("onCloseCallback()"), {searchExports: true})
         };
     },
     get ModalStack() {return WebpackModules.getByProps("push", "update", "pop", "popWithKey");},
     get UserProfileModals() {return WebpackModules.getByProps("fetchMutualFriends", "setSection");},
     get AlertModal() {return WebpackModules.getByPrototypes("handleCancel", "handleSubmit");},
-    get ConfirmationModal() {return WebpackModules.getModule(m => m?.toString()?.includes("confirmText"));},
+    get ConfirmationModal() {return WebpackModules.getModule(m => m?.toString?.()?.includes(".confirmButtonColor"));},
     get ChangeNicknameModal() {return WebpackModules.getByProps("open", "changeNickname");},
     get CreateChannelModal() {return WebpackModules.getByProps("open", "createChannel");},
     get PruneMembersModal() {return WebpackModules.getByProps("open", "prune");},
@@ -205,7 +211,7 @@ export default Utilities.memoizeObject({
     get AdvancedScrollerNone() {return WebpackModules.getByProps("AdvancedScrollerNone").AdvancedScrollerNone;},
 
     /* Settings */
-    get SettingsWrapper() {return WebpackModules.getModule(m => m.Tags && m?.toString().includes("required"));},
+    get SettingsWrapper() {return WebpackModules.getModule(m => m.Tags && m?.toString().includes("required") && m?.toString().includes("titleClassName"));},
     get SettingsNote() {return WebpackModules.getModule(m => m.Types && m?.toString().includes("selectable"));},
     get SettingsDivider() {return WebpackModules.getModule(m => !m.defaultProps && m.prototype && m.prototype.render && m.prototype.render.toString().includes("default.divider"));},
 
