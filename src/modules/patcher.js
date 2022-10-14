@@ -81,6 +81,6 @@ export default class Patcher {
      * @param {module:Patcher~patchCallback} callback - Function to run after the original method
      * @return {module:Patcher~unpatch} Function with no arguments and no return value that should be called to cancel (unpatch) this patch. You should save and run it when your plugin is stopped.
      */
-    static instead(caller, moduleToPatch, functionName, callback) {return BdApi.Patcher.before(caller, moduleToPatch, functionName, callback);}
+    static instead(caller, moduleToPatch, functionName, callback) {return BdApi.Patcher.instead(caller, moduleToPatch, functionName, callback);}
 
 }
