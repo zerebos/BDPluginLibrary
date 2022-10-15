@@ -515,7 +515,7 @@ __webpack_require__.r(__webpack_exports__);
     /* Popouts */
     get PopoutStack() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("open", "close", "closeAll");},
     get PopoutOpener() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("openPopout");},
-    get UserPopout() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m?.toString && m.toString().includes('().canViewThemes'));},
+    get UserPopout() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m.type.displayName === "UserPopoutContainer");},
 
     /* Context Menus */
     get ContextMenuActions() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("openContextMenu");},
@@ -4551,82 +4551,88 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ Popouts)
 /* harmony export */ });
-/* harmony import */ var modules__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! modules */ "./src/modules/modules.js");
 /**
  * Allows an easy way to create and show popouts.
  * @module Popouts
  */
 
+// import {DiscordModules, DOMTools, WebpackModules, Patcher} from "modules";
 
-
-const {React, ReactDOM} = modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules;
-const {useReducer, useEffect, useRef} = React;
-const AppLayer = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getModule(m => Object.values(m).some(m => m?.displayName === 'AppLayer'));
-const ReferencePositionLayer = Object.values(AppLayer).find(m => m.prototype?.render);
+// const {React, ReactDOM} = DiscordModules;
+// const {useReducer, useEffect, useRef} = React;
+// const AccessibilityProvider = WebpackModules.getByProps("AccessibilityPreferencesContext").AccessibilityPreferencesContext.Provider;
+// const Layers = WebpackModules.getByProps("AppReferencePositionLayer");
 // const PopoutCSSAnimator = WebpackModules.getByDisplayName("PopoutCSSAnimator");
-const LayerProvider = Object.values(AppLayer).find(m => m.displayName === 'AppLayerProvider')?.().props.layerContext.Provider; // eslint-disable-line new-cap
-const ComponentDispatch = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getModule(m => m.toString && m.toString().includes('useContext(c).windowDispatch'), {searchExports: true});
-const ComponentActions = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getModule(m => m.POPOUT_SHOW, {searchExports: true});
-const Popout = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getModule(m => m?.defaultProps && m?.Animation);
+// const LayerProvider = WebpackModules.getByDisplayName("AppLayerProvider")?.().props.layerContext.Provider; // eslint-disable-line new-cap
+// const LayerModule = WebpackModules.getByProps("LayerClassName");
+// const {ComponentDispatch} = WebpackModules.getByProps("ComponentDispatch");
+// const {ComponentActions} = WebpackModules.getByProps("ComponentActions");
+// const AnalyticsTrackContext = WebpackModules.find(m => m._currentValue && m._currentValue.toString && m._currentValue.toString().includes("AnalyticsTrackImpressionContext function unimplemented"));
+// const AnalyticsTracker = WebpackModules.find(m => m.toString && m.toString().includes("setDebugTrackedData"));
+// const Popout = WebpackModules.getByDisplayName("Popout");
 
-const createStore = state => {
-    const listeners = new Set();
+// const createStore = state => {
+//     const listeners = new Set();
 
-    const setState = function (getter = _ => _) {
-        const partial = getter(state);
-        if (partial === state) return;
+//     const setState = function (getter = _ => _) {
+//         const partial = getter(state);
+//         if (partial === state) return;
 
-        state = partial;
+//         state = partial;
+        
+//         [...listeners].forEach(e => e());
+//     };
 
-        [...listeners].forEach(e => e());
-    };
+//     setState.getState = () => state;
 
-    setState.getState = () => state;
+//     function storeListener(getter = _ => _) {
+//         const [, forceUpdate] = useReducer(n => !n, true);
 
-    function storeListener(getter = _ => _) {
-        const [, forceUpdate] = useReducer(n => !n, true);
+//         useEffect(() => {
+//             const dispatch = () => {forceUpdate();};
 
-        useEffect(() => {
-            const dispatch = () => {forceUpdate();};
+//             listeners.add(dispatch);
 
-            listeners.add(dispatch);
+//             return () => {listeners.delete(dispatch);};
+//         });
 
-            return () => {listeners.delete(dispatch);};
-        });
+//         return getter(state);
+//     }
 
-        return getter(state);
-    }
+//     return [
+//         setState,
+//         storeListener
+//     ];
+// };
 
-    return [
-        setState,
-        storeListener
-    ];
-};
+// const [setPopouts, usePopouts] = createStore([]);
 
-const [setPopouts, usePopouts] = createStore([]);
-
-// const AnimationTypes = {FADE: 3, SCALE: 2, TRANSLATE: 1};
+const AnimationTypes = {FADE: 3, SCALE: 2, TRANSLATE: 1};
 
 class Popouts {
 
-    // static get AnimationTypes() {return AnimationTypes;}
+    static get AnimationTypes() {return AnimationTypes;}
 
     static initialize() {
-        this.dispose();
-        this.popouts = 0;
+        // this.dispose();
+        // this.popouts = 0;
 
-        this.container = Object.assign(document.createElement("div"), {
-            className: "ZeresPluginLibraryPopoutsRenderer",
-            style: "display: none;"
-        });
+        // this.container = Object.assign(document.createElement("div"), {
+        //     className: "ZeresPluginLibraryPopoutsRenderer",
+        //     style: "display: none;"
+        // });
+    
+        // this.layerContainer = Object.assign(document.createElement("div"), {
+        //     id: "ZeresPluginLibraryPopouts",
+        //     className: LayerModule.LayerClassName
+        // });
 
-        this.layerContainer = Object.assign(document.createElement("div"), {
-            id: "ZeresPluginLibraryPopouts",
-            className: modules__WEBPACK_IMPORTED_MODULE_0__.DiscordClassModules.TooltipLayers.layerContainer
-        });
+        // document.body.append(this.container, this.layerContainer);
+        // ReactDOM.render(React.createElement(PopoutsContainer), this.container);
 
-        document.body.append(this.container, this.layerContainer);
-        ReactDOM.render(React.createElement(PopoutsContainer), this.container);
+        // Patcher.before("Popouts", LayerModule, "getParentLayerContainer", (_, [element]) => {
+        //     if (element.parentElement === this.layerContainer) return this.layerContainer;
+        // });
     }
 
     /**
@@ -4640,27 +4646,26 @@ class Popouts {
      * @param {string} [options.align="top"] - Positioning relative to element
      */
     static showUserPopout(target, user, options = {}) {
-        const {position = "right", align = "top", guild = modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.SelectedGuildStore.getGuildId(), channel = modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.SelectedChannelStore.getChannelId()} = options;
-        target = modules__WEBPACK_IMPORTED_MODULE_0__.DOMTools.resolveElement(target);
-        // if (target.getBoundingClientRect().right + 250 >= DOMTools.screenWidth && options.autoInvert) position = "left";
-        // if (target.getBoundingClientRect().bottom + 400 >= DOMTools.screenHeight && options.autoInvert) align = "bottom";
-        // if (target.getBoundingClientRect().top - 400 >= DOMTools.screenHeight && options.autoInvert) align = "top";
-        this.openPopout(target, {
-            position: position,
-            align: align,
-            // animation: options.animation || Popouts.AnimationTypes.TRANSLATE,
-            autoInvert: options.autoInvert,
-            nudgeAlignIntoViewport: options.nudgeAlignIntoViewport,
-            spacing: options.spacing,
-            render: (props) => {
-                return modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.React.createElement(modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.UserPopout, Object.assign({}, props, {
-                    userId: user.id,
-                    guildId: guild,
-                    channelId: channel,
-                    closePopout: () => this.closePopout(props.popoutId)
-                }));
-            }
-        });
+        // const {position = "right", align = "top", guild = DiscordModules.SelectedGuildStore.getGuildId(), channel = DiscordModules.SelectedChannelStore.getChannelId()} = options;
+        // target = DOMTools.resolveElement(target);
+        // // if (target.getBoundingClientRect().right + 250 >= DOMTools.screenWidth && options.autoInvert) position = "left";
+        // // if (target.getBoundingClientRect().bottom + 400 >= DOMTools.screenHeight && options.autoInvert) align = "bottom";
+        // // if (target.getBoundingClientRect().top - 400 >= DOMTools.screenHeight && options.autoInvert) align = "top";
+        // this.openPopout(target, {
+        //     position: position,
+        //     align: align,
+        //     animation: options.animation || Popouts.AnimationTypes.TRANSLATE,
+        //     autoInvert: options.autoInvert,
+        //     nudgeAlignIntoViewport: options.nudgeAlignIntoViewport,
+        //     spacing: options.spacing,
+        //     render: (props) => {
+        //         return DiscordModules.React.createElement(DiscordModules.UserPopout, Object.assign({}, props, {
+        //             userId: user.id,
+        //             guildId: guild,
+        //             channelId: channel
+        //         }));
+        //     }
+        // });
     }
 
     /**
@@ -4669,83 +4674,84 @@ class Popouts {
      * @param {object} [options] - Options to modify the request
      * @param {string} [options.position="right"] - General position relative to element
      * @param {string} [options.align="top"] - Alignment relative to element
+     * @param {Popouts.AnimationTypes} [options.animation=Popouts.AnimationTypes.TRANSLATE] - Animation type to use
      * @param {boolean} [options.autoInvert=true] - Try to automatically adjust the position if it overflows the screen
      * @param {boolean} [options.nudgeAlignIntoViewport=true] - Try to automatically adjust the alignment if it overflows the screen
      * @param {number} [options.spacing=8] - Spacing between target and popout
      */
     static openPopout(target, options) {
-        const id = this.popouts++;
+        // const id = this.popouts++;
 
-        setPopouts(popouts => popouts.concat({
-            id: id,
-            element: React.createElement(PopoutWrapper, Object.assign({}, Popout.defaultProps, {
-                reference: {current: target},
-                popoutId: id,
-                key: "popout_" + id,
-                spacing: 50
-            }, options))
-        }));
+        // setPopouts(popouts => popouts.concat({
+        //     id: id,
+        //     element: React.createElement(PopoutWrapper, Object.assign({}, Popout.defaultProps, {
+        //         reference: {current: target},
+        //         popoutId: id,
+        //         key: "popout_" + id,
+        //         spacing: 50
+        //     }, options))
+        // }));
 
-        return id;
+        // return id;
     }
 
     static closePopout(id) {
-        const popout = setPopouts.getState().find(e => e.id === id);
+        // const popout = setPopouts.getState().find(e => e.id === id);
 
-        if (!popout) return null;
+        // if (!popout) return null;
 
-        setPopouts(popouts => {
-            const clone = [...popouts];
-            clone.splice(clone.indexOf(popout), 1);
-            return clone;
-        });
+        // setPopouts(popouts => {
+        //     const clone = [...popouts];
+        //     clone.splice(clone.indexOf(popout), 1);
+        //     return clone;
+        // });
     }
 
     static dispose() {
-        modules__WEBPACK_IMPORTED_MODULE_0__.Patcher.unpatchAll("Popouts");
-        const container = document.querySelector(".ZeresPluginLibraryPopoutsRenderer");
-        const layerContainer = document.querySelector("#ZeresPluginLibraryPopouts");
-        if (container) ReactDOM.unmountComponentAtNode(container);
-        if (container) container.remove();
-        if (layerContainer) layerContainer.remove();
+        // Patcher.unpatchAll("Popouts");
+        // const container = document.querySelector(".ZeresPluginLibraryPopoutsRenderer");
+        // const layerContainer = document.querySelector("#ZeresPluginLibraryPopouts");
+        // if (container) ReactDOM.unmountComponentAtNode(container);
+        // if (container) container.remove();
+        // if (layerContainer) layerContainer.remove();
     }
 }
 
 function DiscordProviders({children, container}) {
-    return React.createElement(LayerProvider, {
-        value: [container]
-    }, children);
+    // return React.createElement(LayerProvider, {
+    //     value: [container]
+    // }, children);
 }
 
 function PopoutsContainer() {
-    const popouts = usePopouts();
+    // const popouts = usePopouts();
 
-    return React.createElement(DiscordProviders,
-        {container: Popouts.layerContainer},
-        popouts.map((popout) => popout.element)
-    );
+    // return React.createElement(DiscordProviders,
+    //     {container: Popouts.layerContainer},
+    //     popouts.map((popout) => popout.element)
+    // );
 }
 
-function PopoutWrapper({render, popoutId, ...props}) {
-    const popoutRef = useRef();
+function PopoutWrapper({render, animation, popoutId, ...props}) {
+    // const popoutRef = useRef();
 
-    useEffect(() => {
-        if (!popoutRef.current) return;
+    // useEffect(() => {
+    //     if (!popoutRef.current) return;
 
-        const node = ReactDOM.findDOMNode(popoutRef.current);
+    //     const node = ReactDOM.findDOMNode(popoutRef.current);
 
-        const handleClick = ({target}) => {
-            if (target === node || node.contains(target)) return;
+    //     const handleClick = ({target}) => {
+    //         if (target === node || node.contains(target)) return;
 
-            Popouts.closePopout(popoutId);
-        };
+    //         Popouts.closePopout(popoutId);
+    //     };
 
-        document.addEventListener("click", handleClick);
+    //     document.addEventListener("click", handleClick);
 
-        return () => {
-            document.removeEventListener("click", handleClick);
-        };
-    }, [popoutRef]);
+    //     return () => {
+    //         document.removeEventListener("click", handleClick);
+    //     };
+    // }, [popoutRef]);
 
     // switch (animation) {
     //     case PopoutCSSAnimator.Types.FADE:
@@ -4761,31 +4767,19 @@ function PopoutWrapper({render, popoutId, ...props}) {
     //     }
     // }
 
-    const ComponentDispatcher = ComponentDispatch();
-
-    return React.createElement(ReferencePositionLayer, Object.assign(props, {
-        style: {
-            transform: "translateZ(0)"
-        },
-        ref: popoutRef,
-        positionKey: "0",
-        autoInvert: true,
-        id: "popout_" + popoutId,
-        animation: 2,
-        onMount() {
-            ComponentDispatcher.dispatch(ComponentActions.POPOUT_SHOW);
-        },
-        onUnmount() {
-            ComponentDispatcher.dispatch(ComponentActions.POPOUT_HIDE);
-        },
-        children: (props, ...p) => React.createElement(
-            'div',
-            {
-                style: { transform: 'translateZ(0)' } // for z-index to work properly for sub-popouts
-            },
-            render({ popoutId, ...props }, ...p)
-        )
-    }));
+    // return React.createElement(Layers.AppReferencePositionLayer, Object.assign(props, {
+    //     ref: popoutRef,
+    //     positionKey: "0",
+    //     autoInvert: true,
+    //     id: "popout_" + popoutId,
+    //     onMount() {
+    //         ComponentDispatch.dispatch(ComponentActions.POPOUT_SHOW);
+    //     },
+    //     onUnmount() {
+    //         ComponentDispatch.dispatch(ComponentActions.POPOUT_HIDE);
+    //     },
+    //     children: render
+    // }));
 }
 
 
@@ -6275,12 +6269,11 @@ class PluginLibrary extends _structs_plugin__WEBPACK_IMPORTED_MODULE_2__["defaul
         modules__WEBPACK_IMPORTED_MODULE_0__.DOMTools.removeStyle("ZLibraryCSS");
         modules__WEBPACK_IMPORTED_MODULE_0__.DOMTools.addStyle("ZLibraryCSS", ui__WEBPACK_IMPORTED_MODULE_1__.Settings.CSS + ui__WEBPACK_IMPORTED_MODULE_1__.Toasts.CSS + modules__WEBPACK_IMPORTED_MODULE_0__.PluginUpdater.CSS);
         ui__WEBPACK_IMPORTED_MODULE_1__.DiscordContextMenu.initialize();
-        ui__WEBPACK_IMPORTED_MODULE_1__.Popouts.initialize();
-
+        
         /**
          * Checking if this is the library first being loaded during init
          * This means that subsequent loads will cause dependents to reload
-         * This also means first load when installing for the first time
+         * This also means first load when installing for the first time 
          * will automatically reload the dependent plugins. This is needed
          * for those plugins that prompt to download and install the lib.
          */
@@ -6348,7 +6341,6 @@ Library.buildPlugin = PluginLibrary.buildPlugin;
 window.ZLibrary = Library;
 window.ZeresPluginLibrary = PluginLibrary;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PluginLibrary);
-
 })();
 
 module.exports.ZeresPluginLibrary = __webpack_exports__["default"];
