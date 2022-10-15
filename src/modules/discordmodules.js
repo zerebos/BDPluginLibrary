@@ -178,7 +178,7 @@ export default Utilities.memoizeObject({
     /* Popouts */
     get PopoutStack() {return WebpackModules.getByProps("open", "close", "closeAll");},
     get PopoutOpener() {return WebpackModules.getByProps("openPopout");},
-    get UserPopout() {return WebpackModules.getModule(m => m.type.displayName === "UserPopoutContainer");},
+    get UserPopout() {return WebpackModules.getModule(m => m?.toString && m.toString().includes('().canViewThemes'));},
 
     /* Context Menus */
     get ContextMenuActions() {return WebpackModules.getByProps("openContextMenu");},

@@ -29,11 +29,12 @@ class PluginLibrary extends BasePlugin {
         DOMTools.removeStyle("ZLibraryCSS");
         DOMTools.addStyle("ZLibraryCSS", Settings.CSS + Toasts.CSS + PluginUpdater.CSS);
         DiscordContextMenu.initialize();
-        
+        Popouts.initialize();
+
         /**
          * Checking if this is the library first being loaded during init
          * This means that subsequent loads will cause dependents to reload
-         * This also means first load when installing for the first time 
+         * This also means first load when installing for the first time
          * will automatically reload the dependent plugins. This is needed
          * for those plugins that prompt to download and install the lib.
          */
