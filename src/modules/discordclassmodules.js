@@ -15,7 +15,7 @@ import WebpackModules from "./webpackmodules";
  */
 export default Utilities.memoizeObject({
     get ContextMenu() {return WebpackModules.getByProps("menu", "item");},
-    get Scrollers() {return WebpackModules.getByProps("scrollerWrap", "scrollerThemed", "scrollerTrack");},
+    get Scrollers() {return WebpackModules.getByProps("thin", "scrollerBase", "content");},
     get AccountDetails() {return WebpackModules.getByProps("container", "avatar", "hasBuildOverride");},
     get Typing() {return WebpackModules.getByProps("typing", "text");},
     get UserPopout() {return WebpackModules.getByProps("userPopout");},
@@ -27,7 +27,7 @@ export default Utilities.memoizeObject({
     get Titles() {return WebpackModules.getByProps("defaultMarginh5");},
     get Notices() {return WebpackModules.getByProps("notice", "colorInfo");},
     get Backdrop() {return WebpackModules.getByProps("backdrop");},
-    get Modals() {return WebpackModules.getModule(m => m.modal && m.inner && !m.header);},
+    get Modals() {return WebpackModules.getByProps("hideOnFullscreen", "root");},
     get AuditLog() {return WebpackModules.getByProps("userHook");},
     get ChannelList() {return Object.assign({}, WebpackModules.getByProps("containerDefault"), WebpackModules.getByProps("name", "unread"), WebpackModules.getByProps("sidebar", "hasNotice"));},
     get MemberList() {return Object.assign({}, WebpackModules.getByProps("member", "memberInner"), WebpackModules.getByProps("members", "membersWrap"));},

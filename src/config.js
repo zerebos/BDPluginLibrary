@@ -1,4 +1,5 @@
 // Use non-ES6 so build script can require()
+// Options: added, improved, fixed, progress.
 module.exports = {
     id: "9",
     name: "ZeresPluginLibrary",
@@ -7,8 +8,7 @@ module.exports = {
     description: "Gives other plugins utility functions and the ability to emulate v2.",
     source: "https://github.com/rauenzi/BDPluginLibrary",
     changelog: [
-        {title: "What's Fixed?", type: "fixed", items: ["More modules are idenitifed in Discord's internals.", "Modals should work again.", "Fixed overusage of memory.", "Plugin settings should work again."]},
-        {title: "What's Different?", type: "progress", items: ["Some internal modules now forward to BD's API.", "`getModule` can now accept the same options as BD's API."]},
+        {title: "What's Fixed?", type: "fixed", items: ["Changelog modals look good again.", "Popout module is fixed thanks to `arg0NNY`!", "`Patcher.instead` really does instead again.", "`ColorConverter` now uses custom functions so it shouldn't break ever again.", "The `DCM` module now forwards to BD's `ContextMenu` API where applicable."]},
     ],
     main: "index.js"
 };

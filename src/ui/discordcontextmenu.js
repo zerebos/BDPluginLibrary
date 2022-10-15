@@ -1,10 +1,7 @@
-import DiscordModules from "../modules/discordmodules";
 import WebpackModules from "../modules/webpackmodules";
 import ReactTools from "../modules/reacttools";
-import Patcher from "../modules/patcher";
 import Utilities from "../modules/utilities";
 import DiscordClasses from "../modules/discordclasses";
-import DOMTools from "../modules/domtools";
 
 // d = e.label,
 // f = e.icon,
@@ -18,12 +15,6 @@ import DOMTools from "../modules/domtools";
 // T = e.action,
 // b = e.onClose,
 
-
-const React = DiscordModules.React;
-const ContextMenuActions = DiscordModules.ContextMenuActions;
-
-const ce = React.createElement;
-const ContextMenu = WebpackModules.getByProps("MenuRadioItem", "MenuItem");
 
 /**
  * Fires when the item is clicked.
@@ -157,25 +148,7 @@ export default class DiscordContextMenu {
      * });
      */
     static buildMenuItem(props) {
-        const {type} = props;
-        if (type === "separator") return ce(ContextMenu.MenuSeparator);
-
-        let Component = ContextMenu.MenuItem;
-        if (type === "submenu") {
-            if (!props.children) props.children = this.buildMenuChildren(props.render || props.items);
-        }
-        else if (type === "toggle" || type === "radio") {
-            Component = type === "toggle" ? ContextMenu.MenuCheckboxItem : ContextMenu.MenuRadioItem;
-            if (props.active) props.checked = props.active;
-        }
-        else if (type === "control") {
-            Component = ContextMenu.MenuControlItem;
-        }
-        if (!props.id) props.id = `${DOMTools.escapeID(props.label)}`;
-        if (props.danger) props.color = "colorDanger";
-        if (props.onClick && !props.action) props.action = props.onClick;
-        props.extended = true;
-        return ce(Component, props);
+        return window.BdApi.ContextMenu.buildItem(props);
     }
 
     /**
@@ -222,15 +195,7 @@ export default class DiscordContextMenu {
      * }]);
      */
     static buildMenuChildren(setup) {
-        const mapper = s => {
-            if (s.type === "group") return buildGroup(s);
-            return this.buildMenuItem(s);
-        };
-        const buildGroup = function(group) {
-            const items = group.items.map(mapper).filter(i => i);
-            return ce(ContextMenu.MenuGroup, null, items);
-        };
-        return setup.map(mapper).filter(i => i);
+        return window.BdApi.ContextMenu.buildMenuChildren(setup);
     }
 
     /**
@@ -241,7 +206,7 @@ export default class DiscordContextMenu {
      * @returns {function} the unique context menu component
      */
     static buildMenu(setup) {
-        return (props) => {return ce(ContextMenu.default, props, this.buildMenuChildren(setup));};
+        return window.BdApi.ContextMenu.buildMenu(setup);
     }
 
     /**
@@ -255,9 +220,7 @@ export default class DiscordContextMenu {
      * @param {boolean} [config.noBlurEvent=false] - No clue
      */
     static openContextMenu(event, menuComponent, config) {
-        return ContextMenuActions.openContextMenu(event, function(e) {
-            return ce(menuComponent, Object.assign({}, e, {onClose: ContextMenuActions.closeContextMenu}));
-        }, config);
+        return window.BdApi.ContextMenu.open(event, menuComponent, config);
     }
 
     /**
@@ -265,6 +228,7 @@ export default class DiscordContextMenu {
      * when patching the render of these menus.
      * @param {string | Function} nameOrFilter - name of the context menu type
      * @returns {Promise<object>} the webpack module the menu was found in
+     * @deprecated
      */
     static getDiscordMenu(nameOrFilter) {
         if (typeof(nameOrFilter) !== "function") {
@@ -296,43 +260,5 @@ export default class DiscordContextMenu {
             stateNode.forceUpdate();
             stateNode.updatePosition();
         }
-    }
-
-    static initialize() {
-        Patcher.unpatchAll("DCM");
-        this.patchMenuItem();
-        this.patchToggleItem();
-    }
-
-    static patchMenuItem() {
-        const MenuItem = WebpackModules.getModule(m => m.default && m.default.displayName == "MenuItem");
-        if (!MenuItem || !MenuItem.default) return;
-        Patcher.after("DCM", MenuItem, "default", (_, args, ret) => {
-            if (!args || !args[0] || !args[0].extended) return;
-            const [props] = args;
-            if (props.style) ret.props.style = props.style;
-            if (props.closeOnClick !== false || !props.action) return;
-            ret.props.onClick = function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                return props.action(...arguments);
-            };
-        });
-    }
-
-    static patchToggleItem() {
-        const MenuToggleItem = WebpackModules.getModule(m => m.default && m.default.displayName == "MenuCheckboxItem");
-        if (!MenuToggleItem || !MenuToggleItem.default) return;
-        Patcher.before("DCM", MenuToggleItem, "default", (_, args) => {
-            if (!args || !args[0] || !args[0].extended) return;
-            const [props] = args;
-            const [active, doToggle] = React.useState(props.checked || false);
-            props.checked = active;
-            const originalAction = props.action;
-            props.action = function(ev) {
-                originalAction(ev);
-                doToggle(!active);
-            };
-        });
     }
 }

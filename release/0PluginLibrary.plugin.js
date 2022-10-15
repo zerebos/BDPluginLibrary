@@ -1,7 +1,7 @@
 /**
  * @name ZeresPluginLibrary
  * @description Gives other plugins utility functions and the ability to emulate v2.
- * @version 2.0.7
+ * @version 2.0.8
  * @author Zerebos
  * @source https://github.com/rauenzi/BDPluginLibrary
  */
@@ -85,16 +85,16 @@ __webpack_require__.r(__webpack_exports__);
 /***/ ((module) => {
 
 // Use non-ES6 so build script can require()
+// Options: added, improved, fixed, progress.
 module.exports = {
     id: "9",
     name: "ZeresPluginLibrary",
     author: "Zerebos",
-    version: "2.0.7",
+    version: "2.0.8",
     description: "Gives other plugins utility functions and the ability to emulate v2.",
     source: "https://github.com/rauenzi/BDPluginLibrary",
     changelog: [
-        {title: "What's Fixed?", type: "fixed", items: ["More modules are idenitifed in Discord's internals.", "Modals should work again.", "Fixed overusage of memory.", "Plugin settings should work again."]},
-        {title: "What's Different?", type: "progress", items: ["Some internal modules now forward to BD's API.", "`getModule` can now accept the same options as BD's API."]},
+        {title: "What's Fixed?", type: "fixed", items: ["Changelog modals look good again.", "Popout module is fixed thanks to `arg0NNY`!", "`Patcher.instead` really does instead again.", "`ColorConverter` now uses custom functions so it shouldn't break ever again.", "The `DCM` module now forwards to BD's `ContextMenu` API where applicable."]},
     ],
     main: "index.js"
 };
@@ -113,31 +113,45 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ ColorConverter)
 /* harmony export */ });
-/* harmony import */ var _webpackmodules__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./webpackmodules */ "./src/modules/webpackmodules.js");
 /**
  * Helpful utilities for dealing with colors.
  * @module ColorConverter
  */
 
 
-
-const DiscordColorUtils = _webpackmodules__WEBPACK_IMPORTED_MODULE_0__["default"].getByProps("getDarkness", "isValidHex");
+const validHexRegex = /#([a-fA-F0-9]{1,2})([a-fA-F0-9]{1,2})([a-fA-F0-9]{1,2})/;
 
 class ColorConverter {
 
     static getDarkness(color) {
-        return DiscordColorUtils.getDarkness(color);
+        const [red, green, blue] = this.getRGB(color);
+        return 1 - (0.299 * red + 0.587 * green + 0.114 * blue) / 255;
     }
 
-    static hex2int(color) {return DiscordColorUtils.hex2int(color);}
+    static hex2int(color) {
+        if (color.length === 4) color = `#${color[1]}${color[1]}${color[2]}${color[2]}${color[3]}${color[3]}`;
+        return parseInt(color.slice(1), 16);
+    }
 
-    static hex2rgb(color) {return DiscordColorUtils.hex2rgb(color);}
+    static hex2rgb(color) {
+        const [red, green, blue] = this.getRGB(color);
+        return `rgb(${red}, ${green}, ${blue})`;
+    }
     
-    static int2hex(color) {return DiscordColorUtils.int2hex(color);}
+    static int2hex(color) {
+        const red = color >> 16 & 255;
+        const green = color >> 8 & 255;
+        const blue = color & 255;
+        return `#${red.toString(16)}${green.toString(16)}${blue.toString(16)}`;
+    }
 
-    static int2rgba(color, alpha) {return DiscordColorUtils.int2rgba(color, alpha);}
+    static int2rgba(color, alpha) {
+        return `rgba(${color >> 16 & 255}, ${color >> 8 & 255}, ${color & 255}, ${alpha})`;
+    }
 
-    static isValidHex(color) {return DiscordColorUtils.isValidHex(color);}
+    static isValidHex(color) {
+        return color.match(validHexRegex) != null;
+    }
 
     /**
      * Will get the red green and blue values of any color string.
@@ -285,7 +299,7 @@ __webpack_require__.r(__webpack_exports__);
  */
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_utilities__WEBPACK_IMPORTED_MODULE_0__["default"].memoizeObject({
     get ContextMenu() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("menu", "item");},
-    get Scrollers() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("scrollerWrap", "scrollerThemed", "scrollerTrack");},
+    get Scrollers() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("thin", "scrollerBase", "content");},
     get AccountDetails() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("container", "avatar", "hasBuildOverride");},
     get Typing() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("typing", "text");},
     get UserPopout() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("userPopout");},
@@ -297,7 +311,7 @@ __webpack_require__.r(__webpack_exports__);
     get Titles() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("defaultMarginh5");},
     get Notices() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("notice", "colorInfo");},
     get Backdrop() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("backdrop");},
-    get Modals() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m.modal && m.inner && !m.header);},
+    get Modals() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("hideOnFullscreen", "root");},
     get AuditLog() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("userHook");},
     get ChannelList() {return Object.assign({}, _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("containerDefault"), _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("name", "unread"), _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("sidebar", "hasNotice"));},
     get MemberList() {return Object.assign({}, _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("member", "memberInner"), _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("members", "membersWrap"));},
@@ -403,7 +417,7 @@ __webpack_require__.r(__webpack_exports__);
     get DiscordConstants() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("Permissions", "ActivityTypes", "StatusTypes");},
     get DiscordPermissions() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m.ADD_REACTIONS, {searchExports: true});},
     get Permissions() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("computePermissions");},
-    get ColorConverter() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("hex2int");},
+    get ColorConverter() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => Object.values(m).some(v => v?.toString().includes(`"rgba("`)));},
     get ColorShader() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("darken");},
     get TinyColor() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByPrototypes("toRgb");},
     get ClassResolver() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getClass");},
@@ -411,8 +425,8 @@ __webpack_require__.r(__webpack_exports__);
     get NavigationUtils() {
         return {
             transitionToGuild: _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("transitionToGuildSync")?.transitionToGuildSync,
-            transitionTo: _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m.toString().includes(`"transitionTo - Transitioning to "`), {searchExports: true}),
-            replaceWith: _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m.toString().includes(`"Replacing route with "`), {searchExports: true})
+            transitionTo: _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m?.toString?.().includes(`"transitionTo - Transitioning to "`), {searchExports: true}),
+            replaceWith: _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m?.toString?.().includes(`"Replacing route with "`), {searchExports: true})
         };
     },
     get KeybindStore() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("keyToCode");},
@@ -511,11 +525,12 @@ __webpack_require__.r(__webpack_exports__);
     get NotificationSettingsModal() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("open", "updateNotificationSettings");},
     get PrivacySettingsModal() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m.open && m.open.toString().includes("PRIVACY_SETTINGS_MODAL"));},
     get Changelog() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule((m => m.defaultProps && m.defaultProps.selectable == false));},
+    get ModalRoot() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m?.toString?.()?.includes("ENTERING"), {searchExports: true});},
 
     /* Popouts */
     get PopoutStack() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("open", "close", "closeAll");},
     get PopoutOpener() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("openPopout");},
-    get UserPopout() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m.type.displayName === "UserPopoutContainer");},
+    get UserPopout() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m?.toString && m.toString().includes("().canViewThemes"));},
 
     /* Context Menus */
     get ContextMenuActions() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("openContextMenu");},
@@ -1669,7 +1684,7 @@ class Patcher {
      * @param {module:Patcher~patchCallback} callback - Function to run after the original method
      * @return {module:Patcher~unpatch} Function with no arguments and no return value that should be called to cancel (unpatch) this patch. You should save and run it when your plugin is stopped.
      */
-    static instead(caller, moduleToPatch, functionName, callback) {return BdApi.Patcher.before(caller, moduleToPatch, functionName, callback);}
+    static instead(caller, moduleToPatch, functionName, callback) {return BdApi.Patcher.instead(caller, moduleToPatch, functionName, callback);}
 
 }
 
@@ -3891,16 +3906,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ DiscordContextMenu)
 /* harmony export */ });
-/* harmony import */ var _modules_discordmodules__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../modules/discordmodules */ "./src/modules/discordmodules.js");
-/* harmony import */ var _modules_webpackmodules__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../modules/webpackmodules */ "./src/modules/webpackmodules.js");
-/* harmony import */ var _modules_reacttools__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../modules/reacttools */ "./src/modules/reacttools.js");
-/* harmony import */ var _modules_patcher__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../modules/patcher */ "./src/modules/patcher.js");
-/* harmony import */ var _modules_utilities__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../modules/utilities */ "./src/modules/utilities.js");
-/* harmony import */ var _modules_discordclasses__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../modules/discordclasses */ "./src/modules/discordclasses.js");
-/* harmony import */ var _modules_domtools__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../modules/domtools */ "./src/modules/domtools.js");
-
-
-
+/* harmony import */ var _modules_webpackmodules__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../modules/webpackmodules */ "./src/modules/webpackmodules.js");
+/* harmony import */ var _modules_reacttools__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../modules/reacttools */ "./src/modules/reacttools.js");
+/* harmony import */ var _modules_utilities__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../modules/utilities */ "./src/modules/utilities.js");
+/* harmony import */ var _modules_discordclasses__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../modules/discordclasses */ "./src/modules/discordclasses.js");
 
 
 
@@ -3918,12 +3927,6 @@ __webpack_require__.r(__webpack_exports__);
 // T = e.action,
 // b = e.onClose,
 
-
-const React = _modules_discordmodules__WEBPACK_IMPORTED_MODULE_0__["default"].React;
-const ContextMenuActions = _modules_discordmodules__WEBPACK_IMPORTED_MODULE_0__["default"].ContextMenuActions;
-
-const ce = React.createElement;
-const ContextMenu = _modules_webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("MenuRadioItem", "MenuItem");
 
 /**
  * Fires when the item is clicked.
@@ -4057,25 +4060,7 @@ class DiscordContextMenu {
      * });
      */
     static buildMenuItem(props) {
-        const {type} = props;
-        if (type === "separator") return ce(ContextMenu.MenuSeparator);
-
-        let Component = ContextMenu.MenuItem;
-        if (type === "submenu") {
-            if (!props.children) props.children = this.buildMenuChildren(props.render || props.items);
-        }
-        else if (type === "toggle" || type === "radio") {
-            Component = type === "toggle" ? ContextMenu.MenuCheckboxItem : ContextMenu.MenuRadioItem;
-            if (props.active) props.checked = props.active;
-        }
-        else if (type === "control") {
-            Component = ContextMenu.MenuControlItem;
-        }
-        if (!props.id) props.id = `${_modules_domtools__WEBPACK_IMPORTED_MODULE_6__["default"].escapeID(props.label)}`;
-        if (props.danger) props.color = "colorDanger";
-        if (props.onClick && !props.action) props.action = props.onClick;
-        props.extended = true;
-        return ce(Component, props);
+        return window.BdApi.ContextMenu.buildItem(props);
     }
 
     /**
@@ -4122,15 +4107,7 @@ class DiscordContextMenu {
      * }]);
      */
     static buildMenuChildren(setup) {
-        const mapper = s => {
-            if (s.type === "group") return buildGroup(s);
-            return this.buildMenuItem(s);
-        };
-        const buildGroup = function(group) {
-            const items = group.items.map(mapper).filter(i => i);
-            return ce(ContextMenu.MenuGroup, null, items);
-        };
-        return setup.map(mapper).filter(i => i);
+        return window.BdApi.ContextMenu.buildMenuChildren(setup);
     }
 
     /**
@@ -4141,7 +4118,7 @@ class DiscordContextMenu {
      * @returns {function} the unique context menu component
      */
     static buildMenu(setup) {
-        return (props) => {return ce(ContextMenu.default, props, this.buildMenuChildren(setup));};
+        return window.BdApi.ContextMenu.buildMenu(setup);
     }
 
     /**
@@ -4155,9 +4132,7 @@ class DiscordContextMenu {
      * @param {boolean} [config.noBlurEvent=false] - No clue
      */
     static openContextMenu(event, menuComponent, config) {
-        return ContextMenuActions.openContextMenu(event, function(e) {
-            return ce(menuComponent, Object.assign({}, e, {onClose: ContextMenuActions.closeContextMenu}));
-        }, config);
+        return window.BdApi.ContextMenu.open(event, menuComponent, config);
     }
 
     /**
@@ -4165,6 +4140,7 @@ class DiscordContextMenu {
      * when patching the render of these menus.
      * @param {string | Function} nameOrFilter - name of the context menu type
      * @returns {Promise<object>} the webpack module the menu was found in
+     * @deprecated
      */
     static getDiscordMenu(nameOrFilter) {
         if (typeof(nameOrFilter) !== "function") {
@@ -4172,11 +4148,11 @@ class DiscordContextMenu {
             nameOrFilter = (m) => m && m.displayName === displayName;
         }
 
-        const directMatch = _modules_webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m.default && nameOrFilter(m.default));
+        const directMatch = _modules_webpackmodules__WEBPACK_IMPORTED_MODULE_0__["default"].getModule(m => m.default && nameOrFilter(m.default));
         if (directMatch) return Promise.resolve(directMatch);
 
         return new Promise(resolve => {
-            const cancel = _modules_webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].addListener(module => {
+            const cancel = _modules_webpackmodules__WEBPACK_IMPORTED_MODULE_0__["default"].addListener(module => {
                 if (!module.default || !nameOrFilter(module.default)) return;
                 resolve(module);
                 cancel();
@@ -4189,51 +4165,13 @@ class DiscordContextMenu {
      * after patching a menu.
      */
     static forceUpdateMenus() {
-        const menus = document.querySelectorAll(`.${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_5__["default"].ContextMenu.menu.first}`);
+        const menus = document.querySelectorAll(`.${_modules_discordclasses__WEBPACK_IMPORTED_MODULE_3__["default"].ContextMenu.menu.first}`);
         for (const menu of menus) {
-            const stateNode = _modules_utilities__WEBPACK_IMPORTED_MODULE_4__["default"].findInTree(_modules_reacttools__WEBPACK_IMPORTED_MODULE_2__["default"].getReactInstance(menu), m=>m && m.forceUpdate && m.updatePosition, {walkable: ["return", "stateNode"]});
+            const stateNode = _modules_utilities__WEBPACK_IMPORTED_MODULE_2__["default"].findInTree(_modules_reacttools__WEBPACK_IMPORTED_MODULE_1__["default"].getReactInstance(menu), m=>m && m.forceUpdate && m.updatePosition, {walkable: ["return", "stateNode"]});
             if (!stateNode) continue;
             stateNode.forceUpdate();
             stateNode.updatePosition();
         }
-    }
-
-    static initialize() {
-        _modules_patcher__WEBPACK_IMPORTED_MODULE_3__["default"].unpatchAll("DCM");
-        this.patchMenuItem();
-        this.patchToggleItem();
-    }
-
-    static patchMenuItem() {
-        const MenuItem = _modules_webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m.default && m.default.displayName == "MenuItem");
-        if (!MenuItem || !MenuItem.default) return;
-        _modules_patcher__WEBPACK_IMPORTED_MODULE_3__["default"].after("DCM", MenuItem, "default", (_, args, ret) => {
-            if (!args || !args[0] || !args[0].extended) return;
-            const [props] = args;
-            if (props.style) ret.props.style = props.style;
-            if (props.closeOnClick !== false || !props.action) return;
-            ret.props.onClick = function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                return props.action(...arguments);
-            };
-        });
-    }
-
-    static patchToggleItem() {
-        const MenuToggleItem = _modules_webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m.default && m.default.displayName == "MenuCheckboxItem");
-        if (!MenuToggleItem || !MenuToggleItem.default) return;
-        _modules_patcher__WEBPACK_IMPORTED_MODULE_3__["default"].before("DCM", MenuToggleItem, "default", (_, args) => {
-            if (!args || !args[0] || !args[0].extended) return;
-            const [props] = args;
-            const [active, doToggle] = React.useState(props.checked || false);
-            props.checked = active;
-            const originalAction = props.action;
-            props.action = function(ev) {
-                originalAction(ev);
-                doToggle(!active);
-            };
-        });
     }
 }
 
@@ -4425,6 +4363,7 @@ __webpack_require__.r(__webpack_exports__);
 const React = modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.React;
 const ce = React.createElement;
 const Markdown = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getModule(m => m.rules);
+const MarkdownParser = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getByProps("defaultRules", "parse");
 
 class Modals {
 
@@ -4501,6 +4440,7 @@ class Modals {
      */
     static showChangelogModal(title, version, changelog, footer) {
         const TextElement = modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.TextElement;
+        const ChangelogModalClasses = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getModule(m => m.modal && m.maxModalWidth);
         if (!TextElement) return modules__WEBPACK_IMPORTED_MODULE_0__.Logger.warn("Modals", "Unable to show changelog modal--TextElement not found.");
         const changelogItems = [];
         for (let c = 0; c < changelog.length; c++) {
@@ -4508,21 +4448,22 @@ class Modals {
             const type = modules__WEBPACK_IMPORTED_MODULE_0__.DiscordClasses.Changelog[entry.type] ? modules__WEBPACK_IMPORTED_MODULE_0__.DiscordClasses.Changelog[entry.type] : modules__WEBPACK_IMPORTED_MODULE_0__.DiscordClasses.Changelog.added;
             const margin = c == 0 ? modules__WEBPACK_IMPORTED_MODULE_0__.DiscordClasses.Changelog.marginTop : "";
             changelogItems.push(ce("h1", {className: `${type} ${margin}`,}, entry.title));
-            const list = ce("ul", null, entry.items.map(i => ce("li", null, ce(Markdown, null, i))));
+            const list = ce("ul", null, entry.items.map(i => ce("li", null, MarkdownParser.parse(i))));
             changelogItems.push(list);
         }
         const renderHeader = function() {
-            return ce(modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.FlexChild.Child, {grow: 1, shrink: 1},
-                ce(modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.Titles, {tag: modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.Titles.Tags.H4}, title),
-                ce(TextElement,
-                    {size: TextElement.Sizes.SMALL, color: TextElement.Colors.PRIMARY, className: modules__WEBPACK_IMPORTED_MODULE_0__.DiscordClasses.Changelog.date.toString()},
-                    "Version " + version
-                )
+            return ce(modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.FlexChild, {className: modules__WEBPACK_IMPORTED_MODULE_0__.DiscordClasses.Modals.header.toString(), grow: 0, shrink: 0, direction: modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.FlexChild.Direction.VERTICAL},
+                ce(modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.Titles, {tag: modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.Titles.Tags.H1, size: TextElement.Sizes.SIZE_20}, title),
+                ce(TextElement, {size: TextElement.Sizes.SIZE_12, color: TextElement.Colors.STANDARD, className: modules__WEBPACK_IMPORTED_MODULE_0__.DiscordClasses.Changelog.date.toString()}, "Version " + version)
             );
         };
         const renderFooter = footer ? function() {
             return ce(Markdown, null, footer);
         } : null;
+
+        const body = ce("div", {
+            className: `${modules__WEBPACK_IMPORTED_MODULE_0__.DiscordClasses.Modals.content} ${modules__WEBPACK_IMPORTED_MODULE_0__.DiscordClasses.Changelog.container} ${ChangelogModalClasses.content} ${modules__WEBPACK_IMPORTED_MODULE_0__.DiscordClasses.Scrollers.thin}`
+        }, changelogItems);
 
         // return DiscordModules.ModalActions.openModal(props => {
         //     return ce(WebpackModules.getModule(m => m?.toString()?.includes("confirmText")), Object.assign({
@@ -4534,7 +4475,15 @@ class Modals {
         //         renderFooter: renderFooter,
         //     }, props), changelogItems);
         // });
-        return Modals.showModal(`${title} v${version}`, changelogItems, {cancelText: null, confirmText: null});
+        return modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.ModalActions.openModal(props => {
+            return React.createElement(modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.ModalRoot, Object.assign({
+                className: `bd-changelog-modal ${modules__WEBPACK_IMPORTED_MODULE_0__.DiscordClasses.Modals.root} ${modules__WEBPACK_IMPORTED_MODULE_0__.DiscordClasses.Modals.small} ${ChangelogModalClasses.modal}`,
+                selectable: true,
+                onScroll: _ => _,
+                onClose: _ => _
+            }, props), [renderHeader(), body, renderFooter?.()]);
+        });
+        // return Modals.showModal(`${title} v${version}`, [renderHeader(), changelogItems, renderFooter?.()], {cancelText: null});
     }
 }
 
@@ -4551,88 +4500,82 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ Popouts)
 /* harmony export */ });
+/* harmony import */ var modules__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! modules */ "./src/modules/modules.js");
 /**
  * Allows an easy way to create and show popouts.
  * @module Popouts
  */
 
-// import {DiscordModules, DOMTools, WebpackModules, Patcher} from "modules";
 
-// const {React, ReactDOM} = DiscordModules;
-// const {useReducer, useEffect, useRef} = React;
-// const AccessibilityProvider = WebpackModules.getByProps("AccessibilityPreferencesContext").AccessibilityPreferencesContext.Provider;
-// const Layers = WebpackModules.getByProps("AppReferencePositionLayer");
+
+const {React, ReactDOM} = modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules;
+const {useReducer, useEffect, useRef} = React;
+const AppLayer = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getModule(m => Object.values(m).some(m => m?.displayName === "AppLayer"));
+const ReferencePositionLayer = Object.values(AppLayer).find(m => m.prototype?.render);
 // const PopoutCSSAnimator = WebpackModules.getByDisplayName("PopoutCSSAnimator");
-// const LayerProvider = WebpackModules.getByDisplayName("AppLayerProvider")?.().props.layerContext.Provider; // eslint-disable-line new-cap
-// const LayerModule = WebpackModules.getByProps("LayerClassName");
-// const {ComponentDispatch} = WebpackModules.getByProps("ComponentDispatch");
-// const {ComponentActions} = WebpackModules.getByProps("ComponentActions");
-// const AnalyticsTrackContext = WebpackModules.find(m => m._currentValue && m._currentValue.toString && m._currentValue.toString().includes("AnalyticsTrackImpressionContext function unimplemented"));
-// const AnalyticsTracker = WebpackModules.find(m => m.toString && m.toString().includes("setDebugTrackedData"));
-// const Popout = WebpackModules.getByDisplayName("Popout");
+const LayerProvider = Object.values(AppLayer).find(m => m.displayName === "AppLayerProvider")?.().props.layerContext.Provider; // eslint-disable-line new-cap
+const ComponentDispatch = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getModule(m => m.toString && m.toString().includes("useContext(c).windowDispatch"), {searchExports: true});
+const ComponentActions = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getModule(m => m.POPOUT_SHOW, {searchExports: true});
+const Popout = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getModule(m => m?.defaultProps && m?.Animation);
 
-// const createStore = state => {
-//     const listeners = new Set();
+const createStore = state => {
+    const listeners = new Set();
 
-//     const setState = function (getter = _ => _) {
-//         const partial = getter(state);
-//         if (partial === state) return;
+    const setState = function (getter = _ => _) {
+        const partial = getter(state);
+        if (partial === state) return;
 
-//         state = partial;
-        
-//         [...listeners].forEach(e => e());
-//     };
+        state = partial;
 
-//     setState.getState = () => state;
+        [...listeners].forEach(e => e());
+    };
 
-//     function storeListener(getter = _ => _) {
-//         const [, forceUpdate] = useReducer(n => !n, true);
+    setState.getState = () => state;
 
-//         useEffect(() => {
-//             const dispatch = () => {forceUpdate();};
+    function storeListener(getter = _ => _) {
+        const [, forceUpdate] = useReducer(n => !n, true);
 
-//             listeners.add(dispatch);
+        useEffect(() => {
+            const dispatch = () => {forceUpdate();};
 
-//             return () => {listeners.delete(dispatch);};
-//         });
+            listeners.add(dispatch);
 
-//         return getter(state);
-//     }
+            return () => {listeners.delete(dispatch);};
+        });
 
-//     return [
-//         setState,
-//         storeListener
-//     ];
-// };
+        return getter(state);
+    }
 
-// const [setPopouts, usePopouts] = createStore([]);
+    return [
+        setState,
+        storeListener
+    ];
+};
 
-const AnimationTypes = {FADE: 3, SCALE: 2, TRANSLATE: 1};
+const [setPopouts, usePopouts] = createStore([]);
+
+// const AnimationTypes = {FADE: 3, SCALE: 2, TRANSLATE: 1};
 
 class Popouts {
 
-    static get AnimationTypes() {return AnimationTypes;}
+    // static get AnimationTypes() {return AnimationTypes;}
 
     static initialize() {
-        // this.dispose();
-        // this.popouts = 0;
+        this.dispose();
+        this.popouts = 0;
 
-        // this.container = Object.assign(document.createElement("div"), {
-        //     className: "ZeresPluginLibraryPopoutsRenderer",
-        //     style: "display: none;"
-        // });
-    
-        // this.layerContainer = Object.assign(document.createElement("div"), {
-        //     id: "ZeresPluginLibraryPopouts",
-        //     className: LayerModule.LayerClassName
-        // });
+        this.container = Object.assign(document.createElement("div"), {
+            className: "ZeresPluginLibraryPopoutsRenderer",
+            style: "display: none;"
+        });
 
-        // document.body.append(this.container, this.layerContainer);
-        // ReactDOM.render(React.createElement(PopoutsContainer), this.container);
+        this.layerContainer = Object.assign(document.createElement("div"), {
+            id: "ZeresPluginLibraryPopouts",
+            className: modules__WEBPACK_IMPORTED_MODULE_0__.DiscordClassModules.TooltipLayers.layerContainer
+        });
 
-        // Patcher.before("Popouts", LayerModule, "getParentLayerContainer", (_, [element]) => {
-        //     if (element.parentElement === this.layerContainer) return this.layerContainer;
-        // });
+        document.body.append(this.container, this.layerContainer);
+        ReactDOM.render(React.createElement(PopoutsContainer), this.container);
     }
 
     /**
@@ -4646,26 +4589,27 @@ class Popouts {
      * @param {string} [options.align="top"] - Positioning relative to element
      */
     static showUserPopout(target, user, options = {}) {
-        // const {position = "right", align = "top", guild = DiscordModules.SelectedGuildStore.getGuildId(), channel = DiscordModules.SelectedChannelStore.getChannelId()} = options;
-        // target = DOMTools.resolveElement(target);
-        // // if (target.getBoundingClientRect().right + 250 >= DOMTools.screenWidth && options.autoInvert) position = "left";
-        // // if (target.getBoundingClientRect().bottom + 400 >= DOMTools.screenHeight && options.autoInvert) align = "bottom";
-        // // if (target.getBoundingClientRect().top - 400 >= DOMTools.screenHeight && options.autoInvert) align = "top";
-        // this.openPopout(target, {
-        //     position: position,
-        //     align: align,
-        //     animation: options.animation || Popouts.AnimationTypes.TRANSLATE,
-        //     autoInvert: options.autoInvert,
-        //     nudgeAlignIntoViewport: options.nudgeAlignIntoViewport,
-        //     spacing: options.spacing,
-        //     render: (props) => {
-        //         return DiscordModules.React.createElement(DiscordModules.UserPopout, Object.assign({}, props, {
-        //             userId: user.id,
-        //             guildId: guild,
-        //             channelId: channel
-        //         }));
-        //     }
-        // });
+        const {position = "right", align = "top", guild = modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.SelectedGuildStore.getGuildId(), channel = modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.SelectedChannelStore.getChannelId()} = options;
+        target = modules__WEBPACK_IMPORTED_MODULE_0__.DOMTools.resolveElement(target);
+        // if (target.getBoundingClientRect().right + 250 >= DOMTools.screenWidth && options.autoInvert) position = "left";
+        // if (target.getBoundingClientRect().bottom + 400 >= DOMTools.screenHeight && options.autoInvert) align = "bottom";
+        // if (target.getBoundingClientRect().top - 400 >= DOMTools.screenHeight && options.autoInvert) align = "top";
+        this.openPopout(target, {
+            position: position,
+            align: align,
+            // animation: options.animation || Popouts.AnimationTypes.TRANSLATE,
+            autoInvert: options.autoInvert,
+            nudgeAlignIntoViewport: options.nudgeAlignIntoViewport,
+            spacing: options.spacing,
+            render: (props) => {
+                return modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.React.createElement(modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.UserPopout, Object.assign({}, props, {
+                    userId: user.id,
+                    guildId: guild,
+                    channelId: channel,
+                    closePopout: () => this.closePopout(props.popoutId)
+                }));
+            }
+        });
     }
 
     /**
@@ -4674,84 +4618,86 @@ class Popouts {
      * @param {object} [options] - Options to modify the request
      * @param {string} [options.position="right"] - General position relative to element
      * @param {string} [options.align="top"] - Alignment relative to element
-     * @param {Popouts.AnimationTypes} [options.animation=Popouts.AnimationTypes.TRANSLATE] - Animation type to use
      * @param {boolean} [options.autoInvert=true] - Try to automatically adjust the position if it overflows the screen
      * @param {boolean} [options.nudgeAlignIntoViewport=true] - Try to automatically adjust the alignment if it overflows the screen
      * @param {number} [options.spacing=8] - Spacing between target and popout
      */
     static openPopout(target, options) {
-        // const id = this.popouts++;
+        const id = this.popouts++;
 
-        // setPopouts(popouts => popouts.concat({
-        //     id: id,
-        //     element: React.createElement(PopoutWrapper, Object.assign({}, Popout.defaultProps, {
-        //         reference: {current: target},
-        //         popoutId: id,
-        //         key: "popout_" + id,
-        //         spacing: 50
-        //     }, options))
-        // }));
+        setPopouts(popouts => popouts.concat({
+            id: id,
+            element: React.createElement(PopoutWrapper, Object.assign({}, Popout.defaultProps, {
+                reference: {current: target},
+                popoutId: id,
+                key: "popout_" + id,
+                spacing: 50
+            }, options))
+        }));
 
-        // return id;
+        return id;
     }
 
     static closePopout(id) {
-        // const popout = setPopouts.getState().find(e => e.id === id);
+        const popout = setPopouts.getState().find(e => e.id === id);
 
-        // if (!popout) return null;
+        if (!popout) return null;
 
-        // setPopouts(popouts => {
-        //     const clone = [...popouts];
-        //     clone.splice(clone.indexOf(popout), 1);
-        //     return clone;
-        // });
+        setPopouts(popouts => {
+            const clone = [...popouts];
+            clone.splice(clone.indexOf(popout), 1);
+            return clone;
+        });
     }
 
     static dispose() {
-        // Patcher.unpatchAll("Popouts");
-        // const container = document.querySelector(".ZeresPluginLibraryPopoutsRenderer");
-        // const layerContainer = document.querySelector("#ZeresPluginLibraryPopouts");
-        // if (container) ReactDOM.unmountComponentAtNode(container);
-        // if (container) container.remove();
-        // if (layerContainer) layerContainer.remove();
+        modules__WEBPACK_IMPORTED_MODULE_0__.Patcher.unpatchAll("Popouts");
+        const container = document.querySelector(".ZeresPluginLibraryPopoutsRenderer");
+        const layerContainer = document.querySelector("#ZeresPluginLibraryPopouts");
+        if (container) ReactDOM.unmountComponentAtNode(container);
+        if (container) container.remove();
+        if (layerContainer) layerContainer.remove();
     }
 }
 
 function DiscordProviders({children, container}) {
-    // return React.createElement(LayerProvider, {
-    //     value: [container]
-    // }, children);
+    return React.createElement(LayerProvider, {
+        value: [container]
+    }, children);
 }
 
 function PopoutsContainer() {
-    // const popouts = usePopouts();
+    const popouts = usePopouts();
 
-    // return React.createElement(DiscordProviders,
-    //     {container: Popouts.layerContainer},
-    //     popouts.map((popout) => popout.element)
-    // );
+    return React.createElement(DiscordProviders,
+        {container: Popouts.layerContainer},
+        popouts.map((popout) => popout.element)
+    );
 }
 
-function PopoutWrapper({render, animation, popoutId, ...props}) {
-    // const popoutRef = useRef();
+function PopoutWrapper({render, popoutId, ...props}) {
+    const popoutRef = useRef();
 
-    // useEffect(() => {
-    //     if (!popoutRef.current) return;
+    useEffect(() => {
+        if (!popoutRef.current) return;
 
-    //     const node = ReactDOM.findDOMNode(popoutRef.current);
+        const node = ReactDOM.findDOMNode(popoutRef.current);
 
-    //     const handleClick = ({target}) => {
-    //         if (target === node || node.contains(target)) return;
+        const handleClick = ({target}) => {
+            if (target === node || node.contains(target)) return;
 
-    //         Popouts.closePopout(popoutId);
-    //     };
+            Popouts.closePopout(popoutId);
+        };
 
-    //     document.addEventListener("click", handleClick);
+        const target = modules__WEBPACK_IMPORTED_MODULE_0__.Utilities.findInTree(node.__reactFiber$, m => m?.stateNode?.updatePosition, {walkable: ["return"]});
+        setTimeout(() => target?.stateNode?.updatePosition(), 1);
 
-    //     return () => {
-    //         document.removeEventListener("click", handleClick);
-    //     };
-    // }, [popoutRef]);
+        document.addEventListener("click", handleClick);
+
+        return () => {
+            document.removeEventListener("click", handleClick);
+        };
+    }, [popoutRef]);
 
     // switch (animation) {
     //     case PopoutCSSAnimator.Types.FADE:
@@ -4767,19 +4713,33 @@ function PopoutWrapper({render, animation, popoutId, ...props}) {
     //     }
     // }
 
-    // return React.createElement(Layers.AppReferencePositionLayer, Object.assign(props, {
-    //     ref: popoutRef,
-    //     positionKey: "0",
-    //     autoInvert: true,
-    //     id: "popout_" + popoutId,
-    //     onMount() {
-    //         ComponentDispatch.dispatch(ComponentActions.POPOUT_SHOW);
-    //     },
-    //     onUnmount() {
-    //         ComponentDispatch.dispatch(ComponentActions.POPOUT_HIDE);
-    //     },
-    //     children: render
-    // }));
+    // eslint-disable-next-line new-cap
+    const ComponentDispatcher = ComponentDispatch();
+
+    return React.createElement(ReferencePositionLayer, Object.assign(props, {
+        style: {
+            transform: "translateZ(0)"
+        },
+        ref: popoutRef,
+        positionKey: "0",
+        autoInvert: true,
+        nudgeAlignIntoViewport: true,
+        id: "popout_" + popoutId,
+        animation: 2,
+        onMount() {
+            ComponentDispatcher.dispatch(ComponentActions.POPOUT_SHOW);
+        },
+        onUnmount() {
+            ComponentDispatcher.dispatch(ComponentActions.POPOUT_HIDE);
+        },
+        children: (props, ...p) => React.createElement(
+            "div",
+            {
+                style: {transform: "translateZ(0)"} // for z-index to work properly for sub-popouts
+            },
+            render({popoutId, ...props}, ...p)
+        )
+    }));
 }
 
 
@@ -6268,12 +6228,12 @@ class PluginLibrary extends _structs_plugin__WEBPACK_IMPORTED_MODULE_2__["defaul
         const isBDLoading = document.getElementById("bd-loading-icon");
         modules__WEBPACK_IMPORTED_MODULE_0__.DOMTools.removeStyle("ZLibraryCSS");
         modules__WEBPACK_IMPORTED_MODULE_0__.DOMTools.addStyle("ZLibraryCSS", ui__WEBPACK_IMPORTED_MODULE_1__.Settings.CSS + ui__WEBPACK_IMPORTED_MODULE_1__.Toasts.CSS + modules__WEBPACK_IMPORTED_MODULE_0__.PluginUpdater.CSS);
-        ui__WEBPACK_IMPORTED_MODULE_1__.DiscordContextMenu.initialize();
-        
+        ui__WEBPACK_IMPORTED_MODULE_1__.Popouts.initialize();
+
         /**
          * Checking if this is the library first being loaded during init
          * This means that subsequent loads will cause dependents to reload
-         * This also means first load when installing for the first time 
+         * This also means first load when installing for the first time
          * will automatically reload the dependent plugins. This is needed
          * for those plugins that prompt to download and install the lib.
          */
@@ -6341,6 +6301,7 @@ Library.buildPlugin = PluginLibrary.buildPlugin;
 window.ZLibrary = Library;
 window.ZeresPluginLibrary = PluginLibrary;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PluginLibrary);
+
 })();
 
 module.exports.ZeresPluginLibrary = __webpack_exports__["default"];

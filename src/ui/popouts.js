@@ -3,15 +3,15 @@
  * @module Popouts
  */
 
-import {DiscordModules, DOMTools, WebpackModules, Patcher, DiscordClassModules} from "modules";
+import {DiscordModules, DOMTools, WebpackModules, Patcher, DiscordClassModules, Utilities} from "modules";
 
 const {React, ReactDOM} = DiscordModules;
 const {useReducer, useEffect, useRef} = React;
-const AppLayer = WebpackModules.getModule(m => Object.values(m).some(m => m?.displayName === 'AppLayer'));
+const AppLayer = WebpackModules.getModule(m => Object.values(m).some(m => m?.displayName === "AppLayer"));
 const ReferencePositionLayer = Object.values(AppLayer).find(m => m.prototype?.render);
 // const PopoutCSSAnimator = WebpackModules.getByDisplayName("PopoutCSSAnimator");
-const LayerProvider = Object.values(AppLayer).find(m => m.displayName === 'AppLayerProvider')?.().props.layerContext.Provider; // eslint-disable-line new-cap
-const ComponentDispatch = WebpackModules.getModule(m => m.toString && m.toString().includes('useContext(c).windowDispatch'), {searchExports: true});
+const LayerProvider = Object.values(AppLayer).find(m => m.displayName === "AppLayerProvider")?.().props.layerContext.Provider; // eslint-disable-line new-cap
+const ComponentDispatch = WebpackModules.getModule(m => m.toString && m.toString().includes("useContext(c).windowDispatch"), {searchExports: true});
 const ComponentActions = WebpackModules.getModule(m => m.POPOUT_SHOW, {searchExports: true});
 const Popout = WebpackModules.getModule(m => m?.defaultProps && m?.Animation);
 
@@ -186,6 +186,9 @@ function PopoutWrapper({render, popoutId, ...props}) {
             Popouts.closePopout(popoutId);
         };
 
+        const target = Utilities.findInTree(node.__reactFiber$, m => m?.stateNode?.updatePosition, {walkable: ["return"]});
+        setTimeout(() => target?.stateNode?.updatePosition(), 1);
+
         document.addEventListener("click", handleClick);
 
         return () => {
@@ -207,6 +210,7 @@ function PopoutWrapper({render, popoutId, ...props}) {
     //     }
     // }
 
+    // eslint-disable-next-line new-cap
     const ComponentDispatcher = ComponentDispatch();
 
     return React.createElement(ReferencePositionLayer, Object.assign(props, {
@@ -216,6 +220,7 @@ function PopoutWrapper({render, popoutId, ...props}) {
         ref: popoutRef,
         positionKey: "0",
         autoInvert: true,
+        nudgeAlignIntoViewport: true,
         id: "popout_" + popoutId,
         animation: 2,
         onMount() {
@@ -225,11 +230,11 @@ function PopoutWrapper({render, popoutId, ...props}) {
             ComponentDispatcher.dispatch(ComponentActions.POPOUT_HIDE);
         },
         children: (props, ...p) => React.createElement(
-            'div',
+            "div",
             {
-                style: { transform: 'translateZ(0)' } // for z-index to work properly for sub-popouts
+                style: {transform: "translateZ(0)"} // for z-index to work properly for sub-popouts
             },
-            render({ popoutId, ...props }, ...p)
+            render({popoutId, ...props}, ...p)
         )
     }));
 }

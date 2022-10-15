@@ -66,7 +66,7 @@ export default Utilities.memoizeObject({
     get DiscordConstants() {return WebpackModules.getByProps("Permissions", "ActivityTypes", "StatusTypes");},
     get DiscordPermissions() {return WebpackModules.getModule(m => m.ADD_REACTIONS, {searchExports: true});},
     get Permissions() {return WebpackModules.getByProps("computePermissions");},
-    get ColorConverter() {return WebpackModules.getByProps("hex2int");},
+    get ColorConverter() {return WebpackModules.getModule(m => Object.values(m).some(v => v?.toString().includes(`"rgba("`)));},
     get ColorShader() {return WebpackModules.getByProps("darken");},
     get TinyColor() {return WebpackModules.getByPrototypes("toRgb");},
     get ClassResolver() {return WebpackModules.getByProps("getClass");},
@@ -74,8 +74,8 @@ export default Utilities.memoizeObject({
     get NavigationUtils() {
         return {
             transitionToGuild: WebpackModules.getByProps("transitionToGuildSync")?.transitionToGuildSync,
-            transitionTo: WebpackModules.getModule(m => m.toString().includes(`"transitionTo - Transitioning to "`), {searchExports: true}),
-            replaceWith: WebpackModules.getModule(m => m.toString().includes(`"Replacing route with "`), {searchExports: true})
+            transitionTo: WebpackModules.getModule(m => m?.toString?.().includes(`"transitionTo - Transitioning to "`), {searchExports: true}),
+            replaceWith: WebpackModules.getModule(m => m?.toString?.().includes(`"Replacing route with "`), {searchExports: true})
         };
     },
     get KeybindStore() {return WebpackModules.getByProps("keyToCode");},
@@ -174,11 +174,12 @@ export default Utilities.memoizeObject({
     get NotificationSettingsModal() {return WebpackModules.getByProps("open", "updateNotificationSettings");},
     get PrivacySettingsModal() {return WebpackModules.getModule(m => m.open && m.open.toString().includes("PRIVACY_SETTINGS_MODAL"));},
     get Changelog() {return WebpackModules.getModule((m => m.defaultProps && m.defaultProps.selectable == false));},
+    get ModalRoot() {return WebpackModules.getModule(m => m?.toString?.()?.includes("ENTERING"), {searchExports: true});},
 
     /* Popouts */
     get PopoutStack() {return WebpackModules.getByProps("open", "close", "closeAll");},
     get PopoutOpener() {return WebpackModules.getByProps("openPopout");},
-    get UserPopout() {return WebpackModules.getModule(m => m?.toString && m.toString().includes('().canViewThemes'));},
+    get UserPopout() {return WebpackModules.getModule(m => m?.toString && m.toString().includes("().canViewThemes"));},
 
     /* Context Menus */
     get ContextMenuActions() {return WebpackModules.getByProps("openContextMenu");},

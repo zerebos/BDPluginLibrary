@@ -28,7 +28,6 @@ class PluginLibrary extends BasePlugin {
         const isBDLoading = document.getElementById("bd-loading-icon");
         DOMTools.removeStyle("ZLibraryCSS");
         DOMTools.addStyle("ZLibraryCSS", Settings.CSS + Toasts.CSS + PluginUpdater.CSS);
-        DiscordContextMenu.initialize();
         Popouts.initialize();
 
         /**

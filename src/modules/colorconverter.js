@@ -3,25 +3,40 @@
  * @module ColorConverter
  */
 
-import WebpackModules from "./webpackmodules";
 
-const DiscordColorUtils = WebpackModules.getByProps("getDarkness", "isValidHex");
+const validHexRegex = /#([a-fA-F0-9]{1,2})([a-fA-F0-9]{1,2})([a-fA-F0-9]{1,2})/;
 
 export default class ColorConverter {
 
     static getDarkness(color) {
-        return DiscordColorUtils.getDarkness(color);
+        const [red, green, blue] = this.getRGB(color);
+        return 1 - (0.299 * red + 0.587 * green + 0.114 * blue) / 255;
     }
 
-    static hex2int(color) {return DiscordColorUtils.hex2int(color);}
+    static hex2int(color) {
+        if (color.length === 4) color = `#${color[1]}${color[1]}${color[2]}${color[2]}${color[3]}${color[3]}`;
+        return parseInt(color.slice(1), 16);
+    }
 
-    static hex2rgb(color) {return DiscordColorUtils.hex2rgb(color);}
+    static hex2rgb(color) {
+        const [red, green, blue] = this.getRGB(color);
+        return `rgb(${red}, ${green}, ${blue})`;
+    }
     
-    static int2hex(color) {return DiscordColorUtils.int2hex(color);}
+    static int2hex(color) {
+        const red = color >> 16 & 255;
+        const green = color >> 8 & 255;
+        const blue = color & 255;
+        return `#${red.toString(16)}${green.toString(16)}${blue.toString(16)}`;
+    }
 
-    static int2rgba(color, alpha) {return DiscordColorUtils.int2rgba(color, alpha);}
+    static int2rgba(color, alpha) {
+        return `rgba(${color >> 16 & 255}, ${color >> 8 & 255}, ${color & 255}, ${alpha})`;
+    }
 
-    static isValidHex(color) {return DiscordColorUtils.isValidHex(color);}
+    static isValidHex(color) {
+        return color.match(validHexRegex) != null;
+    }
 
     /**
      * Will get the red green and blue values of any color string.

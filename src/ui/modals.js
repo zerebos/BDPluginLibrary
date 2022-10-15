@@ -8,6 +8,7 @@ import {DiscordModules, DiscordClasses, WebpackModules, Logger} from "modules";
 const React = DiscordModules.React;
 const ce = React.createElement;
 const Markdown = WebpackModules.getModule(m => m.rules);
+const MarkdownParser = WebpackModules.getByProps("defaultRules", "parse");
 
 export default class Modals {
 
@@ -84,6 +85,7 @@ export default class Modals {
      */
     static showChangelogModal(title, version, changelog, footer) {
         const TextElement = DiscordModules.TextElement;
+        const ChangelogModalClasses = WebpackModules.getModule(m => m.modal && m.maxModalWidth);
         if (!TextElement) return Logger.warn("Modals", "Unable to show changelog modal--TextElement not found.");
         const changelogItems = [];
         for (let c = 0; c < changelog.length; c++) {
@@ -91,21 +93,22 @@ export default class Modals {
             const type = DiscordClasses.Changelog[entry.type] ? DiscordClasses.Changelog[entry.type] : DiscordClasses.Changelog.added;
             const margin = c == 0 ? DiscordClasses.Changelog.marginTop : "";
             changelogItems.push(ce("h1", {className: `${type} ${margin}`,}, entry.title));
-            const list = ce("ul", null, entry.items.map(i => ce("li", null, ce(Markdown, null, i))));
+            const list = ce("ul", null, entry.items.map(i => ce("li", null, MarkdownParser.parse(i))));
             changelogItems.push(list);
         }
         const renderHeader = function() {
-            return ce(DiscordModules.FlexChild.Child, {grow: 1, shrink: 1},
-                ce(DiscordModules.Titles, {tag: DiscordModules.Titles.Tags.H4}, title),
-                ce(TextElement,
-                    {size: TextElement.Sizes.SMALL, color: TextElement.Colors.PRIMARY, className: DiscordClasses.Changelog.date.toString()},
-                    "Version " + version
-                )
+            return ce(DiscordModules.FlexChild, {className: DiscordClasses.Modals.header.toString(), grow: 0, shrink: 0, direction: DiscordModules.FlexChild.Direction.VERTICAL},
+                ce(DiscordModules.Titles, {tag: DiscordModules.Titles.Tags.H1, size: TextElement.Sizes.SIZE_20}, title),
+                ce(TextElement, {size: TextElement.Sizes.SIZE_12, color: TextElement.Colors.STANDARD, className: DiscordClasses.Changelog.date.toString()}, "Version " + version)
             );
         };
         const renderFooter = footer ? function() {
             return ce(Markdown, null, footer);
         } : null;
+
+        const body = ce("div", {
+            className: `${DiscordClasses.Modals.content} ${DiscordClasses.Changelog.container} ${ChangelogModalClasses.content} ${DiscordClasses.Scrollers.thin}`
+        }, changelogItems);
 
         // return DiscordModules.ModalActions.openModal(props => {
         //     return ce(WebpackModules.getModule(m => m?.toString()?.includes("confirmText")), Object.assign({
@@ -117,6 +120,14 @@ export default class Modals {
         //         renderFooter: renderFooter,
         //     }, props), changelogItems);
         // });
-        return Modals.showModal(`${title} v${version}`, changelogItems, {cancelText: null, confirmText: null});
+        return DiscordModules.ModalActions.openModal(props => {
+            return React.createElement(DiscordModules.ModalRoot, Object.assign({
+                className: `bd-changelog-modal ${DiscordClasses.Modals.root} ${DiscordClasses.Modals.small} ${ChangelogModalClasses.modal}`,
+                selectable: true,
+                onScroll: _ => _,
+                onClose: _ => _
+            }, props), [renderHeader(), body, renderFooter?.()]);
+        });
+        // return Modals.showModal(`${title} v${version}`, [renderHeader(), changelogItems, renderFooter?.()], {cancelText: null});
     }
 }
