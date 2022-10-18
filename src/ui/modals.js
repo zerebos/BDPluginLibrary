@@ -86,7 +86,7 @@ export default class Modals {
     static showChangelogModal(title, version, changelog, footer) {
         const TextElement = DiscordModules.TextElement;
         const ChangelogModalClasses = WebpackModules.getModule(m => m.modal && m.maxModalWidth);
-        if (!TextElement) return Logger.warn("Modals", "Unable to show changelog modal--TextElement not found.");
+        if (!TextElement || !ChangelogModalClasses || !DiscordModules.FlexChild || !DiscordModules.ModalRoot || !DiscordModules.ModalActions) return Logger.warn("Modals", "Unable to show changelog modal--missing modules");
         const changelogItems = [];
         for (let c = 0; c < changelog.length; c++) {
             const entry = changelog[c];
@@ -98,7 +98,7 @@ export default class Modals {
         }
         const renderHeader = function() {
             return ce(DiscordModules.FlexChild, {className: DiscordClasses.Modals.header.toString(), grow: 0, shrink: 0, direction: DiscordModules.FlexChild.Direction.VERTICAL},
-                ce(DiscordModules.Titles, {tag: DiscordModules.Titles.Tags.H1, size: TextElement.Sizes.SIZE_20}, title),
+                ce(TextElement, {tag: "h1", size: TextElement.Sizes.SIZE_20, strong: true}, title),
                 ce(TextElement, {size: TextElement.Sizes.SIZE_12, color: TextElement.Colors.STANDARD, className: DiscordClasses.Changelog.date.toString()}, "Version " + version)
             );
         };

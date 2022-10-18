@@ -8,7 +8,7 @@ module.exports = {
     description: "Gives other plugins utility functions and the ability to emulate v2.",
     source: "https://github.com/rauenzi/BDPluginLibrary",
     changelog: [
-        {title: "What's Fixed?", type: "fixed", items: ["Changelog modals look good again.", "Popout module is fixed thanks to `arg0NNY`!", "`Patcher.instead` really does instead again.", "`ColorConverter` now uses custom functions so it shouldn't break ever again.", "The `DCM` module now forwards to BD's `ContextMenu` API where applicable."]},
+        {title: "What's Fixed?", type: "fixed", items: ["Fixed startup crashes when trying to show broken changelogs."]},
     ],
     main: "index.js"
 };

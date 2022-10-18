@@ -1,7 +1,7 @@
 /**
  * @name ZeresPluginLibrary
  * @description Gives other plugins utility functions and the ability to emulate v2.
- * @version 2.0.8
+ * @version 2.0.9
  * @author Zerebos
  * @source https://github.com/rauenzi/BDPluginLibrary
  */
@@ -90,11 +90,11 @@ module.exports = {
     id: "9",
     name: "ZeresPluginLibrary",
     author: "Zerebos",
-    version: "2.0.8",
+    version: "2.0.9",
     description: "Gives other plugins utility functions and the ability to emulate v2.",
     source: "https://github.com/rauenzi/BDPluginLibrary",
     changelog: [
-        {title: "What's Fixed?", type: "fixed", items: ["Changelog modals look good again.", "Popout module is fixed thanks to `arg0NNY`!", "`Patcher.instead` really does instead again.", "`ColorConverter` now uses custom functions so it shouldn't break ever again.", "The `DCM` module now forwards to BD's `ContextMenu` API where applicable."]},
+        {title: "What's Fixed?", type: "fixed", items: ["Fixed startup crashes when trying to show broken changelogs."]},
     ],
     main: "index.js"
 };
@@ -4441,7 +4441,7 @@ class Modals {
     static showChangelogModal(title, version, changelog, footer) {
         const TextElement = modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.TextElement;
         const ChangelogModalClasses = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getModule(m => m.modal && m.maxModalWidth);
-        if (!TextElement) return modules__WEBPACK_IMPORTED_MODULE_0__.Logger.warn("Modals", "Unable to show changelog modal--TextElement not found.");
+        if (!TextElement || !ChangelogModalClasses || !modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.FlexChild || !modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.ModalRoot || !modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.ModalActions) return modules__WEBPACK_IMPORTED_MODULE_0__.Logger.warn("Modals", "Unable to show changelog modal--missing modules");
         const changelogItems = [];
         for (let c = 0; c < changelog.length; c++) {
             const entry = changelog[c];
@@ -4453,7 +4453,7 @@ class Modals {
         }
         const renderHeader = function() {
             return ce(modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.FlexChild, {className: modules__WEBPACK_IMPORTED_MODULE_0__.DiscordClasses.Modals.header.toString(), grow: 0, shrink: 0, direction: modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.FlexChild.Direction.VERTICAL},
-                ce(modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.Titles, {tag: modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.Titles.Tags.H1, size: TextElement.Sizes.SIZE_20}, title),
+                ce(TextElement, {tag: "h1", size: TextElement.Sizes.SIZE_20, strong: true}, title),
                 ce(TextElement, {size: TextElement.Sizes.SIZE_12, color: TextElement.Colors.STANDARD, className: modules__WEBPACK_IMPORTED_MODULE_0__.DiscordClasses.Changelog.date.toString()}, "Version " + version)
             );
         };
