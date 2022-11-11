@@ -11,9 +11,12 @@ const AppLayer = WebpackModules.getModule(m => Object.values(m).some(m => m?.dis
 const ReferencePositionLayer = Object.values(AppLayer).find(m => m.prototype?.render);
 // const PopoutCSSAnimator = WebpackModules.getByDisplayName("PopoutCSSAnimator");
 const LayerProvider = Object.values(AppLayer).find(m => m.displayName === "AppLayerProvider")?.().props.layerContext.Provider; // eslint-disable-line new-cap
-const ComponentDispatch = WebpackModules.getModule(m => m.toString && m.toString().includes("useContext(c).windowDispatch"), {searchExports: true});
+const ComponentDispatch = WebpackModules.getModule(m => m.toString?.().includes("useContext") && m.toString?.().includes("windowDispatch"), {searchExports: true});
 const ComponentActions = WebpackModules.getModule(m => m.POPOUT_SHOW, {searchExports: true});
 const Popout = WebpackModules.getModule(m => m?.defaultProps && m?.Animation);
+const ThemeContext = WebpackModules.getModule(m => m._currentValue === 'dark');
+const useStateFromStores = WebpackModules.getModule(m => m.toString?.().includes('useStateFromStores'));
+const ThemeStore = WebpackModules.getModule(m => m.theme);
 
 const createStore = state => {
     const listeners = new Set();
@@ -158,9 +161,13 @@ export default class Popouts {
 }
 
 function DiscordProviders({children, container}) {
+    const theme = useStateFromStores([ThemeStore], () => ThemeStore.theme);
+
     return React.createElement(LayerProvider, {
         value: [container]
-    }, children);
+    }, React.createElement(ThemeContext.Provider, {
+        value: theme
+    }, children));
 }
 
 function PopoutsContainer() {
@@ -214,9 +221,6 @@ function PopoutWrapper({render, popoutId, ...props}) {
     const ComponentDispatcher = ComponentDispatch();
 
     return React.createElement(ReferencePositionLayer, Object.assign(props, {
-        style: {
-            transform: "translateZ(0)"
-        },
         ref: popoutRef,
         positionKey: "0",
         autoInvert: true,
@@ -232,7 +236,7 @@ function PopoutWrapper({render, popoutId, ...props}) {
         children: (props, ...p) => React.createElement(
             "div",
             {
-                style: {transform: "translateZ(0)"} // for z-index to work properly for sub-popouts
+                style: {transform: "translateZ(0)"}, // for z-index to work properly for sub-popouts
             },
             render({popoutId, ...props}, ...p)
         )
