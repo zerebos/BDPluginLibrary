@@ -212,7 +212,7 @@ export default Utilities.memoizeObject({
     get AdvancedScrollerNone() {return WebpackModules.getByProps("AdvancedScrollerNone").AdvancedScrollerNone;},
 
     /* Settings */
-    get SettingsWrapper() {return WebpackModules.getModule(m => m.Tags && m?.toString().includes("required") && m?.toString().includes("titleClassName"));},
+    get SettingsWrapper() {return WebpackModules.getModule(m => m?.render?.toString().includes("required") && m?.render?.toString().includes("titleClassName"));},
     get SettingsNote() {return WebpackModules.getModule(m => m.Types && m?.toString().includes("selectable"));},
     get SettingsDivider() {return WebpackModules.getModule(m => !m.defaultProps && m.prototype && m.prototype.render && m.prototype.render.toString().includes("default.divider"));},
 
