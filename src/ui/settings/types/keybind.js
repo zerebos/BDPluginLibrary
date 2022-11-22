@@ -12,9 +12,6 @@ class CloseButton extends React.Component {
     }
 }
 
-const toCombo = WebpackModules.getModule(m => m?.toString().includes("numpad plus")) ?? (() => [[0, 0], [0, 0]]);
-const toEvent = WebpackModules.getModule(m => m?.toString().includes("keyCode") && m?.toString().includes("BROWSER")) ?? (() => ({}));
-
 class ClearableKeybind extends React.Component {
     constructor(props) {
         super(props);
@@ -56,14 +53,13 @@ class Keybind extends SettingField {
      */    
     constructor(label, help, value, onChange, options = {}) {
         const {disabled = false} = options;
-        if (!Array.isArray(value) || value.some(v => typeof(v) !== "string")) value = []; // if non-strings present, not a valid combo
         super(label, help, onChange, ClearableKeybind, {
             disabled: disabled,
-            defaultValue: toCombo(value.join("+")) ?? [],
+            defaultValue: value,
             onChange: element => val => {
                 if (!Array.isArray(val)) return;
                 element.props.value = val;
-                this.onChange(toEvent(val));
+                this.onChange(val);
             }
         });
     }
