@@ -17,3 +17,4 @@ export {default as Switch} from "./types/switch";
 export {default as Dropdown} from "./types/dropdown";
 export {default as Keybind} from "./types/keybind";
 export {default as RadioGroup} from "./types/radiogroup";
+export {default as Buttons} from "./types/buttons";
