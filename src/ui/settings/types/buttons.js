@@ -37,7 +37,7 @@ class ButtonsWrapper extends DiscordModules.React.Component {
 	 /**
      * @param {string} name - name label of the setting 
      * @param {string} note - help/note to show underneath or above the setting
-	 * @param {Array<module:Settings~Button>} buttons - array of all button properties
+     * @param {Array<module:Settings~Button>} buttons - array of all button properties
      */
           constructor(name, note, buttonsArray) {
             const NOOP = () => null;
