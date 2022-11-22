@@ -37,10 +37,7 @@ class ButtonsWrapper extends DiscordModules.React.Component {
 	 /**
      * @param {string} name - name label of the setting 
      * @param {string} note - help/note to show underneath or above the setting
-     * @param {boolean} buttonArray - Array of objects containing properties for buttons
-     * @param {callable} onChange - callback to perform on setting change, callback receives boolean
-     * @param {object} [options] - object of options to give to the setting
-     * @param {boolean} [options.disabled=false] - should the setting be disabled
+	 * @param {Array<module:Settings~Button>} buttons - array of all button properties
      */
           constructor(name, note, buttonsArray) {
             const NOOP = () => null;
