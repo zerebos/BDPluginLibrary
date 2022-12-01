@@ -1,7 +1,7 @@
 /**
  * @name ZeresPluginLibrary
  * @description Gives other plugins utility functions and the ability to emulate v2.
- * @version 2.0.9
+ * @version 2.0.10
  * @author Zerebos
  * @source https://github.com/rauenzi/BDPluginLibrary
  */
@@ -90,11 +90,11 @@ module.exports = {
     id: "9",
     name: "ZeresPluginLibrary",
     author: "Zerebos",
-    version: "2.0.9",
+    version: "2.0.10",
     description: "Gives other plugins utility functions and the ability to emulate v2.",
     source: "https://github.com/rauenzi/BDPluginLibrary",
     changelog: [
-        {title: "What's Fixed?", type: "fixed", items: ["Fixed startup crashes when trying to show broken changelogs."]},
+        {title: "Fixes by arg0NNY:", type: "fixed", items: ["Fix plugin settings.", "Fix popouts."]},
     ],
     main: "index.js"
 };
@@ -530,7 +530,7 @@ __webpack_require__.r(__webpack_exports__);
     /* Popouts */
     get PopoutStack() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("open", "close", "closeAll");},
     get PopoutOpener() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("openPopout");},
-    get UserPopout() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m?.toString && m.toString().includes("().canViewThemes"));},
+    get UserPopout() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m.toString?.().includes("().canViewThemes?"));},
 
     /* Context Menus */
     get ContextMenuActions() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("openContextMenu");},
@@ -563,7 +563,7 @@ __webpack_require__.r(__webpack_exports__);
     get AdvancedScrollerNone() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("AdvancedScrollerNone").AdvancedScrollerNone;},
 
     /* Settings */
-    get SettingsWrapper() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m.Tags && m?.toString().includes("required") && m?.toString().includes("titleClassName"));},
+    get SettingsWrapper() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m?.render?.toString().includes("required") && m?.render?.toString().includes("titleClassName"));},
     get SettingsNote() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m.Types && m?.toString().includes("selectable"));},
     get SettingsDivider() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => !m.defaultProps && m.prototype && m.prototype.render && m.prototype.render.toString().includes("default.divider"));},
 
@@ -4514,9 +4514,12 @@ const AppLayer = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getModule(m
 const ReferencePositionLayer = Object.values(AppLayer).find(m => m.prototype?.render);
 // const PopoutCSSAnimator = WebpackModules.getByDisplayName("PopoutCSSAnimator");
 const LayerProvider = Object.values(AppLayer).find(m => m.displayName === "AppLayerProvider")?.().props.layerContext.Provider; // eslint-disable-line new-cap
-const ComponentDispatch = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getModule(m => m.toString && m.toString().includes("useContext(c).windowDispatch"), {searchExports: true});
+const ComponentDispatch = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getModule(m => m.toString?.().includes("useContext") && m.toString?.().includes("windowDispatch"), {searchExports: true});
 const ComponentActions = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getModule(m => m.POPOUT_SHOW, {searchExports: true});
 const Popout = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getModule(m => m?.defaultProps && m?.Animation);
+const ThemeContext = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getModule(m => m._currentValue === 'dark');
+const useStateFromStores = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getModule(m => m.toString?.().includes('useStateFromStores'));
+const ThemeStore = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getModule(m => m.theme);
 
 const createStore = state => {
     const listeners = new Set();
@@ -4661,9 +4664,13 @@ class Popouts {
 }
 
 function DiscordProviders({children, container}) {
+    const theme = useStateFromStores([ThemeStore], () => ThemeStore.theme);
+
     return React.createElement(LayerProvider, {
         value: [container]
-    }, children);
+    }, React.createElement(ThemeContext.Provider, {
+        value: theme
+    }, children));
 }
 
 function PopoutsContainer() {
@@ -4717,9 +4724,6 @@ function PopoutWrapper({render, popoutId, ...props}) {
     const ComponentDispatcher = ComponentDispatch();
 
     return React.createElement(ReferencePositionLayer, Object.assign(props, {
-        style: {
-            transform: "translateZ(0)"
-        },
         ref: popoutRef,
         positionKey: "0",
         autoInvert: true,
@@ -4735,7 +4739,7 @@ function PopoutWrapper({render, popoutId, ...props}) {
         children: (props, ...p) => React.createElement(
             "div",
             {
-                style: {transform: "translateZ(0)"} // for z-index to work properly for sub-popouts
+                style: {transform: "translateZ(0)"}, // for z-index to work properly for sub-popouts
             },
             render({popoutId, ...props}, ...p)
         )

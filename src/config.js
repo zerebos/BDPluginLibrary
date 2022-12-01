@@ -8,7 +8,7 @@ module.exports = {
     description: "Gives other plugins utility functions and the ability to emulate v2.",
     source: "https://github.com/rauenzi/BDPluginLibrary",
     changelog: [
-        {title: "What's Fixed?", type: "fixed", items: ["Fixed startup crashes when trying to show broken changelogs."]},
+        {title: "Fixes by arg0NNY:", type: "fixed", items: ["Fix plugin settings.", "Fix popouts."]},
     ],
     main: "index.js"
 };
