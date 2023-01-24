@@ -8,7 +8,8 @@ module.exports = {
     description: "Gives other plugins utility functions and the ability to emulate v2.",
     source: "https://github.com/rauenzi/BDPluginLibrary",
     changelog: [
-        {title: "Fixes by arg0NNY:", type: "fixed", items: ["Fix plugin settings.", "Fix popouts."]},
+        {title: "Settings Fixed", type: "added", items: ["Plugin settings should now show properly.", "Individual setting options should work again."]},
+        {title: "Known Issues", type: "fixed", items: ["Keybind recorder sometimes has to be done twice."]}
     ],
     main: "index.js"
 };

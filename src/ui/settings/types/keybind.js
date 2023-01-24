@@ -12,8 +12,8 @@ class CloseButton extends React.Component {
     }
 }
 
-const toCombo = WebpackModules.getModule(m => m?.toString().includes("numpad plus")) ?? (() => [[0, 0], [0, 0]]);
-const toEvent = WebpackModules.getModule(m => m?.toString().includes("keyCode") && m?.toString().includes("BROWSER")) ?? (() => ({}));
+const toCombo = WebpackModules.getModule(m => m?.toString().includes("numpad plus"), {searchExports: true}) ?? (() => [[0, 0], [0, 0]]);
+const toEvent = WebpackModules.getModule(m => m?.toString().includes("keyCode") && m?.toString().includes("BROWSER"), {searchExports: true}) ?? (() => ({}));
 
 class ClearableKeybind extends React.Component {
     constructor(props) {

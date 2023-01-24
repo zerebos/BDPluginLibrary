@@ -117,7 +117,7 @@
     position: absolute;
     background: var(--background-secondary);
     border-radius: 0 0 3px 3px;
-    max-height: 300px;
+    max-height: 125px;
     min-width: 100%;
     overflow-y: auto;
     box-shadow: rgba(0, 0, 0, 0.3) 0 1px 5px 0;
@@ -166,3 +166,7 @@
     fill: var(--interactive-normal);
     cursor: pointer;
   }
+
+.plugin-input-container > .container-31PmuA {
+    margin: 10px 0;
+}
