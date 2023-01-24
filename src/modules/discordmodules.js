@@ -212,15 +212,15 @@ export default Utilities.memoizeObject({
     get AdvancedScrollerNone() {return WebpackModules.getByProps("AdvancedScrollerNone").AdvancedScrollerNone;},
 
     /* Settings */
-    get SettingsWrapper() {return WebpackModules.getModule(m => m?.render?.toString().includes("required") && m?.render?.toString().includes("titleClassName"));},
-    get SettingsNote() {return WebpackModules.getModule(m => m.Types && m?.toString().includes("selectable"));},
+    get SettingsWrapper() {return WebpackModules.getModule(m => m?.render?.toString().includes("required") && m?.render?.toString().includes("titleClassName"), {searchExports: true});},
+    get SettingsNote() {return WebpackModules.getModule(m => m.Types && m?.toString().includes("selectable"), {searchExports: true});},
     get SettingsDivider() {return WebpackModules.getModule(m => !m.defaultProps && m.prototype && m.prototype.render && m.prototype.render.toString().includes("default.divider"));},
 
     get ColorPicker() {return WebpackModules.getModule(m => m.displayName === "ColorPicker" && m.defaultProps);},
     get Dropdown() {return WebpackModules.getByProps("SingleSelect").SingleSelect;},
     get Keybind() {return WebpackModules.getByPrototypes("handleComboChange");},
-    get RadioGroup() {return WebpackModules.getModule(m => m.Sizes && m.toString().includes("radioItemClassName"));},
-    get Slider() {return WebpackModules.getByPrototypes("renderMark");},
-    get SwitchRow() {return WebpackModules.getModule(m => m.toString().includes("helpdeskArticleId"));},
-    get Textbox() {return WebpackModules.getModule(m => m.defaultProps && m.defaultProps.type == "text");},
+    get RadioGroup() {return WebpackModules.getModule(m => m.Sizes && m.toString().includes("radioItemClassName"), {searchExports: true});},
+    get Slider() {return WebpackModules.getModule(m => m.prototype?.renderMark, {searchExports: true});},
+    get SwitchRow() {return WebpackModules.getModule(m => m.toString?.()?.includes("tooltipNote"), {searchExports: true});},
+    get Textbox() {return WebpackModules.getModule(m => m.defaultProps && m.defaultProps.type == "text", {searchExports: true});},
 });
