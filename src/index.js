@@ -1,5 +1,5 @@
 import * as Modules from "modules";
-import {PluginUpdater, Patcher, Logger, DOMTools} from "modules";
+import {Patcher, Logger, DOMTools} from "modules";
 import {Settings, Tooltip, Toasts, Popouts, Modals, DiscordContextMenu, ErrorBoundary, ColorPicker} from "ui";
 import BasePlugin, {wrapPluginBase} from "./structs/plugin";
 const LibraryConfig = require("./config"); // Use cjs require to prevent polyfill
@@ -27,7 +27,7 @@ class PluginLibrary extends BasePlugin {
         const wasLibLoaded = !!document.getElementById("ZLibraryCSS");
         const isBDLoading = document.getElementById("bd-loading-icon");
         DOMTools.removeStyle("ZLibraryCSS");
-        DOMTools.addStyle("ZLibraryCSS", Settings.CSS + Toasts.CSS + PluginUpdater.CSS);
+        DOMTools.addStyle("ZLibraryCSS", Settings.CSS + Toasts.CSS);
         Popouts.initialize();
 
         /**

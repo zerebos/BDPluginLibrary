@@ -1,4 +1,3 @@
-import PluginUpdater from "../modules/pluginupdater";
 import Logger from "../modules/logger";
 import ReactTools from "../modules/reacttools";
 import Modals from "../ui/modals";
@@ -59,7 +58,6 @@ export default class Plugin {
             this.showChangelog();
             Utilities.saveData(this.name, "currentVersionInfo", {version: this.version, hasShownChangelog: true});
         }
-        PluginUpdater.checkForUpdate(this.name, this.version, this._config.id ?? this._config.github_raw ?? this._config.info.github_raw);
     }
 
     async start() {
