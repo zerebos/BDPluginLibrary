@@ -8,12 +8,12 @@ import {DiscordModules, DOMTools, WebpackModules, Patcher, DiscordClassModules, 
 const {React, ReactDOM} = DiscordModules;
 const {useReducer, useEffect, useRef} = React;
 const AppLayer = WebpackModules.getModule(m => Object.values(m).some(m => m?.displayName === "AppLayer"));
-const ReferencePositionLayer = Object.values(AppLayer).find(m => m.prototype?.render);
+const ReferencePositionLayer = WebpackModules.getModule(m => m?.prototype?.calculatePositionStyle, {searchExports: true});
 // const PopoutCSSAnimator = WebpackModules.getByDisplayName("PopoutCSSAnimator");
 const LayerProvider = Object.values(AppLayer).find(m => m.displayName === "AppLayerProvider")?.().props.layerContext.Provider; // eslint-disable-line new-cap
 const ComponentDispatch = WebpackModules.getModule(m => m.toString?.().includes("useContext") && m.toString?.().includes("windowDispatch"), {searchExports: true});
 const ComponentActions = WebpackModules.getModule(m => m.POPOUT_SHOW, {searchExports: true});
-const Popout = WebpackModules.getModule(m => m?.defaultProps && m?.Animation);
+const Popout = WebpackModules.getModule(m => m?.defaultProps && m?.Animation, {searchExports: true});
 const ThemeContext = WebpackModules.getModule(m => m._currentValue === 'dark');
 const useStateFromStores = WebpackModules.getModule(m => m.toString?.().includes('useStateFromStores'));
 const ThemeStore = WebpackModules.getModule(m => m.theme);
@@ -75,7 +75,7 @@ export default class Popouts {
         });
 
         document.body.append(this.container, this.layerContainer);
-        ReactDOM.render(React.createElement(PopoutsContainer), this.container);
+        ReactDOM.render(React.createElement(PopoutsContainer), this.layerContainer);
     }
 
     /**
