@@ -1,0 +1,11 @@
+#outdated-plugins {
+    font-weight: 700;
+}
+#outdated-plugins > span {
+    -webkit-app-region: no-drag;
+    color: #fff;
+    cursor: pointer;
+}
+#outdated-plugins > span:hover {
+    text-decoration: underline;
+}

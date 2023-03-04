@@ -5,11 +5,18 @@ module.exports = {
     name: "ZeresPluginLibrary",
     author: "Zerebos",
     version: process.env.__LIBRARY_VERSION__,
-    description: "This update is mainly a hotfix for crashing issues.",
+    description: "Gives other plugins utility functions.",
     source: "https://github.com/rauenzi/BDPluginLibrary",
     changelog: [
-        {title: "Fixed", type: "added", items: ["Crashing from a various number of modals including changelogs."]},
-        {title: "Removed", type: "removed", items: ["Removed plugin updater as BD's is good enough and only uses official updates."]}
+        {title: "Fixed", type: "added", items: ["Fixed popouts. (Thanks @arg0NNY)"]},
+        {
+            title: "Notice To Developers",
+            type: "removed",
+            items: [
+                "The updater has been temporarily reenabled due to multiple developers missing the announcements in Discord.",
+                "A new timeline for removal will be announced in a future release."
+            ]
+        }
     ],
     main: "index.js"
 };
