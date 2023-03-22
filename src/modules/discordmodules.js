@@ -220,7 +220,7 @@ export default Utilities.memoizeObject({
     get Dropdown() {return WebpackModules.getByProps("SingleSelect").SingleSelect;},
     get Keybind() {return WebpackModules.getByPrototypes("handleComboChange");},
     get RadioGroup() {return WebpackModules.getModule(m => m?.Sizes && m?.toString?.().includes("radioItemClassName"), {searchExports: true});},
-    get Slider() {return WebpackModules.getModule(m => m?.defaultProps?.maxValue == 100, {searchExports: true});},
+    get Slider() {return WebpackModules.getModule(m => m?.defaultProps?.maxValue == 100 && m?.prototype?.renderMark, {searchExports: true});},
     get SwitchRow() {return WebpackModules.getModule(m => m?.toString?.().includes("tooltipNote"), {searchExports: true});},
     get Textbox() {return WebpackModules.getModule(m => m?.defaultProps && m?.defaultProps?.type == "text", {searchExports: true});},
 });
