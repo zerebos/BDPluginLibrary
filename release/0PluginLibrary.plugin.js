@@ -1,7 +1,7 @@
 /**
  * @name ZeresPluginLibrary
  * @description Gives other plugins utility functions.
- * @version 2.0.13
+ * @version 2.0.14
  * @author Zerebos
  * @source https://github.com/rauenzi/BDPluginLibrary
  */
@@ -90,19 +90,11 @@ module.exports = {
     id: "9",
     name: "ZeresPluginLibrary",
     author: "Zerebos",
-    version: "2.0.13",
+    version: "2.0.14",
     description: "Gives other plugins utility functions.",
     source: "https://github.com/rauenzi/BDPluginLibrary",
     changelog: [
-        {title: "Fixed", type: "added", items: ["Fixed popouts. (Thanks @arg0NNY)"]},
-        {
-            title: "Notice To Developers",
-            type: "removed",
-            items: [
-                "The updater has been temporarily reenabled due to multiple developers missing the announcements in Discord.",
-                "A new timeline for removal will be announced in a future release."
-            ]
-        }
+        {title: "Fixed", type: "added", items: ["Fixed Slider settings. (Thanks @Skamt)"]},
     ],
     main: "index.js"
 };
@@ -579,7 +571,7 @@ __webpack_require__.r(__webpack_exports__);
     get Dropdown() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("SingleSelect").SingleSelect;},
     get Keybind() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByPrototypes("handleComboChange");},
     get RadioGroup() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m?.Sizes && m?.toString?.().includes("radioItemClassName"), {searchExports: true});},
-    get Slider() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m?.defaultProps?.maxValue == 100, {searchExports: true});},
+    get Slider() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m?.defaultProps?.maxValue == 100 && m?.prototype?.renderMark, {searchExports: true});},
     get SwitchRow() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m?.toString?.().includes("tooltipNote"), {searchExports: true});},
     get Textbox() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m?.defaultProps && m?.defaultProps?.type == "text", {searchExports: true});},
 }));

@@ -8,15 +8,7 @@ module.exports = {
     description: "Gives other plugins utility functions.",
     source: "https://github.com/rauenzi/BDPluginLibrary",
     changelog: [
-        {title: "Fixed", type: "added", items: ["Fixed popouts. (Thanks @arg0NNY)"]},
-        {
-            title: "Notice To Developers",
-            type: "removed",
-            items: [
-                "The updater has been temporarily reenabled due to multiple developers missing the announcements in Discord.",
-                "A new timeline for removal will be announced in a future release."
-            ]
-        }
+        {title: "Fixed", type: "added", items: ["Fixed Slider settings. (Thanks @Skamt)"]},
     ],
     main: "index.js"
 };
