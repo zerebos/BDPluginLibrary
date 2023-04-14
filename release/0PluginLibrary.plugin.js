@@ -1,7 +1,7 @@
 /**
  * @name ZeresPluginLibrary
  * @description Gives other plugins utility functions.
- * @version 2.0.14
+ * @version 2.0.15
  * @author Zerebos
  * @source https://github.com/rauenzi/BDPluginLibrary
  */
@@ -90,11 +90,11 @@ module.exports = {
     id: "9",
     name: "ZeresPluginLibrary",
     author: "Zerebos",
-    version: "2.0.14",
+    version: "2.0.15",
     description: "Gives other plugins utility functions.",
     source: "https://github.com/rauenzi/BDPluginLibrary",
     changelog: [
-        {title: "Fixed", type: "added", items: ["Fixed Slider settings. (Thanks @Skamt)"]},
+        {title: "Fixed", type: "added", items: ["Fixed compilation issue due to Discord's changes.", "Fixed an issue with keybind settings not using the correct values."]},
     ],
     main: "index.js"
 };
@@ -4518,8 +4518,8 @@ const LayerProvider = Object.values(AppLayer).find(m => m.displayName === "AppLa
 const ComponentDispatch = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getModule(m => m.toString?.().includes("useContext") && m.toString?.().includes("windowDispatch"), {searchExports: true});
 const ComponentActions = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getModule(m => m.POPOUT_SHOW, {searchExports: true});
 const Popout = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getModule(m => m?.defaultProps && m?.Animation, {searchExports: true});
-const ThemeContext = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getModule(m => m._currentValue === 'dark');
-const useStateFromStores = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getModule(m => m.toString?.().includes('useStateFromStores'));
+const ThemeContext = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getModule(m => m._currentValue === "dark", {searchExports: true});
+const useStateFromStores = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getModule(m => m.toString?.().includes("useStateFromStores"));
 const ThemeStore = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getModule(m => m.theme);
 
 const createStore = state => {
@@ -5423,8 +5423,8 @@ class CloseButton extends React.Component {
     }
 }
 
-const toCombo = modules__WEBPACK_IMPORTED_MODULE_1__.WebpackModules.getModule(m => m?.toString().includes("numpad plus"), {searchExports: true}) ?? (() => [[0, 0], [0, 0]]);
-const toEvent = modules__WEBPACK_IMPORTED_MODULE_1__.WebpackModules.getModule(m => m?.toString().includes("keyCode") && m?.toString().includes("BROWSER"), {searchExports: true}) ?? (() => ({}));
+const toCombo = modules__WEBPACK_IMPORTED_MODULE_1__.WebpackModules.getModule(m => m?.toString?.()?.includes("numpad plus"), {searchExports: true}) ?? (() => [[0, 0], [0, 0]]);
+const toEvent = modules__WEBPACK_IMPORTED_MODULE_1__.WebpackModules.getModule(m => m?.toString?.()?.includes("keyCode") && m?.toString?.()?.includes("BROWSER"), {searchExports: true}) ?? (() => ({}));
 
 class ClearableKeybind extends React.Component {
     constructor(props) {
