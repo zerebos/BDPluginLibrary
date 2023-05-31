@@ -8,7 +8,7 @@ module.exports = {
     description: "Gives other plugins utility functions.",
     source: "https://github.com/rauenzi/BDPluginLibrary",
     changelog: [
-        {title: "Fixed", type: "added", items: ["Fixed compilation issue due to Discord's changes.", "Fixed an issue with keybind settings not using the correct values."]},
+        {title: "Fixed", type: "added", items: ["Fixed compilation issue due to Discord's changes."]},
     ],
     main: "index.js"
 };

@@ -14,7 +14,7 @@ const LayerProvider = Object.values(AppLayer).find(m => m.displayName === "AppLa
 const ComponentDispatch = WebpackModules.getModule(m => m.toString?.().includes("useContext") && m.toString?.().includes("windowDispatch"), {searchExports: true});
 const ComponentActions = WebpackModules.getModule(m => m.POPOUT_SHOW, {searchExports: true});
 const Popout = WebpackModules.getModule(m => m?.defaultProps && m?.Animation, {searchExports: true});
-const ThemeContext = WebpackModules.getModule(m => m._currentValue === "dark", {searchExports: true});
+const ThemeContext = WebpackModules.getModule(m => m?.toString?.().includes("amoled:") && m?.toString?.().includes("Provider"), {searchExports: true});
 const useStateFromStores = WebpackModules.getModule(m => m.toString?.().includes("useStateFromStores"));
 const ThemeStore = WebpackModules.getModule(m => m.theme);
 
@@ -163,11 +163,9 @@ export default class Popouts {
 function DiscordProviders({children, container}) {
     const theme = useStateFromStores([ThemeStore], () => ThemeStore.theme);
 
-    return React.createElement(LayerProvider, {
-        value: [container]
-    }, React.createElement(ThemeContext.Provider, {
-        value: theme
-    }, children));
+    return React.createElement(LayerProvider, {value: [container]},
+                React.createElement(ThemeContext, {theme}, children)
+            );
 }
 
 function PopoutsContainer() {
