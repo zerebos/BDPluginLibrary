@@ -69,7 +69,7 @@ class ReactSetting extends DiscordModules.React.Component {
         if (this.props.inline) {
             const Flex = DiscordModules.FlexChild;
             const titleDefault = WebpackModules.getByProps("titleDefault") ? WebpackModules.getByProps("titleDefault").title : "titleDefault-a8-ZSr title-31JmR4";
-            return ce(Flex, {direction: Flex.Direction.VERTICAL},
+            return ce(Flex, {direction: Flex.Direction.VERTICAL, className: DiscordClasses.Margins.marginTop20.toString()},
             ce(Flex, {align: Flex.Align.START}, 
                 ce(Flex.Child, {wrap: !0},
                     ce("div", {className: titleDefault}, this.props.title)

@@ -1,21 +1,30 @@
 import SettingField from "../settingfield";
 import {DiscordModules} from "modules";
 
-class SwitchWrapper extends DiscordModules.React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {enabled: this.props.value};
-    }
 
-    render() {
-        return DiscordModules.React.createElement(DiscordModules.SwitchRow, Object.assign({}, this.props, {
-            value: this.state.enabled,
-            onChange: e => {
-                this.props.onChange(e);
-                this.setState({enabled: e});
-            }
-        }));
-    }
+const {useCallback, useState, createElement} = DiscordModules.React;
+
+function SwitchComponent({id, checked: initialValue, disabled, onChange}) {
+    const [checked, setChecked] = useState(initialValue);
+    const change = useCallback(() => {
+        onChange?.(!checked);
+        setChecked(!checked);
+    }, [checked, onChange]);
+
+    const enabledClass = disabled ? " bd-switch-disabled" : "";
+    const checkedClass = checked ? " bd-switch-checked" : "";
+    return createElement("div", {className: `bd-switch` + enabledClass + checkedClass},
+        createElement("input", {id: id, type: "checkbox", disabled: disabled, checked: checked, onChange: change}),
+        createElement("div", {className: "bd-switch-body"},
+            createElement("svg", {className: "bd-switch-slider", viewBox: "0 0 28 20", preserveAspectRatio: "xMinYMid meet"},
+                createElement("rect", {className: "bd-switch-handle", fill: "white", x: "4", y: "0", height: "20", width: "20", rx: "10"}),
+                createElement("svg", {className: "bd-switch-symbol", viewBox: "0 0 20 20", fill: "none"},
+                    createElement("path"),
+                    createElement("path")
+                )
+            )
+        )
+    );
 }
 
 /** 
@@ -33,20 +42,14 @@ class Switch extends SettingField {
      * @param {boolean} [options.disabled=false] - should the setting be disabled
      */
     constructor(name, note, isChecked, onChange, options = {}) {
-        super(name, note, onChange);
-        this.disabled = !!options.disabled;
-        this.value = !!isChecked;
-    }
+        const props = {
+            disabled: !!options.disabled,
+            checked: !!isChecked,
+            onChange: () => value => this.onChange(value),
+            inline: true
+        };
 
-    onAdded() {
-        DiscordModules.ReactDOM.render(DiscordModules.React.createElement(SwitchWrapper, {
-            children: this.name,
-            note: this.note,
-            disabled: this.disabled,
-            hideBorder: false,
-            value: this.value,
-            onChange: (e) => {this.onChange(e);}
-        }), this.getElement());
+        super(name, note, onChange, SwitchComponent, props);
     }
 }
 
