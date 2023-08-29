@@ -9,8 +9,7 @@ module.exports = {
     source: "https://github.com/rauenzi/BDPluginLibrary",
     github_raw: "https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js",
     changelog: [
-        {title: "Changes", type: "progress", items: ["Library no longer tries to update itself. Update it through BetterDiscord's updater.", "The library still checks for updates for other plugins currently."]},
-        {title: "Fixed", type: "fixed", items: ["Fixed update looping when updating library.", "Fixed Switch settings not working causing some panels to not render at all.", "Fixed toasts not working in some cases."]},
+        {title: "Fixed", type: "fixed", items: ["Fixed for changes in Discord Canary."]},
     ],
     main: "index.js"
 };

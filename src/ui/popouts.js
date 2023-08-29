@@ -14,7 +14,7 @@ const LayerProvider = Object.values(AppLayer).find(m => m.displayName === "AppLa
 const ComponentDispatch = WebpackModules.getModule(m => m.toString?.().includes("useContext") && m.toString?.().includes("windowDispatch"), {searchExports: true});
 const ComponentActions = WebpackModules.getModule(m => m.POPOUT_SHOW, {searchExports: true});
 const Popout = WebpackModules.getModule(m => m?.defaultProps && m?.Animation, {searchExports: true});
-const ThemeContext = WebpackModules.getModule(m => m?.toString?.().includes("amoled:") && m?.toString?.().includes("Provider"), {searchExports: true});
+const ThemeContext = WebpackModules.getModule(m => m?.toString?.().includes(".DARK") && m?.toString?.().includes("primaryColor") && m?.toString?.().includes("Provider"), {searchExports: true});
 const useStateFromStores = WebpackModules.getModule(m => m.toString?.().includes("useStateFromStores"));
 const ThemeStore = WebpackModules.getModule(m => m.theme);
 
