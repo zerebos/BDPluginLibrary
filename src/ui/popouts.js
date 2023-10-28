@@ -11,11 +11,11 @@ const AppLayer = WebpackModules.getModule(m => Object.values(m).some(m => m?.dis
 const ReferencePositionLayer = WebpackModules.getModule(m => m?.prototype?.calculatePositionStyle, {searchExports: true});
 // const PopoutCSSAnimator = WebpackModules.getByDisplayName("PopoutCSSAnimator");
 const LayerProvider = Object.values(AppLayer).find(m => m.displayName === "AppLayerProvider")?.().props.layerContext.Provider; // eslint-disable-line new-cap
-const ComponentDispatch = WebpackModules.getModule(m => m.toString?.().includes("useContext") && m.toString?.().includes("windowDispatch"), {searchExports: true});
+const ComponentDispatch = WebpackModules.getModule(m => m.toString?.().includes("useContext") && m.toString?.().includes(".windowDispatch"), {searchExports: true});
 const ComponentActions = WebpackModules.getModule(m => m.POPOUT_SHOW, {searchExports: true});
 const Popout = WebpackModules.getModule(m => m?.defaultProps && m?.Animation, {searchExports: true});
 const ThemeContext = WebpackModules.getModule(m => m?.toString?.().includes(".DARK") && m?.toString?.().includes("primaryColor") && m?.toString?.().includes("Provider"), {searchExports: true});
-const useStateFromStores = WebpackModules.getModule(m => m.toString?.().includes("useStateFromStores"));
+const Hooks = WebpackModules.getModule(m => m.useStateFromStores);
 const ThemeStore = WebpackModules.getModule(m => m.theme);
 
 const createStore = state => {
@@ -61,6 +61,7 @@ export default class Popouts {
     // static get AnimationTypes() {return AnimationTypes;}
 
     static initialize() {
+        // return;
         this.dispose();
         this.popouts = 0;
 
@@ -161,7 +162,7 @@ export default class Popouts {
 }
 
 function DiscordProviders({children, container}) {
-    const theme = useStateFromStores([ThemeStore], () => ThemeStore.theme);
+    const theme = Hooks.useStateFromStores([ThemeStore], () => ThemeStore.theme);
 
     return React.createElement(LayerProvider, {value: [container]},
                 React.createElement(ThemeContext, {theme}, children)

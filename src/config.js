@@ -9,7 +9,16 @@ module.exports = {
     source: "https://github.com/rauenzi/BDPluginLibrary",
     github_raw: "https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js",
     changelog: [
-        {title: "Fixed", type: "fixed", items: ["Fixed for changes in Discord Canary."]},
+        {
+            title: "Fixed",
+            type: "fixed",
+            items: [
+                "Fixed the error on startup.",
+                "Fixed showing modals.",
+                "Fixed several module searches.",
+                "Does not fix showUserPopout."
+            ]
+        },
     ],
     main: "index.js"
 };

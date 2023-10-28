@@ -85,7 +85,7 @@ export default class Modals {
      */
     static showChangelogModal(title, version, changelog, footer) {
         const TextElement = DiscordModules.TextElement;
-        const ChangelogModalClasses = WebpackModules.getModule(m => m.modal && m.maxModalWidth);
+        const ChangelogModalClasses = WebpackModules.getModule(m => typeof(m) === "object" && Object.keys(m).length === 2 && m.modal && m.content);
         if (!TextElement || !ChangelogModalClasses || !DiscordModules.FlexChild || !DiscordModules.ModalRoot || !DiscordModules.ModalActions) return Logger.warn("Modals", "Unable to show changelog modal--missing modules");
         const changelogItems = [];
         for (let c = 0; c < changelog.length; c++) {

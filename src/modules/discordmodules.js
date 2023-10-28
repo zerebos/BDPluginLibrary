@@ -14,7 +14,7 @@ export default Utilities.memoizeObject({
     get Events() {return WebpackModules.getByPrototypes("setMaxListeners", "emit");},
 
     /* Guild Info, Stores, and Utilities */
-    get GuildStore() {return WebpackModules.getByProps("getGuild", "getGuilds");},
+    get GuildStore() {return WebpackModules.getByProps("getGuild", "getGuildIds");},
     get SortedGuildStore() {return WebpackModules.getByProps("getSortedGuilds");},
     get SelectedGuildStore() {return WebpackModules.getByProps("getLastSelectedGuildId");},
     get GuildSync() {return WebpackModules.getByProps("getSyncedGuilds");},
@@ -158,16 +158,11 @@ export default Utilities.memoizeObject({
     get GuildSettingsWindow() {return WebpackModules.getByProps("open", "updateGuild");},
 
     /* Modals */
-    get ModalActions() {
-        return {
-            openModal: WebpackModules.getModule(m => typeof(m) === "function" && m?.toString().includes("onCloseCallback") && m?.toString().includes("Layer"), {searchExports: true}),
-            closeModal: WebpackModules.getModule(m => typeof(m) === "function" && m?.toString().includes("onCloseCallback()"), {searchExports: true})
-        };
-    },
+    get ModalActions() {return WebpackModules.getByProps("openModal", "closeModal");},
     get ModalStack() {return WebpackModules.getByProps("push", "update", "pop", "popWithKey");},
     get UserProfileModals() {return WebpackModules.getByProps("fetchMutualFriends", "setSection");},
     get AlertModal() {return WebpackModules.getByPrototypes("handleCancel", "handleSubmit");},
-    get ConfirmationModal() {return WebpackModules.getModule(m => m?.toString?.()?.includes(".confirmButtonColor"), {searchExports: true});},
+    get ConfirmationModal() {return WebpackModules.getByProps("ConfirmModal").ConfirmModal;},
     get ChangeNicknameModal() {return WebpackModules.getByProps("open", "changeNickname");},
     get CreateChannelModal() {return WebpackModules.getByProps("open", "createChannel");},
     get PruneMembersModal() {return WebpackModules.getByProps("open", "prune");},
