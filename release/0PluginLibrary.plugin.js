@@ -431,7 +431,7 @@ __webpack_require__.r(__webpack_exports__);
     get ColorShader() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("darken");},
     get TinyColor() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByPrototypes("toRgb");},
     get ClassResolver() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("getClass");},
-    get ButtonData() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => m.BorderColors, {searchExports: true});},
+    get ButtonData() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("ButtonSizes");},
     get NavigationUtils() {
         return {
             transitionToGuild: _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("transitionToGuildSync")?.transitionToGuildSync,
@@ -4423,7 +4423,7 @@ class Modals {
         return modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.ModalActions.openModal(props => {
             return React.createElement(modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.ConfirmationModal, Object.assign({
                 header: title,
-                confirmButtonColor: danger ? modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.ButtonData.Colors.RED : modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.ButtonData.Colors.BRAND,
+                confirmButtonColor: danger ? modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.ButtonData.ButtonColors.RED : modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.ButtonData.ButtonColors.BRAND,
                 confirmText: confirmText,
                 cancelText: cancelText,
                 onConfirm: onConfirm,

@@ -59,7 +59,7 @@ export default class Modals {
         return DiscordModules.ModalActions.openModal(props => {
             return React.createElement(DiscordModules.ConfirmationModal, Object.assign({
                 header: title,
-                confirmButtonColor: danger ? DiscordModules.ButtonData.Colors.RED : DiscordModules.ButtonData.Colors.BRAND,
+                confirmButtonColor: danger ? DiscordModules.ButtonData.ButtonColors.RED : DiscordModules.ButtonData.ButtonColors.BRAND,
                 confirmText: confirmText,
                 cancelText: cancelText,
                 onConfirm: onConfirm,

@@ -70,7 +70,7 @@ export default Utilities.memoizeObject({
     get ColorShader() {return WebpackModules.getByProps("darken");},
     get TinyColor() {return WebpackModules.getByPrototypes("toRgb");},
     get ClassResolver() {return WebpackModules.getByProps("getClass");},
-    get ButtonData() {return WebpackModules.getModule(m => m.BorderColors, {searchExports: true});},
+    get ButtonData() {return WebpackModules.getByProps("ButtonSizes");},
     get NavigationUtils() {
         return {
             transitionToGuild: WebpackModules.getByProps("transitionToGuildSync")?.transitionToGuildSync,
