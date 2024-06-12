@@ -24,7 +24,7 @@ class ColorPicker extends SettingField {
      * @param {Array<number>} [options.colors] - preset colors to show in swatch
      */
     constructor(name, note, value, onChange, options = {}) {
-        const ColorPickerComponents = WebpackModules.getByProps("CustomColorPicker");
+        const ColorPickerComponents = null; // WebpackModules.getByProps("CustomColorPicker");
         if (ColorPickerComponents) {
             const defaultColor = options.defaultColor;
             super(name, note, onChange, ColorPickerComponent, {
