@@ -1,7 +1,7 @@
 /**
  * @name ZeresPluginLibrary
  * @description Gives other plugins utility functions.
- * @version 2.0.19
+ * @version 2.0.20
  * @author Zerebos
  * @source https://github.com/rauenzi/BDPluginLibrary
  */
@@ -90,7 +90,7 @@ module.exports = {
     id: "9",
     name: "ZeresPluginLibrary",
     author: "Zerebos",
-    version: "2.0.19",
+    version: "2.0.20",
     description: "Gives other plugins utility functions.",
     source: "https://github.com/rauenzi/BDPluginLibrary",
     github_raw: "https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js",
@@ -100,9 +100,9 @@ module.exports = {
             type: "fixed",
             items: [
                 "Fixed the error on startup.",
-                "Fixed showing modals.",
-                "Fixed several module searches.",
-                "Does not fix showUserPopout."
+                "Fixed styling and spacing of plugin settings.",
+                "Fixed title and label styles in plugin settings.",
+                "Fix dividers in plugin settings."
             ]
         },
     ],
@@ -331,7 +331,11 @@ __webpack_require__.r(__webpack_exports__);
     get Layers() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("layers", "layer");},
     get TooltipLayers() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("layerContainer", "layer");},
     get Margins() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => !m.title && m.marginBottom40 && m.marginTop40);},
-    get Dividers() {return Object.assign({}, _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("dividerDefault"), _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => Object.keys(m).length == 1 && m.divider));},
+    get Dividers() {
+        const single = _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getModule(m => Object.keys(m).length == 1 && m.divider);
+        // const single = singles[singles.length - 1] ?? {};
+        return Object.assign({}, _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("dividerDefault"), single);
+    },
     get Changelog() {return Object.assign({}, _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("container", "added"), _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("content", "modal", "size"));},
     get BasicInputs() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("inputDefault", "copyInput");},
     get Messages() {return _webpackmodules__WEBPACK_IMPORTED_MODULE_1__["default"].getByProps("message", "containerCozy");},
@@ -3822,88 +3826,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./src/ui/colorpicker.js":
-/*!*******************************!*\
-  !*** ./src/ui/colorpicker.js ***!
-  \*******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ ColorPicker)
-/* harmony export */ });
-/* harmony import */ var modules__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! modules */ "./src/modules/modules.js");
-
-
-const React = modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.React;
-
-const Popout = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getByDisplayName("Popout");
-const ColorPickerComponents = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getByProps("CustomColorPicker");
-const Swatch = ColorPickerComponents?.CustomColorButton.prototype.render.call({props: {}}).type;
-const Tooltip = modules__WEBPACK_IMPORTED_MODULE_0__.WebpackModules.getByPrototypes("renderTooltip");
-const LocaleManager = modules__WEBPACK_IMPORTED_MODULE_0__.DiscordModules.LocaleManager;
-
-class ColorPicker extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            value: props.value || 0
-        };
-
-        this.onChange = this.onChange.bind(this);
-        this.swatchRef = React.createRef();
-    }
-    
-    get canCustom() {return this.props.acceptsCustom || true;}
-
-    onChange(value) {
-        this.setState({value: value}, () => {
-            if (typeof(this.props.onChange) === "function") this.props.onChange(this.state.value); 
-        });
-    }
-
-    render() {
-        const renderPopout = () => {
-            return React.createElement(ColorPickerComponents.CustomColorPicker, {
-                value: this.state.value,
-                onChange: this.onChange,
-            });
-        };
-
-        return React.createElement(ColorPickerComponents.default, {
-            value: this.state.value,
-            onChange: this.onChange,
-            colors: this.props.colors,
-            renderDefaultButton: props => React.createElement(Tooltip, {
-                position: Tooltip.Positions.BOTTOM,
-                text: LocaleManager.Messages.DEFAULT
-            }, tooltipProps => React.createElement("div", Object.assign(tooltipProps, {
-                className: "defaultButtonWrapper",
-            }), React.createElement(ColorPickerComponents.DefaultColorButton, Object.assign(props, {color: this.props.defaultColor})))),
-            renderCustomButton: () => React.createElement(Popout, {
-                renderPopout: renderPopout,
-                animation: Popout.Animation.TRANSLATE,
-                align: Popout.Align.CENTER,
-                position: Popout.Positions.BOTTOM
-            }, props => React.createElement(Tooltip, {
-                position: Tooltip.Positions.BOTTOM,
-                text: LocaleManager.Messages.PICK_A_COLOR
-            }, tooltipProps => React.createElement("div", Object.assign({}, tooltipProps, props, {
-                className: "colorPickerButtonWrapper"
-            }), React.createElement(Swatch, {
-                isCustom: true,
-                color: this.state.value,
-                isSelected: !this.props.colors.includes(this.state.value) && this.props.defaultColor !== this.state.value,
-                disabled: !this.canCustom
-            }))))
-        });
-    }
-}
-
-/***/ }),
-
 /***/ "./src/ui/discordcontextmenu.js":
 /*!**************************************!*\
   !*** ./src/ui/discordcontextmenu.js ***!
@@ -4887,6 +4809,9 @@ class SettingField extends _structs_listenable__WEBPACK_IMPORTED_MODULE_0__["def
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SettingField);
 
+
+const TITLE_DEFAULT = modules__WEBPACK_IMPORTED_MODULE_1__.WebpackModules.getByProps("titleDefault")?.title ?? "titleDefault-a8-ZSr title-31JmR4";
+
 class ReactSetting extends modules__WEBPACK_IMPORTED_MODULE_1__.DiscordModules.React.Component {
     get noteElement() {
         const className = this.props.noteOnTop ? modules__WEBPACK_IMPORTED_MODULE_1__.DiscordClasses.Margins.marginBottom8 : modules__WEBPACK_IMPORTED_MODULE_1__.DiscordClasses.Margins.marginTop8;
@@ -4900,7 +4825,7 @@ class ReactSetting extends modules__WEBPACK_IMPORTED_MODULE_1__.DiscordModules.R
         const SettingElement = ce(this.props.type, this.props);
         if (this.props.inline) {
             const Flex = modules__WEBPACK_IMPORTED_MODULE_1__.DiscordModules.FlexChild;
-            const titleDefault = modules__WEBPACK_IMPORTED_MODULE_1__.WebpackModules.getByProps("titleDefault") ? modules__WEBPACK_IMPORTED_MODULE_1__.WebpackModules.getByProps("titleDefault").title : "titleDefault-a8-ZSr title-31JmR4";
+            const titleDefault = TITLE_DEFAULT;
             return ce(Flex, {direction: Flex.Direction.VERTICAL, className: modules__WEBPACK_IMPORTED_MODULE_1__.DiscordClasses.Margins.marginTop20.toString()},
             ce(Flex, {align: Flex.Align.START}, 
                 ce(Flex.Child, {wrap: !0},
@@ -5142,9 +5067,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _settingfield__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../settingfield */ "./src/ui/settings/settingfield.js");
 /* harmony import */ var modules__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! modules */ "./src/modules/modules.js");
-/* harmony import */ var _colorpicker__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../colorpicker */ "./src/ui/colorpicker.js");
-
-
 
 
 
@@ -5169,33 +5091,15 @@ class ColorPicker extends _settingfield__WEBPACK_IMPORTED_MODULE_0__["default"] 
      * @param {Array<number>} [options.colors] - preset colors to show in swatch
      */
     constructor(name, note, value, onChange, options = {}) {
-        const ColorPickerComponents = modules__WEBPACK_IMPORTED_MODULE_1__.WebpackModules.getByProps("CustomColorPicker");
-        if (ColorPickerComponents) {
-            const defaultColor = options.defaultColor;
-            super(name, note, onChange, _colorpicker__WEBPACK_IMPORTED_MODULE_2__["default"], {
-                disabled: !!options.disabled,
-                onChange: reactElement => color => {
-                    reactElement.props.value = color;
-                    reactElement.forceUpdate();
-                    this.onChange(modules__WEBPACK_IMPORTED_MODULE_1__.ColorConverter.int2hex(color));
-                },
-                colors: Array.isArray(options.colors) ? options.colors : presetColors,
-                defaultColor: defaultColor && typeof(defaultColor) !== "number" ? modules__WEBPACK_IMPORTED_MODULE_1__.ColorConverter.hex2int(defaultColor) : defaultColor,
-                value: typeof(value) == "number" ? value : modules__WEBPACK_IMPORTED_MODULE_1__.ColorConverter.hex2int(value),
-                customPickerPosition: "right"
-            });
-        }
-        else {
-            const classes = ["color-input"];
-            if (options.disabled) classes.push(modules__WEBPACK_IMPORTED_MODULE_1__.DiscordClasses.BasicInputs.disabled);
-            const ReactColorPicker = modules__WEBPACK_IMPORTED_MODULE_1__.DOMTools.parseHTML(`<input type="color" class="${classes.join(" ")}">`);
-            if (options.disabled) ReactColorPicker.setAttribute("disabled", "");
-            if (value) ReactColorPicker.setAttribute("value", value);
-            ReactColorPicker.addEventListener("change", (event) => {
-                this.onChange(event.target.value);
-            });
-            super(name, note, onChange, ReactColorPicker, {inline: true});
-        }
+        const classes = ["color-input"];
+        if (options.disabled) classes.push(modules__WEBPACK_IMPORTED_MODULE_1__.DiscordClasses.BasicInputs.disabled);
+        const ReactColorPicker = modules__WEBPACK_IMPORTED_MODULE_1__.DOMTools.parseHTML(`<input type="color" class="${classes.join(" ")}">`);
+        if (options.disabled) ReactColorPicker.setAttribute("disabled", "");
+        if (value) ReactColorPicker.setAttribute("value", value);
+        ReactColorPicker.addEventListener("change", (event) => {
+            this.onChange(event.target.value);
+        });
+        super(name, note, onChange, ReactColorPicker, {inline: true});
     }
 
     /** Default colors for ColorPicker */
@@ -6110,7 +6014,6 @@ class Tooltip {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   ColorPicker: () => (/* reexport safe */ _colorpicker__WEBPACK_IMPORTED_MODULE_8__["default"]),
 /* harmony export */   DiscordContextMenu: () => (/* reexport safe */ _discordcontextmenu__WEBPACK_IMPORTED_MODULE_6__["default"]),
 /* harmony export */   ErrorBoundary: () => (/* reexport safe */ _errorboundary__WEBPACK_IMPORTED_MODULE_7__["default"]),
 /* harmony export */   Icons: () => (/* reexport module object */ _icons__WEBPACK_IMPORTED_MODULE_1__),
@@ -6128,8 +6031,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modals__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modals */ "./src/ui/modals.js");
 /* harmony import */ var _discordcontextmenu__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./discordcontextmenu */ "./src/ui/discordcontextmenu.js");
 /* harmony import */ var _errorboundary__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./errorboundary */ "./src/ui/errorboundary.js");
-/* harmony import */ var _colorpicker__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./colorpicker */ "./src/ui/colorpicker.js");
-
 
 
 
@@ -6229,7 +6130,7 @@ Library.Popouts = ui__WEBPACK_IMPORTED_MODULE_1__.Popouts;
 Library.Modals = ui__WEBPACK_IMPORTED_MODULE_1__.Modals;
 for (const mod in modules__WEBPACK_IMPORTED_MODULE_0__) Library[mod] = modules__WEBPACK_IMPORTED_MODULE_0__[mod];
 
-Library.Components = {ErrorBoundary: ui__WEBPACK_IMPORTED_MODULE_1__.ErrorBoundary, ColorPicker: ui__WEBPACK_IMPORTED_MODULE_1__.ColorPicker};
+Library.Components = {ErrorBoundary: ui__WEBPACK_IMPORTED_MODULE_1__.ErrorBoundary};
 
 // export default LibraryPlugin(Library.Structs.Plugin, Library); // eslint-disable-line new-cap
 
