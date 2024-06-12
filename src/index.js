@@ -14,7 +14,7 @@ Library.Popouts = Popouts;
 Library.Modals = Modals;
 for (const mod in Modules) Library[mod] = Modules[mod];
 
-Library.Components = {ErrorBoundary, ColorPicker};
+Library.Components = {ErrorBoundary};
 
 // export default LibraryPlugin(Library.Structs.Plugin, Library); // eslint-disable-line new-cap
 

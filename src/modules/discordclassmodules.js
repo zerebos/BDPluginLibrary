@@ -38,8 +38,8 @@ export default Utilities.memoizeObject({
     get TooltipLayers() {return WebpackModules.getByProps("layerContainer", "layer");},
     get Margins() {return WebpackModules.getModule(m => !m.title && m.marginBottom40 && m.marginTop40);},
     get Dividers() {
-        const singles = WebpackModules.getModules(m => Object.keys(m).length == 1 && m.divider);
-        const single = singles[singles.length - 1] ?? {};
+        const single = WebpackModules.getModule(m => Object.keys(m).length == 1 && m.divider);
+        // const single = singles[singles.length - 1] ?? {};
         return Object.assign({}, WebpackModules.getByProps("dividerDefault"), single);
     },
     get Changelog() {return Object.assign({}, WebpackModules.getByProps("container", "added"), WebpackModules.getByProps("content", "modal", "size"));},
