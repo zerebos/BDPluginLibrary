@@ -14,9 +14,6 @@ module.exports = {
             type: "fixed",
             items: [
                 "Fixed the error on startup.",
-                "Fixed styling and spacing of plugin settings.",
-                "Fixed title and label styles in plugin settings.",
-                "Fix dividers in plugin settings."
             ]
         },
     ],

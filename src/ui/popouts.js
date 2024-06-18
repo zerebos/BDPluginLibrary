@@ -15,7 +15,7 @@ const ComponentDispatch = WebpackModules.getModule(m => m.toString?.().includes(
 const ComponentActions = WebpackModules.getModule(m => m.POPOUT_SHOW, {searchExports: true});
 const Popout = WebpackModules.getModule(m => m?.defaultProps && m?.Animation, {searchExports: true});
 const ThemeContext = WebpackModules.getModule(m => m?.toString?.().includes(".DARK") && m?.toString?.().includes("primaryColor") && m?.toString?.().includes("Provider"), {searchExports: true});
-const Hooks = WebpackModules.getModule(m => m.useStateFromStores);
+const Hooks = WebpackModules.getModule(m => m.useSyncExternalStore);
 const ThemeStore = WebpackModules.getModule(m => m.theme);
 
 const createStore = state => {
@@ -162,7 +162,7 @@ export default class Popouts {
 }
 
 function DiscordProviders({children, container}) {
-    const theme = Hooks.useStateFromStores([ThemeStore], () => ThemeStore.theme);
+    const theme = Hooks.useSyncExternalStore([ThemeStore], () => ThemeStore.theme);
 
     return React.createElement(LayerProvider, {value: [container]},
                 React.createElement(ThemeContext, {theme}, children)
