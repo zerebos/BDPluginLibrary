@@ -141,7 +141,7 @@ export default class Plugin {
                 groupName = this.strings.settings[id].name;
             }
 
-            const settingGroup = new Settings.SettingGroup(name, {shown, collapsible}).append(...list);
+            const settingGroup = new Settings.SettingGroup(groupName, {shown, collapsible}).append(...list);
             settingGroup.id = id;
             return settingGroup;
         };
