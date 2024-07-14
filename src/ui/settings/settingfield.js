@@ -56,7 +56,7 @@ class SettingField extends Listenable {
 export default SettingField;
 
 
-const TITLE_DEFAULT = WebpackModules.getByProps("titleDefault")?.title ?? "titleDefault-a8-ZSr title-31JmR4";
+const TITLE = WebpackModules.getByProps("title", "dividerDefault")?.title ?? "title_ed1d57";
 
 class ReactSetting extends DiscordModules.React.Component {
     get noteElement() {
@@ -71,11 +71,10 @@ class ReactSetting extends DiscordModules.React.Component {
         const SettingElement = ce(this.props.type, this.props);
         if (this.props.inline) {
             const Flex = DiscordModules.FlexChild;
-            const titleDefault = TITLE_DEFAULT;
             return ce(Flex, {direction: Flex.Direction.VERTICAL, className: DiscordClasses.Margins.marginTop20.toString()},
             ce(Flex, {align: Flex.Align.START}, 
                 ce(Flex.Child, {wrap: !0},
-                    ce("div", {className: titleDefault}, this.props.title)
+                    ce("div", {className: TITLE}, this.props.title)
                 ),
                 ce(Flex.Child, {grow: 0, shrink: 0}, SettingElement)
             ),
