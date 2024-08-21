@@ -120,7 +120,6 @@ export default class Plugin {
         const config = this._config.defaultConfig;
         const buildGroup = (group) => {
             const {name, id, collapsible, shown, settings} = group;
-            // this.settings[id] = {};
 
             const list = [];
             for (let s = 0; s < settings.length; s++) {
@@ -130,14 +129,19 @@ export default class Plugin {
                     this.settings[id][current.id] = value;
                 };
                 if (Object.keys(this.strings).length && this.strings.settings && this.strings.settings[id] && this.strings.settings[id][current.id]) {
-                    const {settingName = name, note} = this.strings.settings[id][current.id];
-                    current.name = settingName;
-                    current.note = note;
+                    const settingStrings = this.strings.settings[id][current.id];
+                    current.name = settingStrings.name;
+                    current.note = settingStrings.note;
                 }
                 list.push(this.buildSetting(current));
             }
             
-            const settingGroup = new Settings.SettingGroup(name, {shown, collapsible}).append(...list);
+            let groupName = name;
+            if (Object.keys(this.strings).length && this.strings.settings && this.strings.settings[id]) {
+                groupName = this.strings.settings[id].name;
+            }
+
+            const settingGroup = new Settings.SettingGroup(groupName, {shown, collapsible}).append(...list);
             settingGroup.id = id;
             return settingGroup;
         };
