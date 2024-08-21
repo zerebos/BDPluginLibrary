@@ -14,6 +14,8 @@ module.exports = {
             type: "fixed",
             items: [
                 "Fixed the error on startup.",
+                "Settings titles are now styled correctly @Dastan",
+                "Settings can now be localized properly @Dastan"
             ]
         },
     ],

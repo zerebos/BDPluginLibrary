@@ -61,7 +61,7 @@ export default class Popouts {
     // static get AnimationTypes() {return AnimationTypes;}
 
     static initialize() {
-        // return;
+        return;
         this.dispose();
         this.popouts = 0;
 
