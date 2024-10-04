@@ -14,7 +14,7 @@ export default Utilities.memoizeObject({
     get Events() {return WebpackModules.getByPrototypes("setMaxListeners", "emit");},
 
     /* Guild Info, Stores, and Utilities */
-    get GuildStore() {return WebpackModules.getByProps("getGuild", "getGuildIds");},
+    get GuildStore() {return WebpackModules.getByProps("getGuild", "getGuildIds", "getRoles");},
     get SortedGuildStore() {return WebpackModules.getByProps("getSortedGuilds");},
     get SelectedGuildStore() {return WebpackModules.getByProps("getLastSelectedGuildId");},
     get GuildSync() {return WebpackModules.getByProps("getSyncedGuilds");},
