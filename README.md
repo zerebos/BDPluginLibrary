@@ -9,13 +9,13 @@ This is the repo for Zere's Plugin Library for BetterDiscord. You can follow dev
 
 ## Library Documentation
 
-View the library documentation here: [https://rauenzi.github.io/BDPluginLibrary/docs](https://rauenzi.github.io/BDPluginLibrary/docs)
+View the library documentation here: [https://zerebos.github.io/BDPluginLibrary/docs](https://zerebos.github.io/BDPluginLibrary/docs)
 
 The information below is just a quickstart guide and overview on using the build scripts provided.
 
 ## Using The Library
 
-If you'd like a real-world example, take a look at https://github.com/rauenzi/BetterDiscordAddons
+If you'd like a real-world example, take a look at https://github.com/zerebos/BetterDiscordAddons
 
 First add the library builder to your repo:
 
