@@ -1,21 +1,19 @@
-# ZeresPluginLibrary - [Download][download] [![Language Grade][lgtm-badge]][lgtm-link]
+> [!CAUTION]
+> This library has reached end of life and is now considered deprecated and discontinued. It is recommended to convert over to using BetterDiscord's built-in API. If you find there are features missing, open a feature request in the BetterDiscord repository.
 
-[lgtm-badge]: https://img.shields.io/lgtm/grade/javascript/g/rauenzi/BDPluginLibrary.svg?style=flat-square
-[lgtm-link]: https://lgtm.com/projects/g/rauenzi/BDPluginLibrary/context:javascript
-
-[download]: https://betterdiscord.app/Download?id=9
+# ZeresPluginLibrary - [Download](https://betterdiscord.app/Download?id=9) 
 
 This is the repo for Zere's Plugin Library for BetterDiscord. You can follow development here. There will be more info and shit to come, but for now here ya go.
 
 ## Library Documentation
 
-View the library documentation here: [https://rauenzi.github.io/BDPluginLibrary/docs](https://rauenzi.github.io/BDPluginLibrary/docs)
+View the library documentation here: [https://zerebos.github.io/BDPluginLibrary/docs](https://zerebos.github.io/BDPluginLibrary/docs)
 
 The information below is just a quickstart guide and overview on using the build scripts provided.
 
 ## Using The Library
 
-If you'd like a real-world example, take a look at https://github.com/rauenzi/BetterDiscordAddons
+If you'd like a real-world example, take a look at https://github.com/zerebos/BetterDiscordAddons
 
 First add the library builder to your repo:
 

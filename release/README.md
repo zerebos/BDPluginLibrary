@@ -1,9 +1,5 @@
-# ZeresPluginLibrary - [Download][download]
+# Deprecated
 
-[download]: https://betterdiscord.app/Download?id=9
+This library has been deprecated and is no longer recommended for use. Nearly all of the functionality of this library now has an equivalent in BetterDiscord's API.
 
-Zere's Plugin Library allows plugins to use modern APIs in the current version of BetterDiscord.
-
-## Library Documentation
-
-View the library documentation here: [https://rauenzi.github.io/BDPluginLibrary/docs](https://rauenzi.github.io/BDPluginLibrary/docs)
+If you are a developer using this library and find BetterDiscord's API to be insufficient, open up a feature request on the BetterDiscord repository.
