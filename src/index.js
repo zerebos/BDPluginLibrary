@@ -1,6 +1,6 @@
 import * as Modules from "modules";
 import {PluginUpdater, Patcher, Logger, DOMTools} from "modules";
-import {Settings, Tooltip, Toasts, Popouts, Modals, DiscordContextMenu, ErrorBoundary, ColorPicker} from "ui";
+import {Settings, Tooltip, Toasts, Popouts, Modals, DiscordContextMenu, ErrorBoundary} from "ui";
 import BasePlugin, {wrapPluginBase} from "./structs/plugin";
 const LibraryConfig = require("./config"); // Use cjs require to prevent polyfill
 
@@ -48,10 +48,10 @@ class PluginLibrary extends BasePlugin {
          */
 
         // Temporarily disable toasts so people don't get bombarded
-        const wasEnabled = BdApi.isSettingEnabled("settings", "general", "showToasts");
-        if (wasEnabled) BdApi.disableSetting("settings", "general", "showToasts");
+        const wasEnabled = BdApi?.isSettingEnabled("settings", "general", "showToasts");
+        if (wasEnabled) BdApi?.disableSetting("settings", "general", "showToasts");
         this._reloadPlugins();
-        if (wasEnabled) BdApi.enableSetting("settings", "general", "showToasts");
+        if (wasEnabled) BdApi?.enableSetting("settings", "general", "showToasts");
     }
 
     _reloadPlugins() {

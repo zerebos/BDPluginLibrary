@@ -146,7 +146,7 @@ export default class PluginUpdater {
         if (document.getElementById(pluginNoticeID)) return; // This plugin already shown
         if (!document.getElementById("plugin-update-notice-message")) {
             banner.notice = DOMTools.parseHTML(`<span id="plugin-update-notice-message" class="notice-message">The following plugins have updates:&nbsp;&nbsp;<strong id="outdated-plugins"></strong></span>`);
-            banner.close = BdApi.showNotice(banner.notice, {
+            banner.close = BdApi.UI.showNotice(banner.notice, {
                 timeout: 0,
                 buttons: [{
                     label: "Update All",

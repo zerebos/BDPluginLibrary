@@ -343,7 +343,7 @@ export default class Utilities {
      static loadData(name, key, defaultData = {}) {
         const defaults = this.deepclone(defaultData);
         try {
-            const storedData = BdApi.getData(name, key);
+            const storedData = BdApi.Data.load(name, key);
             if (typeof(defaults) === "object") return this.extend(defaults, storedData);
             return this.isNil(storedData) || typeof(storedData) === "undefined" ? defaults : storedData;
         }
@@ -360,7 +360,7 @@ export default class Utilities {
      * @param {object} data - data to save
     */
     static saveData(name, key, data) {
-        try {BdApi.setData(name, key, data);}
+        try {BdApi.Data.save(name, key, data);}
         catch (err) {Logger.err(name, "Unable to save data: ", err);}
     }
 

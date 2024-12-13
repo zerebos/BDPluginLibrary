@@ -10,12 +10,13 @@ module.exports = {
     github_raw: "https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js",
     changelog: [
         {
-            title: "Fixed",
+            title: "Final Update",
             type: "fixed",
             items: [
-                "Fixed the error on startup.",
-                "Settings titles are now styled correctly @Dastan",
-                "Settings can now be localized properly @Dastan"
+                "This will likely be the final update of the library. It prevents the library from using APIs that are going away soon just in case.",
+                "I have been working hard to integrate the functionality of the library directly into BetterDiscord itself.",
+                "The library is now officially considered deprecated and I recommend plugin devs move off of this as soon as they are able to!",
+                "For any devs with questions or concerns on how to move from this to `BdApi`, feel free to reach out to me or other devs in the programming channel of the BetterDiscord server."
             ]
         },
     ],
